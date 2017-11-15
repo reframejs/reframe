@@ -1,0 +1,10 @@
+{
+    "private": true,
+    "workspaces": [
+        "core",
+        "example",
+        "renderer-react",
+        "router-standard",
+        "router-static"
+    ]
+}
