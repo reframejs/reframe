@@ -1,2 +1,3 @@
+const webpackConfig = require('./webpack.config');
 const Rebuild = require('@rebuild/build');
-Rebuild.serve(require.resolve('./src'));
+Rebuild.build(webpackConfig);

@@ -1,10 +1,10 @@
 {
     "private": true,
     "workspaces": [
-        "core",
+        "browser",
+        "build",
+        "cli",
         "example",
-        "renderer-react",
-        "router-standard",
-        "router-static"
+        "server"
     ]
 }
