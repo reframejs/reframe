@@ -1,3 +1,3 @@
 const webpackConfig = require('./webpack.config');
-const Rebuild = require('@rebuild/build');
-Rebuild.build(webpackConfig);
+const build = require('@rebuild/build');
+build(webpackConfig);

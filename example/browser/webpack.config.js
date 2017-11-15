@@ -1,17 +1,18 @@
-const Rebuild = require('@rebuild/config');
-const Reframe = require('@reframe/build');
+const path = require('path'):
+const {Config, StandardConfig} = require('@rebuild/config');
+const {StandardReframeConfig} = require('@reframe/build');
 
-const config = new Rebuild.config.Config();
+const config = new Config();
 
 config.add([
-    new Rebuild.config.StandardConfig({
+    new StandardConfig({
         entry: require.resolve('./src'),
     }),
-    new Reframe.build.StandardConfig({
-        pages: require.resolve('../pages'),
+    new StandardReframeConfig({
+        pages: path.join(__dirname, '../pages'),
     }),
 ]);
 
-const webpackConfig = config.compile({log: true});
+const webpackConfig = config.assemble({log: true});
 
 module.exports = webpackConfig;
