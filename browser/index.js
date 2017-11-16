@@ -1,4 +1,4 @@
-const assert = reuqire('reassert');
+const assert = require('reassert');
 const assert_usage = assert;
 const {makeLinksDynamic, renderInitialPage, addPages, setRouter} = require('@repage/core/browser');
 const renderToDom = require('@repage/renderer-react/renderToDom');
@@ -18,7 +18,7 @@ function BrowserHandler({pages}={}) {
 const RepageRouterStandard = require('@repage/router-standard');
 function initialize_repage({pages, default_page_info}) {
     addPages([
-        default_page_info,
+        {isMixin: true, ...default_page_info},
         ...pages,
     ]);
     setRouter(RepageRouterStandard);

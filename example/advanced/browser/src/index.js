@@ -5,6 +5,6 @@ const browserHandler = new BrowserHandler({
     pages,
 });
 
-BrowserHandler.installBrowserRouter();
+browserHandler.installBrowserRouter();
 
-BrowserHandler.renderInitialPage();
+browserHandler.renderInitialPage();

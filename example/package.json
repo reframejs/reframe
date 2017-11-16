@@ -1,7 +1,7 @@
 {
-  "name": "browser",
+  "name": "example",
   "version": "0.1.0",
   "dependencies": {
-    "reassert": "^1.0.0"
+    "react": "^16.1.1"
   }
 }
