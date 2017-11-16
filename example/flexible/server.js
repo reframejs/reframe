@@ -1,10 +1,8 @@
-const {HapiReframe} = require('@reframe/server');
+const {HapiReframe} = require('@reframe/core/server');
 const Hapi = require('hapi');
-const pages = require('../pages');
+const pages = require('./pages');
 
-const hReframe = new HapiReframe({
-    pages,
-});
+const hReframe = new HapiReframe({pages});
 
 const server = Hapi.Server({port: 3000});
 

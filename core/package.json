@@ -1,5 +1,5 @@
 {
-  "name": "browser",
+  "name": "core",
   "version": "0.1.0",
   "dependencies": {
     "reassert": "^1.0.0"
