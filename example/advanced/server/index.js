@@ -1,8 +1,9 @@
 const {HapiReframe} = require('@reframe/server');
 const Hapi = require('hapi');
+const pages = require('../pages');
 
 const hReframe = new HapiReframe({
-    pages: path.resolve('../pages'),
+    pages,
 });
 
 const server = Hapi.Server({port: 3000});
