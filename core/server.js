@@ -4,11 +4,12 @@ const Repage = require('@repage/core/server');
 const renderToHtml = require('@repage/renderer-react/renderToHtml');
 const {initializeRepage} = require('./common');
 
-module.exports = {HapiReframe: HapiReframe()};
+module.exports = {HapiServerRedering: HapiServerRedering()};
 
-function HapiReframe() {
+function HapiServerRedering() {
     return {
-        name: 'reframe',
+        name: 'reframe-server-rendering',
+        multiple: true,
         register: (server, options) => {
             const {pages} = options;
             assert_usage(pages, options);
@@ -21,8 +22,7 @@ function HapiReframe() {
             return;
 
             async function preResponse(request, h) {
-                const {response} = request;
-                if( ! response.isBoom ) {
+                if( ! request.response.isBoom || request.response.output.statusCode !== 404 ) {
                     return h.continue;
                 }
 
@@ -36,8 +36,7 @@ function HapiReframe() {
                     return h.continue;
                 }
 
-                const resp = h.response(html).type('text/html');
-                return resp;
+                return h.response(html).type('text/html');
             }
         },
     };

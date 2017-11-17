@@ -1,3 +1,4 @@
 const webpackConfig = require('./webpack.config');
 const build = require('@rebuild/build');
-build(webpackConfig);
+const buildPromise = build(webpackConfig);
+module.exports = buildPromise;

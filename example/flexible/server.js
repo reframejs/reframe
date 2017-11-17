@@ -1,15 +1,25 @@
 process.on('unhandledRejection', err => {throw err});
-const {HapiReframe} = require('@reframe/core/server');
+const {HapiServerRedering} = require('@reframe/core/server');
 const Hapi = require('hapi');
 const pages = require('./pages');
+const {serveBrowserAssets} = require('./browser/serve');
 
 const server = Hapi.Server({port: 3000});
 
+const isProduction = process.env['NODE_ENV'] === 'production';
+const serveOptions = {
+    autoreload: !isProduction,
+    createServer: false,
+};
+
 (async () => {
-    await server.register([{
-        plugin: HapiReframe,
-        options: {pages},
-    }]);
+    const {HapiServeBrowserAssets} = await serveBrowserAssets(serveOptions);
+
+    await server.register([
+        {plugin: HapiServerRedering, options: {pages}},
+        {plugin: HapiServeBrowserAssets},
+    ]);
+
     await server.start();
     console.log(`Server running at: ${server.info.uri}`);
 })();
