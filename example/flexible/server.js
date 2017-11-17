@@ -8,8 +8,8 @@ const server = Hapi.Server({port: 3000});
 
 const isProduction = process.env['NODE_ENV'] === 'production';
 const serveOptions = {
-    autoreload: !isProduction,
-    createServer: false,
+    doNotAutoReload: isProduction,
+    doNotCreateServer: true,
 };
 
 (async () => {
