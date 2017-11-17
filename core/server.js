@@ -11,8 +11,19 @@ function HapiServerRedering() {
         name: 'reframe-server-rendering',
         multiple: true,
         register: (server, options) => {
-            const {pages} = options;
-            assert_usage(pages, options);
+            const {buildOutput} = options;
+            assert_usage(buildOutput, options);
+
+            const pages = (() => {
+                if( options.pages ) {
+                    return options.pages;
+                } else {
+                    const {pages: pages_path} = buildOutput.entry_points;
+                    assert(pages_path, buildOutput);
+                    return require(pages_path);
+                }
+            })();
+            assert_usage(pages.constructor===Array);
 
             const repage = new Repage();
             initializeRepage({repage, pages, defaultPageInfo: {renderToHtml}});
@@ -29,7 +40,14 @@ function HapiServerRedering() {
                 const uri = request.url.href;
                 assert(uri && uri.constructor===String, uri);
 
-                const html = await repage.getPageHtml({uri, canBeNull: true});
+                const scripts = (
+                    buildOutput.entry_points['main'].scripts
+                );
+                const styles = (
+                    buildOutput.entry_points['main'].styles
+                );
+
+                const html = await repage.getPageHtml({uri, canBeNull: true, scripts, styles});
                 assert(html === null || html && html.constructor===String, html);
 
                 if( html === null ) {

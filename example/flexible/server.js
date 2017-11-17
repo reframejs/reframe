@@ -13,10 +13,10 @@ const serveOptions = {
 };
 
 (async () => {
-    const {HapiServeBrowserAssets} = await serveBrowserAssets(serveOptions);
+    const {HapiServeBrowserAssets, output} = await serveBrowserAssets(serveOptions);
 
     await server.register([
-        {plugin: HapiServerRedering, options: {pages}},
+        {plugin: HapiServerRedering, options: {buildOutput: output, pages}},
         {plugin: HapiServeBrowserAssets},
     ]);
 

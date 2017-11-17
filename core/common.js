@@ -4,7 +4,7 @@ module.exports = {initializeRepage};
 
 function initializeRepage({repage, pages, defaultPageInfo}) {
     repage.addPages([
-        {isMixin: true, ...defaultPageInfo, scripts: ['/main-bundi.js']},
+        {isMixin: true, ...defaultPageInfo},
         ...pages,
     ]);
     repage.setRouter(RepageRouterStandard);
