@@ -1,5 +1,5 @@
 process.on('unhandledRejection', err => {throw err});
-const {HapiServerRedering} = require('@reframe/core/server');
+const {HapiServerRendering} = require('@reframe/core/server');
 const Hapi = require('hapi');
 const pages = require('./pages');
 const {serveBrowserAssets} = require('./browser/serve');
@@ -16,7 +16,7 @@ const serveOptions = {
     const {HapiServeBrowserAssets, output: buildOutput} = await serveBrowserAssets(serveOptions);
 
     await server.register([
-        {plugin: HapiServerRedering, options: {buildOutput, pages}},
+        {plugin: HapiServerRendering, options: {buildOutput, pages}},
         {plugin: HapiServeBrowserAssets},
     ]);
 

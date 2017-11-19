@@ -4,9 +4,9 @@ const Repage = require('@repage/core/server');
 const renderToHtml = require('@repage/renderer-react/renderToHtml');
 const {initializeRepage} = require('./common');
 
-module.exports = {HapiServerRedering: HapiServerRedering()};
+module.exports = {HapiServerRendering: HapiServerRendering()};
 
-function HapiServerRedering() {
+function HapiServerRendering() {
     return {
         name: 'reframe-server-rendering',
         multiple: true,
