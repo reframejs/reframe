@@ -1,18 +1,4 @@
-const React = require('react');
-const el = React.createElement;
-
-const LandingView = () => {
-    return (
-        el('div', {},
-            'Hey there.',
-            el('div', {},
-                el('a', {href: '/about'},
-                    'About page'
-                )
-            )
-        )
-    );
-};
+const LandingView = require('../views/landing');
 
 module.exports = {
     title: 'Welcome',

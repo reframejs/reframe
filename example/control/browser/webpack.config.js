@@ -1,6 +1,5 @@
-const {Config, StandardConfig} = require('@rebuild/config');
-//const {ReframeConfig} = require('@reframe/build');
-const pages = require('../pages');
+const {Config, StandardConfig, ReactConfig} = require('@rebuild/config');
+const {RebuildConfig} = require('@reframe/core/build');
 
 const config = new Config();
 
@@ -8,11 +7,10 @@ config.add([
     new StandardConfig({
         entry: require.resolve('./src'),
     }),
-    /*
-    new ReframeConfig({
-        pages,
+    new ReactConfig(),
+    new RebuildConfig({
+        pagesPath: require.resolve('../pages'),
     }),
-    */
 ]);
 
 const webpackConfig = config.assemble({log: true});
