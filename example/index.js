@@ -1,1 +1,1 @@
-require('./flexible');
+require('./control');
