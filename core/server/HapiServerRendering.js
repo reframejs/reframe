@@ -1,7 +1,7 @@
 const assert = require('reassert');
 const assert_usage = assert;
 const Repage = require('@repage/core/server');
-const renderToHtml = require('@repage/renderer-react/renderToHtml');
+const RendererReact = require('@repage/renderer-react');
 const {initializeRepage} = require('../common');
 
 const HapiServerRendering = {
@@ -13,7 +13,13 @@ const HapiServerRendering = {
         assert_usage(pages.constructor===Array, pages);
 
         const repage = new Repage();
-        initializeRepage({repage, pages, defaultPageInfo: {renderToHtml}});
+        initializeRepage({
+            repage,
+            pages,
+            mixins: [
+                RendererReact,
+            ],
+        });
 
         server.ext('onPreResponse', preResponse);
 
