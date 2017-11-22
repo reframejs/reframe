@@ -1,8 +1,8 @@
-const AboutView = require('../views/about');
+const {AboutComponent} = require('../views/About');
 
 module.exports = {
     title: 'About',
     route: '/about',
-    view: AboutView,
+    view: AboutComponent,
 };
 

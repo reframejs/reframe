@@ -1,7 +1,7 @@
 const React = require('react');
 
-const AboutView = () => (
+const AboutComponent = () => (
     <div>This is a Reframe example.</div>
 );
 
-module.exports = AboutView;
+module.exports = {AboutComponent};

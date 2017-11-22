@@ -1,7 +1,7 @@
-const LandingView = require('../views/landing');
+const {LandingComponent} = require('../views/Landing');
 
 module.exports = {
     title: 'Welcome',
     route: '/',
-    view: LandingView,
+    view: LandingComponent,
 };
