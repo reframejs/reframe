@@ -9,7 +9,7 @@ let server;
 serveBrowserAssets({
     doNotAutoReload: isProduction,
     doNotCreateServer: true,
-    onBuild: async ({HapiServeBrowserAssets, pages}) => {
+    onBuild: async ({HapiServeBrowserAssets, pages, isFirstBuild}) => {
         if( server ) {
             await server.stop();
         }
@@ -22,6 +22,9 @@ serveBrowserAssets({
         ]);
 
         await server.start();
-        console.log(`Server running at: ${server.info.uri}`);
+
+        if( isFirstBuild ) {
+            console.log(`Server running at: ${server.info.uri}`);
+        }
     },
 });

@@ -26,11 +26,10 @@ async function serveBrowserAssets(opts) {
 }
 
 function getReturnValue(args) {
-    const {output, HapiServeBrowserAssets} = args;
+    const {output} = args;
     assert(output, args);
-    assert(HapiServeBrowserAssets, args);
     const pages = getPages(output);
-    return {pages, HapiServeBrowserAssets};
+    return {pages, ...args};
 }
 
 function getPages(output) {
