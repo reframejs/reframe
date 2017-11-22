@@ -8,7 +8,7 @@ const LandingComponent = () => (
             <a href='/about'>About Page</a>
         </div>
         <div>
-            <a href='/game-of-thrones'>Game of thrones</a>
+            <a href='/game-of-thrones'>Game of Thrones</a>
         </div>
     </div>
 );

@@ -3,22 +3,25 @@ const {HapiServerRendering} = require('@reframe/core/server');
 const Hapi = require('hapi');
 const {serveBrowserAssets} = require('./browser/serve');
 
-const server = Hapi.Server({port: 3000});
-
 const isProduction = process.env['NODE_ENV'] === 'production';
-const serveOptions = {
+
+let server;
+serveBrowserAssets({
     doNotAutoReload: isProduction,
     doNotCreateServer: true,
-};
+    onBuild: async ({HapiServeBrowserAssets, pages}) => {
+        if( server ) {
+            await server.stop();
+        }
 
-(async () => {
-    const {HapiServeBrowserAssets, pages} = await serveBrowserAssets(serveOptions);
+        server = Hapi.Server({port: 3000});
 
-    await server.register([
-        {plugin: HapiServerRendering, options: {pages}},
-        {plugin: HapiServeBrowserAssets},
-    ]);
+        await server.register([
+            {plugin: HapiServerRendering, options: {pages}},
+            {plugin: HapiServeBrowserAssets},
+        ]);
 
-    await server.start();
-    console.log(`Server running at: ${server.info.uri}`);
-})();
+        await server.start();
+        console.log(`Server running at: ${server.info.uri}`);
+    },
+});

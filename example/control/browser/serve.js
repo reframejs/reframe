@@ -11,13 +11,29 @@ if( isCli ) {
 
 
 async function serveBrowserAssets(opts) {
-    const serveReturn = await serve(webpackConfig, {log: true, ...opts});
-    const {output, HapiServeBrowserAssets} = serveReturn;
-    assert(output, serveReturn);
-    assert(HapiServeBrowserAssets, serveReturn);
+    const args = await serve(webpackConfig, {
+        log: true,
+        ...opts,
+        onBuild: args => {
+            if( ! opts.onBuild ) {
+                return;
+            }
+            opts.onBuild(getReturnValue(args));
+        },
+    });
 
-    log(output);
+    return getReturnValue(args);
+}
 
+function getReturnValue(args) {
+    const {output, HapiServeBrowserAssets} = args;
+    assert(output, args);
+    assert(HapiServeBrowserAssets, args);
+    const pages = getPages(output);
+    return {pages, HapiServeBrowserAssets};
+}
+
+function getPages(output) {
     assert(output.entry_points.pages.all_assets.length===1, output);
     const pagesEntry = output.entry_points.pages.all_assets[0];
     const {filepath: pagesPath} = pagesEntry;
@@ -31,6 +47,5 @@ async function serveBrowserAssets(opts) {
     const scripts = output.entry_points['main'].scripts;
     const styles = output.entry_points['main'].styles;
     pages = pages.map(page => ({scripts, styles,...page}));
-
-    return {pages, HapiServeBrowserAssets};
+    return pages;
 }
