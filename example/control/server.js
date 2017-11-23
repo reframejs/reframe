@@ -14,7 +14,10 @@ serveBrowserAssets({
             await server.stop();
         }
 
-        server = Hapi.Server({port: 3000, debug: {log: '*', request: '*'}});
+        server = Hapi.Server({
+            port: 3000,
+         // debug: {log: '*', request: '*'}
+        });
 
         await server.register([
             {plugin: HapiServerRendering, options: {pages}},
