@@ -2,9 +2,9 @@ const RepageRouterStandard = require('@repage/router-standard');
 
 module.exports = {initializeRepage};
 
-function initializeRepage({repage, pages, mixins}) {
+function initializeRepage({repage, pages, plugins}) {
     repage.addPages([
-        ...(mixins.map(mixin => ({isMixin: true, ...mixin}))),
+        ...(plugins.map(plugin => ({isMixin: true, ...(plugin.page || plugin.pageContext || plugin)}))),
         ...pages,
     ]);
     repage.setRouter(RepageRouterStandard);

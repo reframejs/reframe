@@ -1,7 +1,8 @@
 const assert = require('reassert');
 const assert_usage = assert;
 const Repage = require('@repage/core/server');
-const RendererReact = require('@repage/renderer-react');
+const RepageRender = require('@repage/render');
+const RepageRenderReact = require('@repage/render-react');
 const {initializeRepage} = require('../common');
 
 const HapiServerRendering = {
@@ -16,8 +17,9 @@ const HapiServerRendering = {
         initializeRepage({
             repage,
             pages,
-            mixins: [
-                RendererReact,
+            plugins: [
+                RepageRender,
+                RepageRenderReact,
             ],
         });
 

@@ -1,7 +1,8 @@
 const assert = require('reassert');
 const assert_usage = assert;
 const Repage = require('@repage/core/browser');
-const RendererReact = require('@repage/renderer-react/browser');
+const RepageRender = require('@repage/render/browser');
+const RepageRenderReact = require('@repage/render-react/browser');
 const {initializeRepage} = require('./common');
 
 module.exports = BrowserHandler;
@@ -11,8 +12,9 @@ function BrowserHandler({pages}={}) {
     initializeRepage({
         repage,
         pages,
-        mixins: [
-            RendererReact,
+        plugins: [
+            RepageRender,
+            RepageRenderReact,
         ],
     });
 

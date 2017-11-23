@@ -106,8 +106,8 @@ fbjs@^0.8.16:
     ua-parser-js "^0.7.9"
 
 hapi@^17.0.1:
-  version "17.0.1"
-  resolved "https://registry.yarnpkg.com/hapi/-/hapi-17.0.1.tgz#6ea533cd26bd0348560f34710434e1e5e27813b6"
+  version "17.1.0"
+  resolved "https://registry.yarnpkg.com/hapi/-/hapi-17.1.0.tgz#a344b5a591044c503ef4d12848132d89ee05752b"
   dependencies:
     accept "3.x.x"
     ammo "3.x.x"
