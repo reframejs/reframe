@@ -56,11 +56,11 @@ async function writeHtmlStaticPages({pages, htmlBuilder}) {
     repage.addPages(pages);
 
     const htmlStaticPages = await repage.getHtmlStaticPages();
-    htmlStaticPages.forEach(({servedAtUrl, staticHtml}) => {
+    htmlStaticPages.forEach(({servedAtUrl, htmlIsStatic}) => {
         assert_internal(servedAtUrl.pathname.startsWith('/'));
         assert_internal(servedAtUrl.search==='');
         assert_internal(servedAtUrl.hash==='');
-        htmlBuilder({pathname: servedAtUrl.pathname, html: staticHtml});
+        htmlBuilder({pathname: servedAtUrl.pathname, html: htmlIsStatic});
     });
 }
 
