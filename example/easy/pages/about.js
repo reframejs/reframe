@@ -4,5 +4,6 @@ module.exports = {
     title: 'About',
     route: '/about',
     view: AboutComponent,
+    renderToDom: null,
 };
 

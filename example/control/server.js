@@ -2,6 +2,7 @@ process.on('unhandledRejection', err => {throw err});
 const {HapiServerRendering} = require('@reframe/core/server');
 const Hapi = require('hapi');
 const {serveBrowserAssets} = require('./browser/serve');
+const chalk = require('chalk');
 
 const isProduction = process.env['NODE_ENV'] === 'production';
 
@@ -17,6 +18,7 @@ serveBrowserAssets({
         server = Hapi.Server({
             port: 3000,
          // debug: {log: '*', request: '*'}
+            debug: {request: ['error']}
         });
 
         await server.register([
@@ -27,7 +29,11 @@ serveBrowserAssets({
         await server.start();
 
         if( isFirstBuild ) {
-            console.log(`Server running at: ${server.info.uri}`);
+            console.log(green_checkmark()+` Server running at ${server.info.uri}`);
         }
     },
 });
+
+function green_checkmark() {
+    return chalk.green('\u2714');
+}

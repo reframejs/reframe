@@ -1,9 +1,12 @@
 const assert = require('reassert');
 const assert_usage = assert;
+
 const Repage = require('@repage/core/server');
-const RepageRender = require('@repage/render');
-const RepageRenderReact = require('@repage/render-react');
-const {initializeRepage} = require('../common');
+
+const RepageRouterCrossroads = require('@repage/router-crossroads');
+const RepageRenderer = require('@repage/renderer');
+const RepageRendererReact = require('@repage/renderer-react');
+
 
 const HapiServerRendering = {
     name: 'reframe-server-rendering',
@@ -14,14 +17,14 @@ const HapiServerRendering = {
         assert_usage(pages.constructor===Array, pages);
 
         const repage = new Repage();
-        initializeRepage({
-            repage,
-            pages,
-            plugins: [
-                RepageRender,
-                RepageRenderReact,
-            ],
-        });
+
+        repage.addPlugins([
+            RepageRouterCrossroads(),
+            RepageRenderer(),
+            RepageRendererReact(),
+        ]);
+
+        repage.addPages(pages);
 
         server.ext('onPreResponse', preResponse);
 

@@ -45,6 +45,11 @@ function getPages(output) {
 
     const scripts = output.entry_points['main'].scripts;
     const styles = output.entry_points['main'].styles;
-    pages = pages.map(page => ({scripts, styles,...page}));
+    pages = pages.map(page => ({
+        scripts: page.renderToDom===null ? undefined : scripts,
+        styles,
+        ...page
+    }));
+
     return pages;
 }
