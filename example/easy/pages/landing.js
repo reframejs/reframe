@@ -4,4 +4,5 @@ module.exports = {
     title: 'Welcome',
     route: '/',
     view: LandingComponent,
+    staticHtml: true,
 };

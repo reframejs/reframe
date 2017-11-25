@@ -5,5 +5,6 @@ module.exports = {
     route: '/about',
     view: AboutComponent,
     renderToDom: null,
+    staticHtml: true,
 };
 
