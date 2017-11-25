@@ -21,6 +21,7 @@ function serveBrowserAssets(opts) {
     serve(webpackConfig, {
         log: true,
         doNotCreateServer: true,
+        doNotGenerateIndexHtml: true,
         ...opts,
         onBuild: async args => {
             if( ! opts.onBuild ) {
