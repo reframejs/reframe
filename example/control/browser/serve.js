@@ -37,7 +37,7 @@ async function buildHandler(args) {
     const {output, htmlBuilder, genericHtml} = args;
     assert_internal(output);
     assert_internal(htmlBuilder);
-    assert_internal(genericHtml);
+    assert_internal(genericHtml && genericHtml.constructor===String, genericHtml);
 
     const pages = getPages(output);
 
@@ -46,7 +46,7 @@ async function buildHandler(args) {
     return {pages, genericHtml, ...args};
 }
 
-async function writeHtmlStaticPages({pages, htmlBuilder}) {
+async function writeHtmlStaticPages({pages, htmlBuilder, genericHtml}) {
     const repage = new Repage();
 
     repage.addPlugins([
@@ -57,13 +57,13 @@ async function writeHtmlStaticPages({pages, htmlBuilder}) {
 
     repage.addPages(pages);
 
-    const htmlStaticPages = await repage.getHtmlStaticPages();
-
-    if( repage.indexHtmlIsMissing() ) {
-        htmlBuilder({pathname: '/', html: genericHtml});
-    }
+const htmlStaticPages = await repage.getHtmlStaticPages();
 
     htmlStaticPages.forEach(({url, html}) => {
+        assert_internal(html===null || html && html.constructor===String, html);
+        if( ! html ) {
+            html = genericHtml;
+        }
         assert_internal(url.pathname.startsWith('/'));
         assert_internal(url.search==='');
         assert_internal(url.hash==='');
@@ -84,11 +84,13 @@ function getPages(output) {
 
     const scripts = output.entry_points['main'].scripts;
     const styles = output.entry_points['main'].styles;
-    pages = pages.map(page => ({
-        scripts: page.renderToDom===null ? undefined : scripts,
-        styles,
-        ...page
-    }));
+    pages = pages.map(page =>
+        page.isMixin ? page : ({
+            scripts: page.renderToDom===null ? undefined : scripts,
+            styles,
+            ...page
+        })
+    );
 
     return pages;
 }

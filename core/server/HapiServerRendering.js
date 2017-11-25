@@ -34,6 +34,7 @@ const HapiServerRendering = {
         async function preResponse(request, h) {
             if( ! request.response.isBoom || request.response.output.statusCode !== 404 ) {
                 return h.continue;
+                return;
             }
 
             const uri = request.url.href;
@@ -50,6 +51,7 @@ const HapiServerRendering = {
 
             if( html === null ) {
                 return h.continue;
+                return;
             }
 
             return h.response(html).type('text/html');
