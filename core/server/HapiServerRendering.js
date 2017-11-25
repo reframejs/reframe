@@ -27,20 +27,19 @@ const HapiServerRendering = {
 
         repage.addPages(pages);
 
-        server.ext('onPreResponse', preResponse);
+        server.ext('onPreResponse', onPreResponse);
 
         return;
 
-        async function preResponse(request, h) {
+        async function onPreResponse(request, h) {
             if( ! request.response.isBoom || request.response.output.statusCode !== 404 ) {
                 return h.continue;
-                return;
             }
 
             const uri = request.url.href;
             assert(uri && uri.constructor===String, uri);
 
-            const {html, renderToHtmlIsMissing} = await repage.getPageHtml({uri, canBeNull: true});
+            let {html, renderToHtmlIsMissing} = await repage.getPageHtml({uri, canBeNull: true});
             assert(html === null || html && html.constructor===String, html);
 
             assert([true, false].includes(renderToHtmlIsMissing));
@@ -51,7 +50,6 @@ const HapiServerRendering = {
 
             if( html === null ) {
                 return h.continue;
-                return;
             }
 
             return h.response(html).type('text/html');
