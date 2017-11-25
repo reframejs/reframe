@@ -12,9 +12,10 @@ const HapiServerRendering = {
     name: 'reframe-server-rendering',
     multiple: true,
     register: (server, options) => {
-        const {pages} = options;
+        const {pages, genericHtml} = options;
         assert_usage(pages, options);
         assert_usage(pages.constructor===Array, pages);
+        assert_usage(genericHtml, options);
 
         const repage = new Repage();
 
@@ -38,8 +39,14 @@ const HapiServerRendering = {
             const uri = request.url.href;
             assert(uri && uri.constructor===String, uri);
 
-            const html = await repage.getPageHtml({uri, canBeNull: true});
+            const {html, renderToHtmlIsMissing} = await repage.getPageHtml({uri, canBeNull: true});
             assert(html === null || html && html.constructor===String, html);
+
+            assert([true, false].includes(renderToHtmlIsMissing));
+            assert(!renderToHtmlIsMissing || html===null);
+            if( renderToHtmlIsMissing ) {
+                html = genericHtml;
+            }
 
             if( html === null ) {
                 return h.continue;

@@ -34,15 +34,16 @@ function serveBrowserAssets(opts) {
 }
 
 async function buildHandler(args) {
-    const {output, htmlBuilder} = args;
-    assert_internal(output, args);
+    const {output, htmlBuilder, genericHtml} = args;
+    assert_internal(output);
     assert_internal(htmlBuilder);
+    assert_internal(genericHtml);
 
     const pages = getPages(output);
 
-    await writeHtmlStaticPages({htmlBuilder, pages});
+    await writeHtmlStaticPages({htmlBuilder, genericHtml, pages});
 
-    return {pages, ...args};
+    return {pages, genericHtml, ...args};
 }
 
 async function writeHtmlStaticPages({pages, htmlBuilder}) {
@@ -57,11 +58,16 @@ async function writeHtmlStaticPages({pages, htmlBuilder}) {
     repage.addPages(pages);
 
     const htmlStaticPages = await repage.getHtmlStaticPages();
-    htmlStaticPages.forEach(({servedAtUrl, htmlIsStatic}) => {
-        assert_internal(servedAtUrl.pathname.startsWith('/'));
-        assert_internal(servedAtUrl.search==='');
-        assert_internal(servedAtUrl.hash==='');
-        htmlBuilder({pathname: servedAtUrl.pathname, html: htmlIsStatic});
+
+    if( repage.indexHtmlIsMissing() ) {
+        htmlBuilder({pathname: '/', html: genericHtml});
+    }
+
+    htmlStaticPages.forEach(({url, html}) => {
+        assert_internal(url.pathname.startsWith('/'));
+        assert_internal(url.search==='');
+        assert_internal(url.hash==='');
+        htmlBuilder({pathname: url.pathname, html});
     });
 }
 

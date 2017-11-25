@@ -9,7 +9,7 @@ const isProduction = process.env['NODE_ENV'] === 'production';
 let server;
 serveBrowserAssets({
     doNotAutoReload: isProduction,
-    onBuild: async ({HapiServeBrowserAssets, pages, isFirstBuild}) => {
+    onBuild: async ({HapiServeBrowserAssets, pages, genericHtml, isFirstBuild}) => {
         if( server ) {
             await server.stop();
         }
@@ -22,7 +22,7 @@ serveBrowserAssets({
 
         await server.register([
             {plugin: HapiServeBrowserAssets},
-            {plugin: HapiServerRendering, options: {pages}},
+            {plugin: HapiServerRendering, options: {pages, genericHtml}},
         ]);
 
         await server.start();
