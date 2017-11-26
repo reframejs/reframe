@@ -17,7 +17,8 @@ serveBrowserAssets({
         server = Hapi.Server({
             port: 3000,
          // debug: {log: '*', request: '*'}
-            debug: {request: ['error']}
+         // debug: {request: ['error']}
+            debug: {request: ['internal']}
         });
 
         await server.register([
