@@ -57,7 +57,7 @@ async function writeHtmlStaticPages({pages, htmlBuilder, genericHtml}) {
 
     repage.addPages(pages);
 
-const htmlStaticPages = await repage.getHtmlStaticPages();
+const htmlStaticPages = await repage.getStaticPages();
 
     htmlStaticPages.forEach(({url, html}) => {
         assert_internal(html===null || html && html.constructor===String, html);
