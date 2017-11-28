@@ -1,3 +1,6 @@
+process.on('unhandledRejection', err => {throw err});
+require('source-map-support').install();
+
 const assert = require('reassert');
 const assert_internal = assert;
 const log = require('reassert/log');
@@ -57,7 +60,7 @@ async function writeHtmlStaticPages({pages, htmlBuilder, genericHtml}) {
 
     repage.addPages(pages);
 
-const htmlStaticPages = await repage.getStaticPages();
+    const htmlStaticPages = await repage.getStaticPages();
 
     htmlStaticPages.forEach(({url, html}) => {
         assert_internal(html===null || html && html.constructor===String, html);
@@ -76,10 +79,10 @@ function getPages(output) {
     const pagesEntry = output.entry_points.pages.all_assets[0];
     const {filepath: pagesPath} = pagesEntry;
     assert_internal(pagesPath, output);
-    assert_internal(pagesEntry.source_entry_points.length===1, output);
-    assert_internal(pagesEntry.source_entry_points[0]===require.resolve('../pages'), output);
+    assert_internal(pagesEntry.source_entry_points.includes(require.resolve('../pages')), output);
 
   //let pages = require('../pages');
+    global._babelPolyfill = false;
     let pages = require(pagesPath);
 
     const scripts = output.entry_points['main'].scripts;
