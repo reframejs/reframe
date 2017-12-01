@@ -15,4 +15,5 @@ config.add([
 
 const webpackConfig = config.assemble({log: true});
 
+//module.exports = [webpackConfig, webpackConfig];
 module.exports = webpackConfig;

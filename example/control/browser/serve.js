@@ -30,13 +30,16 @@ function serveBrowserAssets(opts) {
             if( ! opts.onBuild ) {
                 return;
             }
-            const ret = await buildHandler([args, args]);
-            opts.onBuild(ret);
+            opts.onBuild(
+                await buildArgsHandler(args)
+            );
         },
     });
 }
 
-async function buildHandler([args_browser, args_server]) {
+async function buildArgsHandler(args) {
+    const {compilationInfo, isFirstBuild} = args;
+    const [args_browser, args_server] = [compilationInfo[0], compilationInfo[0]];
     const {output} = args_server;
     assert_internal(output);
     const pages = getPages(output);
@@ -46,7 +49,7 @@ async function buildHandler([args_browser, args_server]) {
     assert_internal(genericHtml && genericHtml.constructor===String, genericHtml);
     await writeHtmlStaticPages({htmlBuilder, genericHtml, pages});
 
-    const {isFirstBuild, HapiServeBrowserAssets} = args_browser;
+    const {HapiServeBrowserAssets} = args_browser;
     return {pages, genericHtml, HapiServeBrowserAssets, isFirstBuild};
 }
 
