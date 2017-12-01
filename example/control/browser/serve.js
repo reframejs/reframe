@@ -30,23 +30,24 @@ function serveBrowserAssets(opts) {
             if( ! opts.onBuild ) {
                 return;
             }
-            const ret = await buildHandler(args);
+            const ret = await buildHandler([args, args]);
             opts.onBuild(ret);
         },
     });
 }
 
-async function buildHandler(args) {
-    const {output, htmlBuilder, genericHtml} = args;
+async function buildHandler([args_browser, args_server]) {
+    const {output} = args_server;
     assert_internal(output);
-    assert_internal(htmlBuilder);
-    assert_internal(genericHtml && genericHtml.constructor===String, genericHtml);
-
     const pages = getPages(output);
 
+    const {htmlBuilder, genericHtml} = args_browser;
+    assert_internal(htmlBuilder);
+    assert_internal(genericHtml && genericHtml.constructor===String, genericHtml);
     await writeHtmlStaticPages({htmlBuilder, genericHtml, pages});
 
-    return {pages, genericHtml, ...args};
+    const {isFirstBuild, HapiServeBrowserAssets} = args_browser;
+    return {pages, genericHtml, HapiServeBrowserAssets, isFirstBuild};
 }
 
 async function writeHtmlStaticPages({pages, htmlBuilder, genericHtml}) {
@@ -76,14 +77,14 @@ async function writeHtmlStaticPages({pages, htmlBuilder, genericHtml}) {
 
 function getPages(output) {
     assert_internal(output.entry_points.pages.all_assets.length===1, output);
+
     const pagesEntry = output.entry_points.pages.all_assets[0];
     const {filepath: pagesPath} = pagesEntry;
     assert_internal(pagesPath, output);
     assert_internal(pagesEntry.source_entry_points.includes(require.resolve('../pages')), output);
-
-  //let pages = require('../pages');
     global._babelPolyfill = false;
     let pages = require(pagesPath);
+  //let pages = require('../pages');
 
     const scripts = output.entry_points['main'].scripts;
     const styles = output.entry_points['main'].styles;
