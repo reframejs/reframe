@@ -1,19 +1,34 @@
-const {Config, StandardConfig, ReactConfig} = require('@rebuild/config');
+const {Config, StandardConfig, StandardNodeConfig, ReactConfig} = require('@rebuild/config');
 const {RebuildConfig} = require('@reframe/core/build');
 
-const config = new Config();
+const browserConfig = new Config();
 
-config.add([
+browserConfig.add([
     new StandardConfig({
         entry: require.resolve('./src'),
     }),
     new ReactConfig(),
+    /*
     new RebuildConfig({
         pagesPath: require.resolve('../pages'),
     }),
+    */
 ]);
 
-const webpackConfig = config.assemble({log: true});
+const webpackBrowserConfig = browserConfig.assemble({log: true});
 
-//module.exports = [webpackConfig, webpackConfig];
-module.exports = webpackConfig;
+const serverConfig = new Config();
+
+serverConfig.add([
+    new StandardNodeConfig({
+        entry: {
+            pages: require.resolve('../pages'),
+        },
+    }),
+    new ReactConfig(),
+]);
+
+const webpackServerConfig = serverConfig.assemble({log: true});
+
+
+module.exports = [webpackBrowserConfig, webpackServerConfig];

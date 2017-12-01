@@ -39,10 +39,8 @@ function serveBrowserAssets(opts) {
 
 async function buildArgsHandler(args) {
     const {compilationInfo, isFirstBuild} = args;
-    const [args_browser, args_server] = [compilationInfo[0], compilationInfo[0]];
-    const {output} = args_server;
-    assert_internal(output);
-    const pages = getPages({output});
+    const [args_browser, args_server] = compilationInfo;
+    const pages = getPages(args_browser, args_server);
 
     const {htmlBuilder, genericHtml} = args_browser;
     assert_internal(htmlBuilder);
@@ -78,21 +76,28 @@ async function writeHtmlStaticPages({pages, htmlBuilder, genericHtml}) {
     });
 }
 
-function getPages({output}) {
-    assert_internal(output.entry_points.pages.all_assets.length===1, output);
+function getPages(args_browser, args_server) {
+    const {output: output_server} = args_server;
+    assert_internal(output_server);
+    assert_internal(output_server.entry_points.pages, arguments)
+    const {output: output_browser} = args_browser;
+    assert_internal(output_browser);
+    assert_internal(output_browser.entry_points.main, arguments)
 
-    const pagesEntry = output.entry_points.pages.all_assets[0];
+    assert_internal(output_server.entry_points.pages.all_assets.length===1, output_server);
+
+    const pagesEntry = output_server.entry_points.pages.all_assets[0];
     const {filepath: pagesPath} = pagesEntry;
-    assert_internal(pagesPath, output);
+    assert_internal(pagesPath, output_server);
     const pagesPathOriginal = require.resolve('../pages');
-    assert_internal(pagesEntry.source_entry_points.includes(pagesPathOriginal), output);
+    assert_internal(pagesEntry.source_entry_points.includes(pagesPathOriginal), output_server);
     global._babelPolyfill = false;
     let pages = require(pagesPath);
   //let pages = require('../pages');
-    assert_internal(pages && pages.constructor===Array, JSON.stringify(output, null, 2), pagesPath, pagesPathOriginal, pages);
+    assert_internal(pages && pages.constructor===Array, output_server, pagesPath, pagesPathOriginal, pages);
 
-    const scripts = output.entry_points['main'].scripts;
-    const styles = output.entry_points['main'].styles;
+    const scripts = output_browser.entry_points['main'].scripts;
+    const styles = output_browser.entry_points['main'].styles;
     pages = pages.map(page =>
         page.isMixin ? page : ({
             scripts: page.renderToDom===null ? undefined : scripts,
