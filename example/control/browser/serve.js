@@ -42,7 +42,7 @@ async function buildArgsHandler(args) {
     const [args_browser, args_server] = [compilationInfo[0], compilationInfo[0]];
     const {output} = args_server;
     assert_internal(output);
-    const pages = getPages(output);
+    const pages = getPages({output});
 
     const {htmlBuilder, genericHtml} = args_browser;
     assert_internal(htmlBuilder);
@@ -78,16 +78,18 @@ async function writeHtmlStaticPages({pages, htmlBuilder, genericHtml}) {
     });
 }
 
-function getPages(output) {
+function getPages({output}) {
     assert_internal(output.entry_points.pages.all_assets.length===1, output);
 
     const pagesEntry = output.entry_points.pages.all_assets[0];
     const {filepath: pagesPath} = pagesEntry;
     assert_internal(pagesPath, output);
-    assert_internal(pagesEntry.source_entry_points.includes(require.resolve('../pages')), output);
+    const pagesPathOriginal = require.resolve('../pages');
+    assert_internal(pagesEntry.source_entry_points.includes(pagesPathOriginal), output);
     global._babelPolyfill = false;
     let pages = require(pagesPath);
   //let pages = require('../pages');
+    assert_internal(pages && pages.constructor===Array, JSON.stringify(output, null, 2), pagesPath, pagesPathOriginal, pages);
 
     const scripts = output.entry_points['main'].scripts;
     const styles = output.entry_points['main'].styles;
