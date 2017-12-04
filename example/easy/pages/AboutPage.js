@@ -1,6 +1,6 @@
-const {AboutComponent} = require('../views/About');
+const {AboutComponent} = require('../views/AboutComponent');
 
-module.exports = {
+const AboutPage = {
     title: 'About',
     route: '/about',
     view: AboutComponent,
@@ -8,3 +8,4 @@ module.exports = {
     htmlIsStatic: true,
 };
 
+module.exports = {AboutPage};

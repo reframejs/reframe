@@ -1,7 +1,11 @@
+const {LandingPage} = require('../../easy/pages/LandingPage');
+const {AboutPage} = require('../../easy/pages/AboutPage');
+const {GameOfThronesPage} = require('../../easy/pages/GameOfThronesPage');
+const {GameOfThronesCharacterPage} = require('../../easy/pages/GameOfThronesCharacterPage');
+
 module.exports = [
-    require('../../easy/pages/_defaults'),
-    require('../../easy/pages/landing'),
-    require('../../easy/pages/about'),
-    require('../../easy/pages/game-of-thrones'),
-    require('../../easy/pages/character'),
+    LandingPage,
+    AboutPage,
+    GameOfThronesPage,
+    GameOfThronesCharacterPage,
 ];

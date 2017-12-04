@@ -39,13 +39,13 @@ function GameOfThronesStore() {
 
     async function fetchJson(url) {
         if( ! cache[url] ) {
+            await delay();
             await (
                 fetch(url)
                 .then(response => response.json())
                 .then(object => cache[url] = object)
                 .catch(err => {console.error(url); throw err})
             );
-            await delay();
         }
         return cache[url];
     }
