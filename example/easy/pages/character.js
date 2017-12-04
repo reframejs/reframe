@@ -5,6 +5,8 @@ module.exports = {
     title: 'Game of Thrones',
     view: CharacterComponent,
     getInitialProps: async ({routeArguments: {id}, gotStore}) => {
+        const GameOfThronesStore = await import('../stores/GameOfThronesStore');
+        console.log(GameOfThronesStore);
         const character = await gotStore.getCharacterInfo({id});
         return {character};
     },
