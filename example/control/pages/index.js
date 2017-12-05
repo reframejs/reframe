@@ -95,7 +95,7 @@ function RepagePageLoader() {
         renderToDom.apply(that, args);
     }
 
-    async function ensure_page_is_loaded() {
+    async function ensure_page_is_loaded({overwrittenValues}) {
         if( ) {
         }
     }
