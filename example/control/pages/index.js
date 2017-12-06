@@ -49,6 +49,8 @@ function RepagePageLoader() {
     const pathname_to_page_id = {};
     pathname_to_page_id['/game-of-thrones'] = 'GameOfThronesPage';
 
+    let pageHasLoaded = false;
+
     return {
         _cObject: {
             computedConfig: async () => {
@@ -79,6 +81,13 @@ function RepagePageLoader() {
     }
 
     async function renderToDom__computedValue({overwrittenValues, currentObject, objectParts, addObjectPart, args, that}) {
+        await ensure_page_is_loaded({overwrittenValues, addObjectPart});
+        const renderToDom = overwrittenValues.slice(-1);
+        assert_internal(renderToDom);
+        renderToDom.apply(that, args);
+    }
+
+    async function ensure_page_is_loaded({overwrittenValues, addObjectPart}) {
         const pageIsLoaded = overwrittenValues.length>0;
         if( ! pageIsLoaded ) {
             const pageInfo = await currentObject.pageLoader();
@@ -89,14 +98,6 @@ function RepagePageLoader() {
             );
             addObjectPart(pageInfo);
             assert_internal(overwrittenValues.length>0);
-        }
-        const renderToDom = overwrittenValues.slice(-1);
-        assert_internal(renderToDom);
-        renderToDom.apply(that, args);
-    }
-
-    async function ensure_page_is_loaded({overwrittenValues}) {
-        if( ) {
         }
     }
 
