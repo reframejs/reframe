@@ -49,28 +49,49 @@ function RepagePageLoader() {
     const pathname_to_page_id = {};
     pathname_to_page_id['/game-of-thrones'] = 'GameOfThronesPage';
 
-    let pageHasLoaded = false;
-
     return {
-        _cObject: {
-            computedConfig: async () => {
+        pageMixin: {
+            _cObject: async ({addObjectPart, currentObject}) => {
                 if( page_data_is_locally_available() ) {
                     await ensure_page_is_loaded();
                     return null;
                 }
+
+                let pageHasLoaded = false;
+
                 return {
-                    pageMixin: {
-                        routeObject: {
-                            doesMatchUrl,
-                        },
-                        renderToDom: {
-                            _cObject: {
-                                isDominant: true,
-                                computedValue: renderToDom__computedValue,
-                            },
-                        },
+                    isDominant: true,
+                    isEnabled: () => pageHasLoaded===false,
+                    value: {
+                        routeObject: {doesMatchUrl},
+                        renderToDom,
                     },
                 };
+
+                async function renderToDom() {
+                    await ensure_page_is_loaded();
+                    const {renderToDom: renderToDom__new} = currentObject;
+                    assert_internal(renderToDom__new);
+                    assert_internal(renderToDom__new!==renderToDom);
+                    renderToDom__new.apply(that, args);
+                }
+
+                async function ensure_page_is_loaded() {
+                    if( pageHasLoaded ) {
+                        return;
+                    }
+                    assert_usage(
+                        currentObject.pageLoader,
+                    );
+                    const pageInfo = await currentObject.pageLoader();
+                    assert_usage(
+                        pageInfo.renderToDom,
+                        pageInfo,
+                        "Loaded page information printed above is missing `renderToDom`",
+                    );
+                    await addObjectPart(pageInfo);
+                    pageHasLoaded = true;
+                }
             },
         },
     };
@@ -78,27 +99,6 @@ function RepagePageLoader() {
     function doesMatchUrl(url, {id}) {
         const page_id = url.linkInfo['data-dynamic-link'] || pathname_to_page_id[url.pathname];
         return page_id===id;
-    }
-
-    async function renderToDom__computedValue({overwrittenValues, currentObject, objectParts, addObjectPart, args, that}) {
-        await ensure_page_is_loaded({overwrittenValues, addObjectPart});
-        const renderToDom = overwrittenValues.slice(-1);
-        assert_internal(renderToDom);
-        renderToDom.apply(that, args);
-    }
-
-    async function ensure_page_is_loaded({overwrittenValues, addObjectPart}) {
-        const pageIsLoaded = overwrittenValues.length>0;
-        if( ! pageIsLoaded ) {
-            const pageInfo = await currentObject.pageLoader();
-            assert_usage(
-                pageInfo.renderToDom,
-                pageInfo,
-                "Loaded page information printed above is missing `renderToDom`",
-            );
-            addObjectPart(pageInfo);
-            assert_internal(overwrittenValues.length>0);
-        }
     }
 
     function page_data_is_locally_available() {
