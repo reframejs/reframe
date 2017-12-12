@@ -16,7 +16,8 @@ const GameOfThronesMixin = {
 module.exports = {GameOfThronesMixin};
 
 async function init() {
-    const {GameOfThronesStore} = await import('../stores/GameOfThronesStore');
+ // const {GameOfThronesStore} = await import('../stores/GameOfThronesStore');
+    const {GameOfThronesStore} = require('../stores/GameOfThronesStore');
     const gameOfThronesStore = new GameOfThronesStore();
     return {gameOfThronesStore};
 }
