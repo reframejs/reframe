@@ -9,6 +9,7 @@ const RepageRendererReact = require('@repage/renderer-react/browser');
 const RepageNavigatorHistory = require('@repage/navigator-history/browser');
 const RepagePageTransition = require('@repage/page-transition/browser');
 const RepagePageTransitionNprogress = require('@repage/page-transition-nprogress/browser');
+const RepagePageLoader = require('@repage/page-loader/browser');
 
 module.exports = BrowserHandler;
 
@@ -22,11 +23,13 @@ function BrowserHandler({pages}={}) {
         RepageNavigatorHistory(),
         RepagePageTransition(),
         RepagePageTransitionNprogress(),
+        RepagePageLoader(),
     ]);
 
     repage.addPages(pages);
 
     return {
+        waitInit: repage.waitInit,
         installBrowserRouter: repage.makeLinksDynamic,
         renderInitialPage: repage.renderInitialPage,
     };

@@ -13,33 +13,27 @@ module.exports = [
 */
 const {LandingPage} = require('../../easy/pages/LandingPage');
 const {AboutPage} = require('../../easy/pages/AboutPage');
-const {GameOfThronesPage} = require('../../easy/pages/GameOfThronesPage');
 const {GameOfThronesCharacterPage} = require('../../easy/pages/GameOfThronesCharacterPage');
+
+//require.context('../../easy/pages/', false, /\.js$/);
 
 module.exports = [
     LandingPage,
     AboutPage,
-    /*
+    //*
     {
-        routeObject: {
-            doesMatchUrl(url) {
-                return url.pathname === '/game-of-thrones';
-            },
-            hasOnlyOneUniqueRoute() {
-                return true;
-            },
-            getRouteUri() {
-                return '/game-of-thrones';
-            },
-        },
         id: 'GameOfThronesPage',
-        pageInfoLoader: async () => {
+        ehwqi: '3213',
+        pageLoader: async () => {
+            console.log(1);
+         // const path = '../../easy/pages/GameOfThronesPage';
             const ret = await import('../../easy/pages/GameOfThronesPage');
+            console.log(ret);
             return ret.GameOfThronesPage;
         },
     },
     /*/
-    GameOfThronesPage,
+    require('../../easy/pages/GameOfThronesPage').GameOfThronesPage,
     //*/
     GameOfThronesCharacterPage,
 ];

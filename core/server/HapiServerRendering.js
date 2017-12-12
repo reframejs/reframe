@@ -6,6 +6,7 @@ const Repage = require('@repage/core/server');
 const RepageRouterCrossroads = require('@repage/router-crossroads');
 const RepageRenderer = require('@repage/renderer');
 const RepageRendererReact = require('@repage/renderer-react');
+const RepagePageLoader = require('@repage/page-loader');
 
 
 const HapiServerRendering = {
@@ -23,6 +24,7 @@ const HapiServerRendering = {
             RepageRouterCrossroads(),
             RepageRenderer(),
             RepageRendererReact(),
+            RepagePageLoader(),
         ]);
 
         repage.addPages(pages);
@@ -38,6 +40,8 @@ const HapiServerRendering = {
 
             const uri = request.url.href;
             assert(uri && uri.constructor===String, uri);
+
+            await repage.waitInit();
 
             let {html, renderToHtmlIsMissing} = await repage.getPageHtml({uri, canBeNull: true});
             assert(html === null || html && html.constructor===String, html);

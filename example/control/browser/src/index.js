@@ -3,6 +3,11 @@ const pages = require('../../pages');
 
 const browserHandler = new BrowserHandler({pages});
 
-browserHandler.installBrowserRouter();
+(async () => {
+    await browserHandler.waitInit();
 
-browserHandler.renderInitialPage();
+    browserHandler.installBrowserRouter();
+
+    browserHandler.renderInitialPage();
+})();
+
