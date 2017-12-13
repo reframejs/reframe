@@ -11,4 +11,4 @@ const GameOfThronesCharacterPage = {
     ...GameOfThronesMixin,
 };
 
-module.exports = {GameOfThronesCharacterPage};
+module.exports = GameOfThronesCharacterPage;

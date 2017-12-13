@@ -56,10 +56,10 @@ async function writeHtmlStaticPages({pages, htmlBuilder, genericHtml}) {
     const repage = new Repage();
 
     repage.addPlugins([
-        RepageRouterCrossroads(),
-        RepageRenderer(),
-        RepageRendererReact(),
-        RepagePageLoader(),
+        RepageRouterCrossroads,
+        RepageRenderer,
+        RepageRendererReact,
+        RepagePageLoader,
     ]);
 
     repage.addPages(pages);

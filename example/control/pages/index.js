@@ -11,14 +11,29 @@ module.exports = [
     GameOfThronesCharacterPage,
 ];
 */
-const {LandingPage} = require('../../easy/pages/LandingPage');
-const {AboutPage} = require('../../easy/pages/AboutPage');
 
 //const context = require.context('../../easy/pages', false);
 
-module.exports = [
-    LandingPage,
-    AboutPage,
+module.exports = (
+    [
+        'LandingPage',
+        'AboutPage',
+        'GameOfThronesPage',
+        'GameOfThronesCharacterPage',
+    ].map(name => ({
+        name,
+        pageLoader: async () => {
+            const page = name;
+           //   import(/* webpackChunkName: "i18n" */ `i18n/${namespace}-i18n-bundle-${language}.json`).then(...)
+           // import(/* webpackChunkName: "i18n/[request]" */ `i18n/${namespace}-i18n-bundle-${language}.json`).then(...)
+         // const ret = await import(/* webpackChunkName: "pages/[request]" */ `../../easy/pages/${name}.js`);
+            const ret = await import(`../../easy/pages/${name}.js`);
+            return ret;
+        },
+    }))
+);
+
+[
     //*
     {
         id: 'GameOfThronesPage',

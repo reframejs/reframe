@@ -8,4 +8,4 @@ const AboutPage = {
     htmlIsStatic: true,
 };
 
-module.exports = {AboutPage};
+module.exports = AboutPage;

@@ -1,4 +1,9 @@
 //const {GameOfThronesStore} = require('../stores/GameOfThronesStore');
+/*
+const RepageRouterCrossroads = require('@repage/router-crossroads');
+const RepageRenderer = require('@repage/renderer');
+const RepageRendererReact = require('@repage/renderer-react');
+*/
 
 const GameOfThronesMixin = {
     title: 'Game of Thrones',
@@ -11,6 +16,13 @@ const GameOfThronesMixin = {
         return {gotStore};
     },
     //*/
+    /*
+    plugins: [
+        RepageRouterCrossroads,
+        RepageRenderer,
+        RepageRendererReact,
+    ],
+    */
 };
 
 module.exports = {GameOfThronesMixin};

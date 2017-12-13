@@ -12,4 +12,4 @@ const GameOfThronesPage = {
     ...GameOfThronesMixin,
 };
 
-module.exports = {GameOfThronesPage};
+module.exports = GameOfThronesPage;

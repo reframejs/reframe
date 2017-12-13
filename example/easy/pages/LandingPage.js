@@ -7,4 +7,4 @@ const LandingPage = {
     htmlIsStatic: true,
 };
 
-module.exports = {LandingPage};
+module.exports = LandingPage;

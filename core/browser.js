@@ -17,13 +17,13 @@ function BrowserHandler({pages}={}) {
     const repage = new Repage();
 
     repage.addPlugins([
-        RepageRouterCrossroads(),
-        RepageRenderer(),
-        RepageRendererReact(),
-        RepageNavigatorHistory(),
-        RepagePageTransition(),
-        RepagePageTransitionNprogress(),
-        RepagePageLoader(),
+        RepageRouterCrossroads,
+        RepageRenderer,
+        RepageRendererReact,
+        RepageNavigatorHistory,
+        RepagePageTransition,
+        RepagePageTransitionNprogress,
+        RepagePageLoader,
     ]);
 
     repage.addPages(pages);
