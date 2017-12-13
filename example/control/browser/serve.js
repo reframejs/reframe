@@ -96,7 +96,7 @@ function getPages(args_browser, args_server) {
     const pagesPathOriginal = require.resolve('../pages');
     assert_internal(pagesEntry.source_entry_points.includes(pagesPathOriginal), output_server);
     global._babelPolyfill = false;
-    let pages = require(pagesPath);
+    let pages = require(pagesPath)();
   //let pages = require('../pages');
     assert_internal(pages && pages.constructor===Array, output_server, pagesPath, pagesPathOriginal, pages);
 
