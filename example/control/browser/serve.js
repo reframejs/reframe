@@ -6,6 +6,7 @@ const assert_internal = assert;
 const log = require('reassert/log');
 const webpackConfig = require('./webpack.config');
 const serve = require('@rebuild/serve');
+const dir = require('node-dir');
 
 const Repage = require('@repage/core/build');
 const RepageRouterCrossroads = require('@repage/router-crossroads');
@@ -41,7 +42,7 @@ function serveBrowserAssets(opts) {
 async function buildArgsHandler(args) {
     const {compilationInfo, isFirstBuild} = args;
     const [args_browser, args_server] = compilationInfo;
-    const pages = getPages(args_browser, args_server);
+    const pages = await getPages({args_browser, args_server, pages_name});
 
     const {htmlBuilder, genericHtml} = args_browser;
     assert_internal(htmlBuilder);
@@ -50,6 +51,13 @@ async function buildArgsHandler(args) {
 
     const {HapiServeBrowserAssets} = args_browser;
     return {pages, genericHtml, HapiServeBrowserAssets, isFirstBuild};
+}
+
+async function get_pages_name({pagesPath}) {
+    let pages_name = await dir.promiseFiles(pagesPath);
+    console.log(pages_name);
+    pages_name = pages_name.filter(page_name => /[^a-zA-Z0-9]/.test(page_name) && ! page_name.endsWith('Mixin'));
+    return pages_name;
 }
 
 async function writeHtmlStaticPages({pages, htmlBuilder, genericHtml}) {
@@ -80,7 +88,7 @@ async function writeHtmlStaticPages({pages, htmlBuilder, genericHtml}) {
     });
 }
 
-function getPages(args_browser, args_server) {
+async function getPages({args_browser, args_server, pages_name}) {
     const {output: output_server} = args_server;
     assert_internal(output_server);
     assert_internal(output_server.entry_points.pages, arguments)
@@ -94,17 +102,29 @@ function getPages(args_browser, args_server) {
     const {filepath: pagesPath} = pagesEntry;
     assert_internal(pagesPath, output_server);
     const pagesPathOriginal = require.resolve('../pages');
+    const pages_name = await get_pages_name({pagesPath});
+
     assert_internal(pagesEntry.source_entry_points.includes(pagesPathOriginal), output_server);
     global._babelPolyfill = false;
-    let pages = require(pagesPath)();
+    let pages = require(pagesPath)(pages_name);
   //let pages = require('../pages');
     assert_internal(pages && pages.constructor===Array, output_server, pagesPath, pagesPathOriginal, pages);
 
-    const scripts = output_browser.entry_points['main'].scripts;
+    const scripts = (
+        page.renderToDom===null ? (
+            []
+        ) : (
+            [
+                {code: 'window.__INTERNAL_DONT_USE__PAGES = "'+JSON.stringify(pages_name)+'";'},
+                ...output_browser.entry_points['main'].scripts,
+            ]
+        )
+    );
+
     const styles = output_browser.entry_points['main'].styles;
     pages = pages.map(page =>
         page.isMixin ? page : ({
-            scripts: page.renderToDom===null ? undefined : scripts,
+            scripts,
             styles,
             ...page
         })
