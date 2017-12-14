@@ -40,8 +40,13 @@ function serveBrowserAssets(opts) {
 }
 
 async function buildArgsHandler(args) {
+    const pages_name = await get_pages_name();
+
     const {compilationInfo, isFirstBuild} = args;
+ // const [args_server, args_browser] = compilationInfo;
     const [args_browser, args_server] = compilationInfo;
+    assert_internal(args_server);
+    assert_internal(args_browser);
     const pages = await getPages({args_browser, args_server, pages_name});
 
     const {htmlBuilder, genericHtml} = args_browser;
@@ -50,13 +55,25 @@ async function buildArgsHandler(args) {
     await writeHtmlStaticPages({htmlBuilder, genericHtml, pages});
 
     const {HapiServeBrowserAssets} = args_browser;
+    assert_internal(HapiServeBrowserAssets, args_server, args_browser);
     return {pages, genericHtml, HapiServeBrowserAssets, isFirstBuild};
 }
 
-async function get_pages_name({pagesPath}) {
-    let pages_name = await dir.promiseFiles(pagesPath);
-    console.log(pages_name);
-    pages_name = pages_name.filter(page_name => /[^a-zA-Z0-9]/.test(page_name) && ! page_name.endsWith('Mixin'));
+async function get_pages_name() {
+    const path_module = require('path');
+    const pages_dir_path = path_module.join(__dirname, '../../easy/pages');
+    let pages_name = await dir.promiseFiles(pages_dir_path);
+    pages_name = pages_name.map(path => path_module.basename(path))
+    pages_name = (
+        pages_name
+        .map(filename =>
+            filename.endsWith('.js') ?
+                filename.slice(0, -('.js'.length)) :
+                null
+        )
+        .filter(Boolean)
+    );
+    pages_name = pages_name.filter(page_name => /^[a-zA-Z0-9]/.test(page_name) && ! page_name.endsWith('Mixin'));
     return pages_name;
 }
 
@@ -88,7 +105,7 @@ async function writeHtmlStaticPages({pages, htmlBuilder, genericHtml}) {
     });
 }
 
-async function getPages({args_browser, args_server, pages_name}) {
+function getPages({args_browser, args_server, pages_name}) {
     const {output: output_server} = args_server;
     assert_internal(output_server);
     assert_internal(output_server.entry_points.pages, arguments)
@@ -102,7 +119,6 @@ async function getPages({args_browser, args_server, pages_name}) {
     const {filepath: pagesPath} = pagesEntry;
     assert_internal(pagesPath, output_server);
     const pagesPathOriginal = require.resolve('../pages');
-    const pages_name = await get_pages_name({pagesPath});
 
     assert_internal(pagesEntry.source_entry_points.includes(pagesPathOriginal), output_server);
     global._babelPolyfill = false;
@@ -111,20 +127,16 @@ async function getPages({args_browser, args_server, pages_name}) {
     assert_internal(pages && pages.constructor===Array, output_server, pagesPath, pagesPathOriginal, pages);
 
     const scripts = (
-        page.renderToDom===null ? (
-            []
-        ) : (
-            [
-                {code: 'window.__INTERNAL_DONT_USE__PAGES = "'+JSON.stringify(pages_name)+'";'},
-                ...output_browser.entry_points['main'].scripts,
-            ]
-        )
+        [
+            {code: 'window.__INTERNAL_DONT_USE__PAGES = '+JSON.stringify(pages_name)+';'},
+            ...output_browser.entry_points['main'].scripts,
+        ]
     );
 
     const styles = output_browser.entry_points['main'].styles;
     pages = pages.map(page =>
         page.isMixin ? page : ({
-            scripts,
+            scripts: page.renderToDom===null ? [] : scripts,
             styles,
             ...page
         })

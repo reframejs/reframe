@@ -31,4 +31,5 @@ serverConfig.add([
 const webpackServerConfig = serverConfig.assemble({log: true});
 
 
+//module.exports = [webpackServerConfig, webpackBrowserConfig];
 module.exports = [webpackBrowserConfig, webpackServerConfig];
