@@ -3,6 +3,7 @@ require('source-map-support').install();
 
 const assert = require('reassert');
 const assert_internal = assert;
+const assert_usage = assert;
 const log = require('reassert/log');
 const webpackConfig = require('./webpack.config');
 const serve = require('@rebuild/serve');
@@ -61,7 +62,7 @@ async function serveBrowserAssets(opts) {
 }
 
 async function onBuild(args) {
-    const pages_name = await get_pages_name();
+ // const pages_name = await get_pages_name();
 
     const {compilationInfo, isFirstBuild} = args;
  // const [args_server, args_browser] = compilationInfo;
@@ -70,7 +71,7 @@ async function onBuild(args) {
     assert_internal(args_browser);
  // log(args_server.output);
  // log(args_browser.output);
-    const pages = await get_page_infos({args_browser, args_server, pages_name});
+    const pages = await get_page_infos({args_browser, args_server});
 
     const {htmlBuilder} = args_browser;
     assert_internal(htmlBuilder);
@@ -79,23 +80,6 @@ async function onBuild(args) {
     const {HapiServeBrowserAssets} = args_browser;
     assert_internal(HapiServeBrowserAssets, args_server, args_browser);
     return {pages, HapiServeBrowserAssets, isFirstBuild};
-}
-
-async function get_pages_name() {
-    const pages_dir_path = path_module.join(__dirname, '../../easy/pages');
-    let pages_name = await dir.promiseFiles(pages_dir_path);
-    pages_name = pages_name.map(path => path_module.basename(path))
-    pages_name = (
-        pages_name
-        .map(filename =>
-            filename.endsWith('.js') ?
-                filename.slice(0, -('.js'.length)) :
-                null
-        )
-        .filter(Boolean)
-    );
-    pages_name = pages_name.filter(page_name => /^[a-zA-Z0-9]/.test(page_name) && ! page_name.endsWith('Mixin'));
-    return pages_name;
 }
 
 async function writeHtmlStaticPages({pages, htmlBuilder}) {
@@ -124,18 +108,91 @@ async function writeHtmlStaticPages({pages, htmlBuilder}) {
     });
 }
 
-function get_page_infos({args_browser, args_server, pages_name}) {
+function get_page_infos({args_browser, args_server}) {
+    const page_infos = load_page_infos({args_server});
+    add_browser_entries({page_infos, args_browser});
+    return page_infos;
+}
+
+function add_browser_entries({page_infos, args_browser}) {
+    page_infos.forEach(page_info => {
+        const {entry} = page_info;
+        if( entry ) {
+            assert_usage(
+                entry.constructor === String && entry.endsWith('.entry.js'),
+                entry
+            );
+            const entry_path = path_module.join(page_info.source_path, entry);
+            let entry_dist_path;
+            Object.values(args_browser.output.entry_points)
+            .forEach(entry_point => {
+                const source_path = get_source_path(entry_point, path => path.endsWith('.entry.js'));
+                assert_internal(source_path.endsWith('.entry.js'), args_browser.output, entry_point, source_path);
+                if( source_path === entry_path ) {
+                    const build_path = get_build_path(entry_point);
+                    assert_internal(!entry_dist_path);
+                    entry_dist_path = build_path;
+                }
+            });
+            assert_internal(entry_dist_path);
+            page_infos.scripts.push(entry_dist_path);
+        }
+    });
+}
+
+function load_page_infos({args_server}) {
     const page_infos = (
         Object.values(args_server.output.entry_points)
         .map(entry_point => {
-            assert_internal(entry_point.all_assets.length===1, args_server.output);
-            const {filepath} = entry_point.all_assets[0];
-            assert_internal(filepath);
-            return require(filepath);
+            const page_info = require(get_build_path(entry_point));
+            page_info.source_path = get_source_path(entry_point);
+            return page_info;
         })
     );
     return page_infos;
 }
+
+function get_build_path(entry_point) {
+    assert_internal(entry_point.all_assets.length===1, entry_point);
+    const {filepath} = entry_point.all_assets[0];
+    assert_internal(filepath);
+    assert_internal(filepath.constructor===String);
+    return filepath;
+}
+function get_source_path(entry_point, fi) {
+    assert_internal(entry_point.all_assets.length===1, entry_point);
+    let {source_entry_points} = entry_point.all_assets[0];
+    assert_internal(source_entry_points.length>=1, entry_point);
+    console.log(source_entry_points);
+    console.log(source_entry_points.filter);
+    console.log(source_entry_points.constructor);
+    console.log(source_entry_points.slice().map(v => v).filter(Boolean));
+  //source_entry_points = source_entry_points.filter(fi);
+    assert_internal(source_entry_points.length===1, entry_point);
+    const source_path = source_entry_points[0];
+    assert_internal(source_path.constructor===String);
+    return source_path;
+}
+
+/*
+async function get_pages_name() {
+    const pages_dir_path = path_module.join(__dirname, '../../easy/pages');
+    let pages_name = await dir.promiseFiles(pages_dir_path);
+    pages_name = pages_name.map(path => path_module.basename(path))
+    pages_name = (
+        pages_name
+        .map(filename =>
+            filename.endsWith('.js') ?
+                filename.slice(0, -('.js'.length)) :
+                null
+        )
+        .filter(Boolean)
+    );
+    pages_name = pages_name.filter(page_name => /^[a-zA-Z0-9]/.test(page_name) && ! page_name.endsWith('Mixin'));
+    return pages_name;
+}
+*/
+
 /*
 function getPages({args_browser, args_server, pages_name}) {
     const {output: output_server} = args_server;
