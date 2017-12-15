@@ -122,20 +122,23 @@ function add_browser_entries({page_infos, args_browser}) {
                 entry.constructor === String && entry.endsWith('.entry.js'),
                 entry
             );
-            const entry_path = path_module.join(page_info.source_path, entry);
-            let entry_dist_path;
+            const entry_path = path_module.join(path_module.dirname(page_info.source_path), entry);
+            let entry_browser_path;
             Object.values(args_browser.output.entry_points)
             .forEach(entry_point => {
                 const source_path = get_source_path(entry_point, path => path.endsWith('.entry.js'));
                 assert_internal(source_path.endsWith('.entry.js'), args_browser.output, entry_point, source_path);
                 if( source_path === entry_path ) {
-                    const build_path = get_build_path(entry_point);
-                    assert_internal(!entry_dist_path);
-                    entry_dist_path = build_path;
+                    const script_path = get_browser_path(entry_point);
+                    assert_internal(!entry_browser_path);
+                    entry_browser_path = script_path;
                 }
             });
-            assert_internal(entry_dist_path);
-            page_infos.scripts.push(entry_dist_path);
+            assert_internal(entry_browser_path, page_info, args_browser.output, entry_path, entry);
+            page_info.scripts = [
+                ...(page_infos.scripts||[]),
+                entry_browser_path,
+            ];
         }
     });
 }
@@ -152,6 +155,13 @@ function load_page_infos({args_server}) {
     return page_infos;
 }
 
+function get_browser_path(entry_point) {
+    assert_internal(entry_point.scripts.length===1, entry_point);
+    const script_path = entry_point.scripts[0];
+    assert_internal(script_path);
+    assert_internal(script_path.constructor===String, entry_point);
+    return script_path;
+}
 function get_build_path(entry_point) {
     assert_internal(entry_point.all_assets.length===1, entry_point);
     const {filepath} = entry_point.all_assets[0];
@@ -159,15 +169,13 @@ function get_build_path(entry_point) {
     assert_internal(filepath.constructor===String);
     return filepath;
 }
-function get_source_path(entry_point, fi) {
+function get_source_path(entry_point, filter) {
     assert_internal(entry_point.all_assets.length===1, entry_point);
     let {source_entry_points} = entry_point.all_assets[0];
     assert_internal(source_entry_points.length>=1, entry_point);
-    console.log(source_entry_points);
-    console.log(source_entry_points.filter);
-    console.log(source_entry_points.constructor);
-    console.log(source_entry_points.slice().map(v => v).filter(Boolean));
-  //source_entry_points = source_entry_points.filter(fi);
+    if( filter ) {
+        source_entry_points = source_entry_points.filter(filter);
+    }
     assert_internal(source_entry_points.length===1, entry_point);
     const source_path = source_entry_points[0];
     assert_internal(source_path.constructor===String);
