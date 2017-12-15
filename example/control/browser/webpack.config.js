@@ -1,35 +1,47 @@
 const {Config, StandardConfig, StandardNodeConfig, ReactConfig} = require('@rebuild/config');
 const {RebuildConfig} = require('@reframe/core/build');
 
-const browserConfig = new Config();
+module.exports = (
+    ({browserEntries, serverEntries}) =>
+        [
+            webpackBrowserConfig(browserEntries),
+            webpackServerConfig(serverEntries)
+        ]
+);
 
-browserConfig.add([
-    new StandardConfig({
-        entry: require.resolve('./src'),
-    }),
-    new ReactConfig(),
-    /*
-    new RebuildConfig({
-        pagesPath: require.resolve('../pages'),
-    }),
-    */
-]);
+function webpackBrowserConfig(browserEntries) {
+    const browserConfig = new Config();
 
-const webpackBrowserConfig = browserConfig.assemble({log: true});
+    browserConfig.add([
+        new StandardConfig({
+         // entry: require.resolve('./src'),
+            entry: browserEntries,
+        }),
+        new ReactConfig(),
+        /*
+        new RebuildConfig({
+            pagesPath: require.resolve('../pages'),
+        }),
+        */
+    ]);
 
-const serverConfig = new Config();
+    return browserConfig.assemble({log: true});
+}
 
-serverConfig.add([
-    new StandardNodeConfig({
-        entry: {
-            pages: require.resolve('../pages'),
-        },
-    }),
-    new ReactConfig(),
-]);
+function webpackServerConfig(serverEntries) {
+    const serverConfig = new Config();
 
-const webpackServerConfig = serverConfig.assemble({log: true});
+    serverConfig.add([
+        new StandardNodeConfig({
+            entry: serverEntries,
+            /*
+            entry: {
+                pages: require.resolve('../pages'),
+            },
+            */
+        }),
+        new ReactConfig(),
+    ]);
 
-
-//module.exports = [webpackServerConfig, webpackBrowserConfig];
-module.exports = [webpackBrowserConfig, webpackServerConfig];
+    return serverConfig.assemble({log: true});
+}

@@ -1,5 +1,6 @@
 const assert = require('reassert');
 const assert_usage = assert;
+const assert_internal = assert;
 
 const Repage = require('@repage/core/server');
 
@@ -13,10 +14,9 @@ const HapiServerRendering = {
     name: 'reframe-server-rendering',
     multiple: true,
     register: (server, options) => {
-        const {pages, genericHtml} = options;
+        const {pages} = options;
         assert_usage(pages, options);
         assert_usage(pages.constructor===Array, pages);
-        assert_usage(genericHtml, options);
 
         const repage = new Repage();
 
@@ -46,11 +46,9 @@ const HapiServerRendering = {
             let {html, renderToHtmlIsMissing} = await repage.getPageHtml({uri, canBeNull: true});
             assert(html === null || html && html.constructor===String, html);
 
-            assert([true, false].includes(renderToHtmlIsMissing));
-            assert(!renderToHtmlIsMissing || html===null);
-            if( renderToHtmlIsMissing ) {
-                html = genericHtml;
-            }
+            assert_internal([true, false].includes(renderToHtmlIsMissing));
+            assert_internal(!renderToHtmlIsMissing || html===null);
+            assert_usage(renderToHtmlIsMissing===false);
 
             if( html === null ) {
                 return h.continue;
