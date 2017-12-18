@@ -39,6 +39,7 @@ async function hydratePage(page) {
     const repage = new Repage();
 
     repage.addPlugins([
+        RepageRouterCrossroads,
         RepageRenderer,
         RepageRendererReact,
         RepageNavigatorHistory,
