@@ -17,7 +17,6 @@ class CounterComponent extends React.Component {
     }
     render() {
         const text = 'Counter: '+this.state.counter;
-        console.log(text);
         return (
             <div>
                 {text}

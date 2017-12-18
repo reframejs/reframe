@@ -1,4 +1,4 @@
-const BrowserHandler = require('@reframe/core/browser');
+const {BrowserHandler} = require('@reframe/core/browser');
 
 const pages = [
     require('./GameOfThronesCharacterPage.html.js'),
