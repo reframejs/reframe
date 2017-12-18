@@ -1,4 +1,6 @@
 process.on('unhandledRejection', err => {throw err});
+require('source-map-support').install();
+
 const {HapiServerRendering} = require('@reframe/core/server');
 const Hapi = require('hapi');
 const {serveBrowserAssets} = require('./browser/serve');
