@@ -123,21 +123,24 @@ function add_browser_entries({page_infos, args_browser}) {
                 entry
             );
             const entry_path = path_module.join(path_module.dirname(page_info.source_path), entry);
-            let entry_browser_path;
+            let entry_point;
             Object.values(args_browser.output.entry_points)
-            .forEach(entry_point => {
-                const source_path = get_source_path(entry_point, path => path.endsWith('.entry.js'));
-                assert_internal(source_path.endsWith('.entry.js'), args_browser.output, entry_point, source_path);
+            .forEach(ep => {
+                const source_path = get_source_path(ep, path => path.endsWith('.entry.js'));
+                assert_internal(source_path.endsWith('.entry.js'), args_browser.output, ep, source_path);
                 if( source_path === entry_path ) {
-                    const script_path = get_browser_path(entry_point);
-                    assert_internal(!entry_browser_path);
-                    entry_browser_path = script_path;
+                    entry_point = ep;
                 }
             });
-            assert_internal(entry_browser_path, page_info, args_browser.output, entry_path, entry);
+            assert_internal(entry_point, page_info, args_browser.output, entry_path, entry);
+            assert_internal(entry_point.scripts.length>=1, entry_point);
             page_info.scripts = [
                 ...(page_infos.scripts||[]),
-                entry_browser_path,
+                ...entry_point.scripts,
+            ];
+            page_info.styles = [
+                ...(page_infos.styles||[]),
+                ...entry_point.styles,
             ];
         }
     });
@@ -147,7 +150,7 @@ function load_page_infos({args_server}) {
     const page_infos = (
         Object.values(args_server.output.entry_points)
         .map(entry_point => {
-            const page_info = require(get_build_path(entry_point));
+            const page_info = require(get_nodejs_path(entry_point));
             page_info.source_path = get_source_path(entry_point);
             return page_info;
         })
@@ -155,23 +158,18 @@ function load_page_infos({args_server}) {
     return page_infos;
 }
 
-function get_browser_path(entry_point) {
-    assert_internal(entry_point.scripts.length===1, entry_point);
-    const script_path = entry_point.scripts[0];
-    assert_internal(script_path);
-    assert_internal(script_path.constructor===String, entry_point);
-    return script_path;
-}
-function get_build_path(entry_point) {
-    assert_internal(entry_point.all_assets.length===1, entry_point);
-    const {filepath} = entry_point.all_assets[0];
+function get_nodejs_path(entry_point) {
+    const scripts = (
+        entry_point.all_assets.filter(asset => asset.filename.endsWith('.js'))
+    );
+    assert_internal(scripts.length===1, entry_point);
+    const {filepath} = scripts[0];
     assert_internal(filepath);
     assert_internal(filepath.constructor===String);
     return filepath;
 }
 function get_source_path(entry_point, filter) {
-    assert_internal(entry_point.all_assets.length===1, entry_point);
-    let {source_entry_points} = entry_point.all_assets[0];
+    let {source_entry_points} = entry_point;
     assert_internal(source_entry_points.length>=1, entry_point);
     if( filter ) {
         source_entry_points = source_entry_points.filter(filter);

@@ -1,4 +1,5 @@
 import React from 'react';
+import './CounterStyle.css';
 
 class CounterComponent extends React.Component {
     constructor(props) {
