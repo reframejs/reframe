@@ -7,12 +7,9 @@ const {build} = require('@reframe/core/build');
 const chalk = require('chalk');
 const path = require('path');
 
-const isProduction = process.env['NODE_ENV'] === 'production';
-
 let server;
 build({
     pagesDir: path.join(__dirname, '../cli/pages'),
-    doNotAutoReload: isProduction,
     log: true,
     onBuild: async ({HapiServeBrowserAssets, pages, isFirstBuild}) => {
         if( server ) {

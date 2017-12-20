@@ -26,6 +26,7 @@ async function build({
     getWebpackBrowserConfig,
     getWebpackServerConfig,
     onBuild,
+    doNotAutoReload=isProduction(),
     ...opts
 }) {
     const webpack_config = await get_webpack_config({
@@ -36,20 +37,28 @@ async function build({
         getWebpackServerConfig,
     });
 
+    let resolve_promise;
+    const first_build_promise = new Promise(resolve => resolve_promise = resolve);
+
     serve(webpack_config, {
         log: true,
         doNotCreateServer: true,
         doNotGenerateIndexHtml: true,
+        doNotAutoReload,
         ...opts,
         onBuild: async args => {
             if( ! onBuild ) {
                 return;
             }
-            onBuild(
-                await getBuildArgs(args)
-            );
+            const args__processed = await process_args(args);
+            await onBuild(args__processed);
+            if( args__processed.isFirstBuild ) {
+                resolve_promise();
+            }
         },
     });
+
+    return first_build_promise;
 }
 
 async function get_webpack_config({
@@ -78,10 +87,10 @@ async function get_webpack_config({
         .forEach(path => {
          // const page_name = path_module.basename(path).split('.').slice(0, -1).join('.');
             const entry_name = path_module.basename(path);
-            if( path.endsWith('.entry.js') ) {
+            if( is_script(path, '.entry') ) {
                 browser_entries[entry_name] = [path];
             }
-            if( path.endsWith('.html.js') ) {
+            if( is_script(path, '.html') ) {
                 server_entries[entry_name] = [path];
             }
         });
@@ -99,7 +108,14 @@ async function get_webpack_config({
     return [browser_config, server_config];
 }
 
-async function getBuildArgs(args) {
+function is_script(path, suffix) {
+    return (
+        path.endsWith(suffix+'.js') ||
+        path.endsWith(suffix+'.jsx')
+    );
+}
+
+async function process_args(args) {
  // const pages_name = await get_pages_name();
 
     const {compilationInfo, isFirstBuild} = args;
@@ -157,15 +173,15 @@ function add_browser_entries({page_infos, args_browser}) {
         const {entry} = page_info;
         if( entry ) {
             assert_usage(
-                entry.constructor === String && entry.endsWith('.entry.js'),
+                entry.constructor === String && is_script(entry, '.entry'),
                 entry
             );
             const entry_path = path_module.join(path_module.dirname(page_info.source_path), entry);
             let entry_point;
             Object.values(args_browser.output.entry_points)
             .forEach(ep => {
-                const source_path = get_source_path(ep, path => path.endsWith('.entry.js'));
-                assert_internal(source_path.endsWith('.entry.js'), args_browser.output, ep, source_path);
+                const source_path = get_source_path(ep, path => is_script(path, '.entry'));
+                assert_internal(is_script(source_path, '.entry'), args_browser.output, ep, source_path);
                 if( source_path === entry_path ) {
                     entry_point = ep;
                 }
@@ -198,7 +214,7 @@ function load_page_infos({args_server}) {
 
 function get_nodejs_path(entry_point) {
     const scripts = (
-        entry_point.all_assets.filter(asset => asset.filename.endsWith('.js'))
+        entry_point.all_assets.filter(asset => is_script(asset.filename, ''))
     );
     assert_internal(scripts.length===1, entry_point);
     const {filepath} = scripts[0];
@@ -287,4 +303,8 @@ function parent_module() {
     throw new Error('uehi');
     //*/
     return caller_path;
+}
+
+function isProduction() {
+    return process.env['NODE_ENV'] === 'production';
 }
