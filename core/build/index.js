@@ -1,3 +1,1 @@
-const RebuildConfig = require('./RebuildConfig');
-
-module.exports = {RebuildConfig};
+module.exports = require('./build');

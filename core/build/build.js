@@ -5,7 +5,7 @@ const assert = require('reassert');
 const assert_internal = assert;
 const assert_usage = assert;
 const log = require('reassert/log');
-const webpackConfig = require('./webpack.config');
+const {get_webpack_browser_config, get_webpack_server_config} = require('./webpack_config');
 const serve = require('@rebuild/serve');
 const dir = require('node-dir');
 const path_module = require('path');
@@ -16,34 +16,24 @@ const RepageRenderer = require('@repage/renderer');
 const RepageRendererReact = require('@repage/renderer-react');
 const RepagePageLoader = require('@repage/page-loader');
 
-const isCli = require.main === module;
-if( isCli ) {
-    serveBrowserAssets();
-} else {
-    module.exports = {serveBrowserAssets};
-}
+module.exports = {build};
 
-
-async function serveBrowserAssets(opts) {
-    const pages_dir_path = path_module.join(__dirname, '../../easy/pages');
-
-    let page_files = await dir.promiseFiles(pages_dir_path);
-
-    const browserEntries = {};
-    const serverEntries = {};
-    page_files
-    .forEach(path => {
-     // const page_name = path_module.basename(path).split('.').slice(0, -1).join('.');
-        const entry_name = path_module.basename(path);
-        if( path.endsWith('.entry.js') ) {
-            browserEntries[entry_name] = [path];
-        }
-        if( path.endsWith('.html.js') ) {
-            serverEntries[entry_name] = [path];
-        }
+async function build({
+    pagesDir,
+    webpackBrowserConfig,
+    webpackServerConfig,
+    getWebpackBrowserConfig,
+    getWebpackServerConfig,
+    onBuild,
+    ...opts
+}) {
+    const webpack_config = await get_webpack_config({
+        pagesDir,
+        webpackBrowserConfig,
+        webpackServerConfig,
+        getWebpackBrowserConfig,
+        getWebpackServerConfig,
     });
-
-    const webpack_config = webpackConfig({browserEntries, serverEntries});
 
     serve(webpack_config, {
         log: true,
@@ -51,17 +41,60 @@ async function serveBrowserAssets(opts) {
         doNotGenerateIndexHtml: true,
         ...opts,
         onBuild: async args => {
-            if( ! opts.onBuild ) {
+            if( ! onBuild ) {
                 return;
             }
-            opts.onBuild(
-                await onBuild(args)
+            onBuild(
+                await getBuildArgs(args)
             );
         },
     });
 }
 
-async function onBuild(args) {
+async function get_webpack_config({
+    pagesDir,
+    webpackBrowserConfig,
+    webpackServerConfig,
+    getWebpackBrowserConfig,
+    getWebpackServerConfig
+}) {
+    let browser_config = webpackBrowserConfig;
+    let server_config = webpackServerConfig;
+
+    let pages_files;
+    if( ! browser_config || ! server_config ) {
+        assert_usage(
+            pagesDir && pagesDir.constructor===String && pagesDir.startsWith('/'),
+            pagesDir
+        );
+        let page_files = await dir.promiseFiles(pagesDir);
+
+        const browser_entries = {};
+        const server_entries = {};
+        page_files
+        .forEach(path => {
+         // const page_name = path_module.basename(path).split('.').slice(0, -1).join('.');
+            const entry_name = path_module.basename(path);
+            if( path.endsWith('.entry.js') ) {
+                browser_entries[entry_name] = [path];
+            }
+            if( path.endsWith('.html.js') ) {
+                server_entries[entry_name] = [path];
+            }
+        });
+
+        if( ! browser_config ) {
+            browser_config = (getWebpackBrowserConfig||get_webpack_browser_config)(browser_entries);
+        }
+        if( ! server_config ) {
+            server_config = (getWebpackServerConfig||get_webpack_server_config)(server_entries);
+        }
+    }
+
+    return [browser_config, server_config];
+}
+
+async function getBuildArgs(args) {
  // const pages_name = await get_pages_name();
 
     const {compilationInfo, isFirstBuild} = args;
@@ -182,7 +215,7 @@ function get_source_path(entry_point, filter) {
 
 /*
 async function get_pages_name() {
-    const pages_dir_path = path_module.join(__dirname, '../../easy/pages');
+    const pages_dir_path = path_module.join(__dirname, '../../cli/pages');
     let pages_name = await dir.promiseFiles(pages_dir_path);
     pages_name = pages_name.map(path => path_module.basename(path))
     pages_name = (

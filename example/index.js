@@ -1,1 +1,1 @@
-require('./control');
+require('./custom');
