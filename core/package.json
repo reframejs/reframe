@@ -2,6 +2,7 @@
   "name": "core",
   "version": "0.1.0",
   "dependencies": {
+    "parent-module": "^0.1.0",
     "reassert": "^1.0.0"
   }
 }

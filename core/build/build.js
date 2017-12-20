@@ -9,6 +9,7 @@ const {get_webpack_browser_config, get_webpack_server_config} = require('./webpa
 const serve = require('@rebuild/serve');
 const dir = require('node-dir');
 const path_module = require('path');
+const get_caller = require('parent-module');
 
 const Repage = require('@repage/core/build');
 const RepageRouterCrossroads = require('@repage/router-crossroads');
@@ -63,11 +64,13 @@ async function get_webpack_config({
 
     let pages_files;
     if( ! browser_config || ! server_config ) {
+        const parent_context = path_module.dirname(parent_module());
+
         assert_usage(
             pagesDir && pagesDir.constructor===String && pagesDir.startsWith('/'),
             pagesDir
         );
-        let page_files = await dir.promiseFiles(pagesDir);
+        page_files = await dir.promiseFiles(pagesDir);
 
         const browser_entries = {};
         const server_entries = {};
@@ -83,11 +86,13 @@ async function get_webpack_config({
             }
         });
 
+        const outputPath = path_module.join(parent_context, './dist');
+
         if( ! browser_config ) {
-            browser_config = (getWebpackBrowserConfig||get_webpack_browser_config)(browser_entries);
+            browser_config = (getWebpackBrowserConfig||get_webpack_browser_config)(browser_entries, outputPath);
         }
         if( ! server_config ) {
-            server_config = (getWebpackServerConfig||get_webpack_server_config)(server_entries);
+            server_config = (getWebpackServerConfig||get_webpack_server_config)(server_entries, outputPath);
         }
     }
 
@@ -273,3 +278,13 @@ function getPages({args_browser, args_server, pages_name}) {
     return pages;
 }
 */
+
+function parent_module() {
+    const caller_path = get_caller(__filename);
+    assert_internal(caller_path && caller_path.startsWith('/'), __filename);
+    /*
+    console.log(3213, caller_path);
+    throw new Error('uehi');
+    //*/
+    return caller_path;
+}
