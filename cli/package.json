@@ -1,0 +1,8 @@
+{
+  "name": "@reframe/cli",
+  "version": "0.1.0",
+  "bin": {
+    "reframe": "./cli.js"
+  },
+  "dependencies": {}
+}

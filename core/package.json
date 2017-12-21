@@ -1,5 +1,5 @@
 {
-  "name": "core",
+  "name": "@reframe/core",
   "version": "0.1.0",
   "dependencies": {
     "parent-module": "^0.1.0",
