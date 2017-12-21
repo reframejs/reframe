@@ -8,7 +8,7 @@ const {get_webpack_browser_config, get_webpack_server_config} = require('./webpa
 const serve = require('@rebuild/serve');
 const dir = require('node-dir');
 const path_module = require('path');
-const get_caller = require('parent-module');
+const {get_context} = require('./utils/get_context');
 
 const Repage = require('@repage/core/build');
 const RepageRouterCrossroads = require('@repage/router-crossroads');
@@ -26,6 +26,7 @@ async function build({
     getWebpackServerConfig,
     onBuild,
     doNotAutoReload=isProduction(),
+    context = get_context(),
     ...opts
 }) {
     const webpack_config = await get_webpack_config({
@@ -34,6 +35,7 @@ async function build({
         webpackServerConfig,
         getWebpackBrowserConfig,
         getWebpackServerConfig,
+        context,
     });
 
     let resolve_promise;
@@ -65,15 +67,16 @@ async function get_webpack_config({
     webpackBrowserConfig,
     webpackServerConfig,
     getWebpackBrowserConfig,
-    getWebpackServerConfig
+    getWebpackServerConfig,
+    context,
 }) {
+    assert_internal(context);
+
     let browser_config = webpackBrowserConfig;
     let server_config = webpackServerConfig;
 
     let pages_files;
     if( ! browser_config || ! server_config ) {
-        const parent_context = path_module.dirname(parent_module());
-
         assert_usage(
             pagesDir && pagesDir.constructor===String && pagesDir.startsWith('/'),
             pagesDir
@@ -93,7 +96,8 @@ async function get_webpack_config({
             }
         });
 
-        const outputPath = path_module.join(parent_context, './dist');
+     // const outputPath = path_module.join(context, './dist');
+        const outputPath = path_module.join(path_module.dirname(pagesDir), './dist');
 
         if( ! browser_config ) {
             browser_config = (getWebpackBrowserConfig||get_webpack_browser_config)(browser_entries, outputPath);
@@ -293,16 +297,6 @@ function getPages({args_browser, args_server, pages_name}) {
     return pages;
 }
 */
-
-function parent_module() {
-    const caller_path = get_caller(__filename);
-    assert_internal(caller_path && caller_path.startsWith('/'), __filename);
-    /*
-    console.log(3213, caller_path);
-    throw new Error('uehi');
-    //*/
-    return caller_path;
-}
 
 function isProduction() {
     return process.env['NODE_ENV'] === 'production';

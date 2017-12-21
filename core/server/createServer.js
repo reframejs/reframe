@@ -1,6 +1,8 @@
 const Hapi = require('hapi');
 const {HapiServerRendering} = require('./HapiServerRendering');
 const {build} = require('@reframe/core/build');
+const {get_context} = require('@reframe/core/build/utils/get_context');
+const path_module = require('path');
 const assert = require('reassert');
 const assert_internal = assert;
 
@@ -17,6 +19,7 @@ async function createServer({
         request: ['internal'],
     },
     pagesDir,
+    context = get_context(),
     ...server_opts
 }) {
     const server = (
@@ -43,6 +46,7 @@ async function createServer({
             }
             pages = args.pages;
         },
+        context,
     });
 
     await server.register([
