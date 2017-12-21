@@ -5,12 +5,12 @@ const assert_usage = assert;
 
 module.exports = {startServer};
 
-async function startServer(pagesDir) {
+async function startServer({pagesDir, ...args}) {
     assert_usage(
         pagesDir
     );
 
-    const server = await createServer({pagesDir});
+    const server = await createServer({pagesDir, ...args});
 
     // todo add api example route
     //server.route

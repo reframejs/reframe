@@ -8,6 +8,7 @@ module.exports = {createServer};
 
 async function createServer({
     server: server__created_by_user,
+    log=false,
     port = 3000,
     debug = {
      // log: '*',
@@ -32,7 +33,7 @@ async function createServer({
 
     await build({
         pagesDir,
-        log: true,
+        log,
         onBuild: async args => {
             if( HapiServeBrowserAssets ) {
                 // make sure that the directory we are serving is still the dist directory

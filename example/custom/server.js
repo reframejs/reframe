@@ -6,6 +6,7 @@ const path = require('path');
 (async () => {
     const server = await createServer({
         pagesDir: path.join(__dirname, '../cli/pages'),
+        log: true,
     });
 
     await server.start();

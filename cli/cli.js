@@ -9,7 +9,7 @@ const find = new Find({projectName: 'reframe'});
 const pagesDir = find.findProjectDir('pages');
 console.log(green_checkmark()+' Pages directory found at '+pagesDir);
 
-startServer(pagesDir);
+startServer({pagesDir});
 
 function green_checkmark() {
     return chalk.green('\u2714');
