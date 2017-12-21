@@ -10,7 +10,7 @@ module.exports = (page_names=PAGES) => (
     (PAGES||page_names).map(page_name => ({
         name: page_name,
         pageLoader: async () => {
-            return await import(`../cli/pages/${page_name}.js`);
+            return await import(`../pages/${page_name}.js`);
         },
     }))
 );
