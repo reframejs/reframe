@@ -1,2 +1,4 @@
-const HapiServerRendering = require('./HapiServerRendering');
-module.exports = {HapiServerRendering};
+module.exports = {
+    ...require('./HapiServerRendering'),
+    ...require('./createServer'),
+};

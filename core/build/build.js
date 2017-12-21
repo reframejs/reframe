@@ -1,5 +1,4 @@
 process.on('unhandledRejection', err => {throw err});
-require('source-map-support').install();
 
 const assert = require('reassert');
 const assert_internal = assert;
@@ -201,6 +200,7 @@ function add_browser_entries({page_infos, args_browser}) {
 }
 
 function load_page_infos({args_server}) {
+    require('source-map-support').install();
     const page_infos = (
         Object.values(args_server.output.entry_points)
         .map(entry_point => {

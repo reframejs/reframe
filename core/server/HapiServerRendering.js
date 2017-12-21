@@ -14,20 +14,11 @@ const HapiServerRendering = {
     name: 'reframe-server-rendering',
     multiple: true,
     register: (server, options) => {
-        const {pages} = options;
-        assert_usage(pages, options);
-        assert_usage(pages.constructor===Array, pages);
+        const {getRepage, getPages} = options;
+        assert_usage(getPages || getRepage, options);
 
-        const repage = new Repage();
-
-        repage.addPlugins([
-            RepageRouterCrossroads,
-            RepageRenderer,
-            RepageRendererReact,
-            RepagePageLoader,
-        ]);
-
-        repage.addPages(pages);
+        let repage;
+        let pages;
 
         server.ext('onPreResponse', onPreResponse);
 
@@ -39,12 +30,12 @@ const HapiServerRendering = {
             }
 
             const uri = request.url.href;
-            assert(uri && uri.constructor===String, uri);
+            assert_internal(uri && uri.constructor===String, uri);
 
-            await repage.waitInit();
+            await init_repage_object();
 
             let {html, renderToHtmlIsMissing} = await repage.getPageHtml({uri, canBeNull: true});
-            assert(html === null || html && html.constructor===String, html);
+            assert_internal(html === null || html && html.constructor===String, html);
 
             assert_internal([true, false].includes(renderToHtmlIsMissing));
             assert_internal(!renderToHtmlIsMissing || html===null);
@@ -56,7 +47,51 @@ const HapiServerRendering = {
 
             return h.response(html).type('text/html');
         }
+
+        async function init_repage_object() {
+            if( getRepage ) {
+                const repage__new = getRepage();
+                if( repage__new === repage ) {
+                    return;
+                }
+                assert_usage(repage__new, repage__new);
+                repage = repage__new;
+                await repage.waitInit();
+                return;
+            }
+
+            if( getPages ) {
+                const pages__new = getPages();
+                if( pages__new === pages ) {
+                    return;
+                }
+                assert_usage(pages__new.constructor===Array, pages__new);
+                pages = pages__new;
+                repage = create_repage_object(pages);
+                await repage.waitInit();
+                return;
+            }
+
+            assert_internal(false);
+        }
+
+        function create_repage_object(pages_) {
+            assert_internal(pages_);
+
+            const repage = new Repage();
+
+            repage.addPlugins([
+                RepageRouterCrossroads,
+                RepageRenderer,
+                RepageRendererReact,
+                RepagePageLoader,
+            ]);
+
+            repage.addPages(pages_);
+
+            return repage;
+        }
     },
 };
 
-module.exports = HapiServerRendering;
+module.exports = {HapiServerRendering};
