@@ -84,8 +84,7 @@ async function get_webpack_config({
         const server_entries = {};
         page_files
         .forEach(path => {
-         // const page_name = path_module.basename(path).split('.').slice(0, -1).join('.');
-            const entry_name = path_module.basename(path);
+            const entry_name = path_module.basename(path).split('.').slice(0, -1).join('.');
             if( is_script(path, '.entry') ) {
                 browser_entries[entry_name] = [path];
             }
