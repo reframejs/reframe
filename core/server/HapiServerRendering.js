@@ -1,6 +1,7 @@
 const assert = require('reassert');
 const assert_usage = assert;
 const assert_internal = assert;
+const {compute_source_code_hash} = require('./compute_source_code_hash');
 
 const Repage = require('@repage/core/server');
 
@@ -14,7 +15,7 @@ const HapiServerRendering = {
     name: 'reframe-server-rendering',
     multiple: true,
     register: (server, options) => {
-        const {getRepage, getPages} = options;
+        const {getRepage, getPages, doNotComputeEtag} = options;
         assert_usage(getPages || getRepage, options);
 
         let repage;
@@ -45,7 +46,14 @@ const HapiServerRendering = {
                 return h.continue;
             }
 
-            return h.response(html).type('text/html');
+            const response = h.response(html);
+            response.type('text/html');
+
+            if( ! doNotComputeEtag ) {
+                response.etag(compute_source_code_hash(response.source));
+            }
+
+            return response;
         }
 
         async function init_repage_object() {
