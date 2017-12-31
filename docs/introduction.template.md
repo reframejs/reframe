@@ -21,25 +21,9 @@ Running the CLI command `reframe` will spin up a (Node.js/hapi) server.
 ~~~shell
 $ reframe
 ✔ Page directory found at /home/romu/code/@reframe/example/pages
-&#10004; Frontend built at /home/romu/code/@reframe/example/dist/
-&#2713; Server running at http://localhost:3000
-&#x2714; Server running at http://localhost:3000
+✔ Frontend built at /home/romu/code/@reframe/example/dist/
+✔ Server running at http://localhost:3000
 ~~~
-
-$ reframe
-<br/>
-✔ Page directory found at /home/romu/code/@reframe/example/pages
-<br/>
-&#x2714; Frontend built at /home/romu/code/@reframe/example/dist/
-<br/>
-&#10004; Server running at http://localhost:3000
-<br/>
-&#9658;
-&#767;
-&#2400;
-<br/>
-after
-
 The source code of `http://localhost:3000/hello` will then be;
 
 ~~~html
