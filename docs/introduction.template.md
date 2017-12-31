@@ -41,20 +41,16 @@ The source code of `http://localhost:3000/hello` will then be;
 </html>
 ~~~
 
-With Reframe you can create different types of pages;
+With Reframe you can create pages with following characteristics;
 
- - **HTML-static page**.
-   <br/>
-   The page's HTML is static and is rendered to HTML when building the frontend. The (on build-time rendered) HTML never changes.
- - **HTML-dynamic page**.
-   <br/>
-   The page's HTML is (re-)rendered upon each HTTP request. The (on request-time rendered) HTML varies from request to request.
- - **DOM-static page**.
-   <br/>
-   The page's DOM is not manipulated and React is only used to render HTML.
- - **DOM-dynamic page**.
-   <br/>
-   The page has React components that change in the browser. (I.e. `ReactDOM.hydrate()` is used.)
+ - **HTML-static page**,
+   where the page's HTML is static and is rendered to HTML when building the frontend. The (on build-time rendered) HTML never changes.
+ - **HTML-dynamic page**,
+   where the page's HTML is (re-)rendered upon each HTTP request. The (on request-time rendered) HTML varies from request to request.
+ - **DOM-static page**,
+   where there the page's DOM is not manipulated and React is only used to render HTML.
+ - **DOM-dynamic page**,
+   where the page has React components that change in the browser. (I.e. `ReactDOM.hydrate()` is used.)
 
 For example, you can create universal apps (i.e. apps that are rendered on both the server and the browser), static apps (i.e. apps where all pages are HTML-static), and a combination of both.
 
