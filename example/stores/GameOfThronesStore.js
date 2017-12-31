@@ -25,7 +25,7 @@ function GameOfThronesStore() {
         const url = urlBase + '/characters/list.json';
         const characters = await fetchJson(url);
         characters.forEach(character => {
-            character.details = '/character/'+character.id;
+            character.details = '/game-of-thrones/'+character.id;
         });
         return characters;
     }
