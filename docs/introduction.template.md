@@ -16,7 +16,7 @@ Reframe allows you to define pages like this;
 !INLINE ../example/pages/HelloPage.html.js
 ~~~
 
-Running the CLI command `reframe` will spin up a (Node.js/hapi) server.
+Running the CLI command `reframe` will spin up a server (Node.js/hapi).
 
 ~~~shell
 $ reframe
@@ -24,6 +24,7 @@ $ reframe
 ✔ Frontend built at /home/romu/code/@reframe/example/dist/
 ✔ Server running at http://localhost:3000
 ~~~
+
 The source code of `http://localhost:3000/hello` will then be;
 
 ~~~html
@@ -42,10 +43,18 @@ The source code of `http://localhost:3000/hello` will then be;
 
 With Reframe you can create different types of pages;
 
- - **HTML-static page**. The page's HTML is static and is rendered to HTML when building the frontend. The (on build-time rendered) HTML never changes.
- - **HTML-dynamic page**. The page's HTML is (re-)rendered upon each HTTP request. The (on request-time rendered) HTML varies from request to request.
- - **DOM-static page**. The page's DOM is not manipulated and React is only used to render HTML.
- - **DOM-dynamic page**. The page has React components that change in the browser. (I.e. `ReactDOM.hydrate()` is used.)
+ - **HTML-static page**.
+   <br/>
+   The page's HTML is static and is rendered to HTML when building the frontend. The (on build-time rendered) HTML never changes.
+ - **HTML-dynamic page**.
+   <br/>
+   The page's HTML is (re-)rendered upon each HTTP request. The (on request-time rendered) HTML varies from request to request.
+ - **DOM-static page**.
+   <br/>
+   The page's DOM is not manipulated and React is only used to render HTML.
+ - **DOM-dynamic page**.
+   <br/>
+   The page has React components that change in the browser. (I.e. `ReactDOM.hydrate()` is used.)
 
 For example, you can create universal apps (i.e. apps that are rendered on both the server and the browser), static apps (i.e. apps where all pages are HTML-static), and a combination of both.
 
@@ -57,5 +66,9 @@ Reframe takes care of;
 
 Reframe **doesn't** take care of;
 
- - State mangement. Use Redux, MobX, or Reprop instead.
- - Database. It's up to you to create, populate, and retrieve database(s). (You can use Reframe as a hapi plugin so that you can create the hapi server yourself to add database API endpoints.)
+ - State management.
+   <br/>
+   Manage the state of your application yourself or use Redux / MobX / Reprop.
+ - Database.
+   <br/>
+   It's up to you to create, populate, and retrieve database(s). (You can use Reframe as a hapi plugin so that you can create the hapi server yourself to add database API endpoints.)
