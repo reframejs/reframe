@@ -114,9 +114,18 @@ $ reframe
 ~~~
 
 $ reframe
+<br/>
 ✔ Page directory found at /home/romu/code/@reframe/example/pages
+<br/>
 &#2713; Frontend built at /home/romu/code/@reframe/example/dist/
+<br/>
 &#2713; Server running at http://localhost:3000
+<br/>
+&#9658;
+&#767;
+&#2400;
+<br/>
+after
 
 The source code of `http://localhost:3000/hello` will then be;
 
