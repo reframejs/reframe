@@ -117,9 +117,9 @@ $ reframe
 <br/>
 ✔ Page directory found at /home/romu/code/@reframe/example/pages
 <br/>
-&#2713; Frontend built at /home/romu/code/@reframe/example/dist/
+&#x2714; Frontend built at /home/romu/code/@reframe/example/dist/
 <br/>
-&#2713; Server running at http://localhost:3000
+&#10004; Server running at http://localhost:3000
 <br/>
 &#9658;
 &#767;
