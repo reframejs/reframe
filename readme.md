@@ -1,12 +1,13 @@
-Reframe is a library to render React applications on the server, and/or in the browser, and/or statically. (I.e. easily create static and/or universal React apps.)
+Reframe is a library to render React pages on the server, and/or in the browser, and/or statically.
+ Easily create static and/or universal React apps.
 
 
-Reframe allows you to define pages like in the following.
+Reframe allows you to define pages like this;
 ~~~js
 
 ~~~
 
-and running the CLI command `reframe` will spin up a (Node.js/hapi) server.
+Running the CLI command `reframe` will spin up a (Node.js/hapi) server.
 
 ~~~shell
 $ reframe
@@ -31,7 +32,7 @@ The source code of `http://localhost:3000/hello` will then be;
 With Reframe you can create different types of pages;
 
  - **HTML-static page**. The page's HTML is static and is rendered to HTML when building the frontend. The (on build-time rendered) HTML never changes.
- - **HTML-dynamic page**. THe page's HTML is (re-)rendered upon each HTTP request. The (on request-time rendered) HTML varies from request to request.
+ - **HTML-dynamic page**. The page's HTML is (re-)rendered upon each HTTP request. The (on request-time rendered) HTML varies from request to request.
  - **DOM-static page**. The page's DOM is not manipulated and React is only used to render HTML.
  - **DOM-dynamic page**. The page has React components that change in the browser. (I.e. `ReactDOM.hydrate()` is used.)
 
