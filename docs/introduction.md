@@ -1,16 +1,116 @@
+<!---
+
+
+
+
+
+
+    WARNING, READ THIS.
+    This is a computed file. Do not edit.
+    Edit `/docs/introduction.template.md` instead.
+
+
+
+
+
+
+
+
+
+
+
+
+    WARNING, READ THIS.
+    This is a computed file. Do not edit.
+    Edit `/docs/introduction.template.md` instead.
+
+
+
+
+
+
+
+
+
+
+
+
+    WARNING, READ THIS.
+    This is a computed file. Do not edit.
+    Edit `/docs/introduction.template.md` instead.
+
+
+
+
+
+
+
+
+
+
+
+
+    WARNING, READ THIS.
+    This is a computed file. Do not edit.
+    Edit `/docs/introduction.template.md` instead.
+
+
+
+
+
+
+
+
+
+
+
+
+    WARNING, READ THIS.
+    This is a computed file. Do not edit.
+    Edit `/docs/introduction.template.md` instead.
+
+
+
+
+
+
+-->
+[<p align="center"><img src='https://github.com/brillout-test/reprop-test/blob/master/docs/logo/logo-title.svg' width=400 style=    "max-width:100%;" alt="Reprop"/></p>](https://github.com/brillout/reprop)
+<br/>
+
+[Introduction](/../../)
+
 Reframe is a library to render React pages on the server, and/or in the browser, and/or statically.
  Easily create static and/or universal React apps.
 
 
 Reframe allows you to define pages like this;
-~~~js
 
+~~~js
+// /example/pages/HelloPage.html.js
+
+const React = require('react');
+
+const HelloComponent = () => <div>Hello World</div>;
+
+
+const HelloPage = {
+    title: 'Hello',
+    route: '/hello',
+    view: HelloComponent,
+    htmlIsStatic: true,
+};
+
+module.exports = HelloPage;
 ~~~
 
 Running the CLI command `reframe` will spin up a (Node.js/hapi) server.
 
 ~~~shell
 $ reframe
+✔ Page directory found at /home/romu/code/@reframe/example/pages
+&#2713; Frontend built at /home/romu/code/@reframe/example/dist/
+&#2713; Server running at http://localhost:3000
 ~~~
 
 The source code of `http://localhost:3000/hello` will then be;
@@ -48,3 +148,81 @@ Reframe **doesn't** take care of;
 
  - State mangement. Use Redux, MobX, or Reprop instead.
  - Database. It's up to you to create, populate, and retrieve database(s). (You can use Reframe as a hapi plugin so that you can create the hapi server yourself to add database API endpoints.)
+
+<!---
+
+
+
+
+
+
+    WARNING, READ THIS.
+    This is a computed file. Do not edit.
+    Edit `/docs/introduction.template.md` instead.
+
+
+
+
+
+
+
+
+
+
+
+
+    WARNING, READ THIS.
+    This is a computed file. Do not edit.
+    Edit `/docs/introduction.template.md` instead.
+
+
+
+
+
+
+
+
+
+
+
+
+    WARNING, READ THIS.
+    This is a computed file. Do not edit.
+    Edit `/docs/introduction.template.md` instead.
+
+
+
+
+
+
+
+
+
+
+
+
+    WARNING, READ THIS.
+    This is a computed file. Do not edit.
+    Edit `/docs/introduction.template.md` instead.
+
+
+
+
+
+
+
+
+
+
+
+
+    WARNING, READ THIS.
+    This is a computed file. Do not edit.
+    Edit `/docs/introduction.template.md` instead.
+
+
+
+
+
+
+-->

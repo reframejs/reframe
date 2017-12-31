@@ -1,5 +1,6 @@
 {
   "name": "example",
+  "private": true,
   "version": "0.1.0",
   "dependencies": {
     "chalk": "^2.3.0",

@@ -1,0 +1,7 @@
+{
+  "name": "docs",
+  "private": true,
+  "dependencies": {
+    "@brillout/mdocs": "^0.1.1"
+  }
+}

@@ -3,6 +3,7 @@
     "workspaces": [
         "core",
         "cli",
+        "docs",
         "example",
         "server"
     ]
