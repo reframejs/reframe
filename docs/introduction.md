@@ -135,9 +135,9 @@ With Reframe you can create pages with following characteristics;
  - **HTML-dynamic page**,
    where the page's HTML is (re-)rendered upon each HTTP request. The (on request-time rendered) HTML varies from request to request.
  - **DOM-static page**,
-   where there the page's DOM is not manipulated and React is only used to render HTML.
+   where the page's DOM is not manipulated and React is only used to render HTML.
  - **DOM-dynamic page**,
-   where the page has React components that change in the browser. (I.e. `ReactDOM.hydrate()` is used.)
+   where the page has React components that dynamically change in the browser. (I.e. `ReactDOM.hydrate()` is used.)
 
 For example, you can create universal apps (i.e. apps that are rendered on both the server and the browser), static apps (i.e. apps where all pages are HTML-static), and a combination of both.
 
@@ -145,7 +145,7 @@ Reframe takes care of;
 
  - **Routing**. I.e. the mapping of URLs to a root React component.
  - **Server**. Reframe sets up a Node.js/hapi server to render your react pages to HTML. (You can also use Reframe with your own server.)
- - **Bundling**. Reframe builds your frontend assets for you. (We use webpack. You can use a fully custom webpack configuration.)
+ - **Build**. Reframe builds and bundles your frontend assets for you. (Reframe uses webpack. You can use a fully custom webpack configuration.)
 
 Reframe **doesn't** take care of;
 
