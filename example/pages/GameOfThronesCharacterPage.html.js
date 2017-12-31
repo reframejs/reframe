@@ -8,7 +8,9 @@ const GameOfThronesCharacterPage = {
         const character = await gameOfThronesStore.getCharacterInfo({id});
         return {character};
     },
-    entry: './GameOfThrones.entry.js',
+    scripts: [
+        {diskPath: './GameOfThrones.entry.js'},
+    ],
     ...GameOfThronesMixin,
 };
 

@@ -7,7 +7,9 @@ const CounterPage = {
     getInitialProps: async () => {
         return {startDate: new Date()};
     },
-    entry: './CounterPage.entry.js',
+    scripts: [
+        {diskPath: './CounterPage.entry.js'},
+    ],
 };
 
 module.exports = CounterPage;

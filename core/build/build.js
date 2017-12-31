@@ -166,40 +166,53 @@ async function writeHtmlStaticPages({pages, htmlBuilder}) {
 
 function get_page_infos({args_browser, args_server}) {
     const page_infos = load_page_infos({args_server});
-    add_browser_entries({page_infos, args_browser});
+    add_browser_files({page_infos, args_browser});
     return page_infos;
 }
 
-function add_browser_entries({page_infos, args_browser}) {
+function add_browser_files({page_infos, args_browser}) {
     page_infos.forEach(page_info => {
-        const {entry} = page_info;
-        if( entry ) {
+        (page_info.scripts||[])
+        .forEach((script_spec, i) => {
+            if( ! (script_spec||{}).diskPath ) {
+                return;
+            }
             assert_usage(
-                entry.constructor === String && is_script(entry, '.entry'),
-                entry
+                script_spec.diskPath.constructor === String && is_script(script_spec.diskPath, '.entry'),
+                script_spec.diskPath
             );
-            const entry_path = path_module.join(path_module.dirname(page_info.source_path), entry);
-            let entry_point;
-            Object.values(args_browser.output.entry_points)
-            .forEach(ep => {
-                const source_path = get_source_path(ep, path => is_script(path, '.entry'));
-                assert_internal(is_script(source_path, '.entry'), args_browser.output, ep, source_path);
-                if( source_path === entry_path ) {
-                    entry_point = ep;
-                }
-            });
-            assert_internal(entry_point, page_info, args_browser.output, entry_path, entry);
-            assert_internal(entry_point.scripts.length>=1, entry_point);
+            const disk_path__relative = script_spec.diskPath;
+            assert_internal(page_info.source_path);
+            const disk_path = path_module.join(path_module.dirname(page_info.source_path), disk_path__relative);
+            const {output} = args_browser;
+            const {scripts, styles} = find_dist_files({disk_path, output});
             page_info.scripts = [
-                ...(page_infos.scripts||[]),
-                ...entry_point.scripts,
+                ...page_info.scripts.slice(0, i),
+                ...scripts,
+                ...page_info.scripts.slice(i+1),
             ];
             page_info.styles = [
-                ...(page_infos.styles||[]),
-                ...entry_point.styles,
+                ...(page_info.styles||[]),
+                ...styles,
             ];
+        });
+    });
+}
+
+function find_dist_files({disk_path, output}) {
+    let entry_point;
+    Object.values(output.entry_points)
+    .forEach(ep => {
+        const source_path = get_source_path(ep, path => is_script(path, '.entry'));
+        assert_internal(is_script(source_path, '.entry'), output, ep, source_path);
+        if( source_path === disk_path ) {
+            entry_point = ep;
         }
     });
+    assert_internal(entry_point, output, disk_path);
+    assert_internal(entry_point.scripts.length>=1, entry_point);
+    const {scripts, styles} = entry_point;
+    return {scripts, styles};
 }
 
 function load_page_infos({args_server}) {
