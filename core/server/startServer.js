@@ -12,9 +12,6 @@ async function startServer({pagesDir, ...args}) {
 
     const server = await createServer({pagesDir, ...args});
 
-    // todo add api example route
-    //server.route
-
     await server.start();
 
     console.log(green_checkmark()+` Server running at ${server.info.uri}`);

@@ -9,6 +9,9 @@ const path = require('path');
         log: true,
     });
 
+    // todo add api example route
+    //server.route
+
     await server.start();
 
     console.log(`Server running at ${server.info.uri}`);

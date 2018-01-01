@@ -250,67 +250,6 @@ function get_source_path(entry_point, filter) {
     return source_path;
 }
 
-/*
-async function get_pages_name() {
-    const pages_dir_path = path_module.join(__dirname, '../../cli/pages');
-    let pages_name = await dir.promiseFiles(pages_dir_path);
-    pages_name = pages_name.map(path => path_module.basename(path))
-    pages_name = (
-        pages_name
-        .map(filename =>
-            filename.endsWith('.js') ?
-                filename.slice(0, -('.js'.length)) :
-                null
-        )
-        .filter(Boolean)
-    );
-    pages_name = pages_name.filter(page_name => /^[a-zA-Z0-9]/.test(page_name) && ! page_name.endsWith('Mixin'));
-    return pages_name;
-}
-*/
-
-/*
-function getPages({args_browser, args_server, pages_name}) {
-    const {output: output_server} = args_server;
-    assert_internal(output_server);
-    assert_internal(output_server.entry_points.pages, arguments)
-    const {output: output_browser} = args_browser;
-    assert_internal(output_browser);
-    assert_internal(output_browser.entry_points.main, arguments)
-
-    assert_internal(output_server.entry_points.pages.all_assets.length===1, output_server);
-
-    const pagesEntry = output_server.entry_points.pages.all_assets[0];
-    const {filepath: pagesPath} = pagesEntry;
-    assert_internal(pagesPath, output_server);
-    const pagesPathOriginal = require.resolve('../pages');
-
-    assert_internal(pagesEntry.source_entry_points.includes(pagesPathOriginal), output_server);
-    global._babelPolyfill = false;
-    let pages = require(pagesPath)(pages_name);
-  //let pages = require('../pages');
-    assert_internal(pages && pages.constructor===Array, output_server, pagesPath, pagesPathOriginal, pages);
-
-    const scripts = (
-        [
-         // {code: 'window.__INTERNAL_DONT_USE__PAGES = '+JSON.stringify(pages_name)+';'},
-         // ...output_browser.entry_points['main'].scripts,
-        ]
-    );
-
-    const styles = output_browser.entry_points['main'].styles;
-    pages = pages.map(page =>
-        page.isMixin ? page : ({
-            scripts: page.renderToDom===null ? [] : scripts,
-            styles,
-            ...page
-        })
-    );
-
-    return pages;
-}
-*/
-
 function isProduction() {
     return process.env['NODE_ENV'] === 'production';
 }
