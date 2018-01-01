@@ -177,15 +177,26 @@ function add_browser_files({page_infos, args_browser}) {
             if( ! (script_spec||{}).diskPath ) {
                 return;
             }
-            assert_usage(
-                script_spec.diskPath.constructor === String && is_script(script_spec.diskPath, '.entry'),
-                script_spec.diskPath
-            );
             const disk_path__relative = script_spec.diskPath;
             assert_internal(page_info.source_path);
             const disk_path = path_module.join(path_module.dirname(page_info.source_path), disk_path__relative);
             const {output} = args_browser;
-            const {scripts, styles} = find_dist_files({disk_path, output});
+            const dist_files = find_dist_files({disk_path, output});
+            assert_usage(
+                disk_path!==null,
+                page_info,
+                "Couldn't find build information for `"+disk_path+"`.",
+                "Is `"+disk_path__relative+"` an entry point in the browser webpack configuration?",
+            );
+            /*
+            assert_usage(
+                script_spec.diskPath.constructor === String && is_script(script_spec.diskPath, '.entry'),
+                script_spec.diskPath
+            );
+            */
+            const {scripts, styles} = dist_files;
+            assert_internal(scripts.constructor===Array);
+            assert_internal(styles.constructor===Array);
             page_info.scripts = [
                 ...page_info.scripts.slice(0, i),
                 ...scripts,
@@ -209,6 +220,9 @@ function find_dist_files({disk_path, output}) {
             entry_point = ep;
         }
     });
+    if( entry_point===undefined ) {
+        return null;
+    }
     assert_internal(entry_point, output, disk_path);
     assert_internal(entry_point.scripts.length>=1, entry_point);
     const {scripts, styles} = entry_point;
