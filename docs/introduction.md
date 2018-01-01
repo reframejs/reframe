@@ -138,16 +138,12 @@ With Reframe you can create pages that are;
    <br/>
    where the page is rendered to HTML when building the frontend.
    <br/>
-   The HTML doesn't change.
-   <br/>
-   The HTML is rendered on "build-time".
+   (The HTML doesn't change. The HTML is rendered on "build-time".)
  - **HTML-dynamic**,
    <br/>
    where the page's HTML is rendered upon each HTTP request.
    <br/>
-   The HTML varies from request to request.
-   <br/>
-   The HTML is rendered on "request-time".
+   (The HTML varies from request to request. The HTML is rendered on "request-time".)
  - **DOM-static**,
    <br/>
    where the page's DOM is not manipulated and React is only used to render HTML.
