@@ -136,13 +136,17 @@ With Reframe you can create pages that are;
 
  - **HTML-static**,
    <br/>
-   where the page has a HTML that is static and is rendered to HTML when building the frontend.
-   (The HTML never changes.
+   where the page is rendered to HTML when building the frontend.
+   <br/>
+   The HTML doesn't change.
+   <br/>
    The HTML is rendered on "build-time".
  - **HTML-dynamic**,
    <br/>
    where the page's HTML is rendered upon each HTTP request.
+   <br/>
    The HTML varies from request to request.
+   <br/>
    The HTML is rendered on "request-time".
  - **DOM-static**,
    <br/>
@@ -199,8 +203,8 @@ Reframe is adaptable;
    That way you can define your own bootup logic and process management.
  - **Customization all the way down to Repage.**
    <br/>
-   Behind the curtain, Reframe is based on Repage which is a agnostic low-level page management library.
-   You can rewrite parts of Reframe and eventually get rid of Reframe altogether and depend on Repage only.
+   Behind the curtain, Reframe is built on top of Repage, an agnostic low-level page management library.
+   You can rewrite parts of Reframe to eventually get rid of Reframe altogether and depend on Repage only.
    You could for example use another build tool than webpack, use another view library than React, etc.
 
 <!---
