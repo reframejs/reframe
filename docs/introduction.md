@@ -82,7 +82,7 @@
 
 Reframe is a library to render React components on the server, and/or in the browser, and/or statically.
 With Reframe you can more easily create static and/or universal React apps.
-Reframe has been designed with flexibility in mind.
+Reframe has been designed with adaptability in mind.
 
 
 Reframe allows you to define pages like this;
@@ -181,23 +181,23 @@ Reframe **doesn't** take care of;
    It's up to you to create, populate, and retrieve databases.
 
 
-Reframe is flexible;
+Reframe is adaptable;
 
- - Custom CLI.
-   <br/>
-   The `reframe` CLI is just a thin wrapper over `require('@reframe/core')`
-   and you can use the NPM package directly instead of using the CLI.
-   That way you can define your own bootup logic and process management.
- - Custom server.
+ - **Custom server.**
    <br/>
    You can use Reframe as a hapi plugin so that you can create the hapi server yourself to, for example, add database API endpoints.
    <br/>
    You can as well use any other server framework.
- - Custom webpack configuration.
+ - **Custom webpack configuration.**
    <br/>
    Reframe doesn't assume anything on the used webpack configuration.
    That way you use any webpack configuration you want.
- - Customization all the way down to Repage.
+ - **Custom CLI.**
+   <br/>
+   The `reframe` CLI is just a thin wrapper over `require('@reframe/core')`
+   and you can use the NPM package directly instead of using the CLI.
+   That way you can define your own bootup logic and process management.
+ - **Customization all the way down to Repage.**
    <br/>
    Behind the curtain, Reframe is based on Repage which is a agnostic low-level page management library.
    You can rewrite parts of Reframe and eventually get rid of Reframe altogether and depend on Repage only.
