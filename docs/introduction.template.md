@@ -7,7 +7,8 @@
 !MENU
 
 Reframe is a library to render React components on the server, and/or in the browser, and/or statically.
-With Reframe you can easily create static and/or universal React apps.
+With Reframe you can more easily create static and/or universal React apps.
+Reframe has been designed with flexibility in mind.
 
 
 Reframe allows you to define pages like this;
@@ -16,7 +17,7 @@ Reframe allows you to define pages like this;
 !INLINE ../example/pages/HelloPage.html.js
 ~~~
 
-Running the CLI command `reframe` will build the frontend (webpack) and spin up a server (Node.js/hapi).
+You can then serve the defined pages by running `reframe`;
 
 ~~~shell
 $ reframe
@@ -25,7 +26,9 @@ $ reframe
 ✔ Server running at http://localhost:3000
 ~~~
 
-The source code of `http://localhost:3000/hello` will then be;
+The CLI command `reframe` searches for the `pages` directory, builds the frontend (webpack), and spins up a server (Node.js/hapi).
+
+Once the frontend is built and the server up the source code of `http://localhost:3000/hello` is;
 
 ~~~html
 <!DOCTYPE html>
@@ -41,29 +44,32 @@ The source code of `http://localhost:3000/hello` will then be;
 </html>
 ~~~
 
+
 With Reframe you can create pages that are;
 
  - **HTML-static**,
    <br/>
-   where the page's HTML is static and is rendered to HTML when building the frontend.
-   The HTML never changes.
+   where the page has a HTML that is static and is rendered to HTML when building the frontend.
+   (The HTML never changes.
    The HTML is rendered on "build-time".
  - **HTML-dynamic**,
    <br/>
-   where the page's HTML is (re-)rendered upon each HTTP request.
+   where the page's HTML is rendered upon each HTTP request.
    The HTML varies from request to request.
    The HTML is rendered on "request-time".
  - **DOM-static**,
    <br/>
    where the page's DOM is not manipulated and React is only used to render HTML.
-   Reframe only uses `require('react-dom/server')`, `require('react-dom')` is not used and React doesn't manipulate the DOM.
-   .
+   <br/>
+   (Reframe only uses `require('react-dom/server')`, `require('react-dom')` is not used and React doesn't manipulate the DOM.)
  - **DOM-dynamic**,
    <br/>
    where the page has React components that dynamically change in the browser.
-   Reframe uses `require('react-dom')` and React manipulates the DOM.
+   <br/>
+   (Reframe uses `require('react-dom')` and React manipulates the DOM.)
 
 For example, you can create universal apps (i.e. apps that are rendered on both the server and the browser), static apps (i.e. apps where all pages are HTML-static), or a combination of both.
+
 
 Reframe takes care of;
 
@@ -77,6 +83,7 @@ Reframe takes care of;
    <br/>
    Reframe builds and bundles your frontend assets for you. (Reframe uses webpack. You can use a fully custom webpack configuration.)
 
+
 Reframe **doesn't** take care of;
 
  - State management.
@@ -85,5 +92,26 @@ Reframe **doesn't** take care of;
  - Database.
    <br/>
    It's up to you to create, populate, and retrieve databases.
+
+
+Reframe is flexible;
+
+ - Custom CLI.
    <br/>
-   You can use Reframe as a hapi plugin so that you can create the hapi server yourself to add database API endpoints.
+   The `reframe` CLI is just a thin wrapper over `require('@reframe/core')`
+   and you can use the NPM package directly instead of using the CLI.
+   That way you can define your own bootup logic and process management.
+ - Custom server.
+   <br/>
+   You can use Reframe as a hapi plugin so that you can create the hapi server yourself to, for example, add database API endpoints.
+   <br/>
+   You can as well use any other server framework.
+ - Custom webpack configuration.
+   <br/>
+   Reframe doesn't assume anything on the used webpack configuration.
+   That way you use any webpack configuration you want.
+ - Customization all the way down to Repage.
+   <br/>
+   Behind the curtain, Reframe is based on Repage which is a agnostic low-level page management library.
+   You can rewrite parts of Reframe and eventually get rid of Reframe altogether and depend on Repage only.
+   You could for example use another build tool than webpack, use another view library than React, etc.
