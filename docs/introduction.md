@@ -80,8 +80,8 @@
 
 [Introduction](/../../)
 
-Reframe is a library to render React pages on the server, and/or in the browser, and/or statically.
- Easily create static and/or universal React apps.
+Reframe is a library to render React components on the server, and/or in the browser, and/or statically.
+With Reframe you can easily create static and/or universal React apps.
 
 
 Reframe allows you to define pages like this;
@@ -103,12 +103,12 @@ const HelloPage = {
 module.exports = HelloPage;
 ~~~
 
-Running the CLI command `reframe` will spin up a server (Node.js/hapi).
+Running the CLI command `reframe` will build the frontend (webpack) and spin up a server (Node.js/hapi).
 
 ~~~shell
 $ reframe
-✔ Page directory found at /home/romu/code/@reframe/example/pages
-✔ Frontend built at /home/romu/code/@reframe/example/dist/
+✔ Page directory found at /home/brillout/code/@reframe/example/pages
+✔ Frontend built at /home/brillout/code/@reframe/example/dist/
 ✔ Server running at http://localhost:3000
 ~~~
 
@@ -128,33 +128,52 @@ The source code of `http://localhost:3000/hello` will then be;
 </html>
 ~~~
 
-With Reframe you can create pages with following characteristics;
+With Reframe you can create pages that are;
 
- - **HTML-static page**,
-   where the page's HTML is static and is rendered to HTML when building the frontend. The (on build-time rendered) HTML never changes.
- - **HTML-dynamic page**,
-   where the page's HTML is (re-)rendered upon each HTTP request. The (on request-time rendered) HTML varies from request to request.
- - **DOM-static page**,
+ - **HTML-static**,
+   <br/>
+   where the page's HTML is static and is rendered to HTML when building the frontend.
+   The HTML never changes.
+   The HTML is rendered on "build-time".
+ - **HTML-dynamic**,
+   <br/>
+   where the page's HTML is (re-)rendered upon each HTTP request.
+   The HTML varies from request to request.
+   The HTML is rendered on "request-time".
+ - **DOM-static**,
+   <br/>
    where the page's DOM is not manipulated and React is only used to render HTML.
- - **DOM-dynamic page**,
-   where the page has React components that dynamically change in the browser. (I.e. `ReactDOM.hydrate()` is used.)
+   Reframe only uses `require('react-dom/server')`, `require('react-dom')` is not used and React doesn't manipulate the DOM.
+   .
+ - **DOM-dynamic**,
+   <br/>
+   where the page has React components that dynamically change in the browser.
+   Reframe uses `require('react-dom')` and React manipulates the DOM.
 
-For example, you can create universal apps (i.e. apps that are rendered on both the server and the browser), static apps (i.e. apps where all pages are HTML-static), and a combination of both.
+For example, you can create universal apps (i.e. apps that are rendered on both the server and the browser), static apps (i.e. apps where all pages are HTML-static), or a combination of both.
 
 Reframe takes care of;
 
- - **Routing**. I.e. the mapping of URLs to a root React component.
- - **Server**. Reframe sets up a Node.js/hapi server to render your react pages to HTML. (You can also use Reframe with your own server.)
- - **Build**. Reframe builds and bundles your frontend assets for you. (Reframe uses webpack. You can use a fully custom webpack configuration.)
+ - **Routing**.
+   <br/>
+   I.e. the mapping of a URL to a React component.
+ - **Server**.
+   <br/>
+   Reframe sets up a Node.js/hapi server to render your react pages to HTML. (You can also use Reframe with your own server.)
+ - **Build**.
+   <br/>
+   Reframe builds and bundles your frontend assets for you. (Reframe uses webpack. You can use a fully custom webpack configuration.)
 
 Reframe **doesn't** take care of;
 
  - State management.
    <br/>
-   Manage the state of your application yourself or use Redux / MobX / Reprop.
+   Manage the state of your app yourself or use Redux / MobX / Reprop.
  - Database.
    <br/>
-   It's up to you to create, populate, and retrieve database(s). (You can use Reframe as a hapi plugin so that you can create the hapi server yourself to add database API endpoints.)
+   It's up to you to create, populate, and retrieve databases.
+   <br/>
+   You can use Reframe as a hapi plugin so that you can create the hapi server yourself to add database API endpoints.
 
 <!---
 
