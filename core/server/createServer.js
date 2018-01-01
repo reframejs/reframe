@@ -13,9 +13,6 @@ async function createServer({
     log=false,
     port = 3000,
     debug = {
-     // log: '*',
-     // request: '*',
-     // request: ['error'],
         request: ['internal'],
     },
     pagesDir,
@@ -33,21 +30,21 @@ async function createServer({
 
     let pages;
     let HapiServeBrowserAssets;
-
     await build({
         pagesDir,
         log,
         onBuild: async args => {
-            if( HapiServeBrowserAssets ) {
-                // make sure that the directory we are serving is still the dist directory
-                assert_internal(HapiServeBrowserAssets.name===args.HapiServeBrowserAssets.name);
-            } else {
-                HapiServeBrowserAssets = args.HapiServeBrowserAssets;
-            }
+            assert_internal(
+                !HapiServeBrowserAssets || HapiServeBrowserAssets.name===args.HapiServeBrowserAssets.name,
+                "We expect the served `dist/` directory to always be at the same path"
+            );
+            HapiServeBrowserAssets = HapiServeBrowserAssets || args.HapiServeBrowserAssets;
             pages = args.pages;
         },
         context,
     });
+    assert_internal(HapiServeBrowserAssets);
+    assert_internal(pages);
 
     await server.register([
         {plugin: HapiServeBrowserAssets},
