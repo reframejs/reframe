@@ -71,8 +71,10 @@ const HapiServerRendering = {
             if( getPages ) {
                 const pages__new = getPages();
                 if( pages__new === pages ) {
+                    console.log(0);
                     return;
                 }
+                console.log(1);
                 assert_usage(pages__new.constructor===Array, pages__new);
                 pages = pages__new;
                 repage = create_repage_object(pages);

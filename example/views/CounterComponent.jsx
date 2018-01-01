@@ -26,5 +26,4 @@ class CounterComponent extends React.Component {
     }
 }
 
-
 export {CounterComponent};

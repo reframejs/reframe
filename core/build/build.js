@@ -234,7 +234,14 @@ function load_page_infos({args_server}) {
     const page_infos = (
         Object.values(args_server.output.entry_points)
         .map(entry_point => {
-            const page_info = require(get_nodejs_path(entry_point));
+            const page_module_exports = require(get_nodejs_path(entry_point));
+            const page_info = (
+                Object.keys(page_module_exports).length !== 1 ? (
+                    page_module_exports
+                ) : (
+                    Object.values(page_module_exports)[0]
+                )
+            );
             page_info.source_path = get_source_path(entry_point);
             return page_info;
         })

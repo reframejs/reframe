@@ -9,14 +9,22 @@ const assert_internal = assert;
 module.exports = {createServer};
 
 async function createServer({
-    server: server__created_by_user,
+    // build opts
+    pagesDir,
     log=false,
+    webpackBrowserConfig,
+    webpackServerConfig,
+    getWebpackBrowserConfig,
+    getWebpackServerConfig,
+    doNotAutoReload,
+    context = get_context(),
+
+    // server opts
+    server: server__created_by_user,
     port = 3000,
     debug = {
         request: ['internal'],
     },
-    pagesDir,
-    context = get_context(),
     ...server_opts
 }) {
     const server = (
@@ -33,6 +41,11 @@ async function createServer({
     await build({
         pagesDir,
         log,
+        webpackBrowserConfig,
+        webpackServerConfig,
+        getWebpackBrowserConfig,
+        getWebpackServerConfig,
+        doNotAutoReload,
         onBuild: async args => {
             assert_internal(
                 !HapiServeBrowserAssets || HapiServeBrowserAssets.name===args.HapiServeBrowserAssets.name,
