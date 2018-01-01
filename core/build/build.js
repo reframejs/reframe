@@ -183,7 +183,7 @@ function add_browser_files({page_infos, args_browser}) {
             const {output} = args_browser;
             const dist_files = find_dist_files({disk_path, output});
             assert_usage(
-                disk_path!==null,
+                dist_files!==null,
                 page_info,
                 "Couldn't find build information for `"+disk_path+"`.",
                 "Is `"+disk_path__relative+"` an entry point in the browser webpack configuration?",
