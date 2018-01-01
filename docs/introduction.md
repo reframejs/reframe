@@ -95,10 +95,11 @@ const React = require('react');
 const HelloComponent = () => <div>Hello World</div>;
 
 const HelloPage = {
-    title: 'Hello',
-    route: '/hello',
+    title: 'Hello there', // Page's title
+    description: 'A Hello World page created with Reframe.',
+    route: '/hello', // Page's URL
     view: HelloComponent,
-    htmlIsStatic: true,
+    htmlIsStatic: true, // Let Reframe know that HelloPage's HTML is static.
 };
 
 module.exports = HelloPage;
@@ -121,7 +122,8 @@ Once the frontend is built and the server up the source code of `http://localhos
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Hello</title>
+        <title>Hello there</title>
+        <meta name="description" content="A Hello World page created with Reframe.">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <meta charset="utf-8">
     </head>

@@ -34,7 +34,8 @@ Once the frontend is built and the server up the source code of `http://localhos
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Hello</title>
+        <title>Hello there</title>
+        <meta name="description" content="A Hello World page created with Reframe.">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <meta charset="utf-8">
     </head>
