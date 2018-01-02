@@ -3,55 +3,43 @@ process.on('unhandledRejection', err => {throw err});
 const Hapi = require('hapi');
 const {getReframeHapiPlugins} = require('@reframe/server');
 
-const js_rule = {
-    test: /.js$/,
-    use: {
-        loader: 'babel-loader',
-        options: {
-            presets: [
-                'babel-preset-react',
-                'babel-preset-env',
-            ].map(require.resolve),
-        }
-    },
-    exclude: [/node_modules/],
-};
-
-const webpackServerConfig = {
-    entry: {
-        'CounterPage': [
-            require.resolve('../pages/CounterPage.html.js'),
-        ],
-    },
-    output: {
-        publicPath: '/',
-        path: __dirname+'/dist/server',
-        libraryTarget: 'commonjs2'
-    },
-    target: 'node',
-    module: {
-        rules: [
-            js_rule,
-        ],
-    },
-};
-
 const webpackBrowserConfig = {
-    entry: {
-        'CounterPage.entry': [
-            require.resolve('babel-polyfill'),
-            require.resolve('../pages/CounterPage.entry.js'),
-        ],
-    },
+    entry: [
+        'babel-polyfill',
+        '../pages/CounterPage.entry.js',
+    ].map(require.resolve),
     output: {
         publicPath: '/',
         path: __dirname+'/dist/browser',
     },
     module: {
         rules: [
-            js_rule,
+            {
+                test: /.js$/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: [
+                            'babel-preset-react',
+                            'babel-preset-env',
+                        ].map(require.resolve),
+                    }
+                },
+                exclude: [/node_modules/],
+            }
         ],
     },
+};
+
+const webpackServerConfig = {
+    entry: require.resolve('../pages/CounterPage.html.js'),
+    target: 'node',
+    output: {
+        publicPath: '/',
+        path: __dirname+'/dist/server',
+        libraryTarget: 'commonjs2'
+    },
+    module: webpackBrowserConfig.module,
 };
 
 (async () => {
