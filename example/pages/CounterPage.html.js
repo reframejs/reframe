@@ -11,7 +11,8 @@ class CounterComponent extends React.Component {
         }, 1000);
     }
     render() {
-        return <div>Counter: {this.state.counter.toString()}</div>;
+        const text = 'Counter: '+this.state.counter;
+        return <div>{text}</div>;
     }
 };
 
