@@ -3,8 +3,8 @@
 
 
 "@brillout/mdocs@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@brillout/mdocs/-/mdocs-0.1.1.tgz#d16e2450f4d4f739c6457cff7c29310cdc8ef3d5"
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@brillout/mdocs/-/mdocs-0.1.2.tgz#a9e40a83a10047ee77b9336b9fd666298a4936e3"
 
 accept@3.x.x:
   version "3.0.2"
@@ -623,8 +623,8 @@ brace-expansion@^1.1.7:
     concat-map "0.0.1"
 
 browserslist@^2.1.2:
-  version "2.10.1"
-  resolved "https://registry.yarnpkg.com/browserslist/-/browserslist-2.10.1.tgz#f9dc692b79004a78ec9ba0d012c54de44cc6d7e4"
+  version "2.10.2"
+  resolved "https://registry.yarnpkg.com/browserslist/-/browserslist-2.10.2.tgz#0838eec4b3db2d860cee13bf6c0691e7e8133822"
   dependencies:
     caniuse-lite "^1.0.30000784"
     electron-to-chromium "^1.3.30"
@@ -805,8 +805,8 @@ globals@^9.18.0:
   resolved "https://registry.yarnpkg.com/globals/-/globals-9.18.0.tgz#aa3896b3e69b487f17e31ed2143d69a8e30c2d8a"
 
 hapi@^17.1.0:
-  version "17.1.1"
-  resolved "https://registry.yarnpkg.com/hapi/-/hapi-17.1.1.tgz#6f518ace1ab64d73cf2cca5fb2b719813d3c68b7"
+  version "17.2.0"
+  resolved "https://registry.yarnpkg.com/hapi/-/hapi-17.2.0.tgz#e5d74b65235b443225e05d7b7510cdb80d4887e7"
   dependencies:
     accept "3.x.x"
     ammo "3.x.x"
@@ -837,8 +837,8 @@ has-flag@^2.0.0:
   resolved "https://registry.yarnpkg.com/has-flag/-/has-flag-2.0.0.tgz#e8207af1cc7b30d446cc70b734b5e8be18f88d51"
 
 heavy@6.x.x:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/heavy/-/heavy-6.0.0.tgz#5bfd77a67f8edc7ccd8a74f2a6af3605606a442a"
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/heavy/-/heavy-6.1.0.tgz#1bbfa43dc61dd4b543ede3ff87db8306b7967274"
   dependencies:
     boom "7.x.x"
     hoek "5.x.x"
@@ -952,8 +952,8 @@ make-dir@^1.0.0:
     pify "^3.0.0"
 
 mime-db@1.x.x:
-  version "1.31.0"
-  resolved "https://registry.yarnpkg.com/mime-db/-/mime-db-1.31.0.tgz#a49cd8f3ebf3ed1a482b60561d9105ad40ca74cb"
+  version "1.32.0"
+  resolved "https://registry.yarnpkg.com/mime-db/-/mime-db-1.32.0.tgz#485b3848b01a3cda5f968b4882c0771e58e09414"
 
 mimos@4.x.x:
   version "4.0.0"
@@ -1092,8 +1092,8 @@ punycode@2.x.x:
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.0.tgz#5f863edc89b96db09074bad7947bf09056ca4e7d"
 
 react@^16.1.1:
-  version "16.1.1"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.1.1.tgz#d5c4ef795507e3012282dd51261ff9c0e824fe1f"
+  version "16.2.0"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.2.0.tgz#a31bd2dab89bff65d42134fa187f24d054c273ba"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"
@@ -1101,8 +1101,8 @@ react@^16.1.1:
     prop-types "^15.6.0"
 
 reassert@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/reassert/-/reassert-1.0.0.tgz#9f06743de92d84dc1edee61a24046deba5408703"
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/reassert/-/reassert-1.0.3.tgz#edd111a2ce8c96b44007ed1f4c51255e1e321d0b"
 
 regenerate@^1.2.1:
   version "1.3.3"
