@@ -9,8 +9,13 @@ const path = require('path');
         log: true,
     });
 
-    // todo add api example route
-    //server.route
+    server.route({
+        method: 'GET',
+        path:'/custom-route',
+        handler: function (request, h) {
+            return 'This is a custom route. This could for example be an API endpoint.'
+        }
+    });
 
     await server.start();
 

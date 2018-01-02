@@ -19,7 +19,7 @@ const CounterPage = {
     route: '/counter',
     title: 'Counter',
     view: CounterComponent,
- // htmlIsStatic: true,
+    htmlIsStatic: true,
     scripts: [
         {diskPath: './CounterPage.entry.js'},
     ],

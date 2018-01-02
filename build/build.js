@@ -24,7 +24,7 @@ async function build({
     webpackServerConfig,
     getWebpackBrowserConfig,
     getWebpackServerConfig,
-    onBuild,
+    onBuild: onBuild_user,
     doNotAutoReload=isProduction(),
     context = get_context(),
     ...opts
@@ -47,13 +47,12 @@ async function build({
         doNotGenerateIndexHtml: true,
         doNotAutoReload,
         ...opts,
-        onBuild: async args => {
-            if( ! onBuild ) {
-                return;
+        onBuild: async build_info__repage => {
+            const build_info__reframe = await onBuild(build_info__repage);
+            if( onBuild_user ) {
+                await onBuild_user(build_info__reframe);
             }
-            const args__processed = await process_args(args);
-            await onBuild(args__processed);
-            if( args__processed.isFirstBuild ) {
+            if( build_info__reframe.isFirstBuild ) {
                 resolve_promise();
             }
         },
@@ -117,10 +116,10 @@ function is_script(path, suffix) {
     );
 }
 
-async function process_args(args) {
+async function onBuild(build_info__repage) {
  // const pages_name = await get_pages_name();
 
-    const {compilationInfo, isFirstBuild} = args;
+    const {compilationInfo, isFirstBuild} = build_info__repage;
  // const [args_server, args_browser] = compilationInfo;
     const [args_browser, args_server] = compilationInfo;
     assert_internal(args_server);
@@ -128,6 +127,7 @@ async function process_args(args) {
  // log(args_server.output);
  // log(args_browser.output);
     const pages = await get_page_infos({args_browser, args_server});
+ // log(pages);
 
     const {htmlBuilder} = args_browser;
     assert_internal(htmlBuilder);
@@ -234,19 +234,26 @@ function load_page_infos({args_server}) {
     const page_infos = (
         Object.values(args_server.output.entry_points)
         .map(entry_point => {
-            const page_module_exports = require(get_nodejs_path(entry_point));
-            const page_info = (
-                Object.keys(page_module_exports).length !== 1 ? (
-                    page_module_exports
-                ) : (
-                    Object.values(page_module_exports)[0]
-                )
-            );
+            const modulePath = get_nodejs_path(entry_point);
+            const page_info = require__magic(modulePath);
             page_info.source_path = get_source_path(entry_point);
             return page_info;
         })
     );
     return page_infos;
+}
+
+function require__magic(modulePath) {
+    delete require.cache[modulePath];
+    const module_exports = require(modulePath);
+    const module = (
+        Object.keys(module_exports).length !== 1 ? (
+            module_exports
+        ) : (
+            Object.values(module_exports)[0]
+        )
+    );
+    return module;
 }
 
 function get_nodejs_path(entry_point) {
