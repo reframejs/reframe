@@ -3,6 +3,10 @@
   "private": true,
   "version": "0.1.0",
   "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
     "chalk": "^2.3.0",
     "cross-fetch": "^1.1.1",
     "fetch-ponyfill": "^4.1.0",

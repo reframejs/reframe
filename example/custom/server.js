@@ -1,6 +1,6 @@
 process.on('unhandledRejection', err => {throw err});
 
-const {createServer} = require('@reframe/core/server');
+const {createServer} = require('@reframe/server');
 const path = require('path');
 
 (async () => {

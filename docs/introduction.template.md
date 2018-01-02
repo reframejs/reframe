@@ -108,7 +108,7 @@ Reframe is adaptable;
    That way you use any webpack configuration you want.
  - **Custom CLI.**
    <br/>
-   The `reframe` CLI is just a thin wrapper over `require('@reframe/core')`
+   The `reframe` CLI is just a thin wrapper over `require('@reframe/server')`
    and you can use the NPM package directly instead of using the CLI.
    That way you can define your own bootup logic and process management.
  - **Customization all the way down to Repage.**

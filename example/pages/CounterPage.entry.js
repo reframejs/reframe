@@ -1,4 +1,4 @@
-import {hydratePage} from '@reframe/core/browser';
+import hydratePage from '@reframe/browser/hydratePage';
 import CounterPage from './CounterPage.html.js';
 
 console.log(3);

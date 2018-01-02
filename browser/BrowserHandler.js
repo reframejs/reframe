@@ -11,7 +11,7 @@ const RepagePageTransition = require('@repage/page-transition/browser');
 const RepagePageTransitionNprogress = require('@repage/page-transition-nprogress/browser');
 const RepagePageLoader = require('@repage/page-loader/browser');
 
-module.exports = {BrowserHandler, hydratePage};
+module.exports = BrowserHandler;
 
 function BrowserHandler({pages}={}) {
     const repage = new Repage();
@@ -35,17 +35,3 @@ function BrowserHandler({pages}={}) {
     };
 }
 
-async function hydratePage(page) {
-    const repage = new Repage();
-
-    repage.addPlugins([
-        RepageRouterCrossroads,
-        RepageRenderer,
-        RepageRendererReact,
-        RepageNavigatorHistory,
-    ]);
-
-  //repage.addPages([page]);
-
-    return await repage.hydratePage(page);
-}

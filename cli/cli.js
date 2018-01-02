@@ -3,7 +3,7 @@ const chalk = require('chalk');
 
 const Find = require('@brillout/find');
 
-const {startServer} = require('@reframe/core/server');
+const {startServer} = require('@reframe/server');
 
 const find = new Find({projectName: 'reframe'});
 const pagesDir = find.findProjectDir('pages');

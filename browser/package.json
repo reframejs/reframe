@@ -1,0 +1,7 @@
+{
+  "name": "@reframe/browser",
+  "version": "0.1.0",
+  "dependencies": {
+    "reassert": "^1.0.0"
+  }
+}

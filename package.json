@@ -1,7 +1,8 @@
 {
     "private": true,
     "workspaces": [
-        "core",
+        "browser",
+        "build",
         "cli",
         "docs",
         "example",
