@@ -47,6 +47,7 @@ const webpackServerConfig = {
 const webpackBrowserConfig = {
     entry: {
         'CounterPage.entry': [
+            require.resolve('babel-polyfill'),
             require.resolve('../pages/CounterPage.entry.js'),
         ],
     },
