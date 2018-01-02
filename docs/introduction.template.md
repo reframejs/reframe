@@ -5,6 +5,7 @@
 !MENU_ORDER 10
 !MENU_LINK /../../
 !MENU
+!OUTPUT ../readme.md
 
 Reframe is a library to render React views on the server, and/or in the browser, and/or statically.
 Easily create static and universal React apps.
