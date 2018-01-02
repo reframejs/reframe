@@ -2,6 +2,10 @@
 # yarn lockfile v1
 
 
+"@brillout/mdocs@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@brillout/mdocs/-/mdocs-0.1.1.tgz#d16e2450f4d4f739c6457cff7c29310cdc8ef3d5"
+
 accept@3.x.x:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/accept/-/accept-3.0.2.tgz#83e41cec7e1149f3fd474880423873db6c6cc9ac"
