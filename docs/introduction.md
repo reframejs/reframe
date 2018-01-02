@@ -151,7 +151,7 @@ With Reframe you can create pages that are:
    <br/>
    where the page's DOM is not manipulated and React is only used to render HTML.
    <br/>
-   (Reframe only uses `require('react-dom/server')`, `require('react-dom')` is not used and React doesn't manipulate the DOM.)
+   (Reframe only uses `require('react-dom/server')`, `require('react-dom')` is not used and React doesn't get to manipulate the DOM.)
  - **DOM-dynamic**,
    <br/>
    where the page has React components that dynamically change in the browser.
@@ -167,20 +167,20 @@ Reframe takes care of;
 
  - **Routing**.
    <br/>
-   I.e. the mapping of a URL to a React component. (Reframe's default routing library is [Crossroads.js](https://github.com/millermedeiros/crossroads.js) but you can also choose your own route rules and/or another routing library.)
+   I.e. the mapping of a URL to a React component. (Reframe's default routing library is [Crossroads.js](https://github.com/millermedeiros/crossroads.js) but you can also choose another routing library and create your own route rules.)
  - **Server**.
    <br/>
    Reframe sets up a Node.js/hapi server to render your react pages to HTML. (But you can also use Reframe with your own server.)
  - **Build**.
    <br/>
-   Reframe builds and bundles your frontend assets for you. (Reframe uses webpack. And you can use a fully custom webpack configuration.)
+   Reframe builds and bundles your frontend assets for you. (Reframe uses webpack. You can use a fully custom webpack configuration.)
 
 
 Reframe **doesn't** take care of;
 
  - State management.
    <br/>
-   It's up to you to manage the state of your app yourself (or use Redux / MobX / [Reprop](https://github.com/brillout/reprop)).
+   It's up to you to manage the state of your app yourself. (Or use Redux / MobX / [Reprop](https://github.com/brillout/reprop).)
  - Database.
    <br/>
    It's up to you to create, populate, and query databases.
@@ -190,7 +190,7 @@ Reframe is adaptable;
 
  - **Custom server.**
    <br/>
-   You can use Reframe as a hapi plugin so that you can create the hapi server yourself. So that you can for example add GraphQL / RESTful API endpoints to the hapi server.
+   You can use Reframe as a hapi plugin so that you can create the hapi server yourself. Which is useful if for example you want to add GraphQL / RESTful API endpoints to the server.
    <br/>
    You can as well use any other server framework like Express, Koa, etc.
  - **Custom webpack configuration.**
@@ -200,14 +200,14 @@ Reframe is adaptable;
    <br/>
    The `reframe` CLI is just a thin wrapper over the NPM package `@reframe/server`
    and you can use `@reframe/server` directly instead of using the CLI.
-   That way you can define your own startup logic and process management.
+   That way you can define your own command line interface, startup logic, and process management.
  - **Customization all the way down to Repage.**
    <br/>
    Behind the curtain,
    Reframe is built on top of Repage.
    Repage is an agnostic low-level page management library.
    You can rewrite any part of Reframe.
-   You can eventually get rid of Reframe altogether to then depend on Repage only.
+   Eventually, you can get rid of Reframe altogether to then depend on Repage only.
    By rewriting parts of Reframe you can for example
    use another build tool other than webpack,
    use another view library other than React,
