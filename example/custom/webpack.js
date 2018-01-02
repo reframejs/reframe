@@ -1,7 +1,7 @@
 process.on('unhandledRejection', err => {throw err});
 
-const {createServer} = require('@reframe/server');
-const path = require('path');
+const Hapi = require('hapi');
+const {getReframeHapiPlugins} = require('@reframe/server');
 
 const js_rule = {
     test: /.js$/,
@@ -67,14 +67,23 @@ const webpackBrowserConfig = {
 };
 
 (async () => {
-    const server = await createServer({
-        pagesDir: path.join(__dirname, '../pages'),
-        webpackBrowserConfig,
-        webpackServerConfig,
-        log: true,
-    });
+    const server = Hapi.Server({port: 3000});
+
+    const {HapiServerRendering, HapiServeBrowserAssets} = (
+        await getReframeHapiPlugins({
+            webpackBrowserConfig,
+            webpackServerConfig,
+            log: true,
+        })
+    );
+
+    await server.register([
+        {plugin: HapiServeBrowserAssets},
+        {plugin: HapiServerRendering},
+    ]);
 
     await server.start();
 
     console.log(`Server running at ${server.info.uri}`);
 })();
+

@@ -1,9 +1,7 @@
 const {HapiServerRendering} = require('./HapiServerRendering');
-const {createServer} = require('./createServer');
-const {startServer} = require('./startServer');
+const {getReframeHapiPlugins} = require('./getReframeHapiPlugins');
 
 module.exports = {
     HapiServerRendering,
-    createServer,
-    startServer,
+    getReframeHapiPlugins,
 };
