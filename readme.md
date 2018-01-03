@@ -78,7 +78,9 @@
 [<p align="center"><img src='https://github.com/brillout-test/reprop-test/blob/master/docs/logo/logo-title.svg' width=400 style=    "max-width:100%;" alt="Reprop"/></p>](https://github.com/brillout/reprop)
 <br/>
 
-[Introduction](/../../)
+[Introduction](/../../)<br/>
+[Getting Started](/docs/getting-started.md)<br/>
+[api](/docs/api.md)
 
 Reframe is a library to render React views on the server, and/or in the browser, and/or statically.
 Easily create static and universal React apps.
