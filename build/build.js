@@ -10,6 +10,7 @@ const dir = require('node-dir');
 const path_module = require('path');
 const {get_context} = require('./utils/get_context');
 const fs = require('fs');
+const mkdirp = require('mkdirp');
 
 const Repage = require('@repage/core/build');
 const RepageRouterCrossroads = require('@repage/router-crossroads');
@@ -85,20 +86,30 @@ async function get_webpack_config({
 
         const browser_entries = {};
         const server_entries = {};
-        await get_directory_files(pagesDir)
+        (await get_directory_files(pagesDir))
         .forEach(path => {
             const file_name = path_module.basename(path);
             const entry_name = file_name.split('.').slice(0, -1).join('.');
-            if( is_script(path, '.universal') || is_script(path, '.dom') ) {
+
+            const is_universal = is_script(path, '.universal');
+            const is_dom = is_script(path, '.dom');
+            const is_entry = is_script(path, '.entry');
+            const is_html = is_script(path, '.html');
+            assert_internal(is_universal + is_dom + is_entry + is_html <= 1, path);
+
+            if( is_universal || is_dom ) {
                 const file_name__dist = file_name.split('.').slice(0, -2).concat(['entry', 'js']).join('.');
                 const dist_path = path_module.join(output_source_path, file_name__dist);
                 generate_entry_code(path, dist_path);
-                server_entries[entry_name] = [dist_path];
+                browser_entries[entry_name] = [dist_path];
+                if( is_universal ) {
+                    server_entries[entry_name] = [path];
+                }
             }
-            if( is_script(path, '.entry') ) {
+            if( is_entry ) {
                 browser_entries[entry_name] = [path];
             }
-            if( is_script(path, '.html') ) {
+            if( is_html ) {
                 server_entries[entry_name] = [path];
             }
         });
@@ -122,20 +133,22 @@ async function get_webpack_config({
 }
 
 function generate_entry_code(page_info_path, source_path) {
-    assert_internal(path_path.startsWith('/'));
+    assert_internal(page_info_path.startsWith('/'));
+    assert_internal(source_path.startsWith('/'));
     const source_code = (
         [
-            "var hydratePage = require('@reframe/browser/hydratePage');",
-            "var pageInfo = require('"+page_path+"');",
+            "var hydratePage = require('"+require.resolve('@reframe/browser/hydratePage')+"');",
+            "var pageInfo = require('"+page_info_path+"');",
             "",
             "hydratePage(pageInfo);",
         ].join('\n')
     );
+    mkdirp.sync(path_module.dirname(source_path));
     fs.writeFileSync(source_path, source_code);
 }
 
-function get_directory_files(dir) {
-    return dir.promiseFiles(dir);
+function get_directory_files(directory) {
+    return dir.promiseFiles(directory);
 }
 
 function add_context_to_config(context, config) {
