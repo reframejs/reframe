@@ -219,45 +219,82 @@ function get_page_infos({args_browser, args_server}) {
     return page_infos;
 }
 
-function add_browser_files({page_infos, args_browser}) {
+function add_browser_files({page_infos, args_browser: {output}}) {
     page_infos.forEach(page_info => {
-        (page_info.scripts||[])
-        .forEach((script_spec, i) => {
-            if( ! (script_spec||{}).diskPath ) {
-                return;
-            }
-            const disk_path__relative = script_spec.diskPath;
-            assert_internal(page_info.sourcePath.startsWith('/'), page_info, page_info.sourcePath);
-            const disk_path = path_module.join(path_module.dirname(page_info.sourcePath), disk_path__relative);
-            const {output} = args_browser;
-            const dist_files = find_dist_files({disk_path, output});
-            assert_usage(
-                dist_files!==null,
-                output,
-                page_info,
-                "Couldn't find build information for `"+disk_path+"`.",
-                "Is `"+disk_path__relative+"` an entry point in the browser webpack configuration?",
-            );
-            /*
-            assert_usage(
-                script_spec.diskPath.constructor === String && is_script(script_spec.diskPath, '.entry'),
-                script_spec.diskPath
-            );
-            */
-            const {scripts, styles} = dist_files;
-            assert_internal(scripts.constructor===Array);
-            assert_internal(styles.constructor===Array);
-            page_info.scripts = [
-                ...page_info.scripts.slice(0, i),
-                ...scripts,
-                ...page_info.scripts.slice(i+1),
-            ];
-            page_info.styles = [
-                ...(page_info.styles||[]),
-                ...styles,
-            ];
-        });
+        assert_internal(page_info.sourcePath.startsWith('/'), page_info, page_info.sourcePath);
+        add_same_name_entries(page_info, output);
+        add_disk_path(page_info, output);
     });
+}
+
+function add_same_name_entries(page_info, output) {
+    const filepath = page_info.sourcePath;
+    if( ! is_script(filepath, '.universal') && ! is_script(filepath, '.html') ) {
+        return;
+    }
+    const pagename = path_module.basname(filepath).split('.').slice(0, -2);
+
+    Object.values(output.entry_points)
+    .forEach(entry_point => {
+        const is_match = (
+            entry_point.source_entry_points
+            .some(source_entry =>
+                is_script(source_entry, '.entry') &&
+                source_entry.split('.').includes(pagename)
+            )
+        );
+        if( ! is_match ) {
+            return;
+        }
+
+        assert_internal(entry_point.scripts.length>=1, entry_point);
+        page_info.scripts.push(...entry_point.scripts);
+
+        assert_internal(entry_point.styles.length>=0, entry_point);
+        page_info.styles.push(...entry_point.scripts);
+    });
+}
+
+function add_disk_path(page_info, output) {
+    (page_info.scripts||[])
+    .forEach((script_spec, i) => {
+        if( ! (script_spec||{}).diskPath ) {
+            return;
+        }
+        const disk_path__relative = script_spec.diskPath;
+        const disk_path = path_module.join(path_module.dirname(page_info.sourcePath), disk_path__relative);
+        const dist_files = find_dist_files({disk_path, output});
+        assert_usage(
+            dist_files!==null,
+            output,
+            page_info,
+            "Couldn't find build information for `"+disk_path+"`.",
+            "Is `"+disk_path__relative+"` an entry point in the browser webpack configuration?",
+        );
+        /*
+        assert_usage(
+            script_spec.diskPath.constructor === String && is_script(script_spec.diskPath, '.entry'),
+            script_spec.diskPath
+        );
+        */
+        const {scripts, styles} = dist_files;
+        assert_internal(scripts.constructor===Array);
+        assert_internal(styles.constructor===Array);
+        page_info.scripts = make_paths_array_unique([
+            ...page_info.scripts.slice(0, i),
+            ...scripts,
+            ...page_info.scripts.slice(i+1),
+        ]);
+        page_info.styles = make_paths_array_unique([
+            ...(page_info.styles||[]),
+            ...styles,
+        ]);
+    });
+}
+
+function make_paths_array_unique(paths) {
+    assert_internal(paths.every(path => path.startsWith('/')), paths);
+    return [...new Set(paths)];
 }
 
 function find_dist_files({disk_path, output}) {
