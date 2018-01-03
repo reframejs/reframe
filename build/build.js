@@ -101,7 +101,8 @@ async function get_webpack_config({
                 const file_name__dist = file_name.split('.').slice(0, -2).concat(['entry', 'js']).join('.');
                 const dist_path = path_module.join(output_source_path, file_name__dist);
                 generate_entry_code(path, dist_path);
-                browser_entries[entry_name] = [dist_path];
+                const entry_name__browser = entry_name.split('.').slice(0, -1).concat(['entry']).join('.');
+                browser_entries[entry_name__browser] = [dist_path];
                 if( is_universal ) {
                     server_entries[entry_name] = [path];
                 }
