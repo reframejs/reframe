@@ -236,11 +236,11 @@ function add_browser_files({page_infos, args_browser: {output}}) {
     page_infos.forEach(page_info => {
         assert_internal(page_info.sourcePath.startsWith('/'), page_info, page_info.sourcePath);
         add_disk_path(page_info, output);
-        add_same_name_entries(page_info, output);
+        add_same_named_entries(page_info, output);
     });
 }
 
-function add_same_name_entries(page_info, output) {
+function add_same_named_entries(page_info, output) {
     const filepath = page_info.sourcePath;
     if( ! is_script(filepath, '.universal') && ! is_script(filepath, '.html') ) {
         return;
