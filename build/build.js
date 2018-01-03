@@ -29,6 +29,7 @@ async function build({
     onBuild: onBuild_user,
     doNotAutoReload=isProduction(),
     context = get_context(),
+    log: opt_log,
     ...opts
 }) {
     const webpack_config = await get_webpack_config({
@@ -44,16 +45,22 @@ async function build({
     const first_build_promise = new Promise(resolve => resolve_promise = resolve);
 
     serve(webpack_config, {
-        log: true,
         doNotCreateServer: true,
         doNotGenerateIndexHtml: true,
         doNotAutoReload,
+        log: opt_log,
         ...opts,
         onBuild: async build_info__repage => {
             const build_info__reframe = await onBuild(build_info__repage);
+
+            if( opt_log && build_info__reframe.isFirstBuild ) {
+                log(build_info__reframe.pages);
+            }
+
             if( onBuild_user ) {
                 await onBuild_user(build_info__reframe);
             }
+
             if( build_info__reframe.isFirstBuild ) {
                 resolve_promise();
             }
@@ -232,7 +239,7 @@ function add_same_name_entries(page_info, output) {
     if( ! is_script(filepath, '.universal') && ! is_script(filepath, '.html') ) {
         return;
     }
-    const pagename = path_module.basname(filepath).split('.').slice(0, -2);
+    const pagename = path_module.basename(filepath).split('.').slice(0, -2);
 
     Object.values(output.entry_points)
     .forEach(entry_point => {

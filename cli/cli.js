@@ -36,7 +36,6 @@ const {getReframeHapiPlugins} = require('@reframe/server');
     async function createServer({
         // build opts
         pagesDir,
-        log = false,
      // context = get_context(),
 
         // server opts
@@ -56,6 +55,8 @@ const {getReframeHapiPlugins} = require('@reframe/server');
             })
         );
 
+        const {log} = get_cli_args();
+
         const {HapiServerRendering, HapiServeBrowserAssets} = (
             await getReframeHapiPlugins({
                 pagesDir,
@@ -74,5 +75,12 @@ const {getReframeHapiPlugins} = require('@reframe/server');
 
     function green_checkmark() {
         return chalk.green('\u2714');
+    }
+
+    function get_cli_args() {
+        const {argv} = process;
+        return {
+            log: argv.includes('--log'),
+        };
     }
 })();
