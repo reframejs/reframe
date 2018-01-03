@@ -158,7 +158,7 @@ With Reframe you can create pages that are:
    <br/>
    (Reframe uses `require('react-dom')` and React manipulates the DOM.)
 
-Amongst others you can create universal apps, i.e. apps that are rendered on both the server and the browser.
+Amongst others you can create universal apps (isomorphic apps), i.e. apps that are rendered on both the server and the browser.
 You can as well create static apps, i.e. apps where all pages are HTML-static.
 And you can create any combination of HTML-(static/dynamic) and DOM-(static/dynamic) pages.
 

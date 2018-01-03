@@ -36,7 +36,7 @@ const webpackServerConfig = {
     target: 'node',
     output: {
         publicPath: '/',
-        path: './dist/server',
+        path: __dirname+'/dist/server',
         libraryTarget: 'commonjs2'
     },
     module: webpackBrowserConfig.module,
