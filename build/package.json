@@ -2,6 +2,8 @@
   "name": "@reframe/build",
   "version": "0.1.0",
   "dependencies": {
+    "@rebuild/build": "*",
+    "@rebuild/serve": "*",
     "@reframe/browser": "*",
     "mkdirp": "^0.5.1",
     "parent-module": "^0.1.0",

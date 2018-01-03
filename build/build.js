@@ -6,6 +6,7 @@ const assert_usage = assert;
 const log = require('reassert/log');
 const {get_webpack_browser_config, get_webpack_server_config} = require('./webpack_config');
 const serve = require('@rebuild/serve');
+const log_title = require('@rebuild/build/utils/log_title');
 const dir = require('node-dir');
 const path_module = require('path');
 const {get_context} = require('./utils/get_context');
@@ -29,7 +30,7 @@ async function build({
     onBuild: onBuild_user,
     doNotAutoReload=isProduction(),
     context = get_context(),
-    log: opt_log,
+    log,
     ...opts
 }) {
     const webpack_config = await get_webpack_config({
@@ -48,13 +49,13 @@ async function build({
         doNotCreateServer: true,
         doNotGenerateIndexHtml: true,
         doNotAutoReload,
-        log: opt_log,
+        log,
         ...opts,
         onBuild: async build_info__repage => {
             const build_info__reframe = await onBuild(build_info__repage);
 
-            if( opt_log && build_info__reframe.isFirstBuild ) {
-                log(build_info__reframe.pages);
+            if( log && build_info__reframe.isFirstBuild ) {
+                print(build_info__reframe.pages, 'Pages');
             }
 
             if( onBuild_user ) {
@@ -68,6 +69,11 @@ async function build({
     });
 
     return first_build_promise;
+}
+
+function print(obj, title) {
+    log_title(title);
+    log(obj);
 }
 
 async function get_webpack_config({
