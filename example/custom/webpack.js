@@ -7,7 +7,7 @@ const webpackBrowserConfig = {
     entry: [
         'babel-polyfill',
         '../pages/CounterPage.entry.js',
-    ].map(require.resolve),
+    ],
     output: {
         publicPath: '/',
         path: __dirname+'/dist/browser',
@@ -32,11 +32,11 @@ const webpackBrowserConfig = {
 };
 
 const webpackServerConfig = {
-    entry: require.resolve('../pages/CounterPage.html.js'),
+    entry: '../pages/CounterPage.html.js',
     target: 'node',
     output: {
         publicPath: '/',
-        path: __dirname+'/dist/server',
+        path: './dist/server',
         libraryTarget: 'commonjs2'
     },
     module: webpackBrowserConfig.module,

@@ -107,7 +107,18 @@ async function get_webpack_config({
         }
     }
 
-    return [browser_config, server_config];
+    add_context_to_config(context, browser_config);
+    add_context_to_config(context, server_config);
+
+    const webpack_config = [browser_config, server_config];
+
+    return webpack_config;
+}
+
+function add_context_to_config(context, config) {
+    assert_internal(context.startsWith('/'));
+    assert_internal(config.constructor===Object);
+    config.context = config.context || context;
 }
 
 function is_script(path, suffix) {
@@ -179,12 +190,13 @@ function add_browser_files({page_infos, args_browser}) {
                 return;
             }
             const disk_path__relative = script_spec.diskPath;
-            assert_internal(page_info.source_path);
-            const disk_path = path_module.join(path_module.dirname(page_info.source_path), disk_path__relative);
+            assert_internal(page_info.sourcePath.startsWith('/'), page_info, page_info.sourcePath);
+            const disk_path = path_module.join(path_module.dirname(page_info.sourcePath), disk_path__relative);
             const {output} = args_browser;
             const dist_files = find_dist_files({disk_path, output});
             assert_usage(
                 dist_files!==null,
+                output,
                 page_info,
                 "Couldn't find build information for `"+disk_path+"`.",
                 "Is `"+disk_path__relative+"` an entry point in the browser webpack configuration?",
@@ -217,6 +229,8 @@ function find_dist_files({disk_path, output}) {
     .forEach(ep => {
         const source_path = get_source_path(ep, path => is_script(path, '.entry'));
         assert_internal(is_script(source_path, '.entry'), output, ep, source_path);
+        assert_internal(source_path.startsWith('/'));
+        assert_internal(disk_path.startsWith('/'));
         if( source_path === disk_path ) {
             entry_point = ep;
         }
@@ -237,7 +251,12 @@ function load_page_infos({args_server}) {
         .map(entry_point => {
             const modulePath = get_nodejs_path(entry_point);
             const page_info = require__magic(modulePath);
-            page_info.source_path = get_source_path(entry_point);
+            page_info.sourcePath = get_source_path(entry_point);
+            assert_internal(
+                page_info.sourcePath.startsWith('/'),
+                args_server.output.entry_points,
+                page_info.sourcePath
+            );
             return page_info;
         })
     );
