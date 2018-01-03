@@ -1,4 +1,5 @@
 !MENU
+!MENU_TITLE API
 !MENU_ORDER 30
 
 ### CLI `reframe`

@@ -77,9 +77,12 @@
 -->
 [Introduction](/../../)<br/>
 [Getting Started](/docs/getting-started.md)<br/>
-[api](/docs/api.md)
+[API](/docs/api.md)
 
-In this getting started we will start by writing a static hello world and progresivelly make it more dynamic.
+In this getting started
+we start writing an HTML-static and DOM-static hello world example and we progresivelly change the example to make it HTML-dynamic and DOM-dynamic.
+
+
 
 <!---
 

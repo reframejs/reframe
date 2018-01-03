@@ -77,7 +77,7 @@
 -->
 [Introduction](/../../)<br/>
 [Getting Started](/docs/getting-started.md)<br/>
-[api](/docs/api.md)
+[API](/docs/api.md)
 
 ### CLI `reframe`
 

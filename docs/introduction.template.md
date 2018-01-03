@@ -3,9 +3,8 @@
 
 !MENU
 !OUTPUT ../readme.md
-!MENU_TITLE Introduction
-!MENU_ORDER 10
 !MENU_LINK /../../
+!MENU_ORDER 10
 
 Reframe is a library to render React views on the server, and/or in the browser, and/or statically.
 Easily create static and universal React apps.
@@ -23,7 +22,7 @@ Running `reframe` serves the defined pages:
 ~~~shell
 $ reframe
 ✔ Page directory found at /home/brillout/code/@reframe/example/pages
-✔ Frontend built at /home/brillout/code/@reframe/example/dist/
+✔ Frontend built at /home/brillout/code/@reframe/example/dist/browser/
 ✔ Server running at http://localhost:3000
 ~~~
 

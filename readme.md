@@ -80,7 +80,7 @@
 
 [Introduction](/../../)<br/>
 [Getting Started](/docs/getting-started.md)<br/>
-[api](/docs/api.md)
+[API](/docs/api.md)
 
 Reframe is a library to render React views on the server, and/or in the browser, and/or statically.
 Easily create static and universal React apps.
