@@ -72,7 +72,7 @@ If the current time would be 1/1/2018 1:37 PM then the source code would be
         <div id="repage-renderer-react_container"><div><div>Date: Mon Jan 01 2018</div><small>(Page generated at 13:37:00 GMT+0100 (CET))</small></div></div>
     </body>
 </html>
-~~~html
+~~~
 
 And reloading the page at 1 second later at 1:38 PM would lead to the same HTML with the exception that `Page generated at 13:37:00` is replaced with `Page generated at 13:38:00` showing that the HTML has been rerendered.
 
