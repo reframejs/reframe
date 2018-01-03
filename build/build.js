@@ -235,8 +235,8 @@ function get_page_infos({args_browser, args_server}) {
 function add_browser_files({page_infos, args_browser: {output}}) {
     page_infos.forEach(page_info => {
         assert_internal(page_info.sourcePath.startsWith('/'), page_info, page_info.sourcePath);
-        add_same_name_entries(page_info, output);
         add_disk_path(page_info, output);
+        add_same_name_entries(page_info, output);
     });
 }
 
@@ -245,26 +245,35 @@ function add_same_name_entries(page_info, output) {
     if( ! is_script(filepath, '.universal') && ! is_script(filepath, '.html') ) {
         return;
     }
-    const pagename = path_module.basename(filepath).split('.').slice(0, -2);
+    const pagename = path_module.basename(filepath).split('.').slice(0, -2).join('.');
 
     Object.values(output.entry_points)
     .forEach(entry_point => {
         const is_match = (
             entry_point.source_entry_points
-            .some(source_entry =>
-                is_script(source_entry, '.entry') &&
-                source_entry.split('.').includes(pagename)
-            )
+            .some(source_entry => {
+                const source_filename = path_module.basename(source_entry);
+                return (
+                    is_script(source_filename, '.entry') &&
+                    source_filename.split('.').includes(pagename)
+                );
+            })
         );
         if( ! is_match ) {
             return;
         }
 
         assert_internal(entry_point.scripts.length>=1, entry_point);
-        page_info.scripts.push(...entry_point.scripts);
+        page_info.scripts = make_paths_array_unique([
+            ...(page_info.scripts||[]),
+            ...entry_point.scripts
+        ]);
 
         assert_internal(entry_point.styles.length>=0, entry_point);
-        page_info.styles.push(...entry_point.scripts);
+        page_info.styles = make_paths_array_unique([
+            ...(page_info.styles||[]),
+            ...entry_point.styles
+        ]);
     });
 }
 
@@ -306,7 +315,7 @@ function add_disk_path(page_info, output) {
 }
 
 function make_paths_array_unique(paths) {
-    assert_internal(paths.every(path => path.startsWith('/')), paths);
+    assert_internal(paths.every(path => path && path.constructor===String && path.startsWith('/')), paths);
     return [...new Set(paths)];
 }
 
