@@ -96,12 +96,13 @@ async function get_webpack_config({
         });
 
      // const outputPath = path_module.join(context, './dist');
-        const outputPath = path_module.join(path_module.dirname(pagesDir), './dist');
-
+        const outputPathBase = path_module.join(path_module.dirname(pagesDir), './dist');
         if( ! browser_config ) {
+            const outputPath = path_module.join(outputPathBase, './browser');
             browser_config = (getWebpackBrowserConfig||get_webpack_browser_config)(browser_entries, outputPath);
         }
         if( ! server_config ) {
+            const outputPath = path_module.join(outputPathBase, './server');
             server_config = (getWebpackServerConfig||get_webpack_server_config)(server_entries, outputPath);
         }
     }
