@@ -9,6 +9,7 @@ const serve = require('@rebuild/serve');
 const dir = require('node-dir');
 const path_module = require('path');
 const {get_context} = require('./utils/get_context');
+const fs = require('fs');
 
 const Repage = require('@repage/core/build');
 const RepageRouterCrossroads = require('@repage/router-crossroads');
@@ -74,19 +75,26 @@ async function get_webpack_config({
     let browser_config = webpackBrowserConfig;
     let server_config = webpackServerConfig;
 
-    let pages_files;
     if( ! browser_config || ! server_config ) {
         assert_usage(
             pagesDir && pagesDir.constructor===String && pagesDir.startsWith('/'),
             pagesDir
         );
-        page_files = await dir.promiseFiles(pagesDir);
+        const output_path_base = path_module.join(path_module.dirname(pagesDir), './dist');
+        const output_source_path = path_module.join(output_path_base, './source');
 
         const browser_entries = {};
         const server_entries = {};
-        page_files
+        await get_directory_files(pagesDir)
         .forEach(path => {
-            const entry_name = path_module.basename(path).split('.').slice(0, -1).join('.');
+            const file_name = path_module.basename(path);
+            const entry_name = file_name.split('.').slice(0, -1).join('.');
+            if( is_script(path, '.universal') || is_script(path, '.dom') ) {
+                const file_name__dist = file_name.split('.').slice(0, -2).concat(['entry', 'js']).join('.');
+                const dist_path = path_module.join(output_source_path, file_name__dist);
+                generate_entry_code(path, dist_path);
+                server_entries[entry_name] = [dist_path];
+            }
             if( is_script(path, '.entry') ) {
                 browser_entries[entry_name] = [path];
             }
@@ -95,14 +103,12 @@ async function get_webpack_config({
             }
         });
 
-     // const outputPath = path_module.join(context, './dist');
-        const outputPathBase = path_module.join(path_module.dirname(pagesDir), './dist');
         if( ! browser_config ) {
-            const outputPath = path_module.join(outputPathBase, './browser');
+            const outputPath = path_module.join(output_path_base, './browser');
             browser_config = (getWebpackBrowserConfig||get_webpack_browser_config)(browser_entries, outputPath);
         }
         if( ! server_config ) {
-            const outputPath = path_module.join(outputPathBase, './server');
+            const outputPath = path_module.join(output_path_base, './server');
             server_config = (getWebpackServerConfig||get_webpack_server_config)(server_entries, outputPath);
         }
     }
@@ -113,6 +119,23 @@ async function get_webpack_config({
     const webpack_config = [browser_config, server_config];
 
     return webpack_config;
+}
+
+function generate_entry_code(page_info_path, source_path) {
+    assert_internal(path_path.startsWith('/'));
+    const source_code = (
+        [
+            "var hydratePage = require('@reframe/browser/hydratePage');",
+            "var pageInfo = require('"+page_path+"');",
+            "",
+            "hydratePage(pageInfo);",
+        ].join('\n')
+    );
+    fs.writeFileSync(source_path, source_code);
+}
+
+function get_directory_files(dir) {
+    return dir.promiseFiles(dir);
 }
 
 function add_context_to_config(context, config) {
