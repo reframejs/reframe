@@ -112,7 +112,7 @@ Running `reframe` serves the defined pages:
 ~~~shell
 $ reframe
 ✔ Page directory found at /home/brillout/code/@reframe/example/pages
-✔ Frontend built at /home/brillout/code/@reframe/example/dist/
+✔ Frontend built at /home/brillout/code/@reframe/example/dist/browser/
 ✔ Server running at http://localhost:3000
 ~~~
 
