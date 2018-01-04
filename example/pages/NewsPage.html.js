@@ -5,7 +5,7 @@ import {TimeComponent} from '../views/TimeComponent';
 const NewsComponent = () => (
     <div>
         <div>
-            <h1>Imaginary News</h1>
+            <h1>World News</h1>
             <p>
                 Imagine this is a news site with a bunch of DOM-static content
                 and the only DOM-dyanmic part of the website is a little snippet
@@ -22,7 +22,7 @@ const NewsComponent = () => (
                 We call this *partial DOM-dynamic*
             </p>
 
-            <h3>Imaginary headline</h3>
+            <h3>Some headline</h3>
             <p>
                 Some interesting new thing...
             </p>
@@ -33,8 +33,8 @@ const NewsComponent = () => (
             </p>
         </div>
         <br/>
-        <small id="time-root" style={{color: 'blue'}}>
-            <TimeComponent />
+        <small style={{color: 'blue'}}>
+            Time: <span id="time-root"><TimeComponent /></span>
         </small>
     </div>
 );

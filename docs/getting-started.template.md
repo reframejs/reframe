@@ -4,13 +4,6 @@
 In this getting started
 we start writing an HTML-static and DOM-static hello world example and we progresivelly change the example to make it HTML-dynamic and DOM-dynamic.
 
-#### Installation
-
-Throughout the documentation we will asume that
- - The CLI is installed; `npm install -g @reframe/cli`
- - React is i
- - The 
-
 #### HTML-static & DOM-static
 
 Let's create a static hello world page:
@@ -20,6 +13,10 @@ Let's create a static hello world page:
 ~~~
 
 Running the `reframe` CLI will spin up a Node.js/hapi server and serve our newly created hello world page:
+
+~~~shell
+$ npm install -g @reframe/cli
+~~~
 
 ~~~shell
 $ reframe
@@ -77,11 +74,12 @@ If the current time would be 1/1/2018 1:37 PM then the source code would be
 </html>
 ~~~
 
-Reloading the page 1 second later at 1:38 PM would lead to the same HTML but with `(Generated at 13:38:00)` instead of `(Generated at 13:37:00)`. The HTML is rerendered on every request.
+Reloading the page 1 second later at 1:38 PM would lead to the same HTML but with `(Generated at 13:38:00)` instead of `(Generated at 13:37:00)`;
+The HTML is rerendered on every request.
 
-This page's HTML is dynamic.
-Since we still don't load any JavaScript the page's DOM is static.
-Let's now use JavaScript to display the time where the DOM updates every second in order to always show the current time.
+The page's HTML is dynamic
+and since we still don't load any JavaScript the page's DOM is static.
+Let's now load some JavaScript to update the DOM every second in order to always show the current time.
 
 #### HTML-dynamic & DOM-dynamic
 
@@ -112,20 +110,27 @@ And the source code of view-source:http://localhost:3000/hello is:
 </html>
 ~~~
 
-This time we load JavaScript code and the DOM is updated every second to continuously show the current time.
+As the source code shows we load JavaScript code.
+The code bundles React and `TimeComponent` and mounts a `<TimeComponent/>` element onto the DOM.
+The mounted `<TimeComponent/>` then updates the DOM every second and the current time is continuously updated.
 
-When Reframe sees a `.universal.js` file in the `pages` directory it will then generate an entry point for the browser.
-(
-If you are curious,
-you can see the entry point's source code at `~/code/@reframe/example/pages/dist/browser/source/TimePage.entry.js`)
+When Reframe sees a `.universal.js` file in the `pages` directory it will generate an entry point for the browser.
+You can see the source code that acts as entry point that Reframe automatically generates at `~/code/@reframe/example/pages/dist/browser/source/TimePage.entry.js`.
 
-But you can also create the browser entry point yourself.
+You can also create the JavaScript browser entry point yourself.
 
-#### Custom Browser Entry Point
+#### Custom Browser Entry Point + Inline Scripts + External Scripts
+
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 ~~~js
-!INLINE ../example/pages/TimePage.entry.js
+!INLINE ../example/pages/TrackingPage.html.js
 ~~~
+
+~~~js
+!INLINE ../example/pages/TrackingPage.entry.js
+~~~
+
 
 #### HTML-dynamic & partial DOM-dynamic
 
