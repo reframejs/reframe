@@ -318,7 +318,15 @@ function add_disk_path(page_info, output) {
 }
 
 function make_paths_array_unique(paths) {
-    assert_internal(paths.every(path => path && path.constructor===String && path.startsWith('/')), paths);
+    assert_internal(
+        paths.every(
+            path => (
+                path && path.constructor===Object ||
+                path && path.constructor===String && path.startsWith('/')
+            )
+        ),
+        paths
+    );
     return [...new Set(paths)];
 }
 

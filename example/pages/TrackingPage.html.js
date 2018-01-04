@@ -6,7 +6,7 @@ export default {
     title: 'Tracking Example',
     route: '/tracker',
     view: () => <div>Hi, you are being tracked. The time is <TimeComponent/></div>,
-    scritps: [
+    scripts: [
         {
             async: true,
             src: 'https://www.google-analytics.com/analytics.js',
