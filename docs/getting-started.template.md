@@ -71,13 +71,13 @@ If the current time would be 1/1/2018 1:37 PM then the source code would be
     <body>
         <div id="react-root">
             <div>Date: Mon Jan 01 2018</div>
-            <small>(Generated at 13:37:00 GMT+0100 (CET))</small>
+            <small>(Generated at 13:37:00)</small>
         </div>
     </body>
 </html>
 ~~~
 
-Reloading the page 1 second later at 1:38 PM would lead to the same HTML but with `Generated at 13:38:00` instead of `Generated at 13:37:00`. The HTML is rerendered on every request.
+Reloading the page 1 second later at 1:38 PM would lead to the same HTML but with `(Generated at 13:38:00)` instead of `(Generated at 13:37:00)`. The HTML is rerendered on every request.
 
 This page's HTML is dynamic.
 Since we still don't load any JavaScript the page's DOM is static.
@@ -105,7 +105,7 @@ And the source code of view-source:http://localhost:3000/hello is:
         <meta charset="utf-8">
     </head>
     <body>
-        <div id="react-root"><div>Time: 13:38:00 GMT+0100 (CET)</div></div>
+        <div id="react-root"><div>Time: 13:38:00</div></div>
         <script type="text/javascript" src="/commons.hash_cef317062944dce98c01.js"></script>
         <script type="text/javascript" src="/TimePage.entry.hash_972c7f760528baca032a.js"></script>
     </body>

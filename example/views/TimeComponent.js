@@ -12,20 +12,18 @@ class TimeComponent extends React.Component {
         );
     }
     render() {
-        return 'Time: '+this.getTime();
-    }
-    getTime() {
-        const {now} = this.state;
-        return (
-            [
-                now.getHours(),
-                now.getMinutes(),
-                now.getSeconds(),
-            ]
-            .map(d => d<=9 ? '0'+d : d)
-            .join(':')
-        );
+        return 'Time: '+toTimeString(this.state.now);
     }
 }
 
-export default TimeComponent;
+const toTimeString = now => (
+    [
+        now.getHours(),
+        now.getMinutes(),
+        now.getSeconds(),
+    ]
+    .map(d => d<=9 ? '0'+d : d)
+    .join(':')
+);
+
+export {TimeComponent, toTimeString};

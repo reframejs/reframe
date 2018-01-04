@@ -1,6 +1,8 @@
-const React = require('react');
+import React from 'react';
 
-module.exports = {
+import {toTimeString} from '../views/TimeComponent';
+
+export default {
     title: 'Current Date',
     route: '/date',
     view: () => {
@@ -8,7 +10,7 @@ module.exports = {
         return (
             <div>
                 <div>Date: {now.toDateString()}</div>
-                <small>(Generated at {now.toTimeString()})</small>
+                <small>(Generated at {toTimeString(now)})</small>
             </div>
         );
     },
