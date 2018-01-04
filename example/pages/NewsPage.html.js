@@ -19,7 +19,7 @@ const NewsComponent = () => (
                 It would be wasteful to load the entire news site rendering logic
                 on the browser just to update the current time.
                 Instead we only render the time snippet on the browser.
-                We call the page *partial DOM-dynamic*
+                We call this *partial DOM-dynamic*
             </p>
 
             <h3>Imaginary headline</h3>
@@ -32,6 +32,7 @@ const NewsComponent = () => (
                 Today in Japan...
             </p>
         </div>
+        <br/>
         <small id="time-root" style={{color: 'blue'}}>
             <TimeComponent />
         </small>

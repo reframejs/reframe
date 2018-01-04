@@ -12,9 +12,11 @@ class TimeComponent extends React.Component {
         );
     }
     render() {
-        return (
-            <div>Time: {this.state.now.toLocaleTimeString()}</div>
-        );
+        return 'Time: '+this.getTime();
+    }
+    getTime() {
+        const {now} = this.state;
+        return [now.getHours(), now.getMinutes(), now.getSeconds()].join(':');
     }
 }
 

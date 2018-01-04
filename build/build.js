@@ -154,6 +154,9 @@ function generate_entry_code(page_info_path, source_path) {
             "var hydratePage = require('"+require.resolve('@reframe/browser/hydratePage')+"');",
             "var pageInfo = require('"+page_info_path+"');",
             "",
+            "// hybrid cjs and ES6 modules import",
+            "pageInfo = Object.keys(pageInfo).length===1 && pageInfo.default || pageInfo;",
+            "",
             "hydratePage(pageInfo);",
         ].join('\n')
     );
