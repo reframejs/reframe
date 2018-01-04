@@ -353,6 +353,11 @@ function load_page_infos({args_server}) {
                 args_server.output.entry_points,
                 page_info.sourcePath
             );
+            assert_usage(
+                page_info.route || page_info.pageLodaer,
+                page_info,
+                "The page object printed above at `"+page_info.sourcePath+"` is missing the `route` property."
+            );
             return page_info;
         })
     );

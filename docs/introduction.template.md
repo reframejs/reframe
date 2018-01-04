@@ -21,8 +21,8 @@ Running `reframe` serves the defined pages:
 
 ~~~shell
 $ reframe
-✔ Page directory found at /home/brillout/code/@reframe/example/pages
-✔ Frontend built at /home/brillout/code/@reframe/example/dist/browser/
+✔ Page directory found at ~/code/@reframe/example/pages
+✔ Frontend built at ~/code/@reframe/example/dist/browser/
 ✔ Server running at http://localhost:3000
 ~~~
 
@@ -40,7 +40,7 @@ Once the frontend is built and the server up the source code of `http://localhos
         <meta charset="utf-8">
     </head>
     <body>
-        <div id="repage-renderer-react_container"><div>Hello World</div></div>
+        <div id="react-root"><div>Hello World</div></div>
     </body>
 </html>
 ~~~

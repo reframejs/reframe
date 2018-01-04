@@ -40,7 +40,7 @@ And the source code of the page as shown at view-source:http://localhost:3000/he
         <meta charset="utf-8">
     </head>
     <body>
-        <div id="repage-renderer-react_container"><div>Hello World</div></div>
+        <div id="react-root"><div>Hello World</div></div>
     </body>
 </html>
 ~~~
@@ -69,22 +69,64 @@ If the current time would be 1/1/2018 1:37 PM then the source code would be
         <meta charset="utf-8">
     </head>
     <body>
-        <div id="repage-renderer-react_container"><div><div>Date: Mon Jan 01 2018</div><small>(Page generated at 13:37:00 GMT+0100 (CET))</small></div></div>
+        <div id="react-root">
+            <div>Date: Mon Jan 01 2018</div>
+            <small>(Generated at 13:37:00 GMT+0100 (CET))</small>
+        </div>
     </body>
 </html>
 ~~~
 
-And reloading the page at 1 second later at 1:38 PM would lead to the same HTML with the exception that `Page generated at 13:37:00` is replaced with `Page generated at 13:38:00` showing that the HTML has been rerendered.
+Reloading the page 1 second later at 1:38 PM would lead to the same HTML but with `Generated at 13:38:00` instead of `Generated at 13:37:00`. The HTML is rerendered on every request.
 
-So this page's HTML is dynamic and its DOM is static as we still don't load any JavaScript.
-Let's now use JavaScript to display the time and where the DOM updates every second in order to always show the current time.
+This page's HTML is dynamic.
+Since we still don't load any JavaScript the page's DOM is static.
+Let's now use JavaScript to display the time where the DOM updates every second in order to always show the current time.
 
 #### HTML-dynamic & DOM-dynamic
 
-Note that the file name ends with `TimePage.universal.js` whereas all previous filenames ended with `.html.js`.
+Note that all previous filenames endeded with `.html.js`: `HelloPage.html.js`, `DatePage.html.js`, and `TimePage.html.js`.
+
+This time we save our page object in a filename ending with `.universal.js`: `TimePage.universal.js`.
+This is how we tell Reframe to render the view on the browser. (Reframe will call `ReactDOM.hydrate()`.)
 
 ~~~js
 !INLINE ../example/pages/TimePage.universal.js
 ~~~
 
+And the source code of view-source:http://localhost:3000/hello is:
+
+~~~html
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Current Time</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <div id="react-root"><div>Time: 13:38:00 GMT+0100 (CET)</div></div>
+        <script type="text/javascript" src="/commons.hash_cef317062944dce98c01.js"></script>
+        <script type="text/javascript" src="/TimePage.entry.hash_972c7f760528baca032a.js"></script>
+    </body>
+</html>
+~~~
+
+This time we load JavaScript code and the DOM is updated every second to continuously show the current time.
+
+When Reframe sees a `.universal.js` file in the `pages` directory it will then generate an entry point for the browser.
+(
+If you are curious,
+you can see the entry point's source code at `~/code/@reframe/example/pages/dist/browser/source/TimePage.entry.js`)
+
+But you can also create the browser entry point yourself.
+
+#### Custom Browser Entry Point
+
+~~~js
+!INLINE ../example/pages/TimePage.entry.js
+~~~
+
 #### HTML-dynamic & partial DOM-dynamic
+
+

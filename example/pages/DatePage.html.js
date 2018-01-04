@@ -8,7 +8,7 @@ module.exports = {
         return (
             <div>
                 <div>Date: {now.toDateString()}</div>
-                <small>(Page generated at {now.toTimeString()})</small>
+                <small>(Generated at {now.toTimeString()})</small>
             </div>
         );
     },
