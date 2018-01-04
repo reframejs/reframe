@@ -16,7 +16,15 @@ class TimeComponent extends React.Component {
     }
     getTime() {
         const {now} = this.state;
-        return [now.getHours(), now.getMinutes(), now.getSeconds()].join(':');
+        return (
+            [
+                now.getHours(),
+                now.getMinutes(),
+                now.getSeconds(),
+            ]
+            .map(d => d<=9 ? '0'+d : d)
+            .join(':')
+        );
     }
 }
 
