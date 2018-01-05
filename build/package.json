@@ -1,6 +1,7 @@
 {
   "name": "@reframe/build",
   "version": "0.1.0",
+  "main": "./build",
   "dependencies": {
     "@rebuild/build": "*",
     "@rebuild/serve": "*",

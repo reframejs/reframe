@@ -23,15 +23,18 @@ module.exports = {build};
 
 async function build({
     pagesDir,
+
+    onBuild: onBuild_user,
+
     webpackBrowserConfig,
     webpackServerConfig,
     getWebpackBrowserConfig,
     getWebpackServerConfig,
-    onBuild: onBuild_user,
+
     doNotAutoReload=isProduction(),
     context = get_context(),
     log,
-    ...opts
+    ...rebuild_opts
 }) {
     const webpack_config = await get_webpack_config({
         pagesDir,
@@ -42,20 +45,21 @@ async function build({
         context,
     });
 
-    let resolve_promise;
-    const first_build_promise = new Promise(resolve => resolve_promise = resolve);
+    let resolve_first_build_promise;
+    const first_build_promise = new Promise(resolve => resolve_first_build_promise = resolve);
 
     serve(webpack_config, {
         doNotCreateServer: true,
         doNotGenerateIndexHtml: true,
         doNotAutoReload,
         log,
-        ...opts,
+        ...rebuild_opts,
         onBuild: async build_info__repage => {
             const build_info__reframe = await onBuild(build_info__repage);
 
             if( log && build_info__reframe.isFirstBuild ) {
-                print(build_info__reframe.pages, 'Pages');
+                log_title('Pages');
+                log(build_info__reframe.pages);
             }
 
             if( onBuild_user ) {
@@ -63,17 +67,12 @@ async function build({
             }
 
             if( build_info__reframe.isFirstBuild ) {
-                resolve_promise();
+                resolve_first_build_promise();
             }
         },
     });
 
     return first_build_promise;
-}
-
-function print(obj, title) {
-    log_title(title);
-    log(obj);
 }
 
 async function get_webpack_config({

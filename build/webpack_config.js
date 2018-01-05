@@ -13,7 +13,7 @@ function get_webpack_browser_config(browserEntries, outputPath) {
         new ReactConfig(),
     ]);
 
-    return browser_config.assemble({log: true});
+    return browser_config.assemble();
 }
 
 function get_webpack_server_config(serverEntries, outputPath) {
@@ -27,5 +27,5 @@ function get_webpack_server_config(serverEntries, outputPath) {
         new ReactConfig(),
     ]);
 
-    return server_config.assemble({log: true});
+    return server_config.assemble();
 }
