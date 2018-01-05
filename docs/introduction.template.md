@@ -10,13 +10,12 @@ Reframe, the web (anti-)framework. (A web framework with almost no lock-in.)
 
 
 Reframe renders your React views on the server, and/or in the browser, and/or statically.
-Reframe helps you create static React apps, universal React apps, and other types of apps.
+Reframe helps you create static websites, universal React apps, and other types of apps.
 Reframe is designed with "adaptability" in mind (= almost no lock-in).
 
-# Introduction
-
 This introduction presents what Reframe is, how it's different from other web frameworks, and the Reframe project's scope.
-If you want to start use Reframe right away, check out the Getting Started section instead.
+
+# Introduction
 
 Reframe allows you to define pages like this:
 
@@ -53,7 +52,7 @@ Once the frontend is built and the server up the source code of `http://localhos
 ~~~
 
 This page is static but you can also create pages that are "HTML-dynamic" and "DOM-dynamic".
-We will see in a bit what "HTML-dynamic" and "DOM-dynamic" means.
+We will see in a bit what "HTML-dynamic" and "DOM-dynamic" mean.
 
 
 #### Why Reframe?
@@ -64,7 +63,7 @@ Reframe is born out of the frustration of two conflicting intentions
 
  2. I don't want to use a framework because of its limitations. And more importantly, I don't want to be locked-in to that framework down the road.
 
-One could ask oneself whether it is possible or not to design a framework in a way that allows both a quick start and full flexbility down the road?
+One could ask oneself if it's possible to design a framework in a way that allows both a quick start and full flexbility down the road?
 
 We call the notion of "full fexibility down the road" *adaptability* and such adaptable framework an (anti-)framework.
 
@@ -99,77 +98,86 @@ With Reframe you can create pages that are:
    <br/>
    (Reframe uses `require('react-dom')` and React manipulates the DOM.)
 
-Among others you can create universal apps (isomorphic apps), i.e. apps that are rendered on both the server and the browser.
-You can as well create static apps, i.e. apps where all pages are HTML-static.
-And you can create any combination of HTML-(static/dynamic) and DOM-(static/dynamic) pages.
+You can create a universal app (i.e. a isomorphic app), i.e. apps that are rendered on both the server and the browser.
+
+You can as well create a static React app (in other words a static website), that is, an app where all pages are HTML-static.
+(When creating a static website/app, Reframe will generate all HTML at build-time and this means that no server code is required and you can publish your static app with GitHub pages or any other static website hosting.)
+
+In general, you can create any combination of HTML-(static/dynamic) and DOM-(static/dynamic) pages.
 
 
 Reframe takes care of;
 
  - **Routing**.
    <br/>
-   I.e. the mapping of a URL to a React component. (Reframe's default routing library is [Crossroads.js](https://github.com/millermedeiros/crossroads.js) but you can also choose another routing library and create your own route rules.)
+   I.e. the mapping of a URL to a React component.
    <br/>
    Including:
-   - dynamic routes
+    - Route parameters
+      (Define routes such as `/user/{user-id}`.)
+      <br/>
+    - [Adaptable] Custom route logic
+    - [Adaptable] Arbitrary routing library
+    (Reframe's default routing library is [Crossroads.js](https://github.com/millermedeiros/crossroads.js) but you can also choose another routing library and create your own route rules.)
+
+
  - **Server**.
    <br/>
    Reframe sets up a Node.js/hapi server to render your react pages to HTML. (But you can also use Reframe with your own server.)
    <br/>
     Including:
      - Optimal non-optimistic caching.
-      <br/>
+       <br/>
        (Mutable URLs are cached with the `ETag` header, static assets are served at immutable URLs and are indefinitely cached with `Cache-Control` header with `immutable` and the maximum value for `max-age`.)
+     - [Adaptable] Custom CLI.
+       <br/>
+       The `reframe` CLI is just a thin wrapper over the NPM package `@reframe/server`.
+       You can use `@reframe/server` directly instead of using the CLI.
+       That way you can define your own command line interface, startup logic, and process management.
      - [Adaptable] Possibility to use Reframe as a hapi plugin.
-   You can use Reframe as a hapi plugin so that you can create the hapi server yourself. Which is useful if for example you want to add GraphQL / RESTful API endpoints to the server.
+       <br/>
+       (That way you can create the hapi server yourself. Which is useful if for example you want to add GraphQL / RESTful API endpoints to the server.)
      - [Adaptable] Possibility to use Reframe with another server framework like Express, Koa, etc.
 
  - **Build**.
    <br/>
    Reframe builds and bundles your frontend assets for you. (Reframe uses webpack. You can use a fully custom webpack configuration.)
    <br/>
-   Including
+   Including:
     - Code Splitting.
       <br/>
       (Every page has its own script bundle. The common is extracted into a separate script bundle (containing mainly React and core-js).)
     - Autoreload
       <br/>
       (.)
-    - [Adaptable] full customization
+    - [Adaptable] You can use almost any arbitrary webpack configuration
+      <br/>
+       Reframe assumes almost nothing about the webpack configuration so that you can use almost any webpack configuration you want.
 
 
 Reframe **doesn't** take care of;
 
- - State management.
+ - View logic / state management.
    <br/>
-   It's up to you to manage the state of your app yourself. (Or use Redux / MobX / [Reprop](https://github.com/brillout/reprop).)
+   It's up to you to manage the state of your views yourself. (Or use Redux / MobX / [Reprop](https://github.com/brillout/reprop).)
  - Database.
    <br/>
    It's up to you to create, populate, and query databases.
 
+#### Adaptability
 
-Reframe is adaptable;
+Beyond the adaptable points described above, **Reframe is adaptable all the way down to Repage.**
 
- - **Custom server.**
-   <br/>
-   <br/>
-   You can as well use any other server framework like Express, Koa, etc.
- - **Custom webpack configuration.**
-   <br/>
-   Reframe assumes almost nothing about the webpack configuration so that you can use almost any webpack configuration you want.
- - **Custom CLI.**
-   <br/>
-   The `reframe` CLI is just a thin wrapper over the NPM package `@reframe/server`
-   and you can use `@reframe/server` directly instead of using the CLI.
-   That way you can define your own command line interface, startup logic, and process management.
- - **Customization all the way down to Repage.**
-   <br/>
-   Behind the curtain,
-   Reframe is built on top of Repage.
-   Repage is an agnostic low-level page management library.
-   You can rewrite any part of Reframe.
-   Eventually, you can get rid of Reframe altogether to then depend on Repage only.
-   By rewriting parts of Reframe you can for example
-   use another build tool other than webpack,
-   use another view library other than React,
-   etc.
+Behind the curtain,
+Reframe is built on top of Repage.
+Repage is an agnostic low-level page management library.
+You can rewrite any part of Reframe.
+Eventually, you can get rid of Reframe altogether to then depend on Repage only.
+Reframe is designed such that parts of Reframe can be rewritten
+By rewriting parts of Reframe you can for example
+use another build tool other than webpack,
+use another view library other than React,
+etc.
+
+ - [Adaptable] Other view library other than React
+ - [Adaptable] Other build tool other than webpack
