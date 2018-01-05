@@ -153,11 +153,13 @@ Reframe is born out of the frustration of two conflicting intentions
 
  2. I don't want to use a framework because of its limitations. And more importantly, I don't want to be locked-in to that framework down the road.
 
-One could ask oneself if it's possible to design a framework in a way that allows both a quick start and full flexbility down the road?
+One could ask oneself if it's possible to design a framework in a way that allows a quick start and full flexbility down the road?
 
 We call the notion of "full fexibility down the road" *adaptability* and such adaptable framework an (anti-)framework.
 
 The Reframe project is born in the belief that an (anti-)framework is possible.
+
+With reframe it is framework that adapts to your needs, not your needs that adapt to the framework.
 
 #### Why should I use Reframe?
 
@@ -198,7 +200,7 @@ In general, you can create any combination of HTML-(static/dynamic) and DOM-(sta
 
 Reframe takes care of;
 
- - **Routing**.
+ - **Routing**
    <br/>
    I.e. the mapping of a URL to a React component.
    <br/>
@@ -207,13 +209,16 @@ Reframe takes care of;
       (Define routes such as `/user/{user-id}`.)
       <br/>
     - [Adaptable] Custom route logic
+      <br/>
+      (The route of a page can also be defined by providing functions that can implement any arbritary routing logic.)
     - [Adaptable] Arbitrary routing library
-    (Reframe's default routing library is [Crossroads.js](https://github.com/millermedeiros/crossroads.js) but you can also choose another routing library and create your own route rules.)
+      <br/>
+      (Reframe's default routing library is [Crossroads.js](https://github.com/millermedeiros/crossroads.js) but you can also choose another routing library.)
 
 
- - **Server**.
+ - **Server**
    <br/>
-   Reframe sets up a Node.js/hapi server to render your react pages to HTML. (But you can also use Reframe with your own server.)
+   Reframe sets up a Node.js/hapi server that renders HTML-dynamic pages and that serves static browser assets.
    <br/>
     Including:
      - Optimal non-optimistic caching.
@@ -229,20 +234,20 @@ Reframe takes care of;
        (That way you can create the hapi server yourself. Which is useful if for example you want to add GraphQL / RESTful API endpoints to the server.)
      - [Adaptable] Possibility to use Reframe with another server framework like Express, Koa, etc.
 
- - **Build**.
+ - **Build**
    <br/>
    Reframe builds and bundles your frontend assets for you. (Reframe uses webpack. You can use a fully custom webpack configuration.)
    <br/>
    Including:
-    - Code Splitting.
+    - Code Splitting
       <br/>
       (Every page has its own script bundle. The common is extracted into a separate script bundle (containing mainly React and core-js).)
-    - Autoreload
+    - Auto-reload
       <br/>
-      (.)
+      (Everytime you modify a file the bundle is re-compiled and the browser automatically reloads)
     - [Adaptable] You can use almost any arbitrary webpack configuration
       <br/>
-       Reframe assumes almost nothing about the webpack configuration so that you can use almost any webpack configuration you want.
+      Reframe assumes almost nothing about the webpack configuration so that you can use almost any webpack configuration you want.
 
 
 Reframe **doesn't** take care of;
@@ -254,6 +259,7 @@ Reframe **doesn't** take care of;
    <br/>
    It's up to you to create, populate, and query databases.
 
+
 #### Adaptability
 
 Beyond the adaptable points described above, **Reframe is adaptable all the way down to Repage.**
@@ -261,13 +267,11 @@ Beyond the adaptable points described above, **Reframe is adaptable all the way 
 Behind the curtain,
 Reframe is built on top of Repage.
 Repage is an agnostic low-level page management library.
-You can rewrite any part of Reframe.
-Eventually, you can get rid of Reframe altogether to then depend on Repage only.
-Reframe is designed such that parts of Reframe can be rewritten
-By rewriting parts of Reframe you can for example
-use another build tool other than webpack,
-use another view library other than React,
-etc.
+
+Reframe is designed such that any part of Reframe can be replaced with code of your own.
+You can even eventually get rid of Reframe altogether to then use Repage directly.
+
+By replacing Reframe parts you can for example
 
  - [Adaptable] Other view library other than React
  - [Adaptable] Other build tool other than webpack
