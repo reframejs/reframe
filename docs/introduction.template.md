@@ -59,23 +59,25 @@ We will see in a bit what "HTML-dynamic" and "DOM-dynamic" mean.
 
 Reframe is born out of the frustration of two conflicting intentions
 
- 1. I want to use a framework to quickly get a working prototype. And more importantly, I want to think about and develop the application's architecture later and only if necessary rather than having to think through an entire app architecture before even starting writing one line of code.
+ 1. I want to use a framework to quickly implement a working prototype. And more importantly, I want to think about the application's architecture only later on and only if necessary rather than having to think through an entire app architecture before even starting writing one line of code.
 
- 2. I don't want to use a framework because of its limitations. And more importantly, I don't want to be locked-in to that framework down the road.
+ 2. I don't want to use a framework because of its limitations. And more importantly, I don't want to get locked-in to that framework down the road.
 
-One could ask oneself if it's possible to design a framework in a way that allows a quick start and full flexbility down the road?
+One could ask oneself if it's possible to design a framework in a way that allows both a quick start and full flexbility down the road?
 
 We call the notion of "full fexibility down the road" *adaptability* and such adaptable framework an (anti-)framework.
 
 The Reframe project is born in the belief that an (anti-)framework is possible.
 
-With reframe it is framework that adapts to your needs, not your needs that adapt to the framework.
+With reframe, it is framework that adapts to your needs, not your needs that adapt to the framework.
+
 
 #### Why should I use Reframe?
 
 If you want to quickly implement a working prototype without getting locked into the framework's limitations down the road.
 
-### Reframe Project Scope
+
+#### Reframe Project Scope
 
 With Reframe you can create pages that are:
 
