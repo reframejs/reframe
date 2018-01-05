@@ -184,6 +184,5 @@ Reframe is designed such that any part of Reframe can be replaced with code of y
 You can even eventually get rid of Reframe altogether to then use Repage directly.
 
 By replacing Reframe parts you can for example
-
- - [Adaptable] Other view library other than React
- - [Adaptable] Other build tool other than webpack
+ - [Adaptable] User a view library other than React
+ - [Adaptable] User a build tool other than webpack
