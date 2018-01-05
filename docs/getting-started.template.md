@@ -4,6 +4,16 @@
 In this getting started
 we start writing an HTML-static and DOM-static hello world example and we progresivelly change the example to make it HTML-dynamic and DOM-dynamic.
 
+# Getting Started
+
+#### Contents
+ - [HTML-static & DOM-static](#html-static-dom-static)
+ - [HTML-dynamic & DOM-static](#html-dynamic-dom-static)
+ - [HTML-dynamic & DOM-dynamic](#html-dynamic-dom-static)
+ - [HTML-dynamic & partial DOM-dynamic](#html-dynamic-partial-dom-dynamic)
+
+Let's revisit the simple HTML-static and DOM-static page of the introduction.
+
 #### HTML-static & DOM-static
 
 Let's create a static hello world page:
