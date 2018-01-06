@@ -22,7 +22,7 @@ A hello world page definition:
 !INLINE ../example/pages/HelloPage.html.js
 ~~~
 
-Upon running the `reframe` CLI a Node.js/hapi server that serving our page is created:
+Upon running the `reframe` CLI a Node.js/hapi server serving our page is created:
 
 ~~~shell
 $ npm install -g @reframe/cli
@@ -59,14 +59,14 @@ Now let's consider a more dynamic example where we display the current date.
 
 #### HTML-dynamic & DOM-static
 
-We display the current date.
-We also display a timestamp so we can see when the page has been generated.
+We display the current date
+and we also display a timestamp so we can see when the page has been generated.
 
 ~~~js
 !INLINE ../example/pages/DatePage.html.js
 ~~~
 
-If the current time would be 1/1/2018 1:37 PM then the source code would be
+If the current time would be 1/1/2018 1:37 PM then the HTML code would be
 
 ~~~html
 <!DOCTYPE html>
@@ -102,7 +102,7 @@ This is how we tell Reframe to render the view on the browser. (Reframe will the
 !INLINE ../example/pages/TimePage.universal.js
 ~~~
 
-And the source code of view-source:http://localhost:3000/hello is:
+And the HTML code of view-source:http://localhost:3000/hello is:
 
 ~~~html
 <!DOCTYPE html>
@@ -120,7 +120,7 @@ And the source code of view-source:http://localhost:3000/hello is:
 </html>
 ~~~
 
-As the source code shows we load JavaScript code.
+As the HTML code shows we load JavaScript code.
 The JavaScript code (that bundles React and `TimeComponent`) mounts a `<TimeComponent/>` element onto the DOM.
 The mounted `<TimeComponent/>` then updates the DOM every second and the current time is continuously updated.
 

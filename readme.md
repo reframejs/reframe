@@ -82,12 +82,12 @@
 [Getting Started](/docs/getting-started.md)<br/>
 [API](/docs/api.md)
 
-Reframe, the web (anti-)framework. (A web framework with almost no lock-in.)
+Reframe, the web (anti-)framework. (A web framework with no lock-in.)
 
 
 Reframe renders your React views on the server, and/or in the browser, and/or statically.
 Reframe helps you create static websites, universal React apps, and other types of apps.
-Reframe is designed with "adaptability" in mind (= almost no lock-in).
+Reframe is designed with "adaptability" in mind (= no lock-in).
 
 This introduction presents what Reframe is, how it's different from other web frameworks, and the Reframe project's scope.
 
@@ -264,7 +264,7 @@ Reframe **doesn't** take care of;
 
 #### Adaptability
 
-Beyond the adaptable points described above, **Reframe is adaptable all the way down to Repage.**
+Beyond the adaptable points described above, **Reframe is adaptable all the way down to Repage**.
 
 Behind the curtain,
 Reframe is built on top of Repage.
@@ -276,6 +276,11 @@ You can even eventually get rid of Reframe altogether to then use Repage directl
 By replacing Reframe parts you can for example
  - [Adaptable] User a view library other than React
  - [Adaptable] User a build tool other than webpack
+
+And to further push the adaptability envelop, Repage itself designed with adaptability in mind and
+**Repage is adaptable all the way down to vanilla JavaScript**.
+
+In overall, and if you are willing to replace parts of Reframe/Repage with your own code, every bit of this framework is adaptable to your needs.
 
 <!---
 
