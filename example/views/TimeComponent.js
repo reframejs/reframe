@@ -12,7 +12,7 @@ class TimeComponent extends React.Component {
         );
     }
     render() {
-        return toTimeString(this.state.now);
+        return <span>{toTimeString(this.state.now)}</span>;
     }
 }
 
