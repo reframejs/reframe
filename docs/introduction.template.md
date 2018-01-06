@@ -6,7 +6,7 @@
 !MENU_LINK /../../
 !MENU_ORDER 10
 
-Reframe, the web (anti-)framework. (A web framework with no lock-in.)
+Reframe, the web (anti-)framework. (A web framework without lock-in.)
 
 
 Reframe renders your React views on the server, and/or in the browser, and/or statically.
