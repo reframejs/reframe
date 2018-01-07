@@ -2,10 +2,20 @@
   "name": "@reframe/build",
   "version": "0.0.1",
   "main": "./build",
+  "repository": "github:brillout/reframe",
+  "dependencies_TODO": {
+    "@repage/build": "0.0.1",
+    "@repage/router-crossroads": "0.0.1",
+    "@repage/renderer": "0.0.1",
+    "@repage/renderer-react": "0.0.1",
+
+    "@rebuild/config": "0.0.1",
+    "@rebuild/build": "0.0.1",
+    "@rebuild/serve": "0.0.1"
+  },
   "dependencies": {
-    "@rebuild/build": "*",
-    "@rebuild/serve": "*",
-    "@reframe/browser": "*",
+    "@reframe/browser": "0.0.1",
+
     "mkdirp": "^0.5.1",
     "parent-module": "^0.1.0",
     "reassert": "^1.0.0"

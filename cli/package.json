@@ -4,5 +4,10 @@
   "bin": {
     "reframe": "./cli.js"
   },
-  "dependencies": {}
+  "repository": "github:brillout/reframe",
+  "dependencies": {
+    "@reframe/server": "*",
+
+    "reassert": "^1.0.0"
+  }
 }

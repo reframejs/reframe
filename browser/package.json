@@ -1,6 +1,13 @@
 {
   "name": "@reframe/browser",
   "version": "0.0.1",
+  "dependencies_TODO": {
+    "@repage/browser": "0.0.1",
+    "@repage/navigator-history": "0.0.1",
+    "@repage/router-crossroads": "0.0.1",
+    "@repage/renderer": "0.0.1",
+    "@repage/renderer-react": "0.0.1"
+  },
   "dependencies": {
     "reassert": "^1.0.0"
   }

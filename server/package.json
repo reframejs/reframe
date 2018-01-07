@@ -1,7 +1,15 @@
 {
   "name": "@reframe/server",
   "version": "0.0.1",
+  "repository": "github:brillout/reframe",
+  "dependencies_TODO": {
+    "@repage/server": "0.0.1",
+    "@repage/router-crossroads": "0.0.1",
+    "@repage/renderer": "0.0.1",
+    "@repage/renderer-react": "0.0.1"
+  },
   "dependencies": {
+    "@reframe/build": "*",
     "reassert": "^1.0.0"
   }
 }
