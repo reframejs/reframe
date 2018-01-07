@@ -13,7 +13,7 @@ const {get_context} = require('./utils/get_context');
 const fs = require('fs');
 const mkdirp = require('mkdirp');
 
-const Repage = require('@repage/core/build');
+const Repage = require('@repage/build');
 const RepageRouterCrossroads = require('@repage/router-crossroads');
 const RepageRenderer = require('@repage/renderer');
 const RepageRendererReact = require('@repage/renderer-react');

@@ -3,7 +3,7 @@ const assert_usage = assert;
 const assert_internal = assert;
 const {compute_source_code_hash} = require('./utils/compute_source_code_hash');
 
-const Repage = require('@repage/core/server');
+const Repage = require('@repage/server');
 
 const RepageRouterCrossroads = require('@repage/router-crossroads');
 const RepageRenderer = require('@repage/renderer');

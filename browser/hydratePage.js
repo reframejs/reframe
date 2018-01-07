@@ -1,7 +1,7 @@
 const assert = require('reassert');
 const assert_usage = assert;
 
-const Repage = require('@repage/core/browser');
+const Repage = require('@repage/browser');
 
 const RepageRouterCrossroads = require('@repage/router-crossroads/browser');
 const RepageRenderer = require('@repage/renderer/browser');
