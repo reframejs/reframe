@@ -8,14 +8,12 @@
     "@repage/router-crossroads": "0.0.1",
     "@repage/renderer": "0.0.1",
     "@repage/renderer-react": "0.0.1",
-
     "@rebuild/config": "0.0.1",
     "@rebuild/build": "0.0.1",
     "@rebuild/serve": "0.0.1"
   },
   "dependencies": {
     "@reframe/browser": "0.0.1",
-
     "mkdirp": "^0.5.1",
     "parent-module": "^0.1.0",
     "reassert": "^1.0.0"

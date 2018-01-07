@@ -9,7 +9,7 @@
     "@repage/renderer-react": "0.0.1"
   },
   "dependencies": {
-    "@reframe/build": "*",
+    "@reframe/build": "0.0.1",
     "reassert": "^1.0.0"
   }
 }
