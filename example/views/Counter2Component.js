@@ -1,7 +1,7 @@
 import React from 'react';
 import './CounterStyle.css';
 
-class CounterComponent extends React.Component {
+class Counter2Component extends React.Component {
     constructor(props) {
         super(props);
         this.state = {counter: this.getCounter()};
@@ -26,4 +26,4 @@ class CounterComponent extends React.Component {
     }
 }
 
-export {CounterComponent};
+export {Counter2Component};
