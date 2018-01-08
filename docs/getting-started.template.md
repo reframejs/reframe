@@ -162,4 +162,4 @@ You can also create the JavaScript browser entry point yourself.
 
 TODO
  - CSS
- - getInitialProps
+ - async getInitialProps
