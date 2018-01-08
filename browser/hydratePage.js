@@ -1,7 +1,8 @@
 const assert = require('reassert');
 const assert_usage = assert;
 
-const Repage = require('@repage/browser');
+const Repage = require('@repage/core');
+const {hydratePage: repage_hydratePage} = require('@repage/browser');
 
 const RepageRouterCrossroads = require('@repage/router-crossroads/browser');
 const RepageRenderer = require('@repage/renderer/browser');
@@ -20,7 +21,5 @@ async function hydratePage(page) {
         RepageNavigatorHistory,
     ]);
 
-  //repage.addPages([page]);
-
-    return await repage.hydratePage(page);
+    return await repage_hydratePage(repage, page);
 }

@@ -3,7 +3,8 @@ const assert_usage = assert;
 const assert_internal = assert;
 const {compute_source_code_hash} = require('./utils/compute_source_code_hash');
 
-const Repage = require('@repage/server');
+const Repage = require('@repage/core');
+const {getPageHtml} = require('@repage/server');
 
 const RepageRouterCrossroads = require('@repage/router-crossroads');
 const RepageRenderer = require('@repage/renderer');
@@ -38,7 +39,7 @@ function HapiServerRendering__create({getPages}={}) {
 
                 await init_repage_object();
 
-                let {html, renderToHtmlIsMissing} = await repage.getPageHtml({uri, canBeNull: true});
+                let {html, renderToHtmlIsMissing} = await getPageHtml(repage, uri, {canBeNull: true});
                 assert_internal(html === null || html && html.constructor===String, html);
 
                 assert_internal([true, false].includes(renderToHtmlIsMissing));

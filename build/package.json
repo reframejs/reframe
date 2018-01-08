@@ -4,6 +4,7 @@
   "main": "./build",
   "repository": "github:brillout/reframe",
   "dependencies_TODO": {
+    "@repage/core": "0.0.1",
     "@repage/build": "0.0.1",
     "@repage/router-crossroads": "0.0.1",
     "@repage/renderer": "0.0.1",
