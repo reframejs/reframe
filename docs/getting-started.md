@@ -101,14 +101,11 @@ A hello world page definition:
 
 const React = require('react');
 
-const HelloComponent = () => <div>Hello World</div>;
+const HelloComponent = props => <div>Hello {props.route.args.name}</div>;
 
 const HelloPage = {
-    title: 'Hello there', // Page's title
-    description: 'A Hello World page created with Reframe.',
-    route: '/hello', // Page's URL
+    route: '/hello/{name}',
     view: HelloComponent,
-    htmlIsStatic: true, // Let Reframe know that HelloPage's HTML is static.
 };
 
 module.exports = HelloPage;
@@ -361,7 +358,6 @@ import React from 'react';
 import {TimeComponent} from '../views/TimeComponent';
 
 export default {
-    route: '/news',
     view: {
         containerId: 'time-root',
         view: TimeComponent,
@@ -372,6 +368,10 @@ export default {
 #### Production build & server
 
 
+
+TODO
+ - CSS
+ - async getInitialProps
 
 <!---
 

@@ -82,7 +82,7 @@
 [Getting Started](/docs/getting-started.md)<br/>
 [API](/docs/api.md)
 
-Reframe, the web (anti-)framework. (A web framework with no lock-in.)
+Reframe, the web (anti-)framework. (A web framework without lock-in.)
 
 
 Reframe renders your React views on the server, and/or in the browser, and/or statically.
@@ -100,14 +100,11 @@ Reframe allows you to define pages like this:
 
 const React = require('react');
 
-const HelloComponent = () => <div>Hello World</div>;
+const HelloComponent = props => <div>Hello {props.route.args.name}</div>;
 
 const HelloPage = {
-    title: 'Hello there', // Page's title
-    description: 'A Hello World page created with Reframe.',
-    route: '/hello', // Page's URL
+    route: '/hello/{name}',
     view: HelloComponent,
-    htmlIsStatic: true, // Let Reframe know that HelloPage's HTML is static.
 };
 
 module.exports = HelloPage;
