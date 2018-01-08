@@ -17,7 +17,6 @@ const Repage = require('@repage/build');
 const RepageRouterCrossroads = require('@repage/router-crossroads');
 const RepageRenderer = require('@repage/renderer');
 const RepageRendererReact = require('@repage/renderer-react');
-const RepagePageLoader = require('@repage/page-loader');
 
 module.exports = {build};
 
@@ -209,12 +208,9 @@ async function writeHtmlStaticPages({pages, htmlBuilder}) {
         RepageRouterCrossroads,
         RepageRenderer,
         RepageRendererReact,
-        RepagePageLoader,
     ]);
 
     repage.addPages(pages);
-
-    await repage.waitInit();
 
     const htmlStaticPages = await repage.getStaticPages();
 

@@ -8,7 +8,6 @@ const Repage = require('@repage/server');
 const RepageRouterCrossroads = require('@repage/router-crossroads');
 const RepageRenderer = require('@repage/renderer');
 const RepageRendererReact = require('@repage/renderer-react');
-const RepagePageLoader = require('@repage/page-loader');
 
 
 module.exports = {HapiServerRendering__create};
@@ -68,7 +67,6 @@ function HapiServerRendering__create({getPages}={}) {
                     }
                     assert_usage(repage__new, repage__new);
                     repage = repage__new;
-                    await repage.waitInit();
                     return;
                 }
 
@@ -80,7 +78,6 @@ function HapiServerRendering__create({getPages}={}) {
                     assert_usage(pages__new.constructor===Array, pages__new);
                     pages = pages__new;
                     repage = create_repage_object(pages);
-                    await repage.waitInit();
                     return;
                 }
 
@@ -96,7 +93,6 @@ function HapiServerRendering__create({getPages}={}) {
                     RepageRouterCrossroads,
                     RepageRenderer,
                     RepageRendererReact,
-                    RepagePageLoader,
                 ]);
 
                 repage.addPages(pages_);

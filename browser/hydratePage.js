@@ -6,7 +6,7 @@ const Repage = require('@repage/browser');
 const RepageRouterCrossroads = require('@repage/router-crossroads/browser');
 const RepageRenderer = require('@repage/renderer/browser');
 const RepageRendererReact = require('@repage/renderer-react/browser');
-const RepageNavigatorHistory = require('@repage/navigator-history/browser');
+const RepageNavigatorHistory = require('@repage/navigator/browser');
 
 module.exports = hydratePage;
 
