@@ -13,9 +13,9 @@ Reframe renders your React views on the server, and/or in the browser, and/or st
 Reframe helps you create static websites, universal React apps, and other types of apps.
 Reframe is designed with "adaptability" in mind (= no lock-in).
 
-This introduction presents what Reframe is, how it's different from other web frameworks, and the Reframe project's scope.
+This overview presents what Reframe is, how it's different from other web frameworks, and the Reframe project's scope.
 
-# Introduction
+# Overview
 
 Reframe allows you to define pages like this:
 

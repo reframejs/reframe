@@ -7,7 +7,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/introduction.template.md` instead.
+    Edit `/docs/overview.template.md` instead.
 
 
 
@@ -22,7 +22,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/introduction.template.md` instead.
+    Edit `/docs/overview.template.md` instead.
 
 
 
@@ -37,7 +37,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/introduction.template.md` instead.
+    Edit `/docs/overview.template.md` instead.
 
 
 
@@ -52,7 +52,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/introduction.template.md` instead.
+    Edit `/docs/overview.template.md` instead.
 
 
 
@@ -67,7 +67,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/introduction.template.md` instead.
+    Edit `/docs/overview.template.md` instead.
 
 
 
@@ -78,7 +78,7 @@
 [<p align="center"><img src='https://github.com/brillout-test/reprop-test/blob/master/docs/logo/logo-title.svg' width=400 style=    "max-width:100%;" alt="Reprop"/></p>](https://github.com/brillout/reprop)
 <br/>
 
-[Introduction](/../../)<br/>
+[Overview](/../../)<br/>
 [Getting Started](/docs/getting-started.md)<br/>
 [API](/docs/api.md)
 
@@ -89,9 +89,9 @@ Reframe renders your React views on the server, and/or in the browser, and/or st
 Reframe helps you create static websites, universal React apps, and other types of apps.
 Reframe is designed with "adaptability" in mind (= no lock-in).
 
-This introduction presents what Reframe is, how it's different from other web frameworks, and the Reframe project's scope.
+This overview presents what Reframe is, how it's different from other web frameworks, and the Reframe project's scope.
 
-# Introduction
+# Overview
 
 Reframe allows you to define pages like this:
 
@@ -288,7 +288,7 @@ In overall, and if you are willing to replace parts of Reframe/Repage with your 
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/introduction.template.md` instead.
+    Edit `/docs/overview.template.md` instead.
 
 
 
@@ -303,7 +303,7 @@ In overall, and if you are willing to replace parts of Reframe/Repage with your 
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/introduction.template.md` instead.
+    Edit `/docs/overview.template.md` instead.
 
 
 
@@ -318,7 +318,7 @@ In overall, and if you are willing to replace parts of Reframe/Repage with your 
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/introduction.template.md` instead.
+    Edit `/docs/overview.template.md` instead.
 
 
 
@@ -333,7 +333,7 @@ In overall, and if you are willing to replace parts of Reframe/Repage with your 
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/introduction.template.md` instead.
+    Edit `/docs/overview.template.md` instead.
 
 
 
@@ -348,7 +348,7 @@ In overall, and if you are willing to replace parts of Reframe/Repage with your 
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/introduction.template.md` instead.
+    Edit `/docs/overview.template.md` instead.
 
 
 

@@ -75,7 +75,7 @@
 
 
 -->
-[Introduction](/../../)<br/>
+[Overview](/../../)<br/>
 [Getting Started](/docs/getting-started.md)<br/>
 [API](/docs/api.md)
 
@@ -90,7 +90,7 @@ we start writing an HTML-static and DOM-static hello world example and we progre
  - [HTML-dynamic & DOM-dynamic](#html-dynamic-dom-static)
  - [HTML-dynamic & partial DOM-dynamic](#html-dynamic-partial-dom-dynamic)
 
-Let's revisit the HTML-static and DOM-static hello world page of the introduction.
+Let's revisit the HTML-static and DOM-static hello world page of the overview section.
 
 #### HTML-static & DOM-static
 
