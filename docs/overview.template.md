@@ -19,7 +19,7 @@ This overview presents what Reframe is, how it's different from other web framew
 Reframe allows you to define pages like this:
 
 ~~~js
-!INLINE ../example/pages/HelloWorldPage.html.js
+!INLINE ../example/pages/HelloPage.universal.js
 ~~~
 
 Running the `reframe` CLI serves the defined page:
@@ -33,25 +33,22 @@ $ reframe
 
 The CLI command `reframe` searches for the `pages` directory, builds the frontend (webpack), and spins up a server (Node.js/hapi).
 
-Once the frontend is built and the server up the source code of `http://localhost:3000/hello` is;
+Once the frontend is built and the server up the source code of `http://localhost:3000/hello/alice` is;
 
 ~~~html
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Hello there</title>
-        <meta name="description" content="A Hello World page created with Reframe.">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <meta charset="utf-8">
     </head>
     <body>
-        <div id="react-root"><div>Hello World</div></div>
+        <div id="react-root"><div>Hello alice</div></div>
+        <script src="/commons.hash_e3c2135a3976b7ac378d.js" type="text/javascript"></script>
+        <script src="/HelloPage.entry.hash_69c37a057d9dd0006c30.js" type="text/javascript"></script>
     </body>
 </html>
 ~~~
-
-This page is static but you can also create pages that are "HTML-dynamic" and "DOM-dynamic".
-We will see in a bit what HTML-dynamic and DOM-dynamic mean.
 
 
 #### Why Reframe?
