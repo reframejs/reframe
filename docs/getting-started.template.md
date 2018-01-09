@@ -1,18 +1,23 @@
 !MENU
 !MENU_ORDER 20
 
-This getting start explains how to create *page objects* for
+This getting started explains how to create *page objects* for
 HTML-static, HTML-dynamic, DOM-static, and DOM-dynamic pages.
 
 # Getting Started
 
+Reframe revolves around *page objects* wich are JavaScript objects that define pages.
+
 #### Contents
+
  - [HTML-static & DOM-static](#html-static-dom-static)
  - [HTML-dynamic & DOM-static](#html-dynamic-dom-static)
  - [HTML-dynamic & DOM-dynamic](#html-dynamic-dom-static)
  - [HTML-dynamic & partial DOM-dynamic](#html-dynamic-partial-dom-dynamic)
+ - [CSS](#css)
+ - [Async Data](#async-data)
+ - [Production](#production)
 
-Let's revisit the HTML-static and DOM-static hello world page of the overview section.
 
 #### HTML-static & DOM-static
 
@@ -109,7 +114,7 @@ We create a page that loads JavaScript code that updates the time every second b
 
 Note that we save our page object file as `TimePage.universal.js`.
 The filename ends with `.universal.js`
-whereas all previous filenames endeded with `.html.js`.
+whereas all previous filenames end with `.html.js`.
 (`HelloPage.html.js`, `DatePage.html.js`, and `TimePage.html.js`.)
 
 By saving a page object with a `universal.js` suffix we tell Reframe that the view is to be rendered on the browser as well.
@@ -173,10 +178,21 @@ You can also create the JavaScript browser entry point yourself.
 !INLINE ../example/pages/NewsPage.dom.js
 ~~~
 
-#### Production build & server
+#### CSS
+
+~~~js
+!INLINE ../example/pages/GlitterPage.universal.js
+~~~
+
+~~~js
+!INLINE ../example/pages/GlitterComponent.js
+~~~
+
+~~~css
+!INLINE ../example/pages/GlitterStyle.css
+~~~
 
 
+#### Async Data
 
-TODO
- - CSS
- - async getInitialProps
+#### Production
