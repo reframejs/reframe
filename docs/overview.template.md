@@ -1,13 +1,12 @@
-[<p align="center"><img src='https://github.com/brillout-test/reprop-test/blob/master/docs/logo/logo-title.svg' width=400 style=    "max-width:100%;" alt="Reprop"/></p>](https://github.com/brillout/reprop)
+Reframe, the web (anti-)framework. (A web framework without lock-in.)
+
+[<p align="center"><img src='https://github.com/brillout-test/reprop-test/blob/master/docs/logo/logo-title.svg' width=400 style="max-width:100%;" alt="Reprop"/></p>](https://github.com/brillout/reprop)
 <br/>
 
 !MENU
 !OUTPUT ../readme.md
 !MENU_LINK /../../
 !MENU_ORDER 10
-
-Reframe, the web (anti-)framework. (A web framework without lock-in.)
-
 
 Reframe renders your React views on the server, and/or in the browser, and/or statically.
 Reframe helps you create static websites, universal React apps, and other types of apps.
