@@ -1,9 +1,6 @@
 import React from 'react';
 import './GlitterStyle.css';
 import './Tangerine.ttf';
-import diamondUrl from './diamond.png';
-
-console.log(diamondUrl);
 
 const Center = ({children, style}) => (
     <div
@@ -16,9 +13,11 @@ const Center = ({children, style}) => (
     </div>
 );
 
+const Diamond = () => <div className="diamond"/>;
+
 const GlitterComponent = () => (
     <Center style={{fontSize: '2em'}}>
-        I'm shiny <img src={diamondUrl}/>
+        <Diamond/> I'm shiny <Diamond/>
     </Center>
 );
 

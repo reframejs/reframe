@@ -2,3 +2,11 @@ body {
     background-color: pink;
     font-family: 'Tangerine', cursive;
 }
+.diamond {
+    background-image: url('./diamond.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+}
