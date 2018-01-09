@@ -127,13 +127,14 @@ Once the frontend is built and the server up the source code of `http://localhos
 <!DOCTYPE html>
 <html>
     <head>
+        <title>Hi there</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <meta charset="utf-8">
     </head>
     <body>
         <div id="react-root"><div>Hello alice</div></div>
-        <script src="/commons.hash_e3c2135a3976b7ac378d.js" type="text/javascript"></script>
-        <script src="/HelloPage.entry.hash_69c37a057d9dd0006c30.js" type="text/javascript"></script>
+        <script src="/commons.hash_787d71980c1d2c514f85.js" type="text/javascript"></script>
+        <script src="/HelloPage.entry.hash_644bb460ae0b079b7a11.js" type="text/javascript"></script>
     </body>
 </html>
 ~~~
