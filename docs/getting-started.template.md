@@ -192,6 +192,7 @@ You can also create the JavaScript browser entry point yourself.
 !INLINE ../example/pages/GlitterStyle.css
 ~~~
 
+Note how we load images
 
 #### Async Data
 
