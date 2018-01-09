@@ -1,7 +1,7 @@
 !MENU
 !MENU_ORDER 20
 
-This getting start explains how to create
+This getting start explains how to create *page objects* for
 HTML-static, HTML-dynamic, DOM-static, and DOM-dynamic pages.
 
 # Getting Started
@@ -55,7 +55,8 @@ As shown at view-source:http://localhost:3000/hello the HTML of our page is:
 Because of `htmlIsStatic: true` Reframe generates the HTML on build-time and the page's HTML is static.
 We don't load any JavaScript and the DOM is static as well.
 
-Let's consider a more dynamic example. where we display the current date.
+
+Let's consider a more dynamic example.
 
 #### HTML-dynamic & DOM-static
 
@@ -88,9 +89,19 @@ If the current time would be 1/1/2018 1:37 PM then the HTML code would be
 Reloading the page 1 second later at 1:38 PM would lead to the same HTML but with `(Generated at 13:38:00)` instead of `(Generated at 13:37:00)`;
 This means that the HTML is re-rendered on every request and the page's HTML is dynamic.
 
-We still don't load any JavaScript, the page's DOM is static.
+We still don't load any JavaScript, the page's DOM is static. We call this page a HTML-dynamic DOM-static page.
 
-Let's look at a DOM-dynamic page.
+Another example of a HTML-dynamic DOM-static page is the `HelloPage.html.js` of the overview.
+
+~~~js
+!INLINE ../example/pages/HelloPage.html.js
+~~~
+
+Note that the route `/hello/{name}` of `HelloPage.html.js` is parameterized and it because of that it can't be HTML-static; There is an infinite number of pages with URLs `/hello/Alice-1`, `/hello/Alice-2`, `/hello/Alice-3`, etc. and we can't compute them all at build-time and the page has to be HTML-dyanmic.
+In general, all pages that have a parameterized route are HTML-dynamic.
+
+
+Let's now look at a DOM-dynamic page.
 
 #### HTML-dynamic & DOM-dynamic
 
