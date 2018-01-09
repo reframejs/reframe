@@ -19,15 +19,15 @@ This overview presents what Reframe is, how it's different from other web framew
 Reframe allows you to define pages like this:
 
 ~~~js
-!INLINE ../example/pages/HelloPage.html.js
+!INLINE ../example/pages/HelloWorldPage.html.js
 ~~~
 
-And the `reframe` CLI serves the defined page:
+Running the `reframe` CLI serves the defined page:
 
 ~~~shell
 $ reframe
-✔ Page directory found at ~/code/@reframe/example/pages
-✔ Frontend built at ~/code/@reframe/example/dist/browser/
+✔ Page directory found at ~/code/reframe/example/pages
+✔ Frontend built at ~/code/reframe/example/dist/browser/
 ✔ Server running at http://localhost:3000
 ~~~
 

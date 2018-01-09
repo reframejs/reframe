@@ -95,26 +95,29 @@ This overview presents what Reframe is, how it's different from other web framew
 Reframe allows you to define pages like this:
 
 ~~~js
-// /example/pages/HelloPage.html.js
+// /example/pages/HelloWorldPage.html.js
 
 const React = require('react');
 
-const HelloComponent = props => <div>Hello {props.route.args.name}</div>;
+const HelloWorldComponent = () => <div>Hello World</div>;
 
-const HelloPage = {
-    route: '/hello/{name}',
-    view: HelloComponent,
+const HelloWorldPage = {
+    title: 'Hello there', // Page's title
+    description: 'A Hello World page created with Reframe.',
+    route: '/hello', // Page's URL
+    view: HelloWorldComponent,
+    htmlIsStatic: true, // Let Reframe know that HelloPage's HTML is static.
 };
 
-module.exports = HelloPage;
+module.exports = HelloWorldPage;
 ~~~
 
-And the `reframe` CLI serves the defined page:
+Running the `reframe` CLI serves the defined page:
 
 ~~~shell
 $ reframe
-✔ Page directory found at ~/code/@reframe/example/pages
-✔ Frontend built at ~/code/@reframe/example/dist/browser/
+✔ Page directory found at ~/code/reframe/example/pages
+✔ Frontend built at ~/code/reframe/example/dist/browser/
 ✔ Server running at http://localhost:3000
 ~~~
 
