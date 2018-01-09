@@ -14,5 +14,7 @@ export default {
             </div>
         );
     },
-    htmlIsStatic: false, // This time, we let Reframe know that the HTML is not static
+    htmlIsStatic: false, // We let Reframe know that the HTML is not static
+                         // so that Reframe re-renders a new HTML
+                         // with the current date on every request
 };

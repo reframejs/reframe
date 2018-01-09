@@ -97,18 +97,21 @@ Let's revisit the HTML-static and DOM-static hello world page of the overview se
 A hello world page definition:
 
 ~~~js
-// /example/pages/HelloPage.html.js
+// /example/pages/HelloWorldPage.html.js
 
 const React = require('react');
 
-const HelloComponent = props => <div>Hello {props.route.args.name}</div>;
+const HelloWorldComponent = () => <div>Hello World</div>;
 
-const HelloPage = {
-    route: '/hello/{name}',
-    view: HelloComponent,
+const HelloWorldPage = {
+    title: 'Hello there', // Page's title
+    description: 'A Hello World page created with Reframe.',
+    route: '/hello', // Page's URL
+    view: HelloWorldComponent,
+    htmlIsStatic: true, // Let Reframe know that HelloPage's HTML is static.
 };
 
-module.exports = HelloPage;
+module.exports = HelloWorldPage;
 ~~~
 
 Upon running the `reframe` CLI a Node.js/hapi server serving our page is created:
