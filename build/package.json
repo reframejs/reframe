@@ -16,6 +16,7 @@
   "dependencies": {
     "@reframe/browser": "0.0.1-rc.0",
     "mkdirp": "^0.5.1",
+    "node-dir": "^0.1.17",
     "parent-module": "^0.1.0",
     "reassert": "^1.0.0"
   }
