@@ -79,18 +79,23 @@
 [Getting Started](/docs/getting-started.md)<br/>
 [API](/docs/api.md)
 
-This getting start explains how to create
+This getting started explains how to create *page objects* for
 HTML-static, HTML-dynamic, DOM-static, and DOM-dynamic pages.
 
 # Getting Started
 
+Reframe revolves around *page objects* wich are JavaScript objects that define pages.
+
 #### Contents
+
  - [HTML-static & DOM-static](#html-static-dom-static)
  - [HTML-dynamic & DOM-static](#html-dynamic-dom-static)
  - [HTML-dynamic & DOM-dynamic](#html-dynamic-dom-static)
  - [HTML-dynamic & partial DOM-dynamic](#html-dynamic-partial-dom-dynamic)
+ - [CSS](#css)
+ - [Async Data](#async-data)
+ - [Production Environment](#production-environment)
 
-Let's revisit the HTML-static and DOM-static hello world page of the overview section.
 
 #### HTML-static & DOM-static
 
@@ -147,7 +152,8 @@ As shown at view-source:http://localhost:3000/hello the HTML of our page is:
 Because of `htmlIsStatic: true` Reframe generates the HTML on build-time and the page's HTML is static.
 We don't load any JavaScript and the DOM is static as well.
 
-Let's consider a more dynamic example. where we display the current date.
+
+Let's consider a more dynamic example.
 
 #### HTML-dynamic & DOM-static
 
@@ -201,9 +207,31 @@ If the current time would be 1/1/2018 1:37 PM then the HTML code would be
 Reloading the page 1 second later at 1:38 PM would lead to the same HTML but with `(Generated at 13:38:00)` instead of `(Generated at 13:37:00)`;
 This means that the HTML is re-rendered on every request and the page's HTML is dynamic.
 
-We still don't load any JavaScript, the page's DOM is static.
+We still don't load any JavaScript, the page's DOM is static. We call this page a HTML-dynamic DOM-static page.
 
-Let's look at a DOM-dynamic page.
+Another example of a HTML-dynamic DOM-static page is the `HelloPage.html.js` of the overview.
+
+~~~js
+// /example/pages/HelloPage.html.js
+
+const React = require('react');
+
+const HelloComponent = props => <div>Hello {props.route.args.name}</div>;
+
+const HelloPage = {
+    title: 'Hi there', // page's title
+    route: '/hello/{name}', // page's URL
+    view: HelloComponent,
+};
+
+module.exports = HelloPage;
+~~~
+
+Note that the route `/hello/{name}` of `HelloPage.html.js` is parameterized and it because of that it can't be HTML-static; There is an infinite number of pages with URLs `/hello/Alice-1`, `/hello/Alice-2`, `/hello/Alice-3`, etc. and we can't compute them all at build-time and the page has to be HTML-dyanmic.
+In general, all pages that have a parameterized route are HTML-dynamic.
+
+
+Let's now look at a DOM-dynamic page.
 
 #### HTML-dynamic & DOM-dynamic
 
@@ -211,7 +239,7 @@ We create a page that loads JavaScript code that updates the time every second b
 
 Note that we save our page object file as `TimePage.universal.js`.
 The filename ends with `.universal.js`
-whereas all previous filenames endeded with `.html.js`.
+whereas all previous filenames end with `.html.js`.
 (`HelloPage.html.js`, `DatePage.html.js`, and `TimePage.html.js`.)
 
 By saving a page object with a `universal.js` suffix we tell Reframe that the view is to be rendered on the browser as well.
@@ -376,13 +404,143 @@ export default {
 };
 ~~~
 
-#### Production build & server
+#### CSS
 
+~~~js
+// /example/pages/GlitterPage.universal.js
 
+const {GlitterComponent} = require('../views/GlitterComponent');
 
-TODO
- - CSS
- - async getInitialProps
+const GlitterPage = {
+    route: '/glitter',
+    title: 'Glamorous Page',
+    view: GlitterComponent,
+};
+
+module.exports = GlitterPage;
+~~~
+
+~~~js
+// /example/views/GlitterComponent.js
+
+import React from 'react';
+import './GlitterStyle.css';
+import './Tangerine.ttf';
+import durl from './diamond.png';
+
+const Center = ({children, style}) => (
+    <div
+      style={{
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        height: '100vh', ...style
+      }}
+    >
+        {children}
+    </div>
+);
+
+const Diamond = () => <div className="diamond diamond-background"/>;
+
+const GlitterComponent = () => (
+    <Center style={{fontSize: '2em'}}>
+        <Diamond/>
+        I'm shiny
+        <img className='diamond' src={durl}/>
+    </Center>
+);
+
+export {GlitterComponent};
+~~~
+
+~~~css
+// /example/views/GlitterStyle.css
+
+body {
+    background-color: pink;
+    font-family: 'Tangerine', cursive;
+}
+.diamond-background {
+    background-image: url('./diamond.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.diamond {
+    width: 80px;
+    height: 50px;
+    margin: 25px;
+    display: inline-block;
+    vertical-align: middle;
+}
+~~~
+
+Note how we load images
+
+#### Async Data
+
+~~~js
+// /example/pages/GameOfThronesPage.html.js
+
+const fetch = require('@brillout/fetch');
+const {GameOfThronesComponent} = require('../views/GameOfThronesComponent');
+
+module.exports = {
+    route: '/game-of-thrones',
+    title: 'Game of Thrones Characters',
+    description: 'List of GoT Characters',
+    view: GameOfThronesComponent,
+    getInitialProps: async () => {
+        const characters = await getGameOfThronesCharacters();
+        return {characters};
+    },
+};
+
+async function getGameOfThronesCharacters() {
+    const urlBase = 'https://brillout-misc.github.io/game-of-thrones';
+    const url = urlBase + '/characters/list.json';
+    const characters = await (
+        fetch(url)
+        .then(response => response.json())
+        .catch(err => {console.error(url); throw err})
+    );
+    return characters;
+}
+~~~
+
+~~~js
+// /example/views/GameOfThronesComponent.js
+
+const React = require('react');
+
+const GameOfThronesComponent = ({characters}) => (
+    <div>
+        <h3>Game of Thrones Characters</h3>
+        <table border="7" cellPadding="5"><tbody>{
+            characters.map(({name}) => (
+                <tr key={name}><td>
+                    {name}
+                </td></tr>
+            ))
+        }</tbody></table>
+    </div>
+);
+
+module.exports = {GameOfThronesComponent};
+~~~
+
+#### Production Environment
+
+By default Reframe compiles for developement.
+
+By setting `process.env.NODE_ENV = 'production'` in Node.js or `export NODE_ENV='production'` on your Unix(-like) OS
+you tell Reframe to compile for production.
+
+When compiling for production
+the code is transpiled to support all browsers (instead of only the last 2 versions of Chrome and Firefox),
+the code is minifed,
+the low-KB production build of React is used,
+etc.
 
 <!---
 
