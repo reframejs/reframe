@@ -16,7 +16,7 @@ Reframe revolves around *page objects* wich are JavaScript objects that define p
  - [HTML-dynamic & partial DOM-dynamic](#html-dynamic-partial-dom-dynamic)
  - [CSS](#css)
  - [Async Data](#async-data)
- - [Production](#production)
+ - [Production Environment](#production-environment)
 
 
 #### HTML-static & DOM-static
@@ -196,4 +196,4 @@ Note how we load images
 
 #### Async Data
 
-#### Production
+#### Production Environment
