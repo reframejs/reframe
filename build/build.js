@@ -33,7 +33,7 @@ async function build({
 
     doNotAutoReload=isProduction(),
     context = get_context(),
-    log,
+    log: log_option,
     ...rebuild_opts
 }) {
     const webpack_config = await get_webpack_config({
@@ -52,12 +52,12 @@ async function build({
         doNotCreateServer: true,
         doNotGenerateIndexHtml: true,
         doNotAutoReload,
-        log,
+        log: log_option,
         ...rebuild_opts,
         onBuild: async build_info__repage => {
             const build_info__reframe = await onBuild(build_info__repage);
 
-            if( log && build_info__reframe.isFirstBuild ) {
+            if( log_option && build_info__reframe.isFirstBuild ) {
                 log_title('Pages');
                 log(build_info__reframe.pages);
             }

@@ -185,15 +185,34 @@ You can also create the JavaScript browser entry point yourself.
 ~~~
 
 ~~~js
-!INLINE ../example/pages/GlitterComponent.js
+!INLINE ../example/views/GlitterComponent.js
 ~~~
 
 ~~~css
-!INLINE ../example/pages/GlitterStyle.css
+!INLINE ../example/views/GlitterStyle.css
 ~~~
 
 Note how we load images
 
 #### Async Data
 
+~~~js
+!INLINE ../example/pages/GameOfThronesPage.html.js
+~~~
+
+~~~js
+!INLINE ../example/views/GameOfThronesComponent.js
+~~~
+
 #### Production Environment
+
+By default Reframe compiles for developement.
+
+By setting `process.env.NODE_ENV = 'production'` in Node.js or `export NODE_ENV='production'` on your Unix(-like) OS
+you tell Reframe to compile for production.
+
+When compiling for production
+the code is transpiled to support all browsers (instead of only the last 2 versions of Chrome and Firefox),
+the code is minifed,
+the low-KB production build of React is used,
+etc.
