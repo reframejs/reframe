@@ -206,13 +206,14 @@ Note how we load images
 
 #### Production Environment
 
-By default Reframe compiles for developement.
+By default, Reframe compiles for developement.
 
 By setting `process.env.NODE_ENV = 'production'` in Node.js or `export NODE_ENV='production'` on your Unix(-like) OS
 you tell Reframe to compile for production.
 
-When compiling for production
-the code is transpiled to support all browsers (instead of only the last 2 versions of Chrome and Firefox),
+When compiling for production,
+the auto-reload feature is disabled,
+the code is transpiled to support all browsers (instead of only the last 2 versions of Chrome and Firefox when compiling for dev),
 the code is minifed,
 the low-KB production build of React is used,
 etc.
