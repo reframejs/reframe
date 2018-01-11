@@ -75,7 +75,7 @@ Reframe is born out of the frustration of two conflicting intentions
  2. I don't want to use a framework because of the framework's limitations.
     And more importantly, I don't want to get locked-in to that framework down the road.
 
-Upon this frustration I asked myself
+And the question arises
 
  > Is it possible to design a framework that allows both a quick start and full flexbility down the road?
 
