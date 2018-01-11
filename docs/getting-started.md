@@ -94,6 +94,7 @@ Reframe revolves around *page objects* wich are JavaScript objects that define p
  - [HTML-dynamic & partial DOM-dynamic](#html-dynamic-partial-dom-dynamic)
  - [CSS](#css)
  - [Async Data](#async-data)
+ - [Links](#links)
  - [Production Environment](#production-environment)
 
 
@@ -529,11 +530,15 @@ const GameOfThronesComponent = ({characters}) => (
 module.exports = {GameOfThronesComponent};
 ~~~
 
+#### Links
+
+
+
 #### Production Environment
 
 By default, Reframe compiles for development.
 
-By setting `process.env.NODE_ENV = 'production'` in Node.js or `export NODE_ENV='production'` on your Unix(-like) OS
+By setting `process.env.NODE_ENV = 'production';` in Node.js or `export NODE_ENV='production'` on your Unix(-like) OS
 you tell Reframe to compile for production.
 
 When compiling for production,
@@ -542,6 +547,12 @@ the code is transpiled to support all browsers (instead of only the last 2 versi
 the code is minifed,
 the low-KB production build of React is used,
 etc.
+
+
+### Related Docs Reference
+
+
+
 
 <!---
 
