@@ -6,6 +6,7 @@
   },
   "repository": "github:brillout/reframe",
   "dependencies": {
+    "@brillout/find": "^0.2.0",
     "@reframe/server": "0.0.1-rc.0",
     "reassert": "^1.0.0"
   }
