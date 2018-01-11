@@ -93,65 +93,93 @@ async function get_webpack_config({
             pagesDir && pagesDir.constructor===String && pagesDir.startsWith('/'),
             pagesDir
         );
-        const output_path_base = path_module.join(path_module.dirname(pagesDir), './dist');
-        const output_source_path = path_module.join(output_path_base, './source');
+        const output_path__base = path_module.join(path_module.dirname(pagesDir), './dist');
+        const output_path__source = path_module.join(output_path__base, './source');
+        const output_path__browser = path_module.join(output_path__base, './browser');
+        const output_path__server = path_module.join(output_path__base, './server');
 
-        const browser_entries = {};
-        const server_entries = {};
-        (await get_directory_files(pagesDir))
-        .forEach(path => {
-            const file_name = path_module.basename(path);
-            const entry_name = file_name.split('.').slice(0, -1).join('.');
-
-            const is_universal = is_script(path, '.universal');
-            const is_dom = is_script(path, '.dom');
-            const is_entry = is_script(path, '.entry');
-            const is_html = is_script(path, '.html');
-            assert_internal(is_universal + is_dom + is_entry + is_html <= 1, path);
-
-            if( is_universal || is_dom ) {
-                const file_name__dist = file_name.split('.').slice(0, -2).concat(['entry', 'js']).join('.');
-                const dist_path = path_module.join(output_source_path, file_name__dist);
-                generate_entry_code(path, dist_path);
-                const entry_name__browser = entry_name.split('.').slice(0, -1).concat(['entry']).join('.');
-                browser_entries[entry_name__browser] = [dist_path];
-                if( is_universal ) {
-                    server_entries[entry_name] = [path];
-                }
-            }
-            if( is_entry ) {
-                browser_entries[entry_name] = [path];
-            }
-            if( is_html ) {
-                server_entries[entry_name] = [path];
-            }
-        });
+        const {browser_entries, server_entries} = await get_webpack_entries({pagesDir, output_path__base, output_path__source});
 
         if( ! browser_config ) {
-            const outputPath = path_module.join(output_path_base, './browser');
-            browser_config = (getWebpackBrowserConfig||get_webpack_browser_config)(browser_entries, outputPath);
+            browser_config = (
+                (getWebpackBrowserConfig||get_webpack_browser_config)(
+                    browser_entries,
+                    output_path__browser
+                )
+            );
         }
         if( ! server_config ) {
-            const outputPath = path_module.join(output_path_base, './server');
-            server_config = (getWebpackServerConfig||get_webpack_server_config)(server_entries, outputPath);
+            server_config = (
+                (getWebpackServerConfig||get_webpack_server_config)(
+                    server_entries,
+                    output_path__server
+                )
+            );
         }
     }
 
     add_context_to_config(context, browser_config);
     add_context_to_config(context, server_config);
 
-    const webpack_config = [browser_config, server_config];
+    const webpack_config = [browser_config, server_config].filter(Boolean);
 
     return webpack_config;
 }
 
-function generate_entry_code(page_info_path, source_path) {
-    assert_internal(page_info_path.startsWith('/'));
-    assert_internal(source_path.startsWith('/'));
+async function get_webpack_entries({pagesDir, output_path__base, output_path__source}) {
+    const browser_entries = {};
+    const server_entries = {};
+    (await get_directory_files(pagesDir))
+    .forEach(page_object_path => {
+        const file_name = path_module.basename(page_object_path);
+        const entry_name = file_name.split('.').slice(0, -1).join('.');
+
+        const is_universal = is_script(page_object_path, '.universal');
+        const is_dom = is_script(page_object_path, '.dom');
+        const is_entry = is_script(page_object_path, '.entry');
+        const is_html = is_script(page_object_path, '.html');
+        assert_internal(is_universal + is_dom + is_entry + is_html <= 1, page_object_path);
+
+        if( is_universal || is_dom ) {
+            const file_name__dist = file_name.split('.').slice(0, -2).concat(['entry', 'js']).join('.');
+            const dist_path = path_module.join(output_path__source, file_name__dist);
+            generate_entry({page_object_path, dist_path});
+            const entry_name__browser = entry_name.split('.').slice(0, -1).concat(['entry']).join('.');
+            browser_entries[entry_name__browser] = [dist_path];
+            if( is_universal ) {
+                server_entries[entry_name] = [page_object_path];
+            }
+        }
+        if( is_entry ) {
+            browser_entries[entry_name] = [page_object_path];
+        }
+        if( is_html ) {
+            server_entries[entry_name] = [page_object_path];
+        }
+    });
+
+    if( Object.values(browser_entries).length === 0 ) {
+        const entry_name = 'dummy-entry';
+        const dist_path = path_module.join(output_path__source, './'+entry_name+'.js');
+        generate_dummy_entry({dist_path});
+        browser_entries[entry_name] = [dist_path];
+    }
+
+    return {browser_entries, server_entries};
+}
+
+function generate_dummy_entry({dist_path}) {
+    assert_internal(dist_path.startsWith('/'));
+    writeFile(dist_path, '// Dummy JavaScript acting as Webpack entry');
+}
+
+function generate_entry({page_object_path, dist_path}) {
+    assert_internal(page_object_path.startsWith('/'));
+    assert_internal(dist_path.startsWith('/'));
     const source_code = (
         [
             "var hydratePage = require('"+require.resolve('@reframe/browser/hydratePage')+"');",
-            "var pageInfo = require('"+page_info_path+"');",
+            "var pageInfo = require('"+page_object_path+"');",
             "",
             "// hybrid cjs and ES6 modules import",
             "pageInfo = Object.keys(pageInfo).length===1 && pageInfo.default || pageInfo;",
@@ -159,8 +187,12 @@ function generate_entry_code(page_info_path, source_path) {
             "hydratePage(pageInfo);",
         ].join('\n')
     );
-    mkdirp.sync(path_module.dirname(source_path));
-    fs.writeFileSync(source_path, source_code);
+    writeFile(dist_path, source_code);
+}
+
+function writeFile(path, content) {
+    mkdirp.sync(path_module.dirname(path));
+    fs.writeFileSync(path, content);
 }
 
 function get_directory_files(directory) {
@@ -168,6 +200,9 @@ function get_directory_files(directory) {
 }
 
 function add_context_to_config(context, config) {
+    if( ! config ) {
+        return;
+    }
     assert_internal(context.startsWith('/'));
     assert_internal(config.constructor===Object);
     config.context = config.context || context;
@@ -186,8 +221,8 @@ async function onBuild(build_info__repage) {
     const {compilationInfo, isFirstBuild} = build_info__repage;
  // const [args_server, args_browser] = compilationInfo;
     const [args_browser, args_server] = compilationInfo;
-    assert_internal(args_server);
-    assert_internal(args_browser);
+    assert_internal(args_server.constructor===Object);
+    assert_internal(args_browser.constructor===Object);
  // log(args_server.output);
  // log(args_browser.output);
     const pages = await get_page_infos({args_browser, args_server});

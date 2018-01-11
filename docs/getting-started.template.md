@@ -19,6 +19,9 @@ Reframe revolves around *page objects* wich are JavaScript objects that define p
  - [Links](#links)
  - [Production Environment](#production-environment)
 
+#### Getting Started
+
+
 
 #### HTML-static & DOM-static
 
