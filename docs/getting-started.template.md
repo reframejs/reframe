@@ -4,26 +4,164 @@
 This getting started explains how to create *page objects* for
 HTML-static, HTML-dynamic, DOM-static, and DOM-dynamic pages.
 
-# Getting Started
+# Usage Manual
 
 Reframe revolves around *page objects* wich are JavaScript objects that define pages.
 
 #### Contents
 
- - [HTML-static & DOM-static](#html-static-dom-static)
- - [HTML-dynamic & DOM-static](#html-dynamic-dom-static)
- - [HTML-dynamic & DOM-dynamic](#html-dynamic-dom-static)
- - [HTML-dynamic & partial DOM-dynamic](#html-dynamic-partial-dom-dynamic)
+ - [Getting Started](#getting-started)
+ - [HTML-static VS HTML-dynamic](#html-static-vs-html-dynamic)
+ - [DOM-static VS DOM-dynamic](#dom-static-vs-dom-dynamic)
+ - [Partial DOM-dynamic](#html-dynamic-partial-dom-dynamic)
  - [CSS](#css)
  - [Async Data](#async-data)
- - [Links](#links)
+ - [Links & Page Navigation](#links)
  - [Production Environment](#production-environment)
 
 #### Getting Started
 
+Let's start by writing and running a hello world page.
+
+We now create our pages directory
+
+~~~shell
+mkdir -p /tmp/reframe-playground/pages
+~~~
+
+and we create a new file `/tmp/reframe-playground/pages/HelloPage.html.js` with following content
+
+~~~js
+import React from 'react';
+
+export default {
+    route: '/',
+    view: () => (
+        <div>
+            Hello World, from Reframe.
+        </div>
+    ),
+};
+~~~
 
 
-#### HTML-static & DOM-static
+
+We will use the reframe CLI and we need React, so let's install these two
+
+~~~shell
+npm install -g @reframe/cli
+~~~
+~~~shell
+cd /tmp/reframe-playground/ && npm install react
+~~~
+
+By running
+
+~~~shell
+$ reframe /tmp/reframe-playground/pages
+✔ Frontend built at /tmp/reframe-playground/dist/browser/
+✔ Server running at http://localhost:3000
+~~~
+
+a server is spin up and our page is now available at http://localhost:3000.
+
+Looking at its source code at view-source:http://localhost:3000/
+
+~~~html
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <div id="react-root"><div>Hello World, from Reframe.</div></div>
+    </body>
+</html>
+~~~
+
+We see that the page doesn't load any JavaScript, thus the DOM is static.
+We say that the page is *DOM-static*.
+
+Also, our page is "HTML-dynamic" and we will now see what this means.
+
+
+#### HTML-static vs HTML-dynamic
+
+When is our hello world page we created in the previous section generated?
+To get an answer let's add a timestamp to our page and
+we modify `/tmp/reframe-playground/pages/HelloPage.html.js` to
+
+~~~js
+import React from 'react';
+
+export default {
+    route: '/',
+    view: () => (
+        <div>
+            Hello World, from Reframe.
+            <br/>
+            (Generated at {new Date().toLocaleTimeString()}.)
+        </div>
+    ),
+};
+~~~
+
+Note that Reframe automatically re-compiles the JavaScript and the shell prints
+
+~~~js
+✔ Re-build
+~~~
+
+Now reload the page and if the time is 13:37:00 then view-source:http://localhost:3000/hello is
+
+~~~html
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <div id="react-root"><div>Hello from Reframe.<br/>(Generated at 13:37:00)</div></div>
+    </body>
+</html>
+~~~
+
+If we reload one second later at 13:37:01 we would get the same HTML except that
+`(Generated at 13:37:00)` is now replaced with `(Generated at 13:37:01)`.
+This means that everytime we load the page the HTML is re-rendered.
+The HTML is dynamic and we call this page *HTML-dynamic*.
+
+Our hello world doesn't the HTML to be dynamic, so let's make it static.
+
+For that we change our page object defined at `/tmp/reframe-playground/pages/HelloPage.html.js` to
+
+~~~js
+import React from 'react';
+
+export default {
+    route: '/',
+    view: () => (
+        <div>
+            Hello World, from Reframe.
+            <br/>
+            (Generated at {new Date().toLocaleTimeString()}.)
+        </div>
+    ),
+	htmlIsStatic: true,
+};
+~~~
+
+Setting `htmlIsStatic: true`
+tells Reframe that the HTML is static and
+Reframe creates the HTML at build-time.
+You can actually see the static HTML on your filesystem at `/tmp/reframe-playground/dist/browser/index.html`.
+If the time when building was `12:00:00` then our timestamp will always be `(Generated at 12:00:00)`, no matter when we load our page.
+
+Beyond increased performance, an advantage of HTML-static pages is that they don't require a server and
+Also, and if all yours pages are HTML-static, then you can deploy your app to any static website host such as GitHub Pages.
+
 
 A hello world page definition:
 
