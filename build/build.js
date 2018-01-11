@@ -93,10 +93,12 @@ async function get_webpack_config({
             pagesDir && pagesDir.constructor===String && pagesDir.startsWith('/'),
             pagesDir
         );
-        const output_path__base = path_module.join(path_module.dirname(pagesDir), './dist');
-        const output_path__source = path_module.join(output_path__base, './source');
-        const output_path__browser = path_module.join(output_path__base, './browser');
-        const output_path__server = path_module.join(output_path__base, './server');
+        const dist_parent = path_module.dirname(pagesDir);
+        assert_internal(dist_parent.startsWith('/'));
+        const output_path__base = path_module.resolve(dist_parent, './dist');
+        const output_path__source = path_module.resolve(output_path__base, './source');
+        const output_path__browser = path_module.resolve(output_path__base, './browser');
+        const output_path__server = path_module.resolve(output_path__base, './server');
 
         const {browser_entries, server_entries} = await get_webpack_entries({pagesDir, output_path__base, output_path__source});
 
@@ -142,7 +144,7 @@ async function get_webpack_entries({pagesDir, output_path__base, output_path__so
 
         if( is_universal || is_dom ) {
             const file_name__dist = file_name.split('.').slice(0, -2).concat(['entry', 'js']).join('.');
-            const dist_path = path_module.join(output_path__source, file_name__dist);
+            const dist_path = path_module.resolve(output_path__source, file_name__dist);
             generate_entry({page_object_path, dist_path});
             const entry_name__browser = entry_name.split('.').slice(0, -1).concat(['entry']).join('.');
             browser_entries[entry_name__browser] = [dist_path];
@@ -160,7 +162,7 @@ async function get_webpack_entries({pagesDir, output_path__base, output_path__so
 
     if( Object.values(browser_entries).length === 0 ) {
         const entry_name = 'dummy-entry';
-        const dist_path = path_module.join(output_path__source, './'+entry_name+'.js');
+        const dist_path = path_module.resolve(output_path__source, './'+entry_name+'.js');
         generate_dummy_entry({dist_path});
         browser_entries[entry_name] = [dist_path];
     }
@@ -318,7 +320,9 @@ function add_disk_path(page_info, output) {
             return;
         }
         const disk_path__relative = script_spec.diskPath;
-        const disk_path = path_module.join(path_module.dirname(page_info.sourcePath), disk_path__relative);
+        const source_path_parent = path_module.dirname(page_info.sourcePath);
+        assert_internal(source_path_parent.startsWith('/'));
+        const disk_path = path_module.resolve(source_path_parent, disk_path__relative);
         const dist_files = find_dist_files({disk_path, output});
         assert_usage(
             dist_files!==null,
