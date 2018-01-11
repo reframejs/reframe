@@ -4,7 +4,7 @@ const Hapi = require('hapi');
 const chalk = require('chalk');
 const assert = require('reassert');
 const assert_usage = assert;
-const Find = require('@brillout/find');
+const find = require('@brillout/find');
 const {getReframeHapiPlugins} = require('@reframe/server');
 
 (() => {
@@ -15,8 +15,7 @@ const {getReframeHapiPlugins} = require('@reframe/server');
     return;
 
     function find_pages_dir() {
-        const find = new Find({projectName: 'reframe'});
-        const pagesDir = find.findProjectDir('pages');
+        const pagesDir = find('pages/', {anchorFile: '.reframe'});
         console.log(green_checkmark()+' Page directory found at '+pagesDir);
         return pagesDir;
     }

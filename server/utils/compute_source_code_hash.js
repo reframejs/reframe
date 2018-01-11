@@ -1,4 +1,4 @@
-const assert = require('reassert/hard');
+const assert = require('reassert');
 const assert_internal = assert;
 const crypto = require('crypto');
 
