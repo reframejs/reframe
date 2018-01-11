@@ -88,9 +88,20 @@ Reframe renders your React views on the server, and/or in the browser, and/or st
 Reframe helps you create static websites, universal React apps, and other types of apps.
 Reframe is designed with "adaptability" in mind (= no lock-in).
 
-This overview presents what Reframe is, how it's different from other web frameworks, and Reframe project's scope.
+This overview presents what Reframe is, how it's different from other web frameworks, and the scope of the Reframe project.
 
 # Overview
+
+##### Contents
+
+ - [What is Reframe?](#what-is-reframe)
+ - [Why Reframe?](#why-reframe)
+ - [Why should I use Reframe?](#why-should-i-use-reframe)
+ - [Rreframe Project Scope](#reframe-project-scope)
+ - [Adaptability](#adaptability)
+
+
+### What is Reframe?
 
 Reframe allows you to define pages like this:
 
@@ -137,29 +148,49 @@ Once the frontend is built and the server up the source code of `http://localhos
 </html>
 ~~~
 
-Note that this page doesn't load any JavaScript code and its DOM is static but you can also create pages with dynamic DOM.
+Note that this page doesn't load any JavaScript code and its DOM is static but you can also create pages with a dynamic DOM.
 
-#### Why Reframe?
+
+
+### Why Reframe?
 
 Reframe is born out of the frustration of two conflicting intentions
 
- 1. I want to use a framework to quickly implement a working prototype. And more importantly, I want to think about the application's architecture only later on and only if necessary rather than having to think through an entire app architecture before even starting writing one line of code.
+ 1. I want to use a framework to quickly implement a prototype.
+    And more importantly, I want to think about the application's architecture only later on and only when necessary.
+    I don't want to have to think through an entire app architecture before even starting to write one line of code.
 
- 2. I don't want to use a framework because of the framework's limitations. And more importantly, I don't want to get locked-in to that framework down the road.
+ 2. I don't want to use a framework because of the framework's limitations.
+    And more importantly, I don't want to get locked-in to that framework down the road.
 
-Is it possible to design a framework that allows both a quick start and full flexbility down the road?
+Upon this frustration I asked myself
+
+ > Is it possible to design a framework that allows both a quick start and full flexbility down the road?
+
 The Reframe project is born out of the belief that it is.
-
-With reframe, you can adapt the framework to your needs, instead of adapting your needs to the framework.
 
 We call the notion of "full fexibility down the road" *adaptability* and such adaptable framework an (anti-)framework.
 
-#### Why should I use Reframe?
+An (anti-)framework provides a new choice;
 
-If you want to quickly implement a working prototype without getting locked into the framework's limitations down the road.
+ 3. Use an (anti-)framework to quickly implement a prototype and
+    as your application's needs crystallize,
+    replace parts of the (anti-)framework with code of your own
+    that suit the crystallized needs.
+
+Reframe pushes the envelop of adaptability to the point of being able to progressively and entirely replace Reframe with code of your own.
+
+In short, you adapt the (anti-)framework to your needs, instead of adapting your needs to the framework.
 
 
-#### Reframe Project Scope
+
+### Why should I use Reframe?
+
+Reframe is an option if you want to quickly implement a working prototype without getting locked into the framework's limitations down the road.
+
+
+
+### Reframe Project Scope
 
 With Reframe you can create pages that are:
 
@@ -258,7 +289,8 @@ Reframe **doesn't** take care of;
    It's up to you to create, populate, and query databases.
 
 
-#### Adaptability
+
+### Adaptability
 
 Beyond the [Adaptable] points mentioned above, **Reframe is adaptable all the way down to Repage**.
 

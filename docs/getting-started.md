@@ -531,7 +531,7 @@ module.exports = {GameOfThronesComponent};
 
 #### Production Environment
 
-By default, Reframe compiles for developement.
+By default, Reframe compiles for development.
 
 By setting `process.env.NODE_ENV = 'production'` in Node.js or `export NODE_ENV='production'` on your Unix(-like) OS
 you tell Reframe to compile for production.
