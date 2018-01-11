@@ -25,7 +25,7 @@ function addCustomRoute(server) {
 async function addReframePlugins(server) {
     const {HapiServerRendering, HapiServeBrowserAssets} = (
         await getReframeHapiPlugins({
-            pagesDir: path.join(__dirname, '../pages'),
+            pagesDir: path.resolve(__dirname, '../pages'),
             log: true,
         })
     );

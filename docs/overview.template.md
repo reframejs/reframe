@@ -75,7 +75,7 @@ Reframe is born out of the frustration of two conflicting intentions
  2. I don't want to use a framework because of the framework's limitations.
     And more importantly, I don't want to get locked-in to that framework down the road.
 
-And the question arises
+The question arises
 
  > Is it possible to design a framework that allows both a quick start and full flexbility down the road?
 
@@ -93,12 +93,6 @@ An (anti-)framework provides a new choice;
 Reframe pushes the envelop of adaptability to the point of being able to progressively and entirely replace Reframe with code of your own.
 
 In short, you adapt the (anti-)framework to your needs, instead of adapting your needs to the framework.
-
-
-
-### Why should I use Reframe?
-
-Reframe is an option if you want to quickly implement a working prototype without getting locked into the framework's limitations down the road.
 
 
 
