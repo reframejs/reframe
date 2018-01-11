@@ -1,3 +1,6 @@
+const assert = require('reassert');
+const assert_internal = assert;
+
 const {Config, StandardConfig, StandardNodeConfig, ReactConfig} = require('@rebuild/config');
 
 module.exports = {get_webpack_browser_config, get_webpack_server_config};
