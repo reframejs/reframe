@@ -36,7 +36,7 @@ async function build({
     log: log_option,
     ...rebuild_opts
 }) {
-    const webpack_config = await get_webpack_config({
+    const {webpack_config, output_path__base} = await get_webpack_config({
         pagesDir,
         webpackBrowserConfig,
         webpackServerConfig,
@@ -45,6 +45,8 @@ async function build({
         context,
     });
 
+    const oldBuildsDir = get_old_builds_dir({output_path__base});
+
     let resolve_first_build_promise;
     const first_build_promise = new Promise(resolve => resolve_first_build_promise = resolve);
 
@@ -52,6 +54,7 @@ async function build({
         doNotCreateServer: true,
         doNotGenerateIndexHtml: true,
         doNotAutoReload,
+        oldBuildsDir,
         log: log_option,
         ...rebuild_opts,
         onBuild: async build_info__repage => {
@@ -75,6 +78,11 @@ async function build({
     return first_build_promise;
 }
 
+function get_old_builds_dir({output_path__base}) {
+    assert_internal(output_path__base.startsWith('/'));
+    return path_module.resolve(output_path__base, './previous');
+}
+
 async function get_webpack_config({
     pagesDir,
     webpackBrowserConfig,
@@ -88,6 +96,8 @@ async function get_webpack_config({
     let browser_config = webpackBrowserConfig;
     let server_config = webpackServerConfig;
 
+    let output_path__base;
+
     if( ! browser_config || ! server_config ) {
         assert_usage(
             pagesDir && pagesDir.constructor===String && pagesDir.startsWith('/'),
@@ -95,7 +105,7 @@ async function get_webpack_config({
         );
         const dist_parent = path_module.dirname(pagesDir);
         assert_internal(dist_parent.startsWith('/'));
-        const output_path__base = path_module.resolve(dist_parent, './dist');
+        output_path__base = path_module.resolve(dist_parent, './dist');
         const output_path__source = path_module.resolve(output_path__base, './source');
         const output_path__browser = path_module.resolve(output_path__base, './browser');
         const output_path__server = path_module.resolve(output_path__base, './server');
@@ -125,7 +135,7 @@ async function get_webpack_config({
 
     const webpack_config = [browser_config, server_config].filter(Boolean);
 
-    return webpack_config;
+    return {webpack_config, output_path__base};
 }
 
 async function get_webpack_entries({pagesDir, output_path__base, output_path__source}) {
