@@ -13,10 +13,11 @@ Reframe revolves around *page objects* wich are JavaScript objects that define p
  - [Getting Started](#getting-started)
  - [HTML-static VS HTML-dynamic](#html-static-vs-html-dynamic)
  - [DOM-static VS DOM-dynamic](#dom-static-vs-dom-dynamic)
- - [Partial DOM-dynamic](#html-dynamic-partial-dom-dynamic)
+ - [Custom Browser JavaScript](#custom-browser-javascript)
+ - [Partial DOM-dynamic](#partial-dom-dynamic)
  - [CSS](#css)
  - [Async Data](#async-data)
- - [Links & Page Navigation](#links)
+ - [Links & Page Navigation](#links-page-navigation)
  - [Production Environment](#production-environment)
 
 #### Getting Started
@@ -216,8 +217,6 @@ Let's consider the following page object that defines a page displaying the curr
 !INLINE ../example/views/TimeComponent.js
 ~~~
 
-
-
 Looking at the HTML code view-source:http://localhost:3000/time
 
 ~~~html
@@ -239,62 +238,66 @@ Looking at the HTML code view-source:http://localhost:3000/time
 we see that in contrast to our previous DOM-static pages, this page loads JavaScript code.
 
 The code
-mounts a `<TimeComponent />` to the DOM element `react-root` and
-`<TimeComponent />` then updates the DOM every second to show the latest time.
+mounts a `<TimeComponent />` to the DOM element `#react-root` and
+the mounted `<TimeComponent />` then updates the DOM every second to always show the current time.
+
+
 We say that the page is *DOM-dynamic* as the DOM changes over time.
 
-In case you are curious, the JavaScript is composed of:
+In case you are curious, the loaded JavaScript is
  - `/commons.hash_xxxxxxxxxxxxxxxxxxxx.js`,
    around 250KB in production,
    inlcudes React (~100KB),
    polyfills (~100KB),
    the router, and `@reframe/browser`.
-   It is common to all pages and is indefinitely cached across all pages.
- - `/TimePage.entry.hash_xxxxxxxxxxxxxxxxxxxx.js`,
-   includes the compiled version of `TimePage.universal.js` and a 5 LOC wrapper.
+   It is loaded by all pages and is indefinitely cached across all pages.
+ - `/TimePage.entry.hash_xxxxxxxxxxxxxxxxxxxx.js`
+   includes the compiled version of `TimePage.universal.js` and a tiny "entry wrapper".
    It is specific to the page and is typically lightweight.
 
-Why does Reframe renders the view on the DOM  whereas it previously didn't for our previous examples?
+Why does Reframe hydrate the view on the DOM whereas it previously didn't for our previous examples?
 That's because our page object is saved as `TimePage.universal.js`, a filename name ending with `.universal.js`.
-All files saved as `pages/*.html.js` are treated as page objects defining a DOM-static page and
-all files saved as `pages/*.universal.js` are treated as DOM-dynamic.
-Reframe also picks up files saved as `pages/*.entry.js` and `pages/*.dom.js` and we will talk about these files in the section "Partial DOM-dynamic".
+Our previous examples where saved as `*.html.js`.
+A file saved as `pages/*.html.js` is treated as a page object defining a DOM-static page and
+a file saved as `pages/*.universal.js` is treated as a page object defining a DOM-dynamic page.
+Reframe also picks up `pages/*.entry.js` and `pages/*.dom.js` files and we talk about these files in the next two sections.
 
 
+Imagine a page where 90% of your page's view is DOM-static and only certain parts of the page needs to be made DOM-dynamic.
+It would be wasteful to load the view's entire code and to hydrate the whole page in the browser.
+Instead we can tell Reframe to hydrate only one or several parts of the page.
+We call this technique `partial DOM-dynamic`.
 
 
+#### partial DOM-dynamic
+
+Instead of hydrating the whole page you can hydrate only some parts of the page.
+This effectively makes these parts DOM-dynamic while the rest of the page stays DOM-static.
+Hence the term "partial DOM-dynamic".
+
+This can be a significant performance improvement
+when large portions of your page don't need to be DOM-dynamic.
+
+It also introduces a clean separation between DOM-static components and DOM-dynamic components,
+making reasoning about your page easier.
+
+To achieve that, instead of defining one page object as `MyDynamicPage.universal.js` we define two page objects, one as `MyDynamicPage.html.js` meant for server-side rendering and another `MyDynamicPage.dom.js` meant for browser-side rendering.
+
+Instead of tell Reframe to re-rendering the whole page in the browser,
+Instead you can define the parts of your app that need to be hydrated
+
+~~~js
+!INLINE ../example/pages/NewsPage.html.js
+~~~
+
+~~~js
+!INLINE ../example/pages/NewsPage.dom.js
+~~~
+
+You can also 
 
 
-
-
-We create a page that loads JavaScript code that updates the time every second by manipulating the DOM with React.
-
-`/tmp/reframe-playground/pages/HelloPage.html.js`
-
-Note that we save our page object file as `TimePage.universal.js`.
-The filename ends with `.universal.js`
-whereas all previous filenames end with `.html.js`.
-(`HelloPage.html.js`, `DatePage.html.js`, and `TimePage.html.js`.)
-
-By saving a page object with a `universal.js` suffix we tell Reframe that the view is to be rendered on the browser as well.
-(Reframe will then call `ReactDOM.hydrate()`.)
-
-And the HTML code of
-
-As the HTML code shows JavaScript code is loaded.
-When this JavaScript code runs, a `<TimeComponent/>` element is mounted onto the DOM.
-The mounted `<TimeComponent/>` then updates the DOM every second and the current time is continuously updated.
-
-When Reframe sees a `.universal.js` file in the `pages` directory it will generate JavaScript code that acts as entry point for the browser.
-You can see generated entry point source code at `~/code/@reframe/example/pages/dist/browser/source/TimePage.entry.js`.
-
-The entry point generated by Reframe includes the whole .universal.js and the whole view is loaded to the browser.
-This is fine if you the view of the whole page isn't too KB heavy or if the whole page needs to by hydrated anyways.
-But you can also choose to hydrate only a small part of your page so that you don't have to load the entire page view logic onto the browser. We call this "partial DOM-dynamic" and we'll see how to that in a bit. Before that let's see how to create the browser entry point yourself.
-
-You can also create the JavaScript browser entry point yourself.
-
-#### Custom Browser Entry Point + External Scripts
+#### Custom Browser JavaScript
 
 <script async src='https://www.google-analytics.com/analytics.js'></script>
 
@@ -306,16 +309,8 @@ You can also create the JavaScript browser entry point yourself.
 !INLINE ../example/pages/TrackingPage.entry.js
 ~~~
 
+See Customimzation Manual.
 
-#### HTML-dynamic & partial DOM-dynamic
-
-~~~js
-!INLINE ../example/pages/NewsPage.html.js
-~~~
-
-~~~js
-!INLINE ../example/pages/NewsPage.dom.js
-~~~
 
 #### CSS
 
@@ -333,6 +328,9 @@ You can also create the JavaScript browser entry point yourself.
 
 Note how we load images
 
+Custom webpack configuration.
+See Customimzation Manual.
+
 #### Async Data
 
 ~~~js
@@ -344,6 +342,9 @@ Note how we load images
 ~~~
 
 #### Links
+
+
+#### Custom Server
 
 
 
