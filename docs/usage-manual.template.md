@@ -241,7 +241,6 @@ The code
 mounts a `<TimeComponent />` to the DOM element `#react-root` and
 the mounted `<TimeComponent />` then updates the DOM every second to always show the current time.
 
-
 We say that the page is *DOM-dynamic* as the DOM changes over time.
 
 In case you are curious, the loaded JavaScript is
@@ -255,33 +254,33 @@ In case you are curious, the loaded JavaScript is
    includes the compiled version of `TimePage.universal.js` and a tiny "entry wrapper".
    It is specific to the page and is typically lightweight.
 
-Why does Reframe hydrate the view on the DOM whereas it previously didn't for our previous examples?
-That's because our page object is saved as `TimePage.universal.js`, a filename name ending with `.universal.js`.
-Our previous examples where saved as `*.html.js`.
+But the question arises, why does Reframe hydrate the view on the DOM whereas it previously didn't for our previous examples?
+It's because our page object is saved as `TimePage.universal.js`, a filename name ending with `.universal.js`,
+whereas our previous examples where saved as `*.html.js`.
 A file saved as `pages/*.html.js` is treated as a page object defining a DOM-static page and
 a file saved as `pages/*.universal.js` is treated as a page object defining a DOM-dynamic page.
 Reframe also picks up `pages/*.entry.js` and `pages/*.dom.js` files and we talk about these files in the next two sections.
 
 
-Imagine a page where 90% of your page's view is DOM-static and only certain parts of the page needs to be made DOM-dynamic.
+Imagine a page where a vast majority of the page is DOM-static and only some parts of the page need to be made DOM-dynamic.
 It would be wasteful to load the view's entire code and to hydrate the whole page in the browser.
-Instead we can tell Reframe to hydrate only one or several parts of the page.
+Instead we can tell Reframe to hydrate only parts of the page.
 We call this technique `partial DOM-dynamic`.
 
 
-#### partial DOM-dynamic
+#### Partial DOM-dynamic
 
-Instead of hydrating the whole page you can hydrate only some parts of the page.
+Instead of hydrating the whole page we can tell Reframe to hydrate only some parts of the page.
 This effectively makes these parts DOM-dynamic while the rest of the page stays DOM-static.
-Hence the term "partial DOM-dynamic".
+(Hence the term "partial DOM-dynamic".)
 
 This can be a significant performance improvement
-when large portions of your page don't need to be DOM-dynamic.
+when large portions of a page doesn't need to be DOM-dynamic.
 
 It also introduces a clean separation between DOM-static components and DOM-dynamic components,
 making reasoning about your page easier.
 
-To achieve that, instead of defining one page object as `MyDynamicPage.universal.js` we define two page objects, one as `MyDynamicPage.html.js` meant for server-side rendering and another `MyDynamicPage.dom.js` meant for browser-side rendering.
+To achieve such partial hydration, instead of defining a page as one page object `MyDynamicPage.universal.js` we define the page with two page objects, one as `MyDynamicPage.html.js` meant for server-side rendering, and another `MyDynamicPage.dom.js` meant for browser-side rendering, like the following.
 
 ~~~js
 !INLINE ../example/pages/NewsPage.html.js
@@ -291,9 +290,9 @@ To achieve that, instead of defining one page object as `MyDynamicPage.universal
 !INLINE ../example/pages/NewsPage.dom.js
 ~~~
 
-When defining a page as a `.html.js` file and a `.dom.js` file, not only do we hydrate the DOM-dynamic parts only but we also only load the code for the DOM-dynamic parts. That is because only the `.dom.js` page object is loaded in the browser and the `.html.js` page object is never used in the browser. That way in our NewsPage we can see that the `.dom.js` page object only loads `` and not the (imaginary) KB heavy code ``.
+When we define a page as two separate page objects, not only do we hydrate only what's necessary but we also only load the code necessary. That is because only the `.dom.js` page object is loaded in the browser and the `.html.js` page object is never used in the browser. For example, in our NewsPage we can see that the `NewsPage.dom.js` file only loads `` and not the (imaginary) KB heavy code ``.
 
-Beyond , you can gain finer control over what's happening in the browser by writing the browser entry code yourself.
+Beyond this technique, you can gain further control over what's happening in the browser by writing the browser entry code yourself (instead of using Reframe's generated browser entry code.).
 
 #### Custom Browser JavaScript
 
