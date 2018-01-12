@@ -81,7 +81,8 @@ Reframe, the web (anti-)framework. (A web framework without lock-in.)
 <br/>
 
 [Overview](/../../)<br/>
-[Usage Manual](/docs/usage-manual.md)
+[Usage Manual](/docs/usage-manual.md)<br/>
+[Customization Manual](/docs/customization-manual.md)
 
 Reframe renders your React views on the server, and/or in the browser, and/or statically.
 Reframe helps you create static websites, universal React apps, and other types of apps.
