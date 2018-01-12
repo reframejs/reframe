@@ -76,7 +76,7 @@
 
 -->
 [Overview](/../../)<br/>
-[Getting Started](/docs/getting-started.md)<br/>
+[Usage Manual](/docs/usage-manual.md)<br/>
 [API](/docs/api.md)
 
 ### CLI `reframe`

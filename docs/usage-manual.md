@@ -7,7 +7,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/getting-started.template.md` instead.
+    Edit `/docs/usage-manual.template.md` instead.
 
 
 
@@ -22,7 +22,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/getting-started.template.md` instead.
+    Edit `/docs/usage-manual.template.md` instead.
 
 
 
@@ -37,7 +37,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/getting-started.template.md` instead.
+    Edit `/docs/usage-manual.template.md` instead.
 
 
 
@@ -52,7 +52,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/getting-started.template.md` instead.
+    Edit `/docs/usage-manual.template.md` instead.
 
 
 
@@ -67,7 +67,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/getting-started.template.md` instead.
+    Edit `/docs/usage-manual.template.md` instead.
 
 
 
@@ -76,141 +76,197 @@
 
 -->
 [Overview](/../../)<br/>
-[Getting Started](/docs/getting-started.md)<br/>
+[Usage Manual](/docs/usage-manual.md)<br/>
 [API](/docs/api.md)
 
 This getting started explains how to create *page objects* for
 HTML-static, HTML-dynamic, DOM-static, and DOM-dynamic pages.
 
-# Getting Started
+# Usage Manual
 
 Reframe revolves around *page objects* wich are JavaScript objects that define pages.
 
 #### Contents
 
- - [HTML-static & DOM-static](#html-static-dom-static)
- - [HTML-dynamic & DOM-static](#html-dynamic-dom-static)
- - [HTML-dynamic & DOM-dynamic](#html-dynamic-dom-static)
- - [HTML-dynamic & partial DOM-dynamic](#html-dynamic-partial-dom-dynamic)
+ - [Getting Started](#getting-started)
+ - [HTML-static VS HTML-dynamic](#html-static-vs-html-dynamic)
+ - [DOM-static VS DOM-dynamic](#dom-static-vs-dom-dynamic)
+ - [Partial DOM-dynamic](#html-dynamic-partial-dom-dynamic)
  - [CSS](#css)
  - [Async Data](#async-data)
- - [Links](#links)
+ - [Links & Page Navigation](#links)
  - [Production Environment](#production-environment)
 
+#### Getting Started
 
-#### HTML-static & DOM-static
+Let's start by writing and running a hello world page.
 
-A hello world page definition:
-
-~~~js
-// /example/pages/HelloWorldPage.html.js
-
-const React = require('react');
-
-const HelloWorldComponent = () => <div>Hello World</div>;
-
-const HelloWorldPage = {
-    title: 'Hello there', // Page's title
-    description: 'A Hello World page created with Reframe.',
-    route: '/hello', // Page's URL
-    view: HelloWorldComponent,
-    htmlIsStatic: true, // Let Reframe know that HelloPage's HTML is static.
-};
-
-module.exports = HelloWorldPage;
-~~~
-
-Upon running the `reframe` CLI a Node.js/hapi server serving our page is created:
+We now create our pages directory
 
 ~~~shell
-$ npm install -g @reframe/cli
+mkdir -p /tmp/reframe-playground/pages
 ~~~
+
+and we create a new file `/tmp/reframe-playground/pages/HelloPage.html.js` with following content
+
+~~~js
+import React from 'react';
+
+export default {
+    route: '/',
+    view: () => (
+        <div>
+            Hello World, from Reframe.
+        </div>
+    ),
+};
+~~~
+
+
+
+We will use the reframe CLI and we need React, so let's install these two
+
+~~~shell
+npm install -g @reframe/cli
+~~~
+~~~shell
+cd /tmp/reframe-playground/ && npm install react
+~~~
+
+By running
+
+~~~shell
+reframe /tmp/reframe-playground/pages
+~~~
+
+~~~shell
+✔ Frontend built at /tmp/reframe-playground/dist/browser/
+✔ Server running at http://localhost:3000
+~~~
+
+a server is spin up and our page is now available at http://localhost:3000.
+
+An the HTML code view-source:http://localhost:3000/ is
+
+~~~html
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <div id="react-root"><div>Hello World, from Reframe.</div></div>
+    </body>
+</html>
+~~~
+
+The page doesn't load any JavaScript and the DOM is static as there isn't any JavaScript to manipulate the DOM.
+We say that the page is *DOM-static*.
+You can also create pages with dynamic React components and we will see in a bit how.
+
+Also note that our page is "HTML-dynamic" and we will now discuss what this means.
+
+
+#### HTML-static vs HTML-dynamic
+
+Let's consider the Hello World page of our previous section.
+When is its HTML generated?
+To get an answer we add a timestamp to our page and
+modify `/tmp/reframe-playground/pages/HelloPage.html.js` to
+
+~~~js
+import React from 'react';
+
+export default {
+    route: '/',
+    view: () => (
+        <div>
+            Hello World, from Reframe.
+            <br/>
+            (Generated at {new Date().toLocaleTimeString()}.)
+        </div>
+    ),
+};
+~~~
+
+If you haven't already, let's run a Reframe server
+
+~~~shell
+reframe /tmp/reframe-playground/pages
+~~~
+
+and the sell should print
 
 ~~~shell
 $ reframe
-✔ Page directory found at /home/alice/code/my-project/reframe-example/pages
 ✔ Frontend built at /home/alice/code/my-project/reframe-example/pages/dist/browser/
 ✔ Server running at http://localhost:3000
 ~~~
 
-As shown at view-source:http://localhost:3000/hello the HTML of our page is:
+If you haven't closed the server the CLI created in the previous section then 
+Before we go on
+If you were already running a Reframe, then Reframe automatically re-compiled the JavaScript and added a `✔ Re-build` notification in your shell
+
+~~~shell
+$ reframe
+✔ Frontend built at /home/alice/code/my-project/reframe-example/pages/dist/browser/
+✔ Server running at http://localhost:3000
+✔ Re-build
+~~~
+
+Let's use our timestamp to see when the HTML is created.
+
+Reload the page and if the time is 13:37:00 then view-source:http://localhost:3000/hello is
 
 ~~~html
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Hello there</title>
-        <meta name="description" content="A Hello World page created with Reframe.">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <meta charset="utf-8">
     </head>
     <body>
-        <div id="react-root"><div>Hello World</div></div>
+        <div id="react-root"><div>Hello from Reframe.<br/>(Generated at 13:37:00)</div></div>
     </body>
 </html>
 ~~~
 
-Because of `htmlIsStatic: true` Reframe generates the HTML on build-time and the page's HTML is static.
-We don't load any JavaScript and the DOM is static as well.
+If we reload one second later at 13:37:01 we would get the same HTML except that
+`(Generated at 13:37:00)` is now replaced with `(Generated at 13:37:01)`.
+This means that everytime we load the page the HTML is re-rendered.
+The HTML is generated at request-time and we say that this page is *HTML-dynamic*.
 
+Now, the HTML of our hello world doesn't really need to be dynamic, so let's make it static.
 
-Let's consider a more dynamic example.
-
-#### HTML-dynamic & DOM-static
-
-We implement a page that displays the current date without time.
-We also display a timestamp to see when the page has been generated.
+For that we change our page object defined at `/tmp/reframe-playground/pages/HelloPage.html.js` to
 
 ~~~js
-// /example/pages/DatePage.html.js
-
 import React from 'react';
 
-import {toTimeString} from '../views/TimeComponent';
-
 export default {
-    title: 'Current Date',
-    route: '/date',
-    view: () => {
-        const now = new Date();
-        return (
-            <div>
-                <div>Date: {now.toDateString()}</div>
-                <small>(Generated at {toTimeString(now)})</small>
-            </div>
-        );
-    },
-    htmlIsStatic: false, // We let Reframe know that the HTML is not static
-                         // so that Reframe re-renders a new HTML
-                         // with the current date on every request
+    route: '/',
+    view: () => (
+        <div>
+            Hello World, from Reframe.
+            <br/>
+            (Generated at {new Date().toLocaleTimeString()}.)
+        </div>
+    ),
+	htmlIsStatic: true,
 };
 ~~~
 
-If the current time would be 1/1/2018 1:37 PM then the HTML code would be
+Setting `htmlIsStatic: true`
+tells Reframe that the HTML is static and
+Reframe creates the HTML at build-time.
+You can actually see the static HTML on your filesystem at `/tmp/reframe-playground/dist/browser/index.html`.
+If the time when building was `12:00:00` then our timestamp will always be `(Generated at 12:00:00)`, no matter when we load our page.
 
-~~~html
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Current Date</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <meta charset="utf-8">
-    </head>
-    <body>
-        <div id="react-root">
-            <div>Date: Mon Jan 01 2018</div>
-            <small>(Generated at 13:37:00)</small>
-        </div>
-    </body>
-</html>
-~~~
+For pages with lot's of elements, generating the HTML at build-time instead of request-time is a considerable performance gain.
+Also, if all yours pages are HTML-static, then you can deploy your app to any static website host such as GitHub Pages.
 
-Reloading the page 1 second later at 1:38 PM would lead to the same HTML but with `(Generated at 13:38:00)` instead of `(Generated at 13:37:00)`;
-This means that the HTML is re-rendered on every request and the page's HTML is dynamic.
-
-We still don't load any JavaScript, the page's DOM is static. We call this page a HTML-dynamic DOM-static page.
-
-Another example of a HTML-dynamic DOM-static page is the `HelloPage.html.js` of the overview.
+Before we move on to dynamic DOMs, let's look at another HTML-dynamic page
 
 ~~~js
 // /example/pages/HelloPage.html.js
@@ -228,15 +284,23 @@ const HelloPage = {
 module.exports = HelloPage;
 ~~~
 
-Note that the route `/hello/{name}` of `HelloPage.html.js` is parameterized and it because of that it can't be HTML-static; There is an infinite number of pages with URLs `/hello/Alice-1`, `/hello/Alice-2`, `/hello/Alice-3`, etc. and we can't compute them all at build-time and the page has to be HTML-dyanmic.
-In general, all pages that have a parameterized route are HTML-dynamic.
+Not only is this page HTML-dynamic but it actually has to.
+That is because the route `/hello/{name}` of `HelloPage.html.js` is parameterized; There is an infinite number of pages with URLs matching the route such as `/hello/Alice-1`, `/hello/Alice-2`, `/hello/Alice-3`, etc. We can't compute an infinite number of pages at build-time and the page has to be HTML-dyanmic.
+
+All pages that have a parameterized route are HTML-dynamic.
+
+Let's now create pages that have dynamic views.
 
 
-Let's now look at a DOM-dynamic page.
 
-#### HTML-dynamic & DOM-dynamic
+#### DOM-static VS DOM-dynamic
+
+Let's create a page that display the current time.
+
 
 We create a page that loads JavaScript code that updates the time every second by manipulating the DOM with React.
+
+`/tmp/reframe-playground/pages/HelloPage.html.js`
 
 Note that we save our page object file as `TimePage.universal.js`.
 The filename ends with `.universal.js`
@@ -563,7 +627,7 @@ etc.
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/getting-started.template.md` instead.
+    Edit `/docs/usage-manual.template.md` instead.
 
 
 
@@ -578,7 +642,7 @@ etc.
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/getting-started.template.md` instead.
+    Edit `/docs/usage-manual.template.md` instead.
 
 
 
@@ -593,7 +657,7 @@ etc.
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/getting-started.template.md` instead.
+    Edit `/docs/usage-manual.template.md` instead.
 
 
 
@@ -608,7 +672,7 @@ etc.
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/getting-started.template.md` instead.
+    Edit `/docs/usage-manual.template.md` instead.
 
 
 
@@ -623,7 +687,7 @@ etc.
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/getting-started.template.md` instead.
+    Edit `/docs/usage-manual.template.md` instead.
 
 
 
