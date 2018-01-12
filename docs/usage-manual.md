@@ -76,8 +76,7 @@
 
 -->
 [Overview](/../../)<br/>
-[Usage Manual](/docs/usage-manual.md)<br/>
-[API](/docs/api.md)
+[Usage Manual](/docs/usage-manual.md)
 
 This getting started explains how to create *page objects* for
 HTML-static, HTML-dynamic, DOM-static, and DOM-dynamic pages.
