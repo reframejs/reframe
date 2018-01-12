@@ -283,9 +283,6 @@ making reasoning about your page easier.
 
 To achieve that, instead of defining one page object as `MyDynamicPage.universal.js` we define two page objects, one as `MyDynamicPage.html.js` meant for server-side rendering and another `MyDynamicPage.dom.js` meant for browser-side rendering.
 
-Instead of tell Reframe to re-rendering the whole page in the browser,
-Instead you can define the parts of your app that need to be hydrated
-
 ~~~js
 !INLINE ../example/pages/NewsPage.html.js
 ~~~
@@ -294,8 +291,9 @@ Instead you can define the parts of your app that need to be hydrated
 !INLINE ../example/pages/NewsPage.dom.js
 ~~~
 
-You can also 
+When defining a page as a `.html.js` file and a `.dom.js` file, not only do we hydrate the DOM-dynamic parts only but we also only load the code for the DOM-dynamic parts. That is because only the `.dom.js` page object is loaded in the browser and the `.html.js` page object is never used in the browser. That way in our NewsPage we can see that the `.dom.js` page object only loads `` and not the (imaginary) KB heavy code ``.
 
+Beyond , you can gain finer control over what's happening in the browser by writing the browser entry code yourself.
 
 #### Custom Browser JavaScript
 
@@ -309,7 +307,8 @@ You can also
 !INLINE ../example/pages/TrackingPage.entry.js
 ~~~
 
-See Customimzation Manual.
+We refer to our Customization Manual
+for more information about writing a custom browser entry point.
 
 
 #### CSS
@@ -329,7 +328,7 @@ See Customimzation Manual.
 Note how we load images
 
 Custom webpack configuration.
-See Customimzation Manual.
+See Customization Manual.
 
 #### Async Data
 
@@ -346,6 +345,10 @@ See Customimzation Manual.
 
 #### Custom Server
 
+We refer to our Customization Manual
+for further information about using Reframe
+as a hapi plugin
+and/or writing a custom server
 
 
 #### Production Environment
