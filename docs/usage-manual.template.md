@@ -44,9 +44,10 @@ export default {
 };
 ~~~
 
+It is important to save the page with a filename ending with `.html.js`.
+We will discuss later why.
 
-
-We will use the reframe CLI and we need React, so let's install these two
+We make use of the reframe CLI and we need React, so let's install these two
 
 ~~~shell
 npm install -g @reframe/cli
@@ -205,26 +206,19 @@ Let's now create pages that have dynamic views.
 
 #### DOM-static VS DOM-dynamic
 
-Let's create a page that display the current time.
-
-
-We create a page that loads JavaScript code that updates the time every second by manipulating the DOM with React.
-
-`/tmp/reframe-playground/pages/HelloPage.html.js`
-
-Note that we save our page object file as `TimePage.universal.js`.
-The filename ends with `.universal.js`
-whereas all previous filenames end with `.html.js`.
-(`HelloPage.html.js`, `DatePage.html.js`, and `TimePage.html.js`.)
-
-By saving a page object with a `universal.js` suffix we tell Reframe that the view is to be rendered on the browser as well.
-(Reframe will then call `ReactDOM.hydrate()`.)
+Let's consider the following page object that defines a page displaying the current time.
 
 ~~~js
 !INLINE ../example/pages/TimePage.universal.js
 ~~~
 
-And the HTML code of view-source:http://localhost:3000/hello is:
+~~~js
+!INLINE ../example/views/TimeComponent.js
+~~~
+
+
+
+Looking at the HTML code view-source:http://localhost:3000/time
 
 ~~~html
 <!DOCTYPE html>
@@ -241,6 +235,51 @@ And the HTML code of view-source:http://localhost:3000/hello is:
     </body>
 </html>
 ~~~
+
+we see that in contrast to our previous DOM-static pages, this page loads JavaScript code.
+
+The code
+mounts a `<TimeComponent />` to the DOM element `react-root` and
+`<TimeComponent />` then updates the DOM every second to show the latest time.
+We say that the page is *DOM-dynamic* as the DOM changes over time.
+
+In case you are curious, the JavaScript is composed of:
+ - `/commons.hash_xxxxxxxxxxxxxxxxxxxx.js`,
+   around 250KB in production,
+   inlcudes React (~100KB),
+   polyfills (~100KB),
+   the router, and `@reframe/browser`.
+   It is common to all pages and is indefinitely cached across all pages.
+ - `/TimePage.entry.hash_xxxxxxxxxxxxxxxxxxxx.js`,
+   includes the compiled version of `TimePage.universal.js` and a 5 LOC wrapper.
+   It is specific to the page and is typically lightweight.
+
+Why does Reframe renders the view on the DOM  whereas it previously didn't for our previous examples?
+That's because our page object is saved as `TimePage.universal.js`, a filename name ending with `.universal.js`.
+All files saved as `pages/*.html.js` are treated as page objects defining a DOM-static page and
+all files saved as `pages/*.universal.js` are treated as DOM-dynamic.
+Reframe also picks up files saved as `pages/*.entry.js` and `pages/*.dom.js` and we will talk about these files in the section "Partial DOM-dynamic".
+
+
+
+
+
+
+
+
+We create a page that loads JavaScript code that updates the time every second by manipulating the DOM with React.
+
+`/tmp/reframe-playground/pages/HelloPage.html.js`
+
+Note that we save our page object file as `TimePage.universal.js`.
+The filename ends with `.universal.js`
+whereas all previous filenames end with `.html.js`.
+(`HelloPage.html.js`, `DatePage.html.js`, and `TimePage.html.js`.)
+
+By saving a page object with a `universal.js` suffix we tell Reframe that the view is to be rendered on the browser as well.
+(Reframe will then call `ReactDOM.hydrate()`.)
+
+And the HTML code of
 
 As the HTML code shows JavaScript code is loaded.
 When this JavaScript code runs, a `<TimeComponent/>` element is mounted onto the DOM.
