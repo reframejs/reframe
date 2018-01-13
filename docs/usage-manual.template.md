@@ -64,7 +64,10 @@ By running
 reframe /tmp/reframe-playground/pages
 ~~~
 
+which prints
+
 ~~~shell
+$ reframe /tmp/reframe-playground/pages
 ✔ Frontend built at /tmp/reframe-playground/dist/browser/
 ✔ Server running at http://localhost:3000
 ~~~
@@ -86,9 +89,10 @@ An the HTML code view-source:http://localhost:3000/ is
 </html>
 ~~~
 
-The page doesn't load any JavaScript and the DOM is static as there isn't any JavaScript to manipulate the DOM.
+The page doesn't load any JavaScript.
+The DOM is static as there isn't any JavaScript to manipulate the DOM.
 We say that the page is *DOM-static*.
-You can also create pages with dynamic React components and we will see in a bit how.
+You can also create pages with dynamic React components and we will see later how.
 
 Also note that our page is "HTML-dynamic" and we will now discuss what this means.
 
@@ -129,9 +133,8 @@ $ reframe
 ✔ Server running at http://localhost:3000
 ~~~
 
-If you haven't closed the server the CLI created in the previous section then 
-Before we go on
-If you were already running a Reframe, then Reframe automatically re-compiled the JavaScript and added a `✔ Re-build` notification in your shell
+If you haven't closed the server from the previous section then
+Reframe automatically re-compiled the JavaScript and added a `✔ Re-build` notification to your shell
 
 ~~~shell
 $ reframe
@@ -302,8 +305,8 @@ If your page is saved as `pages/MyPage.html.js` and if you save JavaScript code 
 For further information about the custom browser entry point `pages/*.entry.js`
 we refer to our Customization Manual.
 
-You can as well add arbitrary script tags to the page's HTML.
-We refer to the "Related External Docs" for further information.
+You can as well add arbitrary script tags to the page's HTML (async scripts, external scripts, etc.).
+We refer to documentation of `@brillout/html-head` for further information, see the "Related External Docs" Section at the bottom of this page.
 
 #### CSS
 
