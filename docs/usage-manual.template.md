@@ -1,7 +1,20 @@
 !MENU
 !MENU_ORDER 20
 
-This getting started explains how to create *page objects* for
+This usage manual acts as reference for the Reframe default setup.
+It should cover most common use cases.
+(Create a GitHub issue if a common use case is missing.)
+
+As your app grows you will likely hit an edge case not covered by the default setup.
+In that situation we refer to the Customization Manual.
+Among others, you that allows you to rewrite parts of Reframe, including a custom webpack configuration, a custom server, a view library other than React , etc.
+And with some willingness of diving into Reframe and re-writing parts, all edge case should be achievable.
+(Feel free to create a GitHub issue to get support.)
+
+But Reframe can be also used in 
+The complementary Customization Manual acts as reference for , rewrite parts of Reframe and in general 
+For 
+getting started explains how to create *page objects* for
 HTML-static, HTML-dynamic, DOM-static, and DOM-dynamic pages.
 
 # Usage Manual
@@ -58,13 +71,13 @@ npm install -g @reframe/cli
 cd /tmp/reframe-playground/ && npm install react
 ~~~
 
-By running
+Running
 
 ~~~shell
 reframe /tmp/reframe-playground/pages
 ~~~
 
-which prints
+prints
 
 ~~~shell
 $ reframe /tmp/reframe-playground/pages
@@ -72,9 +85,9 @@ $ reframe /tmp/reframe-playground/pages
 ✔ Server running at http://localhost:3000
 ~~~
 
-a server is spin up and our page is now available at http://localhost:3000.
+and spins up a server making our page available at http://localhost:3000.
 
-An the HTML code view-source:http://localhost:3000/ is
+The HTML view-source:http://localhost:3000/ is
 
 ~~~html
 <!DOCTYPE html>
@@ -89,7 +102,7 @@ An the HTML code view-source:http://localhost:3000/ is
 </html>
 ~~~
 
-The page doesn't load any JavaScript.
+As we can see, the page doesn't load any JavaScript.
 The DOM is static as there isn't any JavaScript to manipulate the DOM.
 We say that the page is *DOM-static*.
 You can also create pages with dynamic React components and we will see later how.
@@ -101,8 +114,8 @@ Also note that our page is "HTML-dynamic" and we will now discuss what this mean
 
 Let's consider the Hello World page of our previous section.
 When is its HTML generated?
-To get an answer we add a timestamp to our page and
-modify `/tmp/reframe-playground/pages/HelloPage.html.js` to
+To get an answer we change our page to display a timestamp.
+We modify the page object `/tmp/reframe-playground/pages/HelloPage.html.js` from our previous section to
 
 ~~~js
 import React from 'react';
@@ -134,7 +147,7 @@ $ reframe
 ~~~
 
 If you haven't closed the server from the previous section then
-Reframe automatically re-compiled the JavaScript and added a `✔ Re-build` notification to your shell
+Reframe has automatically re-compiled the frontend and added a `✔ Re-build` notification to your shell
 
 ~~~shell
 $ reframe
@@ -143,9 +156,7 @@ $ reframe
 ✔ Re-build
 ~~~
 
-Let's use our timestamp to see when the HTML is created.
-
-Reload the page and if the time is 13:37:00 then view-source:http://localhost:3000/hello is
+We now reload the page and, assuming the time is 13:37:00, we see that the HTML view-source:http://localhost:3000/hello is
 
 ~~~html
 <!DOCTYPE html>
@@ -160,14 +171,15 @@ Reload the page and if the time is 13:37:00 then view-source:http://localhost:30
 </html>
 ~~~
 
-If we reload one second later at 13:37:01 we would get the same HTML except that
+And if we reload one second later at 13:37:01 we would get the same HTML except that
 `(Generated at 13:37:00)` is now replaced with `(Generated at 13:37:01)`.
 This means that everytime we load the page the HTML is re-rendered.
-The HTML is generated at request-time and we say that this page is *HTML-dynamic*.
+We say that the HTML is generated at *request-time* and that the page is *HTML-dynamic*.
 
-Now, the HTML of our hello world doesn't really need to be dynamic, so let's make it static.
+Now, the HTML of our hello world doesn't really need to be dynamic.
+Let's make the page's HTML static.
 
-For that we change our page object defined at `/tmp/reframe-playground/pages/HelloPage.html.js` to
+For that we change our page object `/tmp/reframe-playground/pages/HelloPage.html.js` to
 
 ~~~js
 import React from 'react';
@@ -185,33 +197,38 @@ export default {
 };
 ~~~
 
-Setting `htmlIsStatic: true`
-tells Reframe that the HTML is static and
-Reframe creates the HTML at build-time.
-You can actually see the static HTML on your filesystem at `/tmp/reframe-playground/dist/browser/index.html`.
-If the time when building was `12:00:00` then our timestamp will always be `(Generated at 12:00:00)`, no matter when we load our page.
+When `htmlIsStatic: true` is set
+then Reframe creates the HTML when compiling the code and building the frontend.
+We say that the HTML is generated at *build-time* and that the page is *HTML-static*.
+To sum up `htmlIsStatic: false` makes Reframe render the HTML at request-time and `htmlIsStatic: true` makes Reframe render the HTML at build-time.
+You can actually see the at build-time generated HTML at `/tmp/reframe-playground/dist/browser/index.html`.
+And if the time when building was `12:00:00` then our page will always show `(Generated at 12:00:00)`.
+You can try now and you'll see that you will get the same 
 
-For pages with lot's of elements, generating the HTML at build-time instead of request-time is a considerable performance gain.
-Also, if all yours pages are HTML-static, then you can deploy your app to any static website host such as GitHub Pages.
+For pages with lot's of elements, generating the HTML at build-time instead of request-time can be a considerable performance gain.
+Also, if all your pages are HTML-static, then you can deploy your app to any static website host such as GitHub Pages.
 
-Before we move on to dynamic DOMs, let's look at another HTML-dynamic page
+We can as well create pages with a dynamic DOM.
+But before we move on to the DOM let's look at a special case of an HTML-dynamic page
 
 ~~~js
 !INLINE ../example/pages/HelloPage.html.js
 ~~~
 
 Not only is this page HTML-dynamic but it actually has to.
-That is because the route `/hello/{name}` of `HelloPage.html.js` is parameterized; There is an infinite number of pages with URLs matching the route such as `/hello/Alice-1`, `/hello/Alice-2`, `/hello/Alice-3`, etc. We can't compute an infinite number of pages at build-time and the page has to be HTML-dyanmic.
+That is because its route `/hello/{name}` is parameterized;
+There is an infinite number of pages with URLs matching the route such as `/hello/Alice-1`, `/hello/Alice-2`, `/hello/Alice-3`, etc.
+We can't compute an infinite number of pages at build-time; The page has to be HTML-dyanmic.
 
-All pages that have a parameterized route are HTML-dynamic.
+All pages with a parameterized route are HTML-dynamic.
 
-Let's now create pages that have dynamic views.
+Let's move on and create pages that have dynamic views.
 
 
 
 #### DOM-static VS DOM-dynamic
 
-Let's consider the following page object that defines a page displaying the current time.
+Let's consider the following page object that defines a page that displays the current time.
 
 ~~~js
 !INLINE ../example/pages/TimePage.universal.js
@@ -221,7 +238,7 @@ Let's consider the following page object that defines a page displaying the curr
 !INLINE ../example/views/TimeComponent.js
 ~~~
 
-Looking at the HTML code view-source:http://localhost:3000/time
+Looking at the HTML view-source:http://localhost:3000/time
 
 ~~~html
 <!DOCTYPE html>
@@ -241,11 +258,11 @@ Looking at the HTML code view-source:http://localhost:3000/time
 
 we see that in contrast to our previous DOM-static pages, this page loads JavaScript code.
 
-The code
+The JavaScript code
 mounts a `<TimeComponent />` to the DOM element `#react-root` and
 the mounted `<TimeComponent />` then updates the DOM every second to always show the current time.
 
-We say that the page is *DOM-dynamic* as the DOM changes over time.
+The DOM changes over time and we say that the page is *DOM-dynamic*.
 
 In case you are curious, the loaded JavaScript is
  - `/commons.hash_xxxxxxxxxxxxxxxxxxxx.js`,
