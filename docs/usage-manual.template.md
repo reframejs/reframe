@@ -348,7 +348,9 @@ we refer to our Customization Manual.
 You can as well add arbitrary script tags to the page's HTML (async scripts, external scripts, etc.).
 We refer to documentation of `@brillout/html-head` for further information, see the "Related External Docs" Section at the bottom of this page.
 
-#### CSS
+#### CSS & Static Assets
+
+The following page shows how CSS, fonts, and images are used with Reframe's default setup (i.e. Reframe's default webpack configuration).
 
 ~~~js
 !INLINE ../example/pages/GlitterPage.universal.js
@@ -362,7 +364,15 @@ We refer to documentation of `@brillout/html-head` for further information, see 
 !INLINE ../example/views/GlitterStyle.css
 ~~~
 
+The CSS file is loaded by simply importing it and the font is as well loaded by simply importing it.
+
+The images are used by using the fact that importing a static asset returns the URL of that static asset.
+
+That way we can import an image in JavaScript, get its URL and use the URL in the CSS, e.g. `background-image: url('./diamond.png');`, or use the URL to set a `<img>`'s src attribute, e.g. `<img className='diamond' src={diamondUrl}/>`.
+
 Note how we load images
+
+All assests are file-loader static assets 
 
 Custom webpack configuration.
 See Customization Manual.
