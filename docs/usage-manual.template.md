@@ -1,25 +1,16 @@
 !MENU
 !MENU_ORDER 20
 
-This usage manual acts as reference for the Reframe default setup.
+This usage manual acts as reference for using Reframe's default setup.
 It should cover most common use cases.
 (Create a GitHub issue if a common use case is missing.)
 
 As your app grows you will likely hit an edge case not covered by the default setup.
 In that situation we refer to the Customization Manual.
-Among others, you that allows you to rewrite parts of Reframe, including a custom webpack configuration, a custom server, a view library other than React , etc.
-And with some willingness of diving into Reframe and re-writing parts, all edge case should be achievable.
+With some willingness of diving into Reframe and re-writing parts, all edge cases should be achievable.
 (Feel free to create a GitHub issue to get support.)
 
-But Reframe can be also used in 
-The complementary Customization Manual acts as reference for , rewrite parts of Reframe and in general 
-For 
-getting started explains how to create *page objects* for
-HTML-static, HTML-dynamic, DOM-static, and DOM-dynamic pages.
-
 # Usage Manual
-
-Reframe revolves around *page objects* wich are JavaScript objects that define pages.
 
 #### Contents
 
@@ -36,15 +27,15 @@ Reframe revolves around *page objects* wich are JavaScript objects that define p
 
 #### Getting Started
 
-Let's start by writing and running a hello world page.
+Let's start by writing a Hello World page.
 
-We now create our pages directory
+We first create a `pages/` directory
 
 ~~~shell
 mkdir -p /tmp/reframe-playground/pages
 ~~~
 
-and we create a new file `/tmp/reframe-playground/pages/HelloPage.html.js` with following content
+we then create a new file `/tmp/reframe-playground/pages/HelloPage.html.js` with the following content
 
 ~~~js
 import React from 'react';
@@ -59,10 +50,14 @@ export default {
 };
 ~~~
 
-It is important to save the page with a filename ending with `.html.js`.
+We call the exported JavaScript object a *page object*.
+Every page is defined by such page object.
+
+Note that it is important to save the page object as a filename that ends with `.html.js`.
 We will discuss later why.
 
-We make use of the reframe CLI and we need React, so let's install these two
+Let's now run our Hello World page.
+For that we will use the reframe CLI and we need React, so let's install these two
 
 ~~~shell
 npm install -g @reframe/cli
@@ -87,6 +82,8 @@ $ reframe /tmp/reframe-playground/pages
 
 and spins up a server making our page available at http://localhost:3000.
 
+Note that the CLI is optional but is convenient to quickly get started.
+
 The HTML view-source:http://localhost:3000/ is
 
 ~~~html
@@ -105,17 +102,17 @@ The HTML view-source:http://localhost:3000/ is
 As we can see, the page doesn't load any JavaScript.
 The DOM is static as there isn't any JavaScript to manipulate the DOM.
 We say that the page is *DOM-static*.
-You can also create pages with dynamic React components and we will see later how.
+We can also create pages with dynamic views, i.e. with a dynamic DOM, and we will see later how.
 
-Also note that our page is "HTML-dynamic" and we will now discuss what this means.
+Our page is what we call "HTML-dynamic" and we will now discuss what this means.
 
 
 #### HTML-static vs HTML-dynamic
 
 Let's consider the Hello World page of our previous section.
 When is its HTML generated?
-To get an answer we change our page to display a timestamp.
-We modify the page object `/tmp/reframe-playground/pages/HelloPage.html.js` from our previous section to
+To get an answer we modify our page to display a timestamp.
+We alter its page object from our previous section at `/tmp/reframe-playground/pages/HelloPage.html.js` to
 
 ~~~js
 import React from 'react';
@@ -135,6 +132,7 @@ export default {
 If you haven't already, let's run a Reframe server
 
 ~~~shell
+npm install -g @reframe/cli
 reframe /tmp/reframe-playground/pages
 ~~~
 
@@ -171,13 +169,13 @@ We now reload the page and, assuming the time is 13:37:00, we see that the HTML 
 </html>
 ~~~
 
-And if we reload one second later at 13:37:01 we would get the same HTML except that
+And if we reload one second later at 13:37:01, we get the same HTML except that
 `(Generated at 13:37:00)` is now replaced with `(Generated at 13:37:01)`.
 This means that everytime we load the page the HTML is re-rendered.
 We say that the HTML is generated at *request-time* and that the page is *HTML-dynamic*.
 
-Now, the HTML of our hello world doesn't really need to be dynamic.
-Let's make the page's HTML static.
+Now, the HTML of our Hello World page doesn't really need to be dynamic.
+Let's make it static.
 
 For that we change our page object `/tmp/reframe-playground/pages/HelloPage.html.js` to
 
@@ -198,15 +196,20 @@ export default {
 ~~~
 
 When `htmlIsStatic: true` is set
-then Reframe creates the HTML when compiling the code and building the frontend.
+Reframe renders the HTML only once when building the frontend.
+
+If the time when building the frontend was `12:00:00` then our page will always show `(Generated at 12:00:00)`, no matter when we load the page.
+
+You can actually see the generated HTML at `/tmp/reframe-playground/dist/browser/index.html`.
+
 We say that the HTML is generated at *build-time* and that the page is *HTML-static*.
-To sum up `htmlIsStatic: false` makes Reframe render the HTML at request-time and `htmlIsStatic: true` makes Reframe render the HTML at build-time.
-You can actually see the at build-time generated HTML at `/tmp/reframe-playground/dist/browser/index.html`.
-And if the time when building was `12:00:00` then our page will always show `(Generated at 12:00:00)`.
-You can try now and you'll see that you will get the same 
+
+To sum up,
+`htmlIsStatic: false` makes Reframe render the HTML at request-time and
+`htmlIsStatic: true` makes Reframe render the HTML at build-time.
 
 For pages with lot's of elements, generating the HTML at build-time instead of request-time can be a considerable performance gain.
-Also, if all your pages are HTML-static, then you can deploy your app to any static website host such as GitHub Pages.
+Also, if all your pages are HTML-static, you can then deploy your app to a static website host such as GitHub Pages.
 
 We can as well create pages with a dynamic DOM.
 But before we move on to the DOM let's look at a special case of an HTML-dynamic page
@@ -222,7 +225,7 @@ We can't compute an infinite number of pages at build-time; The page has to be H
 
 All pages with a parameterized route are HTML-dynamic.
 
-Let's move on and create pages that have dynamic views.
+Let's now move on and create pages with dynamic views.
 
 
 
