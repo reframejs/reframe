@@ -200,7 +200,7 @@ Reframe renders the HTML only once when building the frontend.
 
 If the time when building the frontend was `12:00:00` then our page will always show `(Generated at 12:00:00)`, no matter when we load the page.
 
-You can actually see the generated HTML at `~/tmp/reframe-playground/dist/browser/index.html`.
+We can actually see the generated HTML at `~/tmp/reframe-playground/dist/browser/index.html`.
 
 We say that the HTML is generated at *build-time* and that the page is *HTML-static*.
 
@@ -400,26 +400,66 @@ i.e. we apply the `file-loader` to all files that are not handled by any loader.
 
 #### Async Data
 
-A common 
+A common React use case is to display data that is fetched over the network.
+
+The page object supports an `async getInitialProps()` property that Reframe calls whenever and before the view is rendered on the server and in the browser.
+We can use `async getInitialProps()` to fetch the data that the React components require.
 
 ~~~js
 !INLINE ../example/pages/GameOfThronesPage.html.js
 ~~~
 
 ~~~js
-!INLINE ../example/views/GameOfThronesComponent.js
+!INLINE ../example/views/GameOfThrones.js
 ~~~
 
-stateful componen
+Because `aysnc getInitialProps()` is called and waited for prior to rendering the HTML, our page's HTML view-source:http://localhost:3000/game-of-thrones displays the data.
+
+~~~html
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Game of Thrones Characters</title>
+        <meta name="description" content="List of GoT Characters">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <div id="react-root"><div><h3>Game of Thrones Characters</h3><table border="7" cellPadding="5"><tbody><tr><td>Daenerys Targaryen</td></tr><tr><td>Jon Snow</td></tr><tr><td>Cersei Lannister</td></tr><tr><td>Petyr Baelish</td></tr><tr><td>Bran Stark</td></tr><tr><td>Tyrion Lannister</td></tr><tr><td>Varys</td></tr><tr><td>Tormund</td></tr><tr><td>Samwell Tarly</td></tr></tbody></table></div></div>
+    </body>
+</html>
+~~~
+
+Alternatively we can fetch data in a statefull component.
+
 ~~~js
-import React from 'react';
-
-
+!INLINE ../example/pages/GameOfThronesPage2.universal.js
 ~~~
 
-Note that asynchronous   all data for a page needs to be 
+Note that when using a data loading statefull component, the HTML the server renders will use the state of the component before the data is loaded.
+
+In our case this means that the HTML view-source:http://localhost:3000/game-of-thrones-2 displays the loading state `<div id="react-root"><div>Loading...</div></div>`.
+
+~~~html
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <div id="react-root"><div>Loading...</div></div>
+        <script src="/commons.hash_451146e5dbcfe0b09f80.js" type="text/javascript"></script>
+        <script src="/GameOfThrones2Page.entry.hash_2c79748d10c1e953f159.js" type="text/javascript"></script>
+    </body>
+</html>
+~~~
 
 #### Links
+
+~~~js
+!INLINE ../example/pages/LandingPage.html.js
+~~~
 
 
 #### Custom Server
