@@ -455,12 +455,21 @@ In our case this means that the HTML view-source:http://localhost:3000/game-of-t
 </html>
 ~~~
 
-#### Links
+#### Links & Page Navigation
+
+With Reframe's default setup, links are simply link tags like `<a href="/about">About</a>`.
+
+For example:
 
 ~~~js
 !INLINE ../example/pages/LandingPage.html.js
 ~~~
 
+Reframe doesn't interfere when a link is clicked, i.e. the link follows through and the new page is entirely loaded.
+
+While it is possible to customize Reframe to navigate pages by loading the page object of the new page instead of loading the entire page,
+we don't recommand going down path as it adds non-negligible complexity,
+while similar performance characteritics can be achieve by using the [Turbo Link Technique](https://github.com/turbolinks/turbolinks).
 
 #### Custom Server
 
