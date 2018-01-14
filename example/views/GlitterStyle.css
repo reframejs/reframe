@@ -7,20 +7,16 @@ body {
     background-image: url('./diamond.png');
     background-repeat: no-repeat;
     background-size: contain;
-    background-position: center;
 }
 
 .diamond {
     width: 80px;
-    height: 50px;
+    height: 47px;
     margin: 25px;
     display: inline-block;
-    vertical-align: middle;
 }
 
 @font-face {
     font-family: 'Tangerine';
     src: url('./Tangerine.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
 }
