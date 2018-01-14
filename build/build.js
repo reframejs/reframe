@@ -45,7 +45,7 @@ async function build({
         context,
     });
 
-    const oldBuildsDir = get_old_builds_dir({output_path__base});
+ // const oldBuildsDir = get_old_builds_dir({output_path__base});
 
     let resolve_first_build_promise;
     const first_build_promise = new Promise(resolve => resolve_first_build_promise = resolve);
@@ -54,7 +54,7 @@ async function build({
         doNotCreateServer: true,
         doNotGenerateIndexHtml: true,
         doNotAutoReload,
-        oldBuildsDir,
+     // oldBuildsDir,
         log: log_option,
         ...rebuild_opts,
         onBuild: async build_info__repage => {
@@ -78,10 +78,12 @@ async function build({
     return first_build_promise;
 }
 
+/*
 function get_old_builds_dir({output_path__base}) {
     assert_internal(output_path__base.startsWith('/'));
     return path_module.resolve(output_path__base, './previous');
 }
+*/
 
 async function get_webpack_config({
     pagesDir,
