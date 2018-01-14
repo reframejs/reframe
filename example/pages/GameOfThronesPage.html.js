@@ -1,24 +1,18 @@
-const fetch = require('@brillout/fetch');
-const {GameOfThronesComponent} = require('../views/GameOfThronesComponent');
+import React from 'react';
+import {CharacterNames, getCharacters} from '../views/GameOfThrones';
 
-module.exports = {
+export default {
     route: '/game-of-thrones',
     title: 'Game of Thrones Characters',
     description: 'List of GoT Characters',
-    view: GameOfThronesComponent,
+    view: props => (
+        <CharacterNames
+          names={props.characters.map(character => character.name)}
+        />
+    ),
+    // Everything returned in `getInitialProps()` is be passed to the props of the view
     getInitialProps: async () => {
-        const characters = await getGameOfThronesCharacters();
+        const characters = await getCharacters();
         return {characters};
     },
 };
-
-async function getGameOfThronesCharacters() {
-    const urlBase = 'https://brillout-misc.github.io/game-of-thrones';
-    const url = urlBase + '/characters/list.json';
-    const characters = await (
-        fetch(url)
-        .then(response => response.json())
-        .catch(err => {console.error(url); throw err})
-    );
-    return characters;
-}

@@ -410,6 +410,7 @@ A common
 !INLINE ../example/views/GameOfThronesComponent.js
 ~~~
 
+stateful componen
 ~~~js
 import React from 'react';
 
