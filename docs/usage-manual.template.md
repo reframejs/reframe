@@ -32,10 +32,10 @@ Let's start by writing a Hello World page.
 We first create a `pages/` directory
 
 ~~~shell
-mkdir -p /tmp/reframe-playground/pages
+mkdir -p ~/tmp/reframe-playground/pages
 ~~~
 
-we then create a new file `/tmp/reframe-playground/pages/HelloPage.html.js` with the following content
+we then create a new file `~/tmp/reframe-playground/pages/HelloPage.html.js` with the following content
 
 ~~~js
 import React from 'react';
@@ -63,20 +63,20 @@ For that we will use the reframe CLI and we need React, so let's install these t
 npm install -g @reframe/cli
 ~~~
 ~~~shell
-cd /tmp/reframe-playground/ && npm install react
+cd ~/tmp/reframe-playground/ && npm install react
 ~~~
 
 Running
 
 ~~~shell
-reframe /tmp/reframe-playground/pages
+reframe ~/tmp/reframe-playground/pages
 ~~~
 
 prints
 
 ~~~shell
-$ reframe /tmp/reframe-playground/pages
-✔ Frontend built at /tmp/reframe-playground/dist/browser/
+$ reframe ~/tmp/reframe-playground/pages
+✔ Frontend built at ~/tmp/reframe-playground/dist/browser/
 ✔ Server running at http://localhost:3000
 ~~~
 
@@ -112,7 +112,7 @@ Our page is what we call "HTML-dynamic" and we will now discuss what this means.
 Let's consider the Hello World page of our previous section.
 When is its HTML generated?
 To get an answer we modify our page to display a timestamp.
-We alter its page object from our previous section at `/tmp/reframe-playground/pages/HelloPage.html.js` to
+We alter its page object from our previous section at `~/tmp/reframe-playground/pages/HelloPage.html.js` to
 
 ~~~js
 import React from 'react';
@@ -133,7 +133,7 @@ If you haven't already, let's run a Reframe server
 
 ~~~shell
 npm install -g @reframe/cli
-reframe /tmp/reframe-playground/pages
+reframe ~/tmp/reframe-playground/pages
 ~~~
 
 and the sell should print
@@ -177,7 +177,7 @@ We say that the HTML is generated at *request-time* and that the page is *HTML-d
 Now, the HTML of our Hello World page doesn't really need to be dynamic.
 Let's make it static.
 
-For that we change our page object `/tmp/reframe-playground/pages/HelloPage.html.js` to
+For that we change our page object `~/tmp/reframe-playground/pages/HelloPage.html.js` to
 
 ~~~js
 import React from 'react';
@@ -200,7 +200,7 @@ Reframe renders the HTML only once when building the frontend.
 
 If the time when building the frontend was `12:00:00` then our page will always show `(Generated at 12:00:00)`, no matter when we load the page.
 
-You can actually see the generated HTML at `/tmp/reframe-playground/dist/browser/index.html`.
+You can actually see the generated HTML at `~/tmp/reframe-playground/dist/browser/index.html`.
 
 We say that the HTML is generated at *build-time* and that the page is *HTML-static*.
 
@@ -349,6 +349,7 @@ You can as well add arbitrary script tags to the page's HTML (async scripts, ext
 We refer to documentation of `@brillout/html-head` for further information, see the "Related External Docs" Section at the bottom of this page.
 
 #### CSS & Static Assets
+
 
 The following page shows how CSS, fonts, and images are used with Reframe's default setup (i.e. Reframe's default webpack configuration).
 
