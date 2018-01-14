@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+process.on('unhandledRejection', err => {throw err});
+
 const path_module = require('path');
 const assert = require('reassert');
 const assert_usage = assert;

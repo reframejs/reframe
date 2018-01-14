@@ -1,6 +1,7 @@
 body {
     background-color: pink;
-    font-family: 'Tangerine', cursive;
+    font-family: 'Tangerine';
+    font-size: 2em;
 }
 .diamond-background {
     background-image: url('./diamond.png');
@@ -15,4 +16,11 @@ body {
     margin: 25px;
     display: inline-block;
     vertical-align: middle;
+}
+
+@font-face {
+    font-family: 'Tangerine';
+    src: url('./Tangerine.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
 }

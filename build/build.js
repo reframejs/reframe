@@ -45,6 +45,8 @@ async function build({
         context,
     });
 
+    const fs_handler = new FilesystemHandler();
+
  // const oldBuildsDir = get_old_builds_dir({output_path__base});
 
     let resolve_first_build_promise;
@@ -58,7 +60,7 @@ async function build({
         log: log_option,
         ...rebuild_opts,
         onBuild: async build_info__repage => {
-            const build_info__reframe = await onBuild(build_info__repage);
+            const build_info__reframe = await onBuild({build_info__repage, fs_handler});
 
             if( log_option && build_info__reframe.isFirstBuild ) {
                 log_title('Pages');
@@ -184,7 +186,7 @@ async function get_webpack_entries({pagesDir, output_path__base, output_path__so
 
 function generate_dummy_entry({dist_path}) {
     assert_internal(dist_path.startsWith('/'));
-    writeFile(dist_path, '// Dummy JavaScript acting as Webpack entry');
+    fs__write_file(dist_path, '// Dummy JavaScript acting as Webpack entry');
 }
 
 function generate_entry({page_object_path, dist_path}) {
@@ -201,12 +203,33 @@ function generate_entry({page_object_path, dist_path}) {
             "hydratePage(pageInfo);",
         ].join('\n')
     );
-    writeFile(dist_path, source_code);
+    fs__write_file(dist_path, source_code);
 }
 
-function writeFile(path, content) {
+function fs__write_file(path, content) {
+    assert_internal(path.startsWith('/'));
     mkdirp.sync(path_module.dirname(path));
     fs.writeFileSync(path, content);
+}
+
+function fs__file_exists(path) {
+    try {
+        return fs.statSync(path).isFile();
+    }
+    catch(e) {
+        return false;
+    }
+}
+
+function fs__remove(path) {
+    if( fs__file_exists(path) ) {
+     // fs.unlinkSync(path);
+    }
+    /*
+    try {
+        fs.unlinkSync(path);
+    } catch(e) {}
+    */
 }
 
 function get_directory_files(directory) {
@@ -229,9 +252,7 @@ function is_script(path, suffix) {
     );
 }
 
-async function onBuild(build_info__repage) {
- // const pages_name = await get_pages_name();
-
+async function onBuild({build_info__repage, fs_handler}) {
     const {compilationInfo, isFirstBuild} = build_info__repage;
  // const [args_server, args_browser] = compilationInfo;
     const [args_browser, args_server] = compilationInfo;
@@ -239,39 +260,73 @@ async function onBuild(build_info__repage) {
     assert_internal(args_browser.constructor===Object);
  // log(args_server.output);
  // log(args_browser.output);
+
+    fs_handler.removePreviouslyWrittenFiles();
+
     const pages = await get_page_infos({args_browser, args_server});
  // log(pages);
 
-    const {htmlBuilder} = args_browser;
-    assert_internal(htmlBuilder);
-    await writeHtmlStaticPages({htmlBuilder, pages});
+    assert_internal(args_browser);
+    await writeHtmlStaticPages({args_browser, pages, fs_handler});
 
     const {HapiServeBrowserAssets} = args_browser;
     assert_internal(HapiServeBrowserAssets, args_server, args_browser);
+
     return {pages, HapiServeBrowserAssets, isFirstBuild};
 }
 
-async function writeHtmlStaticPages({pages, htmlBuilder}) {
-    const repage = new Repage();
+async function writeHtmlStaticPages({pages, args_browser, fs_handler}) {
+    (await get_static_pages_info())
+    .forEach(({url, html}) => {
+        write_html_file({url, html});
+    });
 
-    repage.addPlugins([
-        RepageRouterCrossroads,
-        RepageRenderer,
-        RepageRendererReact,
-    ]);
+    return;
 
-    repage.addPages(pages);
+    function get_static_pages_info() {
+        const repage = new Repage();
 
-    const htmlStaticPages = await getStaticPages(repage);
+        repage.addPlugins([
+            RepageRouterCrossroads,
+            RepageRenderer,
+            RepageRendererReact,
+        ]);
 
-    htmlStaticPages.forEach(({url, html}) => {
+        repage.addPages(pages);
+
+        return getStaticPages(repage);
+    }
+
+    function write_html_file({url, html}) {
+        assert_input({url, html, args_browser});
+        const disk_path = get_disk_path(url);
+        fs_handler.writeFile(disk_path, html);
+    }
+
+    function get_disk_path(url) {
+        const {pathname} = url;
+        const {dist_root_directory} = args_browser.output;
+        assert_internal(pathname.startsWith('/'));
+        assert_internal(dist_root_directory.startsWith('/'));
+        const disk_path = (
+            path_module.resolve(
+                dist_root_directory,
+                '.'+(pathname === '/' ? '/index' : pathname)+'.html'
+            )
+        );
+        return disk_path;
+    }
+
+    function assert_input({url, html, args_browser}) {
         assert_internal(html===null || html && html.constructor===String, html);
         assert_internal(html);
+
         assert_internal(url.pathname.startsWith('/'));
         assert_internal(url.search==='');
         assert_internal(url.hash==='');
-        htmlBuilder({pathname: url.pathname, html});
-    });
+
+        assert_internal(args_browser.output.dist_root_directory.startsWith('/'));
+    }
 }
 
 function get_page_infos({args_browser, args_server}) {
@@ -441,7 +496,7 @@ function get_nodejs_path(entry_point) {
     );
     assert_internal(scripts.length===1, entry_point);
     const {filepath} = scripts[0];
-    assert_internal(filepath);
+    assert_internal(filepath, entry_point);
     assert_internal(filepath.constructor===String);
     return filepath;
 }
@@ -455,6 +510,27 @@ function get_source_path(entry_point, filter) {
     const source_path = source_entry_points[0];
     assert_internal(source_path.constructor===String);
     return source_path;
+}
+
+function FilesystemHandler() {
+    const written_files = [];
+
+    return {
+        writeFile,
+        removePreviouslyWrittenFiles,
+    };
+
+    function writeFile(path, content) {
+        assert_usage(path.startsWith('/'));
+        written_files.push(path);
+        fs__write_file(path, content);
+    }
+
+    function removePreviouslyWrittenFiles() {
+        written_files.forEach(path => {
+            fs__remove(path);
+        });
+    }
 }
 
 function isProduction() {
