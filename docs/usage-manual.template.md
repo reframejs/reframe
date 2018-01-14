@@ -350,8 +350,30 @@ We refer to documentation of `@brillout/html-head` for further information, see 
 
 #### CSS & Static Assets
 
+A CSS file can be loaded & applied by importing it.
 
-The following page shows how CSS, fonts, and images are used with Reframe's default setup (i.e. Reframe's default webpack configuration).
+~~~js
+import './GlitterStyle.css';
+~~~
+
+And static assets (images, fonts, videos, etc.) can be imported as well
+but importing an asset doesn't actually load it and
+the URL of the asset is returned instead.
+It is up to you to use/fetch the URL of the asset.
+
+~~~js
+import diamondUrl from './diamond.png';
+~~~
+
+In addition, static assets can also be referenced in CSS files by using the CSS `url` data type.
+
+~~~css
+.diamond-background {
+    background-image: url('./diamond.png');
+}
+~~~
+
+The following page shows an example of how to use CSS and static assets as described above.
 
 ~~~js
 !INLINE ../example/pages/GlitterPage.universal.js
@@ -365,15 +387,15 @@ The following page shows how CSS, fonts, and images are used with Reframe's defa
 !INLINE ../example/views/GlitterStyle.css
 ~~~
 
-The CSS file is loaded by simply importing it and the font is as well loaded by simply importing it.
+Note that how the CSS and static assets are entirely handled by webpack.
+If you 
 
-The images are used by using the fact that importing a static asset returns the URL of that static asset.
-
-That way we can import an image in JavaScript, get its URL and use the URL in the CSS, e.g. `background-image: url('./diamond.png');`, or use the URL to set a `<img>`'s src attribute, e.g. `<img className='diamond' src={diamondUrl}/>`.
-
-Note how we load images
-
+Also note that all types of static assets are supported
+(If you are curious;
+We achieve this by using the `file-loader` as fallback, that is a webpack "fallback loader" that applies to all files that don't have a loader.)
 All assests are file-loader static assets 
+
+how CSS, fonts, and images are used with Reframe's default setup (i.e. Reframe's default webpack configuration).
 
 Custom webpack configuration.
 See Customization Manual.
