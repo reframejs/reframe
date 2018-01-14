@@ -37,8 +37,8 @@ Running the `reframe` CLI serves the defined page:
 
 ~~~shell
 $ reframe
-✔ Page directory found at ~/code/reframe/example/pages
-✔ Frontend built at ~/code/reframe/example/dist/browser/
+✔ Page directory found at ~/tmp/reframe/example/pages
+✔ Frontend built at ~/tmp/reframe/example/dist/browser/ [DEV]
 ✔ Server running at http://localhost:3000
 ~~~
 

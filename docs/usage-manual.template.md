@@ -76,7 +76,7 @@ prints
 
 ~~~shell
 $ reframe ~/tmp/reframe-playground/pages
-✔ Frontend built at ~/tmp/reframe-playground/dist/browser/
+✔ Frontend built at ~/tmp/reframe-playground/dist/browser/ [DEV]
 ✔ Server running at http://localhost:3000
 ~~~
 
@@ -139,8 +139,8 @@ reframe ~/tmp/reframe-playground/pages
 and the sell should print
 
 ~~~shell
-$ reframe
-✔ Frontend built at /home/alice/code/my-project/reframe-example/pages/dist/browser/
+$ reframe ~/tmp/reframe-playground/pages
+✔ Frontend built at ~/tmp/reframe-playground/dist/browser/ [DEV]
 ✔ Server running at http://localhost:3000
 ~~~
 
@@ -148,8 +148,8 @@ If you haven't closed the server from the previous section then
 Reframe has automatically re-compiled the frontend and added a `✔ Re-build` notification to your shell
 
 ~~~shell
-$ reframe
-✔ Frontend built at /home/alice/code/my-project/reframe-example/pages/dist/browser/
+$ reframe ~/tmp/reframe-playground/pages
+✔ Frontend built at ~/tmp/reframe-playground/dist/browser/ [DEV]
 ✔ Server running at http://localhost:3000
 ✔ Re-build
 ~~~
@@ -413,6 +413,14 @@ the code is minifed,
 the low-KB production build of React is used,
 etc.
 
+The Reframe CLI displays `[PROD]` when compiling for production.
+
+~~~shell
+$ reframe
+✔ Page directory found at ~/tmp/reframe/example/pages/
+✔ Frontend built at ~/tmp/reframe/example/dist/browser/ [PROD]
+✔ Server running at http://localhost:3000
+~~~
 
 ### Related External Docs
 
