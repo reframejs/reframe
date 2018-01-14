@@ -356,16 +356,18 @@ A CSS file can be loaded & applied by importing it.
 import './GlitterStyle.css';
 ~~~
 
-And static assets (images, fonts, videos, etc.) can be imported as well
-but importing an asset doesn't actually load it and
-the URL of the asset is returned instead.
+Static assets (images, fonts, videos, etc.) can be imported as well
+but importing an asset doesn't actually load it,
+instead the URL of the asset is returned.
 It is up to you to use/fetch the URL of the asset.
 
 ~~~js
 import diamondUrl from './diamond.png';
+
+// do something with diamondUrl, e.g. `await fetch(diamondUrl)` or `<img src={diamondUrl}/>`
 ~~~
 
-In addition, static assets can also be referenced in CSS files by using the CSS `url` data type.
+In addition, static assets can be referenced in CSS files by using the CSS `url` data type.
 
 ~~~css
 .diamond-background {
@@ -373,7 +375,7 @@ In addition, static assets can also be referenced in CSS files by using the CSS 
 }
 ~~~
 
-The following page shows an example of how to use CSS and static assets as described above.
+The following shows code using CSS and static assets as described above.
 
 ~~~js
 !INLINE ../example/pages/GlitterPage.universal.js
@@ -387,20 +389,18 @@ The following page shows an example of how to use CSS and static assets as descr
 !INLINE ../example/views/GlitterStyle.css
 ~~~
 
-Note that how the CSS and static assets are entirely handled by webpack.
-If you 
+Note that CSS and static assets are handled by webpack,
+and you can customize how CSS and static assets are handled by customizing the webpack configuration.
+We referer to the Customization Manual for how to customize the webpack configuration.
 
-Also note that all types of static assets are supported
-(If you are curious;
-We achieve this by using the `file-loader` as fallback, that is a webpack "fallback loader" that applies to all files that don't have a loader.)
-All assests are file-loader static assets 
-
-how CSS, fonts, and images are used with Reframe's default setup (i.e. Reframe's default webpack configuration).
-
-Custom webpack configuration.
-See Customization Manual.
+Also note that all types of static assets are supported.
+(If you are curious,
+we achieve this by using the `file-loader` as fallback,
+i.e. we apply the `file-loader` to all files that are not handled by any loader.)
 
 #### Async Data
+
+A common 
 
 ~~~js
 !INLINE ../example/pages/GameOfThronesPage.html.js
@@ -409,6 +409,14 @@ See Customization Manual.
 ~~~js
 !INLINE ../example/views/GameOfThronesComponent.js
 ~~~
+
+~~~js
+import React from 'react';
+
+
+~~~
+
+Note that asynchronous   all data for a page needs to be 
 
 #### Links
 
