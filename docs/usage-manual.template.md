@@ -465,11 +465,16 @@ For example:
 !INLINE ../example/pages/LandingPage.html.js
 ~~~
 
-Reframe doesn't interfere when a link is clicked, i.e. the link follows through and the new page is entirely loaded.
+When a link is clicked, Reframe doesn't interfere and the link follows through; the new page is entirely loaded.
+Reframe doesn't interfere when a link is clicked: the link follows through, and the new page is entirely loaded.
+Reframe doesn't interfere when a link is clicked that is the link follows through and the new page is entirely loaded.
+Reframe doesn't interfere when a link is clicked that is the link follows through, and the new page is entirely loaded.
+
+
 
 While it is possible to customize Reframe to navigate pages by loading the page object of the new page instead of loading the entire page,
-we don't recommand going down path as it adds non-negligible complexity,
-while similar performance characteritics can be achieve by using the [Turbo Link Technique](https://github.com/turbolinks/turbolinks).
+we don't recommand going down that path as it adds non-negligible complexity,
+while similar performance characteritics can be achieved by using the [Turbo Link Technique](https://github.com/turbolinks/turbolinks).
 
 #### Custom Server
 

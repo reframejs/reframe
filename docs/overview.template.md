@@ -60,7 +60,8 @@ Once the frontend is built and the server up the source code of `http://localhos
 </html>
 ~~~
 
-Note that this page doesn't load any JavaScript code and its DOM is static but you can also create pages with a dynamic DOM.
+Note that, while this page doesn't load any JavaScript code and its DOM is static,
+Reframe also allows you to create pages with a dynamic view.
 
 
 
