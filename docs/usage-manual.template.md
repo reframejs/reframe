@@ -43,6 +43,7 @@ import React from 'react';
 
 export default {
     route: '/',
+	title: 'Hi There',
     view: () => (
         <div>
             Hello World, from Reframe.
@@ -91,6 +92,7 @@ The HTML view-source:http://localhost:3000/ is
 <!DOCTYPE html>
 <html>
     <head>
+        <title>Hi There</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <meta charset="utf-8">
     </head>
@@ -101,9 +103,10 @@ The HTML view-source:http://localhost:3000/ is
 ~~~
 
 As we can see, the page doesn't load any JavaScript.
-The DOM is static as there isn't any JavaScript to manipulate the DOM.
+The DOM is static, as there isn't any JavaScript to manipulate the DOM.
 We say that the page is *DOM-static*.
-We can also create pages with dynamic views, i.e. with a dynamic DOM, and we will see later how.
+We can also create pages with a dynamic view and a dynamic DOM,
+and we will see later how.
 
 Our page is what we call "HTML-dynamic" and we will now discuss what this means.
 
@@ -260,7 +263,7 @@ Looking at the HTML view-source:http://localhost:3000/time
 </html>
 ~~~
 
-we see that in contrast to our previous DOM-static pages, this page loads JavaScript code.
+we see that, in contrast to our previous DOM-static pages, this page loads JavaScript code.
 
 The JavaScript code
 mounts a `<TimeComponent />` to the DOM element `#react-root` and
@@ -474,34 +477,47 @@ while similar performance characteritics can be achieved by using the [Turbo Lin
 
 #### Custom Server
 
-Instead of using the CLI, Reframe can be used as a hapi plugin.
-
-Two hapi plugins, strictly speaking:
+Instead of using the CLI, Reframe can be used as hapi plugin(s).
 
 ~~~js
-const server = Hapi.Server({port: 3000});
-
-const {HapiServerRendering, HapiServeBrowserAssets} = (
-	await getReframeHapiPlugins({
-		pagesDir: path.resolve(__dirname, '../pages'),
-	})
-);
-
-await server.register([
-	{plugin: HapiServeBrowserAssets},
-	{plugin: HapiServerRendering},
-]);
-
-await server.start();
+!INLINE ../example/custom/server.js
 ~~~
 
-That way, you can create the hapi server yourself and use it as you see fit.
+That way, you can create the hapi server yourself and configure it as you wish.
 
 You can also customize the Reframe hapi plugins,
 and you can use Reframe with another server framework such as Express.
 
 We refer to the Customization Manual for further information.
 
+#### Custom `<head>`
+
+Reframe handles the outer part of the HTML (including `<head>`, `<!DOCTYPE html`>, `<script>`S, etc.) with `@brillout/html-crust`.
+
+All options of `@brillout/html-crust` are available over the page object.
+Thus, the page object has full control over the HTML and the `<head>`.
+
+We refer to `@brillout/html-crust`'s documentation for further information.
+
+For example, the page object
+
+~~~js
+!INLINE ../examples/pages/custom-html.html.js
+~~~
+
+creates a page with following HTML
+
+~~~js
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Full custom head</title>
+  </head>
+  <body>
+    <div>Full custom body</div>
+  </body>
+</html>
+~~~
 
 #### Production Environment
 

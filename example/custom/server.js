@@ -6,8 +6,11 @@ const path = require('path');
 
 (async () => {
     const server = Hapi.Server({port: 3000});
+
     addCustomRoute(server);
+
     await addReframePlugins(server);
+
     await server.start();
     console.log(`Server running at ${server.info.uri}`);
 })();
