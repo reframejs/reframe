@@ -17,11 +17,12 @@ With some willingness of diving into Reframe and re-writing parts, all edge case
  - [Getting Started](#getting-started)
  - [HTML-static VS HTML-dynamic](#html-static-vs-html-dynamic)
  - [DOM-static VS DOM-dynamic](#dom-static-vs-dom-dynamic)
- - [Custom Browser JavaScript](#custom-browser-javascript)
  - [Partial DOM-dynamic](#partial-dom-dynamic)
- - [CSS](#css)
+ - [Custom Browser JavaScript](#custom-browser-javascript)
+ - [CSS & Static Assets](#css-static-assets)
  - [Async Data](#async-data)
  - [Links & Page Navigation](#links-page-navigation)
+ - [Custom Server](#custom-server)
  - [Production Environment](#production-environment)
  - [Related External Docs](#related-external-docs)
 
@@ -343,7 +344,7 @@ by writing the browser entry code yourself
 If your page is saved as `pages/MyPage.html.js` and if you save JavaScript code as `pages/MyPage.entry.js` then Reframe will take this JavaScript code as browser entry point.
 
 For further information about the custom browser entry point `pages/*.entry.js`
-we refer to our Customization Manual.
+we refer to the Customization Manual.
 
 You can as well add arbitrary script tags to the page's HTML (async scripts, external scripts, etc.).
 We refer to documentation of `@brillout/html-head` for further information, see the "Related External Docs" Section at the bottom of this page.
@@ -457,7 +458,7 @@ In our case this means that the HTML view-source:http://localhost:3000/game-of-t
 
 #### Links & Page Navigation
 
-With Reframe's default setup, links are simply link tags like `<a href="/about">About</a>`.
+With Reframe's default setup, links are simply link tags such as `<a href="/about">About</a>`.
 
 For example:
 
@@ -465,23 +466,41 @@ For example:
 !INLINE ../example/pages/LandingPage.html.js
 ~~~
 
-When a link is clicked, Reframe doesn't interfere and the link follows through; the new page is entirely loaded.
 Reframe doesn't interfere when a link is clicked: the link follows through, and the new page is entirely loaded.
-Reframe doesn't interfere when a link is clicked that is the link follows through and the new page is entirely loaded.
-Reframe doesn't interfere when a link is clicked that is the link follows through, and the new page is entirely loaded.
 
-
-
-While it is possible to customize Reframe to navigate pages by loading the page object of the new page instead of loading the entire page,
-we don't recommand going down that path as it adds non-negligible complexity,
+It is possible to customize Reframe to navigate pages by loading the page object of the new page instead of loading the entire page.
+But we don't recommand going down that path as it adds non-negligible complexity,
 while similar performance characteritics can be achieved by using the [Turbo Link Technique](https://github.com/turbolinks/turbolinks).
 
 #### Custom Server
 
-We refer to our Customization Manual
-for further information about using Reframe
-as a hapi plugin
-and/or writing a custom server
+Instead of using the CLI, Reframe can be used as a hapi plugin.
+
+Two hapi plugins, strictly speaking:
+
+~~~js
+const server = Hapi.Server({port: 3000});
+
+const {HapiServerRendering, HapiServeBrowserAssets} = (
+	await getReframeHapiPlugins({
+		pagesDir: path.resolve(__dirname, '../pages'),
+	})
+);
+
+await server.register([
+	{plugin: HapiServeBrowserAssets},
+	{plugin: HapiServerRendering},
+]);
+
+await server.start();
+~~~
+
+That way, you can create the hapi server yourself and use it as you see fit.
+
+You can also customize the Reframe hapi plugins,
+and you can use Reframe with another server framework such as Express.
+
+We refer to the Customization Manual for further information.
 
 
 #### Production Environment
@@ -493,14 +512,15 @@ you tell Reframe to compile for production.
 
 When compiling for production,
 the auto-reload feature is disabled,
-the code is transpiled to support all browsers (instead of only the last 2 versions of Chrome and Firefox when compiling for dev),
+the code is transpiled to support all browsers (only the last 2 versions of Chrome and Firefox are targeted when compiling for dev),
 the code is minifed,
-the low-KB production build of React is used,
+the low-KB production version of React is used,
 etc.
 
-The Reframe CLI displays `[PROD]` when compiling for production.
+The Reframe CLI displays a `[PROD]` notification when compiling for production.
 
 ~~~shell
+$ export NODE_ENV='production'
 $ reframe
 ✔ Page directory found at ~/tmp/reframe/example/pages/
 ✔ Frontend built at ~/tmp/reframe/example/dist/browser/ [PROD]
@@ -512,4 +532,5 @@ $ reframe
  - Repage - Low-level and unopinionted page management library that Reframe is build on top of
  - @brillout/html-head - Package that Reframe uses to generated the HTML head
  - @brillout/find - Package that the Reframe CLI uses to search for the `pages/` directory
+ - Rebuild - Package that the Reframe CLI uses to search for the `pages/` directory
 
