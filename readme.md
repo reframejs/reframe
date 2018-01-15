@@ -125,8 +125,8 @@ Running the `reframe` CLI serves the defined page:
 
 ~~~shell
 $ reframe
-✔ Page directory found at ~/code/reframe/example/pages
-✔ Frontend built at ~/code/reframe/example/dist/browser/
+✔ Page directory found at ~/tmp/reframe/example/pages
+✔ Frontend built at ~/tmp/reframe/example/dist/browser/ [DEV]
 ✔ Server running at http://localhost:3000
 ~~~
 
@@ -148,7 +148,8 @@ Once the frontend is built and the server up the source code of `http://localhos
 </html>
 ~~~
 
-Note that this page doesn't load any JavaScript code and its DOM is static but you can also create pages with a dynamic DOM.
+Note that, while this page doesn't load any JavaScript code and its DOM is static,
+Reframe also allows you to create pages with a dynamic view.
 
 
 
@@ -156,12 +157,23 @@ Note that this page doesn't load any JavaScript code and its DOM is static but y
 
 Reframe is born out of the frustration of two conflicting intentions
 
- 1. I want to use a framework to quickly implement a prototype.
-    And more importantly, I want to think about the application's architecture only later on and only when necessary.
-    I don't want to have to think through an entire app architecture before even starting to write one line of code.
+ 1. I want to use a framework so that I can quickly implement a prototype.
+    And I don't want having to think through an entire app architecture before even starting to write one line of code.
 
  2. I don't want to use a framework because of the framework's limitations.
-    And more importantly, I don't want to get locked-in to that framework down the road.
+    And more importantly, I don't want to get locked-in to the framework down the road.
+
+
+The Reframe project is born in the belief that there can be
+a framework that allows to quickly implement a prototype
+and yet can be fully adapted to the needs of the application.
+while allowing you to adapt  fully adapt 
+without locking you in down the road.
+
+be a new type of framework we call the "(anti-)framework".
+
+
+aims at resolving this conflict by providing a new choice.
 
 The question arises
 

@@ -347,7 +347,7 @@ For further information about the custom browser entry point `pages/*.entry.js`
 we refer to the Customization Manual.
 
 You can as well add arbitrary script tags to the page's HTML (async scripts, external scripts, etc.).
-We refer to documentation of `@brillout/html-head` for further information, see the "Related External Docs" Section at the bottom of this page.
+We refer to documentation of `@brillout/html-crust` for further information, see the "Related External Docs" Section at the bottom of this page.
 
 #### CSS & Static Assets
 
