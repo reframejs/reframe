@@ -437,7 +437,7 @@ Because `aysnc getInitialProps()` is called and waited for prior to rendering th
 Alternatively we can fetch data in a statefull component.
 
 ~~~js
-!INLINE ../example/pages/GameOfThronesPage2.universal.js
+!INLINE ../example/pages/GameOfThrones2Page.universal.js
 ~~~
 
 Note that, when using a data loading statefull component, the HTML the server renders will use the state of the component before the data is loaded.
@@ -502,7 +502,7 @@ We refer to `@brillout/html-crust`'s documentation for further information.
 For example, the page object
 
 ~~~js
-!INLINE ../examples/pages/custom-html.html.js
+!INLINE ../example/pages/custom-html.html.js
 ~~~
 
 creates a page with following HTML
