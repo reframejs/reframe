@@ -530,7 +530,7 @@ $ reframe
 ### Related External Docs
 
  - Repage - Low-level and unopinionted page management library that Reframe is build on top of
- - @brillout/html-head - Package that Reframe uses to generated the HTML head
+ - [@brillout/html-crust](https://github.com/brillout/html-crust) - Package that Reframe uses to handle the outer part of HTML
  - @brillout/find - Package that the Reframe CLI uses to search for the `pages/` directory
  - Rebuild - Package that the Reframe CLI uses to search for the `pages/` directory
 
