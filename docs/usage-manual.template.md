@@ -436,7 +436,7 @@ Alternatively we can fetch data in a statefull component.
 !INLINE ../example/pages/GameOfThronesPage2.universal.js
 ~~~
 
-Note that when using a data loading statefull component, the HTML the server renders will use the state of the component before the data is loaded.
+Note that, when using a data loading statefull component, the HTML the server renders will use the state of the component before the data is loaded.
 
 In our case this means that the HTML view-source:http://localhost:3000/game-of-thrones-2 displays the loading state `<div id="react-root"><div>Loading...</div></div>`.
 
