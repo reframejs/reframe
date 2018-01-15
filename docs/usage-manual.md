@@ -79,14 +79,14 @@
 [Usage Manual](/docs/usage-manual.md)<br/>
 [Customization Manual](/docs/customization-manual.md)
 
-This usage manual acts as reference for using Reframe's default setup.
+The usage manual acts as reference for using Reframe's default setup.
 It should cover most common use cases.
 (Create a GitHub issue if a common use case is missing.)
 
-As your app grows you will likely hit an edge case not covered by the default setup.
-In that situation we refer to the Customization Manual.
-With some willingness of diving into Reframe and re-writing parts, all edge cases should be achievable.
-(Feel free to create a GitHub issue to get support.)
+As your app grows, you will likely hit an edge case not covered by the default setup.
+In that situation, we refer to the Customization Manual.
+With willingness of diving into Reframe and re-writing parts, all edge cases should be achievable.
+(Create a GitHub issue to get support.)
 
 # Usage Manual
 
@@ -101,8 +101,12 @@ With some willingness of diving into Reframe and re-writing parts, all edge case
  - [Async Data](#async-data)
  - [Links & Page Navigation](#links-page-navigation)
  - [Custom Server](#custom-server)
+ - [Custom Head](#custom-head)
+ - [404 Page](#404-page)
  - [Production Environment](#production-environment)
  - [Related External Docs](#related-external-docs)
+
+
 
 #### Getting Started
 
@@ -114,12 +118,12 @@ We first create a `pages/` directory
 mkdir -p ~/tmp/reframe-playground/pages
 ~~~
 
-we then create a new file `~/tmp/reframe-playground/pages/HelloPage.html.js` with the following content
+we then create a new file `~/tmp/reframe-playground/pages/HelloPage.html.js` with following content
 
 ~~~js
 import React from 'react';
 
-export default {
+const HelloWorldPage = {
     route: '/',
 	title: 'Hi There',
     view: () => (
@@ -128,16 +132,18 @@ export default {
         </div>
     ),
 };
+export default HelloWorldPage;
 ~~~
 
-We call the exported JavaScript object a *page object*.
+We call `HelloWorldPage` a *page object*.
 Every page is defined by such page object.
 
-Note that it is important to save the page object as a filename that ends with `.html.js`.
+Note that it is important to save the page object with a filename that ends with `.html.js`.
 We will discuss later why.
 
 Let's now run our Hello World page.
-For that we will use the reframe CLI and we need React, so let's install these two
+For that, we use the reframe CLI, and we need React.
+Let's install these two.
 
 ~~~shell
 npm install -g @reframe/cli
@@ -146,13 +152,13 @@ npm install -g @reframe/cli
 cd ~/tmp/reframe-playground/ && npm install react
 ~~~
 
-Running
+Let's run the CLI
 
 ~~~shell
 reframe ~/tmp/reframe-playground/pages
 ~~~
 
-prints
+Which prints
 
 ~~~shell
 $ reframe ~/tmp/reframe-playground/pages
@@ -161,8 +167,6 @@ $ reframe ~/tmp/reframe-playground/pages
 ~~~
 
 and spins up a server making our page available at http://localhost:3000.
-
-Note that the CLI is optional but is convenient to quickly get started.
 
 The HTML view-source:http://localhost:3000/ is
 
@@ -186,15 +190,16 @@ We say that the page is *DOM-static*.
 We can also create pages with a dynamic view and a dynamic DOM,
 and we will see later how.
 
-Our page is what we call "HTML-dynamic" and we will now discuss what this means.
+Our page is what we call "HTML-dynamic", and we will now discuss what this means.
+
 
 
 #### HTML-static vs HTML-dynamic
 
 Let's consider the Hello World page of our previous section.
 When is its HTML generated?
-To get an answer we modify our page to display a timestamp.
-We alter its page object from our previous section at `~/tmp/reframe-playground/pages/HelloPage.html.js` to
+To get an answer we modify the page to display a timestamp.
+We alter the page object from our previous section at `~/tmp/reframe-playground/pages/HelloPage.html.js` to
 
 ~~~js
 import React from 'react';
@@ -226,7 +231,7 @@ $ reframe ~/tmp/reframe-playground/pages
 ✔ Server running at http://localhost:3000
 ~~~
 
-If you haven't closed the server from the previous section then
+If you haven't closed the server from the previous section, then
 Reframe has automatically re-compiled the frontend and added a `✔ Re-build` notification to your shell
 
 ~~~shell
@@ -236,7 +241,7 @@ $ reframe ~/tmp/reframe-playground/pages
 ✔ Re-build
 ~~~
 
-We now reload the page and, assuming the time is 13:37:00, we see that the HTML view-source:http://localhost:3000/hello is
+We now reload the page and &mdash; assuming the time is 13:37:00 &mdash; the HTML view-source:http://localhost:3000/hello is
 
 ~~~html
 <!DOCTYPE html>
@@ -251,9 +256,9 @@ We now reload the page and, assuming the time is 13:37:00, we see that the HTML 
 </html>
 ~~~
 
-And if we reload one second later at 13:37:01, we get the same HTML except that
+If we reload one second later &mdash; at 13:37:01 &mdash; we get the same HTML except that
 `(Generated at 13:37:00)` is now replaced with `(Generated at 13:37:01)`.
-This means that everytime we load the page the HTML is re-rendered.
+This means that the HTML is (re-)rendered every time we load the page.
 We say that the HTML is generated at *request-time* and that the page is *HTML-dynamic*.
 
 Now, the HTML of our Hello World page doesn't really need to be dynamic.
@@ -277,24 +282,27 @@ export default {
 };
 ~~~
 
-When `htmlIsStatic: true` is set
+When we declare the page's HTML to be static with `htmlIsStatic: true`,
 Reframe renders the HTML only once when building the frontend.
 
-If the time when building the frontend was `12:00:00` then our page will always show `(Generated at 12:00:00)`, no matter when we load the page.
-
-We can actually see the generated HTML at `~/tmp/reframe-playground/dist/browser/index.html`.
+If the time when building the frontend was `12:00:00`,
+then our page will always show `(Generated at 12:00:00)`, no matter when we load the page.
 
 We say that the HTML is generated at *build-time* and that the page is *HTML-static*.
 
+We can actually see the HTML generated at build-time at `~/tmp/reframe-playground/dist/browser/index.html`.
+
 To sum up,
-`htmlIsStatic: false` makes Reframe render the HTML at request-time and
-`htmlIsStatic: true` makes Reframe render the HTML at build-time.
+`htmlIsStatic: false` declares the page as HTML-dynamic and makes Reframe render the HTML at request-time
+And
+`htmlIsStatic: true` declares the page as HTML-static and makes Reframe render the HTML at build-time.
 
 For pages with lot's of elements, generating the HTML at build-time instead of request-time can be a considerable performance gain.
 Also, if all your pages are HTML-static, you can then deploy your app to a static website host such as GitHub Pages.
 
-We can as well create pages with a dynamic DOM.
-But before we move on to the DOM let's look at a special case of an HTML-dynamic page
+Not only do we have control over whether the HTML is static or not
+but we also have control over whether the DOM is static or not.
+But before we move on to the DOM, let's look at a special case of an HTML-dynamic page
 
 ~~~js
 // /example/pages/HelloPage.html.js
@@ -313,8 +321,8 @@ module.exports = HelloPage;
 ~~~
 
 Not only is this page HTML-dynamic but it actually has to.
-That is because its route `/hello/{name}` is parameterized;
-There is an infinite number of pages with URLs matching the route such as `/hello/Alice-1`, `/hello/Alice-2`, `/hello/Alice-3`, etc.
+That is because its route `/hello/{name}` is parameterized.
+There is an infinite number of pages with URLs matching the route, such as `/hello/Alice-1`, `/hello/Alice-2`, `/hello/Alice-3`, etc.
 We can't compute an infinite number of pages at build-time; The page has to be HTML-dyanmic.
 
 All pages with a parameterized route are HTML-dynamic.
@@ -530,6 +538,8 @@ you can gain further control over what's happening in the browser
 by writing the browser entry code yourself
 (instead of using the browser entry code generated by Reframe.).
 
+
+
 #### Custom Browser JavaScript
 
 If your page is saved as `pages/MyPage.html.js` and if you save JavaScript code as `pages/MyPage.entry.js` then Reframe will take this JavaScript code as browser entry point.
@@ -539,6 +549,8 @@ we refer to the Customization Manual.
 
 You can as well add arbitrary script tags to the page's HTML (async scripts, external scripts, etc.).
 We refer to documentation of `@brillout/html-crust` for further information, see the "Related External Docs" Section at the bottom of this page.
+
+
 
 #### CSS & Static Assets
 
@@ -649,6 +661,8 @@ Also note that all types of static assets are supported.
 (If you are curious,
 we achieve this by using the `file-loader` as fallback,
 i.e. we apply the `file-loader` to all files that are not handled by any loader.)
+
+
 
 #### Async Data
 
@@ -763,9 +777,13 @@ export default {
 };
 ~~~
 
-Note that, when using a data loading statefull component, the HTML the server renders will use the state of the component before the data is loaded.
-
-In our case this means that the HTML view-source:http://localhost:3000/game-of-thrones-2 displays the loading state `<div id="react-root"><div>Loading...</div></div>`.
+Note that,
+when using such statefull component,
+the server renders the HTML before the data is loaded.
+In our case,
+ this means that the HTML view-source:http://localhost:3000/game-of-thrones-2
+displays the loading state `<div id="react-root"><div>Loading...</div></div>`.
+And the full HTML returned by the server is:
 
 ~~~html
 <!DOCTYPE html>
@@ -781,6 +799,8 @@ In our case this means that the HTML view-source:http://localhost:3000/game-of-t
     </body>
 </html>
 ~~~
+
+
 
 #### Links & Page Navigation
 
@@ -806,8 +826,10 @@ module.exports = LandingPage;
 Reframe doesn't interfere when a link is clicked: the link follows through, and the new page is entirely loaded.
 
 It is possible to customize Reframe to navigate pages by loading the page object of the new page instead of loading the entire page.
-But we don't recommand going down that path as it adds non-negligible complexity,
+But we don't recommend going down that path as it adds non-negligible complexity,
 while similar performance characteritics can be achieved by using the [Turbo Link Technique](https://github.com/turbolinks/turbolinks).
+
+
 
 #### Custom Server
 
@@ -862,8 +884,9 @@ That way, you can create the hapi server yourself and configure it as you wish.
 
 You can also customize the Reframe hapi plugins,
 and you can use Reframe with another server framework such as Express.
+The Customization Manual elaborates on these possibilities.
 
-We refer to the Customization Manual for further information.
+
 
 #### Custom `<head>`
 
@@ -903,6 +926,28 @@ creates a page with following HTML
 </html>
 ~~~
 
+
+
+#### 404 Page
+
+A 404 page can be implement by using the `*` route:
+
+~~~js
+import React from 'react';
+
+export default {
+    route: '*',
+	title: 'Not Found',
+    view: props => (
+        <div>
+            We couldn't find {props.route.url.pathname}.
+        </div>
+    ),
+};
+~~~
+
+
+
 #### Production Environment
 
 By default, Reframe compiles for development.
@@ -927,9 +972,11 @@ $ reframe
 ✔ Server running at http://localhost:3000
 ~~~
 
-### Related External Docs
 
- - Repage - Low-level and unopinionted page management library that Reframe is build on top of
+
+#### Related External Docs
+
+ - [Repage](https://github.com/brillout/repage) - Low-level and unopinionted page management library that Reframe is build on top of
  - [@brillout/html-crust](https://github.com/brillout/html-crust) - Package that Reframe uses to handle the outer part of HTML
  - @brillout/find - Package that the Reframe CLI uses to search for the `pages/` directory
  - Rebuild - Package that the Reframe CLI uses to search for the `pages/` directory
