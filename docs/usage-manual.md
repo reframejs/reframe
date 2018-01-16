@@ -297,7 +297,7 @@ and
 `htmlIsStatic: true` declares the page as HTML-static and the HTML is rendered at build-time.
 
 For pages with lot's of elements, generating the HTML at build-time instead of request-time can be a considerable performance gain.
-Also, if all your pages are HTML-static, you can then deploy your app to a static website host such as GitHub Pages.
+Also, if all your pages are HTML-static, you can then deploy your app to a static website host such as [GitHub Pages](https://pages.github.com/).
 
 Not only do we have control over whether the HTML is static or not,
 but we also have control over whether the DOM is static or not.
