@@ -7,7 +7,7 @@ It should cover most common use cases.
 
 As your app grows, you will likely hit an edge case not covered by the default setup.
 In that situation, we refer to the Customization Manual.
-With willingness of diving into Reframe and re-writing parts, all edge cases should be achievable.
+With willingness of diving into Reframe and to re-write parts, pretty much all edge cases should be achievable.
 (Create a GitHub issue to get support.)
 
 # Usage Manual
@@ -592,8 +592,11 @@ $ reframe
 
 #### Related External Docs
 
- - [Repage](https://github.com/brillout/repage) - Low-level and unopinionted page management library that Reframe is build on top of
- - [@brillout/html-crust](https://github.com/brillout/html-crust) - Package that Reframe uses to handle the outer part of HTML
- - @brillout/find - Package that the Reframe CLI uses to search for the `pages/` directory
- - Rebuild - Package that the Reframe CLI uses to search for the `pages/` directory
+The following packages are used by Reframe.
+
+ - [Repage](https://github.com/brillout/repage) - Low-level and unopinionted page management library.
+
+ - [@brillout/html-crust](https://github.com/brillout/html-crust) - HTML outer part handler. (`<head>`, `<!DOCTYPE html>`, `<script>`, etc.)
+ - [@brillout/find](https://github.com/brillout/find) - Package to find files. The Reframe CLI uses it to find the `pages/` directory.
+ - [Rebuild](https://github.com/brillout/rebuild) - High-level asset bundling tool build on top of the low-level tool webpack.
 
