@@ -513,14 +513,14 @@ The Customization Manual elaborates on these possibilities.
 
 
 
-#### Custom `<head>`
+#### Custom Head
 
-Reframe handles the outer part of the HTML (including `<head>`, `<!DOCTYPE html`>, `<script>`S, etc.) with `@brillout/html-crust`.
+Reframe handles the outer part of HTML (including `<head>`, `<!DOCTYPE html`>, `<script>`, etc.) with `@brillout/html-crust`.
 
 All options of `@brillout/html-crust` are available over the page object.
 Thus, the page object has full control over the HTML and the `<head>`.
 
-We refer to `@brillout/html-crust`'s documentation for further information.
+We refer to [`@brillout/html-crust`'s documentation](https://github.com/brillout/html-crust) for further information.
 
 For example, the page object
 
