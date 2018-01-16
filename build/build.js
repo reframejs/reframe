@@ -387,9 +387,11 @@ function add_disk_path(page_info, output) {
             return;
         }
         const disk_path__relative = script_spec.diskPath;
+        assert_usage((disk_path__relative||{}).constructor===String, disk_path__relative);
+        assert_internal(!disk_path__relative.startsWith('/'), disk_path__relative);
         const source_path_parent = path_module.dirname(page_info.sourcePath);
         assert_internal(source_path_parent.startsWith('/'));
-        const disk_path = path_module.resolve(source_path_parent, disk_path__relative);
+        const disk_path = disk_path__relative;
         const dist_files = find_dist_files({disk_path, output});
         assert_usage(
             dist_files!==null,
