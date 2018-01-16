@@ -236,6 +236,8 @@ We can't compute an infinite number of pages at build-time; the page has to be H
 
 All pages with a parameterized route are HTML-dynamic.
 
+As HTML-static pages are more performant, we recommand to make a page HTML-dynamic only if necessary.
+
 Let's now create pages with dynamic views.
 
 
@@ -301,7 +303,10 @@ In case you are curious, the loaded JavaScript is:
    includes the compiled version of `TimePage.universal.js` and a tiny wrapper.
    It is specific to the page and is usually lightweight.
 
-The entire page is hydrated, but this is not always what we want.
+As DOM-static pages are more performant, we recommand to make a page DOM-dynamic only if necessary.
+
+So, when defining the page with a `.universal.js` file, the entire page is hydrated.
+But this is not always what we want.
 Imagine a page where a vast majority of the page is DOM-static and
 only some parts of the page need to be made DOM-dynamic.
 It that case,
