@@ -803,6 +803,27 @@ const LandingPage = {
 module.exports = LandingPage;
 ~~~
 
+~~~js
+// /example/views/LandingComponent.js
+
+const React = require('react');
+const el = React.createElement;
+
+const LandingComponent = () => (
+    <div>
+        Hey there,
+        <div>
+            <a href='/about'>About Page</a>
+        </div>
+        <div>
+            <a href='/counter'>Counter</a>
+        </div>
+    </div>
+);
+
+module.exports = {LandingComponent};
+~~~
+
 Reframe doesn't interfere when a link is clicked: the link follows through, and the new page is entirely loaded.
 
 It is possible to customize Reframe to navigate pages by loading the page object of the new page instead of loading the entire page.

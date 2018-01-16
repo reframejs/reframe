@@ -490,6 +490,10 @@ For example:
 !INLINE ../example/pages/LandingPage.html.js
 ~~~
 
+~~~js
+!INLINE ../example/views/LandingComponent.js
+~~~
+
 Reframe doesn't interfere when a link is clicked: the link follows through, and the new page is entirely loaded.
 
 It is possible to customize Reframe to navigate pages by loading the page object of the new page instead of loading the entire page.
