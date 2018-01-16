@@ -20,7 +20,6 @@ This overview presents what Reframe is, how it's different from other web framew
 
  - [What is Reframe?](#what-is-reframe)
  - [Why Reframe?](#why-reframe)
- - [Why should I use Reframe?](#why-should-i-use-reframe)
  - [Rreframe Project Scope](#reframe-project-scope)
  - [Adaptability](#adaptability)
 
