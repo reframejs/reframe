@@ -87,15 +87,20 @@ We can go further by not using `@reframe/browser/hydratePage` and re-writing tha
 
 Let's look at the code of `@reframe/browser/hydratePage`
 
-
 ~~~js
 !INLINE ../../browser/hydratePage.js
 ~~~
 
-Such customization 
-For example<F4>uc
+As we can see, the code simply initializes Repage and uses Repage's `hydratePage()`.
 
-We can go further 
+At this point, we don't have to use Repage and could for example hydrate the page ourselves.
+
+~~~js
+!INLINE ../example/custom/browser/pages/custom-browser.html.js
+~~~
+~~~js
+!INLINE ../example/custom/browser/pages/custom-browser.entry.js
+~~~
 
 ### Custom Server
 
