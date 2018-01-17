@@ -492,11 +492,10 @@ With Reframe's default setup, links are simply link tags such as `<a href="/abou
 For example:
 
 ~~~js
-!INLINE ../example/pages/LandingPage.html.js
+!INLINE ../example/pages/page-a.html.js
 ~~~
-
 ~~~js
-!INLINE ../example/views/LandingComponent.js
+!INLINE ../example/pages/page-b.html.js
 ~~~
 
 Reframe doesn't interfere when a link is clicked: the link follows through, and the new page is entirely loaded.

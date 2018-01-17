@@ -55,9 +55,25 @@ See the "Custom Head" section of the Usage Manual for more information.
 
 ##### Common Script
 
+Multiple pages can share common code by using the `diskPath` script object property as shown in the following example;
+
+~~~js
+!INLINE ../example/pages/terms.entry.js
+~~~
+~~~js
+!INLINE ../example/pages/privacy.entry.js
+~~~
+~~~js
+!INLINE ../example/pages/PageCommon.js
+~~~
+~~~js
+!INLINE ../example/pages/PageCommon.entry.js
+~~~
 
 
 ##### Custom Repage
+
+
 
 ##### Full Customization
 
