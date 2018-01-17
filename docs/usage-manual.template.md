@@ -508,17 +508,17 @@ while similar performance characteritics can be achieved by using the [Turbo Lin
 
 ### Custom Server
 
-Instead of using the CLI, Reframe can be used as hapi plugin(s).
+Instead of using the CLI, Reframe can be used as hapi plugin(s) &mdash; as show in the next example.
 
 ~~~js
 !INLINE ../example/custom/server.js
 ~~~
 
-That way, we can create the hapi server ourselves and configure it as we wish.
+That way, we can create the hapi server ourselves, add routes to it, and configure it as we wish.
 
-You can also customize the Reframe hapi plugins,
-and you can use Reframe with another server framework such as Express.
-The Customization Manual elaborates on these possibilities.
+Reframe's server is fully customaziable, and
+can be used with another server framework such as Express.
+The Customization Manual elaborates on such possibilities.
 
 
 

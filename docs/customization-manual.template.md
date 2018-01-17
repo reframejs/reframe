@@ -107,6 +107,10 @@ At this point, our browser JavaScript doesn't depend on Reframe nor on Repage an
 
 ### Custom Server
 
+##### Reframe as Hapi plugin
+
+##### Full Customization
+
 
 ### Custom Build
 
