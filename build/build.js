@@ -251,8 +251,19 @@ function fs__remove(path) {
     */
 }
 
-function fs__ls(directory) {
-    const files = dir.files(directory, {sync: true, recursive: false});
+function fs__ls(dirpath) {
+    assert_internal(path__abs(dirpath));
+    /*
+    const files = dir.files(dirpath, {sync: true, recursive: false});
+    */
+    const files = (
+        fs.readdirSync(dirpath)
+        .map(filename => path__resolve(dirpath, filename))
+    );
+    files.forEach(filepath => {
+        assert_internal(path__abs(filepath), dirpath, files);
+        assert_internal(path_module.relative(dirpath, filepath).split(path_module.sep).length===1, dirpath, files);
+    });
     return files;
 }
 
@@ -567,13 +578,12 @@ function handle_output_dir({output_path__base}) {
     const stamp_path = path__resolve(output_path__base, 'reframe-stamp');
 
     handle_existing_output_dir();
-
+    assert_emtpy_output_dir();
     create_output_dir();
 
     return;
 
     function create_output_dir() {
-        assert_internal(!fs__path_exists(output_path__base));
         mkdirp.sync(path_module.dirname(output_path__base));
         const stamp_content = get_timestamp()+'\n';
         fs__write_file(stamp_path, stamp_content);
@@ -622,19 +632,22 @@ function handle_output_dir({output_path__base}) {
             "Remove `"+output_path__base+"`, so that Reframe can safely write distribution files."
         );
         move_old_output_dir();
-        assert_emtpy_output_dir();
     }
 
     function assert_emtpy_output_dir() {
+        if( ! fs__path_exists(output_path__base) ) {
+            return;
+        }
         const files = fs__ls(output_path__base);
+        assert_internal(files.length<=1, files);
         assert_internal(files.length===1, files);
-        assert_internal(files[0]==='previous', files);
+        assert_internal(files[0].endsWith('previous'), files);
     }
 
     function move_old_output_dir() {
         assert_internal(fs__path_exists(stamp_path));
         const stamp_content = fs__read(stamp_path).trim();
-        assert_internal(!/\s/.test(stamp_content));
+        assert_internal(stamp_content && !/\s/.test(stamp_content));
         const graveyard_path = path__resolve(output_path__base, 'previous', stamp_content);
         move_all_files(output_path__base, graveyard_path);
     }
@@ -642,7 +655,7 @@ function handle_output_dir({output_path__base}) {
     function move_all_files(path_old, path_new) {
         const files = fs__ls(path_old);
         files
-        .filter(filepath => filepath!==path_new)
+        .filter(filepath => !path_new.startsWith(filepath))
         .forEach(filepath => {
             const filepath__relative = path_module.relative(path_old, filepath);
             assert_internal(filepath__relative.split(path_module.sep).length===1, path_old, filepath);
@@ -656,10 +669,10 @@ function fs__read(filepath) {
     return fs.readFileSync(filepath, 'utf8');
 }
 
-function path__resolve(path1, path2) {
+function path__resolve(path1, path2, ...paths) {
     assert_internal(path1 && path__abs(path1), path1);
     assert_internal(path2);
-    return path_module.resolve(path1, path2);
+    return path_module.resolve(path1, path2, ...paths);
 }
 
 function fs__rename(path_old, path_new) {
