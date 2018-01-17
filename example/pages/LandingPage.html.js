@@ -52,9 +52,9 @@ const LandingComponent = () => (
             <Link pathname={'/privacy'}/>
         </Section>
 
-        <Section title={'Links'}>
-            <Link pathname={'/pageA'}/>
-            <Link pathname={'/pageB'}/>
+        <Section title={'Links between pages'}>
+            <Link pathname={'/page-a'}/>
+            <Link pathname={'/page-b'}/>
         </Section>
     </div>
 );

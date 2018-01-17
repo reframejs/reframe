@@ -21,7 +21,7 @@ const RepageRendererReact = require('@repage/renderer-react');
 
 module.exports = {build};
 
-async function build({
+function build({
     pagesDir,
 
     onBuild: onBuild_user,
@@ -36,8 +36,13 @@ async function build({
     log: log_option,
     ...rebuild_opts
 }) {
-    const {webpack_config, output_path__base} = await get_webpack_config({
+    const {output_path__base} = get_dist_base_path({pagesDir});
+
+    handle_output_dir({output_path__base});
+
+    const webpack_config = get_webpack_config({
         pagesDir,
+        output_path__base,
         webpackBrowserConfig,
         webpackServerConfig,
         getWebpackBrowserConfig,
@@ -87,8 +92,16 @@ function get_old_builds_dir({output_path__base}) {
 }
 */
 
-async function get_webpack_config({
+function get_dist_base_path({pagesDir}) {
+    const dist_parent = path_module.dirname(pagesDir);
+    assert_internal(dist_parent.startsWith('/'));
+    const output_path__base = path_module.resolve(dist_parent, './dist');
+    return {output_path__base};
+}
+
+function get_webpack_config({
     pagesDir,
+    output_path__base,
     webpackBrowserConfig,
     webpackServerConfig,
     getWebpackBrowserConfig,
@@ -100,21 +113,16 @@ async function get_webpack_config({
     let browser_config = webpackBrowserConfig;
     let server_config = webpackServerConfig;
 
-    let output_path__base;
-
     if( ! browser_config || ! server_config ) {
         assert_usage(
             pagesDir && pagesDir.constructor===String && pagesDir.startsWith('/'),
             pagesDir
         );
-        const dist_parent = path_module.dirname(pagesDir);
-        assert_internal(dist_parent.startsWith('/'));
-        output_path__base = path_module.resolve(dist_parent, './dist');
         const output_path__source = path_module.resolve(output_path__base, './source');
         const output_path__browser = path_module.resolve(output_path__base, './browser');
         const output_path__server = path_module.resolve(output_path__base, './server');
 
-        const {browser_entries, server_entries} = await get_webpack_entries({pagesDir, output_path__base, output_path__source});
+        const {browser_entries, server_entries} = get_webpack_entries({pagesDir, output_path__base, output_path__source});
 
         if( ! browser_config ) {
             browser_config = (
@@ -139,38 +147,39 @@ async function get_webpack_config({
 
     const webpack_config = [browser_config, server_config].filter(Boolean);
 
-    return {webpack_config, output_path__base};
+    return webpack_config;
 }
 
-async function get_webpack_entries({pagesDir, output_path__base, output_path__source}) {
+function get_webpack_entries({pagesDir, output_path__base, output_path__source}) {
     const browser_entries = {};
     const server_entries = {};
-    (await get_directory_files(pagesDir))
-    .forEach(page_object_path => {
-        const file_name = path_module.basename(page_object_path);
+
+    fs__ls(pagesDir)
+    .forEach(page_file => {
+        const file_name = path_module.basename(page_file);
         const entry_name = file_name.split('.').slice(0, -1).join('.');
 
-        const is_universal = is_script(page_object_path, '.universal');
-        const is_dom = is_script(page_object_path, '.dom');
-        const is_entry = is_script(page_object_path, '.entry');
-        const is_html = is_script(page_object_path, '.html');
-        assert_internal(is_universal + is_dom + is_entry + is_html <= 1, page_object_path);
+        const is_universal = is_script(page_file, '.universal');
+        const is_dom = is_script(page_file, '.dom');
+        const is_entry = is_script(page_file, '.entry');
+        const is_html = is_script(page_file, '.html');
+        assert_internal(is_universal + is_dom + is_entry + is_html <= 1, page_file);
 
         if( is_universal || is_dom ) {
             const file_name__dist = file_name.split('.').slice(0, -2).concat(['entry', 'js']).join('.');
             const dist_path = path_module.resolve(output_path__source, file_name__dist);
-            generate_entry({page_object_path, dist_path});
+            generate_entry({page_file, dist_path});
             const entry_name__browser = entry_name.split('.').slice(0, -1).concat(['entry']).join('.');
             browser_entries[entry_name__browser] = [dist_path];
             if( is_universal ) {
-                server_entries[entry_name] = [page_object_path];
+                server_entries[entry_name] = [page_file];
             }
         }
         if( is_entry ) {
-            browser_entries[entry_name] = [page_object_path];
+            browser_entries[entry_name] = [page_file];
         }
         if( is_html ) {
-            server_entries[entry_name] = [page_object_path];
+            server_entries[entry_name] = [page_file];
         }
     });
 
@@ -189,13 +198,13 @@ function generate_dummy_entry({dist_path}) {
     fs__write_file(dist_path, '// Dummy JavaScript acting as Webpack entry');
 }
 
-function generate_entry({page_object_path, dist_path}) {
-    assert_internal(page_object_path.startsWith('/'));
+function generate_entry({page_file, dist_path}) {
+    assert_internal(page_file.startsWith('/'));
     assert_internal(dist_path.startsWith('/'));
     const source_code = (
         [
             "var hydratePage = require('"+require.resolve('@reframe/browser/hydratePage')+"');",
-            "var pageObject = require('"+page_object_path+"');",
+            "var pageObject = require('"+page_file+"');",
             "",
             "// hybrid cjs and ES6 modules import",
             "pageObject = Object.keys(pageObject).length===1 && pageObject.default || pageObject;",
@@ -212,6 +221,16 @@ function fs__write_file(path, content) {
     fs.writeFileSync(path, content);
 }
 
+function fs__path_exists(path) {
+    try {
+        fs.statSync(path);
+        return true;
+    }
+    catch(e) {
+        return false;
+    }
+}
+
 function fs__file_exists(path) {
     try {
         return fs.statSync(path).isFile();
@@ -223,7 +242,7 @@ function fs__file_exists(path) {
 
 function fs__remove(path) {
     if( fs__file_exists(path) ) {
-     // fs.unlinkSync(path);
+        fs.unlinkSync(path);
     }
     /*
     try {
@@ -232,8 +251,8 @@ function fs__remove(path) {
     */
 }
 
-function get_directory_files(directory) {
-    return dir.promiseFiles(directory);
+function fs__ls(directory) {
+    return dir.files(directory, {sync: true});
 }
 
 function add_context_to_config(context, config) {
@@ -523,7 +542,7 @@ function FilesystemHandler() {
     };
 
     function writeFile(path, content) {
-        assert_usage(path.startsWith('/'));
+        assert_usage(path__abs(path));
         written_files.push(path);
         fs__write_file(path, content);
     }
@@ -537,4 +556,110 @@ function FilesystemHandler() {
 
 function isProduction() {
     return process.env['NODE_ENV'] === 'production';
+}
+
+function path__abs(path) {
+    path.startsWith(path_module.sep);
+}
+
+function handle_output_dir({output_path__base}) {
+    const stamp_path = path__resolve(output_path__base, 'reframe-stamp');
+
+    handle_existing_output_dir();
+
+    create_output_dir();
+
+    return;
+
+    function create_output_dir() {
+        assert_internal(!fs__path_exists(output_path__base));
+        mkdirp.sync(path_module.dirname(output_path__base));
+        const stamp_content = get_timestamp();
+        fs__write_file(stamp_path, stamp_content);
+    }
+
+    function get_timestamp() {
+        const now = new Date();
+
+        const date = (
+            [
+                now.getFullYear(),
+                now.getMonth()+1,
+                now.getDate()+1,
+            ]
+            .map(pad)
+            .join('-')
+        );
+
+        const time = (
+            [
+                now.getHours(),
+                now.getMinutes(),
+                now.getSeconds(),
+            ]
+            .map(pad)
+            .join('-')
+        );
+
+        return date+'_'+time;
+
+        function pad(n) {
+            return (
+                n>9 ? n : ('0'+n)
+            );
+        }
+    }
+
+    function handle_existing_output_dir() {
+        if( ! fs__path_exists(output_path__base) ) {
+            return;
+        }
+        assert_usage(
+            fs__path_exists(stamp_path),
+            "Reframe's stamp `"+stamp_path+"` not found.",
+            "It is therefore assumed that `"+output_path__base+"` has not been created by Reframe.",
+            "Remove `"+output_path__base+"`, so that Reframe can safely write distribution files."
+        );
+        move_old_output_dir();
+        assert_emtpy_output_dir();
+    }
+
+    function assert_emtpy_output_dir() {
+        const files = fs__ls(output_path__base);
+        assert_internal(files.length===1, files);
+        assert_internal(files[0]==='previous', files);
+    }
+
+    function move_old_output_dir() {
+        assert_internal(fs__path_exists(stamp_path));
+        const stamp_content = fs.readFileSync(stamp_path, 'utf8');
+        assert_internal(!stamp_content.includes(' '));
+        const graveyard_path = path__resolve(output_path__base, 'previous', stamp_content);
+        move_all_files(output_path__base, graveyard_path);
+    }
+
+    function move_all_files(path_old, path_new) {
+        const files = fs__ls(path_old);
+        files
+        .filter(filepath => filepath!==path_new)
+        .forEach(filepath => {
+            const filepath__relative = path_module.relative(path_old, filepath);
+            assert_internal(filepath__relative.split(path_module.sep).length===1, path_old, filepath);
+            const filepath__new = path__resolve(path_new, filepath__relative);
+            fs__rename(filepath, filepath__new);
+        });
+    }
+}
+
+function path__resolve(path1, path2) {
+    assert_internal(path1 && path__abs(path1), path1);
+    assert_internal(path2);
+    return path_module.resolve(path1, path2);
+}
+
+function fs__rename(path_old, path_new) {
+    assert_internal(path__abs(path_old));
+    assert_internal(path__abs(path_new));
+    mkdirp.sync(path_module.dirname(path_new));
+    fs.renameSync(path_old, path_new);
 }
