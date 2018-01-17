@@ -9,6 +9,10 @@ const assert_usage = assert;
 (() => {
     const {opts, input_path} = get_cli_args();
 
+    if( opts.prod ) {
+        process.env['NODE_ENV']='production';
+    }
+
     const pagesDir = input_path || find_pages_dir();
 
     startServer({pagesDir});

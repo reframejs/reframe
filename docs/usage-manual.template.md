@@ -577,9 +577,10 @@ export default {
 
 By default, Reframe compiles for development.
 
-By setting `process.env.NODE_ENV = 'production';` in Node.js or
-`export NODE_ENV='production'` in a Unix(-like) OS
-we tell Reframe to compile for production.
+We can tell Reframe to compile for production by
+ - Setting `process.env.NODE_ENV = 'production';` in Node.js, or by
+ - Setting `export NODE_ENV='production'` in a Unix(-like) OS, or by
+ - Running `reframe --prod` in a shell
 
 When compiling for production,
 the auto-reload feature is disabled,
