@@ -20,7 +20,9 @@ async function getReframeHapiPlugins({
                 "We expect the served `dist/` directory to always be at the same path"
             );
             HapiServeBrowserAssets = HapiServeBrowserAssets || args.HapiServeBrowserAssets;
+            assert_internal(HapiServeBrowserAssets);
             pages = args.pages;
+            assert_internal(pages);
         },
         context,
         ...build_opts,
