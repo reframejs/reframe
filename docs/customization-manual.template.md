@@ -58,10 +58,10 @@ See the "Custom Head" section of the Usage Manual for more information.
 Multiple pages can share common code by using the `diskPath` script object property as shown in the following example;
 
 ~~~js
-!INLINE ../example/pages/terms.entry.js
+!INLINE ../example/pages/terms.html.js
 ~~~
 ~~~js
-!INLINE ../example/pages/privacy.entry.js
+!INLINE ../example/pages/privacy.html.js
 ~~~
 ~~~js
 !INLINE ../example/pages/PageCommon.js
@@ -88,7 +88,7 @@ We can go further by not using `@reframe/browser/hydratePage` and re-writing tha
 Let's look at the code of `@reframe/browser/hydratePage`
 
 ~~~js
-!INLINE ../../browser/hydratePage.js
+!INLINE ../browser/hydratePage.js
 ~~~
 
 As we can see, the code simply initializes Repage and uses Repage's `hydratePage()`.

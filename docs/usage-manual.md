@@ -90,7 +90,7 @@ With willingness to dive into Reframe and to re-write parts, pretty much all edg
 
 # Usage Manual
 
-#### Contents
+##### Contents
 
  - [Getting Started](#getting-started)
  - [HTML-static VS HTML-dynamic](#html-static-vs-html-dynamic)
@@ -108,7 +108,7 @@ With willingness to dive into Reframe and to re-write parts, pretty much all edg
 
 
 
-#### Getting Started
+### Getting Started
 
 Let's start by writing a Hello World page.
 
@@ -193,7 +193,7 @@ Our page is what we call "HTML-dynamic", and we now discuss what this means.
 
 
 
-#### HTML-static vs HTML-dynamic
+### HTML-static vs HTML-dynamic
 
 Let's consider the Hello World page of our previous section.
 When is its HTML generated?
@@ -326,18 +326,18 @@ We can't compute an infinite number of pages at build-time; the page has to be H
 
 All pages with a parameterized route are HTML-dynamic.
 
+As HTML-static pages are more performant, we recommand to make a page HTML-dynamic only if necessary.
+
 Let's now create pages with dynamic views.
 
 
 
-#### DOM-static VS DOM-dynamic
+### DOM-static VS DOM-dynamic
 
 We consider the following page object that defines a page displaying the current time.
 
 ~~~js
 // /example/pages/TimePage.universal.js
-
-import React from 'react';
 
 import {TimeComponent} from '../views/TimeComponent';
 
@@ -431,7 +431,10 @@ In case you are curious, the loaded JavaScript is:
    includes the compiled version of `TimePage.universal.js` and a tiny wrapper.
    It is specific to the page and is usually lightweight.
 
-The entire page is hydrated, but this is not always what we want.
+As DOM-static pages are more performant, we recommand to make a page DOM-dynamic only if necessary.
+
+So, when defining the page with a `.universal.js` file, the entire page is hydrated.
+But this is not always what we want.
 Imagine a page where a vast majority of the page is DOM-static and
 only some parts of the page need to be made DOM-dynamic.
 It that case,
@@ -442,7 +445,7 @@ We call this technique *partial DOM-dynamic*.
 
 
 
-#### Partial DOM-dynamic
+### Partial DOM-dynamic
 
 Besides being able to hydrate the entire page with a `.universal.js` page object,
 we can tell Reframe to hydrate only some parts of the page.
@@ -522,7 +525,7 @@ by writing the browser entry code ourselves.
 
 
 
-#### Custom Browser JavaScript
+### Custom Browser JavaScript
 
 If our page is saved as `pages/MyPage.html.js` and, if we save some JavaScript code as `pages/MyPage.entry.js`, then Reframe will take `pages/MyPage.entry.js` as browser entry point.
 See the Customization Manual for further information.
@@ -532,7 +535,7 @@ See the "Custom Head" section.
 
 
 
-#### CSS & Static Assets
+### CSS & Static Assets
 
 A CSS file can be loaded & applied by importing it.
 
@@ -644,7 +647,7 @@ i.e. we apply the `file-loader` to all files that are not handled by any loader.
 
 
 
-#### Async Data
+### Async Data
 
 A common React use case is to display data that is fetched over the network.
 
@@ -782,46 +785,49 @@ And the full HTML returned by the server is:
 
 
 
-#### Links & Page Navigation
+### Links & Page Navigation
 
 With Reframe's default setup, links are simply link tags such as `<a href="/about">About</a>`.
 
 For example:
 
 ~~~js
-// /example/pages/LandingPage.html.js
+// /example/pages/page-a.html.js
 
-const {LandingComponent} = require('../views/LandingComponent');
+import React from 'react';
 
-const LandingPage = {
-    title: 'Welcome',
-    route: '/',
-    view: LandingComponent,
+const pageA = {
+    route: '/page-a',
+    view: () => (
+        <div>
+            This is page A.
+            <br/>
+            Link to page B: <a href={'/page-b'}>/page-b</a>
+        </div>
+    ),
     htmlIsStatic: true,
 };
 
-module.exports = LandingPage;
+export default pageA;
 ~~~
-
 ~~~js
-// /example/views/LandingComponent.js
+// /example/pages/page-b.html.js
 
-const React = require('react');
-const el = React.createElement;
+import React from 'react';
 
-const LandingComponent = () => (
-    <div>
-        Hey there,
+const pageB = {
+    route: '/page-b',
+    view: () => (
         <div>
-            <a href='/about'>About Page</a>
+            This is page B.
+            <br/>
+            Link to page A: <a href={'/page-a'}>/page-a</a>
         </div>
-        <div>
-            <a href='/counter'>Counter</a>
-        </div>
-    </div>
-);
+    ),
+    htmlIsStatic: true,
+};
 
-module.exports = {LandingComponent};
+export default pageB;
 ~~~
 
 Reframe doesn't interfere when a link is clicked: the link follows through, and the new page is entirely loaded.
@@ -832,7 +838,7 @@ while similar performance characteritics can be achieved by using the [Turbo Lin
 
 
 
-#### Custom Server
+### Custom Server
 
 Instead of using the CLI, Reframe can be used as hapi plugin(s).
 
@@ -881,7 +887,7 @@ async function addReframePlugins(server) {
 }
 ~~~
 
-That way, you can create the hapi server yourself and configure it as you wish.
+That way, we can create the hapi server ourselves and configure it as we wish.
 
 You can also customize the Reframe hapi plugins,
 and you can use Reframe with another server framework such as Express.
@@ -889,7 +895,7 @@ The Customization Manual elaborates on these possibilities.
 
 
 
-#### Custom Head
+### Custom Head
 
 Reframe handles the outer part of HTML (including `<head>`, `<!DOCTYPE html`>, `<script>`, etc.) with `@brillout/html-crust`.
 
@@ -929,7 +935,7 @@ creates a page with following HTML
 
 
 
-#### 404 Page
+### 404 Page
 
 A 404 page can be implement by using the `*` route:
 
@@ -949,12 +955,13 @@ export default {
 
 
 
-#### Production Environment
+### Production Environment
 
 By default, Reframe compiles for development.
 
-By setting `process.env.NODE_ENV = 'production';` in Node.js or `export NODE_ENV='production'` on your Unix(-like) OS
-you tell Reframe to compile for production.
+By setting `process.env.NODE_ENV = 'production';` in Node.js or
+`export NODE_ENV='production'` in a Unix(-like) OS
+we tell Reframe to compile for production.
 
 When compiling for production,
 the auto-reload feature is disabled,
@@ -975,7 +982,7 @@ $ reframe
 
 
 
-#### Related External Docs
+### Related External Docs
 
 The following packages are used by Reframe.
  - [Repage](https://github.com/brillout/repage) - Low-level and unopinionted page management library.
