@@ -70,15 +70,32 @@ Multiple pages can share common code by using the `diskPath` script object prope
 !INLINE ../example/pages/PageCommon.entry.js
 ~~~
 
-
-##### Custom Repage
-
-
-
 ##### Full Customization
 
+We saw in the first section "Custom Browser Entry" how to write the browser entry code ourself.
+
+An example would be
+
+~~~js
+import hydratePage from '@reframe/browser/hydratePage';
+import MyPage from 'path/to/MyPage-page-object.js';
+
+hydratePage(MyPage);
+~~~
+
+We can go further by not using `@reframe/browser/hydratePage` and re-writing that part ouserlves.
+
+Let's look at the code of `@reframe/browser/hydratePage`
 
 
+~~~js
+!INLINE ../../browser/hydratePage.js
+~~~
+
+Such customization 
+For example<F4>uc
+
+We can go further 
 
 ### Custom Server
 

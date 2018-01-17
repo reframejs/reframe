@@ -12,6 +12,7 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "hapi": "^17.1.0",
-    "react": "^16.1.1"
+    "react": "^16.1.1",
+    "react-dom": "^16.2.0"
   }
 }
