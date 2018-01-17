@@ -252,7 +252,8 @@ function fs__remove(path) {
 }
 
 function fs__ls(directory) {
-    return dir.files(directory, {sync: true});
+    const files = dir.files(directory, {sync: true, recursive: false});
+    return files;
 }
 
 function add_context_to_config(context, config) {
@@ -559,7 +560,7 @@ function isProduction() {
 }
 
 function path__abs(path) {
-    path.startsWith(path_module.sep);
+    return path.startsWith(path_module.sep);
 }
 
 function handle_output_dir({output_path__base}) {
@@ -574,7 +575,7 @@ function handle_output_dir({output_path__base}) {
     function create_output_dir() {
         assert_internal(!fs__path_exists(output_path__base));
         mkdirp.sync(path_module.dirname(output_path__base));
-        const stamp_content = get_timestamp();
+        const stamp_content = get_timestamp()+'\n';
         fs__write_file(stamp_path, stamp_content);
     }
 
@@ -632,8 +633,8 @@ function handle_output_dir({output_path__base}) {
 
     function move_old_output_dir() {
         assert_internal(fs__path_exists(stamp_path));
-        const stamp_content = fs.readFileSync(stamp_path, 'utf8');
-        assert_internal(!stamp_content.includes(' '));
+        const stamp_content = fs__read(stamp_path).trim();
+        assert_internal(!/\s/.test(stamp_content));
         const graveyard_path = path__resolve(output_path__base, 'previous', stamp_content);
         move_all_files(output_path__base, graveyard_path);
     }
@@ -649,6 +650,10 @@ function handle_output_dir({output_path__base}) {
             fs__rename(filepath, filepath__new);
         });
     }
+}
+
+function fs__read(filepath) {
+    return fs.readFileSync(filepath, 'utf8');
 }
 
 function path__resolve(path1, path2) {
