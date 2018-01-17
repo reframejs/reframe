@@ -52,8 +52,6 @@ function build({
 
     const fs_handler = new FilesystemHandler();
 
- // const oldBuildsDir = get_old_builds_dir({output_path__base});
-
     let resolve_first_build_promise;
     const first_build_promise = new Promise(resolve => resolve_first_build_promise = resolve);
 
@@ -61,7 +59,6 @@ function build({
         doNotCreateServer: true,
         doNotGenerateIndexHtml: true,
         doNotAutoReload,
-     // oldBuildsDir,
         log: log_option,
         ...rebuild_opts,
         onBuild: async build_info__repage => {
@@ -84,13 +81,6 @@ function build({
 
     return first_build_promise;
 }
-
-/*
-function get_old_builds_dir({output_path__base}) {
-    assert_internal(output_path__base.startsWith('/'));
-    return path_module.resolve(output_path__base, './previous');
-}
-*/
 
 function get_dist_base_path({pagesDir}) {
     const dist_parent = path_module.dirname(pagesDir);
