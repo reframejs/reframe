@@ -59,16 +59,16 @@ See the "Custom Head" section of the Usage Manual for more information.
 Multiple pages can share common code by using the `diskPath` script object property as shown in the following example;
 
 ~~~js
-!INLINE ../example/pages/terms.html.js
+!INLINE ../example/custom/browser/pages/terms.html.js
 ~~~
 ~~~js
-!INLINE ../example/pages/privacy.html.js
+!INLINE ../example/custom/browser/pages/privacy.html.js
 ~~~
 ~~~js
-!INLINE ../example/pages/PageCommon.js
+!INLINE ../example/custom/browser/pages/PageCommon.js
 ~~~
 ~~~js
-!INLINE ../example/pages/PageCommon.entry.js
+!INLINE ../example/custom/browser/pages/PageCommon.entry.js
 ~~~
 
 ##### Full Customization

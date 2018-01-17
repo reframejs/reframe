@@ -170,7 +170,7 @@ See the "Custom Head" section of the Usage Manual for more information.
 Multiple pages can share common code by using the `diskPath` script object property as shown in the following example;
 
 ~~~js
-// /example/pages/terms.html.js
+// /example/custom/browser/pages/terms.html.js
 
 import React from 'react';
 import PageCommon from './PageCommon';
@@ -189,7 +189,7 @@ export default {
 };
 ~~~
 ~~~js
-// /example/pages/privacy.html.js
+// /example/custom/browser/pages/privacy.html.js
 
 import React from 'react';
 import PageCommon from './PageCommon';
@@ -209,7 +209,7 @@ export default {
 
 ~~~
 ~~~js
-// /example/pages/PageCommon.js
+// /example/custom/browser/pages/PageCommon.js
 
 const PageCommon = {
     title: 'Jon Snow',
@@ -229,7 +229,7 @@ const PageCommon = {
 export default PageCommon;
 ~~~
 ~~~js
-// /example/pages/PageCommon.entry.js
+// /example/custom/browser/pages/PageCommon.entry.js
 
 window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 ga('create', 'UA-XXXXX-Y', 'auto');
