@@ -90,6 +90,7 @@
  - [Custom Browser Entry](#custom-browser-entry)
  - [External Scripts](#external-scripts)
  - [Common Script](#common-script)
+ - [Full Customization](#full-customization)
 
 ##### Custom Browser Entry
 
@@ -283,9 +284,11 @@ async function hydratePage(page) {
 }
 ~~~
 
-As we can see, the code simply initializes Repage and uses Repage's `hydratePage()`.
+As we can see, the code simply initializes Repage and calls Repage's `hydratePage()`.
 
-At this point, we don't have to use Repage and could for example hydrate the page ourselves.
+Instead of using Repage we could manually hydrate the page ourselves as.
+The following is an example of doing so.
+At this point, our browser JavaScript doesn't depend on Reframe nor on Repage and is fully under our control.
 
 ~~~js
 // /example/custom/browser/pages/custom-browser.html.js
