@@ -19,7 +19,7 @@ const RepageRouterCrossroads = require('@repage/router-crossroads');
 const RepageRenderer = require('@repage/renderer');
 const RepageRendererReact = require('@repage/renderer-react');
 
-module.exports = {build};
+module.exports = build;
 
 function build({
     pagesDir,

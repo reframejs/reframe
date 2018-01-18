@@ -107,7 +107,15 @@ At this point, our browser JavaScript doesn't depend on Reframe nor on Repage an
 
 ### Custom Server
 
-##### Reframe as Hapi plugin
+##### Reframe as hapi plugin
+
+Instead of using Reframe with its CLI, we can use Reframe as hapi plugins.
+The following is an example of doing so.
+
+~~~js
+!INLINE ../example/custom/server.js
+~~~
+
 
 ##### Full Customization
 

@@ -1,5 +1,5 @@
 const {HapiServerRendering__create} = require('./HapiServerRendering');
-const {build} = require('@reframe/build');
+const build = require('@reframe/build');
 const {get_context} = require('@reframe/build/utils/get_context');
 const path_module = require('path');
 const assert = require('reassert');
