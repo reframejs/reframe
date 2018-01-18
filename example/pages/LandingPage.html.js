@@ -47,11 +47,6 @@ const LandingComponent = () => (
             <Link pathname={'/game-of-thrones-2'}/>
         </Section>
 
-        <Section title={'Pages with common script'}>
-            <Link pathname={'/terms'}/>
-            <Link pathname={'/privacy'}/>
-        </Section>
-
         <Section title={'Links between pages'}>
             <Link pathname={'/page-a'}/>
             <Link pathname={'/page-b'}/>
