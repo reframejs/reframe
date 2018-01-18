@@ -2,6 +2,13 @@
   "name": "example",
   "private": true,
   "version": "0.0.1-rc.0",
+  "dependencies_TODO": {
+    "@repage/core": "0.0.1",
+    "@repage/server": "0.0.1",
+    "@repage/router-crossroads": "0.0.1",
+    "@repage/renderer": "0.0.1",
+    "@repage/renderer-react": "0.0.1"
+  },
   "dependencies": {
     "@brillout/fetch": "^0.0.2",
     "@reframe/browser": "0.0.1-rc.0",
