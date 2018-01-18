@@ -38,7 +38,9 @@ function build({
 }) {
     const {output_path__base} = get_dist_base_path({pagesDir});
 
-    handle_output_dir({output_path__base});
+    if( !webpackServerConfig || !webpackBrowserConfig ) {
+        handle_output_dir({output_path__base});
+    }
 
     const webpack_config = get_webpack_config({
         pagesDir,
@@ -98,8 +100,6 @@ function get_webpack_config({
     getWebpackServerConfig,
     context,
 }) {
-    assert_internal(context);
-
     let browser_config = webpackBrowserConfig;
     let server_config = webpackServerConfig;
 
@@ -115,20 +115,26 @@ function get_webpack_config({
         const {browser_entries, server_entries} = get_webpack_entries({pagesDir, output_path__base, output_path__source});
 
         if( ! browser_config ) {
-            browser_config = (
-                (getWebpackBrowserConfig||get_webpack_browser_config)(
-                    browser_entries,
-                    output_path__browser
-                )
-            );
+            const browser_args = {
+                browserEntries: browser_entries,
+                outputPath: output_path__browser
+            };
+            browser_config = get_webpack_browser_config(browser_args);
+            if( getWebpackBrowserConfig ) {
+                browser_args.config = browser_config;
+                browser_config = getWebpackBrowserConfig(browser_args);
+            }
         }
         if( ! server_config ) {
-            server_config = (
-                (getWebpackServerConfig||get_webpack_server_config)(
-                    server_entries,
-                    output_path__server
-                )
-            );
+            const server_args = {
+                serverEntries: server_entries,
+                outputPath: output_path__server
+            };
+            server_config = get_webpack_server_config(server_args);
+            if( getWebpackServerConfig ) {
+                server_args.config = server_config;
+                server_config = getWebpackServerConfig(server_args);
+            }
         }
     }
 
@@ -261,6 +267,7 @@ function add_context_to_config(context, config) {
     if( ! config ) {
         return;
     }
+    assert_internal(context);
     assert_internal(context.startsWith('/'));
     assert_internal(config.constructor===Object);
     config.context = config.context || context;
@@ -293,7 +300,10 @@ async function onBuild({build_info__repage, fs_handler}) {
     const {HapiServeBrowserAssets} = args_browser;
     assert_internal(HapiServeBrowserAssets, args_server, args_browser);
 
-    return {pages, HapiServeBrowserAssets, isFirstBuild};
+    const browserDistPath = args_browser.output.dist_root_directory;
+    assert_internal(path_module.isAbsolute(browserDistPath));
+
+    return {pages, HapiServeBrowserAssets, browserDistPath, isFirstBuild};
 }
 
 async function writeHtmlStaticPages({pages, args_browser, fs_handler}) {
