@@ -1,11 +1,10 @@
-It's been a while I having the frustration of having to decide between using a framework or stiching 
-(Next.js, Angular, etc.)
+It's been a while I am having the frustration of having to decide between using an "architectural framework" (Angular, Next.js, etc.) or manually stiching together "Do One Thing and Do It Well" libraries (React, Redux, etc.).
 
-I've been wondering, is it possible to develop a framework that doesn't lock-in its users?
+I want to quickly implement a prototype but I don't want to get locked into a big framework.
 
-I denote such lock-in free framework an *(anti)-framework*, and
-Reframe is my shot at implementing one.
+So I've been wondering, is it possible to develop a framework that doesn't lock-in its users?
 
+I denote such lock-in free framework an *(anti)-framework*, and Reframe is my shot at implementing one.
 
 Let me know what you think. Thanks :-).
 
