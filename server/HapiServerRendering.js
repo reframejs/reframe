@@ -37,7 +37,7 @@ function HapiServerRendering__create({getPages}={}) {
                 const uri = request.url.href;
                 assert_internal(uri && uri.constructor===String, uri);
 
-                await init_repage_object();
+                init_repage_object();
 
                 let {html, renderToHtmlIsMissing} = await getPageHtml(repage, uri, {canBeNull: true});
                 assert_internal(html === null || html && html.constructor===String, html);
@@ -60,7 +60,7 @@ function HapiServerRendering__create({getPages}={}) {
                 return response;
             }
 
-            async function init_repage_object() {
+            function init_repage_object() {
                 if( getRepage ) {
                     const repage__new = getRepage();
                     if( repage__new === repage ) {

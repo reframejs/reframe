@@ -55,7 +55,7 @@ function build({
     const fs_handler = new FilesystemHandler();
 
     let resolve_first_build_promise;
-    const first_build_promise = new Promise(resolve => resolve_first_build_promise = resolve);
+    const first_build_promise = new Promise(resolve => resolve_first_build_promise = ret => resolve(ret));
 
     serve(webpack_config, {
         doNotCreateServer: true,
@@ -76,7 +76,7 @@ function build({
             }
 
             if( build_info__reframe.isFirstBuild ) {
-                resolve_first_build_promise();
+                resolve_first_build_promise(build_info__reframe);
             }
         },
     });
