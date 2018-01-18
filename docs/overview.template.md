@@ -1,50 +1,4 @@
-It's been a while I am having the frustration of having to decide between using an "architectural framework" (Angular, Next.js, etc.) or manually stiching together "Do One Thing and Do It Well" libraries (React, Redux, etc.).
-
-I want to quickly implement a prototype but I don't want to get locked into a big framework.
-
-So I've been wondering, is it possible to develop a framework that doesn't lock-in its users?
-
-I call such lock-in free framework an *(anti)-framework*, and Reframe is my shot at implementing one.
-
-Let me know what you think. Thanks :-).
-
-
-
 Reframe, the web (anti-)framework &mdash; quickly implement an app, without lock-in.
-
-
-
-
-Reframe is born out of the belief that it is.
-
-Reframe has been designed so that you can re-write parts of Reframe.
-This means that, if Reframe doesn't suit your need, you can re-write Reframe parts to suit your need.
-Although we don't expect this to happen often, you could eventually re-write all Reframe parts and get rid of Reframe altogether.
-
-If you need to, you can eventually re-write all pars to get rid of Reframe altogether down the road.
-
-We don't expect it to be too often the case,
-&mdash; although we expect this to be rarely the case.
-
-Reframe has been designed so that you can re-write parts of Reframe to suit your needs.
-Even though Reframe aims to support common cases, you may 
-
-But still, Reframe aims at covering most common cases without the re-writing any part.
-But still without re-writing parts, Reframe aims at covering most common cases.
-
-In short, Reframe allows you to quickly implement an app without getting locked into Reframe.
-
-We call the characteristic of being able to adapt to yours needs *adaptability*,
-and we call such adaptable framework an *(anti-)framework*.
-
-
-
-
-
-
-
-
-Reframe, the web (anti-)framework. (A web framework without lock-in.)
 
 [<p align="center"><img src='https://github.com/brillout-test/reprop-test/blob/master/docs/logo/logo-title.svg' width=400 style="max-width:100%;" alt="Reprop"/></p>](https://github.com/brillout/reprop)
 <br/>
@@ -55,8 +9,8 @@ Reframe, the web (anti-)framework. (A web framework without lock-in.)
 !MENU_ORDER 10
 
 Reframe renders your React views on the server, and/or in the browser, and/or statically.
-Reframe helps you create static websites, universal React apps, SPAs, and other types of apps.
-Reframe is designed with "adaptability" in mind (= no lock-in).
+It helps you create static websites, universal React apps, SPAs, and other types of apps.
+Reframe is designed so that it doesn't lock you in.
 
 This overview presents what Reframe is, how it's different from other web frameworks, and the scope of the Reframe project.
 
@@ -105,8 +59,8 @@ Once the frontend is built and the server up the source code of `http://localhos
 </html>
 ~~~
 
-Note that, while this page doesn't load any JavaScript code and its DOM is static,
-Reframe also allows you to create pages with a dynamic view.
+This page doesn't load any JavaScript code and its DOM is static.
+But Reframe also allows you to create pages with a dynamic view.
 
 
 
@@ -114,44 +68,25 @@ Reframe also allows you to create pages with a dynamic view.
 
 Reframe is born out of the frustration of two conflicting intentions
 
- 1. I want to use a framework so that I can quickly implement a prototype.
-    And I don't want to design an entire app architecture before even starting to write one line of code.
+ - I want to use a framework so that I can quickly implement a prototype.
+   I don't want to design an entire app architecture before even starting to write one line of code.
 
- 2. I don't want to use a framework because of the framework's limitations.
-    And more importantly, I don't want to get locked into that framework down the road.
+ - I don't want to use a framework because of the framework's limitations.
+   And more importantly, I don't want to get locked into that framework down the road.
 
 The question arises
 
- > Is it possible to design a framework that allows its user to quickly implement a prototype without lock-in?
+ > Is it possible to design a framework that allows its user to quickly implement a prototype without locking the user in?
 
-Such framework would combine the best of the two worlds
+Reframe is born out of the belief that it is.
 
-The Reframe project is born in the belief that it is possible.
+Reframe has been designed so that parts of Reframe can be overwritten.
+This means that, if Reframe doesn't suit your need, you can re-write Reframe parts to suit your need.
+You can even progressively over time replace all Reframe parts with code of your own and get rid of Reframe altogether.
+This effectively means that Reframe is fully customizable.
 
-a framework that allows to quickly implement a prototype
-and yet can be fully adapted to the needs of the application.
-while allowing you to adapt  fully adapt 
-without locking you in down the road.
-
-be a new type of framework we call the "(anti-)framework".
-
-
-aims at resolving this conflict by providing a new choice.
-
-The Reframe project is born out of the belief that it is.
-
-We call the notion of "full fexibility down the road" *adaptability* and such adaptable framework an (anti-)framework.
-
-An (anti-)framework provides a new choice;
-
- 3. Use an (anti-)framework to quickly implement a prototype and
-    as your application's needs crystallize,
-    replace parts of the (anti-)framework with code of your own
-    that suit the crystallized needs.
-
-Reframe pushes the envelop of adaptability to the point of being able to progressively and entirely replace Reframe with code of your own.
-
-In short, you adapt the (anti-)framework to your needs, instead of adapting your needs to the framework.
+We call the characteristic of being able to adapt to yours needs *adaptability*,
+and we call such adaptable framework an *(anti-)framework*.
 
 
 
