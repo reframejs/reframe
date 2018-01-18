@@ -1,3 +1,50 @@
+It's been a while I having the frustration of having to decide between using a framework or stiching 
+(Next.js, Angular, etc.)
+
+I've been wondering, is it possible to develop a framework that doesn't lock-in its users?
+
+I denote such lock-in free framework an *(anti)-framework*, and
+Reframe is my shot at implementing one.
+
+
+Let me know what you think. Thanks :-).
+
+
+
+Reframe, the web (anti-)framework; quickly implement an app &mdash; without lock-in.
+
+
+
+
+Reframe is born out of the belief that it is.
+
+Reframe has been designed so that you can re-write parts of Reframe.
+This means that, if Reframe doesn't suit your need, you can re-write Reframe parts to suit your need.
+Although we don't expect this to happen often, you could eventually re-write all Reframe parts and get rid of Reframe altogether.
+
+If you need to, you can eventually re-write all pars to get rid of Reframe altogether down the road.
+
+We don't expect it to be too often the case,
+&mdash; although we expect this to be rarely the case.
+
+Reframe has been designed so that you can re-write parts of Reframe to suit your needs.
+Even though Reframe aims to support common cases, you may 
+
+But still, Reframe aims at covering most common cases without the re-writing any part.
+But still without re-writing parts, Reframe aims at covering most common cases.
+
+In short, Reframe allows you to quickly implement an app without getting locked into Reframe.
+
+We call the characteristic of being able to adapt to yours needs *adaptability*,
+and we call such adaptable framework an *(anti-)framework*.
+
+
+
+
+
+
+
+
 Reframe, the web (anti-)framework. (A web framework without lock-in.)
 
 [<p align="center"><img src='https://github.com/brillout-test/reprop-test/blob/master/docs/logo/logo-title.svg' width=400 style="max-width:100%;" alt="Reprop"/></p>](https://github.com/brillout/reprop)
@@ -9,7 +56,7 @@ Reframe, the web (anti-)framework. (A web framework without lock-in.)
 !MENU_ORDER 10
 
 Reframe renders your React views on the server, and/or in the browser, and/or statically.
-Reframe helps you create static websites, universal React apps, and other types of apps.
+Reframe helps you create static websites, universal React apps, SPAs, and other types of apps.
 Reframe is designed with "adaptability" in mind (= no lock-in).
 
 This overview presents what Reframe is, how it's different from other web frameworks, and the scope of the Reframe project.
@@ -72,7 +119,7 @@ Reframe is born out of the frustration of two conflicting intentions
     And I don't want to design an entire app architecture before even starting to write one line of code.
 
  2. I don't want to use a framework because of the framework's limitations.
-    And more importantly, I don't want to get locked-in to the framework down the road.
+    And more importantly, I don't want to get locked into that framework down the road.
 
 The question arises
 
