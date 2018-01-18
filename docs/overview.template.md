@@ -4,13 +4,13 @@ I want to quickly implement a prototype but I don't want to get locked into a bi
 
 So I've been wondering, is it possible to develop a framework that doesn't lock-in its users?
 
-I denote such lock-in free framework an *(anti)-framework*, and Reframe is my shot at implementing one.
+I call such lock-in free framework an *(anti)-framework*, and Reframe is my shot at implementing one.
 
 Let me know what you think. Thanks :-).
 
 
 
-Reframe, the web (anti-)framework; quickly implement an app &mdash; without lock-in.
+Reframe, the web (anti-)framework &mdash; quickly implement an app, without lock-in.
 
 
 
