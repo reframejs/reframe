@@ -1,6 +1,6 @@
-const rollup = require('rollup');
-const resolve = require('rollup-plugin-node-resolve');
-const commonjs = require('rollup-plugin-commonjs');
+import rollup from 'rollup';
+import resolve from 'rollup-plugin-node-resolve';
+import commonjs from 'rollup-plugin-commonjs';
 
 const inputOptions = {
     input: 'pages/hello.html.mjs',
