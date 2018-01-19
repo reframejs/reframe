@@ -9,6 +9,7 @@ import RepageRendererReact from '@repage/renderer-react';
 import fs from 'fs';
 import path from 'path';
 import mkdirp from 'mkdirp';
+process.on('unhandledRejection', err => {throw err});
 
 buildStaticHtml();
 
@@ -25,7 +26,7 @@ function writeHtml(staticPages) {
         const diskPath = (
             [
                 diskPathBase,
-                (pathname==='/' ? '/index' : pathname)
+                (pathname==='/' ? '/index' : pathname),
                 '.html',
             ].join('')
         );
@@ -64,4 +65,3 @@ function getRepageObject() {
 
     return repage;
 }
-
