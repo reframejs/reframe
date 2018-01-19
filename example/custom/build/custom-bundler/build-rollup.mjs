@@ -13,6 +13,7 @@ const inputOptions = {
 const outputOptions = {
     format: 'iife',
     name: 'MyBundle',
+    file: './dist/bundle.js',
 };
 
 build();
@@ -20,6 +21,9 @@ build();
 async function build() {
     const bundle = await rollup.rollup(inputOptions);
 
+    await bundle.write(outputOptions);
+    /*
     const output = await bundle.generate(outputOptions);
     console.log(output.code);
+    */
 }
