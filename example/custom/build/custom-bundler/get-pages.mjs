@@ -14,6 +14,7 @@ function getPages() {
                 diskPath: './pages/'+pageName+'.entry.js',
                 src: '/'+pageName+'-bundle.js',
                 bundleName: pageName+'Bundle',
+                _options: {skipAttributes: ['diskPath', 'bundleName']},
             });
             return {...pageObject, scripts};
         })
