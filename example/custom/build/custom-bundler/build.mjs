@@ -9,6 +9,7 @@ import RepageRendererReact from '@repage/renderer-react';
 import fs from 'fs';
 import path from 'path';
 import mkdirp from 'mkdirp';
+import expose from './expose.js';
 process.on('unhandledRejection', err => {throw err});
 
 buildStaticHtml();
@@ -19,8 +20,8 @@ async function buildStaticHtml() {
 }
 
 function writeHtml(staticPages) {
+    const {__dirname} = expose;
     const diskPathBase = __dirname+'/dist';
-    writeHtml(staticPages);
     staticPages
     .map(({html, url: {pathname}}) => {
         const diskPath = (
@@ -52,7 +53,7 @@ function getStaticPages() {
     return RepageBuild.getStaticPages(repage);
 }
 
-function getRepageObject() {
+function getRepageObject(pages) {
     const repage = new Repage();
 
     repage.addPlugins([
