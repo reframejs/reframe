@@ -2,6 +2,8 @@ import Hapi from 'hapi';
 import buildAll from './build-all.mjs';
 import ReframeServer from '@reframe/server';
 
+process.on('unhandledRejection', err => {throw err});
+
 startServer();
 
 async function build({onBuild}) {

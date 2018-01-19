@@ -3,8 +3,6 @@ import buildHtml from './build-html.mjs';
 import expose from './expose.js';
 import getPages from './get-pages.mjs';
 
-process.on('unhandledRejection', err => {throw err});
-
 export default build;
 
 async function build() {

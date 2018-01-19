@@ -12,7 +12,7 @@ function getPages() {
             const scripts = pageObject.scripts || [];
             scripts.push({
                 diskPath: './pages/'+pageName+'.entry.js',
-                src: '/'+pageName'+'-bundle.js',
+                src: '/'+pageName+'-bundle.js',
                 bundleName: pageName+'Bundle',
             });
             return {...pageObject, scripts};
