@@ -1,1 +1,4 @@
-console.log('yay works');
+import hydratePage from '@reframe/browser/hydratePage';
+import HelloPage from './hello.html.mjs';
+
+//hydratePage(HelloPage);
