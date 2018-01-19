@@ -1,31 +1,28 @@
-import HelloPage from './pages/hello.html';
-
 import Repage from '@repage/core';
 import RepageBuild from '@repage/build';
 import RepageRouterCrossroads from '@repage/router-crossroads';
 import RepageRenderer from '@repage/renderer';
 import RepageRendererReact from '@repage/renderer-react';
 
+import getPages from './get-pages.mjs';
+
 import fs from 'fs';
 import path from 'path';
 import mkdirp from 'mkdirp';
-import expose from './expose.js';
 
 export default buildHtml;
 
-async function buildHtml() {
+async function buildHtml({browserDistPath}) {
     const staticPages = await getStaticPages();
-    writeHtml(staticPages);
+    writeHtml({staticPages, browserDistPath});
 }
 
-function writeHtml(staticPages) {
-    const {__dirname} = expose;
-    const diskPathBase = __dirname+'/dist';
+function writeHtml({staticPages, browserDistPath}) {
     staticPages
     .map(({html, url: {pathname}}) => {
         const diskPath = (
             [
-                diskPathBase,
+                browserDistPath,
                 (pathname==='/' ? '/index' : pathname),
                 '.html',
             ].join('')
@@ -43,19 +40,8 @@ function writeFile(diskPath, content) {
 }
 
 function getStaticPages() {
-    const pages = (
-        [
-            HelloPage,
-        ]
-        .map(pageObject => {
-            pageObject.scripts = pageObject.scripts || [];
-            pageObject.scripts.push({src: '/bundle.js'});
-            return pageObject;
-        })
-    )
-
+    const pages = getPages();
     const repage = getRepageObject(pages);
-
     return RepageBuild.getStaticPages(repage);
 }
 

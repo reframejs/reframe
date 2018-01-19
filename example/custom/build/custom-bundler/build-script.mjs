@@ -4,8 +4,8 @@ import commonjs from 'rollup-plugin-commonjs';
 
 export default buildScript;
 
-async function buildScript() {
-    const {inputOptions, outputOptions} = getOptions();
+async function buildScript({browserDistPath}) {
+    const {inputOptions, outputOptions} = getOptions({browserDistPath});
 
     const bundle = await rollup.rollup(inputOptions);
 
@@ -16,7 +16,7 @@ async function buildScript() {
     */
 }
 
-function getOptions() {
+function getOptions({browserDistPath}) {
     const inputOptions = {
         input: 'pages/hello.html.mjs',
         plugins: [
@@ -28,7 +28,7 @@ function getOptions() {
     const outputOptions = {
         format: 'iife',
         name: 'MyBundle',
-        file: './dist/bundle.js',
+        file: browserDistPath+'/bundle.js',
     };
 
     return {
