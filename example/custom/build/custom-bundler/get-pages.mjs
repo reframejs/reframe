@@ -5,11 +5,16 @@ export default getPages;
 function getPages() {
     const pages = (
         [
-            HelloPage,
+         // {pageObject: LandingPage, pageName: 'landing'},
+            {pageObject: HelloPage, pageName: 'hello'},
         ]
-        .map(pageObject => {
+        .map(({pageObject, pageName}) => {
             const scripts = pageObject.scripts || [];
-            scripts.push({src: '/bundle.js'});
+            scripts.push({
+                diskPath: './pages/'+pageName+'.entry.js',
+                src: '/'+pageName'+'-bundle.js',
+                bundleName: pageName+'Bundle',
+            });
             return {...pageObject, scripts};
         })
     );

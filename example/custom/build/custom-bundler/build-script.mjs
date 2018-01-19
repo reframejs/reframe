@@ -4,35 +4,43 @@ import commonjs from 'rollup-plugin-commonjs';
 
 export default buildScript;
 
-async function buildScript({browserDistPath}) {
-    const {inputOptions, outputOptions} = getOptions({browserDistPath});
-
-    const bundle = await rollup.rollup(inputOptions);
-
-    await bundle.write(outputOptions);
-    /*
-    const output = await bundle.generate(outputOptions);
-    console.log(output.code);
-    */
+async function buildScript({browserDistPath, pages}) {
+    const compileInfo = getCompileInfo({browserDistPath, pages});
+    for(const {inputOptions, outputOptions} of compileInfo) {
+        await compile({inputOptions, outputOptions});
+    }
 }
 
-function getOptions({browserDistPath}) {
-    const inputOptions = {
-        input: 'pages/hello.html.mjs',
-        plugins: [
-            resolve(),
-            commonjs(),
-        ],
-    };
+async function compile({inputOptions, outputOptions}) {
+    const bundle = await rollup.rollup(inputOptions);
+    await bundle.write(outputOptions);
+}
 
-    const outputOptions = {
-        format: 'iife',
-        name: 'MyBundle',
-        file: browserDistPath+'/bundle.js',
-    };
+function getCompileInfo({browserDistPath, pages}) {
+    const scripts = [];
 
-    return {
-        inputOptions,
-        outputOptions,
-    };
+    pages
+    .forEach(pageObject => {
+        (pageObject.scripts||[])
+        .forEach(({diskPath, src, bundleName}) => {
+            const inputOptions = {
+                input: diskPath,
+                plugins: [
+                    resolve(),
+                    commonjs(),
+                ],
+            };
+            const outputOptions = {
+                format: 'iife',
+                name: bundleName,
+                file: browserDistPath+src,
+            };
+            scripts.push({
+                inputOptions,
+                outputOptions,
+            });
+        });
+    });
+
+    return scripts;
 }

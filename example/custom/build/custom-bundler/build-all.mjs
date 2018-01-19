@@ -10,10 +10,10 @@ export default build;
 async function build() {
     const browserDistPath = getBrowserDistPath();
 
-    await buildScript({browserDistPath});
-    await buildHtml({browserDistPath});
-
     const pages = getPages();
+
+    await buildScript({browserDistPath, pages});
+    await buildHtml({browserDistPath, pages});
 
     return {
         browserDistPath,
