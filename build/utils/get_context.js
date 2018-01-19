@@ -11,9 +11,12 @@ function get_context() {
 
 function parent_module() {
     const caller_path = get_caller(__filename);
-    assert_internal(caller_path && caller_path.startsWith('/'), __filename);
-    const caller_caller_path = get_caller(caller_path);
-    assert_internal(caller_caller_path && caller_caller_path.startsWith('/'), __filename);
+    assert_internal(caller_path && path_module.isAbsolute(caller_path), __filename);
+    let caller_caller_path = get_caller(caller_path);
+    if( caller_caller_path.startsWith('file:///') ) {
+        caller_caller_path = caller_caller_path.slice('file://'.length);
+    }
+    assert_internal(caller_caller_path && path_module.isAbsolute(caller_caller_path), __filename, caller_caller_path);
     /*
     console.log(3213, caller_caller_path);
     throw new Error('uehi');

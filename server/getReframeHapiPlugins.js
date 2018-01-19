@@ -1,5 +1,5 @@
 const {HapiServerRendering__create} = require('./HapiServerRendering');
-const build = require('@reframe/build');
+const buildDefault = require('@reframe/build');
 const {get_context} = require('@reframe/build/utils/get_context');
 const path_module = require('path');
 const assert = require('reassert');
@@ -9,6 +9,7 @@ module.exports = {getReframeHapiPlugins};
 
 async function getReframeHapiPlugins({
     context = get_context(),
+    build = buildDefault,
     ...build_opts
 }) {
     let pages;
@@ -19,15 +20,15 @@ async function getReframeHapiPlugins({
                 !HapiServeBrowserAssets || HapiServeBrowserAssets.name===args.HapiServeBrowserAssets.name,
                 "We expect the served `dist/` directory to always be at the same path"
             );
-            HapiServeBrowserAssets = HapiServeBrowserAssets || args.HapiServeBrowserAssets;
-            assert_internal(HapiServeBrowserAssets);
+         // HapiServeBrowserAssets = HapiServeBrowserAssets || args.HapiServeBrowserAssets;
+         // assert_internal(HapiServeBrowserAssets);
             pages = args.pages;
             assert_internal(pages);
         },
         context,
         ...build_opts,
     });
-    assert_internal(HapiServeBrowserAssets);
+ // assert_internal(HapiServeBrowserAssets);
     assert_internal(pages);
 
     const HapiServerRendering = HapiServerRendering__create({getPages: () => pages});

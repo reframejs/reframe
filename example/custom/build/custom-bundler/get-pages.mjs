@@ -13,4 +13,6 @@ function getPages() {
             return pageObject;
         })
     );
+
+    return pages;
 }
