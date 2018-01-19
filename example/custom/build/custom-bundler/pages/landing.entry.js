@@ -1,1 +1,1 @@
-console.log('yay works');
+console.log('Landing Page Entry');

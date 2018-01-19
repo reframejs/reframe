@@ -12,7 +12,7 @@ class TimeComponent extends React.Component {
         );
     }
     render() {
-        return this.state.now.toLocaleTimeString();
+        return React.createElement('span', null, this.state.now.toString());
     }
 }
 
