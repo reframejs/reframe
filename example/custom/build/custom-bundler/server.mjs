@@ -22,7 +22,7 @@ async function startServer() {
 
     const {HapiServerRendering, HapiServeBrowserAssets} = await getHapiPlugins();
     await server.register([
-     // {plugin: HapiServeBrowserAssets},
+        {plugin: HapiServeBrowserAssets},
         {plugin: HapiServerRendering},
     ]);
 

@@ -17,9 +17,5 @@ function parent_module() {
         caller_caller_path = caller_caller_path.slice('file://'.length);
     }
     assert_internal(caller_caller_path && path_module.isAbsolute(caller_caller_path), __filename, caller_caller_path);
-    /*
-    console.log(3213, caller_caller_path);
-    throw new Error('uehi');
-    //*/
     return caller_caller_path;
 }

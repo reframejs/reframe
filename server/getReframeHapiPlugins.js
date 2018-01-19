@@ -5,6 +5,7 @@ const {generate_HapiServeBrowserAssets} = require('@rebuild/build/utils/HapiServ
 const path_module = require('path');
 const assert = require('reassert');
 const assert_internal = assert;
+const assert_usage = assert;
 
 module.exports = {getReframeHapiPlugins};
 
