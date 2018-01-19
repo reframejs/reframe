@@ -8,7 +8,7 @@ process.on('unhandledRejection', err => {throw err});
 export default build;
 
 async function build() {
-    const browserDistPath = getBrowserDistPath;
+    const browserDistPath = getBrowserDistPath();
 
     await buildScript({browserDistPath});
     await buildHtml({browserDistPath});
