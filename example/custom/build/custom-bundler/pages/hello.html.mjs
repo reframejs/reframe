@@ -1,11 +1,10 @@
 import React from 'react';
 
-const HelloComponent = props => React.createElement('div', null, 'Hello with ES Modules and Rollup');
+const HelloComponent = ({name}) => React.createElement('div', null, 'Hi '+name);
 
 const HelloPage = {
-    route: '/',
+    route: '/hello/{name}',
     view: HelloComponent,
-    htmlIsStatic: true,
 };
 
 export default HelloPage;

@@ -5,7 +5,7 @@ export default getPages;
 function getPages() {
     const pages = (
         [
-         // {pageObject: LandingPage, pageName: 'landing'},
+            {pageObject: LandingPage, pageName: 'landing'},
             {pageObject: HelloPage, pageName: 'hello'},
         ]
         .map(({pageObject, pageName}) => {
