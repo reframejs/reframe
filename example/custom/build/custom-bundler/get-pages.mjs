@@ -8,9 +8,9 @@ function getPages() {
             HelloPage,
         ]
         .map(pageObject => {
-            pageObject.scripts = pageObject.scripts || [];
-            pageObject.scripts.push({src: '/bundle.js'});
-            return pageObject;
+            const scripts = pageObject.scripts || [];
+            scripts.push({src: '/bundle.js'});
+            return {...pageObject, scripts};
         })
     );
 
