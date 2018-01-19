@@ -1,7 +1,10 @@
 import rollup from 'rollup';
 import resolve from 'rollup-plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
+import cjs from 'rollup-plugin-commonjs';
 import json from 'rollup-plugin-json';
+import replace from 'rollup-plugin-replace';
+import globals from 'rollup-plugin-node-globals';
+import babel from 'rollup-plugin-babel';
 
 export default buildScript;
 
@@ -27,9 +30,40 @@ function getCompileInfo({browserDistPath, pages}) {
             const inputOptions = {
                 input: diskPath,
                 plugins: [
+/*
                     resolve(),
-                    commonjs(),
+                    globals(),
+*/
                     json(),
+/*
+    babel({
+      babelrc: false,
+      exclude: 'node_modules/**',
+      presets: [ [ 'babel-preset-env', {modules: false} ] ],
+   // presets: [ [ 'es2015', { modules: false } ], 'stage-0', 'react' ],
+   // plugins: [ 'external-helpers' ]
+    }),
+*/
+	cjs(),
+/*
+    cjs({
+      exclude: 'node_modules/process-es6/**',
+      include: [
+        'node_modules/create-react-class/**',
+        'node_modules/fbjs/**',
+        'node_modules/object-assign/**',
+        'node_modules/react/**',
+        'node_modules/react-dom/**',
+        'node_modules/prop-types/**'
+      ]
+    }),
+*/
+ // globals(),
+    replace({ 'process.env.NODE_ENV': JSON.stringify('development') }),
+    resolve({
+      browser: true,
+      main: true
+    })
                 ],
             };
             const outputOptions = {
