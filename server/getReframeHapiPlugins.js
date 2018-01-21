@@ -14,6 +14,12 @@ async function getReframeHapiPlugins({
     build = buildDefault,
     ...build_opts
 }) {
+    /*
+    assert_usage(
+        build !== buildDefault || build_opts.pagesDir,
+        "Provide either argument `build` or `pagesDir`."
+    );
+    */
     let pages;
     let HapiServeBrowserAssets;
     let browserDistPath;

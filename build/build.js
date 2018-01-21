@@ -36,15 +36,18 @@ function build({
     log: log_option,
     ...rebuild_opts
 }) {
-    const {output_path__base} = get_dist_base_path({pagesDir});
-
-    if( !webpackServerConfig || !webpackBrowserConfig ) {
-        handle_output_dir({output_path__base});
+    /*
+    assert_usage(
+        pagesDir,
+        "Argument `pagesDir` is required."
+    );
+    */
+    if( pagesDir ) {
+        handle_output_dir({pagesDir});
     }
 
     const webpack_config = get_webpack_config({
         pagesDir,
-        output_path__base,
         webpackBrowserConfig,
         webpackServerConfig,
         getWebpackBrowserConfig,
@@ -108,6 +111,7 @@ function get_webpack_config({
             pagesDir && pagesDir.constructor===String && pagesDir.startsWith('/'),
             pagesDir
         );
+        const {output_path__base} = get_dist_base_path({pagesDir});
         const output_path__source = path_module.resolve(output_path__base, './source');
         const output_path__browser = path_module.resolve(output_path__base, './browser');
         const output_path__server = path_module.resolve(output_path__base, './server');
@@ -574,7 +578,12 @@ function path__abs(path) {
     return path.startsWith(path_module.sep);
 }
 
-function handle_output_dir({output_path__base}) {
+function handle_output_dir({pagesDir}) {
+    const {output_path__base} = get_dist_base_path({pagesDir});
+    move_and_stamp_output_dir({output_path__base});
+}
+
+function move_and_stamp_output_dir({output_path__base}) {
     const stamp_path = path__resolve(output_path__base, 'reframe-stamp');
 
     handle_existing_output_dir();
