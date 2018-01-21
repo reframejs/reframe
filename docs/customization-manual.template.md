@@ -5,8 +5,50 @@
 
 # Customization Manual
 
+##### Contents
+
+ - [Custom Server]
+   - [Reframe as hapi plugin](#reframe-as-hapi-plugin)
+   - [Full Customization](#full-customization)
+ - [Custom Browser JavaScript](#custom-browser-javascript)
+   - [Custom Browser Entry](#custom-browser-entry)
+   - [External Scripts](#external-scripts)
+   - [Common Script](#common-script)
+   - [Full Customization](#full-customization)
+ - [Custom Build]
+   - [Webpack Config Modification](#webpack-config-modification)
+   - [Full Custom Webpack Config](#full-custom-webpack-config)
+   - [Full Build Customization](#full-build-customization)
+ - [Custom Repage]
+ - [Full Customization]
+
+### Custom Server
+
+##### Contents
+
+ - [Reframe as hapi plugin](#reframe-as-hapi-plugin)
+ - [Full Customization](#full-customization)
+
+##### Reframe as hapi plugin
+
+Instead of using Reframe with its CLI, we can use Reframe as hapi plugins.
+The following is an example of doing so.
+
+~~~js
+!INLINE ../example/custom/server/hapi-server.js
+~~~
 
 
+##### Full Customization
+
+Instead of using `const {getReframeHapiPlugins} = require('@reframe/server');` we can also re-write the whole server part from scratch.
+
+This allows us, for example, to choose any server framework.
+The following is a custom server implementation using Express instead of hapi.
+
+~~~js
+!INLINE ../example/custom/server/express-server.js
+~~~
 
 ### Custom Browser JavaScript
 
@@ -108,32 +150,13 @@ At this point, our browser JavaScript doesn't depend on Reframe nor on Repage an
 !INLINE ../example/custom/browser/pages/custom-browser.entry.js
 ~~~
 
-### Custom Server
-
-Create a GitHub issue if you need more information for how to customize the server.
-
-##### Reframe as hapi plugin
-
-Instead of using Reframe with its CLI, we can use Reframe as hapi plugins.
-The following is an example of doing so.
-
-~~~js
-!INLINE ../example/custom/server/hapi-server.js
-~~~
-
-
-##### Full Customization
-
-Instead of using `const {getReframeHapiPlugins} = require('@reframe/server');` we can also re-write the whole server part from scratch.
-
-This allows us, for example, to choose any server framework.
-The following is a custom server implementation using Express instead of hapi.
-
-~~~js
-!INLINE ../example/custom/server/express-server.js
-~~~
-
 ### Custom Build
+
+##### Contents
+
+ - [Webpack Config Modification](#webpack-config-modification)
+ - [Full Custom Webpack Config](#full-custom-webpack-config)
+ - [Full Build Customization](#full-build-customization)
 
 ##### Webpack Config Modification
 
