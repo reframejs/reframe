@@ -107,20 +107,35 @@ At this point, our browser JavaScript doesn't depend on Reframe nor on Repage an
 
 ### Custom Server
 
+Create a GitHub issue if you need more information for how to customize the server.
+
 ##### Reframe as hapi plugin
 
 Instead of using Reframe with its CLI, we can use Reframe as hapi plugins.
 The following is an example of doing so.
 
 ~~~js
-!INLINE ../example/custom/server.js
+!INLINE ../example/custom/hapi-server.js
 ~~~
 
 
 ##### Full Customization
 
+Instead of using `const {getReframeHapiPlugins} = require('@reframe/server');` we can also re-write the whole server part from scratch.
+
+This allows us, for example, to choose any server framework.
+The following is a custom server implementation using Express instead of hapi.
+
+~~~js
+!INLINE ../example/custom/express-server.js
+~~~
 
 ### Custom Build
+
+##### Custom Webpack Config
+
+##### Full Customization
+
 
 
 ### Full Customization
