@@ -511,7 +511,7 @@ while similar performance characteritics can be achieved by using the [Turbo Lin
 Instead of using the CLI, Reframe can be used as hapi plugin(s) &mdash; as show in the next example.
 
 ~~~js
-!INLINE ../example/custom/server.js
+!INLINE ../example/custom/server/hapi-server.js
 ~~~
 
 That way, we can create the hapi server ourselves, add routes to it, and configure it as we wish.

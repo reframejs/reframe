@@ -210,19 +210,19 @@ But we can implement a fully custom build step, which means that we can use a bu
 The following is an example of a custom build step using [Rollup](https://github.com/rollup/rollup) and [Node.js's support for ES modules over the --experimental-modules flag](https://nodejs.org/api/esm.html).
 
 ~~~js
-!INLINE ../example/custom/build/custom-bundler/server.js
+!INLINE ../example/custom/build/custom-bundler/server.mjs
 ~~~
 ~~~js
-!INLINE ../example/custom/build/custom-bundler/build-all.js
+!INLINE ../example/custom/build/custom-bundler/build-all.mjs
 ~~~
 ~~~js
-!INLINE ../example/custom/build/custom-bundler/build-script.js
+!INLINE ../example/custom/build/custom-bundler/build-script.mjs
 ~~~
 ~~~js
-!INLINE ../example/custom/build/custom-bundler/build-html.js
+!INLINE ../example/custom/build/custom-bundler/build-html.mjs
 ~~~
 ~~~js
-!INLINE ../example/custom/build/custom-bundler/get-pages.js
+!INLINE ../example/custom/build/custom-bundler/get-pages.mjs
 ~~~
 
 ### Custom Repage

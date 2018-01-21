@@ -75,7 +75,7 @@
 
 
 -->
-Reframe, the web (anti-)framework. (A web framework without lock-in.)
+Reframe, the web (anti-)framework &mdash; quickly implement an app, without lock-in.
 
 [<p align="center"><img src='https://github.com/brillout-test/reprop-test/blob/master/docs/logo/logo-title.svg' width=400 style="max-width:100%;" alt="Reprop"/></p>](https://github.com/brillout/reprop)
 <br/>
@@ -85,8 +85,8 @@ Reframe, the web (anti-)framework. (A web framework without lock-in.)
 [Customization Manual](/docs/customization-manual.md)
 
 Reframe renders your React views on the server, and/or in the browser, and/or statically.
-Reframe helps you create static websites, universal React apps, and other types of apps.
-Reframe is designed with "adaptability" in mind (= no lock-in).
+It helps you create static websites, universal React apps, SPAs, and other types of apps.
+Reframe is designed so that it doesn't lock you in.
 
 This overview presents what Reframe is, how it's different from other web frameworks, and the scope of the Reframe project.
 
@@ -147,8 +147,8 @@ Once the frontend is built and the server up the source code of `http://localhos
 </html>
 ~~~
 
-Note that, while this page doesn't load any JavaScript code and its DOM is static,
-Reframe also allows you to create pages with a dynamic view.
+This page doesn't load any JavaScript code and its DOM is static.
+But Reframe also allows you to create pages with a dynamic view.
 
 
 
@@ -156,42 +156,25 @@ Reframe also allows you to create pages with a dynamic view.
 
 Reframe is born out of the frustration of two conflicting intentions
 
- 1. I want to use a framework so that I can quickly implement a prototype.
-    And I don't want having to think through an entire app architecture before even starting to write one line of code.
+ - I want to use a framework so that I can quickly implement a prototype.
+   I don't want to design an entire app architecture before even starting to write one line of code.
 
- 2. I don't want to use a framework because of the framework's limitations.
-    And more importantly, I don't want to get locked-in to the framework down the road.
-
-
-The Reframe project is born in the belief that there can be
-a framework that allows to quickly implement a prototype
-and yet can be fully adapted to the needs of the application.
-while allowing you to adapt  fully adapt 
-without locking you in down the road.
-
-be a new type of framework we call the "(anti-)framework".
-
-
-aims at resolving this conflict by providing a new choice.
+ - I don't want to use a framework because of the framework's limitations.
+   And more importantly, I don't want to get locked into that framework down the road.
 
 The question arises
 
- > Is it possible to design a framework that allows both a quick start and full flexbility down the road?
+ > Is it possible to design a framework that allows its user to quickly implement a prototype without locking the user in?
 
-The Reframe project is born out of the belief that it is.
+Reframe is born out of the belief that it is.
 
-We call the notion of "full fexibility down the road" *adaptability* and such adaptable framework an (anti-)framework.
+Reframe has been designed so that parts of Reframe can be overwritten.
+This means that, if Reframe doesn't suit your need, you can re-write Reframe parts to suit your need.
+You can even progressively over time replace all Reframe parts with code of your own and get rid of Reframe altogether.
+This effectively means that Reframe is fully customizable.
 
-An (anti-)framework provides a new choice;
-
- 3. Use an (anti-)framework to quickly implement a prototype and
-    as your application's needs crystallize,
-    replace parts of the (anti-)framework with code of your own
-    that suit the crystallized needs.
-
-Reframe pushes the envelop of adaptability to the point of being able to progressively and entirely replace Reframe with code of your own.
-
-In short, you adapt the (anti-)framework to your needs, instead of adapting your needs to the framework.
+We call the characteristic of being able to adapt to yours needs *adaptability*,
+and we call such adaptable framework an *(anti-)framework*.
 
 
 
