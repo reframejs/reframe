@@ -21,6 +21,8 @@
     "babel-preset-react": "^6.24.1",
     "express": "^4.16.2",
     "hapi": "^17.1.0",
+    "postcss-cssnext": "^3.0.2",
+    "postcss-loader": "^2.0.10",
     "react": "^16.1.1",
     "react-dom": "^16.2.0",
     "rollup": "^0.54.1",
