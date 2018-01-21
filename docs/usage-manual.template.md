@@ -202,7 +202,8 @@ export default {
 };
 ~~~
 
-When we declare the page's HTML to be static, with `htmlIsStatic: true`,
+When we declare the page's HTML to be static
+(with `htmlIsStatic: true`)
 Reframe renders the HTML only once when building the frontend.
 
 If the time when building the frontend was 12:00:00,
@@ -210,7 +211,7 @@ then our page will always show `(Generated at 12:00:00)`, no matter when we load
 
 We say that the HTML is generated at *build-time* and that the page is *HTML-static*.
 
-We can actually see the &mdash; at build-time generated &mdash; HTML at `~/tmp/reframe-playground/dist/browser/index.html`.
+We can actually see the, at build-time generated, HTML at `~/tmp/reframe-playground/dist/browser/index.html`.
 
 To sum up,
 `htmlIsStatic: false` declares the page as HTML-dynamic and the HTML is rendered at request-time,
@@ -218,7 +219,7 @@ and
 `htmlIsStatic: true` declares the page as HTML-static and the HTML is rendered at build-time.
 
 For pages with lot's of elements, generating the HTML at build-time instead of request-time can be a considerable performance gain.
-Also, if all your pages are HTML-static, you can then deploy your app to a static website host such as [GitHub Pages](https://pages.github.com/).
+Also, if all our pages are HTML-static, we can then deploy our app to a static website host such as [GitHub Pages](https://pages.github.com/).
 
 Not only do we have control over whether the HTML is static or not,
 but we also have control over whether the DOM is static or not.
@@ -229,8 +230,8 @@ Before we move on to the DOM, let's look at a special case of an HTML-dynamic pa
 ~~~
 
 Not only is this page HTML-dynamic but it actually has to.
-That is because its route `/hello/{name}` is parameterized.
-There is an infinite number of pages with URLs matching the route, such as `/hello/Alice-1`, `/hello/Alice-2`, `/hello/Alice-3`, etc.
+That is because its route, `/hello/{name}`, is parameterized.
+There are an infinite number of pages with URLs matching the route, such as `/hello/Alice-1`, `/hello/Alice-2`, `/hello/Alice-3`, etc.
 We can't compute an infinite number of pages at build-time; the page has to be HTML-dyanmic.
 
 All pages with a parameterized route are HTML-dynamic.
@@ -282,7 +283,7 @@ The DOM changes over time and we say that the page is *DOM-dynamic*.
 But why does Reframe hydrate the DOM whereas it previously didn't at our previous examples?
 It's because our page object is saved as `TimePage.universal.js`,
 a filename name ending with `.universal.js`,
-whereas our previous examples where saved as `*.html.js` files.
+whereas our previous examples were saved as `*.html.js` files.
 
 So,
 a page with a page object saved as `pages/*.html.js` is treated as DOM-static and
@@ -311,7 +312,7 @@ only some parts of the page need to be made DOM-dynamic.
 It that case,
 it would be wasteful to load the view's entire code in the browser and
 to hydrate the whole page.
-Instead we can tell Reframe to hydrate parts of the page only.
+Instead, we can tell Reframe to hydrate parts of the page only.
 We call this technique *partial DOM-dynamic*.
 
 
@@ -347,10 +348,9 @@ When we define a page with two separate page objects like this,
 not only do we hydrate only what's necessary, but we also load only the code that is necessary.
 Because only the `.dom.js` page object is loaded in the browser, and
 the `.html.js` page object is never loaded in the browser.
+For example, we can see that the `NewsPage.dom.js` file only loads `TimeComponent` and not the (imaginary) KB heavy `LatestNewsComponent`.
 
-For example, in our NewsPage we can see that the `NewsPage.dom.js` file only loads `TimeComponent` and not the (imaginary) KB heavy `LatestNewsComponent`.
-
-Note that we can set `view` to an array with more than one view object, and in that way, we can hydrate several parts of the page.
+Note that we can set `view` to an array with more than one view object, and, in that way, we can hydrate several parts of the page.
 
 Beyond being able to define partial hydration,
 we can gain further control over what's happening in the browser
@@ -361,10 +361,10 @@ by writing the browser entry code ourselves.
 
 ## Custom Browser JavaScript
 
-If our page is saved as `pages/MyPage.html.js` and, if we save some JavaScript code as `pages/MyPage.entry.js`, then Reframe will take `pages/MyPage.entry.js` as browser entry point.
+If our page is saved as `pages/MyPage.html.js` and, if we save some JavaScript code saved as `pages/MyPage.entry.js`, then Reframe will take `pages/MyPage.entry.js` as browser entry point.
 See the Customization Manual for further information.
 
-You can as well add arbitrary script tags to the page's HTML (external scripts, async scripts, etc.).
+We can as well add arbitrary script tags to the page's HTML (external scripts, async scripts, etc.).
 See the "Custom Head" section.
 
 
@@ -380,7 +380,7 @@ import './GlitterStyle.css';
 Static assets (images, fonts, videos, etc.) can be imported as well
 but importing an asset doesn't actually load it,
 instead the URL of the asset is returned.
-It is up to you to use/fetch the URL of the asset.
+It is up to us to use/fetch the URL of the asset.
 
 ~~~js
 import diamondUrl from './diamond.png';
@@ -411,7 +411,7 @@ The following shows code using CSS and static assets as described above.
 ~~~
 
 Note that CSS and static assets are handled by webpack,
-and you can customize how CSS and static assets are handled by customizing the webpack configuration.
+and we can customize how CSS and static assets are handled by customizing the webpack configuration.
 We referer to the Customization Manual for how to customize the webpack configuration.
 
 Also note that all types of static assets are supported.
