@@ -9,11 +9,9 @@ function getWebpackBrowserConfig({config}) {
             {
                 loader: 'postcss-loader',
                 options: {
-                    /*
                     plugins: [
                         'postcss-cssnext',
                     ],
-                    */
                     parser: 'sugarss'
                 }
             }
