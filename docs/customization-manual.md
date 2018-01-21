@@ -102,7 +102,7 @@ The customization manual acts as reference for customizing Reframe.
 
 ## Custom Server
 
-### Contents
+##### Contents
 
  - [Reframe as hapi plugin](#reframe-as-hapi-plugin)
  - [Full Customization](#full-customization)
@@ -228,7 +228,7 @@ function createRepageObject(pages) {
 
 ## Custom Browser JavaScript
 
-### Contents
+##### Contents
 
  - [Custom Browser Entry](#custom-browser-entry)
  - [External Scripts](#external-scripts)
@@ -470,7 +470,7 @@ ReactDOM.hydrate(<TimeComponent/>, document.getElementById('time-hook'));
 
 ## Custom Build
 
-### Contents
+##### Contents
 
  - [Webpack Config Modification](#webpack-config-modification)
  - [Full Custom Webpack Config](#full-custom-webpack-config)

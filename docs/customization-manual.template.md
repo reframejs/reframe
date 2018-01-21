@@ -24,7 +24,7 @@ The customization manual acts as reference for customizing Reframe.
 
 ## Custom Server
 
-### Contents
+##### Contents
 
  - [Reframe as hapi plugin](#reframe-as-hapi-plugin)
  - [Full Customization](#full-customization)
@@ -52,7 +52,7 @@ The following is a custom server implementation using Express instead of hapi.
 
 ## Custom Browser JavaScript
 
-### Contents
+##### Contents
 
  - [Custom Browser Entry](#custom-browser-entry)
  - [External Scripts](#external-scripts)
@@ -152,7 +152,7 @@ At this point, our browser JavaScript doesn't depend on Reframe nor on Repage an
 
 ## Custom Build
 
-### Contents
+##### Contents
 
  - [Webpack Config Modification](#webpack-config-modification)
  - [Full Custom Webpack Config](#full-custom-webpack-config)
