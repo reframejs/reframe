@@ -5,6 +5,9 @@
 
 # Customization Manual
 
+
+
+
 ### Custom Browser JavaScript
 
 ##### Contents
@@ -199,12 +202,43 @@ The following is an example of a custom build step using [Rollup](https://github
 !INLINE ../example/custom/build/custom-bundler/get-pages.js
 ~~~
 
+### Custom Repage
 
-### Full Customization
+Reframe is built on top of [Repage](https://github.com/brillout/repage),
+a low-level plugin-based page management library,
+and you can use Reframe with a custom Repage instance.
 
-##### Custom Repage
+To do so,
+and as shown in the example bellow,
+we export a `getRepage` function
+that returns the Repage instance we want to use
+in a `reframe.config.js` file.
 
-##### Full Vanilla Customization
+The file can be located at any ancestor directory of the `pages/` directory.
 
- - all the way to Repage
- - all the way to Vanilla JavaScript
+~~~js
+const Repage = require('@repage/core');
+const RepageRouterCrossroads = require('@repage/router-crossroads');
+const RepageRenderer = require('@repage/renderer');
+const RepageRendererReact = require('@repage/renderer-react');
+
+module.exports = {getRepage};
+
+function getRepage() {
+    const repage = new Repage();
+
+    repage.addPlugins([
+        RepageRouterCrossroads,
+        RepageRenderer,
+        RepageRendererReact,
+    ]);
+
+    return repage;
+}
+~~~
+
+### Get rid of Reframe
+
+As show in this document, every part of Reframe can be re-written to depend on `@repage` packages only.
+In turn, [Repage](https://github.com/brillout/repage) can progressively be re-written over time as well.
+This means that we can eventually and over time get rid of the entire Reframe and Repage code.
