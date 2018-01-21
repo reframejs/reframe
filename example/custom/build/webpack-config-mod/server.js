@@ -9,8 +9,8 @@ async function startServer() {
 
     const {HapiServerRendering, HapiServeBrowserAssets} = (
         await getReframeHapiPlugins({
-            getWebpackBrowserConfig: () => webpackBrowserConfig,
-            getWebpackServerConfig: () => webpackServerConfig,
+            webpackBrowserConfig,
+            webpackServerConfig,
             log: true,
         })
     );

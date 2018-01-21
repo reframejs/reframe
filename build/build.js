@@ -26,8 +26,6 @@ function build({
 
     onBuild: onBuild_user,
 
-    webpackBrowserConfig,
-    webpackServerConfig,
     getWebpackBrowserConfig,
     getWebpackServerConfig,
 
@@ -36,20 +34,21 @@ function build({
     log: log_option,
     ...rebuild_opts
 }) {
-    /*
     assert_usage(
-        pagesDir,
-        "Argument `pagesDir` is required."
+        pagesDir || getWebpackServerConfig && getWebpackBrowserConfig,
+        "Provide either argument `pagesDir` or `getWebpackBrowserConfig` and `getWebpackServerConfig`."
     );
-    */
+    assert_usage(
+        !pagesDir || pagesDir.constructor===String && pagesDir.startsWith('/'),
+        pagesDir
+    );
+
     if( pagesDir ) {
         handle_output_dir({pagesDir});
     }
 
     const webpack_config = get_webpack_config({
         pagesDir,
-        webpackBrowserConfig,
-        webpackServerConfig,
         getWebpackBrowserConfig,
         getWebpackServerConfig,
         context,
@@ -96,58 +95,65 @@ function get_dist_base_path({pagesDir}) {
 
 function get_webpack_config({
     pagesDir,
-    output_path__base,
-    webpackBrowserConfig,
-    webpackServerConfig,
     getWebpackBrowserConfig,
     getWebpackServerConfig,
     context,
 }) {
-    let browser_config = webpackBrowserConfig;
-    let server_config = webpackServerConfig;
+    const {
+        output_path__browser,
+        browser_entries,
+        output_path__server,
+        server_entries,
+    } = get_infos_for_webpack({pagesDir});
 
-    if( ! browser_config || ! server_config ) {
-        assert_usage(
-            pagesDir && pagesDir.constructor===String && pagesDir.startsWith('/'),
-            pagesDir
-        );
-        const {output_path__base} = get_dist_base_path({pagesDir});
-        const output_path__source = path_module.resolve(output_path__base, './source');
-        const output_path__browser = path_module.resolve(output_path__base, './browser');
-        const output_path__server = path_module.resolve(output_path__base, './server');
-
-        const {browser_entries, server_entries} = get_webpack_entries({pagesDir, output_path__base, output_path__source});
-
-        if( ! browser_config ) {
-            const browser_args = {
-                browserEntries: browser_entries,
-                outputPath: output_path__browser
-            };
-            browser_config = get_webpack_browser_config(browser_args);
-            if( getWebpackBrowserConfig ) {
-                browser_args.config = browser_config;
-                browser_config = getWebpackBrowserConfig(browser_args);
-            }
-        }
-        if( ! server_config ) {
-            const server_args = {
-                serverEntries: server_entries,
-                outputPath: output_path__server
-            };
-            server_config = get_webpack_server_config(server_args);
-            if( getWebpackServerConfig ) {
-                server_args.config = server_config;
-                server_config = getWebpackServerConfig(server_args);
-            }
-        }
+    let browser_build = {};
+    if( browser_entries ) {
+        browser_build.entries = browser_entries;
+        browser_build.outputPath = output_path__browser;
+        browser_build.config = get_webpack_browser_config(browser_build);
+    }
+    if( getWebpackBrowserConfig ) {
+        browser_build.config = getWebpackBrowserConfig(browser_build);
+        assert_usage(browser_build.config);
     }
 
-    add_context_to_config(context, browser_config);
-    add_context_to_config(context, server_config);
+    let server_build = {};
+    if( server_entries ) {
+        server_build.entries = server_entries;
+        server_build.outputPath = output_path__server;
+        server_build.config = get_webpack_server_config(server_build);
+    }
+    if( getWebpackServerConfig ) {
+        server_build.config = getWebpackServerConfig(server_build);
+        assert_usage(server_build.config);
+    }
 
-    const webpack_config = [browser_config, server_config].filter(Boolean);
+    add_context_to_config(context, browser_build.config);
+    add_context_to_config(context, server_build.config);
+
+    const webpack_config = [browser_build.config, server_build.config];
 
     return webpack_config;
+}
+
+function get_infos_for_webpack({pagesDir}) {
+    if( ! pagesDir ) {
+        return {};
+    }
+
+    const {output_path__base} = get_dist_base_path({pagesDir});
+    const output_path__source = path_module.resolve(output_path__base, './source');
+    const output_path__browser = path_module.resolve(output_path__base, './browser');
+    const output_path__server = path_module.resolve(output_path__base, './server');
+
+    const {browser_entries, server_entries} = get_webpack_entries({pagesDir, output_path__base, output_path__source});
+
+    return {
+        output_path__browser,
+        browser_entries,
+        output_path__server,
+        server_entries,
+    };
 }
 
 function get_webpack_entries({pagesDir, output_path__base, output_path__source}) {
