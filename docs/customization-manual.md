@@ -763,11 +763,11 @@ function getCompileInfo({browserDistPath, pages}) {
                 input: diskPath,
                 plugins: [
                     json(),
-					cjs(),
-					replace({ 'process.env.NODE_ENV': JSON.stringify('') }),
-					resolve({
-					  browser: true,
-					}),
+                    cjs(),
+                    replace({ 'process.env.NODE_ENV': JSON.stringify('') }),
+                    resolve({
+                      browser: true,
+                    }),
                 ],
             };
             const outputOptions = {
