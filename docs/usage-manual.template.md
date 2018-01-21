@@ -152,7 +152,7 @@ $ reframe ~/tmp/reframe-playground/pages
 ~~~
 
 If you haven't closed the server from the previous section, then
-Reframe automatically re-compiled the frontend and prints a `✔ Re-build` notification to your shell
+Reframe automatically re-compiled the frontend and prints a `✔ Re-build` notification to your shell.
 
 ~~~shell
 $ reframe ~/tmp/reframe-playground/pages
@@ -198,7 +198,7 @@ export default {
             (Generated at {new Date().toLocaleTimeString()}.)
         </div>
     ),
-	htmlIsStatic: true,
+    htmlIsStatic: true,
 };
 ~~~
 
