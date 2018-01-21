@@ -80,6 +80,8 @@
 [Customization Manual](/docs/customization-manual.md)
 
 The customization manual acts as reference for customizing Reframe.
+It gives a good overview of how parts can be re-written but partially lacks detailed information.
+Open a GitHub issue to get detailed info and support.
 
 # Customization Manual
 
