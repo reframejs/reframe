@@ -1,26 +1,26 @@
 !MENU
 !MENU_ORDER 30
 
-
+The customization manual acts as reference for customizing Reframe.
 
 # Customization Manual
 
 ##### Contents
 
- - [Custom Server]
+ - [Custom Server](#custom-server)
    - [Reframe as hapi plugin](#reframe-as-hapi-plugin)
    - [Full Customization](#full-customization)
  - [Custom Browser JavaScript](#custom-browser-javascript)
    - [Custom Browser Entry](#custom-browser-entry)
    - [External Scripts](#external-scripts)
    - [Common Script](#common-script)
-   - [Full Customization](#full-customization)
- - [Custom Build]
+   - [Full Customization](#full-customization-1)
+ - [Custom Build](#custom-build)
    - [Webpack Config Modification](#webpack-config-modification)
    - [Full Custom Webpack Config](#full-custom-webpack-config)
    - [Full Build Customization](#full-build-customization)
- - [Custom Repage]
- - [Full Customization]
+ - [Custom Repage](#custom-repage)
+ - [Get rid of Reframe](#get-rid-of-reframe)
 
 ### Custom Server
 

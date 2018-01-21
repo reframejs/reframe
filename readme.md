@@ -77,9 +77,6 @@
 -->
 Reframe, the web (anti-)framework &mdash; quickly implement an app, without lock-in.
 
-[<p align="center"><img src='https://github.com/brillout-test/reprop-test/blob/master/docs/logo/logo-title.svg' width=400 style="max-width:100%;" alt="Reprop"/></p>](https://github.com/brillout/reprop)
-<br/>
-
 [Overview](/../../)<br/>
 [Usage Manual](/docs/usage-manual.md)<br/>
 [Customization Manual](/docs/customization-manual.md)
@@ -131,7 +128,7 @@ $ reframe
 
 The CLI command `reframe` searches for the `pages` directory, builds the frontend (webpack), and spins up a server (Node.js/hapi).
 
-Once the frontend is built and the server up the source code of `http://localhost:3000/hello/Alice` is;
+The source code of `http://localhost:3000/hello/Alice` is then;
 
 ~~~html
 <!DOCTYPE html>
