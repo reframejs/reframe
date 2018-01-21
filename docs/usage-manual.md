@@ -297,7 +297,13 @@ and
 `htmlIsStatic: true` declares the page as HTML-static and the HTML is rendered at build-time.
 
 For pages with lot's of elements, generating the HTML at build-time instead of request-time can be a considerable performance gain.
-Also, if all our pages are HTML-static, we can then deploy our app to a static website host such as [GitHub Pages](https://pages.github.com/).
+
+Also,
+if all our pages are HTML-static,
+then all HTMLs are rendered at build-time,
+no server code is required,
+and we can deploy our static app to a static website host
+such as [GitHub Pages](https://pages.github.com/).
 
 Not only do we have control over whether the HTML is static or not,
 but we also have control over whether the DOM is static or not.
@@ -951,9 +957,9 @@ export default {
 By default, Reframe compiles for development.
 
 We can tell Reframe to compile for production by
- - Setting `process.env.NODE_ENV = 'production';` in Node.js, or by
- - Setting `export NODE_ENV='production'` in a Unix(-like) OS, or by
- - Running `reframe --prod` in a shell
+ - setting `process.env.NODE_ENV = 'production';` in Node.js, or by
+ - setting `export NODE_ENV='production'` in a Unix(-like) OS, or by
+ - running `reframe --prod` in a shell
 
 When compiling for production,
 the auto-reload feature is disabled,
@@ -962,7 +968,7 @@ the code is minifed,
 the low-KB production version of React is used,
 etc.
 
-The Reframe CLI displays a `[PROD]` notification when compiling for production.
+The Reframe CLI displays a `[PROD]` notification when compiling for production:
 
 ~~~shell
 $ export NODE_ENV='production'
