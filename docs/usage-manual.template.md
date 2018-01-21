@@ -2,13 +2,12 @@
 !MENU_ORDER 20
 
 The usage manual acts as reference for using Reframe's default setup.
-It should cover most common use cases.
+The default setup should cover most common use cases.
 (Create a GitHub issue if a common use case is missing.)
 
 As your app grows, you will likely hit edge cases not covered by the default setup.
 In these situations, we refer to the Customization Manual.
 With willingness to dive into Reframe and to re-write parts, pretty much all edge cases should be achievable.
-(Create a GitHub issue to get support.)
 
 # Usage Manual
 
@@ -89,7 +88,7 @@ $ reframe ~/tmp/reframe-playground/pages
 
 and spins up a server making our page available at http://localhost:3000.
 
-The HTML view-source:http://localhost:3000/ is
+The HTML `view-source:http://localhost:3000/` is
 
 ~~~html
 <!DOCTYPE html>
@@ -162,7 +161,7 @@ $ reframe ~/tmp/reframe-playground/pages
 ✔ Re-build
 ~~~
 
-We now reload the page and &mdash; assuming the time is 13:37:00 &mdash; the HTML view-source:http://localhost:3000/hello is
+We now reload the page and &mdash; assuming the time is 13:37:00 &mdash; the HTML `view-source:http://localhost:3000/hello` is
 
 ~~~html
 <!DOCTYPE html>
@@ -254,7 +253,7 @@ We consider the following page object that defines a page displaying the current
 !INLINE ../example/views/TimeComponent.js
 ~~~
 
-Looking at the HTML view-source:http://localhost:3000/time
+Looking at the HTML `view-source:http://localhost:3000/time`
 
 ~~~html
 <!DOCTYPE html>
@@ -437,7 +436,7 @@ We can use `async getInitialProps()` to fetch the data that the React components
 !INLINE ../example/views/GameOfThrones.js
 ~~~
 
-Because `aysnc getInitialProps()` is called and waited for prior to rendering the HTML, our page's HTML view-source:http://localhost:3000/game-of-thrones displays the data.
+Because `aysnc getInitialProps()` is called and waited for prior to rendering the HTML, our page's HTML `view-source:http://localhost:3000/game-of-thrones` displays the data.
 
 ~~~html
 <!DOCTYPE html>
@@ -464,7 +463,7 @@ Note that,
 when using such statefull component,
 the server renders the HTML before the data is loaded.
 In our case,
- this means that the HTML view-source:http://localhost:3000/game-of-thrones-2
+ this means that the HTML `view-source:http://localhost:3000/game-of-thrones-2`
 displays the loading state `<div id="react-root"><div>Loading...</div></div>`.
 And the full HTML returned by the server is:
 
