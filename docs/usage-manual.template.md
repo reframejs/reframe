@@ -371,7 +371,7 @@ See the "Custom Head" section.
 
 ## CSS & Static Assets
 
-A CSS file can be loaded & applied by importing it.
+A CSS file can be loaded and applied by importing it.
 
 ~~~js
 import './GlitterStyle.css';
@@ -379,7 +379,7 @@ import './GlitterStyle.css';
 
 Static assets (images, fonts, videos, etc.) can be imported as well
 but importing an asset doesn't actually load it,
-instead the URL of the asset is returned.
+and instead the URL of the asset is returned.
 It is up to us to use/fetch the URL of the asset.
 
 ~~~js
@@ -411,22 +411,24 @@ The following shows code using CSS and static assets as described above.
 ~~~
 
 Note that CSS and static assets are handled by webpack,
-and we can customize how CSS and static assets are handled by customizing the webpack configuration.
-We referer to the Customization Manual for how to customize the webpack configuration.
+and we can customize the webpack configuration.
+We referer to the Customization Manual for further information.
 
 Also note that all types of static assets are supported.
 (If you are curious,
 we achieve this by using the `file-loader` as fallback,
-i.e. we apply the `file-loader` to all files that are not handled by any loader.)
+i.e. we apply the `file-loader` to all files that are not handled by any other webpack loader.)
 
 
 
 ## Async Data
 
 A common React use case is to display data that is fetched over the network.
+The page object supports a `async getInitialProps()` property that Reframe calls every time and before the view is rendered.
+(On both the server and in the browser.)
+We can use `async getInitialProps()` to fetch the data that ourReact components require.
 
-The page object supports an `async getInitialProps()` property that Reframe calls whenever and before the view is rendered on the server and in the browser.
-We can use `async getInitialProps()` to fetch the data that the React components require.
+An example:
 
 ~~~js
 !INLINE ../example/pages/GameOfThronesPage.html.js
@@ -436,7 +438,7 @@ We can use `async getInitialProps()` to fetch the data that the React components
 !INLINE ../example/views/GameOfThrones.js
 ~~~
 
-Because `aysnc getInitialProps()` is called and waited for prior to rendering the HTML, our page's HTML `view-source:http://localhost:3000/game-of-thrones` displays the data.
+Because `aysnc getInitialProps()` is called and waited for prior to rendering the HTML, our page's HTML `view-source:http://localhost:3000/game-of-thrones` displays the data already.
 
 ~~~html
 <!DOCTYPE html>
@@ -453,7 +455,7 @@ Because `aysnc getInitialProps()` is called and waited for prior to rendering th
 </html>
 ~~~
 
-Alternatively we can fetch data in a statefull component.
+Alternatively, we can fetch data in a statefull component.
 
 ~~~js
 !INLINE ../example/pages/GameOfThrones2Page.universal.js
@@ -465,7 +467,7 @@ the server renders the HTML before the data is loaded.
 In our case,
  this means that the HTML `view-source:http://localhost:3000/game-of-thrones-2`
 displays the loading state `<div id="react-root"><div>Loading...</div></div>`.
-And the full HTML returned by the server is:
+And the HTML returned by the server is:
 
 ~~~html
 <!DOCTYPE html>
@@ -500,14 +502,15 @@ For example:
 Reframe doesn't interfere when a link is clicked: the link follows through, and the new page is entirely loaded.
 
 It is possible to customize Reframe to navigate pages by loading the page object of the new page instead of loading the entire page.
-But we don't recommend going down that path as it adds non-negligible complexity,
-while similar performance characteritics can be achieved by using the [Turbo Link Technique](https://github.com/turbolinks/turbolinks).
+But we don't recommend going down that path,
+as it adds non-negligible complexity,
+while similar performance characteritics can be achieved using the [Turbo Link Technique](https://github.com/turbolinks/turbolinks).
 
 
 
 ## Custom Server
 
-Instead of using the CLI, Reframe can be used as hapi plugin(s) &mdash; as show in the next example.
+Instead of using the CLI, Reframe can be used as hapi plugin(s), as show in the next example.
 
 ~~~js
 !INLINE ../example/custom/server/hapi-server.js
@@ -526,7 +529,7 @@ The Customization Manual elaborates on such possibilities.
 Reframe handles the outer part of HTML (including `<head>`, `<!DOCTYPE html`>, `<script>`, etc.) with `@brillout/html-crust`.
 
 All options of `@brillout/html-crust` are available over the page object.
-Thus, the page object has full control over the HTML and the `<head>`.
+Thus, the page object has full control over the outer part of HTML including the `<head>`.
 
 We refer to [`@brillout/html-crust`'s documentation](https://github.com/brillout/html-crust) for further information.
 
@@ -561,10 +564,10 @@ import React from 'react';
 
 export default {
     route: '*',
-	title: 'Not Found',
+    title: 'Not Found',
     view: props => (
         <div>
-            We couldn't find {props.route.url.pathname}.
+            The page {props.route.url.pathname} does not seem to exist.
         </div>
     ),
 };
