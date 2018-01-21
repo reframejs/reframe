@@ -3,9 +3,9 @@ import buildHtml from './build-html.mjs';
 import expose from './expose.js';
 import getPages from './get-pages.mjs';
 
-export default build;
+export default buildAll;
 
-async function build() {
+async function buildAll() {
     const browserDistPath = getBrowserDistPath();
 
     const pages = getPages();

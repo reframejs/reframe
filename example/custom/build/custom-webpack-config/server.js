@@ -1,6 +1,6 @@
 const Hapi = require('hapi');
 const {getReframeHapiPlugins} = require('@reframe/server');
-const {webpackBrowserConfig, webpackServerConfig} = require('./webpack-config');
+const {getWebpackBrowserConfig, getWebpackServerConfig} = require('./webpack-config');
 
 startServer();
 
@@ -9,8 +9,8 @@ async function startServer() {
 
     const {HapiServerRendering, HapiServeBrowserAssets} = (
         await getReframeHapiPlugins({
-            getWebpackBrowserConfig: () => webpackBrowserConfig,
-            getWebpackServerConfig: () => webpackServerConfig,
+            getWebpackBrowserConfig,
+            getWebpackServerConfig,
             log: true,
         })
     );
