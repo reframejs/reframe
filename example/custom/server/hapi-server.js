@@ -9,8 +9,7 @@ const path = require('path');
 
     const {HapiServerRendering, HapiServeBrowserAssets} = (
         await getReframeHapiPlugins({
-            pagesDir: path.resolve(__dirname, '../pages'),
-            log: true,
+            pagesDir: path.resolve(__dirname, '../../pages'),
         })
     );
 

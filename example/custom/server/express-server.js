@@ -12,10 +12,10 @@ const RepageRendererReact = require('@repage/renderer-react');
 const path = require('path');
 const express = require('express');
 
-runExpressServer();
+startExpressServer();
 
-async function runExpressServer() {
-    const pagesDir = path.resolve(__dirname, '../pages');
+async function startExpressServer() {
+    const pagesDir = path.resolve(__dirname, '../../pages');
     let pages;
     const onBuild = args => {pages = args.pages};
     const {browserDistPath} = (
