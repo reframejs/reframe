@@ -1,5 +1,3 @@
-process.on('unhandledRejection', err => {throw err});
-
 const Hapi = require('hapi');
 const {getReframeHapiPlugins} = require('@reframe/server');
 const path = require('path');

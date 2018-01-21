@@ -845,8 +845,6 @@ Instead of using the CLI, Reframe can be used as hapi plugin(s) &mdash; as show 
 ~~~js
 // /example/custom/server/hapi-server.js
 
-process.on('unhandledRejection', err => {throw err});
-
 const Hapi = require('hapi');
 const {getReframeHapiPlugins} = require('@reframe/server');
 const path = require('path');
