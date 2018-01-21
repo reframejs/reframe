@@ -18,8 +18,8 @@ const LandingComponent = () => (
         <h3>Reframe examples</h3>
 
         <Section title={'HTML-static'}>
+            <Link pathname={'/'}/>
             <Link pathname={'/about'}/>
-            <Link pathname={'/counter'}/>
         </Section>
 
         <Section title={'HTML-dynamic'}>
