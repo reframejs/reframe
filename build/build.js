@@ -30,7 +30,7 @@ function build({
     getWebpackServerConfig,
 
     doNotAutoReload=isProduction(),
-    context = get_context(),
+    context,
     log: log_option,
     ...rebuild_opts
 }) {
@@ -274,13 +274,12 @@ function fs__ls(dirpath) {
 }
 
 function add_context_to_config(context, config) {
-    if( ! config ) {
-        return;
-    }
-    assert_internal(context);
-    assert_internal(context.startsWith('/'));
     assert_internal(config.constructor===Object);
-    config.context = config.context || context;
+    if( ! config.context || context ) {
+        config.context = context || get_context();
+    }
+    assert_internal(config.context);
+    assert_internal(config.context.startsWith('/'));
 }
 
 function is_script(path, suffix) {

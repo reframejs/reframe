@@ -5,18 +5,29 @@ function getWebpackBrowserConfig({config}) {
         test: /\.css$/,
         use: [
             'style-loader',
+            'css-loader',
             {
                 loader: 'postcss-loader',
-                plugins: [
-                    'postcss-cssnext',
-                ]
+                options: {
+                    /*
+                    plugins: [
+                        'postcss-cssnext',
+                    ],
+                    */
+                    parser: 'sugarss'
+                }
             }
         ]
     };
 
-    const cssRuleIndex = config.module.rules.find(({test}) => test('dummy-name.css'));
+    const cssRuleIndex = (
+        config.module.rules
+        .findIndex(({test: testRegExp}) => testRegExp.test('dummy-name.css'))
+    );
 
     config.module.rules[cssRuleIndex] = cssRule;
+
+    return config;
 }
 
 function getWebpackServerConfig({config}) {
