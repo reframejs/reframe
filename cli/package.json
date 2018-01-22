@@ -5,7 +5,7 @@
     "reframe": "./cli.js"
   },
   "dependencies": {
-    "@brillout/find": "^0.2.1",
+    "@brillout/find": "^0.2.2",
     "@reframe/browser": "0.0.1-rc.1",
     "@reframe/server": "0.0.1-rc.1",
     "lerna": "^2.5.1",
