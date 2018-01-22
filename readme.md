@@ -171,8 +171,8 @@ Upon this conflict, the question arises:
 
 Reframe is born out of the belief that it is.
 
-Reframe is designed so that parts of it can be overwritten.
-This means that, if something doesn't suit a need, you can replace Reframe parts with code of your own to suit your need.
+Reframe is designed so that its parts can be overwritten.
+This means that, if Reframe doesn't suit a need, you can replace Reframe parts with code of your own to adapt Reframe to your need.
 You can progressively and over time re-write all Reframe parts and get rid of Reframe altogether.
 
 We call the characteristic of being able to adapt to yours needs *adaptability*,
@@ -214,10 +214,10 @@ Reframe does:
 
  - **Build**
    <br/>
-   Builds and bundles your frontend assets. (By using webpack.)
+   Builds and bundles your frontend assets. (Uses webpack.)
  - **Server**
    <br/>
-   Sets up a Node.js/hapi server serving dynamic HTMLs and static browser assets.
+   Sets up a Node.js/hapi server, serving dynamic HTMLs and static browser assets.
  - **Routing**
    <br/>
    Maps URLs to pages.
@@ -230,6 +230,10 @@ Reframe **doesn't** take care of:
  - Database.
    <br/>
    It's up to you to create, populate, and query databases.
+
+
+<br/>
+To get started, read the "Getting Started" section of the [Usage Manual](/docs/usage-manual.md).
 
 <!---
 
