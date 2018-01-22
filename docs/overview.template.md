@@ -57,14 +57,15 @@ This page doesn't load any JavaScript code and its DOM is static.
 But Reframe also allows you to create pages with a dynamic view.
 
 All kinds of apps can be created (static websites, universal React apps, SPAs, etc.),
-and Reframe is customizable (custom webpack config, custom build tool such as Rollup, custom hapi server config, custom server framework such as Express, custom routing library other than Crossroads.js, custom React integration, custom view library such as Preact, etc.)
+and Reframe is customizable
+(custom webpack config, custom build tool such as Rollup, custom hapi server config, custom server framework such as Express, custom routing library other than Crossroads.js, custom React integration, custom view library such as Preact, etc.).
 
 
 ### Why Reframe?
 
-Reframe is born out of two opposed intentions
+Reframe is born out of two opposed intentions:
 
- - I want to use a framework to be able to quickly implement a prototype.
+ - I want to use a framework to quickly implement a prototype.
    And I don't want to design an entire app architecture before even starting to write one line of code.
 
  - I don't want to use a framework because of the framework's limitations.
@@ -102,7 +103,7 @@ With Reframe you can create pages that are:
    (The HTML can vary from request to request; the HTML is rendered at "request-time".)
  - **DOM-static**
    <br/>
-   The page's DOM is not manipulated and React is only used to render HTML.
+   The page's DOM is not manipulated, and React is only used to render HTML.
    <br/>
    (Reframe uses `require('react-dom/server')` and not `require('react-dom')`; React doesn't manipulate the DOM.)
  - **DOM-dynamic**
@@ -114,16 +115,16 @@ With Reframe you can create pages that are:
 This allows you to create
 universal React apps,
 static websites,
-SPAs, and any combination of HTML-(static/dynamic) and DOM-(static/dynamic) pages.
+SPAs, and any combination of HTML-static/HTML-dynamic and DOM-static/DOM-dynamic pages.
 
 Reframe does:
 
  - **Build**
    <br/>
-   Builds and bundles your frontend assets for you. (By using webpack.)
+   Builds and bundles your frontend assets. (By using webpack.)
  - **Server**
    <br/>
-   Sets up a Node.js/hapi serving dynamic HTMLs and static browser assets.
+   Sets up a Node.js/hapi server serving dynamic HTMLs and static browser assets.
  - **Routing**
    <br/>
    Maps URLs to pages.
