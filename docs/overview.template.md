@@ -141,4 +141,5 @@ Reframe **doesn't** take care of:
 
 
 <br/>
+
 To get started, read the "Getting Started" section of the [Usage Manual](/docs/usage-manual.md).
