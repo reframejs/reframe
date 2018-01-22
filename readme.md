@@ -114,7 +114,7 @@ const HelloPage = {
 module.exports = HelloPage;
 ~~~
 
-Running the `reframe` CLI then serves the page, as defined by the `HelloPage` object.
+Running the `reframe` CLI then serves the page.
 
 ~~~shell
 $ reframe

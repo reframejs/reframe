@@ -26,7 +26,7 @@ Reframe allows you to define pages like this:
 !INLINE ../example/pages/HelloPage.html.js
 ~~~
 
-Running the `reframe` CLI then serves the page, as defined by the `HelloPage` object.
+Running the `reframe` CLI then serves the page.
 
 ~~~shell
 $ reframe
