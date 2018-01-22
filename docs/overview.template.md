@@ -117,7 +117,7 @@ With Reframe you can create pages that are:
 This allows you to create
 universal React apps,
 static websites,
-SPAs, and any combination of HTML-static / HTML-dynamic and DOM-static / DOM-dynamic pages.
+SPAs, and any combination of HTML-static / HTML-dynamic / DOM-static / DOM-dynamic pages.
 
 Reframe does:
 
