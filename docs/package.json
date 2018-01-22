@@ -3,6 +3,6 @@
   "private": true,
   "version": "0.0.1-rc.1",
   "dependencies": {
-    "@brillout/mdocs": "^0.1.2"
+    "@brillout/mdocs": "^0.1.6"
   }
 }
