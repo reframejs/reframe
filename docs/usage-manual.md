@@ -294,9 +294,9 @@ We say that the HTML is generated at *build-time* and that the page is *HTML-sta
 We can actually see the, at build-time generated, HTML at `~/tmp/reframe-playground/dist/browser/index.html`.
 
 To sum up,
-`htmlIsStatic: false` declares the page as HTML-dynamic and the HTML is rendered at request-time,
+`htmlIsStatic: false` declares the page as HTML-dynamic; the HTML is rendered at request-time,
 and
-`htmlIsStatic: true` declares the page as HTML-static and the HTML is rendered at build-time.
+`htmlIsStatic: true` declares the page as HTML-static; the HTML is rendered at build-time.
 
 For pages with lot's of elements, generating the HTML at build-time instead of request-time can be a considerable performance gain.
 
