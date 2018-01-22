@@ -118,7 +118,7 @@ Running the `reframe` CLI then serves the page.
 
 ~~~shell
 $ reframe
-✔ Page directory found at ./example/pages
+✔ Page directory found at ./example/pages/
 ✔ Frontend built at ./example/dist/browser/ [DEV]
 ✔ Server running at http://localhost:3000
 ~~~
