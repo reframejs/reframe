@@ -132,7 +132,7 @@ export default {
         <div>
             Hello World, from Reframe.
             <br/>
-            (Generated at {new Date().toLocaleTimeString()}.)
+            (Generated at {new Date().toLocaleTimeString()})
         </div>
     ),
 };
@@ -197,7 +197,7 @@ export default {
         <div>
             Hello World, from Reframe.
             <br/>
-            (Generated at {new Date().toLocaleTimeString()}.)
+            (Generated at {new Date().toLocaleTimeString()})
         </div>
     ),
     htmlIsStatic: true,
