@@ -114,12 +114,12 @@ const HelloPage = {
 module.exports = HelloPage;
 ~~~
 
-Running the `reframe` CLI then serves our page, as defined by the `HelloPage` object.
+Running the `reframe` CLI then serves the page, as defined by the `HelloPage` object.
 
 ~~~shell
 $ reframe
-✔ Page directory found at example/pages
-✔ Frontend built at example/dist/browser/ [DEV]
+✔ Page directory found at ./example/pages
+✔ Frontend built at ./example/dist/browser/ [DEV]
 ✔ Server running at http://localhost:3000
 ~~~
 
