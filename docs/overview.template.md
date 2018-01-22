@@ -68,12 +68,12 @@ custom webpack config, custom build tool such as Rollup, custom hapi server conf
 Reframe is born out of two opposed intentions:
 
  - I want to use a framework to quickly implement a prototype.
-   And I don't want to design an entire app architecture before even starting to write one line of code.
+   I don't want to design an entire app architecture before even starting to write one line of code.
 
  - I don't want to use a framework because of the framework's limitations.
    And more importantly, I don't want to get locked into that framework down the road.
 
-Upon this conflict, the question arises
+Upon this conflict, the question arises:
 
  > Is it possible to design a framework that allows its user to quickly implement a prototype without locking the user in?
 
@@ -117,7 +117,7 @@ With Reframe you can create pages that are:
 This allows you to create
 universal React apps,
 static websites,
-SPAs, and any combination of HTML-static/HTML-dynamic and DOM-static/DOM-dynamic pages.
+SPAs, and any combination of HTML-static / HTML-dynamic and DOM-static / DOM-dynamic pages.
 
 Reframe does:
 
