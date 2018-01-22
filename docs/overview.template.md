@@ -5,11 +5,9 @@ Reframe, the web (anti-)framework &mdash; quickly implement an app, without lock
 !MENU_LINK /../../
 !MENU_ORDER 10
 
-Reframe renders your React views on the server, and/or in the browser, and/or statically.
+Reframe renders your React components on the server, and/or in the browser, and/or statically.
 It helps you create static websites, universal React apps, SPAs, and other types of apps.
 Reframe is designed so that it doesn't lock you in.
-
-This overview presents what Reframe is, how it's different from other web frameworks, and the scope of the Reframe project.
 
 # Overview
 
@@ -28,18 +26,18 @@ Reframe allows you to define pages like this:
 !INLINE ../example/pages/HelloPage.html.js
 ~~~
 
-Running the `reframe` CLI serves the defined page:
+Running the `reframe` CLI then serves our page, as defined by the `HelloPage` object.
 
 ~~~shell
 $ reframe
-✔ Page directory found at ~/tmp/reframe/example/pages
-✔ Frontend built at ~/tmp/reframe/example/dist/browser/ [DEV]
+✔ Page directory found at example/pages
+✔ Frontend built at example/dist/browser/ [DEV]
 ✔ Server running at http://localhost:3000
 ~~~
 
-The CLI command `reframe` searches for the `pages` directory, builds the frontend (webpack), and spins up a server (Node.js/hapi).
+The CLI searches for the `pages/` directory, builds the frontend (webpack), and spins up a server (Node.js/hapi).
 
-The source code of `http://localhost:3000/hello/Alice` is then;
+The source code of `http://localhost:3000/hello/Alice` is then:
 
 ~~~html
 <!DOCTYPE html>
@@ -58,27 +56,29 @@ The source code of `http://localhost:3000/hello/Alice` is then;
 This page doesn't load any JavaScript code and its DOM is static.
 But Reframe also allows you to create pages with a dynamic view.
 
+All kinds of apps can be created (static websites, universal React apps, SPAs, etc.),
+and Reframe is customizable (custom webpack config, custom build tool such as Rollup, custom hapi server config, custom server framework such as Express, custom routing library other than Crossroads.js, custom React integration, custom view library such as Preact, etc.)
 
 
 ### Why Reframe?
 
-Reframe is born out of the frustration of two conflicting intentions
+Reframe is born out of two opposed intentions
 
- - I want to use a framework so that I can quickly implement a prototype.
-   I don't want to design an entire app architecture before even starting to write one line of code.
+ - I want to use a framework to be able to quickly implement a prototype.
+   And I don't want to design an entire app architecture before even starting to write one line of code.
 
  - I don't want to use a framework because of the framework's limitations.
    And more importantly, I don't want to get locked into that framework down the road.
 
-The question arises
+Upon this conflict, the question arises
 
- > Is it possible to design a framework that allows its user to quickly implement a prototype without locking her in?
+ > Is it possible to design a framework that allows its user to quickly implement a prototype without locking the user in?
 
 Reframe is born out of the belief that it is.
 
 Reframe is designed so that parts of it can be overwritten.
-This means that, if something doesn't suit a need, you can re-write Reframe parts to suit your need.
-You can progressively and over time replace all Reframe parts with code of your own and get rid of Reframe altogether.
+This means that, if something doesn't suit a need, you can replace Reframe parts with code of your own to suit your need.
+You can progressively and over time re-write all Reframe parts and get rid of Reframe altogether.
 In short, Reframe is fully customizable.
 
 We call the characteristic of being able to adapt to yours needs *adaptability*,
@@ -90,28 +90,28 @@ and we call such adaptable framework an *(anti-)framework*.
 
 With Reframe you can create pages that are:
 
- - **HTML-static**.
+ - **HTML-static**
    <br/>
    The page's HTML is rendered when building the frontend.
    <br/>
    (The HTML doesn't change; the HTML is rendered at "build-time".)
- - **HTML-dynamic**.
+ - **HTML-dynamic**
    <br/>
    The page's HTML is rendered upon each HTTP request.
    <br/>
    (The HTML can vary from request to request; the HTML is rendered at "request-time".)
- - **DOM-static**.
+ - **DOM-static**
    <br/>
    The page's DOM is not manipulated and React is only used to render HTML.
    <br/>
    (Reframe uses `require('react-dom/server')` and not `require('react-dom')`; React doesn't manipulate the DOM.)
- - **DOM-dynamic**.
+ - **DOM-dynamic**
    <br/>
    The page has React components that dynamically change in the browser.
    <br/>
    (Reframe uses `require('react-dom')`; React manipulates the DOM.)
 
-Allowing you to create
+This allows you to create
 universal React apps,
 static websites,
 SPAs, and any combination of HTML-(static/dynamic) and DOM-(static/dynamic) pages.

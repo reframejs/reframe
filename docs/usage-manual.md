@@ -75,6 +75,8 @@
 
 
 -->
+Reframe, the web (anti-)framework &mdash; quickly implement an app, without lock-in.
+
 [Overview](/../../)<br/>
 [Usage Manual](/docs/usage-manual.md)<br/>
 [Customization Manual](/docs/customization-manual.md)
@@ -317,8 +319,8 @@ const React = require('react');
 const HelloComponent = props => <div>Hello {props.route.args.name}</div>;
 
 const HelloPage = {
-    title: 'Hi there', // page's title
-    route: '/hello/{name}', // page's URL
+    route: '/hello/{name}',
+    title: 'Hi there',
     view: HelloComponent,
 };
 
