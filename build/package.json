@@ -2,22 +2,23 @@
   "name": "@reframe/build",
   "version": "0.0.1-rc.0",
   "main": "./build",
-  "repository": "github:brillout/reframe",
-  "dependencies_TODO": {
-    "@repage/core": "0.0.1",
-    "@repage/build": "0.0.1",
-    "@repage/router-crossroads": "0.0.1",
-    "@repage/renderer": "0.0.1",
-    "@repage/renderer-react": "0.0.1",
-    "@rebuild/config": "0.0.1",
-    "@rebuild/build": "0.0.1",
-    "@rebuild/serve": "0.0.1"
-  },
   "dependencies": {
+    "@repage/core": "0.0.1-rc.1",
+    "@repage/build": "0.0.1-rc.1",
+    "@repage/router-crossroads": "0.0.1-rc.1",
+    "@repage/renderer": "0.0.1-rc.1",
+    "@repage/renderer-react": "0.0.1-rc.1",
+    "@rebuild/config": "0.0.1-rc.2",
+    "@rebuild/build": "0.0.1-rc.2",
+    "@rebuild/serve": "0.0.1-rc.2",
     "@reframe/browser": "0.0.1-rc.0",
     "mkdirp": "^0.5.1",
     "node-dir": "^0.1.17",
     "parent-module": "^0.1.0",
     "reassert": "^1.0.0"
-  }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": "github:brillout/reframe"
 }

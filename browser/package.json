@@ -1,15 +1,17 @@
 {
   "name": "@reframe/browser",
   "version": "0.0.1-rc.0",
-  "dependencies_TODO": {
-    "@repage/core": "0.0.1",
-    "@repage/browser": "0.0.1",
-    "@repage/navigator": "0.0.1",
-    "@repage/router-crossroads": "0.0.1",
-    "@repage/renderer": "0.0.1",
-    "@repage/renderer-react": "0.0.1"
-  },
   "dependencies": {
+    "@repage/core": "0.0.1-rc.1",
+    "@repage/browser": "0.0.1-rc.1",
+    "@repage/navigator": "0.0.1-rc.1",
+    "@repage/router-crossroads": "0.0.1-rc.1",
+    "@repage/renderer": "0.0.1-rc.1",
+    "@repage/renderer-react": "0.0.1-rc.1",
     "reassert": "^1.0.0"
-  }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": "github:brillout/reframe"
 }
