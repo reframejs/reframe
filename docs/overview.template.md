@@ -56,9 +56,11 @@ The source code of `http://localhost:3000/hello/Alice` is then:
 This page doesn't load any JavaScript code and its DOM is static.
 But Reframe also allows you to create pages with a dynamic view.
 
-All kinds of apps can be created (static websites, universal React apps, SPAs, etc.),
-and Reframe is customizable
-(custom webpack config, custom build tool such as Rollup, custom hapi server config, custom server framework such as Express, custom routing library other than Crossroads.js, custom React integration, custom view library such as Preact, etc.).
+All kinds of apps can be created &mdash;
+static websites, universal React apps, SPAs, etc.
+
+Reframe is customizable &mdash;
+custom webpack config, custom build tool such as Rollup, custom hapi server config, custom server framework such as Express, custom routing library other than Crossroads.js, custom React integration, custom view library such as Preact, etc..
 
 
 ### Why Reframe?
