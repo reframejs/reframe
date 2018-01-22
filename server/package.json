@@ -1,13 +1,13 @@
 {
   "name": "@reframe/server",
-  "version": "0.0.1-rc.0",
+  "version": "0.0.1-rc.1",
   "dependencies": {
+    "@reframe/build": "0.0.1-rc.1",
     "@repage/core": "0.0.1-rc.1",
-    "@repage/server": "0.0.1-rc.1",
-    "@repage/router-crossroads": "0.0.1-rc.1",
     "@repage/renderer": "0.0.1-rc.1",
     "@repage/renderer-react": "0.0.1-rc.1",
-    "@reframe/build": "0.0.1-rc.0",
+    "@repage/router-crossroads": "0.0.1-rc.1",
+    "@repage/server": "0.0.1-rc.1",
     "reassert": "^1.0.0"
   },
   "publishConfig": {

@@ -1,7 +1,7 @@
 {
   "name": "example",
   "private": true,
-  "version": "0.0.1-rc.0",
+  "version": "0.0.1-rc.1",
   "dependencies_TODO": {
     "@repage/core": "0.0.1",
     "@repage/server": "0.0.1",
@@ -11,9 +11,9 @@
   },
   "dependencies": {
     "@brillout/fetch": "^0.0.2",
-    "@reframe/browser": "0.0.1-rc.0",
-    "@reframe/build": "0.0.1-rc.0",
-    "@reframe/server": "0.0.1-rc.0",
+    "@reframe/browser": "0.0.1-rc.1",
+    "@reframe/build": "0.0.1-rc.1",
+    "@reframe/server": "0.0.1-rc.1",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-polyfill": "^6.26.0",

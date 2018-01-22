@@ -3,5 +3,5 @@
   "useWorkspaces": true,
   "exact": true,
   "lerna": "2.5.1",
-  "version": "0.0.1-rc.0"
+  "version": "0.0.1-rc.1"
 }
