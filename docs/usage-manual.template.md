@@ -1,4 +1,4 @@
-Reframe, the web (anti-)framework &mdash; quickly implement a web app, without lock-in.
+!INLINE ./logo.md --hide-source-path
 
 !MENU
 !MENU_ORDER 20
