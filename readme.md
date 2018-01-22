@@ -75,7 +75,12 @@
 
 
 -->
-Reframe, the web (anti-)framework &mdash; quickly implement a web app, without lock-in.
+[<p align="center"><img src='https://github.com/brillout-test/reframe-test/blob/master/docs/logo/logo-with-title.svg' width=400 style="max-width:100%;" alt="Reframe"/></p>](https://github.com/brillout-test/reframe-test)
+<br/>
+<p align="center">
+    Reframe, the web (anti-)framework &mdash; quickly implement a web app, without lock-in.
+</p>
+<br/>
 
 [Overview](/../../)<br/>
 [Usage Manual](/docs/usage-manual.md)<br/>
@@ -170,7 +175,6 @@ Reframe is born out of the belief that it is.
 Reframe is designed so that parts of it can be overwritten.
 This means that, if something doesn't suit a need, you can replace Reframe parts with code of your own to suit your need.
 You can progressively and over time re-write all Reframe parts and get rid of Reframe altogether.
-In short, Reframe is fully customizable.
 
 We call the characteristic of being able to adapt to yours needs *adaptability*,
 and we call such adaptable framework an *(anti-)framework*.
