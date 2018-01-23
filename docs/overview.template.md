@@ -57,15 +57,25 @@ This page doesn't load any JavaScript code and its DOM is static.
 But Reframe also allows you to create pages with a dynamic view.
 
 All kinds of apps can be created:
-static websites, universal React apps, SPAs, etc.
+static websites,
+universal React apps,
+SPAs,
+etc.
 
 And Reframe is customizable:
-custom webpack config, custom build tool such as Rollup, custom hapi server config, custom server framework such as Express, custom routing library other than Crossroads.js, custom React integration, custom view library such as Preact, etc.
+custom webpack config,
+custom build tool such as Rollup,
+custom hapi server config,
+custom server framework such as Express,
+custom routing library other than Crossroads.js,
+custom React integration,
+custom view library such as Preact,
+etc.
 
 
 ### Why Reframe?
 
-Reframe is born out of two opposed intentions:
+Reframe is born out of two conflicting intentions:
 
  - I want to use a framework to quickly implement a prototype.
    I don't want to design an entire app architecture before even starting to write one line of code.
@@ -85,7 +95,6 @@ You can progressively and over time re-write all Reframe parts and get rid of Re
 
 We call the characteristic of being able to adapt to yours needs *adaptability*,
 and we call such adaptable framework an *(anti-)framework*.
-
 
 
 ### Reframe Project Scope
