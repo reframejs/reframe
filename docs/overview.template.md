@@ -5,10 +5,6 @@
 !MENU_LINK /../../
 !MENU_ORDER 10
 
-Reframe renders your React components on the server, and/or in the browser, and/or statically.
-It helps you create static websites, universal React apps, SPAs, and other types of apps.
-Reframe is designed so that it doesn't lock you in.
-
 # Overview
 
 ##### Contents
@@ -20,41 +16,31 @@ Reframe is designed so that it doesn't lock you in.
 
 ### What is Reframe?
 
-Reframe allows you to define pages like this:
+Reframe allows you to create apps by defining React components
+and Reframe takes care of the rest
+(transpilation, bundling, and server creation).
+That way, you can easily create uniserval apps, static apps, and other types of apps.
+
+Reframe renders your React components on the server, and/or in the browser, and/or statically.
+It helps you create static websites, universal React apps, SPAs, and other types of apps.
+Reframe is designed so that it doesn't lock you in.
+
+ - Universal React apps (React components are rendered to HTML and rendrerd to the DOM in the browser.)
+ - Static apps (
+ - JavaScript-less apps (React components are rendered to HTML only and no JavaScript is loaded.)
+ - And many more types of apps.
+
+
+
+With Reframe, you to define pages like this:
 
 ~~~js
 !INLINE ../example/pages/HelloPage.html.js --hide-source-path
 ~~~
 
-Running the `reframe` CLI then serves the page.
+And the `reframe` CLI takes care of the rest.
 
-~~~shell
-$ reframe
-✔ Page directory found at ./example/pages/
-✔ Frontend built at ./example/dist/browser/ [DEV]
-✔ Server running at http://localhost:3000
-~~~
 
-The CLI searches for the `pages/` directory, builds the frontend (webpack), and spins up a server (Node.js/hapi).
-
-The source code of `http://localhost:3000/hello/Alice` is then:
-
-~~~html
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Hi there</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <meta charset="utf-8">
-    </head>
-    <body>
-        <div id="react-root"><div>Hello Alice</div></div>
-    </body>
-</html>
-~~~
-
-This page doesn't load any JavaScript code and its DOM is static.
-But Reframe also allows you to create pages with a dynamic view.
 
 All kinds of apps can be created:
 static websites,
@@ -75,6 +61,13 @@ etc.
 
 ### Why Reframe?
 
+##### Easy
+
+The examle about already already covers represents 50% of Reframe's basic usage.
+
+Beyond that 
+
+
 Reframe is born out of two conflicting intentions:
 
  - I want to use a framework to quickly implement a prototype.
@@ -93,8 +86,18 @@ Reframe is designed so that its parts can be overwritten.
 This means that, if Reframe doesn't suit a need, you can replace Reframe parts with code of your own to adapt Reframe to your need.
 You can progressively and over time re-write all Reframe parts and get rid of Reframe altogether.
 
-We call the characteristic of being able to adapt to yours needs *adaptability*,
+We call the characteristic of being able to adapt to your needs *adaptability*,
 and we call such adaptable framework an *(anti-)framework*.
+
+
+# Features
+
+ - Fully
+ - Performant
+  - Code splitting
+  - HTML-static pages
+  - DOM-static pages
+  - Optimal HTTP Caching
 
 
 ### Reframe Project Scope
@@ -167,6 +170,7 @@ Next.js' solution
     - No PostCSS support. (It's not entirely impossible to use PostCSS but the steps to do so are prohibitively complicated.)
     - In general, custom webpack loaders are not supported.
   - Can't customize browser JavaScript
+   - Analytics.js
   - Next.js bundles [styled-jsx](https://github.com/zeit/styled-jsx) which you cannot opt-out. Yet, there are superior alternatives to styled-jsx, such as [Glamourous](https://github.com/paypal/glamorous).
   - No support for custom view libraries such as Preact
  - Performance
