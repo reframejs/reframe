@@ -212,7 +212,7 @@ function generate_entry({page_file, dist_path}) {
             "var hydratePage = require('"+require.resolve('@reframe/browser/hydratePage')+"');",
             "var pageObject = require('"+page_file+"');",
             "",
-            "// hybrid cjs and ES6 modules import",
+            "// hybrid cjs and ES6 module import",
             "pageObject = Object.keys(pageObject).length===1 && pageObject.default || pageObject;",
             "",
             "hydratePage(pageObject);",

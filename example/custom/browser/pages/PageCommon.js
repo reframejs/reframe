@@ -1,6 +1,6 @@
 const PageCommon = {
-    title: 'Jon Snow',
-    description: 'This is the homepage of Jon Snow',
+    title: 'My Web App',
+    description: 'This Web App helps you with ...',
     htmlIsStatic: true,
     scripts: [
         {

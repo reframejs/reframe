@@ -75,7 +75,7 @@
 
 
 -->
-[<p align="center"><img src='https://github.com/brillout-test/reframe-test/blob/master/docs/logo/logo-with-title.svg' width=400 style="max-width:100%;" alt="Reframe"/></p>](https://github.com/brillout-test/reframe-test)
+[<p align="center"><img src='https://github.com/brillout/reframe/blob/master/docs/logo/logo-with-title.svg' width=400 style="max-width:100%;" alt="Reframe"/></p>](https://github.com/brillout/reframe)
 <p align="center">
     Quickly implement a web app, without lock-in.
 </p>
@@ -243,7 +243,7 @@ function createRepageObject(pages) {
 
 ### Custom Browser Entry
 
-When Reframe stumbles upon a `.universal.js` or `.dom.js` page object, Reframe automatically generates a browser entry code that will be loaded in the browser.
+When Reframe stumbles upon a `.universal.js` or `.dom.js` page object, it automatically generates a browser entry code that will load in the browser.
 
 The following is an example of such generated browser entry code.
 
@@ -251,7 +251,7 @@ The following is an example of such generated browser entry code.
 var hydratePage = require('/usr/lib/node_modules/@reframe/cli/node_modules/@reframe/browser/hydratePage.js');
 var pageObject = require('/home/brillout/tmp/reframe-playground/pages/HelloPage.universal.js');
 
-// hybrid cjs and ES6 modules import
+// hybrid cjs and ES6 module import
 pageObject = Object.keys(pageObject).length===1 && pageObject.default || pageObject;
 
 hydratePage(pageObject);
@@ -259,7 +259,9 @@ hydratePage(pageObject);
 
 We can, however, create the browser entry code ourselves.
 
-Instead of providing a `.universal.js` or `.dom.js` page object, we provide only one page object `.html.js` along with a `.entry.js`.
+Instead of providing a `.universal.js` or `.dom.js` page object,
+we provide only one page object `.html.js` along with a `.entry.js` file.
+Reframe will then use the `.entry.js` code as browser entry instead of generating one.
 
 For example:
 
@@ -315,7 +317,7 @@ See the "Custom Head" section of the Usage Manual for more information.
 
 ### Common Script
 
-Multiple pages can share common code by using the `diskPath` script object property as shown in the following example:
+Multiple pages can share common browser code by using the `diskPath` property in the page object, as shown in the following example:
 
 ~~~js
 // /example/custom/browser/pages/terms.html.js
@@ -359,8 +361,8 @@ export default {
 // /example/custom/browser/pages/PageCommon.js
 
 const PageCommon = {
-    title: 'Jon Snow',
-    description: 'This is the homepage of Jon Snow',
+    title: 'My Web App',
+    description: 'This Web App helps you with ...',
     htmlIsStatic: true,
     scripts: [
         {
@@ -433,7 +435,7 @@ async function hydratePage(page) {
 
 As we can see, the code simply initializes a Repage instance and calls `@repage/browser`'s `hydratePage()` function.
 
-Instead of using Repage we could manually hydrate the page ourselves.
+Instead of using Repage we can manually hydrate the page ourselves.
 The following is an example of doing so.
 At this point, our browser JavaScript doesn't depend on Reframe nor on Repage.
 It is fully under our control.
@@ -495,7 +497,7 @@ await getReframeHapiPlugins({
 });
 ~~~
 
-The following example uses `getWebpackBrowserConfig()` to add a PostCSS loader to the configuration.
+The following example uses `getWebpackBrowserConfig()` to add the PostCSS loader to the configuration.
 
 ~~~js
 // /example/custom/build/webpack-config-mod/config-mod.js
