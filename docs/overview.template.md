@@ -151,4 +151,34 @@ Reframe **doesn't** take care of:
 
 <br/>
 
+### Reframe VS Next.js
+
+Reframe wouldn't exist if Next.js nailed down the React framework problem, but they didn't.
+
+Next.js' solution 
+
+ - Ease of use
+   - Routing is a hassle. (Parameterized routes are a big hassle, routes for static html don't work in dev mode.)
+   - Server customization is a hassle (and implement caching yourself)
+ - Customization
+  - Next.js's has no plugin system.
+  - Next.js's build step is not customizable [1]
+    - No Typescript support. (Typescript is broken.)
+    - No PostCSS support. (It's not entirely impossible to use PostCSS but the steps to do so are prohibitively complicated.)
+    - In general, custom webpack loaders are not supported.
+  - Can't customize browser JavaScript
+  - Next.js bundles [styled-jsx](https://github.com/zeit/styled-jsx) which you cannot opt-out. Yet, there are superior alternatives to styled-jsx, such as [Glamourous](https://github.com/paypal/glamorous).
+  - No support for custom view libraries such as Preact
+ - Performance
+   - Can't get rid of Client-Side React. (That's [how Netflix achieves high performance on their landing page](https://twitter.com/netflixuie/status/923374215041912833?lang=en).)
+   - The entire page's view is hydrated/re-rendered in the browser
+     whereas with Reframe allows you to hydrate/re-render only parts of your page's view.
+   - Static assets are not indefinitely cached
+     (In contrast Reframe sets the `Cache-Control` header with `immutable` and `max-age`'s maxium value.)
+
+[1] Technically speaking, Next.js' webpack configuration can be modified, but Next.js' has many restrictions on the configuration making it very hard to customize. In practice, Next.js' build step is not customizable.
+
+
+### Getting Started
+
 To get started, read the "Getting Started" section of the [Usage Manual](/docs/usage-manual.md).
