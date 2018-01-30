@@ -14,9 +14,9 @@
   dependencies:
     node-fetch "^1.7.3"
 
-"@brillout/find@^0.2.1":
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/@brillout/find/-/find-0.2.1.tgz#9b55cf798b3da7937fd9282b7979621b7a0c04ae"
+"@brillout/find@^0.2.2":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/@brillout/find/-/find-0.2.2.tgz#256610a0f0500e9c83a817d2a25c55d0cf6d0650"
   dependencies:
     find-up "^2.1.0"
     glob "^7.1.2"
@@ -37,9 +37,11 @@
   dependencies:
     reassert "^1.0.3"
 
-"@brillout/mdocs@^0.1.2":
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/@brillout/mdocs/-/mdocs-0.1.3.tgz#0e0f0ab752036296be4ff66cca1b598dbb2cf909"
+"@brillout/mdocs@^0.1.6":
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/@brillout/mdocs/-/mdocs-0.1.6.tgz#6d092f959a47383ecfdea72c54867be962fb7eac"
+  dependencies:
+    reassert "^1.1.1"
 
 "@rebuild/build@0.0.1-rc.2":
   version "0.0.1-rc.2"
@@ -5811,7 +5813,7 @@ reassert@^1.0.0, reassert@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/reassert/-/reassert-1.1.0.tgz#1440132f378b0f48cf51c09275997531a50afc5e"
 
-reassert@^1.0.3, reassert@^1.0.4:
+reassert@^1.0.3, reassert@^1.0.4, reassert@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/reassert/-/reassert-1.1.1.tgz#a983e03717458727b0de750a175b4b654c1a2069"
 
