@@ -157,7 +157,7 @@ const path = require('path');
 
 ### Full Customization
 
-Instead of using `const {getReframeHapiPlugins} = require('@reframe/server');` we can also re-write the whole server part from scratch.
+Instead of using `const {getReframeHapiPlugins} = require('@reframe/server');` we can also re-write the whole server from scratch.
 
 This allows us, for example, to choose any server framework.
 The following is a custom server implementation using Express instead of hapi.
