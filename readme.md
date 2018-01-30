@@ -75,7 +75,7 @@
 
 
 -->
-[<p align="center"><img src='https://github.com/brillout/reframe/blob/master/docs/logo/logo-with-title.svg' width=500 style="max-width:100%;" alt="Reframe"/></p>](https://github.com/brillout/reframe)
+[<p align="center"><img src='https://github.com/brillout/reframe/blob/master/docs/logo/logo-with-title.svg' width=450 style="max-width:100%;" alt="Reframe"/></p>](https://github.com/brillout/reframe)
 <p align="center">
     Quickly implement a web app, without lock-in.
 </p>
@@ -103,10 +103,11 @@ Reframe is designed so that it doesn't lock you in.
 Reframe allows you to define pages like this:
 
 ~~~js
-const React = require('react');
+import React from 'react';
 
 const HelloComponent = (
     props => {
+        // Our route arguments are available at `props.route.args`
         const name = props.route.args.name;
         return (
             <div>
@@ -117,12 +118,12 @@ const HelloComponent = (
 );
 
 const HelloPage = {
-    route: '/hello/{name}',
-    title: 'Hi there',
-    view: HelloComponent,
+    route: '/hello/{name}', // Page's parameterized URL
+    title: 'Hi there', // Page's <title>
+    view: HelloComponent, // Page's root React component
 };
 
-module.exports = HelloPage;
+export default HelloPage;
 ~~~
 
 Running the `reframe` CLI then serves the page.

@@ -1,7 +1,8 @@
-const React = require('react');
+import React from 'react';
 
 const HelloComponent = (
     props => {
+        // Our route arguments are available at `props.route.args`
         const name = props.route.args.name;
         return (
             <div>
@@ -12,9 +13,9 @@ const HelloComponent = (
 );
 
 const HelloPage = {
-    route: '/hello/{name}',
-    title: 'Hi there',
-    view: HelloComponent,
+    route: '/hello/{name}', // Page's parameterized URL
+    title: 'Hi there', // Page's <title>
+    view: HelloComponent, // Page's root React component
 };
 
-module.exports = HelloPage;
+export default HelloPage;
