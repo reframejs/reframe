@@ -103,11 +103,18 @@ Reframe is designed so that it doesn't lock you in.
 Reframe allows you to define pages like this:
 
 ~~~js
-// /example/pages/HelloPage.html.js
-
 const React = require('react');
 
-const HelloComponent = props => <div>Hello {props.route.args.name}</div>;
+const HelloComponent = (
+    props => {
+        const name = props.route.args.name;
+        return (
+            <div>
+                Hello {name}
+            </div>
+        );
+    }
+);
 
 const HelloPage = {
     route: '/hello/{name}',

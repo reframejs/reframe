@@ -320,7 +320,16 @@ Before we move on to the DOM, let's look at a special case of an HTML-dynamic pa
 
 const React = require('react');
 
-const HelloComponent = props => <div>Hello {props.route.args.name}</div>;
+const HelloComponent = (
+    props => {
+        const name = props.route.args.name;
+        return (
+            <div>
+                Hello {name}
+            </div>
+        );
+    }
+);
 
 const HelloPage = {
     route: '/hello/{name}',

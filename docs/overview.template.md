@@ -23,7 +23,7 @@ Reframe is designed so that it doesn't lock you in.
 Reframe allows you to define pages like this:
 
 ~~~js
-!INLINE ../example/pages/HelloPage.html.js
+!INLINE ../example/pages/HelloPage.html.js --hide-source-path
 ~~~
 
 Running the `reframe` CLI then serves the page.

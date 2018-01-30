@@ -1,6 +1,15 @@
 const React = require('react');
 
-const HelloComponent = props => <div>Hello {props.route.args.name}</div>;
+const HelloComponent = (
+    props => {
+        const name = props.route.args.name;
+        return (
+            <div>
+                Hello {name}
+            </div>
+        );
+    }
+);
 
 const HelloPage = {
     route: '/hello/{name}',
