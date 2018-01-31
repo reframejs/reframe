@@ -4,7 +4,19 @@
 !MENU_ORDER 30
 
 The customization manual acts as reference for customizing Reframe.
-It gives a good overview of how parts can be re-written but partially lacks detailed information.
+
+Reframe consists of three packages;
+`@reframe/build` that transpiles and bundles code,
+`@reframe/server` that creates a server serving dynamic HTMLs and static assets,
+and `@reframe/browser` that hydrates React components in the browser.
+Reframe is designed so that each package can be replaced with code of your own.
+
+If you replace `@reframe/browser` with your own code, then you have full control over the browser JavaScript.
+If you replace `@reframe/server` with your own code, then you have full control over the server.
+If you replace `@reframe/build` with your own code, then you have full control over the build step.
+And if you replace all three packages, then you effectively got rid of Reframe.
+
+The customizing manual gives a good overview of how packages can be re-written but partially lacks detailed information.
 Open a GitHub issue to get detailed info and support.
 
 # Customization Manual
@@ -271,4 +283,4 @@ function getRepageInstance() {
 
 As show in this document, every part of Reframe can be re-written to depend on `@repage` packages only.
 In turn, [Repage](https://github.com/brillout/repage) can progressively be overwritten over time as well.
-This means that we can eventually and over time get rid of the entire Reframe and Repage code.
+This means that we can eventually and over time get rid of the entire Reframe and the entire Repage code.
