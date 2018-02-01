@@ -23,7 +23,7 @@ const assert_usage = assert;
         const find = require('@brillout/find');
 
         const pagesDir = find('pages/', {anchorFile: '.reframe'});
-        console.log(green_checkmark()+' Page directory found at '+pagesDir);
+        console.log(green_checkmark()+' Page directory found at '+path_relative_to_homedir(pagesDir));
         return pagesDir;
     }
 
@@ -46,7 +46,7 @@ const assert_usage = assert;
 
         // server opts
         server: server__created_by_user,
-        port = 3000,
+        port = 3001,
         debug = {
             request: ['internal'],
         },
@@ -83,6 +83,21 @@ const assert_usage = assert;
     function green_checkmark() {
         const chalk = require('chalk');
         return chalk.green('\u2714');
+    }
+
+    function path_relative_to_homedir(path) {
+        const os = require('os');
+        const homedir = os.homedir();
+        if( ! path ) {
+            return path;
+        }
+        if( ! path.startsWith(homedir) ) {
+            return path;
+        }
+        if( ! homedir.startsWith('/') ) {
+            return path;
+        }
+        return '~'+path.slice(homedir.length);
     }
 
     function get_cli_args() {
