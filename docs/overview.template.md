@@ -185,6 +185,8 @@ And using the expressivness of JavaScript to define React components is vastly m
 
 
 
+WebAssembly has the potential to be what Java and .NET have both tried and failed to be -- the universal runtime for all languages across all platforms.
+
 
 We predict that React will become the de-facto templating engine.
 

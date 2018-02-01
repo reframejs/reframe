@@ -46,7 +46,7 @@ const assert_usage = assert;
 
         // server opts
         server: server__created_by_user,
-        port = 3001,
+        port = 3000,
         debug = {
             request: ['internal'],
         },
