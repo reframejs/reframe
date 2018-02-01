@@ -114,27 +114,21 @@ Reframe consists of 3 parts
 ### The future of React is bright and is "SRO-by-default"
 
 > **TL;DR**
-> Reframe w
+> - A web app framework on eye-level with RoR / Django based on JavaScript and React will soon emerge.
+> - Reframe allows the creation of web apps that are mostly DOM-dynamic as well as web apps that are mostly DOM-static.
 
 Let's imagine a dev team that needs to implement a web app where no page is interactive.
 In other words the DOM is never manipulated.
-(We call a web app / a page *DOM-static* when the DOM is not manipulated and we call it *DOM-dynamic* otherwise).
-Would be want to use React to create such DOM-static web app?
+(We call a web app or a page *DOM-static* when the DOM is not manipulated and we call it *DOM-dynamic* otherwise.)
+Would be want to use JavaScript & React to create such DOM-static web app?
 
 Maybe not, as React is a tool for creating interactive views.
 Instead we could use Ruby on Rails, Django, or Go.
-Let's say we choose Go.
-Since , no JavaScript is written.
-If the company will always have projects DOM-static web apps,
-but this is unlikely.
-But the chances are high that some new project or new project requirement will require DOM-dynamic page(s).
+If the company only and will only will always have projects DOM-static web apps,
+But this is unlikely and chances are high that at some point a new project or new project requirement will require DOM-dynamic page(s).
 At this point the dev team will have no choice than to acquire knowledge about JavaScript and a view library such as React.
 
 The problem would not have occured, if the dev team would have chosen React and JavaScript.
-
-There may be JavaScript fatigue, but JavaScript and React are not going anywhere if not even more popular.
-
-Likewise, on a career level, learning JavaScript and React is a robust choice.
 
 But there is a problem: Implementing a web app solely with JavaScript and React is currently overly effortful.
 These days, it is easier to implement a DOM-static web app with Ruby on Rails (RoR) than with JavaScript & React.
@@ -143,7 +137,20 @@ The reason that RoR is easier is not because of the Ruby language nor because of
 It's because of RoR itself, the framework.
 JavaScript & React are missing a framework and Reframe aims to be that framework.
 
-**Soon JavaScript & React will get a framework at eye level with RoR. At that point, there will be virtually no reason to choose RoR over JavaScript & React. Reframe aims to be that framework.**
+**Soon JavaScript & React will get a framework at eye-level with RoR. At that point, there will be virtually no reason to choose RoR over JavaScript & React. Reframe aims to be that framework.**
+
+
+
+
+
+
+
+There may be JavaScript fatigue, but JavaScript and React are not going anywhere and their popularity and adoption are only increasing.
+
+Likewise, on a career level, learning JavaScript and React is a robust choice.
+
+
+
 
 JavaScript & React is more difficult is because
 But this is because no high-quality web app framework using React has emerged yet.
