@@ -75,7 +75,7 @@
 
 
 -->
-[<p align="center"><img src='https://raw.githubusercontent.com/brillout/reframe/master/docs/logo/logo-with-title.svg' width=450 style="max-width:100%;" alt="Reframe"/></p>](https://github.com/brillout/reframe)
+[<p align="center"><img src='https://github.com/brillout/reframe/raw/master/docs/logo/logo-with-title.svg?sanitize=true' width=450 height=94 style="max-width:100%;" alt="Reframe"/></p>](https://github.com/brillout/reframe)
 <p align="center">
     Framework to create server-rendered React apps. Easy to use yet fully customizable.
 </p>
@@ -142,8 +142,8 @@ export default HelloPage;
 Running the `reframe` CLI takes care of the rest:
 
 <p align="center"><img src='https://gitlab.com/brillout/reframe/raw/master/docs/logo/logo-with-title.svg' width=450 style="max-width:100%;" alt="Reframe"/></p>
-<p align="center"><img src='/../../brillout/reframe/raw/master/docs/logo/logo-with-title.svg' width=450 style="max-width:100%;" alt="Reframe"/></p>
-<p align="center"><img src='/../../brillout/reframe/raw/master/docs/screenshots/reframe_overview_screenshot.png' width=900 style="max-width:100%;"/></p>
+<p align="center"><img src='/../../../brillout/reframe/raw/master/docs/logo/logo-with-title.svg' width=450 style="max-width:100%;" alt="Reframe"/></p>
+<p align="center"><img src='/../../../brillout/reframe/raw/master/docs/screenshots/reframe_overview_screenshot.png' width=900 style="max-width:100%;"/></p>
 <p align="center"><img src='https://gitlab.com/brillout/reframe/raw/master/docs/screenshots/reframe_overview_screenshot.png' width=450 style="max-width:100%;"/></p>
 
 bef
