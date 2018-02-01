@@ -22,14 +22,14 @@
 
 Reframe allows you to create apps by simply defining pages with
  - a React component, and
- - and a *page objects*, which is a JavaScript object that defines a page.
+ - a *page object*, which is a JavaScript object that defines the page.
 
 Reframe takes care of the rest; It automatically transpiles, bundles and serves your pages.
 
 With Reframe, you can easily create
- - universal react apps (that is, apps with server-rendered React, which are also called isomorphic apps),
- - static react apps (that is apps where the HTML), and
- - other kinds of react apps (JavaScript-less apps, partial dynamic apps, etc., which we will discuss later).
+ - universal react apps (also called isomorphic apps, in other words apps with server-rendered React),
+ - static react apps (in other words apps where all pages are rendered to HTML at build-time), and
+ - other kinds of react apps (mainly "JavaScript-less apps" and "partial dynamic apps" which we will discuss later).
 
 A page object looks like this:
 
@@ -44,10 +44,10 @@ Running the `reframe` CLI takes care of the rest.
 
 ### Why Reframe?
 
-Reframe has been designed with following focus on (in order)
- 1. Ease of Use
- 2. Customization
- 3. Performance
+Reframe has been designed with following focus on
+ - Ease of Use
+ - Customization
+ - Performance
 
 ##### Ease of Use
 
