@@ -29,7 +29,7 @@ Reframe takes care of the rest; It automatically transpiles, bundles and serves 
 With Reframe, you can easily create
  - universal react apps (in other words apps with server-side rendering),
  - static react apps (in other words apps where all pages' HTML are rendered at build-time), and
- - other kinds of react apps (mainly "JavaScript-less apps" and "partial dynamic apps" which we will in the "The future of React is SRO" section).
+ - other kinds of react apps (mainly "browser-static apps" and "partial dynamic apps" which we will in the "The future of React is SRO" section).
 
 A page object looks like this:
 
@@ -111,9 +111,37 @@ For more information, see the Customization manual
 Reframe consists of 3 parts 
 
 
-### The future of React is SRO
+### The future of React is "SRO-by-default"
 
-React is not only a great library to implement interactive views, but it is also a great templating engine.
+Imagine we want to create a web app where no page is interactive (in other words where the DOM is not manipulated).
+Would be want to use React to create such web app?
+
+Probably not, as React is a tool for creating interactive views.
+
+On the other, and even if we don't manipulate the DOM, React is still a great templating engine to generate HTML.
+With React, we can create JavaScript's expressivness to define views, which is quite neat and superior to declarative template engines.
+
+But more importantly, if it does happen that some p
+
+Also, JavaScript is one of the most popular language, relatively easy and performant
+
+great for static views as well.
+, would you use React
+Imagine you 
+
+React is not only a great library to implement dynamic views,
+but it is also a great templating engine.
+A React component is universal:
+It describes a view
+that can be static or dynamic, and
+that can be rendered to the DOM or to HTML.
+No other templating engine is that universal (with the exception of React-like engines).
+And using the expressivness of JavaScript to define React components is vastly more powerful than any 
+
+
+
+
+We predict that React will become the de-facto templating engine.
 
 Even if you don't 
 Even if none of yours pages
@@ -121,13 +149,15 @@ Even if none of yours pages
 Hacker news has almost no interactive.
 React's popularity is increasing and is becoming the de-facto, similar to (Vue.js is great but it does a poor job on the server.)
 React in itself is a near-optimal experience; It does only one thing and does it very well.
+The problem with React is that 
 The only problem but the ecosystem around React is still young.
+But this is changing and Reframe is contributing.
 
 Reframe's vision is that learning JavaScript and React will be enough to build a full-stack application.
 
 With *SRO* 
 
-**If you page doesn't need to be dynamic, then it shouldn't**.
+**If your page doesn't need to be interactive, then it shouldn't**.
 Pages that dynamically change in the browser.
 Dynamic pages are difficult by nature, and not matter how much better our tooling will become, dynamic pages will remain considerably more complex then static pages.
 
