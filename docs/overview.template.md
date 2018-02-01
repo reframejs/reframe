@@ -111,17 +111,50 @@ For more information, see the Customization manual
 Reframe consists of 3 parts 
 
 
-### The future of React is "SRO-by-default"
+### The future of React is bright and is "SRO-by-default"
 
-Imagine we want to create a web app where no page is interactive (in other words where the DOM is not manipulated).
-Would be want to use React to create such web app?
+> **TL;DR**
+> Reframe w
 
-Probably not, as React is a tool for creating interactive views.
+Let's imagine a dev team that needs to implement a web app where no page is interactive.
+In other words the DOM is never manipulated.
+(We call a web app / a page *DOM-static* when the DOM is not manipulated and we call it *DOM-dynamic* otherwise).
+Would be want to use React to create such DOM-static web app?
+
+Maybe not, as React is a tool for creating interactive views.
+Instead we could use Ruby on Rails, Django, or Go.
+Let's say we choose Go.
+Since , no JavaScript is written.
+If the company will always have projects DOM-static web apps,
+but this is unlikely.
+But the chances are high that some new project or new project requirement will require DOM-dynamic page(s).
+At this point the dev team will have no choice than to acquire knowledge about JavaScript and a view library such as React.
+
+The problem would not have occured, if the dev team would have chosen React and JavaScript.
+
+There may be JavaScript fatigue, but JavaScript and React are not going anywhere if not even more popular.
+
+Likewise, on a career level, learning JavaScript and React is a robust choice.
+
+But there is a problem: Implementing a web app solely with JavaScript and React is currently overly effortful.
+These days, it is easier to implement a DOM-static web app with Ruby on Rails (RoR) than with JavaScript & React.
+But this is changing.
+The reason that RoR is easier is not because of the Ruby language nor because of RoR's template engine.
+It's because of RoR itself, the framework.
+JavaScript & React are missing a framework and Reframe aims to be that framework.
+
+**Soon JavaScript & React will get a framework at eye level with RoR. At that point, there will be virtually no reason to choose RoR over JavaScript & React. Reframe aims to be that framework.**
+
+JavaScript & React is more difficult is because
+But this is because no high-quality web app framework using React has emerged yet.
+Reframe aims to fill the gap.
+
 
 On the other, and even if we don't manipulate the DOM, React is still a great templating engine to generate HTML.
 With React, we can create JavaScript's expressivness to define views, which is quite neat and superior to declarative template engines.
 
-But more importantly, if it does happen that some p
+But more importantly, if it does happen that some page enventually need.
+With Reframe, adding interactivity to a DOM-static page  is a matter of only a couple of lines of code.
 
 Also, JavaScript is one of the most popular language, relatively easy and performant
 
@@ -134,9 +167,9 @@ but it is also a great templating engine.
 A React component is universal:
 It describes a view
 that can be static or dynamic, and
-that can be rendered to the DOM or to HTML.
-No other templating engine is that universal (with the exception of React-like engines).
-And using the expressivness of JavaScript to define React components is vastly more powerful than any 
+that can be rendered to the DOM or to HTML or even to native iOS/Android.
+No other templating engine is that universal.
+And using the expressivness of JavaScript to define React components is vastly more powerful than any declarative template engines.
 
 
 
@@ -166,7 +199,7 @@ Every usage signal; React popularity is steadly increasing and not stopping.
 Why not use Ruby on Rails, Django, or Flask instead of React then? Because
  1. React/JSX is a vastly superior HTML templating engine.
  1. React/JSX is an incredibly powerful HTML templating engine.
- It is vastly superior to previous declarative template engines.
+ It is vastly superior to previous 
 
  2. 
  3. One language for both the browser and the server.
@@ -178,6 +211,10 @@ Why not use Ruby on Rails, Django, or Flask instead of React then? Because
 **Reframe embraces this future and allows you to JavaScript-less pages.**
 
 At the cornerstore of this is the concept of We call such page a *HTML-static* and *DOM-static* page, and the Usage Manual explains (Switching is a matter of change 1 line)
+
+
+
+
 
 ##### A more reasonable approach to dynamic pages
 
@@ -277,9 +314,16 @@ Reframe **doesn't** take care of:
 ### Reframe Alternatives
 
 The exhaustive list of frameworks/tools (scaffolds not included) that help create server-rendered React apps:
+
+###### Frameworks
+
  - [Next.js](https://github.com/zeit/next.js)
- - [Razzle](https://github.com/jaredpalmer/razzle)
  - [After.js](https://github.com/jaredpalmer/after.js)
+
+###### Libraries
+
+ - [Razzle](https://github.com/jaredpalmer/razzle)
+ - [Universal Router](https://github.com/kriasoft/universal-router)
 
 Make a PR if something is missing in the list.
 (Gatsby is for static apps only, Create React App is a scaffold.)
