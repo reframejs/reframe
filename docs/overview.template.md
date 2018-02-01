@@ -41,20 +41,9 @@ A page object looks like this:
 
 Running the `reframe` CLI takes care of the rest:
 
-<p align="center"><img src='https://gitlab.com/brillout/reframe/raw/master/docs/logo/logo-with-title.svg' width=450 style="max-width:100%;" alt="Reframe"/></p>
-<p align="center"><img src='/../../../brillout/reframe/raw/master/docs/logo/logo-with-title.svg' width=450 style="max-width:100%;" alt="Reframe"/></p>
-<p align="center"><img src='/../../../brillout/reframe/raw/master/docs/screenshots/reframe_overview_screenshot.png' width=900 style="max-width:100%;"/></p>
-<p align="center"><img src='https://gitlab.com/brillout/reframe/raw/master/docs/screenshots/reframe_overview_screenshot.png' width=450 style="max-width:100%;"/></p>
-
-bef
-
-![](https://gitlab.com/brillout/reframe/raw/master/docs/logo/logo-with-title.svg)
-
-mid
-
-![](https://gitlab.com/brillout/reframe/raw/master/docs/screenshots/reframe_overview_screenshot.png)
-
-aft
+<p align="center">
+    <img src='https://gitlab.com/brillout/reframe/raw/master/docs/screenshots/reframe_overview_screenshot.png' width=1200 style="max-width:100%;"/>
+</p>
 
 ### Why Reframe?
 
