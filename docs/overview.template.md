@@ -27,9 +27,9 @@ Reframe allows you to create apps by simply defining pages with
 Reframe takes care of the rest; It automatically transpiles, bundles and serves your pages.
 
 With Reframe, you can easily create
- - universal react apps (also called isomorphic apps, in other words apps with server-rendered React),
- - static react apps (in other words apps where all pages are rendered to HTML at build-time), and
- - other kinds of react apps (mainly "JavaScript-less apps" and "partial dynamic apps" which we will discuss later).
+ - universal react apps (in other words apps with server-side rendering),
+ - static react apps (in other words apps where all pages' HTML are rendered at build-time), and
+ - other kinds of react apps (mainly "JavaScript-less apps" and "partial dynamic apps" which we will in the "The future of React is SRO" section).
 
 A page object looks like this:
 
@@ -113,9 +113,23 @@ Reframe consists of 3 parts
 
 ### The future of React is SRO
 
-I've seen seen all too often.
+React is not only a great library to implement interactive views, but it is also a great templating engine.
 
-**If you page doesn't need to be dynamic, then it shouldn't**. The truth is, dynamic pages are difficult by nature, and not matter how much better our tooling will become, dynamic pages will remain considerably more complex then static pages.
+Even if you don't 
+Even if none of yours pages
+
+Hacker news has almost no interactive.
+React's popularity is increasing and is becoming the de-facto, similar to (Vue.js is great but it does a poor job on the server.)
+React in itself is a near-optimal experience; It does only one thing and does it very well.
+The only problem but the ecosystem around React is still young.
+
+Reframe's vision is that learning JavaScript and React will be enough to build a full-stack application.
+
+With *SRO* 
+
+**If you page doesn't need to be dynamic, then it shouldn't**.
+Pages that dynamically change in the browser.
+Dynamic pages are difficult by nature, and not matter how much better our tooling will become, dynamic pages will remain considerably more complex then static pages.
 
 Every usage signal; React popularity is steadly increasing and not stopping. 
 
@@ -297,6 +311,11 @@ $ reframe ~/tmp/reframe-playground/pages
 ✔ Frontend built at ~/tmp/reframe-playground/dist/browser/ [DEV]
 ✔ Server running at http://localhost:3000
 ~~~
+
+What happens here
+
+ - Reframe searches for the `/pages` directory and finds it at `~/tmp/reframe-playground/pages`
+ - Reframe reads the `/pages` directory 
 
 That's it, we have created our first page. You now know 50% of Reframe's basic usage.
 
