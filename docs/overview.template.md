@@ -114,8 +114,10 @@ Reframe consists of 3 parts
 ### The future of React is bright and is "SRO-by-default"
 
 > **TL;DR**
+> - Pages that have a DOM that is mostly static. are considerably easier to create and considerably more performant.
+> - Reframe supports and encourages the creation of such mostly-DOM-static pages.
+> - Reframe will eventually
 > - A web app framework on eye-level with RoR / Django based on JavaScript and React will soon emerge.
-> - Reframe allows the creation of web apps that are mostly DOM-dynamic as well as web apps that are mostly DOM-static.
 
 Let's imagine a dev team that needs to implement a web app where no page is interactive.
 In other words the DOM is never manipulated.
@@ -143,6 +145,9 @@ JavaScript & React are missing a framework and Reframe aims to be that framework
 
 
 
+
+
+> - Reframe allows the creation of web apps that are mostly DOM-dynamic as well as web apps that are mostly DOM-static.
 
 
 There may be JavaScript fatigue, but JavaScript and React are not going anywhere and their popularity and adoption are only increasing.
