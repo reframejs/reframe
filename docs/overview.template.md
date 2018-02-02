@@ -20,16 +20,21 @@
 
 ### What is Reframe?
 
-Reframe allows you to create apps by simply defining pages with
- - a React component, and
- - a *page object*, which is a JavaScript object that defines the page.
+Reframe allows you to create apps by simply defining pages where one page is defined by
+ - one React component,
+ - one route, and
+ - one *page object*, which is a plain JavaScript object that defines the page's React component, the page's route, the page's &lt;title&gt;, etc.
 
-Reframe takes care of the rest; It automatically transpiles, bundles and serves your pages.
+Reframe takes care of the rest; It automatically transpiles, bundles, serves, and routes your pages.
+
+This means that no configuration is required to create a React web app: no build configuration, no server configuration.
+All you need is one React component, one route, and one page object per page.
+But, and only if you need to, everything is customizable: you can customize the transpiling & bundling, the server, the browser entry code, the process manager, etc.
 
 With Reframe, you can easily create
- - universal react apps (in other words apps with server-side rendering),
- - static react apps (in other words apps where all pages' HTML are rendered at build-time), and
- - other kinds of react apps (mainly "browser-static apps" and "partial dynamic apps" which we will in the "The future of React is SRO" section).
+ - universal React apps (in other words apps with React Server-Side Rendering),
+ - static React apps (in other words apps where all pages' HTML are rendered at build-time), and
+ - other kinds of React apps (mainly "browser-static apps" and "partial dynamic apps" which we will in the "The future of React is SRO" section).
 
 A page object looks like this:
 
@@ -39,7 +44,7 @@ A page object looks like this:
 !INLINE ../example/pages/HelloPage.html.js --hide-source-path
 ~~~
 
-Running the `reframe` CLI takes care of the rest:
+Running the `reframe` CLI then takes care of the rest:
 
 <p align="center">
     <img src='https://gitlab.com/brillout/reframe/raw/master/docs/screenshots/reframe_overview_screenshot.png' width=1200 style="max-width:100%;"/>
@@ -254,10 +259,11 @@ It's not SRO React that is hard to implement, it's actually browser React the di
   All pages are rendered to HTML, which considerably decreases the perceived load time.
 - Code splitting.
   <br/>
-  Every page has loads two scripts:
+  Every page loads two scripts:
   A script shared and cached accross all pages that include common code such as React and polyfills,
   and a script that is specific to the page,
   which is typically lightweight.
+  This means that if a page requires KB-heavy libraries that won't affect the KB-size of other pages.
 - Optimal HTTP Caching.
   <br/>
   Every dynamic server response is cached with a Etag header, and
