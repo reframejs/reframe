@@ -322,7 +322,7 @@ About 2:
 Next.js doesn't allow you to create pages that load the minimum amount of JavaScript.
 But React is more and more used in a server-rendering-only fashion; See the "The future of React is SRO".
 
-Beyond that, Next.js lacks in ease of use. (Next.js's routing is a big hassle, server cusomtization is a hassle, static apps are cumbersome, custom browser JavaScript for things such as error tracking is not supported,  etc.)
+Beyond that, Next.js lacks in ease of use. (Next.js's routing is a big hassle, server cusomtization is a hassle, static apps are cumbersome, customization of browser JavaScript is not possible for things such as error tracking, AMP pages,  etc.)
 
 
 
