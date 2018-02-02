@@ -315,17 +315,16 @@ On a high-level, Next.js's main problem is that
 
  1. Using Next.js feels like having tied hands.
     <br/>
-    Next.js works well if you comply with its design decisions, but if you don't, you are in for trouble if you don't.
+    Next.js works well if you comply with its design decisions but you are in for trouble if you don't.
     For example, Next.js's webpack customization is broken which leads to no support for typescript, PostCSS, SASS, etc.
 
  2. Next.js only supports other types of apps beyond universal
-    Imagine, you then certainly don't want
-    Reframe supports every type of React apps.
-
- 3. Next.js doesn't embrace the future
     <br/>
     Next.js supports only two types of apps: universal apps (where the entire page is rendered to HTML at request-time and hydrated in the browser) and static apps (where all pages are rendered to HTML at build-time).
     But React allows a higher variety of applications that . All of them are not supported by Next.js. Hybrid dynamic static apps
+    Reframe supports every type of React apps.
+
+ 3. Next.js doesn't embrace the future
 
 
 
