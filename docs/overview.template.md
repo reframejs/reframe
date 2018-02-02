@@ -256,6 +256,17 @@ Why not use Ruby on Rails, Django, or Flask instead of React then? Because
  3. WebAssembly means that you can quickely implement prototypes with a script language and have great performence with a GC-less statically-typed language.
  4. WebAssembly means that you'll eventually be able to choose amongst a high variety of languages while 
 
+
+Website cooking recipes with AMP
+Still worth it because
+ - Reuse the whole React & Reframe ecosystem
+ -
+
+React is popular:
+ - https://stateofjs.com/2017/front-end/results
+  - 90% say they would use React again. Even though the tooling around React is still very young and immature.
+ - more interestingly is everytime I talk to people about React what strikes me the level of enthusiam. I've never seen such repeated enthusiam for a programming library before.
+
 **Even if all your pages aren't dynamic, React is still the right choice**.
 
 **Reframe embraces this future and allows you to JavaScript-less pages.**
