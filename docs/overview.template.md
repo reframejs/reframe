@@ -36,6 +36,10 @@ With Reframe, you can easily create
  - static React apps (in other words apps where all pages' HTML are rendered at build-time)
  - other kinds of React apps (mainly "browser-static apps" and "partial dynamic apps" which we will in the "The future of React is SRO" section)
 
+Some benefits;
+ - pages with minimal amount of JavaScript
+ - Accelerated Mobile Pages
+
 For example, the following code snippet defines a 
 A page object looks like this:
 
@@ -65,6 +69,28 @@ the Quick Start section bellow shows how easy it is.
 see how easy it is to create a page that has a server-rendered React component.
 
 Beyond the ease of creating pages, Reframe encourages the creation of apps that use React predominantly on the server which makes developing apps easier. (The "The future of React is SRO" section bellow expands on this.)
+
+#### Universatity
+
+Reframe is designed to able to implement all kinds of React apps.
+
+Beyond the now wide-spread
+Whet
+
+ - DOM-static pages
+  <br/>
+   No 200KB heavy React+Polyfill are loaded.
+ - Partial DOM-dynamic pages
+
+ This 
+
+More and more web apps are going to emerge where a majority of the app's pages are DOM-static and only some pages are (partially) DOM-dynamic.
+n
+
+[Progressive Web Apps](https://developers.google.com/web/progressive-web-apps/)
+
+
+
 
 #### Customization
 
@@ -297,10 +323,6 @@ Next.js doesn't allow you to create pages that load the minimum amount of JavaSc
 But React is more and more used in a server-rendering-only fashion; See the "The future of React is SRO".
 
 Beyond that, Next.js lacks in ease of use. (Next.js's routing is a big hassle, server cusomtization is a hassle, static apps are cumbersome, custom browser JavaScript for things such as error tracking is not supported,  etc.)
-
-Still, Next.js is awesome because it made creating a simple app easier.
-But it kind of feels like AngularJS; AngularJS was awesome because it made but it always felt messy and wrong.
-In short, Next.js could use some healt
 
 
 
