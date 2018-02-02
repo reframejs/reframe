@@ -311,7 +311,7 @@ It's not SRO React that is hard to implement, it's actually browser React the di
 
 ### Reframe VS Next.js
 
-On a high-level, The main problem with Next.js, is that
+On a high-level, Next.js's main problem is that
 
  1. Using Next.js feels like having tied hands.
     <br/>
@@ -347,7 +347,7 @@ On a low-level, Next.js lacks in terms of ease of use, performance and security:
  - No support for third party code integration such as error tracking, google analytics, etc. (Next.js doesn't allow you to control 
  - No
  - No support for [AMP](https://www.ampproject.org/)
- - Security
+ - Security issues. [Easy](https://github.com/zeit/next.js/blob/33f8f282099cb34db2c405aabb883af836d6dc2a/test/integration/production/test/security.js)
 
 
 
