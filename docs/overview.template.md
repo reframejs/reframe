@@ -34,7 +34,8 @@ But, and only if you need to, everything is customizable: you can customize the 
 With Reframe, you can easily create
  - universal React apps (in other words apps with React Server-Side Rendering)
  - static React apps (in other words apps where all pages' HTML are rendered at build-time)
- - other kinds of React apps (mainly "browser-static apps" and "partial dynamic apps" which we will in the "The future of React is SRO" section)
+ - Server-side renderer React apps that load a minimal amount of JavaScript in the browser  (mainly "browser-static apps" and "partial dynamic apps" which we will in the "The future of React is SRO" section)
+ - every kind of React app
 
 Some benefits;
  - pages with minimal amount of JavaScript
@@ -310,7 +311,7 @@ It's not SRO React that is hard to implement, it's actually browser React the di
 
 ### Reframe VS Next.js
 
-The main problem with Next.js, is that
+On a high-level, The main problem with Next.js, is that
  1. using Next.js feels like having tied hands, and
  2. Next.js doesn't embrace the trend of using React predominantly on the server.
 
@@ -322,7 +323,18 @@ About 2:
 Next.js doesn't allow you to create pages that load the minimum amount of JavaScript.
 But React is more and more used in a server-rendering-only fashion; See the "The future of React is SRO".
 
-Beyond that, Next.js lacks in ease of use. (Next.js's routing is a big hassle, server cusomtization is a hassle, static apps are cumbersome, customization of browser JavaScript is not possible for things such as error tracking, AMP pages,  etc.)
+On a low-level, Next.js lacks in terms of ease of use, performance and security:
+ - Next.js's routing is a big hassle
+ - Server cusomtization is a hassle
+ - The creation of static apps is uncesseray complicated
+   <br>
+   In contrast, with Reframe static apps are just a matter of setting `htmlIsStatic: true` to every page object and the whole developing experience stays the same.
+ - Customization of browser JavaScript is not possible for things such as error tracking
+ - No typescript support (The
+ - No support for third party code integration such as error tracking, google analytics, etc. (Next.js doesn't allow you to control 
+ - No
+ - No support for [AMP](https://www.ampproject.org/)
+ - Security
 
 
 
