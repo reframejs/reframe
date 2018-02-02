@@ -27,13 +27,13 @@ Reframe allows you to create apps by simply defining pages where one page is def
 
 Reframe takes care of the rest; It automatically transpiles, bundles, serves, and routes your pages.
 
-This means that no configuration is required to create a React web app: no build configuration, no server configuration.
+This means that, with Reframe, you can build a React web app with no build configuration and no server configuration.
 All you need is one React component, one route, and one page object per page.
-But, and only if you need to, everything is customizable: you can customize the transpiling & bundling, the server, the browser entry code, the process manager, etc.
+But, if you need to, everything is customizable: you can customize the transpiling & bundling, the server, the browser entry, the server entry, etc.
 
 With Reframe, you can easily create
- - universal React apps (in other words apps with React Server-Side Rendering)
- - static React apps (in other words apps where all pages' HTML are rendered at build-time)
+ - Universal React apps. (In other words apps where the pages are rendered to HTML with React on the server)
+ - static React apps (In other words apps where all pages' HTML are rendered at build-time - don't need a Node.js server and can be deployed to static website hosting such as GitHub Pages or Netlify.)
  - Server-side renderer React apps that load a minimal amount of JavaScript in the browser  (mainly "browser-static apps" and "partial dynamic apps" which we will in the "The future of React is SRO" section)
  - every kind of React app
 
@@ -297,6 +297,7 @@ It's not SRO React that is hard to implement, it's actually browser React the di
   Every dynamic server response is cached with a Etag header, and
   every static server response is indefinitely cached.
   (By assigning the static asset to a hashed URL, and by setting the `Cache-Control` header to `immutable` and `max-age`'s maxium value.)
+- Pages that load a minimal amount of browser-side JavaScript
 - DOM-static pages.
   <br/>
   A page can be configured to be rendered only on the server.
@@ -325,6 +326,10 @@ On a high-level, Next.js's main problem is that
     Reframe supports every type of React apps.
 
  3. Next.js doesn't embrace the future
+    <br/>
+    Next.js's focus is limited to universal and static apps, yet more and more React applications will implement hybrid apps that have a mix of DOM-static pages, DOM-dynamic pages, HTML-static pages and HTML-dynamic pages.
+    Furthermore, Next.js's team don't show interest in topis such as state management, view logic management, database integration, ORM, Asynchronous tasks, CMS, etc.
+    Reframe strives to expand in these areas.
 
 
 
@@ -459,8 +464,13 @@ $ reframe ~/tmp/reframe-playground/pages
 What happens here
 
  - Reframe searches for the `/pages` directory and finds it at `~/tmp/reframe-playground/pages`
- - Reframe reads the `/pages` directory 
+ - Reframe reads the `/pages` directory and finds `~/tmp/reframe-playground/pages/HelloPage.html.js`
+ - Reframe transpiles `HelloPage.html.js` and creates two JavaScript bundles: one bundle shared- and another bundle specific to `HelloPage` that will only be loaded when navigating to a URL matching our `HelloPage` page's route `/hello/{name}`.
+ - Reframe starts a server
 
-That's it, we have created our first page. You now know 50% of Reframe's basic usage.
+That's it. We have created our first React web app with only one React Component and one page object.
 
+And you now know already 50% of Reframe's basic usage.
+
+To get to know how to (it's a matter of 1 line of code) 
 For further information, see The "Basic Usage" section of the [Usage Manual](/docs/usage-manual.md) contains.
