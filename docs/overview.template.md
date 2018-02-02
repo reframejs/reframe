@@ -21,8 +21,8 @@
 ### What is Reframe?
 
 Reframe allows you to create apps by simply defining pages where one page is defined by
- - one React component,
- - one route, and
+ - one React component
+ - one route
  - one *page object*, which is a plain JavaScript object that defines the page's React component, the page's route, the page's &lt;title&gt;, etc.
 
 Reframe takes care of the rest; It automatically transpiles, bundles, serves, and routes your pages.
@@ -32,10 +32,11 @@ All you need is one React component, one route, and one page object per page.
 But, and only if you need to, everything is customizable: you can customize the transpiling & bundling, the server, the browser entry code, the process manager, etc.
 
 With Reframe, you can easily create
- - universal React apps (in other words apps with React Server-Side Rendering),
- - static React apps (in other words apps where all pages' HTML are rendered at build-time), and
- - other kinds of React apps (mainly "browser-static apps" and "partial dynamic apps" which we will in the "The future of React is SRO" section).
+ - universal React apps (in other words apps with React Server-Side Rendering)
+ - static React apps (in other words apps where all pages' HTML are rendered at build-time)
+ - other kinds of React apps (mainly "browser-static apps" and "partial dynamic apps" which we will in the "The future of React is SRO" section)
 
+For example, the following code snippet defines a 
 A page object looks like this:
 
 ~~~js
