@@ -312,12 +312,25 @@ It's not SRO React that is hard to implement, it's actually browser React the di
 ### Reframe VS Next.js
 
 On a high-level, The main problem with Next.js, is that
- 1. using Next.js feels like having tied hands, and
- 2. Next.js doesn't embrace the trend of using React predominantly on the server.
+
+ 1. Using Next.js feels like having tied hands.
+    <br/>
+    Next.js works well if you comply with its design decisions, but if you don't, you are in for trouble if you don't.
+    For example, Next.js's webpack customization is broken which leads to no support for typescript, PostCSS, SASS, etc.
+
+ 2. Next.js only supports other types of apps beyond universal
+    Imagine, you then certainly don't want
+    Reframe supports every type of React apps.
+
+ 3. Next.js doesn't embrace the future
+    <br/>
+    Next.js supports only two types of apps: universal apps (where the entire page is rendered to HTML at request-time and hydrated in the browser) and static apps (where all pages are rendered to HTML at build-time).
+    But React allows a higher variety of applications that . All of them are not supported by Next.js. Hybrid dynamic static apps
+
+
 
 About 1:
-Next.js works well if you comply with its design decisions, but if you don't, you are in for trouble.
-For example, Next's webpack customization is broken (in parts because Next.js doesn't do universal webpack) which leads to no support for typescript, PostCSS, SASS, etc.
+(mainly because in parts because Next.js doesn't do universal webpack)
 
 About 2:
 Next.js doesn't allow you to create pages that load the minimum amount of JavaScript.
