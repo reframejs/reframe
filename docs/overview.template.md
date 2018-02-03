@@ -21,12 +21,12 @@
 ### What is Reframe?
 
 Reframe allows you to create a web app by simply defining pages.
-Reframe takes care of the rest: It automatically transpiles, bundles, serves, and routes your pages.
+Reframe then takes care of the rest: It automatically transpiles, bundles, serves, and routes your pages.
 
-A page is defined with a plain JavaScript called the *page object*.
+A page is defined by a plain JavaScript object called *page config*.
 
 ~~~js
-// We define a page object to create a landing page.
+// We define a page config to create a landing page.
 const LandingPage = {
     route: '/',
     view: () => <div>Welcome to Reframe</div>,
@@ -34,28 +34,55 @@ const LandingPage = {
 };
 ~~~
 
-The page object configures a page by assigning the page:
+The page config configures a page by assigning the page:
  - a React component (required)
  - a route (required)
- - optional page configurations (such as the page's &lt;title&gt;, meta tags, script tags, whether the page should by hydrated, if the page's HTML should be rendered either at build-time or at request-time, etc.)
+ - optional page configurations (such as the page's &lt;title&gt;, meta tags, script tags, whether the page should by hydrated or not, if the page's HTML should be rendered either at build-time or at request-time, etc.)
 
 This means that you can build a React web app with **no build configuration** and **no server configuration**.
-**All you need to create a React app is one React component, one route, and one page object per page.**
-But, if you need to, **everything is customizable**: you can customize the transpiling & bundling, the server, the browser entry, the server entry, etc.
+**All you need to create a React app is one React component, one route, and one page config per page.**
+But, if you need to, **everything is customizable**: you can customize the transpiling & bundling, the server, the browser entry, the Node.js entry, etc.
 
 With Reframe, you can easily create
- - **Server-side rendered React apps**.
+
+ - **Server-side rendered React apps**
  <br/>
- In other words apps where the pages are rendered to HTML with React on the server
+ In other words, apps where the pages's React components are rendered to HTML at request-time on the server.
+
  - **Static React apps**
  <br/>
- In other words apps where all pages' HTML are rendered at build-time.
+ In other words, apps where the pages' HTML are rendered at build-time.
  We also call such apps HTML-static apps.
  These apps don't need a Node.js server and can be deployed to a static website hosting such as GitHub Pages or Netlify.
+
  - **DOM-static React apps**
  <br/>
+ In other words, apps where the DOM is static and React is solely used to render HTML on the server.
+ No JavaScript is loaded in the browser or kept to a minimum.
+ Also, Reframe allows you to define pages where are made dynamic/interactive with React and we call such page *partial DOM-dynamic*.
+ (It certainly is wasteful to hydrate a page that only has 5%)
+
  that load a minimal amount of JavaScript in the browser  (mainly "browser-static apps" and "partial dynamic apps" which we will in the "The future of React is SRO" section)
+
  - **Every kind of React app**
+ <br/>
+ Reframe generates a certain type of app depending on how you configure your pages.
+ For example, if you add `htmlIsStatic: true` to a page config, then that page's HTML is rendered at build-time instead of request-time.
+ So, if all page configs have `htmlIsStatic: true` then Reframe will generate a static React app.
+ Page configs also allow to configure what parts of the DOM are dynamic and what parts are static.
+ That way and pages where the entire DOM is static will not load the 200KB React+Polyfill bundle.
+ whether the DOM is static and the page doesn't need to be hydrated or not.
+
+ and a 
+ Reframe is designed to allow all a variety 
+ Similarly a page config can configure the page so that the page's will not by hydrated
+ Reframe allows you to create all kinds of apps.
+ It achieves so by all
+ Whether how your pages objects configures your pages
+
+
+What kind of apps Reframe will generate is mostly simply a matter of configurating your pages.
+
 
 Some benefits;
  - pages with minimal amount of JavaScript
