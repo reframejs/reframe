@@ -34,26 +34,28 @@ const LandingPage = {
 };
 ~~~
 
-The page object assigns a page:
+The page object configures a page by assigning the page:
  - a React component (required)
  - a route (required)
- - optional parameters, such as the page's &lt;title&gt;, meta tags, script tags, whether the page should by hydrated, whether the page's HTML should be rendered on build-time or request-time, etc.
+ - optional page configurations (such as the page's &lt;title&gt;, meta tags, script tags, whether the page should by hydrated, if the page's HTML should be rendered either at build-time or at request-time, etc.)
 
-This means that, with Reframe, you can build a React web app with **no build configuration** and **no server configuration**.
+This means that you can build a React web app with **no build configuration** and **no server configuration**.
 **All you need to create a React app is one React component, one route, and one page object per page.**
-But, if you need to, everything is customizable: you can customize the transpiling & bundling, the server, the browser entry, the server entry, etc.
+But, if you need to, **everything is customizable**: you can customize the transpiling & bundling, the server, the browser entry, the server entry, etc.
 
 With Reframe, you can easily create
- - **Universal React apps**.
+ - **Server-side rendered React apps**.
  <br/>
  In other words apps where the pages are rendered to HTML with React on the server
  - **Static React apps**
  <br/>
- (In other words apps where all pages' HTML are rendered at build-time - don't need a Node.js server and can be deployed to static website hosting such as GitHub Pages or Netlify.)
+ In other words apps where all pages' HTML are rendered at build-time.
+ We also call such apps HTML-static apps.
+ These apps don't need a Node.js server and can be deployed to a static website hosting such as GitHub Pages or Netlify.
  - **DOM-static React apps**
  <br/>
  that load a minimal amount of JavaScript in the browser  (mainly "browser-static apps" and "partial dynamic apps" which we will in the "The future of React is SRO" section)
- - every kind of React app
+ - **Every kind of React app**
 
 Some benefits;
  - pages with minimal amount of JavaScript
