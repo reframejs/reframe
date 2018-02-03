@@ -58,39 +58,17 @@ With Reframe, you can easily create
  - **DOM-static React apps**
  <br/>
  Apps where the DOM is static and React is only used for rendering HTML on the server.
- No JavaScript is loaded in the browser or is kept to a minimum.
- Also, Reframe allows you to define pages where are made dynamic/interactive with React and we call such page *partial DOM-dynamic*.
- (It certainly is wasteful to hydrate a page that only has 5%)
-
- that load a minimal amount of JavaScript in the browser  (mainly "browser-static apps" and "partial dynamic apps" which we will in the "The future of React is SRO" section)
+ No (or almost no) JavaScript is loaded in the browser.
 
  - **Every kind of React app**
  <br/>
  Reframe generates a certain type of app depending on how you configure your pages.
  For example, if you add `htmlIsStatic: true` to a page config, then that page's HTML is rendered at build-time instead of request-time.
  So, if all page configs have `htmlIsStatic: true` then Reframe will generate a static React app.
- Page configs also allow to configure what parts of the DOM are dynamic and what parts are static.
- That way and pages where the entire DOM is static will not load the 200KB React+Polyfill bundle.
- whether the DOM is static and the page doesn't need to be hydrated or not.
 
- and a 
- Reframe is designed to allow all a variety 
- Similarly a page config can configure the page so that the page's will not by hydrated
- Reframe allows you to create all kinds of apps.
- It achieves so by all
- Whether how your pages objects configures your pages
+Reframe supports a high varitety of app types you can choose from by simply configurating your page configs.
 
-
-What kind of apps Reframe will generate is mostly simply a matter of configurating your pages.
-
-
-Some benefits;
- - pages with minimal amount of JavaScript
- - Accelerated Mobile Pages
-
-pages directory
-For example, the following code snippet defines a 
-A page object looks like this:
+In the following we create a web app by defining a page with a page config `HelloPage`.
 
 ~~~js
 // ~/tmp/reframe-playground/pages/HelloPage.html.js
@@ -108,6 +86,7 @@ Running the `reframe` CLI then takes care of the rest:
 
 Reframe has been designed with following focus on
  - Ease of Use
+ - Universatity
  - Customization
  - Performance
 
@@ -121,6 +100,7 @@ Beyond the ease of creating pages, Reframe encourages the creation of apps that 
 
 #### Universatity
 
+As mentioned in the introduction 
 Reframe is designed to able to implement all kinds of React apps.
 
 Beyond the now wide-spread
@@ -143,7 +123,7 @@ n
 
 #### Customization
 
-Beyond the basic usage that is designed to be as easy as possible, Reframe allows deep customization.
+Beyond the basic usage that is designed to be as easy as possible, Reframe allows advanced customization.
 
 You can have
  - customize server
