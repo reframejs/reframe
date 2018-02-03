@@ -47,18 +47,18 @@ With Reframe, you can easily create
 
  - **Server-side rendered React apps**
  <br/>
- In other words, apps where the pages's React components are rendered to HTML at request-time on the server.
+ Apps where React components are rendered to HTML on the server at request-time.
 
  - **Static React apps**
  <br/>
- In other words, apps where the pages' HTML are rendered at build-time.
+ Apps where the pages' HTML are rendered at build-time.
  We also call such apps HTML-static apps.
  These apps don't need a Node.js server and can be deployed to a static website hosting such as GitHub Pages or Netlify.
 
  - **DOM-static React apps**
  <br/>
- In other words, apps where the DOM is static and React is solely used to render HTML on the server.
- No JavaScript is loaded in the browser or kept to a minimum.
+ Apps where the DOM is static and React is only used for rendering HTML on the server.
+ No JavaScript is loaded in the browser or is kept to a minimum.
  Also, Reframe allows you to define pages where are made dynamic/interactive with React and we call such page *partial DOM-dynamic*.
  (It certainly is wasteful to hydrate a page that only has 5%)
 
