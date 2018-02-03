@@ -20,27 +20,46 @@
 
 ### What is Reframe?
 
-Reframe allows you to create apps by simply defining pages where one page is defined by
- - one React component
- - one route
- - one *page object*, which is a plain JavaScript object that defines the page's React component, the page's route, the page's &lt;title&gt;, etc.
+Reframe allows you to create a web app by simply defining pages.
+Reframe takes care of the rest: It automatically transpiles, bundles, serves, and routes your pages.
 
-Reframe takes care of the rest; It automatically transpiles, bundles, serves, and routes your pages.
+A page is defined with a plain JavaScript called the *page object*.
 
-This means that, with Reframe, you can build a React web app with no build configuration and no server configuration.
-All you need is one React component, one route, and one page object per page.
+~~~js
+// We define a page object to create a landing page.
+const LandingPage = {
+    route: '/',
+    view: () => <div>Welcome to Reframe</div>,
+    title: 'Welcome'
+};
+~~~
+
+The page object assigns a page:
+ - a React component (required)
+ - a route (required)
+ - optional parameters, such as the page's &lt;title&gt;, meta tags, script tags, whether the page should by hydrated, whether the page's HTML should be rendered on build-time or request-time, etc.
+
+This means that, with Reframe, you can build a React web app with **no build configuration** and **no server configuration**.
+**All you need to create a React app is one React component, one route, and one page object per page.**
 But, if you need to, everything is customizable: you can customize the transpiling & bundling, the server, the browser entry, the server entry, etc.
 
 With Reframe, you can easily create
- - Universal React apps. (In other words apps where the pages are rendered to HTML with React on the server)
- - static React apps (In other words apps where all pages' HTML are rendered at build-time - don't need a Node.js server and can be deployed to static website hosting such as GitHub Pages or Netlify.)
- - Server-side renderer React apps that load a minimal amount of JavaScript in the browser  (mainly "browser-static apps" and "partial dynamic apps" which we will in the "The future of React is SRO" section)
+ - **Universal React apps**.
+ <br/>
+ In other words apps where the pages are rendered to HTML with React on the server
+ - **Static React apps**
+ <br/>
+ (In other words apps where all pages' HTML are rendered at build-time - don't need a Node.js server and can be deployed to static website hosting such as GitHub Pages or Netlify.)
+ - **DOM-static React apps**
+ <br/>
+ that load a minimal amount of JavaScript in the browser  (mainly "browser-static apps" and "partial dynamic apps" which we will in the "The future of React is SRO" section)
  - every kind of React app
 
 Some benefits;
  - pages with minimal amount of JavaScript
  - Accelerated Mobile Pages
 
+pages directory
 For example, the following code snippet defines a 
 A page object looks like this:
 
@@ -416,8 +435,8 @@ Make a PR if something is missing in the list.
 
 ### Quick Start
 
-Let's define a page.
-For that we will create a page object and a React component.
+Let's create our first React app.
+For that we will create a page by defining a page object and a React component.
 
 1. We first create a `pages/` directory:
 
