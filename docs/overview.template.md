@@ -149,11 +149,11 @@ Reframe is designed with "full customization" in mind:
 Reframe consists of three packages
 (`@reframe/build` that transpiles and bundles, `@reframe/server` that creates the server, `@reframe/browser` that hydrates the page in the browser)
 and each of these packages can be replaced with code of your own.
-That means that, if you replace all these three packages with your own code, you effectively get rid of Reframe.
+This means that, if you replace all these three packages with your own code, you effectively get rid of Reframe.
 
-Some examples of customization achievable when replacing Reframe packages:
+Some examples of customization achievable by replacing Reframe packages:
  - Custom server framework, such as Express, Koa, etc. (Reframe uses hapi by default)
- - Custom build tool such as Rollup (Reframe uses webpack by default)
+ - Custom build tool, such as Rollup (Reframe uses webpack by default)
  - etc.
 
 
