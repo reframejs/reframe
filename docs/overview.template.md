@@ -40,7 +40,7 @@ A page config configures a page by assigning it
  - further (optional) page configurations (such as the page's &lt;title&gt;, meta tags, script tags, whether the page should by hydrated or not, whether the page's HTML should be rendered at build-time or at request-time, etc.).
 
 You can build a React web app with **no build configuration** and **no server configuration**.
-**All you need to create a web app is one React component, one route, and one page config per page.**
+**All you need to create a web app is one React component and one page config per page.**
 But **everything is customizable**, if you need to.
 You can customize the transpiling & bundling, the server, the browser entry, the Node.js entry, etc.
 
@@ -48,7 +48,7 @@ By defining page configs you can easily create:
 
  - **Server-side rendered React apps**
  <br/>
- Apps where React components are rendered to HTML on the server at request-time.
+ Apps where pages are rendered to HTML on the server at request-time.
 
  - **HTML-static React apps**
  <br/>
@@ -95,72 +95,61 @@ Reframe has been designed with a focus on
 ##### Ease of Use
 
 Creating a React app is simply a matter of creating React components and page configs.
-The Quick Start section bellow shows how easy it is.
+The "Quick Start" section bellow shows how easy it is.
 
 #### Universality
 
-When React came out in 2013, it was used predominantly for the browser / the DOM.
-It is nowadays more and more used to generate HTML.
-We expect this trend to considerably increase.
-(See "The React Future" section.)
+When React came out in 2013, it was predominantly used for the browser / the DOM.
+Nowadays, it is more and more used to generate HTML.
+We expect this trend to considerably increase:
+React will increasingly be used for any kind of app that involves a UI,
+becoming the de-facto universal view library.
+The section "The React Future" provides a rationale for that trend.
 
-Reframe embraces this future and by supporting pretty much every type of web apps.
+Reframe embraces this future by supporting pretty much every type of web apps.
 
-In short, if you want to create, not matter what type of app, you can then use Reframe to quickly get started.
+Let's imagine for example that we want to create a web app where 95% of the app's content shown to the user is not interactive.
+In other words, 95% of the DOM is static.
+To implement our 95% DOM-static part,
+it would seem natural to use a DOM-static framework such as RoR or Django and use React for our DOM-dynamic parts.
+But, as explained in the section "The React Future", it actually makes sense to use React for everything, even for the 95% static part of the app.
+Reframe allows you to create such 95% DOM-static app today.
 
-In short, React may very well become the de-facto view library when creating any application that involves a UI.
-
-Current React frameworks only support certain types of web apps.
-In contrast, Reframe supports pretty much every type of web apps.
-(See the "What is Reframe" section for what kind of apps Reframe can generate.)
-
-
-Beyond the now wide-spread
-Whet
-
- - DOM-static pages
-  <br/>
-   No 200KB heavy React+Polyfill are loaded.
- - Partial DOM-dynamic pages
-
- This 
-
-More and more web apps are going to emerge where a majority of the app's pages are DOM-static and only some pages are (partially) DOM-dynamic.
-n
-
-[Progressive Web Apps](https://developers.google.com/web/progressive-web-apps/)
-
-
+In short, no matter what type of web app you want, you can use Reframe to quickly get started.
 
 
 #### Customization
 
-Beyond the basic usage that is designed to be as easy as possible, Reframe allows advanced customization.
+Reframe's basic usage is designed to be as easy as possible.
+But Reframe also supports 
+Beyond Reframe's basic usage, that is designed to be , Reframe supports advanced customization.
 
-With little effort the 
-You can have
- - customize server
-   - add server routes to create API endpoints, authentication endpoints, etc.
-   - custom hapi server config (Reframe uses the hapi server framework by default),
-   - use any server framework such as Express, Koa, etc.
- - customize browser JavaScript
-   - add error logging, analytics logging, etc.
-   - you can have full control of the hydration process
- - transpilation & bundling
-   - The webpack config Reframe uses is pretty much fully customizable (Reframe works with almost any arbitrary webpack config)
-   - use typescript
+Some basic customization examples:
+ - Custom server
+   - Add server routes to create RESTful/GraphQL API endpoints, authentication endpoints, etc.
+   - Custom hapi server config (Reframe uses the hapi server framework by default)
+   - Use any server framework such as Express, Koa, etc.
+   - Use a process manager such as PM2
+   - etc.
+ - Custom browser JavaScript
+   - Add error logging, analytics logging, etc.
+   - Full control of the hydration process
+   - etc.
+ - Custom transpiling & bundling
+   - Reframe can be used with almost any webpack config. (Reframe assumes pretty much nothing about the webpack config.)
+   - TypeScript support
+   - CSS preprocessors support, such as PostCSS, SASS, etc.
+   - etc.
 
 
 
-Among others you can use a
-custom webpack config (there is almost no restriction about the webpack config Reframe is consuming),
-custom browser entry,
-custom build tool such as Rollup,
-custom server framework such as Express,
-custom routing library other than Crossroads.js (Reframe uses Crossroads.js as routing library by default),
-custom React integration,
-custom view library such as Preact,
-etc.
+
+Some advanced customization examples:
+ - Custom server framework, such as Express, Koa, etc. (Reframe uses hapi by default)
+ - Custom routing library (Reframe uses Crossroads.js by default)
+ - Custom build tool such as Rollup (Reframe uses webpack by default)
+ - Custom view library such as Preact
+ - etc.
 
 Reframe is designed so that it is fully customizable:
 Reframe consists of three packages
@@ -195,6 +184,10 @@ Reframe consists of 3 parts
 > - Reframe supports and encourages the creation of such mostly-DOM-static pages.
 > - Reframe will eventually
 > - A web app framework on eye-level with RoR / Django based on JavaScript and React will soon emerge.
+
+
+In short, React may very well become the de-facto view library when creating any application that involves a UI.
+
 
 Let's imagine a dev team that needs to implement a web app where no page is interactive.
 In other words the DOM is never manipulated.
