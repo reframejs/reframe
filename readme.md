@@ -77,7 +77,8 @@
 -->
 [<p align="center"><img src='https://github.com/brillout/reframe/raw/master/docs/logo/logo-with-title.svg?sanitize=true' width=450 height=94 style="max-width:100%;" alt="Reframe"/></p>](https://github.com/brillout/reframe)
 <p align="center">
-    Framework to create React web apps: server-rendered apps, static apps, and other types apps.
+    Framework to create React web apps.
+    Server-rendered apps, static apps, and other types apps.
     Easy to use yet fully customizable.
 </p>
 <br/>
@@ -90,16 +91,16 @@
 
 ##### Contents
 
- - [What is Reframe?](#what-is-reframe)
- - [Why Reframe?](#why-reframe)
- - [The future of React is SRO](#the-future-of-react-is-sro)
+ - [What is Reframe](#what-is-reframe)
+ - [Why Reframe](#why-reframe)
+ - [The React Future](#the-future-of-react)
  - [Reframe Project Scope](#reframe-project-scope)
  - [Reframe VS Next.js](#reframe-vs-next.js)
- - [Reframe Alternatives](#reframe-alternatives)
+ - [List of SSR tools](#reframe-alternatives)
  - [Quick Start](#quick-start)
 
 
-### What is Reframe?
+### What is Reframe
 
 Reframe allows you to create a web app by defining pages.
 Reframe then takes care of the rest: It automatically transpiles, bundles, serves, and routes your pages.
@@ -107,7 +108,7 @@ Reframe then takes care of the rest: It automatically transpiles, bundles, serve
 A page is defined by a plain JavaScript object called *page config*.
 
 ~~~js
-// We define a page config to create a landing page.
+// We create a landing page by defining a page config `LandingPage`:
 const LandingPage = {
     route: '/', // Page's URL
     view: () => <div>Welcome to Reframe</div>, // Page's root React component
@@ -115,17 +116,17 @@ const LandingPage = {
 };
 ~~~
 
-The page config configures a page by assigning the page:
- - a React component (required)
- - a route (required)
- - further (optional) page configurations (such as the page's &lt;title&gt;, meta tags, script tags, whether the page should by hydrated or not, whether the page's HTML should be rendered either at build-time or at request-time, etc.)
+A page config configures a page by assigning it
+ - a React component (required),
+ - a route (required), and
+ - further (optional) page configurations (such as the page's &lt;title&gt;, meta tags, script tags, whether the page should by hydrated or not, whether the page's HTML should be rendered at build-time or at request-time, etc.).
 
 You can build a React web app with **no build configuration** and **no server configuration**.
 **All you need to create a web app is one React component, one route, and one page config per page.**
 But **everything is customizable**, if you need to.
 You can customize the transpiling & bundling, the server, the browser entry, the Node.js entry, etc.
 
-By defining page configs, you can easily create:
+By defining page configs you can easily create:
 
  - **Server-side rendered React apps**
  <br/>
@@ -138,21 +139,20 @@ By defining page configs, you can easily create:
 
  - **DOM-static React apps**
  <br/>
- Apps where the DOM is static and React is only used to render HTML on the server.
+ Apps where the DOM is static and React is only used to render HTML.
  No (or almost no) JavaScript is loaded in the browser.
 
  - **Every kind of React app**
  <br/>
- Pretty much all kinds of app can be created and
- Reframe generates a certain kind of app depending on how you configure your pages.
+ Pretty much all kinds of app can be created.
+ Reframe generates a certain type of app depending on how you configure your pages.
  For example, if you add `htmlIsStatic: true` to a page config, then that page's HTML is rendered at build-time instead of request-time.
  So, creating an HTML-static React app is simply a matter of setting `htmlIsStatic: true` to all page configs.
- So, if all page configs have `htmlIsStatic: true`, then Reframe will generate a HTML-static React app.
- Also, an app can be a mix: Some pages can be HTML-static, some HTML-dynamic, some DOM-static, and some DOM-dynamic.
+ An app can be a mix: Some pages can be HTML-static, some HTML-dynamic, some DOM-static, and some DOM-dynamic.
 
 Reframe supports a high varitety of app types you can choose from by simply configurating your page configs.
 
-In the following we create a web app by creating a page by defining a page config `HelloPage`.
+In the following we create a web app by defining one page config `HelloPage`.
 
 ~~~js
 // ~/tmp/reframe-playground/pages/HelloPage.html.js
@@ -186,26 +186,36 @@ The `reframe` CLI does the rest:
     <img src='https://gitlab.com/brillout/reframe/raw/master/docs/screenshots/reframe_overview_screenshot.png' width=1200 style="max-width:100%;"/>
 </p>
 
-### Why Reframe?
+### Why Reframe
 
-Reframe has been designed with following focus on
+Reframe has been designed with a focus on
  - Ease of Use
- - Universatity
+ - Universality
  - Customization
  - Performance
 
 ##### Ease of Use
 
-Creating a page is simply a matter of creating a page config and a React component, and
-the Quick Start section bellow shows how easy it is.
-see how easy it is to create a page that has a server-rendered React component.
+Creating a React app is simply a matter of creating React components and page configs.
+The Quick Start section bellow shows how easy it is.
 
-Beyond the ease of creating pages, Reframe encourages the creation of apps that use React predominantly on the server which makes developing apps easier. (The "The future of React is SRO" section bellow expands on this.)
+#### Universality
 
-#### Universatity
+When React came out in 2013, it was used predominantly for the browser / the DOM.
+It is nowadays more and more used to generate HTML.
+We expect this trend to considerably increase.
+(See "The React Future" section.)
 
-As mentioned in the introduction 
-Reframe is designed to able to implement all kinds of React apps.
+Reframe embraces this future and by supporting pretty much every type of web apps.
+
+In short, if you want to create, not matter what type of app, you can then use Reframe to quickly get started.
+
+In short, React may very well become the de-facto view library when creating any application that involves a UI.
+
+Current React frameworks only support certain types of web apps.
+In contrast, Reframe supports pretty much every type of web apps.
+(See the "What is Reframe" section for what kind of apps Reframe can generate.)
+
 
 Beyond the now wide-spread
 Whet
@@ -530,7 +540,7 @@ Reframe **doesn't** take care of:
    It's up to you to create, populate, and query databases.
 
 
-### Reframe Alternatives
+### List of SSR tools
 
 The exhaustive list of frameworks/tools (scaffolds not included) that help create server-rendered React apps:
 
