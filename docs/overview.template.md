@@ -121,14 +121,14 @@ In short, no matter what type of web app you want, you can use Reframe to quickl
 #### Customization
 
 Reframe's basic usage is designed to be as easy as possible.
-But Reframe also supports 
-Beyond Reframe's basic usage, that is designed to be , Reframe supports advanced customization.
+But Reframe also supports customization.
+Many customization are easy to achieve.
+Also, Reframe allows "full customization": virtually everything is customizable.
 
-Some basic customization examples:
+Examples of customizations that are easy to achieve:
  - Custom server
    - Add server routes to create RESTful/GraphQL API endpoints, authentication endpoints, etc.
    - Custom hapi server config (Reframe uses the hapi server framework by default)
-   - Use any server framework such as Express, Koa, etc.
    - Use a process manager such as PM2
    - etc.
  - Custom browser JavaScript
@@ -140,44 +140,25 @@ Some basic customization examples:
    - TypeScript support
    - CSS preprocessors support, such as PostCSS, SASS, etc.
    - etc.
-
-
-
-
-Some advanced customization examples:
- - Custom server framework, such as Express, Koa, etc. (Reframe uses hapi by default)
  - Custom routing library (Reframe uses Crossroads.js by default)
- - Custom build tool such as Rollup (Reframe uses webpack by default)
  - Custom view library such as Preact
  - etc.
 
-Reframe is designed so that it is fully customizable:
+Beyond these easy customizations,
+Reframe is designed with "full customization" in mind:
 Reframe consists of three packages
-(`@reframe/build` that transpiles and bundles, `@reframe/server` that creates the server, `@reframe/browser` that hydrates React components in the browser)
+(`@reframe/build` that transpiles and bundles, `@reframe/server` that creates the server, `@reframe/browser` that hydrates the page in the browser)
 and each of these packages can be replaced with code of your own.
 That means that, if you replace all these three packages with your own code, you effectively get rid of Reframe.
 
-That way, you can quickly create a prototype that fully complies to Reframe's design decisions.
-and, as your prototype grows to a mature application, you can replace the Reframe packages with your own code to eventually get rid of Reframe.
-and progressively over time and progressively,
-as your app's needs mature, crystalize, and doesn't match Reframe's design decisions,
-you can replace replace Reframe with code of your own to gain full control.
+Some examples of customization achievable when replacing Reframe packages:
+ - Custom server framework, such as Express, Koa, etc. (Reframe uses hapi by default)
+ - Custom build tool such as Rollup (Reframe uses webpack by default)
+ - etc.
 
 
-To further push the evenlop,
 
-Reframe consists of three
-has been designed so that every Reframe LOC can be replaced with custom code.
-
-Beyond that, Reframe is fully customizable:
-
-
-This means that everything 
-For more information, see the Customization manual
-Reframe consists of 3 parts 
-
-
-### The future of React is bright and is "SRO-by-default"
+### The future of React
 
 > **TL;DR**
 > - Pages that have a DOM that is mostly static. are considerably easier to create and considerably more performant.
@@ -387,7 +368,7 @@ But React is more and more used in a server-rendering-only fashion; See the "The
 
 On a low-level, Next.js lacks in terms of ease of use, performance and security:
  - Next.js's routing is a big hassle
- - Server cusomtization is a hassle
+ - Server customization is a hassle
  - The creation of static apps is uncesseray complicated
    <br>
    In contrast, with Reframe static apps are just a matter of setting `htmlIsStatic: true` to every page config and the whole developing experience stays the same.
