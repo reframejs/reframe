@@ -9,16 +9,16 @@
 
 ##### Contents
 
- - [What is Reframe?](#what-is-reframe)
- - [Why Reframe?](#why-reframe)
- - [The future of React is SRO](#the-future-of-react-is-sro)
+ - [What is Reframe](#what-is-reframe)
+ - [Why Reframe](#why-reframe)
+ - [The React Future](#the-future-of-react)
  - [Reframe Project Scope](#reframe-project-scope)
  - [Reframe VS Next.js](#reframe-vs-next.js)
- - [Reframe Alternatives](#reframe-alternatives)
+ - [List of SSR tools](#reframe-alternatives)
  - [Quick Start](#quick-start)
 
 
-### What is Reframe?
+### What is Reframe
 
 Reframe allows you to create a web app by defining pages.
 Reframe then takes care of the rest: It automatically transpiles, bundles, serves, and routes your pages.
@@ -84,26 +84,32 @@ The `reframe` CLI does the rest:
     <img src='https://gitlab.com/brillout/reframe/raw/master/docs/screenshots/reframe_overview_screenshot.png' width=1200 style="max-width:100%;"/>
 </p>
 
-### Why Reframe?
+### Why Reframe
 
-Reframe has been designed with following focus on
+Reframe has been designed with a focus on
  - Ease of Use
- - Universatity
+ - Universality
  - Customization
  - Performance
 
 ##### Ease of Use
 
-Creating a page is simply a matter of creating a page config and a React component, and
-the Quick Start section bellow shows how easy it is.
-see how easy it is to create a page that has a server-rendered React component.
+Creating a React app is simply a matter of creating React components and page configs.
+The Quick Start section bellow shows how easy it is.
 
-Beyond the ease of creating pages, Reframe encourages the creation of apps that use React predominantly on the server which makes developing apps easier. (The "The future of React is SRO" section bellow expands on this.)
+#### Universality
 
-#### Universatity
+When React came out in 2013, it was used predominantly for the browser / the DOM.
+It is nowadays more and more used to generate HTML.
+We expect this trend to considerbly increase.
+(See "The React Future" section.)
 
-As mentioned in the introduction 
-Reframe is designed to able to implement all kinds of React apps.
+In short, React may very well become the de-facto view library when creating any application that involves a UI.
+
+Current React frameworks only support certain types of web apps.
+In contrast, Reframe supports pretty much every type of web app.
+(See the "What is Reframe" section for what kind of apps Reframe can generate.)
+
 
 Beyond the now wide-spread
 Whet
@@ -428,7 +434,7 @@ Reframe **doesn't** take care of:
    It's up to you to create, populate, and query databases.
 
 
-### Reframe Alternatives
+### List of SSR tools
 
 The exhaustive list of frameworks/tools (scaffolds not included) that help create server-rendered React apps:
 
