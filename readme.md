@@ -77,7 +77,8 @@
 -->
 [<p align="center"><img src='https://github.com/brillout/reframe/raw/master/docs/logo/logo-with-title.svg?sanitize=true' width=450 height=94 style="max-width:100%;" alt="Reframe"/></p>](https://github.com/brillout/reframe)
 <p align="center">
-    Framework to create server-rendered React apps. Easy to use yet fully customizable.
+    Framework to create React web apps: server-rendered apps, static apps, and other types apps.
+    Easy to use yet fully customizable.
 </p>
 <br/>
 
@@ -100,18 +101,58 @@
 
 ### What is Reframe?
 
-Reframe allows you to create apps by simply defining pages with
- - a React component, and
- - a *page object*, which is a JavaScript object that defines the page.
+Reframe allows you to create a web app by defining pages.
+Reframe then takes care of the rest: It automatically transpiles, bundles, serves, and routes your pages.
 
-Reframe takes care of the rest; It automatically transpiles, bundles and serves your pages.
+A page is defined by a plain JavaScript object called *page config*.
 
-With Reframe, you can easily create
- - universal react apps (in other words apps with server-side rendering),
- - static react apps (in other words apps where all pages' HTML are rendered at build-time), and
- - other kinds of react apps (mainly "browser-static apps" and "partial dynamic apps" which we will in the "The future of React is SRO" section).
+~~~js
+// We define a page config to create a landing page.
+const LandingPage = {
+    route: '/', // Page's URL
+    view: () => <div>Welcome to Reframe</div>, // Page's root React component
+    title: 'Welcome' // Page's <title>
+};
+~~~
 
-A page object looks like this:
+The page config configures a page by assigning the page:
+ - a React component (required)
+ - a route (required)
+ - further (optional) page configurations (such as the page's &lt;title&gt;, meta tags, script tags, whether the page should by hydrated or not, whether the page's HTML should be rendered either at build-time or at request-time, etc.)
+
+You can build a React web app with **no build configuration** and **no server configuration**.
+**All you need to create a web app is one React component, one route, and one page config per page.**
+But **everything is customizable**, if you need to.
+You can customize the transpiling & bundling, the server, the browser entry, the Node.js entry, etc.
+
+By defining page configs, you can easily create:
+
+ - **Server-side rendered React apps**
+ <br/>
+ Apps where React components are rendered to HTML on the server at request-time.
+
+ - **HTML-static React apps**
+ <br/>
+ Apps where all pages are rendered to HTML at build-time.
+ These apps don't need a Node.js server and can be deployed to a static website hosting such as GitHub Pages or Netlify.
+
+ - **DOM-static React apps**
+ <br/>
+ Apps where the DOM is static and React is only used to render HTML on the server.
+ No (or almost no) JavaScript is loaded in the browser.
+
+ - **Every kind of React app**
+ <br/>
+ Pretty much all kinds of app can be created and
+ Reframe generates a certain kind of app depending on how you configure your pages.
+ For example, if you add `htmlIsStatic: true` to a page config, then that page's HTML is rendered at build-time instead of request-time.
+ So, creating an HTML-static React app is simply a matter of setting `htmlIsStatic: true` to all page configs.
+ So, if all page configs have `htmlIsStatic: true`, then Reframe will generate a HTML-static React app.
+ Also, an app can be a mix: Some pages can be HTML-static, some HTML-dynamic, some DOM-static, and some DOM-dynamic.
+
+Reframe supports a high varitety of app types you can choose from by simply configurating your page configs.
+
+In the following we create a web app by creating a page by defining a page config `HelloPage`.
 
 ~~~js
 // ~/tmp/reframe-playground/pages/HelloPage.html.js
@@ -131,7 +172,7 @@ const HelloComponent = (
 );
 
 const HelloPage = {
-    route: '/hello/{name}', // Page's parameterized URL
+    route: '/hello/{name}', // Page's (parameterized) URL
     title: 'Hi there', // Page's <title>
     view: HelloComponent, // Page's root React component
 };
@@ -139,7 +180,7 @@ const HelloPage = {
 export default HelloPage;
 ~~~
 
-Running the `reframe` CLI takes care of the rest:
+The `reframe` CLI does the rest:
 
 <p align="center">
     <img src='https://gitlab.com/brillout/reframe/raw/master/docs/screenshots/reframe_overview_screenshot.png' width=1200 style="max-width:100%;"/>
@@ -149,21 +190,46 @@ Running the `reframe` CLI takes care of the rest:
 
 Reframe has been designed with following focus on
  - Ease of Use
+ - Universatity
  - Customization
  - Performance
 
 ##### Ease of Use
 
-Creating a page is simply a matter of creating a page object and a React component, and
+Creating a page is simply a matter of creating a page config and a React component, and
 the Quick Start section bellow shows how easy it is.
 see how easy it is to create a page that has a server-rendered React component.
 
 Beyond the ease of creating pages, Reframe encourages the creation of apps that use React predominantly on the server which makes developing apps easier. (The "The future of React is SRO" section bellow expands on this.)
 
+#### Universatity
+
+As mentioned in the introduction 
+Reframe is designed to able to implement all kinds of React apps.
+
+Beyond the now wide-spread
+Whet
+
+ - DOM-static pages
+  <br/>
+   No 200KB heavy React+Polyfill are loaded.
+ - Partial DOM-dynamic pages
+
+ This 
+
+More and more web apps are going to emerge where a majority of the app's pages are DOM-static and only some pages are (partially) DOM-dynamic.
+n
+
+[Progressive Web Apps](https://developers.google.com/web/progressive-web-apps/)
+
+
+
+
 #### Customization
 
-Beyond the basic usage that is designed to be as easy as possible, Reframe allows deep customization.
+Beyond the basic usage that is designed to be as easy as possible, Reframe allows advanced customization.
 
+With little effort the 
 You can have
  - customize server
    - add server routes to create API endpoints, authentication endpoints, etc.
@@ -173,8 +239,10 @@ You can have
    - add error logging, analytics logging, etc.
    - you can have full control of the hydration process
  - transpilation & bundling
-   - The webpack config Reframe uses is almost fully customizable (Reframe assumes almost)
+   - The webpack config Reframe uses is pretty much fully customizable (Reframe works with almost any arbitrary webpack config)
    - use typescript
+
+
 
 Among others you can use a
 custom webpack config (there is almost no restriction about the webpack config Reframe is consuming),
@@ -186,16 +254,14 @@ custom React integration,
 custom view library such as Preact,
 etc.
 
-
-And with some willingness to dive into Reframe, everything is customizable.
-
-Actually, Reframe is fully customizable:
+Reframe is designed so that it is fully customizable:
 Reframe consists of three packages
 (`@reframe/build` that transpiles and bundles, `@reframe/server` that creates the server, `@reframe/browser` that hydrates React components in the browser)
 and each of these packages can be replaced with code of your own.
 That means that, if you replace all these three packages with your own code, you effectively get rid of Reframe.
 
-That way, you can create by complying to Reframe's design decisions.
+That way, you can quickly create a prototype that fully complies to Reframe's design decisions.
+and, as your prototype grows to a mature application, you can replace the Reframe packages with your own code to eventually get rid of Reframe.
 and progressively over time and progressively,
 as your app's needs mature, crystalize, and doesn't match Reframe's design decisions,
 you can replace replace Reframe with code of your own to gain full control.
@@ -323,6 +389,17 @@ Why not use Ruby on Rails, Django, or Flask instead of React then? Because
  3. WebAssembly means that you can quickely implement prototypes with a script language and have great performence with a GC-less statically-typed language.
  4. WebAssembly means that you'll eventually be able to choose amongst a high variety of languages while 
 
+
+Website cooking recipes with AMP
+Still worth it because
+ - Reuse the whole React & Reframe ecosystem
+ -
+
+React is popular:
+ - https://stateofjs.com/2017/front-end/results
+  - 90% say they would use React again. Even though the tooling around React is still very young and immature.
+ - more interestingly is everytime I talk to people about React what strikes me the level of enthusiam. I've never seen such repeated enthusiam for a programming library before.
+
 **Even if all your pages aren't dynamic, React is still the right choice**.
 
 **Reframe embraces this future and allows you to JavaScript-less pages.**
@@ -354,15 +431,17 @@ It's not SRO React that is hard to implement, it's actually browser React the di
   All pages are rendered to HTML, which considerably decreases the perceived load time.
 - Code splitting.
   <br/>
-  Every page has loads two scripts:
+  Every page loads two scripts:
   A script shared and cached accross all pages that include common code such as React and polyfills,
   and a script that is specific to the page,
   which is typically lightweight.
+  This means that if a page requires KB-heavy libraries that won't affect the KB-size of other pages.
 - Optimal HTTP Caching.
   <br/>
   Every dynamic server response is cached with a Etag header, and
   every static server response is indefinitely cached.
   (By assigning the static asset to a hashed URL, and by setting the `Cache-Control` header to `immutable` and `max-age`'s maxium value.)
+- Pages that load a minimal amount of browser-side JavaScript
 - DOM-static pages.
   <br/>
   A page can be configured to be rendered only on the server.
@@ -377,23 +456,46 @@ It's not SRO React that is hard to implement, it's actually browser React the di
 
 ### Reframe VS Next.js
 
-The main problem with Next.js, is that
- 1. using Next.js feels like having tied hands, and
- 2. Next.js doesn't embrace the trend of using React predominantly on the server.
+On a high-level, Next.js's main problem is that
+
+ 1. Using Next.js feels like having tied hands.
+    <br/>
+    Next.js works well if you comply with its design decisions but you are in for trouble if you don't.
+    For example, Next.js's webpack customization is broken which leads to no support for typescript, PostCSS, SASS, etc.
+
+ 2. Next.js only supports other types of apps beyond universal
+    <br/>
+    Next.js supports only two types of apps: universal apps (where the entire page is rendered to HTML at request-time and hydrated in the browser) and static apps (where all pages are rendered to HTML at build-time).
+    But React allows a higher variety of applications that . All of them are not supported by Next.js. Hybrid dynamic static apps
+    Reframe supports every type of React apps.
+
+ 3. Next.js doesn't embrace the future
+    <br/>
+    Next.js's focus is limited to universal and static apps, yet more and more React applications will implement hybrid apps that have a mix of DOM-static pages, DOM-dynamic pages, HTML-static pages and HTML-dynamic pages.
+    Furthermore, Next.js's team don't show interest in topis such as state management, view logic management, database integration, ORM, Asynchronous tasks, CMS, etc.
+    Reframe strives to expand in these areas.
+
+
 
 About 1:
-Next.js works well if you comply with its design decisions, but if you don't, you are in for trouble.
-For example, Next's webpack customization is broken (in parts because Next.js doesn't do universal webpack) which leads to no support for typescript, PostCSS, SASS, etc.
+(mainly because in parts because Next.js doesn't do universal webpack)
 
 About 2:
 Next.js doesn't allow you to create pages that load the minimum amount of JavaScript.
 But React is more and more used in a server-rendering-only fashion; See the "The future of React is SRO".
 
-Beyond that, Next.js lacks in ease of use. (Next.js's routing is a big hassle, server cusomtization is a hassle, static apps are cumbersome, custom browser JavaScript for things such as error tracking is not supported,  etc.)
-
-Still, Next.js is awesome because it made creating a simple app easier.
-But it kind of feels like AngularJS; AngularJS was awesome because it made but it always felt messy and wrong.
-In short, Next.js could use some healt
+On a low-level, Next.js lacks in terms of ease of use, performance and security:
+ - Next.js's routing is a big hassle
+ - Server cusomtization is a hassle
+ - The creation of static apps is uncesseray complicated
+   <br>
+   In contrast, with Reframe static apps are just a matter of setting `htmlIsStatic: true` to every page config and the whole developing experience stays the same.
+ - Customization of browser JavaScript is not possible for things such as error tracking
+ - No typescript support (The
+ - No support for third party code integration such as error tracking, google analytics, etc. (Next.js doesn't allow you to control 
+ - No
+ - No support for [AMP](https://www.ampproject.org/)
+ - Security issues. [Easy](https://github.com/zeit/next.js/blob/33f8f282099cb34db2c405aabb883af836d6dc2a/test/integration/production/test/security.js)
 
 
 
@@ -447,8 +549,8 @@ Make a PR if something is missing in the list.
 
 ### Quick Start
 
-Let's define a page.
-For that we will create a page object and a React component.
+Let's create our first React app.
+For that we will create a page by defining a page config and a React component.
 
 1. We first create a `pages/` directory:
 
@@ -457,7 +559,7 @@ mkdir -p ~/tmp/reframe-playground/pages
 ~~~
 
 
-2. We then create a new JavaScript file `~/tmp/reframe-playground/pages/HelloPage.html.js` that exports a page object:
+2. We then create a new JavaScript file `~/tmp/reframe-playground/pages/HelloPage.html.js` that exports a page config:
 
 ~~~js
 import React from 'react';
@@ -506,11 +608,17 @@ $ reframe ~/tmp/reframe-playground/pages
 What happens here
 
  - Reframe searches for the `/pages` directory and finds it at `~/tmp/reframe-playground/pages`
- - Reframe reads the `/pages` directory 
+ - Reframe reads the `/pages` directory and finds our page config at `~/tmp/reframe-playground/pages/HelloPage.html.js`
+ - Reframe uses webpack to transpile `HelloPage.html.js` and to create two bundles for the browser: one bundle shared- and another bundle specific to `HelloPage` that will only be loaded when navigating to a URL matching our `HelloPage` page's route `/hello/{name}`.
+ - Reframe starts a hapi server serving all static browser assets and serving the dynamically HTML generated 
 
-That's it, we have created our first page. You now know 50% of Reframe's basic usage.
+That's it:
+We have created our first React web app with only one React Component and one page config.
 
-For further information, see The "Basic Usage" section of the [Usage Manual](/docs/usage-manual.md) contains.
+The "Basic Usage" section of the [Usage Manual](/docs/usage-manual.md) contains further information for:
+ //- Creating a server-rendered app
+ - Loading async data
+ - Creating a static app
 
 <!---
 
