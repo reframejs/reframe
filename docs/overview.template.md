@@ -203,11 +203,31 @@ In short, React may very well become the de-facto view library when creating any
 Let's imagine a software engineering team that wants to implement a web app where no page is interactive.
 In other words the DOM is never manipulated -- the web app is DOM-static.
 What platform should the team use?
-It would seem natural to choose a DOM-static platform such 
+It would seem natural to choose a platform regardless of its support for interactive views.
+The team could for example use Ruby on Rails despite the fact RoR doesn't direclty support for interactive views.
+That would be a legitimate choice if the team knows that it won't have to implement interactive views in the future.
+And that's the twist;
+It is likely that at some point a new project (requirement) will require DOM-dynamic page(s).
+At this point the dev team will have no choice than to acquire knowledge about JavaScript and a view library such as React.
+If the team would have chosen Node & React instead, they would have spared themselves the time to learn a new platform.
+
+> With React, you learn once and are able to write anywhere.
+
+This is a powerful proposition that only JavaScript & React can offer.
+
+Beyond this advantage;
+
+
+
+
+
+
+
+
 
 Would be want to use JavaScript & React to create such DOM-static web app?
 Maybe not, as React is a tool for creating interactive views.
-Instead we could use Ruby on Rails, Django, or Go.
+Instead we could
 If the company only and will only will always have projects DOM-static web apps,
 But this is unlikely and chances are high that at some point a new project or new project requirement will require DOM-dynamic page(s).
 At this point the dev team will have no choice than to acquire knowledge about JavaScript and a view library such as React.
