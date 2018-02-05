@@ -101,13 +101,17 @@ The Quick Start section bellow shows how easy it is.
 
 When React came out in 2013, it was used predominantly for the browser / the DOM.
 It is nowadays more and more used to generate HTML.
-We expect this trend to considerbly increase.
+We expect this trend to considerably increase.
 (See "The React Future" section.)
+
+Reframe embraces this future and by supporting pretty much every type of web apps.
+
+In short, if you want to create, not matter what type of app, you can then use Reframe to quickly get started.
 
 In short, React may very well become the de-facto view library when creating any application that involves a UI.
 
 Current React frameworks only support certain types of web apps.
-In contrast, Reframe supports pretty much every type of web app.
+In contrast, Reframe supports pretty much every type of web apps.
 (See the "What is Reframe" section for what kind of apps Reframe can generate.)
 
 
