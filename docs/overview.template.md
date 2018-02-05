@@ -166,39 +166,8 @@ Some examples of customization achievable by replacing Reframe packages:
 
 React is more and more used to create static apps.
 This trend may sound odd at first as React is a library for creating views that are interactive.
-So why why would we use React to create a view that is static?
 
-Let's imagine
-
-> If your page can be made non-interactive, then make it non-interactive
-
-In 2017, React reached the highest satisfaction rate among view libraries (https://stateofjs.com/2017/front-end/results).
-And as state management 
-
-highset 
-
-Atwood's Law: any application that can be written in JavaScript, will eventually be written in JavaScript.
-
-> Any application that can be written with React, will eventually be written with React.
-
-
-Beyond the fact that React's capability to create views that are interactive, 
-
- - React can create interactive views
- - JavaScript, which is a popular, portabe, performant, and rapidly evolving language.
- - WebAssembly may very well become the universal runtine
- - Thanks to WebAssembly you'll be able to use React with high variety of languages
-
-
-> **TL;DR**
-> - Pages that have a DOM that is (mostly) static are easier to build and are more performant.
-> - Reframe supports and encourages the creation of such (mostly-)DOM-static pages.
-> - Reframe will eventually
-> - A web app framework on eye-level with RoR / Django based on JavaScript and React will soon emerge.
-
-
-In short, React may very well become the de-facto view library when creating any application that involves a UI.
-
+Why would we use React to create a view that is static?
 
 Let's imagine a software engineering team that wants to implement a web app where no page is interactive.
 In other words the DOM is never manipulated -- the web app is DOM-static.
@@ -215,7 +184,42 @@ If the team would have chosen Node & React instead, they would have spared thems
 
 This is a powerful proposition that only JavaScript & React can offer.
 
-Beyond this advantage;
+In general JavaScript & React has strong advantages
+
+ - React can create interactive views
+ - JavaScript, which is a popular, portabe, performant, and rapidly evolving language.
+ - WebAssembly may very well become the universal runtine
+ - Thanks to WebAssembly you'll be able to use React with high variety of languages
+
+
+
+
+
+> If your page can be made non-interactive, then make it non-interactive
+
+In 2017, React reached the highest satisfaction rate among view libraries (https://stateofjs.com/2017/front-end/results).
+And as state management 
+
+highset 
+
+Atwood's Law: any application that can be written in JavaScript, will eventually be written in JavaScript.
+
+> Any application that can be written with React, will eventually be written with React.
+
+
+Beyond the fact that React's capability to create views that are interactive, 
+
+
+
+> **TL;DR**
+> - Pages that have a DOM that is (mostly) static are easier to build and are more performant.
+> - Reframe supports and encourages the creation of such (mostly-)DOM-static pages.
+> - Reframe will eventually
+> - A web app framework on eye-level with RoR / Django based on JavaScript and React will soon emerge.
+
+
+In short, React may very well become the de-facto view library when creating any application that involves a UI.
+
 
 
 
