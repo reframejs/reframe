@@ -26,7 +26,7 @@ Reframe then takes care of the rest: It automatically transpiles, bundles, serve
 A page is defined by a plain JavaScript object called *page config*.
 
 ~~~js
-// We define a page config to create a landing page.
+// We create a landing page by defining a page config `LandingPage`:
 const LandingPage = {
     route: '/', // Page's URL
     view: () => <div>Welcome to Reframe</div>, // Page's root React component
@@ -34,17 +34,17 @@ const LandingPage = {
 };
 ~~~
 
-The page config configures a page by assigning the page:
- - a React component (required)
- - a route (required)
- - further (optional) page configurations (such as the page's &lt;title&gt;, meta tags, script tags, whether the page should by hydrated or not, whether the page's HTML should be rendered either at build-time or at request-time, etc.)
+A page config configures a page by assigning it
+ - a React component (required),
+ - a route (required), and
+ - further (optional) page configurations (such as the page's &lt;title&gt;, meta tags, script tags, whether the page should by hydrated or not, whether the page's HTML should be rendered at build-time or at request-time, etc.).
 
 You can build a React web app with **no build configuration** and **no server configuration**.
 **All you need to create a web app is one React component, one route, and one page config per page.**
 But **everything is customizable**, if you need to.
 You can customize the transpiling & bundling, the server, the browser entry, the Node.js entry, etc.
 
-By defining page configs, you can easily create:
+By defining page configs you can easily create:
 
  - **Server-side rendered React apps**
  <br/>
@@ -57,21 +57,20 @@ By defining page configs, you can easily create:
 
  - **DOM-static React apps**
  <br/>
- Apps where the DOM is static and React is only used to render HTML on the server.
+ Apps where the DOM is static and React is only used to render HTML.
  No (or almost no) JavaScript is loaded in the browser.
 
  - **Every kind of React app**
  <br/>
- Pretty much all kinds of app can be created and
- Reframe generates a certain kind of app depending on how you configure your pages.
+ Pretty much all kinds of app can be created.
+ Reframe generates a certain type of app depending on how you configure your pages.
  For example, if you add `htmlIsStatic: true` to a page config, then that page's HTML is rendered at build-time instead of request-time.
  So, creating an HTML-static React app is simply a matter of setting `htmlIsStatic: true` to all page configs.
- So, if all page configs have `htmlIsStatic: true`, then Reframe will generate a HTML-static React app.
- Also, an app can be a mix: Some pages can be HTML-static, some HTML-dynamic, some DOM-static, and some DOM-dynamic.
+ An app can be a mix: Some pages can be HTML-static, some HTML-dynamic, some DOM-static, and some DOM-dynamic.
 
 Reframe supports a high varitety of app types you can choose from by simply configurating your page configs.
 
-In the following we create a web app by creating a page by defining a page config `HelloPage`.
+In the following we create a web app by defining one page config `HelloPage`.
 
 ~~~js
 // ~/tmp/reframe-playground/pages/HelloPage.html.js
