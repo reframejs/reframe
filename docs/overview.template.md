@@ -103,7 +103,7 @@ When React came out in 2013, it was predominantly used for the browser / the DOM
 Nowadays, it is more and more used to generate HTML.
 We expect this trend to considerably increase:
 React will increasingly be used for any kind of app that involves a UI,
-becoming the de-facto universal view library.
+becoming the de facto universal view library.
 The section "The React Future" provides a rationale for that trend.
 
 Reframe embraces this future by supporting pretty much every type of web apps.
@@ -161,19 +161,19 @@ Some examples of customization achievable by replacing Reframe packages:
 ### The future of React
 
 > **TL;DR**
-> React is increasingly going to be used for apps that are (mostly) DOM-static.
-> React may very well become the de-facto universal view library 
-> Reframe encourages and supports apps with increasong amount of DOM-static parts
+> - React is increasingly going to be used to implement non-interactive views/apps.
+> - React may very well become the de facto universal view library.
+> - Beyond interactive views, Reframe embraces and encourages non-interactive views.
 
 ###### React and non-interactive views
 
-React is more and more used to create static apps.
-This trend may sound odd at first as React is a library for creating views that are interactive.
+React is more and more used to create non-interactive apps.
+This trend may sound odd at first, as React is a library for creating interactive views.
 
-Why would we use React to create a view that is static?
+Why would we want to use React to create a non-interactive view?
 
-Let's imagine a software engineering team that wants to implement a web app that doesn't have any interactive view (in other words all pages are DOM-static)  .
-What platform should the team use?
+Let's imagine a software engineering team that wants to implement a web app that has no interactive view (in other words all views are DOM-static)  .
+What platform should the team use to implement that web app?
 It would seem natural to choose a platform regardless of its support for interactive views.
 The team could for example use Ruby on Rails despite the fact that RoR doesn't direclty support interactive views.
 If the team knows that it won't have to implement interactive views in the future,
@@ -183,22 +183,17 @@ It is likely that at some point in the future a new project (requirement) will r
 At this point the dev team will have no choice than to acquire knowledge about JavaScript and a view library such as React.
 If the team would have chosen JavaScript & React in the first place instead, they would have spared themselves the time to get to know a new platform.
 
-The biggest
-
-> With React, you can learn one API to be able to write views for all kinds of runtimes (DOM, HTML, native, etc.)
-
-This is a powerful proposition that only JavaScript & React can offer.
-
-In general JavaScript & React has strong advantages
-
- - React can create interactive views
- - JavaScript, which is a popular, portabe, performant, and rapidly evolving language.
- - WebAssembly may very well become the universal runtine
+Beyond the "learn once, write anywhere" argument, JavaScript & React has several important advantages:
+ - React is universal: It can target the DOM, HTML, native, etc.
+ - React can create both interactive views and non-interactive views
+ - Using React as a HTML templating engine is superior to any declarative template engine.
+ - JavaScript is a popular, performant, and rapidly evolving language.
+ - JavaScript/WebAssembly is the only runtime that can run in the browser.
+ - WebAssembly may become the universal runtine that programmers always dreamed of.
  - Ability to choose from a high variety of languages that compile to JavaScript/WebAssembly
 
-Investing time to get to know 
-
-> React is a good choice to implement non-interactive views and the adoption of React 
+So, JavaScript & React is a good choice for even non-interactive web apps.
+We expect the React adoption in the non-interactive views space to considerably increase.
 
 Ten years ago Jeff Atwood predicted that "Any application that can be written in JavaScript, will eventually be written in JavaScript.".
 The same may very well happen to React:
@@ -215,19 +210,20 @@ Another trend in web development is to make views interactive (in other words DO
 In the past, we had the tendency to jump on the interactive views bandwagon too easily.
 Over time, we learned that DOM-dynamic views are, by nature, significantly more difficult to implement than DOM-static views.
 
+Therefore:
+
 > Views should be made interactive only if necessary
 
-Interactive views are perfectly fine.
-It's just that they are more time consuming to implement.
-And Reframe allows you to easily create both interactive views and static views.
-But we encourage you to implement requirements with static views when possible.
+That said, interactive views are perfectly fine,
+and Reframe allows you to easily create interactive views as well as non-interactive views.
+But we encourage to implement requirements with non-interactive views when possible.
 
-Beyond static views being easier to implement than dynamic views,
+Beyond non-interactive views being easier to implement,
 they are also more performant:
 no browser-side JavaScript needs to be loaded and the DOM doesn't need to be manipulated.
 
 
-> Reframe encourages you to implement a majority of your web app with DOM-static views and only use DOM-dynamic views at the places necessary.
+> Reframe encourages you to implement a majority of your web app with DOM-static views and only use DOM-dynamic views where necessary.
 
 
 
@@ -255,7 +251,7 @@ Beyond the fact that React's capability to create views that are interactive,
 > - A web app framework on eye-level with RoR / Django based on JavaScript and React will soon emerge.
 
 
-In short, React may very well become the de-facto view library when creating any application that involves a UI.
+In short, React may very well become the de facto view library when creating any application that involves a UI.
 
 
 
@@ -326,13 +322,13 @@ And using the expressivness of JavaScript to define React components is vastly m
 
 WebAssembly has the potential to be what Java and .NET have both tried and failed to be -- the universal runtime for all languages across all platforms.
 
-We predict that React will become the de-facto templating engine.
+We predict that React will become the de facto templating engine.
 
 Even if you don't 
 Even if none of yours pages
 
 Hacker news has almost no interactive.
-React's popularity is increasing and is becoming the de-facto, similar to (Vue.js is great but it does a poor job on the server.)
+React's popularity is increasing and is becoming the de facto, similar to (Vue.js is great but it does a poor job on the server.)
 React in itself is a near-optimal experience; It does only one thing and does it very well.
 The problem with React is that 
 The only problem but the ecosystem around React is still young.
