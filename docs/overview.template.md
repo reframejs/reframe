@@ -206,7 +206,9 @@ Over time, we learned that interactive views are, by nature, significantly more 
 Interactive views are perfectly fine, it's just that they are more time consuming to implement.
 Reframe embraces both interactive views and static views but encourages you to choose static views when possible.
 
-> Reframes makes DOM-static the default
+> Reframes treast both interactive views and static views as first-class citizens.
+
+Beyond static views being easier to implement than dynamic views, they also are more performant as no 
 
 
 
