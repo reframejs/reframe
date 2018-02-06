@@ -102,6 +102,22 @@ Reframe has been designed with a focus on
 Creating a React app is simply a matter of creating React components and page configs.
 The "Quick Start" section bellow shows how easy it is.
 
+##### Universality
+
+Current React frameworks 
+But segragated:
+you have tools (e.g. Gatsby) to create HTML-static apps or server-rendered apps (e.g. Next.js) but none of the frameworks allow the whole spectrum of apps
+You have to learn two frameworks to create. When learning Reframe instead, 
+
+ - 50% HTML-static apps
+ - 95% DOM-static apps
+
+Example of apps that can't be created with current frameworks
+ - 95% static-
+
+Reframe aims to be universal by supporting all types of React apps.
+Reframe aims to be universal: 
+
 ##### Customization
 
 Reframe's basic usage is designed to be as easy as possible.
@@ -141,46 +157,6 @@ Examples of customization achievable by replacing Reframe packages:
  - Custom server framework, such as Express, Koa, etc. (Reframe uses hapi by default)
  - Custom build tool, such as Rollup (Reframe uses webpack by default)
  - etc.
-
-##### Universality
-
-When React came out in 2013, it was predominantly used to create interactive views (in other words, DOM-dynamic views).
-It is, nowadays, more and more used to create non-interactive views as well (in other words, DOM-static views).
-
-But segragated: you have tools (e.g. Gatsby) to create HTML-static apps or Server-rendered apps (e.g. Next.js) but you 
-Reframe aims to be universal: 
-
-we expect this trend to continue to the point where
-React becomes the de facto universal view library.
-(The section "The Future of React" provides the rationale.)
-
-Let's, for example, imagine that we want to create a web app where 95% of the app's UI is not interactive.
-In other words, 95% of the DOM is static.
-As explained in the section "The Future of React",
-it makes sense to use React to implement our entire UI,
-even for the DOM-static part of the UI.
-Reframe allows you to create such 95% DOM-static app today.
-
-Reframe embraces this future by supporting pretty much every type of web apps.
-In short, no matter what kind of web app you want, you can use Reframe to quickly get started.
-
-
-
-When React came out in 2013, it was predominantly used for the browser / the DOM.
-It is, nowadays, more and more used to generate HTML, and
-we expect this trend to continue to the point where
-React becomes the de facto universal view library.
-(The section "The Future of React" provides the rationale.)
-
-Let's, for example, imagine that we want to create a web app where 95% of the app's UI is not interactive.
-In other words, 95% of the DOM is static.
-As explained in the section "The Future of React",
-it makes sense to use React to implement our entire UI,
-even for the DOM-static part of the UI.
-Reframe allows you to create such 95% DOM-static app today.
-
-Reframe embraces this future by supporting pretty much every type of web apps.
-In short, no matter what kind of web app you want, you can use Reframe to quickly get started.
 
 ##### Performance
 
