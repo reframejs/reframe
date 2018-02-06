@@ -13,10 +13,8 @@
 
  - [What is Reframe](#what-is-reframe)
  - [Why Reframe](#why-reframe)
- - [The React Future](#the-future-of-react)
+ - [The Future of React](#the-future-of-react)
  - [Reframe Project Scope](#reframe-project-scope)
- - [Reframe VS Next.js](#reframe-vs-next.js)
- - [List of SSR tools](#reframe-alternatives)
  - [Quick Start](#quick-start)
 
 
@@ -109,18 +107,18 @@ Nowadays, it is more and more used to generate HTML.
 We expect this trend to considerably increase:
 React will increasingly be used for any kind of app that involves a UI,
 becoming the de facto universal view library.
-The section "The React Future" provides a rationale for that trend.
+The section "The Future of React" provides a rationale for that trend.
 
 Reframe embraces this future by supporting pretty much every type of web apps.
 
-Let's imagine for example that we want to create a web app where 95% of the app's content shown to the user is not interactive.
+Let's, for example, imagine that we want to create a web app where 95% of the app's content shown to the user is not interactive.
 In other words, 95% of the DOM is static.
 To implement our 95% DOM-static part,
 it would seem natural to use a DOM-static framework such as RoR or Django and use React for our DOM-dynamic parts.
-But, as explained in the section "The React Future", it actually makes sense to use React for everything, even for the 95% static part of the app.
+But, as explained in the section "The Future of React", it actually makes sense to use React for everything, even for the 95% static part of the app.
 Reframe allows you to create such 95% DOM-static app today.
 
-In short, no matter what type of web app you want, you can use Reframe to quickly get started.
+In short, no matter what kind of web app you want, you can use Reframe to quickly get started.
 
 #### Customization
 
@@ -149,13 +147,15 @@ Examples of customizations that are easy to achieve:
  - etc.
 
 Beyond these easy customizations,
-Reframe is designed with "full customization" in mind:
-Reframe consists of three packages
-(`@reframe/build` that transpiles and bundles, `@reframe/server` that creates the server, `@reframe/browser` that hydrates the page in the browser)
-and each of these packages can be replaced with code of your own.
+Reframe is designed with "full customization" in mind.
+Reframe consists of three packages:
+`@reframe/build` that transpiles and bundles,
+`@reframe/server` that creates the server,
+`@reframe/browser` that hydrates the page in the browser.
+Each of these packages can be replaced with code of your own.
 This means that, if you replace all these three packages with your own code, you effectively get rid of Reframe.
 
-Some examples of customization achievable by replacing Reframe packages:
+Examples of customization achievable by replacing Reframe packages:
  - Custom server framework, such as Express, Koa, etc. (Reframe uses hapi by default)
  - Custom build tool, such as Rollup (Reframe uses webpack by default)
  - etc.
@@ -227,7 +227,7 @@ Beyond the "learn once, write anywhere" argument, JavaScript & React has several
  - WebAssembly may become the universal runtine that programmers always dreamed of.
  - Ability to choose from a high variety of languages that compile to JavaScript/WebAssembly
 
-So, JavaScript & React is a good choice for even non-interactive web apps.
+So, JavaScript & React is a good choice for non-interactive web apps as well.
 We expect the React adoption in the non-interactive views space to considerably increase.
 
 Ten years ago Jeff Atwood predicted that "Any application that can be written in JavaScript, will eventually be written in JavaScript.".
@@ -285,23 +285,6 @@ Reframe **doesn't** take care of:
    <br/>
    It's up to you to create, populate, and query databases.
 
-
-### List of SSR tools
-
-The exhaustive list of frameworks/tools (scaffolds not included) that help create server-rendered React apps:
-
-###### Frameworks
-
- - [Next.js](https://github.com/zeit/next.js)
- - [After.js](https://github.com/jaredpalmer/after.js)
-
-###### Libraries
-
- - [Razzle](https://github.com/jaredpalmer/razzle)
- - [Universal Router](https://github.com/kriasoft/universal-router)
-
-Make a PR if something is missing in the list.
-(Gatsby is for static apps only, Create React App is a scaffold.)
 
 ### Quick Start
 
