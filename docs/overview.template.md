@@ -172,29 +172,24 @@ In short, no matter what kind of web app you want, you can use Reframe to quickl
   A script shared and cached accross all pages that include common code such as React and polyfills,
   and a (typically lightweight) script that is specific to the page.
   This means that a page requiring KB-heavy libraries won't affect the KB-size of other pages.
-
 - Optimal HTTP caching.
   <br/>
   Every dynamic server response is cached with a Etag header, and
   every static server response is indefinitely cached.
   (Static assets are served under hashed URLs with the `Cache-Control` header set to `immutable` and `max-age`'s maxium value.)
-
 - DOM-static pages.
   <br/>
   A page can be configured to be rendered only on the server.
   These pages are faster to load as React is not loaded in the browser and the page isn't hydrated.
-
 - Partial DOM-dynamic pages.
   <br/>
   A page can be configured so that only certain parts of the page are hydrated.
   This makes the hydration of the page quicker, and less JavaScript is loaded in the browser, as the browser only loads the React components of the hydrated parts.
-
 - HTML-static pages.
   <br/>
   A page can be configured to be rendered to HTML at build-time instead of request-time.
   In other words, the page is rendered to HTML only once, namely when Reframe is transpiling & bundling.
   The HTML is statically served, hence decreasing load time.
-
 - SSR.
   <br/>
   All pages are defaulty rendered to HTML, decreasing the (perceived) load time.
