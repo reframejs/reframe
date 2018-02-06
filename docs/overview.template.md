@@ -104,6 +104,7 @@ The "Quick Start" section bellow shows how easy it is.
 
 ##### Universality
 
+React all
 Current React frameworks 
 But segragated:
 you have tools (e.g. Gatsby) to create HTML-static apps or server-rendered apps (e.g. Next.js) but none of the frameworks allow the whole spectrum of apps
