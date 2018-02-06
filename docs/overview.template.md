@@ -42,7 +42,7 @@ A page config configures a page by assigning it
 
 You can build a React web app with **no build configuration** and **no server configuration**.
 **All you need to create a web app is one React component and one page config per page.**
-But **everything is customizable**, if you need to.
+And, if you need to, **everything is customizable**.
 For example, you can customize the transpiling & bundling, the server, the browser entry, the Node.js entry, etc.
 
 By defining page configs you can easily create:
@@ -69,9 +69,7 @@ By defining page configs you can easily create:
  So, creating an HTML-static React app is simply a matter of setting `htmlIsStatic: true` to all page configs.
  An app can be a mix: Some pages can be HTML-static, some HTML-dynamic, some DOM-static, and some DOM-dynamic.
 
-So, Reframe supports a high varitety of app types you can choose from by simply configurating your page configs.
-
-In the following we create a web app by defining one page config `HelloPage`.
+In the following we create a web app by defining a page config `HelloPage`.
 
 ~~~js
 // ~/tmp/reframe-playground/pages/HelloPage.html.js
@@ -85,7 +83,7 @@ The `reframe` CLI does the rest:
     <img src='https://gitlab.com/brillout/reframe/raw/master/docs/screenshots/reframe_overview_screenshot.png' width=1200 style="max-width:100%;"/>
 </p>
 
-Reframe did the following:
+The following happend:
  - Reframe searched for the `/pages` directory and found it at `~/tmp/reframe-playground/pages`
  - Reframe read the `/pages` directory and found our page config at `~/tmp/reframe-playground/pages/HelloPage.html.js`
  - Reframe used webpack to transpile `HelloPage.html.js` for the server and to create bundles for the browser.
@@ -108,35 +106,35 @@ The "Quick Start" section bellow shows how easy it is.
 
 Reframe's basic usage is designed to be as easy as possible.
 But Reframe also supports customization.
-While many customization are easy to achieve,
+While many customizations are easy to achieve,
 Reframe allows "full customization": virtually everything is customizable.
 
 Examples of customizations that are easy to achieve:
  - Custom server
    - Add server routes to create RESTful/GraphQL API endpoints, authentication endpoints, etc.
-   - Custom hapi server config (Reframe uses the hapi server framework by default)
-   - Use a process manager such as PM2
+   - Custom hapi server config. (Reframe, by default, uses the hapi server framework.)
+   - Use a process manager such as PM2.
    - etc.
  - Custom browser JavaScript
    - Add error logging, analytics logging, etc.
-   - Full control of the hydration process
+   - Full control of the hydration process.
    - etc.
  - Custom transpiling & bundling
    - Reframe can be used with almost any webpack config. (Reframe assumes pretty much nothing about the webpack config.)
    - TypeScript support
    - CSS preprocessors support, such as PostCSS, SASS, etc.
    - etc.
- - Custom routing library (Reframe uses Crossroads.js by default)
- - Custom view library such as Preact
+ - Custom routing library. (Reframe uses Crossroads.js by default.)
+ - Custom view library such as Preact.
  - etc.
 
 Beyond these easy customizations,
-Reframe is designed with "full customization" in mind.
+Reframe is designed with "full customization" in mind:
 Reframe consists of three packages:
 `@reframe/build` that transpiles and bundles,
 `@reframe/server` that creates the server,
-`@reframe/browser` that hydrates the page in the browser.
-Each of these packages can be replaced with code of your own.
+`@reframe/browser` that hydrates the page in the browser,
+and each of these packages can be replaced with code of your own.
 This means that, if you replace all these three packages with your own code, you effectively get rid of Reframe.
 
 Examples of customization achievable by replacing Reframe packages:
@@ -146,20 +144,42 @@ Examples of customization achievable by replacing Reframe packages:
 
 ##### Universality
 
-When React came out in 2013, it was predominantly used for the browser / the DOM.
-Nowadays, it is more and more used to generate HTML, and
-we expect this trend to continue to the point at which React
-becomes the de facto universal view library.
+When React came out in 2013, it was predominantly used to create interactive views (in other words, DOM-dynamic views).
+It is, nowadays, more and more used to create non-interactive views as well (in other words, DOM-static views).
+
+But segragated: you have tools (e.g. Gatsby) to create HTML-static apps or Server-rendered apps (e.g. Next.js) but you 
+Reframe aims to be universal: 
+
+we expect this trend to continue to the point where
+React becomes the de facto universal view library.
 (The section "The Future of React" provides the rationale.)
 
-Reframe embraces this future by supporting pretty much every type of web apps.
-Let's, for example, imagine that we want to create a web app where 95% of the app's content shown to the user is not interactive.
+Let's, for example, imagine that we want to create a web app where 95% of the app's UI is not interactive.
 In other words, 95% of the DOM is static.
 As explained in the section "The Future of React",
 it makes sense to use React to implement our entire UI,
 even for the DOM-static part of the UI.
 Reframe allows you to create such 95% DOM-static app today.
 
+Reframe embraces this future by supporting pretty much every type of web apps.
+In short, no matter what kind of web app you want, you can use Reframe to quickly get started.
+
+
+
+When React came out in 2013, it was predominantly used for the browser / the DOM.
+It is, nowadays, more and more used to generate HTML, and
+we expect this trend to continue to the point where
+React becomes the de facto universal view library.
+(The section "The Future of React" provides the rationale.)
+
+Let's, for example, imagine that we want to create a web app where 95% of the app's UI is not interactive.
+In other words, 95% of the DOM is static.
+As explained in the section "The Future of React",
+it makes sense to use React to implement our entire UI,
+even for the DOM-static part of the UI.
+Reframe allows you to create such 95% DOM-static app today.
+
+Reframe embraces this future by supporting pretty much every type of web apps.
 In short, no matter what kind of web app you want, you can use Reframe to quickly get started.
 
 ##### Performance
