@@ -185,11 +185,11 @@ The `reframe` CLI does the rest:
     <img src='https://gitlab.com/brillout/reframe/raw/master/docs/screenshots/reframe_overview_screenshot.png' width=1200 style="max-width:100%;"/>
 </p>
 
-In our example, Reframe does the following:
- - Reframe searches for the `/pages` directory and finds it at `~/tmp/reframe-playground/pages`
- - Reframe reads the `/pages` directory and finds our page config at `~/tmp/reframe-playground/pages/HelloPage.html.js`
- - Reframe uses webpack to transpile `HelloPage.html.js` for the server and to create two bundles for the browser: one common bundle shared and cached across all pages and a second bundle specific to `HelloPage`.
- - Reframe starts a hapi server serving all static browser assets and serving the page's HTML.
+Reframe did the following:
+ - Reframe searched for the `/pages` directory and found it at `~/tmp/reframe-playground/pages`
+ - Reframe read the `/pages` directory and found our page config at `~/tmp/reframe-playground/pages/HelloPage.html.js`
+ - Reframe used webpack to transpile `HelloPage.html.js` for the server and to create bundles for the browser.
+ - Reframe started a hapi server serving all static browser assets and serving the page's HTML.
 
 ### Why Reframe
 
@@ -204,7 +204,7 @@ Reframe has been designed with a focus on
 Creating a React app is simply a matter of creating React components and page configs.
 The "Quick Start" section bellow shows how easy it is.
 
-#### Customization
+##### Customization
 
 Reframe's basic usage is designed to be as easy as possible.
 But Reframe also supports customization.
@@ -244,7 +244,7 @@ Examples of customization achievable by replacing Reframe packages:
  - Custom build tool, such as Rollup (Reframe uses webpack by default)
  - etc.
 
-#### Universality
+##### Universality
 
 When React came out in 2013, it was predominantly used for the browser / the DOM.
 Nowadays, it is more and more used to generate HTML, and
@@ -253,7 +253,6 @@ becomes the de facto universal view library.
 (The section "The Future of React" provides the rationale.)
 
 Reframe embraces this future by supporting pretty much every type of web apps.
-
 Let's, for example, imagine that we want to create a web app where 95% of the app's content shown to the user is not interactive.
 In other words, 95% of the DOM is static.
 As explained in the section "The Future of React",
@@ -298,14 +297,14 @@ In short, no matter what kind of web app you want, you can use Reframe to quickl
 ### The future of React
 
 > **TL;DR**
-> - React is increasingly going to be used to implement non-interactive views/apps.
+> - React is going to increasingly be used to implement for non-interactive views.
 > - React may very well become the de facto universal view library.
-> - Beyond interactive views, Reframe embraces and encourages non-interactive views.
+> - Reframe embraces and encourages non-interactive views.
 
 ###### React and non-interactive views
 
 React is more and more used to create non-interactive apps.
-This trend may sound odd at first, as React is a library for creating interactive views.
+This trend may sound odd at first, since React is a library for creating interactive views.
 
 Why would we want to use React to create a non-interactive view?
 
