@@ -173,18 +173,15 @@ Some examples of customization achievable by replacing Reframe packages:
   <br/>
   Every dynamic server response is cached with a Etag header, and
   every static server response is indefinitely cached.
-  (By assigning the static asset to a hashed URL, and by setting the `Cache-Control` header to `immutable` and `max-age`'s maxium value.)
+  (Static assets are served under hashed URLs with the `Cache-Control` header set to `immutable` and `max-age`'s maxium value.)
 - DOM-static pages
   <br/>
   A page can be configured to be rendered only on the server.
-  This as React is not loaded in the browser and the page doesn't need to be hydrated.
-  Also, a page can be configured so that only parts are hydrated.
-  So, instead of loading all the page's React componennts hydrating 
-  Pages that load a minimal amount of browser-side JavaScript
+  These pages are faster to load as React is not loaded in the browser and the page isn't hydrated.
 - Partial DOM-dynamic pages
   <br/>
-  A page can be configured so that only certain parts of the page is hydrated.
-  Not only does this make the hydration quicker but it also means that less JavaScript is loaded in the browser as only the React components of the hydrated part are loaded.
+  A page can be configured so that only certain parts of the page are hydrated.
+  This makes the hydration of the page quicker, and less JavaScript is loaded in the browser, as the browser only loads the React components of the hydrated parts.
 - HTML-static pages
   <br/>
   A page can be configured to be rendered to HTML at build-time instead of request-time.
@@ -265,14 +262,6 @@ no browser-side JavaScript needs to be loaded and the DOM doesn't need to be man
 
 
 
-
-
-
-
-
-
-
-
 ### Reframe VS Next.js
 
 On a high-level, Next.js's main problem is that
@@ -317,32 +306,30 @@ On a low-level, Next.js lacks in terms of ease of use, performance and security:
  - Security issues. [Easy](https://github.com/zeit/next.js/blob/33f8f282099cb34db2c405aabb883af836d6dc2a/test/integration/production/test/security.js)
 
 
+ - cache gets busted on every deploy
+
+
 
 ### Reframe Project Scope
 
-All types of apps can be created with Reframe, whether it be a universal app, or a static app, or an with a combination of static and dynamic pages.
-
-That's because you can configure as "HTML-static
-
-
-When creating an app with Reframe takes care:
+When creating an app, Reframe takes care of:
 
  - **Build**
    <br/>
-   Transpiles and bundles your frontend assets. (Uses webpack.)
+   Transpiles and bundles the browser static assets. (Uses webpack.)
  - **Server**
    <br/>
-   Sets up a Node.js server that serves dynamic HTMLs and static assets. (Uses hapi.)
+   Sets up a Node.js server serving the browser static assets and your pages' HTML. (Uses hapi.)
  - **Routing**
    <br/>
-   Maps URLs to pages.
+   Routes URLs to your pages.
 
 Reframe **doesn't** take care of:
 
- - View logic / state management.
+ - View logic / state management
    <br/>
-   It's up to you to manage the state of your views. (Or use Redux / MobX / [Reprop](https://github.com/brillout/reprop).)
- - Database.
+   It's up to you to manage the state of your views (or use Redux / MobX).
+ - Database
    <br/>
    It's up to you to create, populate, and query databases.
 
@@ -367,7 +354,7 @@ Make a PR if something is missing in the list.
 ### Quick Start
 
 Let's create our first React app.
-For that we will create a page by defining a page config and a React component.
+For that we create a page by creating a page config and a React component.
 
 1. We first create a `pages/` directory:
 
@@ -375,8 +362,7 @@ For that we will create a page by defining a page config and a React component.
 mkdir -p ~/tmp/reframe-playground/pages
 ~~~
 
-
-2. We then create a new JavaScript file `~/tmp/reframe-playground/pages/HelloPage.html.js` that exports a page config:
+2. Then we create a new JavaScript file `~/tmp/reframe-playground/pages/HelloWorldPage.html.js` that exports a page config:
 
 ~~~js
 import React from 'react';
@@ -404,7 +390,7 @@ cd ~/tmp/reframe-playground/
 npm install react
 ~~~
 
-4. Finally, We run the CLI:
+4. And finally, we run the CLI:
 
 ~~~shell
 cd ~/tmp/reframe-playground/
@@ -422,17 +408,14 @@ $ reframe ~/tmp/reframe-playground/pages
 ✔ Server running at http://localhost:3000
 ~~~
 
-What happens here
+We have created our first React web app by simply creating one React Component and one page config.
 
+Reframe does the following:
  - Reframe searches for the `/pages` directory and finds it at `~/tmp/reframe-playground/pages`
- - Reframe reads the `/pages` directory and finds our page config at `~/tmp/reframe-playground/pages/HelloPage.html.js`
- - Reframe uses webpack to transpile `HelloPage.html.js` and to create two bundles for the browser: one bundle shared- and another bundle specific to `HelloPage` that will only be loaded when navigating to a URL matching our `HelloPage` page's route `/hello/{name}`.
- - Reframe starts a hapi server serving all static browser assets and serving the dynamically HTML generated 
+ - Reframe reads the `/pages` directory and finds our page config at `~/tmp/reframe-playground/pages/HelloWorldPage.html.js`
+ - Reframe uses webpack to transpile `HelloWorldPage.html.js` for the server and to create two bundles for the browser: one bundle shared and cached across all pages and another bundle specific to `HelloWorldPage`.
+ - Reframe starts a hapi server serving all static browser assets and serving the page's HTML.
 
-That's it:
-We have created our first React web app with only one React Component and one page config.
-
-The "Basic Usage" section of the [Usage Manual](/docs/usage-manual.md) contains further information for:
- //- Creating a server-rendered app
+The "Basic Usage" section of the [Usage Manual](/docs/usage-manual.md) contains further information, including:
  - Loading async data
- - Creating a static app
+ - Creating apps and pages that are DOM-dynamic, DOM-static, HTML-static, and/or HTML-dynamic
