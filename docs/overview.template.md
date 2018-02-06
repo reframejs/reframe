@@ -163,6 +163,9 @@ Some examples of customization achievable by replacing Reframe packages:
 > **TL;DR**
 > React is increasingly going to be used for apps that are (mostly) DOM-static.
 > React may very well become the de-facto universal view library 
+> Reframe encourages and supports (mostly) DOM-static apps
+
+###### React and non-interactive views
 
 React is more and more used to create static apps.
 This trend may sound odd at first as React is a library for creating views that are interactive.
@@ -180,7 +183,7 @@ It is likely that at some point a new project (requirement) will require DOM-dyn
 At this point the dev team will have no choice than to acquire knowledge about JavaScript and a view library such as React.
 If the team would have chosen Node & React instead, they would have spared themselves the time to learn a new platform.
 
-> With React, you learn once and are able to write anywhere.
+> With React, you can learn one API to be able to write views for all kinds of views (DOM, HTML, native, etc.)
 
 This is a powerful proposition that only JavaScript & React can offer.
 
@@ -190,6 +193,17 @@ In general JavaScript & React has strong advantages
  - JavaScript, which is a popular, portabe, performant, and rapidly evolving language.
  - WebAssembly may very well become the universal runtine
  - Thanks to WebAssembly you'll be able to use React with high variety of languages
+
+
+###### Reframe encourages DOM-static views
+
+Another trend in web development is to write interactive views only if necessary.
+We used to implement 
+We had in the past the tendency to 
+When DHTML & Ajax started to get mainstream we got 
+
+
+> Views should be made interactive only if necessary and Reframes supports you in doing so.
 
 
 
