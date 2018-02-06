@@ -262,54 +262,6 @@ no browser-side JavaScript needs to be loaded and the DOM doesn't need to be man
 
 
 
-### Reframe VS Next.js
-
-On a high-level, Next.js's main problem is that
-
- 1. Using Next.js feels like having tied hands.
-    <br/>
-    Next.js works well if you comply with its design decisions but you are in for trouble if you don't.
-    For example, Next.js's webpack customization is broken which leads to no support for typescript, PostCSS, SASS, etc.
-
- 2. Next.js only supports other types of apps beyond universal
-    <br/>
-    Next.js supports only two types of apps: universal apps (where the entire page is rendered to HTML at request-time and hydrated in the browser) and static apps (where all pages are rendered to HTML at build-time).
-    But React allows a higher variety of applications that . All of them are not supported by Next.js. Hybrid dynamic static apps
-    Reframe supports every type of React apps.
-
- 3. Next.js doesn't embrace the future
-    <br/>
-    Next.js's focus is limited to universal and static apps, yet more and more React applications will implement hybrid apps that have a mix of DOM-static pages, DOM-dynamic pages, HTML-static pages and HTML-dynamic pages.
-    Furthermore, Next.js's team don't show interest in topis such as state management, view logic management, database integration, ORM, Asynchronous tasks, CMS, etc.
-    Reframe strives to expand in these areas.
-
-
-
-About 1:
-(mainly because in parts because Next.js doesn't do universal webpack)
-
-About 2:
-Next.js doesn't allow you to create pages that load the minimum amount of JavaScript.
-But React is more and more used in a server-rendering-only fashion; See the "The future of React is SRO".
-
-On a low-level, Next.js lacks in terms of ease of use, performance and security:
- - Next.js's routing is a big hassle
- - Server customization is a hassle
- - The creation of static apps is uncesseray complicated
-   <br>
-   In contrast, with Reframe static apps are just a matter of setting `htmlIsStatic: true` to every page config and the whole developing experience stays the same.
- - Customization of browser JavaScript is not possible for things such as error tracking
- - No typescript support (The
- - No support for third party code integration such as error tracking, google analytics, etc. (Next.js doesn't allow you to control 
- - No
- - No support for [AMP](https://www.ampproject.org/)
- - Security issues. [Easy](https://github.com/zeit/next.js/blob/33f8f282099cb34db2c405aabb883af836d6dc2a/test/integration/production/test/security.js)
-
-
- - cache gets busted on every deploy
-
-
-
 ### Reframe Project Scope
 
 When creating an app, Reframe takes care of:
