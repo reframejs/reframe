@@ -21,7 +21,7 @@
 
 ### What is Reframe
 
-Reframe allows you to create a web app by defining pages.
+Reframe allows you to create web apps by defining pages.
 Reframe then takes care of the rest: It automatically transpiles, bundles, serves, and routes your pages.
 
 A page is defined by a plain JavaScript object called *page config*.
@@ -43,7 +43,7 @@ A page config configures a page by assigning it
 You can build a React web app with **no build configuration** and **no server configuration**.
 **All you need to create a web app is one React component and one page config per page.**
 But **everything is customizable**, if you need to.
-You can customize the transpiling & bundling, the server, the browser entry, the Node.js entry, etc.
+For example, you can customize the transpiling & bundling, the server, the browser entry, the Node.js entry, etc.
 
 By defining page configs you can easily create:
 
@@ -69,7 +69,7 @@ By defining page configs you can easily create:
  So, creating an HTML-static React app is simply a matter of setting `htmlIsStatic: true` to all page configs.
  An app can be a mix: Some pages can be HTML-static, some HTML-dynamic, some DOM-static, and some DOM-dynamic.
 
-Reframe supports a high varitety of app types you can choose from by simply configurating your page configs.
+So, Reframe supports a high varitety of app types you can choose from by simply configurating your page configs.
 
 In the following we create a web app by defining one page config `HelloPage`.
 
@@ -85,7 +85,11 @@ The `reframe` CLI does the rest:
     <img src='https://gitlab.com/brillout/reframe/raw/master/docs/screenshots/reframe_overview_screenshot.png' width=1200 style="max-width:100%;"/>
 </p>
 
-
+In our example, Reframe does the following:
+ - Reframe searches for the `/pages` directory and finds it at `~/tmp/reframe-playground/pages`
+ - Reframe reads the `/pages` directory and finds our page config at `~/tmp/reframe-playground/pages/HelloPage.html.js`
+ - Reframe uses webpack to transpile `HelloPage.html.js` for the server and to create two bundles for the browser: one common bundle shared and cached across all pages and a second bundle specific to `HelloPage`.
+ - Reframe starts a hapi server serving all static browser assets and serving the page's HTML.
 
 ### Why Reframe
 
@@ -343,13 +347,7 @@ $ reframe ~/tmp/reframe-playground/pages
 ✔ Server running at http://localhost:3000
 ~~~
 
-We have created our first React web app by simply creating one React Component and one page config.
-
-Reframe does the following:
- - Reframe searches for the `/pages` directory and finds it at `~/tmp/reframe-playground/pages`
- - Reframe reads the `/pages` directory and finds our page config at `~/tmp/reframe-playground/pages/HelloWorldPage.html.js`
- - Reframe uses webpack to transpile `HelloWorldPage.html.js` for the server and to create two bundles for the browser: one bundle shared and cached across all pages and another bundle specific to `HelloWorldPage`.
- - Reframe starts a hapi server serving all static browser assets and serving the page's HTML.
+That's it: We have created our first React web app by simply creating one React Component and one page config.
 
 The "Basic Usage" section of the [Usage Manual](/docs/usage-manual.md) contains further information, including:
  - Loading async data

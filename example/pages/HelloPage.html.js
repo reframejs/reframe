@@ -5,9 +5,7 @@ const HelloComponent = (
         // Our route arguments are available at `props.route.args`
         const name = props.route.args.name;
         return (
-            <div>
-                Hello {name}
-            </div>
+            <div>Hello {name}</div>
         );
     }
 );
