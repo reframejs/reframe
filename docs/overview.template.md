@@ -162,31 +162,37 @@ Some examples of customization achievable by replacing Reframe packages:
 
 ##### Performance
 
-- SSR.
-  <br/>
-  All pages are rendered to HTML, which considerably decreases the perceived load time.
-- Code splitting.
+- Code splitting
   <br/>
   Every page loads two scripts:
   A script shared and cached accross all pages that include common code such as React and polyfills,
   and a script that is specific to the page,
   which is typically lightweight.
   This means that if a page requires KB-heavy libraries that won't affect the KB-size of other pages.
-- Optimal HTTP Caching.
+- Optimal HTTP caching
   <br/>
   Every dynamic server response is cached with a Etag header, and
   every static server response is indefinitely cached.
   (By assigning the static asset to a hashed URL, and by setting the `Cache-Control` header to `immutable` and `max-age`'s maxium value.)
-- Pages that load a minimal amount of browser-side JavaScript
-- DOM-static pages.
+- DOM-static pages
   <br/>
   A page can be configured to be rendered only on the server.
   This as React is not loaded in the browser and the page doesn't need to be hydrated.
   Also, a page can be configured so that only parts are hydrated.
-- HTML-static pages.
+  So, instead of loading all the page's React componennts hydrating 
+  Pages that load a minimal amount of browser-side JavaScript
+- Partial DOM-dynamic pages
+  <br/>
+  A page can be configured so that only certain parts of the page is hydrated.
+  Not only does this make the hydration quicker but it also means that less JavaScript is loaded in the browser as only the React components of the hydrated part are loaded.
+- HTML-static pages
   <br/>
   A page can be configured to be rendered to HTML at build-time instead of request-time.
-  This means that, the page is rendered only once to HTML when Reframe is transpiling and bundling and the the HTML is statically served.
+  In other words, the page is rendered to HTML only once, namely when Reframe is transpiling & bundling.
+  The HTML is statically served, hence decreasing load time.
+- SSR
+  <br/>
+  All pages are defaulty rendered to HTML, decreasing the (perceived) load time.
 
 
 
@@ -309,8 +315,6 @@ On a low-level, Next.js lacks in terms of ease of use, performance and security:
  - No
  - No support for [AMP](https://www.ampproject.org/)
  - Security issues. [Easy](https://github.com/zeit/next.js/blob/33f8f282099cb34db2c405aabb883af836d6dc2a/test/integration/production/test/security.js)
-
-
 
 
 
