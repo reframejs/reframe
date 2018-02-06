@@ -247,19 +247,18 @@ Examples of customization achievable by replacing Reframe packages:
 #### Universality
 
 When React came out in 2013, it was predominantly used for the browser / the DOM.
-Nowadays, it is more and more used to generate HTML.
-We expect this trend to considerably increase:
-React will increasingly be used for any kind of app that involves a UI,
-becoming the de facto universal view library.
-The section "The Future of React" provides a rationale for that trend.
+Nowadays, it is more and more used to generate HTML, and
+we expect this trend to continue to the point at which React
+becomes the de facto universal view library.
+(The section "The Future of React" provides the rationale.)
 
 Reframe embraces this future by supporting pretty much every type of web apps.
 
 Let's, for example, imagine that we want to create a web app where 95% of the app's content shown to the user is not interactive.
 In other words, 95% of the DOM is static.
-To implement our 95% DOM-static part,
-it would seem natural to use a DOM-static framework such as RoR or Django and use React for our DOM-dynamic parts.
-But, as explained in the section "The Future of React", it actually makes sense to use React for everything, even for the 95% static part of the app.
+As explained in the section "The Future of React",
+it makes sense to use React to implement our entire UI,
+even for the DOM-static part of the UI.
 Reframe allows you to create such 95% DOM-static app today.
 
 In short, no matter what kind of web app you want, you can use Reframe to quickly get started.
@@ -284,7 +283,7 @@ In short, no matter what kind of web app you want, you can use Reframe to quickl
 - Partial DOM-dynamic pages.
   <br/>
   A page can be configured so that only certain parts of the page are hydrated.
-  This makes the hydration of the page quicker, and less JavaScript is loaded in the browser, as the browser only loads the React components of the hydrated parts.
+  This makes the hydration of the page quicker. And less JavaScript is loaded in the browser, as the browser only loads the React components of the hydrated parts.
 - HTML-static pages.
   <br/>
   A page can be configured to be rendered to HTML at build-time instead of request-time.
