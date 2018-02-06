@@ -194,8 +194,18 @@ In general JavaScript & React has strong advantages
  - React can create interactive views
  - JavaScript, which is a popular, portabe, performant, and rapidly evolving language.
  - WebAssembly may very well become the universal runtine
- - Thanks to WebAssembly you'll be able to use React with high variety of languages
+ - Ability to choose from a high variety of languages that compile to JavaScript/WebAssembly
 
+Investing time to get to know 
+
+> React is a good choice to implement non-interactive views and the adoption of React 
+
+Ten years ago Jeff Atwood predicted that "Any application that can be written in JavaScript, will eventually be written in JavaScript.".
+The same may very well happen to React:
+
+> Any UI that can be written with React, will eventually be written with React.
+
+Reframe embraces that future 
 
 ###### Reframe encourages DOM-static views
 
@@ -229,9 +239,6 @@ And as state management
 
 highset 
 
-Atwood's Law: any application that can be written in JavaScript, will eventually be written in JavaScript.
-
-> Any application that can be written with React, will eventually be written with React.
 
 
 Beyond the fact that React's capability to create views that are interactive, 
