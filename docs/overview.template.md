@@ -172,18 +172,20 @@ This trend may sound odd at first as React is a library for creating views that 
 
 Why would we use React to create a view that is static?
 
-Let's imagine a software engineering team that wants to implement a web app where no page is interactive.
-In other words the DOM is never manipulated -- the web app is DOM-static.
+Let's imagine a software engineering team that wants to implement a web app that doesn't have any interactive view (in other words all pages are DOM-static)  .
 What platform should the team use?
 It would seem natural to choose a platform regardless of its support for interactive views.
-The team could for example use Ruby on Rails despite the fact RoR doesn't direclty support for interactive views.
-That would be a legitimate choice if the team knows that it won't have to implement interactive views in the future.
-And that's the twist;
-It is likely that at some point a new project (requirement) will require DOM-dynamic page(s).
+The team could for example use Ruby on Rails despite the fact that RoR doesn't direclty support interactive views.
+If the team knows that it won't have to implement interactive views in the future,
+then that would be a legitimate choice.
+But that's the twist;
+It is likely that at some point in the future a new project (requirement) will require an interactive view.
 At this point the dev team will have no choice than to acquire knowledge about JavaScript and a view library such as React.
-If the team would have chosen Node & React instead, they would have spared themselves the time to learn a new platform.
+If the team would have chosen JavaScript & React in the first place instead, they would have spared themselves the time to get to know a new platform.
 
-> With React, you can learn one API to be able to write views for all kinds of views (DOM, HTML, native, etc.)
+The biggest
+
+> With React, you can learn one API to be able to write views for all kinds of runtimes (DOM, HTML, native, etc.)
 
 This is a powerful proposition that only JavaScript & React can offer.
 
@@ -203,12 +205,20 @@ Over time, we learned that interactive views are, by nature, significantly more 
 
 > Views should be made interactive only if necessary
 
-Interactive views are perfectly fine, it's just that they are more time consuming to implement.
-Reframe embraces both interactive views and static views but encourages you to choose static views when possible.
+Interactive views are perfectly fine.
+It's just that they are more time consuming to implement.
+And Reframe allows you to easily create both interactive views and static views.
+But we encourage you to implement requirements with static views when possible.
 
-> Reframes treast both interactive views and static views as first-class citizens.
+> Reframes treats both interactive views and static views as first-class citizens.
 
-Beyond static views being easier to implement than dynamic views, they also are more performant as no 
+Beyond static views being easier to implement than dynamic views,
+they are also more performant:
+no browser-side JavaScript needs to be loaded and the DOM doesn't need to be manipulated.
+
+
+
+
 
 
 
