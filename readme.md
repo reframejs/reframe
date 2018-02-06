@@ -204,32 +204,12 @@ Reframe has been designed with a focus on
 Creating a React app is simply a matter of creating React components and page configs.
 The "Quick Start" section bellow shows how easy it is.
 
-#### Universality
-
-When React came out in 2013, it was predominantly used for the browser / the DOM.
-Nowadays, it is more and more used to generate HTML.
-We expect this trend to considerably increase:
-React will increasingly be used for any kind of app that involves a UI,
-becoming the de facto universal view library.
-The section "The Future of React" provides a rationale for that trend.
-
-Reframe embraces this future by supporting pretty much every type of web apps.
-
-Let's, for example, imagine that we want to create a web app where 95% of the app's content shown to the user is not interactive.
-In other words, 95% of the DOM is static.
-To implement our 95% DOM-static part,
-it would seem natural to use a DOM-static framework such as RoR or Django and use React for our DOM-dynamic parts.
-But, as explained in the section "The Future of React", it actually makes sense to use React for everything, even for the 95% static part of the app.
-Reframe allows you to create such 95% DOM-static app today.
-
-In short, no matter what kind of web app you want, you can use Reframe to quickly get started.
-
 #### Customization
 
 Reframe's basic usage is designed to be as easy as possible.
 But Reframe also supports customization.
-Many customization are easy to achieve.
-Also, Reframe allows "full customization": virtually everything is customizable.
+While many customization are easy to achieve,
+Reframe allows "full customization": virtually everything is customizable.
 
 Examples of customizations that are easy to achieve:
  - Custom server
@@ -264,34 +244,58 @@ Examples of customization achievable by replacing Reframe packages:
  - Custom build tool, such as Rollup (Reframe uses webpack by default)
  - etc.
 
+#### Universality
+
+When React came out in 2013, it was predominantly used for the browser / the DOM.
+Nowadays, it is more and more used to generate HTML.
+We expect this trend to considerably increase:
+React will increasingly be used for any kind of app that involves a UI,
+becoming the de facto universal view library.
+The section "The Future of React" provides a rationale for that trend.
+
+Reframe embraces this future by supporting pretty much every type of web apps.
+
+Let's, for example, imagine that we want to create a web app where 95% of the app's content shown to the user is not interactive.
+In other words, 95% of the DOM is static.
+To implement our 95% DOM-static part,
+it would seem natural to use a DOM-static framework such as RoR or Django and use React for our DOM-dynamic parts.
+But, as explained in the section "The Future of React", it actually makes sense to use React for everything, even for the 95% static part of the app.
+Reframe allows you to create such 95% DOM-static app today.
+
+In short, no matter what kind of web app you want, you can use Reframe to quickly get started.
+
 ##### Performance
 
-- Code splitting
+- Code splitting.
   <br/>
   Every page loads two scripts:
   A script shared and cached accross all pages that include common code such as React and polyfills,
-  and a script that is specific to the page,
-  which is typically lightweight.
-  This means that if a page requires KB-heavy libraries that won't affect the KB-size of other pages.
-- Optimal HTTP caching
+  and a (typically lightweight) script that is specific to the page.
+  This means that a page requiring KB-heavy libraries won't affect the KB-size of other pages.
+
+- Optimal HTTP caching.
   <br/>
   Every dynamic server response is cached with a Etag header, and
   every static server response is indefinitely cached.
   (Static assets are served under hashed URLs with the `Cache-Control` header set to `immutable` and `max-age`'s maxium value.)
-- DOM-static pages
+
+- DOM-static pages.
   <br/>
   A page can be configured to be rendered only on the server.
   These pages are faster to load as React is not loaded in the browser and the page isn't hydrated.
-- Partial DOM-dynamic pages
+
+- Partial DOM-dynamic pages.
   <br/>
   A page can be configured so that only certain parts of the page are hydrated.
   This makes the hydration of the page quicker, and less JavaScript is loaded in the browser, as the browser only loads the React components of the hydrated parts.
-- HTML-static pages
+
+- HTML-static pages.
   <br/>
   A page can be configured to be rendered to HTML at build-time instead of request-time.
   In other words, the page is rendered to HTML only once, namely when Reframe is transpiling & bundling.
   The HTML is statically served, hence decreasing load time.
-- SSR
+
+- SSR.
   <br/>
   All pages are defaulty rendered to HTML, decreasing the (perceived) load time.
 
