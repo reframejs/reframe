@@ -5,6 +5,8 @@
 !MENU_LINK /../../
 !MENU_ORDER 10
 
+
+
 # Overview
 
 ##### Contents
@@ -16,6 +18,7 @@
  - [Reframe VS Next.js](#reframe-vs-next.js)
  - [List of SSR tools](#reframe-alternatives)
  - [Quick Start](#quick-start)
+
 
 
 ### What is Reframe
@@ -84,6 +87,8 @@ The `reframe` CLI does the rest:
     <img src='https://gitlab.com/brillout/reframe/raw/master/docs/screenshots/reframe_overview_screenshot.png' width=1200 style="max-width:100%;"/>
 </p>
 
+
+
 ### Why Reframe
 
 Reframe has been designed with a focus on
@@ -116,7 +121,6 @@ But, as explained in the section "The React Future", it actually makes sense to 
 Reframe allows you to create such 95% DOM-static app today.
 
 In short, no matter what type of web app you want, you can use Reframe to quickly get started.
-
 
 #### Customization
 
@@ -155,6 +159,34 @@ Some examples of customization achievable by replacing Reframe packages:
  - Custom server framework, such as Express, Koa, etc. (Reframe uses hapi by default)
  - Custom build tool, such as Rollup (Reframe uses webpack by default)
  - etc.
+
+##### Performance
+
+- SSR.
+  <br/>
+  All pages are rendered to HTML, which considerably decreases the perceived load time.
+- Code splitting.
+  <br/>
+  Every page loads two scripts:
+  A script shared and cached accross all pages that include common code such as React and polyfills,
+  and a script that is specific to the page,
+  which is typically lightweight.
+  This means that if a page requires KB-heavy libraries that won't affect the KB-size of other pages.
+- Optimal HTTP Caching.
+  <br/>
+  Every dynamic server response is cached with a Etag header, and
+  every static server response is indefinitely cached.
+  (By assigning the static asset to a hashed URL, and by setting the `Cache-Control` header to `immutable` and `max-age`'s maxium value.)
+- Pages that load a minimal amount of browser-side JavaScript
+- DOM-static pages.
+  <br/>
+  A page can be configured to be rendered only on the server.
+  This as React is not loaded in the browser and the page doesn't need to be hydrated.
+  Also, a page can be configured so that only parts are hydrated.
+- HTML-static pages.
+  <br/>
+  A page can be configured to be rendered to HTML at build-time instead of request-time.
+  This means that, the page is rendered only once to HTML when Reframe is transpiling and bundling and the the HTML is statically served.
 
 
 
@@ -231,191 +263,7 @@ no browser-side JavaScript needs to be loaded and the DOM doesn't need to be man
 
 
 
-> If your page can be made non-interactive, then make it non-interactive
 
-In 2017, React reached the highest satisfaction rate among view libraries (https://stateofjs.com/2017/front-end/results).
-And as state management 
-
-highset 
-
-
-
-Beyond the fact that React's capability to create views that are interactive, 
-
-
-
-> **TL;DR**
-> - Pages that have a DOM that is (mostly) static are easier to build and are more performant.
-> - Reframe supports and encourages the creation of such (mostly-)DOM-static pages.
-> - Reframe will eventually
-> - A web app framework on eye-level with RoR / Django based on JavaScript and React will soon emerge.
-
-
-In short, React may very well become the de facto view library when creating any application that involves a UI.
-
-
-
-
-
-
-
-
-
-
-Would be want to use JavaScript & React to create such DOM-static web app?
-Maybe not, as React is a tool for creating interactive views.
-Instead we could
-If the company only and will only will always have projects DOM-static web apps,
-But this is unlikely and chances are high that at some point a new project or new project requirement will require DOM-dynamic page(s).
-At this point the dev team will have no choice than to acquire knowledge about JavaScript and a view library such as React.
-
-The problem would not have occured, if the dev team would have chosen React and JavaScript.
-
-But there is a problem: Implementing a web app solely with JavaScript and React is currently overly effortful.
-These days, it is easier to implement a DOM-static web app with Ruby on Rails (RoR) than with JavaScript & React.
-But this is changing.
-The reason that RoR is easier is not because of the Ruby language nor because of RoR's template engine.
-It's because of RoR itself, the framework.
-JavaScript & React are missing a framework and Reframe aims to be that framework.
-
-**Soon JavaScript & React will get a framework at eye-level with RoR. At that point, there will be virtually no reason to choose RoR over JavaScript & React. Reframe aims to be that framework.**
-
-
-
-> - Reframe allows the creation of web apps that are mostly DOM-dynamic as well as web apps that are mostly DOM-static.
-
-
-There may be JavaScript fatigue, but JavaScript and React are not going anywhere and their popularity and adoption are only increasing.
-
-Likewise, on a career level, learning JavaScript and React is a robust choice.
-
-
-
-
-JavaScript & React is more difficult is because
-But this is because no high-quality web app framework using React has emerged yet.
-Reframe aims to fill the gap.
-
-
-On the other, and even if we don't manipulate the DOM, React is still a great templating engine to generate HTML.
-With React, we can create JavaScript's expressivness to define views, which is quite neat and superior to declarative template engines.
-
-But more importantly, if it does happen that some page enventually need.
-With Reframe, adding interactivity to a DOM-static page  is a matter of only a couple of lines of code.
-
-Also, JavaScript is one of the most popular language, relatively easy and performant
-
-great for static views as well.
-, would you use React
-Imagine you 
-
-React is not only a great library to implement dynamic views,
-but it is also a great templating engine.
-A React component is universal:
-It describes a view
-that can be static or dynamic, and
-that can be rendered to the DOM or to HTML or even to native iOS/Android.
-No other templating engine is that universal.
-And using the expressivness of JavaScript to define React components is vastly more powerful than any declarative template engines.
-
-
-
-WebAssembly has the potential to be what Java and .NET have both tried and failed to be -- the universal runtime for all languages across all platforms.
-
-We predict that React will become the de facto templating engine.
-
-Even if you don't 
-Even if none of yours pages
-
-Hacker news has almost no interactive.
-React's popularity is increasing and is becoming the de facto, similar to (Vue.js is great but it does a poor job on the server.)
-React in itself is a near-optimal experience; It does only one thing and does it very well.
-The problem with React is that 
-The only problem but the ecosystem around React is still young.
-But this is changing and Reframe is contributing.
-
-Reframe's vision is that learning JavaScript and React will be enough to build a full-stack application.
-
-With *SRO* 
-
-**If your page doesn't need to be interactive, then it shouldn't**.
-Pages that dynamically change in the browser.
-Dynamic pages are difficult by nature, and not matter how much better our tooling will become, dynamic pages will remain considerably more complex then static pages.
-
-Every usage signal; React popularity is steadly increasing and not stopping. 
-
-Why not use Ruby on Rails, Django, or Flask instead of React then? Because
- 1. React/JSX is a vastly superior HTML templating engine.
- 1. React/JSX is an incredibly powerful HTML templating engine.
- It is vastly superior to previous 
-
- 2. 
- 3. One language for both the browser and the server.
- 3. WebAssembly means that you can quickely implement prototypes with a script language and have great performence with a GC-less statically-typed language.
- 4. WebAssembly means that you'll eventually be able to choose amongst a high variety of languages while 
-
-
-Website cooking recipes with AMP
-Still worth it because
- - Reuse the whole React & Reframe ecosystem
- -
-
-React is popular:
- - https://stateofjs.com/2017/front-end/results
-  - 90% say they would use React again. Even though the tooling around React is still very young and immature.
- - more interestingly is everytime I talk to people about React what strikes me the level of enthusiam. I've never seen such repeated enthusiam for a programming library before.
-
-**Even if all your pages aren't dynamic, React is still the right choice**.
-
-**Reframe embraces this future and allows you to JavaScript-less pages.**
-
-At the cornerstore of this is the concept of We call such page a *HTML-static* and *DOM-static* page, and the Usage Manual explains (Switching is a matter of change 1 line)
-
-
-
-
-
-##### A more reasonable approach to dynamic pages
-
-With Reframe you can defined so-called HTML-static and DOM-static pages.
-Such pages are rendered to HTML on build-time and don't load any JavaScript.
-
-Your about page, your landing page, your homepage probably don't need to be dynamic, don't need .
-You can still include small JavaScript code such as Google Anayltics.
-But really, if one of your pages doesn't strictly need to be dynamic, then it shouldn't.
-
-React ; If you don't.
-
-It's not SRO React that is hard to implement, it's actually browser React the difficult.
-
-
-##### Performance
-
-- SSR.
-  <br/>
-  All pages are rendered to HTML, which considerably decreases the perceived load time.
-- Code splitting.
-  <br/>
-  Every page loads two scripts:
-  A script shared and cached accross all pages that include common code such as React and polyfills,
-  and a script that is specific to the page,
-  which is typically lightweight.
-  This means that if a page requires KB-heavy libraries that won't affect the KB-size of other pages.
-- Optimal HTTP Caching.
-  <br/>
-  Every dynamic server response is cached with a Etag header, and
-  every static server response is indefinitely cached.
-  (By assigning the static asset to a hashed URL, and by setting the `Cache-Control` header to `immutable` and `max-age`'s maxium value.)
-- Pages that load a minimal amount of browser-side JavaScript
-- DOM-static pages.
-  <br/>
-  A page can be configured to be rendered only on the server.
-  This as React is not loaded in the browser and the page doesn't need to be hydrated.
-  Also, a page can be configured so that only parts are hydrated.
-- HTML-static pages.
-  <br/>
-  A page can be configured to be rendered to HTML at build-time instead of request-time.
-  This means that, the page is rendered only once to HTML when Reframe is transpiling and bundling and the the HTML is statically served.
 
 
 
