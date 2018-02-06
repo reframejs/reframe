@@ -205,13 +205,15 @@ The same may very well happen to React:
 
 > Any UI that can be written with React, will eventually be written with React.
 
-Reframe embraces that future 
+Reframe embraces that future by making it easier to implement a web app with React and by supporting DOM-static web apps.
 
-###### Reframe encourages DOM-static views
+> Reframes treats both interactive (DOM-dynamic) web apps and non-interactive (DOM-static) web apps as first-class citizens.
 
-Another trend in web development is to make views interactive only if necessary.
+###### DOM-static views VS DOM-dynamic views
+
+Another trend in web development is to make views interactive (in other words DOM-dynamic) only if necessary.
 In the past, we had the tendency to jump on the interactive views bandwagon too easily.
-Over time, we learned that interactive views are, by nature, significantly more difficult to implement than static views.
+Over time, we learned that DOM-dynamic views are, by nature, significantly more difficult to implement than DOM-static views.
 
 > Views should be made interactive only if necessary
 
@@ -220,11 +222,12 @@ It's just that they are more time consuming to implement.
 And Reframe allows you to easily create both interactive views and static views.
 But we encourage you to implement requirements with static views when possible.
 
-> Reframes treats both interactive views and static views as first-class citizens.
-
 Beyond static views being easier to implement than dynamic views,
 they are also more performant:
 no browser-side JavaScript needs to be loaded and the DOM doesn't need to be manipulated.
+
+
+> Reframe encourages you to implement a majority of your web app with DOM-static views and only use DOM-dynamic views at the places necessary.
 
 
 
