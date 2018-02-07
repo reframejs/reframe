@@ -13,7 +13,6 @@
 
  - [What is Reframe](#what-is-reframe)
  - [Why Reframe](#why-reframe)
- - [The Future of React](#the-future-of-react)
  - [Reframe Project Scope](#reframe-project-scope)
  - [Quick Start](#quick-start)
 
@@ -109,39 +108,31 @@ Reframe allows you to configure a page to be
  - *DOM-static*, that is the page is not hydrated and the page's DOM is not manipulated.
 
 This is gives you flexibility to implement a wide range of React app types:
- - Static websites, that is HTML-static React apps.
+ - Static websites, that is HTML-static apps.
  <br/>
  By configurating all pages as HTML-static, all pages' HTML are rendered at build-time and no Node.js server is required. These apps can be deployed to static website host.
  - Universal apps, that is HTML-dynamic & DOM-dynamic React apps.
  Pages that don't need any interactive views can 
  <br/>
- - 95% DOM-static React apps.
+ - Sever-side rendered apps, that is HTML-dynamic apps
+ - Universal apps, that is HTML-dynamic & DOM-dynamic apps
  <br/>
- Reframe encourages you to create a minimal amount of DOM-dynamic views
  - Hybrid apps.
+ <br/>
+ Reframe allows you to configure whether the app is HTML-static and/or DOM-static on page basis:
+ Should be handled on page by page:
+ A Landing page is likely to be HTML-static and (mostly) DOM-static, a Todo 
+ - Mostly DOM-static React apps.
+ <br/>
+ A type of hybrid app is what we call "mostly DOM-static app":
+ Reframe encourages you to create a minimal amount of DOM-dynamic views.
+ The time of KB-huge SPAs needs to end and Reframe is happy to contribute to the SPA's demise.
+ (Although note that you can as well create SPAs with Reframe.)
 
 Reframe is the only React framework supporting all the aforementioned app types.
 
 Instead of learning a different frameworks to create different types of apps,
 you can learn Reframe once to be able to create all types of apps.
-
-For example, instead of having to learn Gatsby you can only learn Reframe.
-Learn Reframe instead for example learn Gatsby for HTML-static React apps and Next.js learning for HTML-dynamic React apps,
-
-React all
-Current React frameworks 
-But segragated:
-you have tools (e.g. Gatsby) to create HTML-static apps or server-rendered apps (e.g. Next.js) but none of the frameworks allow the whole spectrum of apps
-You have to learn two frameworks to create. When learning Reframe instead, 
-
- - 50% HTML-static apps
- - 95% DOM-static apps
-
-Example of apps that can't be created with current frameworks
- - 95% static-
-
-Reframe aims to be universal by supporting all types of React apps.
-Reframe aims to be universal: 
 
 ##### Customization
 
@@ -212,75 +203,6 @@ Examples of customization achievable by replacing Reframe packages:
 - SSR.
   <br/>
   All pages are defaulty rendered to HTML, decreasing the (perceived) load time.
-
-
-
-### The future of React
-
-> **TL;DR**
-> - React is going to increasingly be used to implement for non-interactive views.
-> - React may very well become the de facto universal view library.
-> - Reframe embraces and encourages non-interactive views.
-
-###### React and non-interactive views
-
-React is more and more used to create non-interactive apps.
-This trend may sound odd at first, since React is a library for creating interactive views.
-
-Why would we want to use React to create a non-interactive view?
-
-Let's imagine a software engineering team that wants to implement a web app that has no interactive view (in other words all views are DOM-static)  .
-What platform should the team use to implement that web app?
-It would seem natural to choose a platform regardless of its support for interactive views.
-The team could for example use Ruby on Rails despite the fact that RoR doesn't direclty support interactive views.
-If the team knows that it won't have to implement interactive views in the future,
-then that would be a legitimate choice.
-But that's the twist;
-It is likely that at some point in the future a new project (requirement) will require an interactive view.
-At this point the dev team will have no choice than to acquire knowledge about JavaScript and a view library such as React.
-If the team would have chosen JavaScript & React in the first place instead, they would have spared themselves the time to get to know a new platform.
-
-Beyond the "learn once, write anywhere" argument, JavaScript & React has several important advantages:
- - React is universal: It can target the DOM, HTML, native, etc.
- - React can create both interactive views and non-interactive views
- - Using React as a HTML templating engine is superior to any declarative template engine.
- - JavaScript is a popular, performant, and rapidly evolving language.
- - JavaScript/WebAssembly is the only runtime that can run in the browser.
- - WebAssembly may become the universal runtine that programmers always dreamed of.
- - Ability to choose from a high variety of languages that compile to JavaScript/WebAssembly
-
-So, JavaScript & React is a good choice for non-interactive web apps as well.
-We expect the React adoption in the non-interactive views space to considerably increase.
-
-Ten years ago Jeff Atwood predicted that "Any application that can be written in JavaScript, will eventually be written in JavaScript.".
-The same may very well happen to React:
-
-> Any UI that can be written with React, will eventually be written with React.
-
-Reframe embraces that future by making it easier to implement a web app with React and by supporting DOM-static web apps.
-
-> Reframes treats both interactive (DOM-dynamic) web apps and non-interactive (DOM-static) web apps as first-class citizens.
-
-###### DOM-static views VS DOM-dynamic views
-
-Another trend in web development is to make views interactive (in other words DOM-dynamic) only if necessary.
-In the past, we had the tendency to jump on the interactive views bandwagon too easily.
-Over time, we learned that DOM-dynamic views are, by nature, significantly more difficult to implement than DOM-static views.
-
-Therefore:
-
-> Views should be made interactive only if necessary
-
-That said, interactive views are perfectly fine,
-and Reframe allows you to easily create interactive views as well as non-interactive views.
-But we encourage to implement requirements with non-interactive views when possible.
-
-Beyond non-interactive views being easier to implement,
-they are also more performant:
-no browser-side JavaScript needs to be loaded and the DOM doesn't need to be manipulated.
-
-
-> Reframe encourages you to implement a majority of your web app with DOM-static views and only use DOM-dynamic views where necessary.
 
 
 
