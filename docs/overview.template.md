@@ -13,6 +13,10 @@
 
  - [What is Reframe](#what-is-reframe)
  - [Why Reframe](#why-reframe)
+   - [Ease of Use](#ease-of-use)
+   - [Universality](#universality)
+   - [Customization](#customization)
+   - [Performance](#performance)
  - [Reframe Project Scope](#reframe-project-scope)
  - [Quick Start](#quick-start)
 
@@ -90,11 +94,11 @@ The following happend:
 
 ### Why Reframe
 
-Reframe has been designed with a focus on
- - Ease of Use
- - Universality
- - Customization
- - Performance
+Reframe has been designed with a focus on:
+ - [Ease of Use](#ease-of-use)
+ - [Universality](#universality)
+ - [Customization](#customization)
+ - [Performance](#performance)
 
 ##### Ease of Use
 
