@@ -89,8 +89,8 @@ The `reframe` CLI does the rest:
 Reframe did the following:
  - Reframe searched for the `/pages` directory and found it at `~/tmp/reframe-playground/pages`.
  - Reframe read the `/pages` directory and found our page config at `~/tmp/reframe-playground/pages/HelloPage.html.js`.
- - Reframe used webpack to transpile `HelloPage.html.js` for the server and to create bundles for the browser.
- - Reframe started a hapi server serving all static browser assets and serving our page's HTML.
+ - Reframe used webpack to transpile `HelloPage.html.js` for the server and the browser.
+ - Reframe started a hapi server that serves all static browser assets and serves our page's HTML by rendering it on every request.
 
 ### Why Reframe
 
@@ -108,15 +108,15 @@ The "Quick Start" section bellow shows how easy it is.
 ##### Universality
 
 Reframe allows you to configure a page to be
- - *HTML-static*, that is the page is rendered to HTML at build-time instead of request-time.
- - *DOM-static*, that is the page is not hydrated and the page's DOM is not manipulated.
+ - *HTML-static*: The page is rendered to HTML at build-time instead of request-time.
+ - *DOM-static*: The page is not hydrated, in other words the page's DOM is not manipulated.
 
-This is gives you the ability to implement a wide range of types of React apps:
- - Static websites, that is HTML-static apps.
+This fine-grain control gives you the ability to implement a wide range of types of React apps:
+ - Static websites, in other words HTML-static apps.
  <br/>
- By configurating all pages as HTML-static, all pages are rendered to HTML at build-time and no Node.js server is required. These apps can be deployed to static website host such as GitHub Pages or Netlify.
- - Sever-side rendered apps, that is HTML-dynamic apps.
- - Universal apps, that is HTML-dynamic & DOM-dynamic apps.
+ By configurating all pages as HTML-static, all pages are rendered to HTML at build-time and no Node.js server is needed. These apps can be deployed to static website hostings such as GitHub Pages or Netlify.
+ - Sever-side rendered apps, in other words HTML-dynamic apps.
+ - Universal apps, in other words HTML-dynamic & DOM-dynamic apps.
  <br/>
  - Hybrid apps.
  <br/>
