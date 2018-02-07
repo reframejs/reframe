@@ -107,32 +107,29 @@ Reframe allows you to configure a page to be
  - *HTML-static*, that is the page is rendered to HTML at build-time instead of request-time.
  - *DOM-static*, that is the page is not hydrated and the page's DOM is not manipulated.
 
-This is gives you flexibility to implement a wide range of React app types:
+This is gives you flexibility to implement a wide range of types of React apps:
  - Static websites, that is HTML-static apps.
  <br/>
- By configurating all pages as HTML-static, all pages' HTML are rendered at build-time and no Node.js server is required. These apps can be deployed to static website host.
- - Universal apps, that is HTML-dynamic & DOM-dynamic React apps.
- Pages that don't need any interactive views can 
- <br/>
- - Sever-side rendered apps, that is HTML-dynamic apps
- - Universal apps, that is HTML-dynamic & DOM-dynamic apps
+ By configurating all pages as HTML-static, all pages are rendered to HTML at build-time and no Node.js server is required. These apps can be deployed to static website host such as GitHub Pages or Netlify.
+ - Sever-side rendered apps, that is HTML-dynamic apps.
+ - Universal apps, that is HTML-dynamic & DOM-dynamic apps.
  <br/>
  - Hybrid apps.
  <br/>
- Reframe allows you to configure whether the app is HTML-static and/or DOM-static on page basis:
- Should be handled on page by page:
- A Landing page is likely to be HTML-static and (mostly) DOM-static, a Todo 
- - Mostly DOM-static React apps.
+ Reframe allows you to configure whether the app is HTML-static and/or DOM-static on a page basis.
+ You can for example configure your landing page to be HTML-static and DOM-static, your product page to be HTML-dynamic and DOM-static, and your proct search page to be HTML-static and DOM-dynamic.
+ - Maximum DOM-static React apps.
  <br/>
- A type of hybrid app is what we call "mostly DOM-static app":
- Reframe encourages you to create a minimal amount of DOM-dynamic views.
- The time of KB-huge SPAs needs to end and Reframe is happy to contribute to the SPA's demise.
- (Although note that you can as well create SPAs with Reframe.)
+ A type of hybrid app is what we call "Maximum DOM-static app":
+ All views that don't need to be interactive are made DOM-dynamic.
+ The rest of the app is DOM-static.
+ This increases the performance and overal achritectural simplicty of the code.
+ In general, Reframe encourages you to implement requirements with non-interactive views, as non-interactive views (while perfectly fine) are more time consuming to implement and tend to be less performant.
 
-Reframe is the only React framework supporting all the aforementioned app types.
+Reframe is the only React framework supporting all of the aforementioned app types.
 
-Instead of learning a different frameworks to create different types of apps,
-you can learn Reframe once to be able to create all types of apps.
+> Instead of learning different frameworks to create different types of apps,
+> you can learn Reframe once to be able to create all types of apps.
 
 ##### Customization
 
