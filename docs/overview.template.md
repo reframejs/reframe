@@ -108,16 +108,22 @@ Reframe allows you to configure a page to be
  - *HTML-static*, that is the page is rendered to HTML at build-time instead of request-time.
  - *DOM-static*, that is the page is not hydrated and the page's DOM is not manipulated.
 
-This is gives you flexibility to implement a wide range of React app types, for example:
- - HTML-static apps
- - DOM-static apps
- - 95% DOM-static apps
- - Hybrid apps
+This is gives you flexibility to implement a wide range of React app types:
+ - Static websites, that is HTML-static React apps.
+ <br/>
+ By configurating all pages as HTML-static, all pages' HTML are rendered at build-time and no Node.js server is required. These apps can be deployed to static website host.
+ - Universal apps, that is HTML-dynamic & DOM-dynamic React apps.
+ Pages that don't need any interactive views can 
+ <br/>
+ - 95% DOM-static React apps.
+ <br/>
+ Reframe encourages you to create a minimal amount of DOM-dynamic views
+ - Hybrid apps.
 
+Reframe is the only React framework supporting all the aforementioned app types.
 
-Currently Reframe is the only React framework supporting all the aforementioned app types.
-
-Instead of learning a different framework for each app type, you learn Reframe once to be able to write all types of apps.
+Instead of learning a different frameworks to create different types of apps,
+you can learn Reframe once to be able to create all types of apps.
 
 For example, instead of having to learn Gatsby you can only learn Reframe.
 Learn Reframe instead for example learn Gatsby for HTML-static React apps and Next.js learning for HTML-dynamic React apps,
