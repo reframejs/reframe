@@ -101,8 +101,7 @@
 <br/>
 
 The usage manual acts as reference for using Reframe wihtout advanced customization.
-This manual should cover most common use cases.
-(Create a GitHub issue if a common use case is missing.)
+This manual covers most common use cases.
 
 # Usage Manual
 
@@ -118,7 +117,7 @@ This manual should cover most common use cases.
  - [Links & Page Navigation](#links--page-navigation)
  - [Production Environment](#production-environment)
 
-###### Advanced Usage
+###### Further Usage
 
  - [Custom Server](#custom-server)
  - [Custom Head](#custom-head)
@@ -162,7 +161,7 @@ Note that it is important to save the page config with a filename that ends with
 We will discuss later why.
 
 Let's now run our Hello World page.
-For that, we use the reframe CLI, and we need React.
+For that, we will use the reframe CLI and we will need React.
 Let's install these two.
 
 ~~~shell
@@ -204,10 +203,10 @@ The HTML `view-source:http://localhost:3000/` is
 ~~~
 
 As we can see, the page doesn't load any JavaScript.
-And the DOM is static, as there isn't any JavaScript to manipulate the DOM.
+The DOM is static, as there isn't any JavaScript to manipulate the DOM.
 We say that the page is *DOM-static*.
 
-We can also create pages with a dynamic view and a dynamic DOM.
+We can also create pages with interactive views and a dynamic DOM.
 We will see later how.
 
 Our page is what we call "HTML-dynamic", and we now discuss what this means.
@@ -302,30 +301,31 @@ export default {
 };
 ~~~
 
-When we declare the page's HTML to be static
-(with `htmlIsStatic: true`)
-Reframe renders the HTML only once when building the frontend.
+When we declare the page to be HTML-static
+(with `htmlIsStatic: true`),
+Reframe renders the HTML only once, namely when building the frontend.
 
 If the time when building the frontend was 12:00:00,
 then our page will always show `(Generated at 12:00:00)`, no matter when we load the page.
 
 We say that the HTML is generated at *build-time* and that the page is *HTML-static*.
 
-We can actually see the, at build-time generated, HTML at `~/tmp/reframe-playground/dist/browser/index.html`.
+We can actually see the HTML generated at build-time at `~/tmp/reframe-playground/dist/browser/index.html`.
 
 To sum up,
-`htmlIsStatic: false` declares the page as HTML-dynamic; the HTML is rendered at request-time,
-and
-`htmlIsStatic: true` declares the page as HTML-static; the HTML is rendered at build-time.
+`htmlIsStatic: false` declares the page as HTML-dynamic: The HTML is rendered at request-time.
+And
+`htmlIsStatic: true` declares the page as HTML-static: The HTML is rendered at build-time.
 
 For pages with lot's of elements, generating the HTML at build-time instead of request-time can be a considerable performance gain.
 
 Also,
-if all our pages are HTML-static,
+if we declare all our pages as HTML-static,
 then all HTMLs are rendered at build-time,
 no server code is required,
-and we can deploy our static app to a static website host
-such as [GitHub Pages](https://pages.github.com/).
+our app is static,
+and we can deploy our app to a static website host
+such as [GitHub Pages](https://pages.github.com/) or Netlify.
 
 Not only do we have control over whether the HTML is static or not,
 but we also have control over whether the DOM is static or not.
@@ -362,15 +362,15 @@ We can't compute an infinite number of pages at build-time; the page has to be H
 
 All pages with a parameterized route are HTML-dynamic.
 
-As HTML-static pages are more performant, we recommand to make a page HTML-dynamic only if necessary.
+In general, as HTML-static pages are more performant, we recommand to make a page HTML-dynamic only if necessary.
 
-Let's now create pages with dynamic views.
+Let's now create pages with interactive views.
 
 
 
 ## DOM-static VS DOM-dynamic
 
-We consider the following page config that defines a page displaying the current time.
+Let's consider the following page config that defines a page displaying the current time.
 
 ~~~js
 // /example/pages/TimePage.universal.js
@@ -418,7 +418,7 @@ const toTimeString = now => (
 export {TimeComponent, toTimeString};
 ~~~
 
-Looking at the HTML `view-source:http://localhost:3000/time`
+Looking at the HTML `view-source:http://localhost:3000/time`:
 
 ~~~html
 <!DOCTYPE html>
@@ -452,9 +452,9 @@ whereas our previous examples were saved as `*.html.js` files.
 So,
 a page with a page config saved as `pages/*.html.js` is treated as DOM-static and
 a page with a page config saved as `pages/*.universal.js` is treated as DOM-dynamic.
-Reframe also picks up `pages/*.entry.js` and `pages/*.dom.js` files and we talk about these in the next two sections.
+Reframe also picks up `pages/*.entry.js` and `pages/*.dom.js` files and we will talk about these in the sections "Partial DOM-dynamic" and "Custom Browser JavaScript".
 
-In case you are curious, the loaded JavaScript is:
+In case you are curious, the loaded JavaScript are:
  - `/commons.hash_xxxxxxxxxxxxxxxxxxxx.js`
    which
    is around 250KB in production,
@@ -464,10 +464,10 @@ In case you are curious, the loaded JavaScript is:
    It is loaded by all pages and is indefinitely cached across all pages.
  - `/TimePage.entry.hash_xxxxxxxxxxxxxxxxxxxx.js`
    which
-   includes the compiled version of `TimePage.universal.js` and a tiny wrapper.
+   includes the transpiled version of `TimePage.universal.js` and a tiny wrapper.
    It is specific to the page and is usually lightweight.
 
-As DOM-static pages are more performant, we recommand to make a page DOM-dynamic only if necessary.
+As DOM-static pages are more performant, we recommand to make pages DOM-dynamic only if necessary.
 
 So, when defining the page with a `.universal.js` file, the entire page is hydrated.
 
@@ -482,8 +482,8 @@ import './GlitterStyle.css';
 ~~~
 
 Static assets (images, fonts, videos, etc.) can be imported as well
-but importing an asset doesn't actually load it,
-and instead the URL of the asset is returned.
+but importing an asset doesn't actually load it:
+Only the URL of the asset is returned.
 It is up to us to use/fetch the URL of the asset.
 
 ~~~js
@@ -575,13 +575,10 @@ body {
 ~~~
 
 Note that CSS and static assets are handled by webpack,
-and we can customize the webpack configuration.
+and that the webpack config is fully customizable.
 We referer to the Customization Manual for further information.
 
 Also note that all types of static assets are supported.
-(If you are curious,
-we achieve this by using the `file-loader` as fallback,
-i.e. we apply the `file-loader` to all files that are not handled by any other webpack loader.)
 
 
 
@@ -590,9 +587,9 @@ i.e. we apply the `file-loader` to all files that are not handled by any other w
 A common React use case is to display data that is fetched over the network.
 The page config supports a `async getInitialProps()` property that Reframe calls every time and before the view is rendered.
 (On both the server and in the browser.)
-We can use `async getInitialProps()` to fetch the data that ourReact components require.
+We can therefore use `async getInitialProps()` to fetch the data that page's React components require.
 
-An example:
+For example:
 
 ~~~js
 // /example/pages/GameOfThronesPage.html.js
