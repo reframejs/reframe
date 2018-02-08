@@ -98,6 +98,8 @@
 [Usage Manual](/docs/usage-manual.md)<br/>
 [Customization Manual](/docs/customization-manual.md)
 
+<br/>
+
 The customization manual acts as reference for customizing Reframe.
 
 Reframe consists of three packages;

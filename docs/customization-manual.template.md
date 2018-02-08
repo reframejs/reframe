@@ -3,6 +3,8 @@
 !MENU
 !MENU_ORDER 30
 
+<br/>
+
 The customization manual acts as reference for customizing Reframe.
 
 Reframe consists of three packages;
