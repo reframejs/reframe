@@ -82,15 +82,15 @@
 <div><p align="center">
     <b>Easy</b>
     -
-    Create apps with page configs
+    Create apps with page configs.
     &nbsp;&nbsp;&nbsp;
     <b>Universal</b>
     -
-    Create all kinds of apps
+    Create all kinds of apps.
     &nbsp;&nbsp;&nbsp;
     <b>Customizable</b>
     -
-    Everything is adaptable
+    Everything is adaptable.
 </p></div>
 <br/>
 
