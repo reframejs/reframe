@@ -24,10 +24,8 @@
 
 ### What is Reframe
 
-Reframe allows you to create web apps simply by defining pages.
+Reframe allows you to create web apps by simply defining so called "page configs".
 Reframe then takes care of the rest: It automatically transpiles, bundles, serves, and routes your pages.
-
-A page is defined by a plain JavaScript object called *page config*.
 
 ~~~js
 // We create a landing page by defining a page config:
@@ -38,7 +36,7 @@ const LandingPage = {
 };
 ~~~
 
-A page config configures a page by assigning it
+A *page config* is a plain JavaScript object that configures a page by assigning it
  - a React component (required),
  - a route (required), and
  - further (optional) page configurations (such as the page's &lt;title&gt;, meta tags, script tags, whether the page should be hydrated or not, whether the page's HTML should be rendered at build-time or at request-time, etc.).
@@ -64,9 +62,9 @@ Defining page configs allows you to create:
  Apps where the DOM is static and React is only used to render HTML.
  No (or almost no) JavaScript is loaded in the browser.
 
- - **Every kind of React app**
+ - **Any kind of React app**
  <br/>
- Pretty much all kinds of app can be created.
+ Pretty much all kinds of apps can be created.
  Reframe generates a certain type of app depending on how you configure your pages.
  For example, if you add `htmlIsStatic: true` to a page config, then that page's HTML is rendered at build-time instead of request-time.
  So, creating an HTML-static React app is simply a matter of setting `htmlIsStatic: true` to all page configs.
