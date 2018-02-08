@@ -5,9 +5,9 @@
  <li>one</li>
 </ul>
 <p align="center">
-    <b>Easy</b> &mdash; Create apps by simply defining page configs
+    <b>Easy</b> &mdash; Create apps by simply defining page configs and React components
     <br/>
-    <b>Universal</b> &mdash; Create server-rendered apps, static apps, and all kinds of apps.
+    <b>Universal</b> &mdash; Create server-rendered apps, static apps, DOM-static apps, universal apps, and all kinds of apps.
     <br/>
     <b>Customizable</b> &mdash; Everything change be adapted
 </p>
