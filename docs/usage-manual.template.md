@@ -30,7 +30,6 @@ This manual should cover most common use cases.
  - [404 Page](#404-page)
  - [Partial DOM-dynamic](#partial-dom-dynamic)
  - [Custom Browser JavaScript](#custom-browser-javascript)
-
  - [Related External Docs](#related-external-docs)
 
 
