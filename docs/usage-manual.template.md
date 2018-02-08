@@ -11,7 +11,7 @@ This manual should cover most common use cases.
 
 # Usage Manual
 
-##### Contents
+#### Contents
 
 ###### Basic Usage
 
