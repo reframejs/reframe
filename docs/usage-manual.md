@@ -548,7 +548,7 @@ Because only the `.dom.js` page config is loaded in the browser, and
 the `.html.js` page config is never loaded in the browser.
 For example, we can see that the `NewsPage.dom.js` file only loads `TimeComponent` and not the (imaginary) KB heavy `LatestNewsComponent`.
 
-Note that we can set `view` to an array with more than one view object, and, in that way, we can hydrate several parts of the page.
+Note that we can set `view` to an array with more than one view object, and that way we can hydrate several parts of the page.
 
 Beyond being able to define partial hydration,
 we can gain further control over what's happening in the browser
