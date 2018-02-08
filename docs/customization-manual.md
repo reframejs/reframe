@@ -92,6 +92,7 @@
     -
     Everything is adaptable
 </p></div>
+<br/>
 
 [Overview](/../../)<br/>
 [Usage Manual](/docs/usage-manual.md)<br/>
