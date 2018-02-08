@@ -46,7 +46,7 @@ You can build a React web app with **no build configuration and no server config
 And, if you need to, **everything is customizable**.
 For example, you can customize the transpiling & bundling, the server, the browser entry, the Node.js entry, etc.
 
-Page configs can configure your pages to create:
+Page configs allow you can configure your pages in order to create:
 
  - **Server-side rendered React apps**
  <br/>
@@ -105,35 +105,37 @@ The "Quick Start" section bellow shows how easy it is.
 
 ##### Universality
 
-Reframe allows you to configure a page to be
+A page config allows you to configure a page to be
  - *HTML-static*: The page is rendered to HTML at build-time instead of request-time.
  - *DOM-static*: The page is not hydrated, in other words the page's DOM is not manipulated.
 
-This fine-grain control gives you the ability to implement a wide range of types of React apps:
- - Static websites, in other words HTML-static apps.
+This fine-grain control over the "staticness" of your app gives you the ability to implement a wide range of types of React apps:
+ - Static websites, in other words apps where all pages are configured to be  HTML-static.
  <br/>
  By configurating all pages as HTML-static, all pages are rendered to HTML at build-time and no Node.js server is needed. These apps can be deployed to static website hostings such as GitHub Pages or Netlify.
- - Sever-side rendered apps, in other words HTML-dynamic apps.
- - Universal apps, in other words HTML-dynamic & DOM-dynamic apps.
+ - Sever-side rendered apps, in other words apps where all pages are configured to be HTML-dynamic.
+ - Universal apps, in other words apps where all pages are configured to be HTML-dynamic & DOM-dynamic.
  <br/>
  - Hybrid apps.
  <br/>
- Reframe allows you to configure whether the app is HTML-static and/or DOM-static on a page basis.
+ Because each page can be configured individually, an app can have different kinds of pages:
+ Some pages can be HTML-static, some pages HTML-dynamic, some others DOM-static, and some DOM-dynamic.
  You can for example configure your landing page to be HTML-static and DOM-static, your product page to be HTML-dynamic and DOM-static, and your proct search page to be HTML-static and DOM-dynamic.
  - Maximum DOM-static React apps.
  <br/>
- A type of hybrid app is what we call *Maximum DOM-static app*:
- Only interactive views are hydrated
+ A type of hybrid apps are what we call *Maximum DOM-static apps*:
+ Only interactive views are being hydrated
  and the rest of the app is DOM-static.
  <br/>
- This increases the performance: Less JavaScript is loaded and fewer views are hydrated.
+ This increases the performance: Less JavaScript is loaded and fewer views are being hydrated.
  <br/>
- In general, Reframe encourages you to implement requirements with non-interactive views, as non-interactive views (while perfectly fine) are more time consuming to implement and tend to be less performant.
+ In general, Reframe encourages you to implement requirements with non-interactive views instead of interactive views.
+ Interactive views are perfectly fine but they are more time consuming to implement and tend to be less performant.
 
 Reframe is the only React framework supporting all of the aforementioned app types.
 
 > Instead of learning different frameworks to create different types of apps,
-> you can learn Reframe once to be able to create all types of apps.
+> you learn Reframe once to be able to create all kinds of apps.
 
 ##### Customization
 
