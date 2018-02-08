@@ -1,1 +1,1 @@
-require('./custom/server');
+require('./custom/server/hapi-server');
