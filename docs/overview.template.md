@@ -48,7 +48,7 @@ You can build a React web app with **no build configuration and no server config
 And, if you need to, **everything is customizable**.
 For example, you can customize the transpiling & bundling, the server, the browser entry, the Node.js entry, etc.
 
-Page configs allow you can configure your pages in order to create:
+With Reframe you can create:
 
  - **Server-side rendered React apps**
    <br/>
