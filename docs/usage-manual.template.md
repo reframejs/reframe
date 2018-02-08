@@ -3,6 +3,8 @@
 !MENU
 !MENU_ORDER 20
 
+<br/>
+
 The usage manual acts as reference for using Reframe's default setup.
 The default setup should cover most common use cases.
 (Create a GitHub issue if a common use case is missing.)

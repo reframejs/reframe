@@ -98,6 +98,8 @@
 [Usage Manual](/docs/usage-manual.md)<br/>
 [Customization Manual](/docs/customization-manual.md)
 
+<br/>
+
 The usage manual acts as reference for using Reframe's default setup.
 The default setup should cover most common use cases.
 (Create a GitHub issue if a common use case is missing.)
