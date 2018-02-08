@@ -5,7 +5,11 @@
 
 <br/>
 
-The customization manual acts as reference for customizing Reframe.
+The customization manual acts as reference for advanced Reframe customization. Basic customization are covered in the Usage Manual.
+
+As your app grows, you will likely need to implement edge cases not covered by Reframe.
+In these situations, we refer to this Customization Manual.
+With willingness to dive into Reframe and to re-write parts, pretty much all edge cases should be achievable.
 
 Reframe consists of three packages;
 `@reframe/build` that transpiles and bundles code,

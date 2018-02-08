@@ -5,13 +5,9 @@
 
 <br/>
 
-The usage manual acts as reference for using Reframe's default setup.
-The default setup should cover most common use cases.
+The usage manual acts as reference for using Reframe wihtout advanced customization.
+This manual should cover most common use cases.
 (Create a GitHub issue if a common use case is missing.)
-
-As your app grows, you will likely hit edge cases not covered by the default setup.
-In these situations, we refer to the Customization Manual.
-With willingness to dive into Reframe and to re-write parts, pretty much all edge cases should be achievable.
 
 # Usage Manual
 
