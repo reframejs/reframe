@@ -77,19 +77,23 @@
 -->
 [<p align="center"><img src='https://github.com/brillout/reframe/raw/master/docs/logo/logo-with-title.svg?sanitize=true' width=450 height=94 style="max-width:100%;" alt="Reframe"/></p>](https://github.com/brillout/reframe)
 
-<div align="center" dir="">
+<p align="center" dir="">
     Framework to create React web apps.
-</div>
+</p>
 
-<div align="center" dir="">
-    <b>Easy</b> &mdash; Create apps by defining page configs.
-</div>
-<div align="center" dir="">
-    <b>Universal</b> &mdash; Create all kinds of apps.
-</div>
-<div align="center" dir="">
-    <b>Customizable</b> &mdash; Everything can be adapted to your needs.
-</div>
+<p align="center" dir="">
+    <b>Easy</b>
+    -
+    Create apps with page configs
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <b>Universal</b>
+    -
+    Create all kinds of apps
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <b>Customizable</b>
+    -
+    Everything is adaptable
+</p>
 
 <br/>
 
