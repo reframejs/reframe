@@ -101,20 +101,30 @@ Reframe has been designed with a focus on:
 ##### Ease of Use
 
 Creating a React app is simply a matter of creating React components and page configs.
-The "Quick Start" section bellow shows how easy it is.
+The "Quick Start" section below shows how easy it is.
 
 ##### Universality
 
 A page config allows you to configure a page to be
- - *HTML-static*: The page is rendered to HTML at build-time instead of request-time.
- - *DOM-static*: The page is not hydrated, in other words the page's DOM is not manipulated.
+ - *HTML-static*:
+ The page is rendered to HTML at build-time instead of request-time.
+ In other words, the page's HTML is rendered only once when Reframe is building the frontend as opposed to be (re-)rendered to HTML every time the user requests the page.
+ - *DOM-static*:
+ The page is not hydrated.
+ In other words, the page's DOM is not manipulated.
 
-This fine-grain control over the "staticness" of your app gives you the ability to implement a wide range of types of React apps:
- - Static websites, in other words apps where all pages are configured to be  HTML-static.
+This fine-grain control over the "static-ness" of your app gives you the ability to implement a wide range of types of React apps:
+ - Static websites,
+ in other words apps where all pages are configured to be HTML-static.
  <br/>
- By configurating all pages as HTML-static, all pages are rendered to HTML at build-time and no Node.js server is needed. These apps can be deployed to static website hostings such as GitHub Pages or Netlify.
- - Sever-side rendered apps, in other words apps where all pages are configured to be HTML-dynamic.
- - Universal apps, in other words apps where all pages are configured to be HTML-dynamic & DOM-dynamic.
+ By configurating all pages as HTML-static, all pages are rendered to HTML at build-time and no Node.js server is needed.
+ These apps can be deployed to static website hostings such as GitHub Pages or Netlify.
+ - Sever-side rendered apps.
+ <br/>
+ In other words apps where all pages are configured to be HTML-dynamic.
+ - Universal apps.
+ <br/>
+ In other words apps where all pages are configured to be HTML-dynamic & DOM-dynamic.
  <br/>
  - Hybrid apps.
  <br/>
@@ -130,9 +140,9 @@ This fine-grain control over the "staticness" of your app gives you the ability 
  This increases the performance: Less JavaScript is loaded and fewer views are being hydrated.
  <br/>
  In general, Reframe encourages you to implement requirements with non-interactive views instead of interactive views.
- Interactive views are perfectly fine but they are more time consuming to implement and tend to be less performant.
+ Interactive views are perfectly fine and there is nothing wrong with them, but they are more time consuming to implement and tend to be less performant.
 
-Reframe is the only React framework supporting all of the aforementioned app types.
+Reframe is the only React framework that supports all app types.
 
 > Instead of learning different frameworks to create different types of apps,
 > you learn Reframe once to be able to create all kinds of apps.
@@ -146,7 +156,7 @@ Reframe allows "full customization": virtually everything is customizable.
 
 Examples of customizations that are easy to achieve:
  - Custom server
-   - Add server routes to create RESTful/GraphQL API endpoints, authentication endpoints, etc.
+   - Add server routes to add RESTful/GraphQL API endpoints, authentication endpoints, etc.
    - Custom hapi server config. (Reframe, by default, uses the hapi server framework.)
    - Use a process manager such as PM2.
    - etc.
@@ -164,15 +174,15 @@ Examples of customizations that are easy to achieve:
  - etc.
 
 Beyond these easy customizations,
-Reframe is designed with "full customization" in mind:
+Reframe is designed with "full customization" in mind.
 Reframe consists of three packages:
 `@reframe/build` that transpiles and bundles,
-`@reframe/server` that creates the server,
-`@reframe/browser` that hydrates the page in the browser,
-and each of these packages can be replaced with code of your own.
+`@reframe/server` that creates the server, and
+`@reframe/browser` that hydrates the page in the browser.
+Each of these packages can be replaced with code of your own.
 This means that, if you replace all these three packages with your own code, you effectively get rid of Reframe.
 
-Examples of customization achievable by replacing Reframe packages:
+Examples of customization achievable by replacing a Reframe package:
  - Custom server framework, such as Express, Koa, etc. (Reframe uses hapi by default)
  - Custom build tool, such as Rollup (Reframe uses webpack by default)
  - etc.
@@ -182,8 +192,8 @@ Examples of customization achievable by replacing Reframe packages:
 - Code splitting.
   <br/>
   Every page loads two scripts:
-  A script shared and cached accross all pages that include common code such as React and polyfills,
-  and a (typically lightweight) script that is specific to the page.
+  A script shared and cached accross all pages that includes common code such as React and polyfills,
+  and a script that is specific to the page and that is typically lightweight.
   This means that a page requiring KB-heavy libraries won't affect the KB-size of other pages.
 - Optimal HTTP caching.
   <br/>
@@ -197,15 +207,16 @@ Examples of customization achievable by replacing Reframe packages:
 - Partial DOM-dynamic pages.
   <br/>
   A page can be configured so that only certain parts of the page are hydrated.
-  This makes the hydration of the page quicker. And less JavaScript is loaded in the browser, as the browser only loads the React components of the hydrated parts.
+  This makes the hydration of the page quicker.
+  Less JavaScript is loaded in the browser, as the browser only loads the React components of the hydrated parts.
 - HTML-static pages.
   <br/>
   A page can be configured to be rendered to HTML at build-time instead of request-time.
   In other words, the page is rendered to HTML only once, namely when Reframe is transpiling & bundling.
-  The HTML is statically served, hence decreasing load time.
+  The HTML is statically served and the load time is decreased.
 - SSR.
   <br/>
-  All pages are defaulty rendered to HTML, decreasing the (perceived) load time.
+  All pages are, by default, rendered to HTML before being hydrated, decreasing the (perceived) load time.
 
 
 
@@ -231,12 +242,13 @@ Reframe **doesn't** take care of:
  - Database
    <br/>
    It's up to you to create, populate, and query databases.
+   (You can add API endpoints to the hapi server that Reframe creates.)
 
 
 ### Quick Start
 
 Let's create our first React app.
-For that we create a page by creating a page config and a React component.
+For that we create a page by defining a page config and a React component.
 
 1. We first create a `pages/` directory:
 
@@ -244,7 +256,7 @@ For that we create a page by creating a page config and a React component.
 mkdir -p ~/tmp/reframe-playground/pages
 ~~~
 
-2. Then we create a new JavaScript file `~/tmp/reframe-playground/pages/HelloWorldPage.html.js` that exports a page config:
+2. We then create a new JavaScript file at `~/tmp/reframe-playground/pages/HelloWorldPage.html.js` that exports a page config:
 
 ~~~js
 import React from 'react';
@@ -293,5 +305,5 @@ $ reframe ~/tmp/reframe-playground/pages
 That's it: We have created our first React web app by simply creating one React Component and one page config.
 
 The "Basic Usage" section of the [Usage Manual](/docs/usage-manual.md) contains further information, including:
- - Loading async data
- - Creating apps and pages that are DOM-dynamic, DOM-static, HTML-static, and/or HTML-dynamic
+ - How to configure pages that need to (asynchronously) load data.
+ - How to configure pages to be DOM-dynamic, DOM-static, HTML-static, and/or HTML-dynamic.
