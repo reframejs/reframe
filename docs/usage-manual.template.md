@@ -57,10 +57,10 @@ const HelloWorldPage = {
 export default HelloWorldPage;
 ~~~
 
-We call `HelloWorldPage` a *page object*.
-Every page is defined by such page object.
+We call `HelloWorldPage` a *page config*.
+Every page is defined by such page config.
 
-Note that it is important to save the page object with a filename that ends with `.html.js`.
+Note that it is important to save the page config with a filename that ends with `.html.js`.
 We will discuss later why.
 
 Let's now run our Hello World page.
@@ -121,7 +121,7 @@ Our page is what we call "HTML-dynamic", and we now discuss what this means.
 Let's consider the Hello World page of our previous section.
 When is its HTML generated?
 To get an answer we modify the page to display a timestamp.
-We alter the page object from our previous section at `~/tmp/reframe-playground/pages/HelloPage.html.js` to
+We alter the page config from our previous section at `~/tmp/reframe-playground/pages/HelloPage.html.js` to
 
 ~~~js
 import React from 'react';
@@ -186,7 +186,7 @@ We say that the HTML is generated at *request-time* and that the page is *HTML-d
 Now, the HTML of our Hello World page doesn't really need to be dynamic.
 Let's make it static.
 
-For that we change our page object `~/tmp/reframe-playground/pages/HelloPage.html.js` to
+For that we change our page config `~/tmp/reframe-playground/pages/HelloPage.html.js` to
 
 ~~~js
 import React from 'react';
@@ -252,7 +252,7 @@ Let's now create pages with dynamic views.
 
 ## DOM-static VS DOM-dynamic
 
-We consider the following page object that defines a page displaying the current time.
+We consider the following page config that defines a page displaying the current time.
 
 ~~~js
 !INLINE ../example/pages/TimePage.universal.js
@@ -289,13 +289,13 @@ the mounted `<TimeComponent />` then updates the DOM every second to always show
 The DOM changes over time and we say that the page is *DOM-dynamic*.
 
 But why does Reframe hydrate the DOM whereas it previously didn't at our previous examples?
-It's because our page object is saved as `TimePage.universal.js`,
+It's because our page config is saved as `TimePage.universal.js`,
 a filename name ending with `.universal.js`,
 whereas our previous examples were saved as `*.html.js` files.
 
 So,
-a page with a page object saved as `pages/*.html.js` is treated as DOM-static and
-a page with a page object saved as `pages/*.universal.js` is treated as DOM-dynamic.
+a page with a page config saved as `pages/*.html.js` is treated as DOM-static and
+a page with a page config saved as `pages/*.universal.js` is treated as DOM-dynamic.
 Reframe also picks up `pages/*.entry.js` and `pages/*.dom.js` files and we talk about these in the next two sections.
 
 In case you are curious, the loaded JavaScript is:
@@ -327,7 +327,7 @@ We call this technique *partial DOM-dynamic*.
 
 ## Partial DOM-dynamic
 
-Besides being able to hydrate the entire page with a `.universal.js` page object,
+Besides being able to hydrate the entire page with a `.universal.js` page config,
 we can tell Reframe to hydrate only some parts of the page.
 This means that, while these parts are DOM-dynamic, the rest of the page stays DOM-static.
 
@@ -338,9 +338,9 @@ It also introduces a separation between the DOM-static part and the DOM-dynamic 
 which makes reasoning about the page easier.
 
 To achieve such partial hydration,
-instead of defining the page with one page object `MyDynamicPage.universal.js`,
-we define the page with two page objects.
-One page object `MyDynamicPage.html.js` for server-side rendering and
+instead of defining the page with one page config `MyDynamicPage.universal.js`,
+we define the page with two page configs.
+One page config `MyDynamicPage.html.js` for server-side rendering and
 another `MyDynamicPage.dom.js` for browser-side rendering.
 Like in the following.
 
@@ -352,10 +352,10 @@ Like in the following.
 !INLINE ../example/pages/NewsPage.dom.js
 ~~~
 
-When we define a page with two separate page objects like this,
+When we define a page with two separate page configs like this,
 not only do we hydrate only what's necessary, but we also load only the code that is necessary.
-Because only the `.dom.js` page object is loaded in the browser, and
-the `.html.js` page object is never loaded in the browser.
+Because only the `.dom.js` page config is loaded in the browser, and
+the `.html.js` page config is never loaded in the browser.
 For example, we can see that the `NewsPage.dom.js` file only loads `TimeComponent` and not the (imaginary) KB heavy `LatestNewsComponent`.
 
 Note that we can set `view` to an array with more than one view object, and, in that way, we can hydrate several parts of the page.
@@ -432,7 +432,7 @@ i.e. we apply the `file-loader` to all files that are not handled by any other w
 ## Async Data
 
 A common React use case is to display data that is fetched over the network.
-The page object supports a `async getInitialProps()` property that Reframe calls every time and before the view is rendered.
+The page config supports a `async getInitialProps()` property that Reframe calls every time and before the view is rendered.
 (On both the server and in the browser.)
 We can use `async getInitialProps()` to fetch the data that ourReact components require.
 
@@ -509,7 +509,7 @@ For example:
 
 Reframe doesn't interfere when a link is clicked: the link follows through, and the new page is entirely loaded.
 
-It is possible to customize Reframe to navigate pages by loading the page object of the new page instead of loading the entire page.
+It is possible to customize Reframe to navigate pages by loading the page config of the new page instead of loading the entire page.
 But we don't recommend going down that path,
 as it adds non-negligible complexity,
 while similar performance characteritics can be achieved using the [Turbo Link Technique](https://github.com/turbolinks/turbolinks).
@@ -536,12 +536,12 @@ The Customization Manual elaborates on such possibilities.
 
 Reframe handles the outer part of HTML (including `<head>`, `<!DOCTYPE html`>, `<script>`, etc.) with `@brillout/html-crust`.
 
-All options of `@brillout/html-crust` are available over the page object.
-Thus, the page object has full control over the outer part of HTML including the `<head>`.
+All options of `@brillout/html-crust` are available over the page config.
+Thus, the page config has full control over the outer part of HTML including the `<head>`.
 
 We refer to [`@brillout/html-crust`'s documentation](https://github.com/brillout/html-crust) for further information.
 
-For example, the page object
+For example, the page config
 
 ~~~js
 !INLINE ../example/pages/custom-html.html.js

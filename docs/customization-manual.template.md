@@ -77,7 +77,7 @@ The following is a custom server implementation using Express instead of hapi.
 
 ### Custom Browser Entry
 
-When Reframe stumbles upon a `.universal.js` or `.dom.js` page object, it automatically generates a browser entry code that will load in the browser.
+When Reframe stumbles upon a `.universal.js` or `.dom.js` page config, it automatically generates a browser entry code that will load in the browser.
 
 The following is an example of such generated browser entry code.
 
@@ -93,8 +93,8 @@ hydratePage(pageObject);
 
 We can, however, create the browser entry code ourselves.
 
-Instead of providing a `.universal.js` or `.dom.js` page object,
-we provide only one page object `.html.js` along with a `.entry.js` file.
+Instead of providing a `.universal.js` or `.dom.js` page config,
+we provide only one page config `.html.js` along with a `.entry.js` file.
 Reframe will then use the `.entry.js` code as browser entry instead of generating one.
 
 For example:
@@ -119,7 +119,7 @@ See the "Custom Head" section of the Usage Manual for more information.
 
 ### Common Script
 
-Multiple pages can share common browser code by using the `diskPath` property in the page object, as shown in the following example:
+Multiple pages can share common browser code by using the `diskPath` property in the page config, as shown in the following example:
 
 ~~~js
 !INLINE ../example/custom/browser/pages/terms.html.js
@@ -209,8 +209,8 @@ mentioned in the previous section,
 also allows us to use an entire custom webpack configuration.
 
 The only restriction for a fully custom config is that the browser entry file and the corresponding server entry file have the same base name.
-Reframe can't otherwise know which browser entry is meant for wich page object.
-For example, a browser entry saved at `/path/to/MyPage.entry.js` would match a page object saved at `/path/to/MyPage.html.js`, because they share the same base name `MyPage`.
+Reframe can't otherwise know which browser entry is meant for which page config.
+For example, a browser entry saved at `/path/to/MyPage.entry.js` would match a page config saved at `/path/to/MyPage.html.js`, because they share the same base name `MyPage`.
 
 The following is a `getWebpackBrowserConfig()` usage example for a entirely custom config.
 
