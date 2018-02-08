@@ -85,17 +85,15 @@
     <b>Easy</b>
     -
     Create apps with page configs
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <b>Universal</b>
     -
-    Create all kinds of apps
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    Create any kind of app
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <b>Customizable</b>
     -
     Everything is adaptable
 </p>
-
-<br/>
 
 [Overview](/../../)<br/>
 [Usage Manual](/docs/usage-manual.md)<br/>
