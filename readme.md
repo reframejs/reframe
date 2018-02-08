@@ -158,7 +158,7 @@ With Reframe you can create:
 
  - **DOM-static React apps**
    <br/>
-   Apps where all pages' DOM is static and React is only used to render HTML.
+   Apps where all pages' DOM are static and React is only used to render HTML.
    No (or almost no) JavaScript is loaded in the browser.
 
  - **Hybrid React apps**
@@ -169,7 +169,7 @@ Reframe generates a certain type of app depending on how you configure your page
 For example, if you add `htmlIsStatic: true` to a page config, then that page's HTML is rendered at build-time instead of request-time.
 So creating an HTML-static React app is simply a matter of setting `htmlIsStatic: true` to all page configs.
 
-In the following we create a web app by defining a page config `HelloPage`.
+Let's create a web app by defining a page config `HelloPage`:
 
 ~~~js
 // ~/tmp/reframe-playground/pages/HelloPage.html.js
@@ -202,9 +202,9 @@ The `reframe` CLI does the rest:
 </p>
 
 Reframe did the following:
- - Reframe searched for the `/pages` directory and found it at `~/tmp/reframe-playground/pages`.
+ - Reframe searched for a `/pages` directory and found one at `~/tmp/reframe-playground/pages`.
  - Reframe read the `/pages` directory and found our page config at `~/tmp/reframe-playground/pages/HelloPage.html.js`.
- - Reframe used webpack to transpile `HelloPage.html.js` for the server and the browser.
+ - Reframe used webpack to transpile `HelloPage.html.js`.
  - Reframe started a hapi server serving all static browser assets and serving our page by (re-)rendering its HTML on every request.
 
 The "Quick Start" section below gives a step-by-step guide to create your first React web app with Reframe.
@@ -217,12 +217,12 @@ Reframe has been designed with a focus on:
  - [Customization](#customization)
  - [Performance](#performance)
 
-##### Ease of Use
+#### Ease of Use
 
 Creating a React app is simply a matter of creating React components and page configs.
 The "Quick Start" section below shows how easy it is.
 
-##### Universality
+#### Universality
 
 A page config allows you to configure a page to be
  - *HTML-static*:
@@ -265,7 +265,7 @@ Reframe is the only React framework that supports all app types.
 > Instead of learning different frameworks to create different types of apps,
 > you learn Reframe once to be able to create all kinds of apps.
 
-##### Customization
+#### Customization
 
 Reframe's basic usage is designed to be as easy as possible.
 But Reframe also supports customization.
@@ -305,7 +305,7 @@ Examples of customization achievable by replacing a Reframe package:
  - Custom build tool, such as Rollup (Reframe uses webpack by default)
  - etc.
 
-##### Performance
+#### Performance
 
 - Code splitting.
   <br/>
