@@ -22,8 +22,8 @@ function getCompileInfo({browserDistPath, pages}) {
     const scripts = [];
 
     pages
-    .forEach(pageObject => {
-        (pageObject.scripts||[])
+    .forEach(pageConfig => {
+        (pageConfig.scripts||[])
         .forEach(({diskPath, src, bundleName}) => {
             const inputOptions = {
                 input: diskPath,

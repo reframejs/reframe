@@ -9,18 +9,18 @@ function getPages() {
 
     const pages = (
         [
-            {pageObject: LandingPage, pageName: 'landing'},
-            {pageObject: HelloPage, pageName: 'hello'},
+            {pageConfig: LandingPage, pageName: 'landing'},
+            {pageConfig: HelloPage, pageName: 'hello'},
         ]
-        .map(({pageObject, pageName}) => {
-            const scripts = pageObject.scripts || [];
+        .map(({pageConfig, pageName}) => {
+            const scripts = pageConfig.scripts || [];
             scripts.push({
                 diskPath: __dirname+'/pages/'+pageName+'.entry.js',
                 src: '/'+pageName+'-bundle.js',
                 bundleName: pageName+'Bundle',
                 _options: {skipAttributes: ['diskPath', 'bundleName']},
             });
-            return {...pageObject, scripts};
+            return {...pageConfig, scripts};
         })
     );
 

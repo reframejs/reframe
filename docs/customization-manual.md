@@ -274,12 +274,12 @@ The following is an example of such generated browser entry code.
 
 ~~~js
 var hydratePage = require('/usr/lib/node_modules/@reframe/cli/node_modules/@reframe/browser/hydratePage.js');
-var pageObject = require('/home/brillout/tmp/reframe-playground/pages/HelloPage.universal.js');
+var pageConfig = require('/home/brillout/tmp/reframe-playground/pages/HelloPage.universal.js');
 
 // hybrid cjs and ES6 module import
-pageObject = Object.keys(pageObject).length===1 && pageObject.default || pageObject;
+pageConfig = Object.keys(pageConfig).length===1 && pageConfig.default || pageConfig;
 
-hydratePage(pageObject);
+hydratePage(pageConfig);
 ~~~
 
 We can, however, create the browser entry code ourselves.
@@ -419,7 +419,7 @@ For example:
 
 ~~~js
 import hydratePage from '@reframe/browser/hydratePage';
-import MyPage from 'path/to/MyPage-page-object.js';
+import MyPage from 'path/to/MyPage-page-config.js';
 
 hydratePage(MyPage);
 ~~~
@@ -786,8 +786,8 @@ function getCompileInfo({browserDistPath, pages}) {
     const scripts = [];
 
     pages
-    .forEach(pageObject => {
-        (pageObject.scripts||[])
+    .forEach(pageConfig => {
+        (pageConfig.scripts||[])
         .forEach(({diskPath, src, bundleName}) => {
             const inputOptions = {
                 input: diskPath,
@@ -893,18 +893,18 @@ function getPages() {
 
     const pages = (
         [
-            {pageObject: LandingPage, pageName: 'landing'},
-            {pageObject: HelloPage, pageName: 'hello'},
+            {pageConfig: LandingPage, pageName: 'landing'},
+            {pageConfig: HelloPage, pageName: 'hello'},
         ]
-        .map(({pageObject, pageName}) => {
-            const scripts = pageObject.scripts || [];
+        .map(({pageConfig, pageName}) => {
+            const scripts = pageConfig.scripts || [];
             scripts.push({
                 diskPath: __dirname+'/pages/'+pageName+'.entry.js',
                 src: '/'+pageName+'-bundle.js',
                 bundleName: pageName+'Bundle',
                 _options: {skipAttributes: ['diskPath', 'bundleName']},
             });
-            return {...pageObject, scripts};
+            return {...pageConfig, scripts};
         })
     );
 

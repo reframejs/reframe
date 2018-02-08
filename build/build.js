@@ -210,12 +210,12 @@ function generate_entry({page_file, dist_path}) {
     const source_code = (
         [
             "var hydratePage = require('"+require.resolve('@reframe/browser/hydratePage')+"');",
-            "var pageObject = require('"+page_file+"');",
+            "var pageConfig = require('"+page_file+"');",
             "",
             "// hybrid cjs and ES6 module import",
-            "pageObject = Object.keys(pageObject).length===1 && pageObject.default || pageObject;",
+            "pageConfig = Object.keys(pageConfig).length===1 && pageConfig.default || pageConfig;",
             "",
-            "hydratePage(pageObject);",
+            "hydratePage(pageConfig);",
         ].join('\n')
     );
     fs__write_file(dist_path, source_code);
