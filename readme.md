@@ -106,13 +106,13 @@
 
 ### What is Reframe
 
-Reframe allows you to create web apps by defining pages.
+Reframe allows you to create web apps simply by defining pages.
 Reframe then takes care of the rest: It automatically transpiles, bundles, serves, and routes your pages.
 
 A page is defined by a plain JavaScript object called *page config*.
 
 ~~~js
-// We create a landing page by defining a page config `LandingPage`:
+// We create a landing page by defining a page config:
 const LandingPage = {
     route: '/', // Page's URL
     view: () => <div>Welcome to Reframe</div>, // Page's root React component
@@ -123,14 +123,14 @@ const LandingPage = {
 A page config configures a page by assigning it
  - a React component (required),
  - a route (required), and
- - further (optional) page configurations (such as the page's &lt;title&gt;, meta tags, script tags, whether the page should by hydrated or not, whether the page's HTML should be rendered at build-time or at request-time, etc.).
+ - further (optional) page configurations (such as the page's &lt;title&gt;, meta tags, script tags, whether the page should be hydrated or not, whether the page's HTML should be rendered at build-time or at request-time, etc.).
 
-You can build a React web app with **no build configuration** and **no server configuration**.
+You can build a React web app with **no build configuration and no server configuration**.
 **All you need to create a web app is one React component and one page config per page.**
 And, if you need to, **everything is customizable**.
 For example, you can customize the transpiling & bundling, the server, the browser entry, the Node.js entry, etc.
 
-By defining page configs you can easily create:
+Defining page configs allows you to create:
 
  - **Server-side rendered React apps**
  <br/>
@@ -152,7 +152,7 @@ By defining page configs you can easily create:
  Reframe generates a certain type of app depending on how you configure your pages.
  For example, if you add `htmlIsStatic: true` to a page config, then that page's HTML is rendered at build-time instead of request-time.
  So, creating an HTML-static React app is simply a matter of setting `htmlIsStatic: true` to all page configs.
- An app can be a mix: Some pages can be HTML-static, some HTML-dynamic, some DOM-static, and some DOM-dynamic.
+ An app can be a hybrid: Some pages can be HTML-static, some pages HTML-dynamic, some others DOM-static, and some DOM-dynamic.
 
 In the following we create a web app by defining a page config `HelloPage`.
 
@@ -186,11 +186,11 @@ The `reframe` CLI does the rest:
     <img src='https://gitlab.com/brillout/reframe/raw/master/docs/screenshots/reframe_overview_screenshot.png' width=1200 style="max-width:100%;"/>
 </p>
 
-The following happend:
- - Reframe searched for the `/pages` directory and found it at `~/tmp/reframe-playground/pages`
- - Reframe read the `/pages` directory and found our page config at `~/tmp/reframe-playground/pages/HelloPage.html.js`
- - Reframe used webpack to transpile `HelloPage.html.js` for the server and to create bundles for the browser.
- - Reframe started a hapi server serving all static browser assets and serving the page's HTML.
+Reframe did the following:
+ - Reframe searched for the `/pages` directory and found it at `~/tmp/reframe-playground/pages`.
+ - Reframe read the `/pages` directory and found our page config at `~/tmp/reframe-playground/pages/HelloPage.html.js`.
+ - Reframe used webpack to transpile `HelloPage.html.js` for the server and the browser.
+ - Reframe started a hapi server that serves all static browser assets and serves our page's HTML by rendering it on every request.
 
 ### Why Reframe
 
@@ -208,15 +208,15 @@ The "Quick Start" section bellow shows how easy it is.
 ##### Universality
 
 Reframe allows you to configure a page to be
- - *HTML-static*, that is the page is rendered to HTML at build-time instead of request-time.
- - *DOM-static*, that is the page is not hydrated and the page's DOM is not manipulated.
+ - *HTML-static*: The page is rendered to HTML at build-time instead of request-time.
+ - *DOM-static*: The page is not hydrated, in other words the page's DOM is not manipulated.
 
-This is gives you the ability to implement a wide range of types of React apps:
- - Static websites, that is HTML-static apps.
+This fine-grain control gives you the ability to implement a wide range of types of React apps:
+ - Static websites, in other words HTML-static apps.
  <br/>
- By configurating all pages as HTML-static, all pages are rendered to HTML at build-time and no Node.js server is required. These apps can be deployed to static website host such as GitHub Pages or Netlify.
- - Sever-side rendered apps, that is HTML-dynamic apps.
- - Universal apps, that is HTML-dynamic & DOM-dynamic apps.
+ By configurating all pages as HTML-static, all pages are rendered to HTML at build-time and no Node.js server is needed. These apps can be deployed to static website hostings such as GitHub Pages or Netlify.
+ - Sever-side rendered apps, in other words HTML-dynamic apps.
+ - Universal apps, in other words HTML-dynamic & DOM-dynamic apps.
  <br/>
  - Hybrid apps.
  <br/>
