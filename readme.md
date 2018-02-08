@@ -149,7 +149,7 @@ With Reframe you can create:
 
  - **Universal React apps**
    <br/>
-   Apps where all pages are rendered to HTML at request-time and hydrated in the browser.
+   Apps where all pages are rendered to HTML on the server at request-time and hydrated in the browser.
 
  - **HTML-static React apps**
    <br/>
