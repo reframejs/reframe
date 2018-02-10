@@ -1,0 +1,18 @@
+:root
+  --red: #f88
+  --blue: #88f
+
+.red-on-blue
+  background-color: var(--blue)
+  color: var(--red)
+
+.blue-on-red
+  background-color: var(--red)
+  color: var(--blue)
+
+.red-on-blue,
+.blue-on-red
+  font-size: 2em
+  width: 300px
+  padding: 20px
+  margin: 10px

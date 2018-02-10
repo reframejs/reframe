@@ -5,6 +5,7 @@ process.on('unhandledRejection', err => {throw err});
 const path_module = require('path');
 const assert = require('reassert');
 const assert_usage = assert;
+const assert_internal = assert;
 
 (() => {
     const {opts, input_path} = get_cli_args();
@@ -14,17 +15,32 @@ const assert_usage = assert;
     }
 
     const pagesDir = input_path || find_pages_dir();
-
-    startServer({pagesDir});
+    assert_internal(pagesDir);
+    const {reframeConfig} = find_reframe_config(pagesDir);
+    startServer({pagesDir, reframeConfig});
 
     return;
 
+    function find_reframe_config(cwd) {
+        const config_path = find('reframe.config', {canBeMissing: true, cwd});
+        if( config_path ) {
+            console.log(green_checkmark()+' Reframe config found at '+path_relative_to_homedir(config_path));
+        }
+        const reframeConfig = config_path && require(config_path);
+        assert_usage(!config_path || reframeConfig.constructor===Object);
+        assert_internal(reframeConfig===null || reframeConfig.constructor===Object);
+        return {reframeConfig};
+    }
     function find_pages_dir() {
-        const find = require('@brillout/find');
-
-        const pagesDir = find('pages/', {anchorFile: '.reframe'});
+        const pagesDir = find('pages/');
         console.log(green_checkmark()+' Page directory found at '+path_relative_to_homedir(pagesDir));
         return pagesDir;
+    }
+
+    function find(filename, opts={}) {
+        const find = require('@brillout/find');
+        const file_path = find(filename, {anchorFile: ['reframe.config', 'reframe.browser.config'], ...opts});
+        return file_path;
     }
 
     async function startServer({pagesDir, ...args}) {
@@ -42,6 +58,7 @@ const assert_usage = assert;
     async function createServer({
         // build opts
         pagesDir,
+        reframeConfig,
      // context = get_context(),
 
         // server opts
@@ -66,6 +83,7 @@ const assert_usage = assert;
 
         const {HapiServerRendering, HapiServeBrowserAssets} = (
             await getReframeHapiPlugins({
+                reframeConfig,
                 pagesDir,
                 log: opts.log,
              // context,

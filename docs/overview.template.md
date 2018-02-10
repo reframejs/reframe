@@ -18,6 +18,7 @@
    - [Customization](#customization)
    - [Performance](#performance)
  - [Reframe Project Scope](#reframe-project-scope)
+ - [Plugins](#plugins)
  - [Quick Start](#quick-start)
 
 
@@ -249,6 +250,12 @@ Reframe **doesn't** take care of:
    It's up to you to create, populate, and query databases.
    (You can add API endpoints to the hapi server that Reframe creates.)
 
+
+### Plugins
+
+More to come...
+
+ - [@reframe/postcss](/postcss) - Use Reframe with PostCSS
 
 ### Quick Start
 

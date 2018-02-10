@@ -12,6 +12,7 @@ const path_module = require('path');
 const {get_context} = require('./utils/get_context');
 const fs = require('fs');
 const mkdirp = require('mkdirp');
+const {processReframeConfig} = require('@reframe/utils');
 
 const Repage = require('@repage/core');
 const {getStaticPages} = require('@repage/build');
@@ -25,6 +26,8 @@ function build({
     pagesDir,
 
     onBuild: onBuild_user,
+
+    reframeConfig,
 
     getWebpackBrowserConfig,
     getWebpackServerConfig,
@@ -49,6 +52,7 @@ function build({
 
     const webpack_config = get_webpack_config({
         pagesDir,
+        reframeConfig,
         getWebpackBrowserConfig,
         getWebpackServerConfig,
         context,
@@ -95,6 +99,7 @@ function get_dist_base_path({pagesDir}) {
 
 function get_webpack_config({
     pagesDir,
+    reframeConfig={},
     getWebpackBrowserConfig,
     getWebpackServerConfig,
     context,
@@ -106,11 +111,17 @@ function get_webpack_config({
         server_entries,
     } = get_infos_for_webpack({pagesDir});
 
+    processReframeConfig(reframeConfig);
+
     let browser_build = {};
     if( browser_entries ) {
         browser_build.entries = browser_entries;
         browser_build.outputPath = output_path__browser;
         browser_build.config = get_webpack_browser_config(browser_build);
+    }
+    if( reframeConfig._processed.webpackBrowserConfigModifier ) {
+        browser_build.config = reframeConfig._processed.webpackBrowserConfigModifier(browser_build);
+        assert_internal(browser_build.config);
     }
     if( getWebpackBrowserConfig ) {
         browser_build.config = getWebpackBrowserConfig(browser_build);
@@ -122,6 +133,10 @@ function get_webpack_config({
         server_build.entries = server_entries;
         server_build.outputPath = output_path__server;
         server_build.config = get_webpack_server_config(server_build);
+    }
+    if( reframeConfig._processed.webpackServerConfigModifier ) {
+        server_build.config = reframeConfig._processed.webpackServerConfigModifier(server_build);
+        assert_internal(server_build.config);
     }
     if( getWebpackServerConfig ) {
         server_build.config = getWebpackServerConfig(server_build);

@@ -6,7 +6,9 @@
         "cli",
         "docs",
         "example",
-        "server"
+        "server",
+        "utils",
+        "postcss"
     ],
     "devDependencies": {
         "lerna": "^2.5.1"

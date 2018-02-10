@@ -545,7 +545,7 @@ function getWebpackBrowserConfig({config}) {
                 loader: 'postcss-loader',
                 options: {
                     plugins: [
-                        'postcss-cssnext',
+                        require('postcss-cssnext')(),
                     ],
                     parser: 'sugarss'
                 }
