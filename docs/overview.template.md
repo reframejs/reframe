@@ -51,7 +51,7 @@ For example, you can customize the transpiling & bundling, the server, the brows
 
 With Reframe you can create:
 
- - **Server-side rendered apps** and **universal apps**
+ - **Server-side rendered apps**
    <br/>
    Apps where pages are rendered to HTML on the server.
  - **Static apps**
@@ -138,9 +138,6 @@ For example, you can create:
  - Server-side rendered apps.
    <br/>
    (In other words HTML-dynamic apps: All pages are configured to be HTML-dynamic.)
- - Universal apps.
-   <br/>
-   (In other words HTML-dynamic DOM-dynamic apps: All pages are configured to be HTML-dynamic and DOM-dynamic.)
  - Static websites.
    <br/>
    (In other words HTML-static apps: All pages are configured to be HTML-static.)
