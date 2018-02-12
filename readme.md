@@ -253,13 +253,14 @@ For example, you can create:
    <br/>
    (In other words HTML-static apps: All pages are configured to be HTML-static.)
    <br/>
-   Since all pages are rendered to HTML at build-time, no Node.js server is needed;
+   Since all pages are rendered to HTML at build-time, no Node.js server is needed.
    These apps can be deployed to static website hostings such as GitHub Pages or Netlify.
  - DOM-static apps
    <br/>
    (In other words, apps where all pages are configured to be DOM-static.)
    <br/>
-   No (or almost no) JavaScript is loaded in the browser.
+   Since the page is not hydrated, React is not loaded in the browser.
+   And no (or almost no) JavaScript is loaded in the browser.
  - Hybrid apps.
    <br/>
    An app can have pages of different kinds:
