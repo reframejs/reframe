@@ -144,27 +144,23 @@ For example, you can customize the transpiling & bundling, the server, the brows
 
 With Reframe you can create:
 
- - **Server-side rendered React apps**
+ - **Server-side rendered apps & universal apps**
    <br/>
-   Apps where all pages are rendered to HTML on the server (at request-time or at build-time).
-
- - **Universal React apps**
+   Apps where pages are rendered to HTML on the server.
+ - **Static websites**
    <br/>
-   Apps where all pages are rendered to HTML on the server at request-time and hydrated in the browser.
-
- - **HTML-static React apps**
+   Apps where pages are rendered to HTML at build-time.
    <br/>
-   Apps where all pages are rendered to HTML at build-time.
    These apps don't need a Node.js server and can be deployed to a static website hosting such as GitHub Pages or Netlify.
-
- - **DOM-static React apps**
+ - **DOM-static apps**
    <br/>
-   Apps where all pages' DOM are static and React is only used to render HTML.
+   Apps where the DOM is static and React is only used to render HTML.
+   <br/>
    No (or almost no) JavaScript is loaded in the browser.
-
- - **Hybrid React apps**
+ - **Hybrid apps**
    <br/>
-   An app can be a mix: Some pages can be HTML-static, some pages HTML-dynamic, some others DOM-static, and some DOM-dynamic.
+   Apps where pages are mixed:
+   Some pages are HTML-static, some pages HTML-dynamic, some others DOM-static, and some DOM-dynamic.
 
 Reframe generates a certain type of app depending on how you configure your pages.
 For example, if you add `htmlIsStatic: true` to a page config, then that page's HTML is rendered at build-time instead of request-time.
@@ -206,7 +202,7 @@ Reframe did the following:
  - Reframe searched for a `/pages` directory and found one at `~/tmp/reframe-playground/pages`.
  - Reframe read the `/pages` directory and found our page config at `~/tmp/reframe-playground/pages/HelloPage.html.js`.
  - Reframe used webpack to transpile `HelloPage.html.js`.
- - Reframe started a hapi server serving all static browser assets and serving our page by (re-)rendering its HTML on every request.
+ - Reframe started a Node.js/hapi server serving all static browser assets and serving our page by (re-)rendering its HTML on every request.
 
 The "Quick Start" section below gives a step-by-step guide to create your first React web app with Reframe.
 
@@ -255,7 +251,7 @@ For example, you can create:
    (In other words, apps where all pages are configured to be HTML-static.
    By configurating all pages as HTML-static, all pages are rendered to HTML at build-time and no Node.js server is needed.
    These apps can be deployed to static website hostings such as GitHub Pages or Netlify.)
- - Sever-side rendered apps.
+ - Server-side rendered apps.
    <br/>
    (In other words, apps where all pages are configured to be HTML-dynamic.)
  - Universal apps.
