@@ -114,31 +114,42 @@ The "Quick Start" section below shows how easy it is.
 
 #### Universality
 
-A page config allows you to configure a page to be
- - *HTML-static*:
+A fundamental aspect of a page config is that it allows you to configure a page to be what we call "HTML-static" or "HTML-dynamic", and "DOM-static" or "DOM-dynamic":
+ - *HTML-static*
+ <br/>
  The page is rendered to HTML at build-time.
+ <br/>
  In other words, the page is rendered to HTML only once when Reframe is building the frontend.
- - *HTML-dynamic*:
+ - *HTML-dynamic*
+ <br/>
  The page is rendered to HTML at request-time.
+ <br/>
  In other words, the page is (re-)rendered to HTML every time the user requests the page.
- - *DOM-static*:
+ - *DOM-static*
+ <br/>
  The page is not hydrated.
- In other words, the page's DOM is not manipulated.
- - *DOM-dynamic*:
+ <br/>
+ In other words, the DOM doesn't have any React component attached to it and the DOM will not change.
+ - *DOM-dynamic*
+ <br/>
  The page is hydrated.
+ <br/>
+ In other words, React components are attached to the DOM and the page's DOM will eventually be updated by React.
 
-This fine-grain control over the "static-ness" of your app gives you the ability to implement a wide range of types of apps:
+This fine-grain control over the "static-ness" of your pages gives you the ability to implement all app types.
+
+For example, you can create:
  - Static websites.
    <br/>
-   In other words, apps where all pages are configured to be HTML-static.
+   (In other words, apps where all pages are configured to be HTML-static.
    By configurating all pages as HTML-static, all pages are rendered to HTML at build-time and no Node.js server is needed.
-   These apps can be deployed to static website hostings such as GitHub Pages or Netlify.
+   These apps can be deployed to static website hostings such as GitHub Pages or Netlify.)
  - Sever-side rendered apps.
    <br/>
-   In other words, apps where all pages are configured to be HTML-dynamic.
+   (In other words, apps where all pages are configured to be HTML-dynamic.)
  - Universal apps.
    <br/>
-   In other words, apps where all pages are configured to be HTML-dynamic & DOM-dynamic.
+   (In other words, apps where all pages are configured to be HTML-dynamic and DOM-dynamic.)
  - Hybrid apps.
    <br/>
    An app can have pages of different types:
@@ -150,7 +161,7 @@ This fine-grain control over the "static-ness" of your app gives you the ability
 Reframe is the only React framework that supports all app types.
 
 > Instead of learning different frameworks to create different types of apps,
-> you learn Reframe once to be able to create all kinds of apps.
+> you learn Reframe once to be able to create all types of apps.
 
 #### Customization
 
