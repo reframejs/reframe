@@ -6,7 +6,7 @@ Use Reframe with PostCSS.
 
 ### Usage
 
-By adding the `@reframe/postcss` plugin to the `reframe.config`, you will be able to write CSS with PostCSS.
+By adding the `@reframe/postcss` plugin to the `reframe.config`, you will be able to use PostCSS.
 
 ~~~js
 // reframe.config
@@ -36,6 +36,6 @@ module.exports = {
 !INLINE ./example/pages/landing.universal.js
 ~~~
 
-~~~js
+~~~sugarss
 !INLINE ./example/pages/landing.css
 ~~~
