@@ -51,10 +51,10 @@ For example, you can customize the transpiling & bundling, the server, the brows
 
 With Reframe you can create:
 
- - **Server-side rendered apps & universal apps**
+ - **Server-side rendered apps** and **universal apps**
    <br/>
    Apps where pages are rendered to HTML on the server.
- - **Static websites**
+ - **Static apps**
    <br/>
    Apps where pages are rendered to HTML at build-time.
    <br/>
@@ -67,11 +67,11 @@ With Reframe you can create:
  - **Hybrid apps**
    <br/>
    Apps where pages are mixed:
-   Some pages are HTML-static, some pages HTML-dynamic, some others DOM-static, and some DOM-dynamic.
+   Some pages are rendered to HTML at build-time while others are rendered to HTML at request-time, and some pages have a static DOM while others have a dynamic DOM.
 
 Reframe generates a certain type of app depending on how you configure your pages.
 For example, if you add `htmlIsStatic: true` to a page config, then that page's HTML is rendered at build-time instead of request-time.
-So creating an HTML-static React app is simply a matter of setting `htmlIsStatic: true` to all page configs.
+So, creating a static app is simply a matter of setting `htmlIsStatic: true` to all page configs.
 
 Let's create a web app by defining a page config `HelloPage`:
 
@@ -110,7 +110,7 @@ The "Quick Start" section below shows how easy it is.
 
 #### Universality
 
-A fundamental aspect of a page config is that it allows you to configure a page to be what we call "HTML-static" or "HTML-dynamic", and "DOM-static" or "DOM-dynamic":
+A fundamental aspect of the page config is that it allows you to configure a page to be what we call "HTML-static" or "HTML-dynamic", and "DOM-static" or "DOM-dynamic":
  - *HTML-static*
    <br/>
    The page is rendered to HTML at build-time.
@@ -135,21 +135,27 @@ A fundamental aspect of a page config is that it allows you to configure a page 
 This fine-grain control over the "static-ness" of your pages gives you the ability to implement all app types.
 
 For example, you can create:
- - Static websites.
-   <br/>
-   (In other words, apps where all pages are configured to be HTML-static.
-   By configurating all pages as HTML-static, all pages are rendered to HTML at build-time and no Node.js server is needed.
-   These apps can be deployed to static website hostings such as GitHub Pages or Netlify.)
  - Server-side rendered apps.
    <br/>
-   (In other words, apps where all pages are configured to be HTML-dynamic.)
+   (In other words HTML-dynamic apps: All pages are configured to be HTML-dynamic.)
  - Universal apps.
    <br/>
-   (In other words, apps where all pages are configured to be HTML-dynamic and DOM-dynamic.)
+   (In other words HTML-dynamic DOM-dynamic apps: All pages are configured to be HTML-dynamic and DOM-dynamic.)
+ - Static websites.
+   <br/>
+   (In other words HTML-static apps: All pages are configured to be HTML-static.)
+   <br/>
+   Since all pages are rendered to HTML at build-time, no Node.js server is needed;
+   These apps can be deployed to static website hostings such as GitHub Pages or Netlify.
+ - DOM-static apps
+   <br/>
+   (In other words, apps where all pages are configured to be DOM-static.)
+   <br/>
+   No (or almost no) JavaScript is loaded in the browser.
  - Hybrid apps.
    <br/>
-   An app can have pages of different types:
-   Some pages can be HTML-static, some pages HTML-dynamic, some others DOM-static, and some DOM-dynamic.
+   An app can have pages of different kinds:
+   Some pages can be configured to be HTML-static, some pages to be HTML-dynamic, some others to be DOM-static, and some to be DOM-dynamic.
    You can for example configure your landing page to be HTML-static and DOM-static,
    your product page to be HTML-dynamic and DOM-static,
    and your product search page to be HTML-static and DOM-dynamic.
