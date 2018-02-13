@@ -3,9 +3,9 @@
   "version": "0.0.1-rc.1",
   "main": "./build",
   "dependencies": {
-    "@rebuild/build": "0.0.1-rc.2",
-    "@rebuild/config": "0.0.1-rc.2",
-    "@rebuild/serve": "0.0.1-rc.2",
+    "@rebuild/build": "0.0.1-rc.3",
+    "@rebuild/config": "0.0.1-rc.3",
+    "@rebuild/serve": "0.0.1-rc.3",
     "@reframe/browser": "0.0.1-rc.1",
     "@repage/build": "0.0.1-rc.1",
     "@repage/core": "0.0.1-rc.1",
