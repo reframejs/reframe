@@ -160,7 +160,7 @@ With Reframe you can create:
  - **Hybrid apps**
    <br/>
    Apps where pages are mixed:
-   Some pages are rendered to HTML at build-time while others are rendered to HTML at request-time, and some pages have a static DOM while others have a dynamic DOM.
+   Some pages are rendered to HTML at build-time while others at request-time, and some pages have a static DOM while others have a dynamic DOM.
 
 Reframe generates a certain type of app depending on how you configure your pages.
 For example, if you add `htmlIsStatic: true` to a page config, then that page's HTML is rendered at build-time instead of request-time.
@@ -226,7 +226,7 @@ A fundamental aspect of the page config is that it allows you to configure a pag
    <br/>
    The page is rendered to HTML at build-time.
    <br/>
-   (In other words, the page is rendered to HTML only once when Reframe is building the frontend.)
+   (In other words, the page is rendered to HTML only once, when Reframe is building the frontend.)
  - *HTML-dynamic*
    <br/>
    The page is rendered to HTML at request-time.
@@ -260,7 +260,7 @@ For example, you can create:
    (In other words, apps where all pages are configured to be DOM-static.)
    <br/>
    Since the page is not hydrated, React is not loaded in the browser.
-   And no (or almost no) JavaScript is loaded in the browser.
+   No (or almost no) JavaScript is loaded in the browser.
  - Hybrid apps.
    <br/>
    An app can have pages of different kinds:

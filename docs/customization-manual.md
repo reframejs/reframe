@@ -832,7 +832,7 @@ import RepageRendererReact from '@repage/renderer-react';
 
 import getPages from './get-pages.mjs';
 
-import fs from 'fs';
+import fs from 'docs';
 import path from 'path';
 import mkdirp from 'mkdirp';
 
