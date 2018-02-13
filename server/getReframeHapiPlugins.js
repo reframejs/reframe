@@ -12,6 +12,7 @@ module.exports = {getReframeHapiPlugins};
 async function getReframeHapiPlugins({
     context = get_context(),
     build = buildDefault,
+    reframeConfig,
     ...build_opts
 }) {
     /*
@@ -38,12 +39,13 @@ async function getReframeHapiPlugins({
             pages = args.pages;
         },
         context,
+        reframeConfig,
         ...build_opts,
     });
     assert_internal(HapiServeBrowserAssets);
     assert_internal(pages);
 
-    const HapiServerRendering = HapiServerRendering__create({getPages: () => pages});
+    const HapiServerRendering = HapiServerRendering__create({getPages: () => pages, reframeConfig});
 
     return {
         HapiServerRendering,

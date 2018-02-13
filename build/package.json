@@ -6,7 +6,7 @@
     "@rebuild/build": "latest",
     "@rebuild/config": "latest",
     "@rebuild/serve": "latest",
-    "@reframe/browser": "latest",
+    "@reframe/browser": "0.0.1-rc.1",
     "@repage/build": "latest",
     "@repage/core": "latest",
     "@repage/renderer": "latest",

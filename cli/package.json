@@ -6,8 +6,8 @@
   },
   "dependencies": {
     "@brillout/find": "latest",
-    "@reframe/browser": "latest",
-    "@reframe/server": "latest",
+    "@reframe/browser": "0.0.1-rc.1",
+    "@reframe/server": "0.0.1-rc.1",
     "find-up": "^2.1.0",
     "lerna": "^2.5.1",
     "reassert": "latest"

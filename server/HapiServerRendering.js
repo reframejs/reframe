@@ -3,9 +3,10 @@ const assert_usage = assert;
 const assert_internal = assert;
 const {compute_source_code_hash} = require('./utils/compute_source_code_hash');
 
+const {processReframeConfig} = require('@reframe/utils');
+
 const Repage = require('@repage/core');
 const {getPageHtml} = require('@repage/server');
-
 const RepageRouterCrossroads = require('@repage/router-crossroads');
 const RepageRenderer = require('@repage/renderer');
 const RepageRendererReact = require('@repage/renderer-react');
@@ -14,7 +15,9 @@ const RepageRendererReact = require('@repage/renderer-react');
 module.exports = {HapiServerRendering__create};
 
 
-function HapiServerRendering__create({getPages}={}) {
+function HapiServerRendering__create({getPages, reframeConfig={}}={}) {
+    processReframeConfig(reframeConfig);
+
     return {
         name: 'reframe-server-rendering',
         multiple: false,
@@ -94,6 +97,7 @@ function HapiServerRendering__create({getPages}={}) {
                     RepageRouterCrossroads,
                     RepageRenderer,
                     RepageRendererReact,
+                    ...reframeConfig._processed.repage_plugins,
                 ]);
 
                 repage.addPages(pages_);

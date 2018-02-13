@@ -45,12 +45,12 @@ const assert_internal = assert;
         return file_path;
     }
 
-    async function startServer({pagesDir, ...args}) {
+    async function startServer({pagesDir, reframeConfig, ...args}) {
         assert_usage(
             pagesDir
         );
 
-        const server = await createServer({pagesDir, ...args});
+        const server = await createServer({pagesDir, reframeConfig, ...args});
 
         await server.start();
 

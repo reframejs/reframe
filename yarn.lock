@@ -8,12 +8,6 @@
   dependencies:
     reassert "^1.0.4"
 
-"@brillout/fetch@^0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@brillout/fetch/-/fetch-0.0.2.tgz#7ca6a534c40bfb7d1013efdb1c11f00519bbca87"
-  dependencies:
-    node-fetch "^1.7.3"
-
 "@brillout/find@latest":
   version "0.2.4"
   resolved "https://registry.yarnpkg.com/@brillout/find/-/find-0.2.4.tgz#ec311fe890a3ce1e9b950c2f932648a146dd8514"
@@ -31,12 +25,6 @@
   dependencies:
     reassert "^1.0.3"
 
-"@brillout/html-crust@^0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@brillout/html-crust/-/html-crust-0.0.2.tgz#246dea1f3cff6316d7bafb726748b05ca5f74578"
-  dependencies:
-    reassert "^1.0.3"
-
 "@brillout/html-crust@^0.0.9":
   version "0.0.9"
   resolved "https://registry.yarnpkg.com/@brillout/html-crust/-/html-crust-0.0.9.tgz#bb9a6abd46c36b5ce9a0c9b22d2e839de642f50d"
@@ -44,25 +32,11 @@
     reassert "^1.0.3"
 
 "@brillout/mdocs@latest":
-  version "0.1.6"
-  resolved "https://registry.yarnpkg.com/@brillout/mdocs/-/mdocs-0.1.6.tgz#6d092f959a47383ecfdea72c54867be962fb7eac"
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/@brillout/mdocs/-/mdocs-0.1.7.tgz#703372633013ec6f3ec3cd913ca72756dc19739a"
   dependencies:
-    reassert "^1.1.1"
-
-"@rebuild/build@0.0.1-rc.2":
-  version "0.0.1-rc.2"
-  resolved "https://registry.yarnpkg.com/@rebuild/build/-/build-0.0.1-rc.2.tgz#934c162504d1c6805ec207da4561eb174134fe08"
-  dependencies:
-    "@brillout/html-crust" "^0.0.2"
-    "@rebuild/config" "0.0.1-rc.2"
-    bluebird "^3.5.1"
-    chalk "^2.3.0"
-    lodash "^4.17.4"
-    mkdirp "^0.5.1"
-    ora "^1.3.0"
-    reassert "^1.0.0"
-    webpack "^3.8.1"
-    webpack-mild-compile "^1.0.0"
+    find-up "^2.1.0"
+    reassert latest
 
 "@rebuild/build@0.0.1-rc.3", "@rebuild/build@latest":
   version "0.0.1-rc.3"
@@ -78,32 +52,6 @@
     reassert "^1.1.1"
     webpack "^3.8.1"
     webpack-mild-compile "^1.0.0"
-
-"@rebuild/config@0.0.1-rc.2":
-  version "0.0.1-rc.2"
-  resolved "https://registry.yarnpkg.com/@rebuild/config/-/config-0.0.1-rc.2.tgz#bbf34c4001e413fb7c2872d2c0d1347e55ca2b4a"
-  dependencies:
-    babel-core "^6.26.0"
-    babel-loader "^7.1.2"
-    babel-plugin-dynamic-import-node "^1.2.0"
-    babel-plugin-syntax-dynamic-import "^6.18.0"
-    babel-plugin-transform-object-rest-spread "^6.26.0"
-    babel-plugin-transform-strict-mode "^6.24.1"
-    babel-polyfill "^6.26.0"
-    babel-preset-env "^1.6.1"
-    babel-preset-react "^6.24.1"
-    css-loader "^0.28.7"
-    extract-text-webpack-plugin "^3.0.2"
-    file-loader "^1.1.6"
-    html-webpack-plugin "^2.30.1"
-    ignore-loader "^0.1.2"
-    loader-utils "^1.1.0"
-    lodash "^4.17.4"
-    reassert "^1.0.0"
-    style-loader "^0.19.0"
-    uglifyjs-webpack-plugin "^1.1.1"
-    webpack "^3.8.1"
-    write-file-webpack-plugin "^4.2.0"
 
 "@rebuild/config@0.0.1-rc.3", "@rebuild/config@latest":
   version "0.0.1-rc.3"
@@ -131,20 +79,6 @@
     webpack "^3.8.1"
     write-file-webpack-plugin "^4.2.0"
 
-"@rebuild/serve@0.0.1-rc.2":
-  version "0.0.1-rc.2"
-  resolved "https://registry.yarnpkg.com/@rebuild/serve/-/serve-0.0.1-rc.2.tgz#8f4dcce9f8476c1fb5c34989745b7fdf07ae0038"
-  dependencies:
-    "@rebuild/build" "0.0.1-rc.2"
-    chokidar "^1.7.0"
-    hapi "17.x.x"
-    inert "5.x.x"
-    parent-module "^0.1.0"
-    reassert "^1.0.0"
-    socket.io "^2.0.4"
-    socket.io-client "^2.0.4"
-    webpack-dev-server "^2.9.4"
-
 "@rebuild/serve@latest":
   version "0.0.1-rc.3"
   resolved "https://registry.yarnpkg.com/@rebuild/serve/-/serve-0.0.1-rc.3.tgz#af29e2df29b5d3c2d8496b0544413e27ae42465c"
@@ -159,76 +93,34 @@
     socket.io-client "^2.0.4"
     webpack-dev-server "^2.9.4"
 
-"@reframe/browser@latest":
-  version "0.0.1-rc.1"
-  resolved "https://registry.yarnpkg.com/@reframe/browser/-/browser-0.0.1-rc.1.tgz#9c96d2bda239ad21641699ccfbc587de32de2173"
-  dependencies:
-    "@repage/browser" "0.0.1-rc.1"
-    "@repage/core" "0.0.1-rc.1"
-    "@repage/navigator" "0.0.1-rc.1"
-    "@repage/renderer" "0.0.1-rc.1"
-    "@repage/renderer-react" "0.0.1-rc.1"
-    "@repage/router-crossroads" "0.0.1-rc.1"
-    reassert "^1.0.0"
-
-"@reframe/build@latest":
-  version "0.0.1-rc.1"
-  resolved "https://registry.yarnpkg.com/@reframe/build/-/build-0.0.1-rc.1.tgz#6664c23501552bcfc6878fa498d6d45ace968fc8"
-  dependencies:
-    "@rebuild/build" "0.0.1-rc.2"
-    "@rebuild/config" "0.0.1-rc.2"
-    "@rebuild/serve" "0.0.1-rc.2"
-    "@reframe/browser" "0.0.1-rc.1"
-    "@repage/build" "0.0.1-rc.1"
-    "@repage/core" "0.0.1-rc.1"
-    "@repage/renderer" "0.0.1-rc.1"
-    "@repage/renderer-react" "0.0.1-rc.1"
-    "@repage/router-crossroads" "0.0.1-rc.1"
-    mkdirp "^0.5.1"
-    node-dir "^0.1.17"
-    parent-module "^0.1.0"
-    reassert "^1.0.0"
-
-"@reframe/server@latest":
-  version "0.0.1-rc.1"
-  resolved "https://registry.yarnpkg.com/@reframe/server/-/server-0.0.1-rc.1.tgz#7be737bc3beed01a7eb520c29e4df460e08d1198"
-  dependencies:
-    "@reframe/build" "0.0.1-rc.1"
-    "@repage/core" "0.0.1-rc.1"
-    "@repage/renderer" "0.0.1-rc.1"
-    "@repage/renderer-react" "0.0.1-rc.1"
-    "@repage/router-crossroads" "0.0.1-rc.1"
-    "@repage/server" "0.0.1-rc.1"
-    reassert "^1.0.0"
-
-"@repage/browser@0.0.1-rc.1", "@repage/browser@latest":
+"@repage/browser@latest":
   version "0.0.1-rc.1"
   resolved "https://registry.yarnpkg.com/@repage/browser/-/browser-0.0.1-rc.1.tgz#70a8b3e55a4731a45405c1813fda53dd99644f24"
   dependencies:
     "@atto/parse-uri" "0.0.1"
     reassert "^1.0.0"
 
-"@repage/build@0.0.1-rc.1", "@repage/build@latest":
+"@repage/build@latest":
   version "0.0.1-rc.1"
   resolved "https://registry.yarnpkg.com/@repage/build/-/build-0.0.1-rc.1.tgz#193a47d81ab7b17542872326cb663d6da644f7fd"
   dependencies:
     "@atto/parse-uri" "0.0.1"
     reassert "^1.0.0"
 
-"@repage/core@0.0.1-rc.1", "@repage/core@latest":
+"@repage/core@latest":
   version "0.0.1-rc.1"
   resolved "https://registry.yarnpkg.com/@repage/core/-/core-0.0.1-rc.1.tgz#82bffbdc726a3fd7e019add5d47319a68540dc15"
   dependencies:
     reassert "^1.0.0"
 
-"@repage/navigator@0.0.1-rc.1", "@repage/navigator@latest":
+"@repage/navigator@latest":
   version "0.0.1-rc.1"
   resolved "https://registry.yarnpkg.com/@repage/navigator/-/navigator-0.0.1-rc.1.tgz#4f33bcad48514490d1f37942031983f1d97a6f7d"
   dependencies:
     history "2.x.x"
     reassert "^1.0.0"
 
-"@repage/renderer-react@0.0.1-rc.1", "@repage/renderer-react@latest":
+"@repage/renderer-react@latest":
   version "0.0.1-rc.1"
   resolved "https://registry.yarnpkg.com/@repage/renderer-react/-/renderer-react-0.0.1-rc.1.tgz#ebc0d1f3dac5aff8ebf1b78f5b3f524151f4e872"
   dependencies:
@@ -236,17 +128,17 @@
     react "^16.1.1"
     react-dom "^16.1.1"
 
-"@repage/renderer@0.0.1-rc.1", "@repage/renderer@latest":
+"@repage/renderer@latest":
   version "0.0.1-rc.1"
   resolved "https://registry.yarnpkg.com/@repage/renderer/-/renderer-0.0.1-rc.1.tgz#2ed4e041af66a753947242840b2a5e2c737fa146"
 
-"@repage/router-crossroads@0.0.1-rc.1", "@repage/router-crossroads@latest":
+"@repage/router-crossroads@latest":
   version "0.0.1-rc.1"
   resolved "https://registry.yarnpkg.com/@repage/router-crossroads/-/router-crossroads-0.0.1-rc.1.tgz#9fdbc60bcf7d0aad3d9d98b8b25ea8ec34dfe74a"
   dependencies:
     crossroads "^0.12.2"
 
-"@repage/server@0.0.1-rc.1", "@repage/server@latest":
+"@repage/server@latest":
   version "0.0.1-rc.1"
   resolved "https://registry.yarnpkg.com/@repage/server/-/server-0.0.1-rc.1.tgz#2baafbe8fcb249f07ce551eac8cd01f9ff92f992"
   dependencies:
@@ -295,7 +187,7 @@ acorn@^4.0.3:
   version "4.0.13"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-4.0.13.tgz#105495ae5361d697bd195c825192e1ad7f253787"
 
-acorn@^5.0.0, acorn@^5.2.1:
+acorn@^5.0.0:
   version "5.4.1"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-5.4.1.tgz#fdc58d9d17f4a4e98d102ded826a9b9759125102"
 
@@ -306,10 +198,6 @@ add-stream@^1.0.0:
 after@0.8.2:
   version "0.8.2"
   resolved "https://registry.yarnpkg.com/after/-/after-0.8.2.tgz#fedb394f9f0e02aa9768e702bda23b505fae7e1f"
-
-ajv-keywords@^2.1.0:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/ajv-keywords/-/ajv-keywords-2.1.1.tgz#617997fc5f60576894c435f940d819e135b80762"
 
 ajv-keywords@^3.1.0:
   version "3.1.0"
@@ -1397,7 +1285,7 @@ buffer@^4.3.0:
     ieee754 "^1.1.4"
     isarray "^1.0.0"
 
-builtin-modules@^1.0.0, builtin-modules@^1.1.0:
+builtin-modules@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/builtin-modules/-/builtin-modules-1.1.1.tgz#270f076c5a72c02f5b65a47df94c5fe3a278892f"
 
@@ -1766,8 +1654,8 @@ columnify@^1.5.4:
     wcwidth "^1.0.0"
 
 combined-stream@^1.0.5, combined-stream@~1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/combined-stream/-/combined-stream-1.0.5.tgz#938370a57b4a51dea2c77c15d5c5fdf895164009"
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/combined-stream/-/combined-stream-1.0.6.tgz#723e7df6e801ac5613113a7e445a9b69cb632818"
   dependencies:
     delayed-stream "~1.0.0"
 
@@ -1864,46 +1752,46 @@ content@4.x.x:
   dependencies:
     boom "7.x.x"
 
-conventional-changelog-angular@^1.6.2:
-  version "1.6.2"
-  resolved "https://registry.yarnpkg.com/conventional-changelog-angular/-/conventional-changelog-angular-1.6.2.tgz#0a811313de46326e5e4e11dac281d61cfe1f00c4"
+conventional-changelog-angular@^1.6.4:
+  version "1.6.4"
+  resolved "https://registry.yarnpkg.com/conventional-changelog-angular/-/conventional-changelog-angular-1.6.4.tgz#47debaf92b75b0bd6b39fcba8f9c70dd97552be6"
   dependencies:
     compare-func "^1.3.1"
     q "^1.4.1"
 
-conventional-changelog-atom@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/conventional-changelog-atom/-/conventional-changelog-atom-0.2.0.tgz#72f18e5c74e3d8807411252fe013818ddffa7157"
+conventional-changelog-atom@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/conventional-changelog-atom/-/conventional-changelog-atom-0.2.2.tgz#2c7326a8f24686f51500a290ed897d47612be4c3"
   dependencies:
     q "^1.4.1"
 
 conventional-changelog-cli@^1.3.2:
-  version "1.3.10"
-  resolved "https://registry.yarnpkg.com/conventional-changelog-cli/-/conventional-changelog-cli-1.3.10.tgz#6745505a170052533b00fa1cc73a1348caa4bc55"
+  version "1.3.13"
+  resolved "https://registry.yarnpkg.com/conventional-changelog-cli/-/conventional-changelog-cli-1.3.13.tgz#8cb5855bc3c684aa8f5dc96e848d1fa5a82eee1e"
   dependencies:
     add-stream "^1.0.0"
-    conventional-changelog "^1.1.12"
+    conventional-changelog "^1.1.15"
     lodash "^4.1.0"
     meow "^3.7.0"
     tempfile "^1.1.1"
 
-conventional-changelog-codemirror@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/conventional-changelog-codemirror/-/conventional-changelog-codemirror-0.3.0.tgz#4dd8abb9f521a638cab49f683496c26b8a5c6d31"
+conventional-changelog-codemirror@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/conventional-changelog-codemirror/-/conventional-changelog-codemirror-0.3.2.tgz#65ef0ab738c40bdf953951edfdb0cb17302606aa"
   dependencies:
     q "^1.4.1"
 
-conventional-changelog-core@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/conventional-changelog-core/-/conventional-changelog-core-2.0.1.tgz#7573de89bde46e0ccf395b4b85a0869aa5388e8d"
+conventional-changelog-core@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/conventional-changelog-core/-/conventional-changelog-core-2.0.3.tgz#30797b91d5f510188288d5ff54905e5cf4628e3c"
   dependencies:
-    conventional-changelog-writer "^3.0.0"
-    conventional-commits-parser "^2.1.1"
+    conventional-changelog-writer "^3.0.2"
+    conventional-commits-parser "^2.1.3"
     dateformat "^1.0.12"
     get-pkg-repo "^1.0.0"
-    git-raw-commits "^1.3.0"
+    git-raw-commits "^1.3.2"
     git-remote-origin-url "^2.0.0"
-    git-semver-tags "^1.3.0"
+    git-semver-tags "^1.3.2"
     lodash "^4.0.0"
     normalize-package-data "^2.3.5"
     q "^1.4.1"
@@ -1911,21 +1799,21 @@ conventional-changelog-core@^2.0.1:
     read-pkg-up "^1.0.1"
     through2 "^2.0.0"
 
-conventional-changelog-ember@^0.3.2:
+conventional-changelog-ember@^0.3.4:
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/conventional-changelog-ember/-/conventional-changelog-ember-0.3.4.tgz#76240e769b2f5298e78e85cb4eda69ef2f1358d2"
+  dependencies:
+    q "^1.4.1"
+
+conventional-changelog-eslint@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/conventional-changelog-eslint/-/conventional-changelog-eslint-1.0.2.tgz#3f9e6b0b60f98042f6f4dfc85a611a50b5e79cf9"
+  dependencies:
+    q "^1.4.1"
+
+conventional-changelog-express@^0.3.2:
   version "0.3.2"
-  resolved "https://registry.yarnpkg.com/conventional-changelog-ember/-/conventional-changelog-ember-0.3.2.tgz#d3dd89ffe96832384a5d3b60dc63bf5e0142a944"
-  dependencies:
-    q "^1.4.1"
-
-conventional-changelog-eslint@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/conventional-changelog-eslint/-/conventional-changelog-eslint-1.0.0.tgz#c63cd9d6f09d4e204530ae7369d7a20a167bc6bc"
-  dependencies:
-    q "^1.4.1"
-
-conventional-changelog-express@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/conventional-changelog-express/-/conventional-changelog-express-0.3.0.tgz#5ed006f48682d8615ee0ab5f53cacb26fbd3e1c8"
+  resolved "https://registry.yarnpkg.com/conventional-changelog-express/-/conventional-changelog-express-0.3.2.tgz#f5af4770a31f147986db548b49f9952fc55e3eb6"
   dependencies:
     q "^1.4.1"
 
@@ -1941,23 +1829,23 @@ conventional-changelog-jscs@^0.1.0:
   dependencies:
     q "^1.4.1"
 
-conventional-changelog-jshint@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/conventional-changelog-jshint/-/conventional-changelog-jshint-0.3.0.tgz#0393fd468113baf73cba911d17c5826423366a28"
+conventional-changelog-jshint@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/conventional-changelog-jshint/-/conventional-changelog-jshint-0.3.2.tgz#4d45d2601c944687abceabbc1789323719234cbe"
   dependencies:
     compare-func "^1.3.1"
     q "^1.4.1"
 
-conventional-changelog-preset-loader@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/conventional-changelog-preset-loader/-/conventional-changelog-preset-loader-1.1.2.tgz#dfb5877884ef852b648bdef6e69e53e1bda188df"
+conventional-changelog-preset-loader@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/conventional-changelog-preset-loader/-/conventional-changelog-preset-loader-1.1.4.tgz#5096165f2742a18dc0e33ff2ab9ee08dc9d77f08"
 
-conventional-changelog-writer@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/conventional-changelog-writer/-/conventional-changelog-writer-3.0.0.tgz#e106154ed94341e387d717b61be2181ff53254cc"
+conventional-changelog-writer@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/conventional-changelog-writer/-/conventional-changelog-writer-3.0.2.tgz#f3f934028379c0cab90aecfcaf009bf8a187ef14"
   dependencies:
     compare-func "^1.3.1"
-    conventional-commits-filter "^1.1.1"
+    conventional-commits-filter "^1.1.3"
     dateformat "^1.0.11"
     handlebars "^4.0.2"
     json-stringify-safe "^5.0.1"
@@ -1967,32 +1855,32 @@ conventional-changelog-writer@^3.0.0:
     split "^1.0.0"
     through2 "^2.0.0"
 
-conventional-changelog@^1.1.12:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/conventional-changelog/-/conventional-changelog-1.2.0.tgz#74947e73e48b57ceb6859c373f4f9d4fb5e6d4df"
+conventional-changelog@^1.1.15:
+  version "1.1.15"
+  resolved "https://registry.yarnpkg.com/conventional-changelog/-/conventional-changelog-1.1.15.tgz#a5c3d281efb40f61c7d21eeffb19e6f6a8429df0"
   dependencies:
-    conventional-changelog-angular "^1.6.2"
-    conventional-changelog-atom "^0.2.0"
-    conventional-changelog-codemirror "^0.3.0"
-    conventional-changelog-core "^2.0.1"
-    conventional-changelog-ember "^0.3.2"
-    conventional-changelog-eslint "^1.0.0"
-    conventional-changelog-express "^0.3.0"
+    conventional-changelog-angular "^1.6.4"
+    conventional-changelog-atom "^0.2.2"
+    conventional-changelog-codemirror "^0.3.2"
+    conventional-changelog-core "^2.0.3"
+    conventional-changelog-ember "^0.3.4"
+    conventional-changelog-eslint "^1.0.2"
+    conventional-changelog-express "^0.3.2"
     conventional-changelog-jquery "^0.1.0"
     conventional-changelog-jscs "^0.1.0"
-    conventional-changelog-jshint "^0.3.0"
-    conventional-changelog-preset-loader "^1.1.2"
+    conventional-changelog-jshint "^0.3.2"
+    conventional-changelog-preset-loader "^1.1.4"
 
-conventional-commits-filter@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/conventional-commits-filter/-/conventional-commits-filter-1.1.1.tgz#72172319c0c88328a015b30686b55527b3a5e54a"
+conventional-commits-filter@^1.1.1, conventional-commits-filter@^1.1.3:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/conventional-commits-filter/-/conventional-commits-filter-1.1.3.tgz#5bf591bc4882fc8c9bd329e5a83ca1fa8721d9fb"
   dependencies:
     is-subset "^0.1.1"
     modify-values "^1.0.0"
 
-conventional-commits-parser@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/conventional-commits-parser/-/conventional-commits-parser-2.1.1.tgz#1525a01bdad3349297b4210396e283d8a8ffd044"
+conventional-commits-parser@^2.1.1, conventional-commits-parser@^2.1.3:
+  version "2.1.3"
+  resolved "https://registry.yarnpkg.com/conventional-commits-parser/-/conventional-commits-parser-2.1.3.tgz#fbbfcfe4901ccbae63bb3834f982325e0b7c663f"
   dependencies:
     JSONStream "^1.0.4"
     is-text-path "^1.0.0"
@@ -2709,14 +2597,6 @@ estraverse@^4.1.0, estraverse@^4.1.1:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/estraverse/-/estraverse-4.2.0.tgz#0dee3fed31fcd469618ce7342099fc1afa0bdb13"
 
-estree-walker@^0.3.0:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/estree-walker/-/estree-walker-0.3.1.tgz#e6b1a51cf7292524e7237c312e5fe6660c1ce1aa"
-
-estree-walker@^0.5.0:
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/estree-walker/-/estree-walker-0.5.1.tgz#64fc375053abc6f57d73e9bd2f004644ad3c5854"
-
 esutils@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/esutils/-/esutils-2.0.2.tgz#0abf4f1caa5bcb1f7a9d8acc6dea4faaa04bac9b"
@@ -3162,9 +3042,9 @@ getpass@^0.1.1:
   dependencies:
     assert-plus "^1.0.0"
 
-git-raw-commits@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/git-raw-commits/-/git-raw-commits-1.3.0.tgz#0bc8596e90d5ffe736f7f5546bd2d12f73abaac6"
+git-raw-commits@^1.3.0, git-raw-commits@^1.3.2:
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/git-raw-commits/-/git-raw-commits-1.3.2.tgz#0766c14d33566ba0094869697e13b0eb06147c07"
   dependencies:
     dargs "^4.0.1"
     lodash.template "^4.0.2"
@@ -3179,9 +3059,9 @@ git-remote-origin-url@^2.0.0:
     gitconfiglocal "^1.0.0"
     pify "^2.3.0"
 
-git-semver-tags@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/git-semver-tags/-/git-semver-tags-1.3.0.tgz#b154833a6ab5c360c0ad3b1aa9b8f12ea06de919"
+git-semver-tags@^1.3.0, git-semver-tags@^1.3.2:
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/git-semver-tags/-/git-semver-tags-1.3.2.tgz#94afa43c9070ae527a3ab86b978e59ae207803cc"
   dependencies:
     meow "^3.3.0"
     semver "^5.0.1"
@@ -3283,7 +3163,7 @@ handlebars@^4.0.2:
   optionalDependencies:
     uglify-js "^2.6"
 
-hapi@17.x.x, hapi@^17.1.0:
+hapi@17.x.x:
   version "17.2.0"
   resolved "https://registry.yarnpkg.com/hapi/-/hapi-17.2.0.tgz#e5d74b65235b443225e05d7b7510cdb80d4887e7"
   dependencies:
@@ -3841,10 +3721,6 @@ is-glob@^4.0.0:
   dependencies:
     is-extglob "^2.1.1"
 
-is-module@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/is-module/-/is-module-1.0.0.tgz#3258fb69f78c14d5b815d664336b4cffb6441591"
-
 is-number@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/is-number/-/is-number-2.1.0.tgz#01fcbbb393463a548f2f466cce16dece49db908f"
@@ -4332,12 +4208,6 @@ macaddress@^0.2.8:
   version "0.2.8"
   resolved "https://registry.yarnpkg.com/macaddress/-/macaddress-0.2.8.tgz#5904dc537c39ec6dbefeae902327135fa8511f12"
 
-magic-string@^0.22.4:
-  version "0.22.4"
-  resolved "https://registry.yarnpkg.com/magic-string/-/magic-string-0.22.4.tgz#31039b4e40366395618c1d6cf8193c53917475ff"
-  dependencies:
-    vlq "^0.2.1"
-
 make-array@^1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/make-array/-/make-array-1.0.3.tgz#578edca444d19a277805cc0d8e9eb2d74be74dbe"
@@ -4634,7 +4504,7 @@ node-dir@^0.1.17:
   dependencies:
     minimatch "^3.0.2"
 
-node-fetch@^1.0.1, node-fetch@^1.7.3:
+node-fetch@^1.0.1:
   version "1.7.3"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-1.7.3.tgz#980f6f72d85211a5347c6b2bc18c5b84c3eb47ef"
   dependencies:
@@ -5030,10 +4900,6 @@ path-key@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/path-key/-/path-key-2.0.1.tgz#411cadb574c5a140d3a4b1910d40d80cc9f40b40"
 
-path-parse@^1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/path-parse/-/path-parse-1.0.5.tgz#3c1adf871ea9cd6c9431b6ea2bd74a0ff055c4c1"
-
 path-to-regexp@0.1.7:
   version "0.1.7"
   resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-0.1.7.tgz#df604178005f522f15eb4490e7247a1bfaa67f8c"
@@ -5252,7 +5118,7 @@ postcss-convert-values@^2.3.4:
     postcss "^5.0.11"
     postcss-value-parser "^3.1.2"
 
-postcss-cssnext@^3.0.2, postcss-cssnext@^3.1.0:
+postcss-cssnext@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/postcss-cssnext/-/postcss-cssnext-3.1.0.tgz#927dc29341a938254cde38ea60a923b9dfedead9"
   dependencies:
@@ -5395,7 +5261,7 @@ postcss-load-plugins@^2.3.0:
     cosmiconfig "^2.1.1"
     object-assign "^4.1.0"
 
-postcss-loader@^2.0.10, postcss-loader@^2.1.0:
+postcss-loader@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/postcss-loader/-/postcss-loader-2.1.0.tgz#038c2d6d59753fef4667827fd3ae03f5dc5e6a7a"
   dependencies:
@@ -5825,7 +5691,7 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-dom@^16.1.1, react-dom@^16.2.0:
+react-dom@^16.1.1:
   version "16.2.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.2.0.tgz#69003178601c0ca19b709b33a83369fe6124c044"
   dependencies:
@@ -6109,12 +5975,6 @@ resolve-url@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/resolve-url/-/resolve-url-0.2.1.tgz#2c637fe77c893afd2a663fe21aa9080068e2052a"
 
-resolve@^1.1.6, resolve@^1.4.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.5.0.tgz#1f09acce796c9a762579f31b2c1cc4c3cddf9f36"
-  dependencies:
-    path-parse "^1.0.5"
-
 restore-cursor@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/restore-cursor/-/restore-cursor-2.0.0.tgz#9f7ee287f82fd326d4fd162923d62129eee0dfaf"
@@ -6148,49 +6008,6 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
   dependencies:
     hash-base "^2.0.0"
     inherits "^2.0.1"
-
-rollup-plugin-commonjs@^8.2.6:
-  version "8.3.0"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-commonjs/-/rollup-plugin-commonjs-8.3.0.tgz#91b4ba18f340951e39ed7b1901f377a80ab3f9c3"
-  dependencies:
-    acorn "^5.2.1"
-    estree-walker "^0.5.0"
-    magic-string "^0.22.4"
-    resolve "^1.4.0"
-    rollup-pluginutils "^2.0.1"
-
-rollup-plugin-json@^2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-json/-/rollup-plugin-json-2.3.0.tgz#3c07a452c1b5391be28006fbfff3644056ce0add"
-  dependencies:
-    rollup-pluginutils "^2.0.1"
-
-rollup-plugin-node-resolve@^3.0.2:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-node-resolve/-/rollup-plugin-node-resolve-3.0.2.tgz#38babc12fd404cc2ba1ff68648fe43fa3ffee6b0"
-  dependencies:
-    builtin-modules "^1.1.0"
-    is-module "^1.0.0"
-    resolve "^1.1.6"
-
-rollup-plugin-replace@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-replace/-/rollup-plugin-replace-2.0.0.tgz#19074089c8ed57184b8cc64e967a03d095119277"
-  dependencies:
-    magic-string "^0.22.4"
-    minimatch "^3.0.2"
-    rollup-pluginutils "^2.0.1"
-
-rollup-pluginutils@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/rollup-pluginutils/-/rollup-pluginutils-2.0.1.tgz#7ec95b3573f6543a46a6461bd9a7c544525d0fc0"
-  dependencies:
-    estree-walker "^0.3.0"
-    micromatch "^2.3.11"
-
-rollup@^0.54.1:
-  version "0.54.1"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-0.54.1.tgz#415a5d999421502646cf54b873fc4ce1a7393970"
 
 run-async@^2.2.0:
   version "2.3.0"
@@ -6229,11 +6046,11 @@ schema-utils@^0.3.0:
     ajv "^5.0.0"
 
 schema-utils@^0.4.0, schema-utils@^0.4.2, schema-utils@^0.4.3:
-  version "0.4.3"
-  resolved "https://registry.yarnpkg.com/schema-utils/-/schema-utils-0.4.3.tgz#e2a594d3395834d5e15da22b48be13517859458e"
+  version "0.4.5"
+  resolved "https://registry.yarnpkg.com/schema-utils/-/schema-utils-0.4.5.tgz#21836f0608aac17b78f9e3e24daff14a5ca13a3e"
   dependencies:
-    ajv "^5.0.0"
-    ajv-keywords "^2.1.0"
+    ajv "^6.1.0"
+    ajv-keywords "^3.1.0"
 
 select-hose@^2.0.0:
   version "2.0.0"
@@ -6732,7 +6549,7 @@ strong-log-transformer@^1.0.6:
     moment "^2.6.0"
     through "^2.3.4"
 
-style-loader@^0.19.0, style-loader@^0.19.1:
+style-loader@^0.19.0:
   version "0.19.1"
   resolved "https://registry.yarnpkg.com/style-loader/-/style-loader-0.19.1.tgz#591ffc80bcefe268b77c5d9ebc0505d772619f85"
   dependencies:
@@ -7217,10 +7034,6 @@ vise@3.x.x:
   resolved "https://registry.yarnpkg.com/vise/-/vise-3.0.0.tgz#76ad14ab31669c50fbb0817bc0e72fedcbb3bf4c"
   dependencies:
     hoek "5.x.x"
-
-vlq@^0.2.1:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/vlq/-/vlq-0.2.3.tgz#8f3e4328cf63b1540c0d67e1b2778386f8975b26"
 
 vm-browserify@0.0.4:
   version "0.0.4"

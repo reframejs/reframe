@@ -50,6 +50,8 @@ function build({
         handle_output_dir({pagesDir});
     }
 
+    processReframeConfig(reframeConfig);
+
     const webpack_config = get_webpack_config({
         pagesDir,
         reframeConfig,
@@ -70,7 +72,7 @@ function build({
         log: log_option,
         ...rebuild_opts,
         onBuild: async build_info__repage => {
-            const build_info__reframe = await onBuild({build_info__repage, fs_handler});
+            const build_info__reframe = await onBuild({build_info__repage, fs_handler, reframeConfig});
 
             if( log_option && build_info__reframe.isFirstBuild ) {
                 log_title('Pages');
@@ -110,8 +112,6 @@ function get_webpack_config({
         output_path__server,
         server_entries,
     } = get_infos_for_webpack({pagesDir});
-
-    processReframeConfig(reframeConfig);
 
     let browser_build = {};
     if( browser_entries ) {
@@ -304,7 +304,7 @@ function is_script(path, suffix) {
     );
 }
 
-async function onBuild({build_info__repage, fs_handler}) {
+async function onBuild({build_info__repage, fs_handler, reframeConfig}) {
     const {compilationInfo, isFirstBuild} = build_info__repage;
  // const [args_server, args_browser] = compilationInfo;
     const [args_browser, args_server] = compilationInfo;
@@ -319,7 +319,7 @@ async function onBuild({build_info__repage, fs_handler}) {
  // log(pages);
 
     assert_internal(args_browser);
-    await writeHtmlStaticPages({args_browser, pages, fs_handler});
+    await writeHtmlStaticPages({args_browser, pages, fs_handler, reframeConfig});
 
     const {HapiServeBrowserAssets} = args_browser;
     assert_internal(HapiServeBrowserAssets, args_server, args_browser);
@@ -330,7 +330,7 @@ async function onBuild({build_info__repage, fs_handler}) {
     return {pages, HapiServeBrowserAssets, browserDistPath, isFirstBuild};
 }
 
-async function writeHtmlStaticPages({pages, args_browser, fs_handler}) {
+async function writeHtmlStaticPages({pages, args_browser, fs_handler, reframeConfig}) {
     (await get_static_pages_info())
     .forEach(({url, html}) => {
         write_html_file({url, html});
@@ -345,6 +345,7 @@ async function writeHtmlStaticPages({pages, args_browser, fs_handler}) {
             RepageRouterCrossroads,
             RepageRenderer,
             RepageRendererReact,
+            ...reframeConfig._processed.repage_plugins,
         ]);
 
         repage.addPages(pages);
@@ -614,6 +615,8 @@ function move_and_stamp_output_dir({output_path__base}) {
 
     function create_output_dir() {
         mkdirp.sync(path_module.dirname(output_path__base));
+        const timestamp = get_timestamp();
+        assert_internal(timestamp);
         const stamp_content = get_timestamp()+'\n';
         fs__write_file(stamp_path, stamp_content);
     }
@@ -674,9 +677,13 @@ function move_and_stamp_output_dir({output_path__base}) {
     }
 
     function move_old_output_dir() {
-        assert_internal(fs__path_exists(stamp_path));
-        const stamp_content = fs__read(stamp_path).trim();
-        assert_internal(stamp_content && !/\s/.test(stamp_content));
+        const stamp_content = fs__path_exists(stamp_path) && fs__read(stamp_path).trim();
+        assert_internal(
+            stamp_content,
+            'Reframe stamp is missing at `'+stamp_path+'`.',
+            'Remove `'+output_path__base+'` and retry.',
+        );
+        assert_internal(stamp_content && !/\s/.test(stamp_content), stamp_content);
         const graveyard_path = path__resolve(output_path__base, 'previous', stamp_content);
         move_all_files(output_path__base, graveyard_path);
     }
