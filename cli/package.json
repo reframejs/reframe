@@ -8,6 +8,7 @@
     "@brillout/find": "latest",
     "@reframe/browser": "latest",
     "@reframe/server": "latest",
+    "find-up": "^2.1.0",
     "lerna": "^2.5.1",
     "reassert": "latest"
   },

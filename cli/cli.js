@@ -3,6 +3,7 @@
 process.on('unhandledRejection', err => {throw err});
 
 const path_module = require('path');
+const find_up = require('find-up');
 const assert = require('reassert');
 const assert_usage = assert;
 const assert_internal = assert;
@@ -22,13 +23,14 @@ const assert_internal = assert;
     return;
 
     function find_reframe_config(cwd) {
-        const config_path = find('reframe.config', {canBeMissing: true, cwd});
-        if( config_path ) {
-            console.log(green_checkmark()+' Reframe config found at '+path_relative_to_homedir(config_path));
+        const config_path = find_up.sync('reframe.config', {cwd});
+        assert_internal(config_path===null || path_module.isAbsolute(config_path));
+        if( ! config_path ) {
+            return {reframeConfig: undefined};
         }
-        const reframeConfig = config_path && require(config_path);
-        assert_usage(!config_path || reframeConfig.constructor===Object);
-        assert_internal(reframeConfig===null || reframeConfig.constructor===Object);
+        console.log(green_checkmark()+' Reframe config found at '+path_relative_to_homedir(config_path));
+        const reframeConfig = require(config_path);
+        assert_usage(reframeConfig.constructor===Object);
         return {reframeConfig};
     }
     function find_pages_dir() {
