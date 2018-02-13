@@ -2,7 +2,7 @@
   "name": "@reframe/utils",
   "version": "0.0.1-rc.1",
   "dependencies": {
-    "reassert": "^1.0.0"
+    "reassert": "latest"
   },
   "publishConfig": {
     "access": "public"

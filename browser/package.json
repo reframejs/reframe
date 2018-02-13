@@ -2,13 +2,13 @@
   "name": "@reframe/browser",
   "version": "0.0.1-rc.1",
   "dependencies": {
-    "@repage/browser": "0.0.1-rc.1",
-    "@repage/core": "0.0.1-rc.1",
-    "@repage/navigator": "0.0.1-rc.1",
-    "@repage/renderer": "0.0.1-rc.1",
-    "@repage/renderer-react": "0.0.1-rc.1",
-    "@repage/router-crossroads": "0.0.1-rc.1",
-    "reassert": "^1.0.0"
+    "@repage/browser": "latest",
+    "@repage/core": "latest",
+    "@repage/navigator": "latest",
+    "@repage/renderer": "latest",
+    "@repage/renderer-react": "latest",
+    "@repage/router-crossroads": "latest",
+    "reassert": "latest"
   },
   "publishConfig": {
     "access": "public"
