@@ -111,7 +111,7 @@ function get_webpack_config({
         browser_entries,
         output_path__server,
         server_entries,
-    } = get_infos_for_webpack({pagesDir});
+    } = get_infos_for_webpack({pagesDir, reframeConfig});
 
     let browser_build = {};
     if( browser_entries ) {
@@ -151,7 +151,7 @@ function get_webpack_config({
     return webpack_config;
 }
 
-function get_infos_for_webpack({pagesDir}) {
+function get_infos_for_webpack({pagesDir, reframeConfig}) {
     if( ! pagesDir ) {
         return {};
     }
@@ -161,7 +161,7 @@ function get_infos_for_webpack({pagesDir}) {
     const output_path__browser = path_module.resolve(output_path__base, './browser');
     const output_path__server = path_module.resolve(output_path__base, './server');
 
-    const {browser_entries, server_entries} = get_webpack_entries({pagesDir, output_path__base, output_path__source});
+    const {browser_entries, server_entries} = get_webpack_entries({pagesDir, output_path__base, output_path__source, reframeConfig});
 
     return {
         output_path__browser,
@@ -171,9 +171,11 @@ function get_infos_for_webpack({pagesDir}) {
     };
 }
 
-function get_webpack_entries({pagesDir, output_path__base, output_path__source}) {
+function get_webpack_entries({pagesDir, output_path__base, output_path__source, reframeConfig}) {
     const browser_entries = {};
     const server_entries = {};
+
+    const reframe_browser_conifg__path = generate_reframe_browser_config({output_path__source, reframeConfig});
 
     fs__ls(pagesDir)
     .forEach(page_file => {
@@ -189,7 +191,7 @@ function get_webpack_entries({pagesDir, output_path__base, output_path__source})
         if( is_universal || is_dom ) {
             const file_name__dist = file_name.split('.').slice(0, -2).concat(['entry', 'js']).join('.');
             const dist_path = path_module.resolve(output_path__source, file_name__dist);
-            generate_entry({page_file, dist_path});
+            generate_entry({page_file, dist_path, reframe_browser_conifg__path});
             const entry_name__browser = entry_name.split('.').slice(0, -1).concat(['entry']).join('.');
             browser_entries[entry_name__browser] = [dist_path];
             if( is_universal ) {
@@ -219,18 +221,52 @@ function generate_dummy_entry({dist_path}) {
     fs__write_file(dist_path, '// Dummy JavaScript acting as Webpack entry');
 }
 
-function generate_entry({page_file, dist_path}) {
+function generate_reframe_browser_config({output_path__source, reframeConfig}) {
+    const source_code = [
+        "const reframeBrowserConfig = {};",
+        "reframeBrowserConfig.plugins = [",
+        ...(
+            reframeConfig._processed.browserConfigPaths.map(config_path => {
+                assert_internal(path_module.isAbsolute(config_path), config_path);
+                assert_internal(path_points_to_a_file(config_path), config_path);
+                return "require('"+config_path+"'),";
+            })
+        ),
+        "];",
+        "",
+        "module.exports = reframeBrowserConfig;",
+    ].join('\n')
+
+    const code_path = path_module.join(output_path__source, './reframe.browser.config.js')
+
+    fs__write_file(code_path, source_code);
+
+    return code_path;
+}
+
+function path_points_to_a_file(file_path) {
+    try {
+        // `require.resolve` throws if `file_path` is not a file
+        require.resolve(file_path);
+        return true;
+    } catch(e) {}
+    return false;
+}
+
+function generate_entry({page_file, dist_path, reframe_browser_conifg__path}) {
     assert_internal(page_file.startsWith('/'));
     assert_internal(dist_path.startsWith('/'));
+    assert_internal(reframe_browser_conifg__path.startsWith('/'));
     const source_code = (
         [
-            "var hydratePage = require('"+require.resolve('@reframe/browser/hydratePage')+"');",
-            "var pageConfig = require('"+page_file+"');",
+            "const hydratePage = require('"+require.resolve('@reframe/browser/hydratePage')+"');",
+            "const reframeBrowserConfig = require('"+reframe_browser_conifg__path+"');",
             "",
             "// hybrid cjs and ES6 module import",
+            "let pageConfig = require('"+page_file+"');",
             "pageConfig = Object.keys(pageConfig).length===1 && pageConfig.default || pageConfig;",
             "",
-            "hydratePage(pageConfig);",
+            "hydratePage(pageConfig, reframeBrowserConfig);",
         ].join('\n')
     );
     fs__write_file(dist_path, source_code);

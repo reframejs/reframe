@@ -8,7 +8,8 @@
         "example",
         "server",
         "utils",
-        "postcss"
+        "postcss",
+        "react-router"
     ],
     "devDependencies": {
         "lerna": "^2.5.1"

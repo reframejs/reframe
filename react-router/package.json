@@ -1,0 +1,19 @@
+{
+  "name": "@reframe/react-router",
+  "version": "0.0.1-rc.1",
+  "scripts": {
+    "docs": "mdocs"
+  },
+  "dependencies": {
+    "react": "^16.2.0",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": "github:brillout/reframe",
+  "devDependencies": {
+    "@brillout/mdocs": "latest"
+  }
+}
