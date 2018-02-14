@@ -19,12 +19,6 @@
     path-is-inside "^1.0.2"
     reassert "^1.1.0"
 
-"@brillout/html-crust@^0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@brillout/html-crust/-/html-crust-0.0.1.tgz#7bf72142a5fdbf644b5947c68a163fa67969cf4e"
-  dependencies:
-    reassert "^1.0.3"
-
 "@brillout/html-crust@^0.0.9":
   version "0.0.9"
   resolved "https://registry.yarnpkg.com/@brillout/html-crust/-/html-crust-0.0.9.tgz#bb9a6abd46c36b5ce9a0c9b22d2e839de642f50d"
@@ -32,8 +26,8 @@
     reassert "^1.0.3"
 
 "@brillout/mdocs@latest":
-  version "0.1.7"
-  resolved "https://registry.yarnpkg.com/@brillout/mdocs/-/mdocs-0.1.7.tgz#703372633013ec6f3ec3cd913ca72756dc19739a"
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/@brillout/mdocs/-/mdocs-0.1.8.tgz#48ffdd1399f34540817d66cf1aece718eb0cd62e"
   dependencies:
     find-up "^2.1.0"
     reassert latest
@@ -94,53 +88,53 @@
     webpack-dev-server "^2.9.4"
 
 "@repage/browser@latest":
-  version "0.0.1-rc.1"
-  resolved "https://registry.yarnpkg.com/@repage/browser/-/browser-0.0.1-rc.1.tgz#70a8b3e55a4731a45405c1813fda53dd99644f24"
+  version "0.0.1-rc.2"
+  resolved "https://registry.yarnpkg.com/@repage/browser/-/browser-0.0.1-rc.2.tgz#59b929a57a2d8e8a3385900c9dc15d135d5f1e27"
   dependencies:
     "@atto/parse-uri" "0.0.1"
     reassert "^1.0.0"
 
 "@repage/build@latest":
-  version "0.0.1-rc.1"
-  resolved "https://registry.yarnpkg.com/@repage/build/-/build-0.0.1-rc.1.tgz#193a47d81ab7b17542872326cb663d6da644f7fd"
+  version "0.0.1-rc.2"
+  resolved "https://registry.yarnpkg.com/@repage/build/-/build-0.0.1-rc.2.tgz#192cc7d1f88f56a8d44703b8690686093afe0ed2"
   dependencies:
     "@atto/parse-uri" "0.0.1"
     reassert "^1.0.0"
 
 "@repage/core@latest":
-  version "0.0.1-rc.1"
-  resolved "https://registry.yarnpkg.com/@repage/core/-/core-0.0.1-rc.1.tgz#82bffbdc726a3fd7e019add5d47319a68540dc15"
+  version "0.0.1-rc.2"
+  resolved "https://registry.yarnpkg.com/@repage/core/-/core-0.0.1-rc.2.tgz#557c6090b9099bd69ee69b41048301a6646c6ac0"
   dependencies:
     reassert "^1.0.0"
 
 "@repage/navigator@latest":
-  version "0.0.1-rc.1"
-  resolved "https://registry.yarnpkg.com/@repage/navigator/-/navigator-0.0.1-rc.1.tgz#4f33bcad48514490d1f37942031983f1d97a6f7d"
+  version "0.0.1-rc.2"
+  resolved "https://registry.yarnpkg.com/@repage/navigator/-/navigator-0.0.1-rc.2.tgz#600bf4e3afdd3c326a2bb5c9f3e77577a475fbf5"
   dependencies:
     history "2.x.x"
     reassert "^1.0.0"
 
 "@repage/renderer-react@latest":
-  version "0.0.1-rc.1"
-  resolved "https://registry.yarnpkg.com/@repage/renderer-react/-/renderer-react-0.0.1-rc.1.tgz#ebc0d1f3dac5aff8ebf1b78f5b3f524151f4e872"
+  version "0.0.1-rc.2"
+  resolved "https://registry.yarnpkg.com/@repage/renderer-react/-/renderer-react-0.0.1-rc.2.tgz#48654b6ced25bf0c106ea13e84cf206f7b6e5075"
   dependencies:
-    "@brillout/html-crust" "^0.0.1"
+    "@brillout/html-crust" "^0.0.9"
     react "^16.1.1"
     react-dom "^16.1.1"
 
 "@repage/renderer@latest":
-  version "0.0.1-rc.1"
-  resolved "https://registry.yarnpkg.com/@repage/renderer/-/renderer-0.0.1-rc.1.tgz#2ed4e041af66a753947242840b2a5e2c737fa146"
+  version "0.0.1-rc.2"
+  resolved "https://registry.yarnpkg.com/@repage/renderer/-/renderer-0.0.1-rc.2.tgz#650ce33b32c26c16219f377dfa1804bd5df1df3c"
 
 "@repage/router-crossroads@latest":
-  version "0.0.1-rc.1"
-  resolved "https://registry.yarnpkg.com/@repage/router-crossroads/-/router-crossroads-0.0.1-rc.1.tgz#9fdbc60bcf7d0aad3d9d98b8b25ea8ec34dfe74a"
+  version "0.0.1-rc.2"
+  resolved "https://registry.yarnpkg.com/@repage/router-crossroads/-/router-crossroads-0.0.1-rc.2.tgz#bffbca5f50f2c48ef03984617993b94fa7c6f2da"
   dependencies:
     crossroads "^0.12.2"
 
 "@repage/server@latest":
-  version "0.0.1-rc.1"
-  resolved "https://registry.yarnpkg.com/@repage/server/-/server-0.0.1-rc.1.tgz#2baafbe8fcb249f07ce551eac8cd01f9ff92f992"
+  version "0.0.1-rc.2"
+  resolved "https://registry.yarnpkg.com/@repage/server/-/server-0.0.1-rc.2.tgz#94ca69304a59864c3e8681b674db35dd1d2c1de4"
   dependencies:
     "@atto/parse-uri" "0.0.1"
     reassert "^1.0.0"
@@ -375,8 +369,8 @@ asap@~2.0.3:
   resolved "https://registry.yarnpkg.com/asap/-/asap-2.0.6.tgz#e50347611d7e690943208bbdafebcbc2fb866d46"
 
 asn1.js@^4.0.0:
-  version "4.9.2"
-  resolved "https://registry.yarnpkg.com/asn1.js/-/asn1.js-4.9.2.tgz#8117ef4f7ed87cd8f89044b5bff97ac243a16c9a"
+  version "4.10.1"
+  resolved "https://registry.yarnpkg.com/asn1.js/-/asn1.js-4.10.1.tgz#b9c2bf5805f1e64aadeed6df3a2bfafb5a73f5a0"
   dependencies:
     bn.js "^4.0.0"
     inherits "^2.0.1"
@@ -1666,6 +1660,10 @@ command-join@^2.0.0:
 commander@2.14.x, commander@~2.14.1:
   version "2.14.1"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.14.1.tgz#2235123e37af8ca3c65df45b026dbd357b01b9aa"
+
+commander@~2.13.0:
+  version "2.13.0"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-2.13.0.tgz#6964bca67685df7c1f1430c584f07d7597885b9c"
 
 commondir@^1.0.1:
   version "1.0.1"
@@ -6841,10 +6839,10 @@ ua-parser-js@^0.7.9:
   resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.17.tgz#e9ec5f9498b9ec910e7ae3ac626a805c4d09ecac"
 
 uglify-es@^3.3.4:
-  version "3.3.10"
-  resolved "https://registry.yarnpkg.com/uglify-es/-/uglify-es-3.3.10.tgz#8b0b7992cebe20edc26de1bf325cef797b8f3fa5"
+  version "3.3.9"
+  resolved "https://registry.yarnpkg.com/uglify-es/-/uglify-es-3.3.9.tgz#0c1c4f0700bed8dbc124cdb304d2592ca203e677"
   dependencies:
-    commander "~2.14.1"
+    commander "~2.13.0"
     source-map "~0.6.1"
 
 uglify-js@3.3.x:

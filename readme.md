@@ -135,7 +135,7 @@ A *page config* is a plain JavaScript object that configures a page by assigning
  - a route (required), and
  - further (optional) page configurations (such as the page's &lt;title&gt;, meta tags, script tags, whether the page should be hydrated or not, whether the page's HTML should be rendered at build-time or at request-time, etc.).
 
-You can build a React web app with **no build configuration and no server configuration**.
+You can build a React web app with **no build configuration** and **no server configuration**.
 
 > All you need to create a web app is one React component and one page config per page.
 
@@ -377,7 +377,11 @@ Reframe **doesn't** take care of:
 
 More to come...
 
+###### Languages
  - [@reframe/postcss](/postcss) - Use Reframe with PostCSS
+
+###### Routing
+ - [@reframe/react-router](/react-router) - Use Reframe with React Router v4
 
 ### Quick Start
 

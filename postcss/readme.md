@@ -7,7 +7,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/readme.template.md` instead.
+    Edit `/postcss/readme.template.md` instead.
 
 
 
@@ -22,7 +22,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/readme.template.md` instead.
+    Edit `/postcss/readme.template.md` instead.
 
 
 
@@ -37,7 +37,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/readme.template.md` instead.
+    Edit `/postcss/readme.template.md` instead.
 
 
 
@@ -52,7 +52,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/readme.template.md` instead.
+    Edit `/postcss/readme.template.md` instead.
 
 
 
@@ -67,7 +67,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/readme.template.md` instead.
+    Edit `/postcss/readme.template.md` instead.
 
 
 
@@ -83,7 +83,7 @@ Use Reframe with PostCSS.
 
 ### Usage
 
-By adding the `@reframe/postcss` plugin to the `reframe.config`, you will be able to use PostCSS.
+By adding the `@reframe/postcss` plugin to your `reframe.config`, you will be able to use PostCSS.
 
 ~~~js
 // reframe.config
@@ -181,7 +181,7 @@ export default LandingPage;
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/readme.template.md` instead.
+    Edit `/postcss/readme.template.md` instead.
 
 
 
@@ -196,7 +196,7 @@ export default LandingPage;
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/readme.template.md` instead.
+    Edit `/postcss/readme.template.md` instead.
 
 
 
@@ -211,7 +211,7 @@ export default LandingPage;
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/readme.template.md` instead.
+    Edit `/postcss/readme.template.md` instead.
 
 
 
@@ -226,7 +226,7 @@ export default LandingPage;
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/readme.template.md` instead.
+    Edit `/postcss/readme.template.md` instead.
 
 
 
@@ -241,7 +241,7 @@ export default LandingPage;
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/readme.template.md` instead.
+    Edit `/postcss/readme.template.md` instead.
 
 
 

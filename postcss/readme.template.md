@@ -6,7 +6,7 @@ Use Reframe with PostCSS.
 
 ### Usage
 
-By adding the `@reframe/postcss` plugin to the `reframe.config`, you will be able to use PostCSS.
+By adding the `@reframe/postcss` plugin to your `reframe.config`, you will be able to use PostCSS.
 
 ~~~js
 // reframe.config
