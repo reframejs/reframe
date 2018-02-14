@@ -3,16 +3,33 @@ const assert_internal = assert;
 const assert_usage = assert;
 const assert_plugin = assert;
 const path_module = require('path');
+const defaultKit = require('@reframe/default-kit');
 const {process__common} = require('./processReframeBrowserConfig');
 
 module.exports = {processReframeConfig};
 
 function processReframeConfig(reframeConfig) {
+    add_default_kit(reframeConfig);
     process__common(reframeConfig, 'reframe.config');
     const {_processed} = reframeConfig;
     const {plugin_objects} = _processed;
     add_webpack_config_modifiers(_processed, plugin_objects);
     add_browser_config_paths(_processed, plugin_objects);
+}
+
+function add_default_kit(reframeConfig) {
+    /*
+    assert_internal(_processed.repage_plugins.constructor===Array);
+    for(plugin_object in _processed.plugin_objects) {
+        if( plugin_objects.skipDefaultKit ) {
+            return;
+        }
+    }
+    */
+    if( ! reframeConfig.skipDefaultKit ) {
+        reframeConfig.plugins = reframeConfig.plugins || [];
+        reframeConfig.plugins.unshift(defaultKit());
+    }
 }
 
 function add_webpack_config_modifiers(_processed, plugin_objects) {
@@ -43,20 +60,16 @@ function add_webpack_config_modifiers(_processed, plugin_objects) {
 }
 
 function add_browser_config_paths(_processed, plugin_objects) {
-    if( _processed.browserConfigPaths ) {
+    if( _processed.browserConfigs ) {
         return;
     }
-    const browserConfigPaths = _processed.browserConfigPaths = [];
+    const browserConfigs = _processed.browserConfigs = [];
     plugin_objects.forEach(plugin_object => {
         const {reframeBrowserConfig} = plugin_object;
         if( ! reframeBrowserConfig ) {
             return;
         }
-        const {diskPath} = reframeBrowserConfig;
-        if( ! diskPath ) {
-            return;
-        }
-        assert_usage(path_module.isAbsolute(diskPath));
-        browserConfigPaths.push(diskPath);
+        assert_usage(reframeBrowserConfig.diskPath && path_module.isAbsolute(reframeBrowserConfig.diskPath));
+        browserConfigs.push(reframeBrowserConfig);
     });
 }

@@ -1,0 +1,17 @@
+{
+  "name": "@reframe/react",
+  "version": "0.0.1-rc.1",
+  "scripts": {
+    "docs": "mdocs"
+  },
+  "dependencies": {
+    "@repage/renderer-react": "latest"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": "github:brillout/reframe",
+  "devDependencies": {
+    "@brillout/mdocs": "latest"
+  }
+}

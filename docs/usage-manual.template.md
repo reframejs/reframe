@@ -533,13 +533,13 @@ creates a page with following HTML
 
 ## 404 Page
 
-A 404 page can be implement by using the `*` route:
+A 404 page can be implement by using a catch-all route:
 
 ~~~js
 import React from 'react';
 
 export default {
-    route: '*',
+    route: '/:params*',
     title: 'Not Found',
     view: props => (
         <div>

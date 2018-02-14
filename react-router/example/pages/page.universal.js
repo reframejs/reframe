@@ -30,7 +30,7 @@ const About = () => (
 );
 
 const pageConfig = {
-  route: '/{params*}',
+  route: '/:params*',
   view: App,
 };
 

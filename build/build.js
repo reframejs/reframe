@@ -16,9 +16,6 @@ const {processReframeConfig} = require('@reframe/utils');
 
 const Repage = require('@repage/core');
 const {getStaticPages} = require('@repage/build');
-const RepageRouterCrossroads = require('@repage/router-crossroads');
-const RepageRenderer = require('@repage/renderer');
-const RepageRendererReact = require('@repage/renderer-react');
 
 module.exports = build;
 
@@ -27,7 +24,7 @@ function build({
 
     onBuild: onBuild_user,
 
-    reframeConfig,
+    reframeConfig={},
 
     getWebpackBrowserConfig,
     getWebpackServerConfig,
@@ -226,10 +223,10 @@ function generate_reframe_browser_config({output_path__source, reframeConfig}) {
         "const reframeBrowserConfig = {};",
         "reframeBrowserConfig.plugins = [",
         ...(
-            reframeConfig._processed.browserConfigPaths.map(config_path => {
-                assert_internal(path_module.isAbsolute(config_path), config_path);
-                assert_internal(path_points_to_a_file(config_path), config_path);
-                return "require('"+config_path+"'),";
+            reframeConfig._processed.browserConfigs.map(({diskPath}) => {
+                assert_internal(path_module.isAbsolute(diskPath), diskPath);
+                assert_internal(path_points_to_a_file(diskPath), diskPath);
+                return "require('"+diskPath+"')(),";
             })
         ),
         "];",
@@ -378,9 +375,6 @@ async function writeHtmlStaticPages({pages, args_browser, fs_handler, reframeCon
         const repage = new Repage();
 
         repage.addPlugins([
-            RepageRouterCrossroads,
-            RepageRenderer,
-            RepageRendererReact,
             ...reframeConfig._processed.repage_plugins,
         ]);
 

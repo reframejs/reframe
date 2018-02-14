@@ -8,6 +8,12 @@
   dependencies:
     reassert "^1.0.4"
 
+"@brillout/fetch@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@brillout/fetch/-/fetch-0.0.2.tgz#7ca6a534c40bfb7d1013efdb1c11f00519bbca87"
+  dependencies:
+    node-fetch "^1.7.3"
+
 "@brillout/find@latest":
   version "0.2.4"
   resolved "https://registry.yarnpkg.com/@brillout/find/-/find-0.2.4.tgz#ec311fe890a3ce1e9b950c2f932648a146dd8514"
@@ -88,53 +94,59 @@
     webpack-dev-server "^2.9.4"
 
 "@repage/browser@latest":
-  version "0.0.1-rc.2"
-  resolved "https://registry.yarnpkg.com/@repage/browser/-/browser-0.0.1-rc.2.tgz#59b929a57a2d8e8a3385900c9dc15d135d5f1e27"
+  version "0.0.1-rc.4"
+  resolved "https://registry.yarnpkg.com/@repage/browser/-/browser-0.0.1-rc.4.tgz#de402572b26fd35638c26001981874810b0c5385"
   dependencies:
     "@atto/parse-uri" "0.0.1"
     reassert "^1.0.0"
 
 "@repage/build@latest":
-  version "0.0.1-rc.2"
-  resolved "https://registry.yarnpkg.com/@repage/build/-/build-0.0.1-rc.2.tgz#192cc7d1f88f56a8d44703b8690686093afe0ed2"
+  version "0.0.1-rc.4"
+  resolved "https://registry.yarnpkg.com/@repage/build/-/build-0.0.1-rc.4.tgz#ccb3a6f0276dc00211e29bf73456330c32840bd5"
   dependencies:
     "@atto/parse-uri" "0.0.1"
     reassert "^1.0.0"
 
 "@repage/core@latest":
-  version "0.0.1-rc.2"
-  resolved "https://registry.yarnpkg.com/@repage/core/-/core-0.0.1-rc.2.tgz#557c6090b9099bd69ee69b41048301a6646c6ac0"
+  version "0.0.1-rc.4"
+  resolved "https://registry.yarnpkg.com/@repage/core/-/core-0.0.1-rc.4.tgz#c5906defa93bf058dfb49722ada568445f43dfd5"
   dependencies:
     reassert "^1.0.0"
 
 "@repage/navigator@latest":
-  version "0.0.1-rc.2"
-  resolved "https://registry.yarnpkg.com/@repage/navigator/-/navigator-0.0.1-rc.2.tgz#600bf4e3afdd3c326a2bb5c9f3e77577a475fbf5"
+  version "0.0.1-rc.4"
+  resolved "https://registry.yarnpkg.com/@repage/navigator/-/navigator-0.0.1-rc.4.tgz#f21fba72589685bd86fac027c3185d5e7fb7f4df"
   dependencies:
     history "2.x.x"
     reassert "^1.0.0"
 
 "@repage/renderer-react@latest":
-  version "0.0.1-rc.2"
-  resolved "https://registry.yarnpkg.com/@repage/renderer-react/-/renderer-react-0.0.1-rc.2.tgz#48654b6ced25bf0c106ea13e84cf206f7b6e5075"
+  version "0.0.1-rc.4"
+  resolved "https://registry.yarnpkg.com/@repage/renderer-react/-/renderer-react-0.0.1-rc.4.tgz#83478fa7fa4356201c8cb249c5dfd622afe39a99"
   dependencies:
     "@brillout/html-crust" "^0.0.9"
     react "^16.1.1"
     react-dom "^16.1.1"
 
 "@repage/renderer@latest":
-  version "0.0.1-rc.2"
-  resolved "https://registry.yarnpkg.com/@repage/renderer/-/renderer-0.0.1-rc.2.tgz#650ce33b32c26c16219f377dfa1804bd5df1df3c"
+  version "0.0.1-rc.4"
+  resolved "https://registry.yarnpkg.com/@repage/renderer/-/renderer-0.0.1-rc.4.tgz#d9d5cbdf97508e28297296f75eedf89a5a30ae69"
 
 "@repage/router-crossroads@latest":
-  version "0.0.1-rc.2"
-  resolved "https://registry.yarnpkg.com/@repage/router-crossroads/-/router-crossroads-0.0.1-rc.2.tgz#bffbca5f50f2c48ef03984617993b94fa7c6f2da"
+  version "0.0.1-rc.4"
+  resolved "https://registry.yarnpkg.com/@repage/router-crossroads/-/router-crossroads-0.0.1-rc.4.tgz#8c746e31c707179324623ff2152d88791b2e829d"
   dependencies:
     crossroads "^0.12.2"
 
+"@repage/router-path-to-regexp@latest":
+  version "0.0.1-rc.4"
+  resolved "https://registry.yarnpkg.com/@repage/router-path-to-regexp/-/router-path-to-regexp-0.0.1-rc.4.tgz#ef6922ffb2d03517bc6ee4b58d49ed106b918926"
+  dependencies:
+    react-router "4.2.0"
+
 "@repage/server@latest":
-  version "0.0.1-rc.2"
-  resolved "https://registry.yarnpkg.com/@repage/server/-/server-0.0.1-rc.2.tgz#94ca69304a59864c3e8681b674db35dd1d2c1de4"
+  version "0.0.1-rc.4"
+  resolved "https://registry.yarnpkg.com/@repage/server/-/server-0.0.1-rc.4.tgz#fa879016a263d090e3370d505cfb72aaf013733f"
   dependencies:
     "@atto/parse-uri" "0.0.1"
     reassert "^1.0.0"
@@ -1468,8 +1480,8 @@ chokidar@^1.7.0:
     fsevents "^1.0.0"
 
 chokidar@^2.0.0:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-2.0.1.tgz#6e67e9998fe10e8f651e975ca62460456ff8e297"
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-2.0.2.tgz#4dc65139eeb2714977735b6a35d06e97b494dfd7"
   dependencies:
     anymatch "^2.0.0"
     async-each "^1.0.0"
@@ -1481,7 +1493,7 @@ chokidar@^2.0.0:
     normalize-path "^2.1.1"
     path-is-absolute "^1.0.0"
     readdirp "^2.0.0"
-    upath "1.0.0"
+    upath "^1.0.0"
   optionalDependencies:
     fsevents "^1.0.0"
 
@@ -4141,9 +4153,25 @@ lodash.difference@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.difference/-/lodash.difference-4.5.0.tgz#9ccb4e505d486b91651345772885a2df27fd017c"
 
+lodash.endswith@^4.2.1:
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/lodash.endswith/-/lodash.endswith-4.2.1.tgz#fed59ac1738ed3e236edd7064ec456448b37bc09"
+
+lodash.isfunction@^3.0.8:
+  version "3.0.9"
+  resolved "https://registry.yarnpkg.com/lodash.isfunction/-/lodash.isfunction-3.0.9.tgz#06de25df4db327ac931981d1bdb067e5af68d051"
+
+lodash.isstring@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/lodash.isstring/-/lodash.isstring-4.0.1.tgz#d527dfb5456eca7cc9bb95d5daeaf88ba54a5451"
+
 lodash.memoize@^4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/lodash.memoize/-/lodash.memoize-4.1.2.tgz#bcc6c49a42a2840ed997f323eada5ecd182e0bfe"
+
+lodash.startswith@^4.2.1:
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/lodash.startswith/-/lodash.startswith-4.2.1.tgz#c598c4adce188a27e53145731cdc6c0e7177600c"
 
 lodash.template@^4.0.2, lodash.template@^4.2.4:
   version "4.4.0"
@@ -4165,10 +4193,6 @@ lodash.union@^4.6.0:
 lodash.uniq@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
-
-lodash@3.x:
-  version "3.10.1"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
 
 lodash@^4.0.0, lodash@^4.1.0, lodash@^4.14.0, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.2.1, lodash@^4.3.0, lodash@^4.5.1:
   version "4.17.5"
@@ -4516,7 +4540,7 @@ node-dir@^0.1.17:
   dependencies:
     minimatch "^3.0.2"
 
-node-fetch@^1.0.1:
+node-fetch@^1.0.1, node-fetch@^1.7.3:
   version "1.7.3"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-1.7.3.tgz#980f6f72d85211a5347c6b2bc18c5b84c3eb47ef"
   dependencies:
@@ -5729,7 +5753,7 @@ react-router-dom@^4.2.2:
     react-router "^4.2.0"
     warning "^3.0.0"
 
-react-router@^4.2.0:
+react-router@4.2.0, react-router@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/react-router/-/react-router-4.2.0.tgz#61f7b3e3770daeb24062dae3eedef1b054155986"
   dependencies:
@@ -6894,10 +6918,6 @@ ultron@~1.1.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/ultron/-/ultron-1.1.1.tgz#9fe1536a10a664a65266a1e3ccf85fd36302bc9c"
 
-underscore.string@2.3.x:
-  version "2.3.3"
-  resolved "https://registry.yarnpkg.com/underscore.string/-/underscore.string-2.3.3.tgz#71c08bf6b428b1133f37e78fa3a21c82f7329b0d"
-
 union-value@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/union-value/-/union-value-1.0.0.tgz#5c71c34cb5bad5dcebe3ea0cd08207ba5aa1aea4"
@@ -6959,12 +6979,14 @@ unzip-response@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/unzip-response/-/unzip-response-2.0.1.tgz#d2f0f737d16b0615e72a6935ed04214572d56f97"
 
-upath@1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/upath/-/upath-1.0.0.tgz#b4706b9461ca8473adf89133d235689ca17f3656"
+upath@^1.0.0:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/upath/-/upath-1.0.2.tgz#80aaae5395abc5fd402933ae2f58694f0860204c"
   dependencies:
-    lodash "3.x"
-    underscore.string "2.3.x"
+    lodash.endswith "^4.2.1"
+    lodash.isfunction "^3.0.8"
+    lodash.isstring "^4.0.1"
+    lodash.startswith "^4.2.1"
 
 upper-case@^1.1.1:
   version "1.1.3"

@@ -2,6 +2,7 @@
   "name": "@reframe/utils",
   "version": "0.0.1-rc.1",
   "dependencies": {
+    "@reframe/default-kit": "0.0.1-rc.1",
     "reassert": "latest"
   },
   "publishConfig": {

@@ -3,12 +3,19 @@
     "workspaces": [
         "browser",
         "build",
+        "server",
+
+        "utils",
         "cli",
+
         "docs",
         "example",
-        "server",
-        "utils",
+
+        "crossroads",
+        "default-kit",
+        "path-to-regexp",
         "postcss",
+        "react",
         "react-router"
     ],
     "devDependencies": {

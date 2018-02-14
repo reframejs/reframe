@@ -1,0 +1,17 @@
+{
+  "name": "@reframe/crossroads",
+  "version": "0.0.1-rc.1",
+  "scripts": {
+    "docs": "mdocs"
+  },
+  "dependencies": {
+    "@repage/router-crossroads": "latest"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": "github:brillout/reframe",
+  "devDependencies": {
+    "@brillout/mdocs": "latest"
+  }
+}

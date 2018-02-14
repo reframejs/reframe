@@ -11,7 +11,7 @@ const HelloComponent = (
 );
 
 const HelloPage = {
-    route: '/hello/{name}', // Page's (parameterized) URL
+    route: '/hello/:name', // Page's (parameterized) URL
     title: 'Hi there', // Page's <title>
     view: HelloComponent, // Page's root React component
 };

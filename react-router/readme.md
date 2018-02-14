@@ -112,7 +112,7 @@ module.exports = {
 ~~~
 
 ~~~js
-// /react-router/example/pages/page.html.js
+// /react-router/example/pages/page.universal.js
 
 import React from 'react';
 import {Link, Route} from "react-router-dom";
@@ -146,7 +146,7 @@ const About = () => (
 );
 
 const pageConfig = {
-  route: '/{params*}',
+  route: '/:params*',
   view: App,
 };
 

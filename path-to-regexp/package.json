@@ -1,0 +1,17 @@
+{
+  "name": "@reframe/path-to-regexp",
+  "version": "0.0.1-rc.1",
+  "scripts": {
+    "docs": "mdocs"
+  },
+  "dependencies": {
+    "@repage/router-path-to-regexp": "latest"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": "github:brillout/reframe",
+  "devDependencies": {
+    "@brillout/mdocs": "latest"
+  }
+}

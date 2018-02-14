@@ -184,7 +184,7 @@ const HelloComponent = (
 );
 
 const HelloPage = {
-    route: '/hello/{name}', // Page's (parameterized) URL
+    route: '/hello/:name', // Page's (parameterized) URL
     title: 'Hi there', // Page's <title>
     view: HelloComponent, // Page's root React component
 };
@@ -296,7 +296,7 @@ Examples of customizations that are easy to achieve:
    - TypeScript support
    - CSS preprocessors support, such as PostCSS, SASS, etc.
    - etc.
- - Custom routing library. (Reframe uses Crossroads.js by default.)
+ - Custom routing library. (Reframe uses `path-to-regexp` by default.)
  - Custom view library such as Preact.
  - etc.
 
@@ -375,13 +375,19 @@ Reframe **doesn't** take care of:
 
 ### Plugins
 
-More to come...
-
 ###### Languages
  - [@reframe/postcss](/postcss) - Use Reframe with PostCSS
 
 ###### Routing
  - [@reframe/react-router](/react-router) - Use Reframe with React Router v4
+ - [@reframe/crossroads](/crossroads) - Use Reframe with [Crossroads.js](https://github.com/millermedeiros/crossroads.js)
+ - [@reframe/path-to-regexp](/path-to-regexp) - Use Reframe with `path-to-regexp`
+
+###### Kits
+ - [@reframe/default-kit](/default-kit) - Reframe's default kit
+
+###### View renderers
+ - [@reframe/react](/react) - Use Reframe with React
 
 ### Quick Start
 
