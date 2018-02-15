@@ -2,7 +2,7 @@
 
 Routing with [`path-to-regexp`](https://github.com/pillarjs/path-to-regexp).
 
-Note that the npm module `path-to-regexp` is not used directly, but React Router's wrapper `react-router/matchPath` is used instead.
+Note that `@reframe/path-to-regexp` doesn't use the npm module `path-to-regexp` directly, but uses React Router's wrapper `react-router/matchPath`.
 
 ### Usage
 

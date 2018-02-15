@@ -7,11 +7,9 @@ The default kit includes:
  - [@reframe/path-to-regexp](/path-to-regexp)
  - And other things. (See the default kit's source code to see these things.)
 
-The default kit is included by default.
-
 ### Usage
 
-To remove the default kit:
+The default kit is included by default and you have to opt-out if you don't want the default kit:
 
 ~~~js
 // reframe.config
@@ -27,7 +25,7 @@ module.exports = {
 };
 ~~~
 
-To add it manually:
+In certain cases, when customizing Reframe, you will need to add the default kit yourself:
 
 ~~~js
 // reframe.config

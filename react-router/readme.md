@@ -83,7 +83,7 @@ Use Reframe with React Router v4.
 
 ### Usage
 
-By adding the `@reframe/react-router` plugin to your `reframe.config`, you will be able to use React Router v4.
+Add `@reframe/react-router` to your `reframe.config` to use Reframe with React Router v4:
 
 ~~~js
 // reframe.config

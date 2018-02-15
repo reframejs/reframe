@@ -83,7 +83,7 @@ Use Reframe with PostCSS.
 
 ### Usage
 
-By adding the `@reframe/postcss` plugin to your `reframe.config`, you will be able to use PostCSS.
+Add `@reframe/postcss` to your `reframe.config` to use Reframe with PostCSS:
 
 ~~~js
 // reframe.config
@@ -124,6 +124,29 @@ module.exports = {
 };
 ~~~
 
+~~~sugarss
+// /postcss/example/pages/landing.css
+
+:root
+  --red: #f88
+  --blue: #88f
+
+.red-on-blue
+  background-color: var(--blue)
+  color: var(--red)
+
+.blue-on-red
+  background-color: var(--red)
+  color: var(--blue)
+
+.red-on-blue,
+.blue-on-red
+  font-size: 2em
+  width: 300px
+  padding: 20px
+  margin: 10px
+~~~
+
 ~~~js
 // /postcss/example/pages/landing.universal.js
 
@@ -147,29 +170,6 @@ const LandingPage = {
 };
 
 export default LandingPage;
-~~~
-
-~~~sugarss
-// /postcss/example/pages/landing.css
-
-:root
-  --red: #f88
-  --blue: #88f
-
-.red-on-blue
-  background-color: var(--blue)
-  color: var(--red)
-
-.blue-on-red
-  background-color: var(--red)
-  color: var(--blue)
-
-.red-on-blue,
-.blue-on-red
-  font-size: 2em
-  width: 300px
-  padding: 20px
-  margin: 10px
 ~~~
 
 <!---
