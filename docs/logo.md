@@ -16,5 +16,5 @@
     Everything is adaptable.
 </p></div>
 <div><p align="right">
-    <img src="https://github.com/brillout/reframe/raw/master/docs/images/online-icon.svg?sanitize=true" width="16" height="16"> Chat with Reframe Author on <a href="https://discord.gg/kqXf65G">discord.gg/kqXf65G</a>
+    <img src="https://github.com/brillout/reframe/raw/master/docs/images/online-icon.svg?sanitize=true" width="16" height="25"> Chat with Reframe Author on <a href="https://discord.gg/kqXf65G">discord.gg/kqXf65G</a>
 </p></div>
