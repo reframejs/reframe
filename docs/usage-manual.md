@@ -75,6 +75,9 @@
 
 
 -->
+<div><p align="right"><sup>
+    <img src="https://github.com/brillout/reframe/raw/master/docs/images/online-icon.svg?sanitize=true" width="13" height="20"> Chat with Reframe Author on <a href="https://discord.gg/kqXf65G">discord.gg/kqXf65G</a>
+</sup></p></div>
 [<p align="center"><img src="https://github.com/brillout/reframe/raw/master/docs/images/logo-with-title.svg?sanitize=true" width=450 height=94 style="max-width:100%;" alt="Reframe"/></p>](https://github.com/brillout/reframe)
 <div><p align="center">
         Framework to create React web apps.
@@ -92,9 +95,7 @@
     -
     Everything is adaptable.
 </p></div>
-<div><p align="right">
-    <img src="https://github.com/brillout/reframe/raw/master/docs/images/online-icon.svg?sanitize=true" width="16" height="25"> Chat with Reframe Author on <a href="https://discord.gg/kqXf65G">discord.gg/kqXf65G</a>
-</p></div>
+<br/>
 
 [Overview](/../../)<br/>
 [Usage Manual](/docs/usage-manual.md)<br/>
