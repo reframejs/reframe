@@ -75,7 +75,7 @@
 
 
 -->
-[<p align="center"><img src='https://github.com/brillout/reframe/raw/master/docs/logo/logo-with-title.svg?sanitize=true' width=450 height=94 style="max-width:100%;" alt="Reframe"/></p>](https://github.com/brillout/reframe)
+[<p align="center"><img src="https://github.com/brillout/reframe/raw/master/docs/images/logo-with-title.svg?sanitize=true" width=450 height=94 style="max-width:100%;" alt="Reframe"/></p>](https://github.com/brillout/reframe)
 <div><p align="center">
         Framework to create React web apps.
 </p></div>
@@ -92,7 +92,9 @@
     -
     Everything is adaptable.
 </p></div>
-<br/>
+<div><p align="right">
+    <img src="https://github.com/brillout/reframe/raw/master/docs/images/online-icon.svg?sanitize=true" width="16" height="16"> Chat with Reframe Author on <a href="https://discord.gg/kqXf65G">discord.gg/kqXf65G</a>
+</p></div>
 
 [Overview](/../../)<br/>
 [Usage Manual](/docs/usage-manual.md)<br/>
@@ -195,7 +197,7 @@ export default HelloPage;
 The `reframe` CLI does the rest:
 
 <p align="center">
-    <img src='https://github.com/brillout/reframe/raw/master/docs/screenshots/reframe_overview_screenshot.png?sanitize=true' width=1200 style="max-width:100%;"/>
+    <img src='https://github.com/brillout/reframe/raw/master/docs/images/reframe_overview_screenshot.png?sanitize=true' width=1200 style="max-width:100%;"/>
 </p>
 
 Reframe did the following:
