@@ -17,9 +17,9 @@
     -
     Create all kinds of apps.
     &nbsp;&nbsp;&nbsp;
-    <b>Customizable</b>
+    <b>No lock-in</b>
     -
-    Everything is adaptable.
+    Progressive escape.
 </p></div>
 
 <br/>

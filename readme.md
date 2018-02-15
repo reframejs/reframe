@@ -94,9 +94,9 @@
     -
     Create all kinds of apps.
     &nbsp;&nbsp;&nbsp;
-    <b>Customizable</b>
+    <b>No lock-in</b>
     -
-    Everything is adaptable.
+    Progressive escape.
 </p></div>
 
 <br/>
@@ -116,6 +116,7 @@
    - [Ease of Use](#ease-of-use)
    - [Universality](#universality)
    - [Customization](#customization)
+   - [No Lock-in](#no-lock-in)
    - [Performance](#performance)
  - [Reframe Project Scope](#reframe-project-scope)
  - [Plugins](#plugins)
@@ -219,6 +220,7 @@ Reframe has been designed with a focus on:
  - [Ease of Use](#ease-of-use)
  - [Universality](#universality)
  - [Customization](#customization)
+ - [No Lock-in](#no-lock-in)
  - [Performance](#performance)
 
 #### Ease of Use
@@ -283,12 +285,8 @@ Reframe is the only React framework that supports all app types.
 
 #### Customization
 
-Reframe's basic usage is designed to be as easy as possible.
-But Reframe also supports customization.
-Many customizations are easy to achieve, and
-Reframe allows "full customization": virtually everything is customizable.
-
-Examples of customizations that are easy to achieve:
+Reframe is desgined with easy customization in mind.
+For example, the following are easy to achieve:
  - Custom server
    - Add server routes to add RESTful/GraphQL API endpoints, authentication endpoints, etc.
    - Custom hapi server config. (Reframe uses the hapi server framework by default.)
@@ -305,21 +303,80 @@ Examples of customizations that are easy to achieve:
    - etc.
  - Custom routing library. (Reframe uses `path-to-regexp` by default.)
  - Custom view library such as Preact.
- - etc.
 
-Also,
-Reframe is designed with "full customization" in mind.
+#### No Lock-in
+
+Strictly speaking, Reframe does have a lock-in: You write page configs that only Reframe understands.
+And, not only Reframe, but every framework can be escaped from.
+
+But the escape-cost greatly varies:
+ 1. How much code can be re-used after the escape?
+ 2. How progressive can the framework be escaped?
+
+These two points measure the lock-in degree of a framework.
+
+For example, if escaping from a framework means not being able to re-use any code, then the framework is very bad from a lock-in perspective.
+
+Let's measure Reframe's lock-in degree.
+
+###### Post-escape code re-use
+
+Reframe is build on top of widely used and high-quality "Do One Thing and Do It Well" (DOTADIW) libraries such as webpack, hapi, React, React Router, etc.
+This means that, if you escape from Reframe but still plan on using webpack, then your whole webpack related code can be re-used.
+
+In general, all code that your write against on of these basic DOTADIW library is code that you can use independently of Reframe.
+
+When worrying about framework lock-in, one of the main question to ask yourself is "am I writing code against the framework itself or against a DOTADIW library?".
+If the latter is the case, then you are not locking yourself into the framework.
+
+###### Progressive escape
+
 Reframe consists of three packages:
-`@reframe/build` that transpiles and bundles assets,
-`@reframe/server` that creates the server, and
-`@reframe/browser` that hydrates the page in the browser.
-Each of these packages can be replaced with code of your own.
-This means that, if you replace all these three packages with your own code, you effectively get rid of Reframe.
+ - `@reframe/build` that transpiles and bundles assets.
+ - `@reframe/server` that creates and manages the server.
+ - `@reframe/browser` that handles the browser-side code and hydrates the page.
 
-Examples of customization achievable by replacing a Reframe package:
- - Custom server framework, such as Express, Koa, etc. (Reframe uses hapi by default)
- - Custom build tool, such as Rollup (Reframe uses webpack by default)
- - etc.
+Each of these packages can be replaced with code of your own.
+
+For example,
+you can replace Reframe's server `@reframe/server` with your own server implementation.
+At that point,
+you have full control over the server,
+while still using the rest of Reframe.
+
+Similarly,
+if you replace Reframe's build `@reframe/build` with your own build implementation,
+then you have full control over the build step,
+while still using the rest of Reframe.
+
+And if you replace all these three packages with your own code, you effectively entirely escape from Reframe.
+
+The Customization Manual explains how to escape from these three packages and includes examples such as:
+ - Entirely custom build using Rollup (instead of webpack and by getting rid of `@reframe/build`).
+ - Entirely custom server using Express (instead of hapi and by getting rid of `@reframe/server`).
+ - Entirely custom browser-side code (by getting rid of `@reframe/browser`).
+
+###### Meteor, the counter example
+
+On the other side of spectrum, there is Meteor.
+It consists of many parts that only work within Meteor:
+Its build system, its package system, its ORM, etc.
+
+This means that, if you want to escape Meteor, you will have to re-write all code related to these Meteor-specific parts.
+
+Meteor has not been designed with loosely coupled parts; With Meteor, it's mostly either all-in or all-out, and you can't escape Meteor in a progressive manner.
+
+###### Wrap up
+
+To sum up:
+
+> Most code can be re-used after escaping Reframe
+
+> Reframe can be *progressively* escaped
+
+In general, Reframe puts great care in the story of escaping Reframe.
+
+
 
 #### Performance
 
