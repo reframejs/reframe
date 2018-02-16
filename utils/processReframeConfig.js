@@ -15,6 +15,7 @@ function processReframeConfig(reframeConfig) {
     const {plugin_objects} = _processed;
     add_webpack_config_modifiers(_processed, plugin_objects);
     add_browser_config_paths(_processed, plugin_objects);
+    add_page_extensions(_processed, plugin_objects);
 }
 
 function add_default_kit(reframeConfig) {
@@ -71,5 +72,14 @@ function add_browser_config_paths(_processed, plugin_objects) {
         }
         assert_usage(reframeBrowserConfig.diskPath && path_module.isAbsolute(reframeBrowserConfig.diskPath));
         browserConfigs.push(reframeBrowserConfig);
+    });
+}
+
+function add_page_extensions(_processed, plugin_objects) {
+    _processed.pageExtensions = [];
+    plugin_objects.forEach(plugin_object => {
+        if( plugin_object.pageExtensions ) {
+            _processed.pageExtensions.push(...plugin_object.pageExtensions);
+        }
     });
 }

@@ -111,11 +111,11 @@ function get_webpack_config({
     } = get_infos_for_webpack({pagesDir, reframeConfig});
 
     let browser_build = {};
-    if( browser_entries ) {
-        browser_build.entries = browser_entries;
-        browser_build.outputPath = output_path__browser;
-        browser_build.config = get_webpack_browser_config(browser_build);
-    }
+    assert_internal(Object.values(browser_entries).length>0);
+    browser_build.entries = browser_entries;
+    browser_build.outputPath = output_path__browser;
+    browser_build.config = get_webpack_browser_config(browser_build);
+    add_context_to_config(context, browser_build.config);
     if( reframeConfig._processed.webpackBrowserConfigModifier ) {
         browser_build.config = reframeConfig._processed.webpackBrowserConfigModifier(browser_build);
         assert_internal(browser_build.config);
@@ -126,11 +126,11 @@ function get_webpack_config({
     }
 
     let server_build = {};
-    if( server_entries ) {
-        server_build.entries = server_entries;
-        server_build.outputPath = output_path__server;
-        server_build.config = get_webpack_server_config(server_build);
-    }
+    assert_internal(Object.values(server_entries).length>0);
+    server_build.entries = server_entries;
+    server_build.outputPath = output_path__server;
+    server_build.config = get_webpack_server_config(server_build);
+    add_context_to_config(context, server_build.config);
     if( reframeConfig._processed.webpackServerConfigModifier ) {
         server_build.config = reframeConfig._processed.webpackServerConfigModifier(server_build);
         assert_internal(server_build.config);
@@ -140,8 +140,6 @@ function get_webpack_config({
         assert_usage(server_build.config);
     }
 
-    add_context_to_config(context, browser_build.config);
-    add_context_to_config(context, server_build.config);
 
     const webpack_config = [browser_build.config, server_build.config];
 
@@ -179,10 +177,10 @@ function get_webpack_entries({pagesDir, output_path__base, output_path__source, 
         const file_name = path_module.basename(page_file);
         const entry_name = file_name.split('.').slice(0, -1).join('.');
 
-        const is_universal = is_script(page_file, '.universal');
-        const is_dom = is_script(page_file, '.dom');
-        const is_entry = is_script(page_file, '.entry');
-        const is_html = is_script(page_file, '.html');
+        const is_universal = is_script(page_file, '.universal', reframeConfig);
+        const is_dom = is_script(page_file, '.dom', reframeConfig);
+        const is_entry = is_script(page_file, '.entry', reframeConfig);
+        const is_html = is_script(page_file, '.html', reframeConfig);
         assert_internal(is_universal + is_dom + is_entry + is_html <= 1, page_file);
 
         if( is_universal || is_dom ) {
@@ -209,6 +207,14 @@ function get_webpack_entries({pagesDir, output_path__base, output_path__source, 
         generate_dummy_entry({dist_path});
         browser_entries[entry_name] = [dist_path];
     }
+
+    assert_internal(Object.values(browser_entries).length>0);
+    assert_usage(
+        Object.values(server_entries).length>0,
+        "No page config found at `"+pagesDir+"`.",
+        "Do your page configs have the correct suffix?",
+     // "PageExtensions: "+reframeConfig._processed.pageExtensions
+    );
 
     return {browser_entries, server_entries};
 }
@@ -330,13 +336,6 @@ function add_context_to_config(context, config) {
     assert_internal(config.context.startsWith('/'));
 }
 
-function is_script(path, suffix) {
-    return (
-        path.endsWith(suffix+'.js') ||
-        path.endsWith(suffix+'.jsx')
-    );
-}
-
 async function onBuild({build_info__repage, fs_handler, reframeConfig}) {
     const {compilationInfo, isFirstBuild} = build_info__repage;
  // const [args_server, args_browser] = compilationInfo;
@@ -348,7 +347,7 @@ async function onBuild({build_info__repage, fs_handler, reframeConfig}) {
 
     fs_handler.removePreviouslyWrittenFiles();
 
-    const pages = await get_page_infos({args_browser, args_server});
+    const pages = await get_page_infos({args_browser, args_server, reframeConfig});
  // log(pages);
 
     assert_internal(args_browser);
@@ -415,23 +414,23 @@ async function writeHtmlStaticPages({pages, args_browser, fs_handler, reframeCon
     }
 }
 
-function get_page_infos({args_browser, args_server}) {
-    const page_infos = load_page_infos({args_server});
-    add_browser_files({page_infos, args_browser});
+function get_page_infos({args_browser, args_server, reframeConfig}) {
+    const page_infos = load_page_infos({args_server}, reframeConfig);
+    add_browser_files({page_infos, args_browser, reframeConfig});
     return page_infos;
 }
 
-function add_browser_files({page_infos, args_browser: {output}}) {
+function add_browser_files({page_infos, args_browser: {output}, reframeConfig}) {
     page_infos.forEach(page_info => {
         assert_internal(page_info.sourcePath.startsWith('/'), page_info, page_info.sourcePath);
-        add_disk_path(page_info, output);
-        add_same_named_entries(page_info, output);
+        add_disk_path(page_info, output, reframeConfig);
+        add_same_named_entries(page_info, output, reframeConfig);
     });
 }
 
-function add_same_named_entries(page_info, output) {
+function add_same_named_entries(page_info, output, reframeConfig) {
     const filepath = page_info.sourcePath;
-    if( ! is_script(filepath, '.universal') && ! is_script(filepath, '.html') ) {
+    if( ! is_script(filepath, '.universal', reframeConfig) && ! is_script(filepath, '.html', reframeConfig) ) {
         return;
     }
     const pagename = path_module.basename(filepath).split('.').slice(0, -2).join('.');
@@ -443,7 +442,7 @@ function add_same_named_entries(page_info, output) {
             .some(source_entry => {
                 const source_filename = path_module.basename(source_entry);
                 return (
-                    is_script(source_filename, '.entry') &&
+                    is_script(source_filename, '.entry', reframeConfig) &&
                     source_filename.split('.').includes(pagename)
                 );
             })
@@ -466,7 +465,7 @@ function add_same_named_entries(page_info, output) {
     });
 }
 
-function add_disk_path(page_info, output) {
+function add_disk_path(page_info, output, reframeConfig) {
     (page_info.scripts||[])
     .forEach((script_spec, i) => {
         if( ! (script_spec||{}).diskPath ) {
@@ -478,7 +477,7 @@ function add_disk_path(page_info, output) {
         const source_path_parent = path_module.dirname(page_info.sourcePath);
         assert_internal(source_path_parent.startsWith('/'));
         const disk_path = path_module.resolve(source_path_parent, disk_path__relative);
-        const dist_files = find_dist_files({disk_path, output});
+        const dist_files = find_dist_files({disk_path, output, reframeConfig});
         assert_usage(
             dist_files!==null,
             output,
@@ -488,7 +487,7 @@ function add_disk_path(page_info, output) {
         );
         /*
         assert_usage(
-            script_spec.diskPath.constructor === String && is_script(script_spec.diskPath, '.entry'),
+            script_spec.diskPath.constructor === String && is_script(script_spec.diskPath, '.entry', reframeConfig),
             script_spec.diskPath
         );
         */
@@ -520,12 +519,12 @@ function make_paths_array_unique(paths) {
     return [...new Set(paths)];
 }
 
-function find_dist_files({disk_path, output}) {
+function find_dist_files({disk_path, output, reframeConfig}) {
     let entry_point;
     Object.values(output.entry_points)
     .forEach(ep => {
-        const source_path = get_source_path(ep, path => is_script(path, '.entry'));
-        assert_internal(is_script(source_path, '.entry'), output, ep, source_path);
+        const source_path = get_source_path(ep, path => is_script(path, '.entry', reframeConfig));
+        assert_internal(is_script(source_path, '.entry', reframeConfig), output, ep, source_path);
         assert_internal(source_path.startsWith('/'));
         assert_internal(disk_path.startsWith('/'));
         if( source_path === disk_path ) {
@@ -541,12 +540,12 @@ function find_dist_files({disk_path, output}) {
     return {scripts, styles};
 }
 
-function load_page_infos({args_server}) {
+function load_page_infos({args_server}, reframeConfig) {
     require('source-map-support').install();
     const page_infos = (
         Object.values(args_server.output.entry_points)
         .map(entry_point => {
-            const modulePath = get_nodejs_path(entry_point);
+            const modulePath = get_nodejs_path(entry_point, reframeConfig);
             const page_info = require__magic(modulePath);
             page_info.sourcePath = get_source_path(entry_point);
             assert_internal(
@@ -568,19 +567,15 @@ function load_page_infos({args_server}) {
 function require__magic(modulePath) {
     delete require.cache[modulePath];
     const module_exports = require(modulePath);
-    const module = (
-        Object.keys(module_exports).length !== 1 ? (
-            module_exports
-        ) : (
-            Object.values(module_exports)[0]
-        )
-    );
-    return module;
+    if( module_exports.__esModule === true ) {
+        return module_exports.default;
+    }
+    return module_exports;
 }
 
-function get_nodejs_path(entry_point) {
+function get_nodejs_path(entry_point, reframeConfig) {
     const scripts = (
-        entry_point.all_assets.filter(asset => is_script(asset.filename, ''))
+        entry_point.all_assets.filter(asset => is_script(asset.filename, '', reframeConfig))
     );
     assert_internal(scripts.length===1, entry_point);
     const {filepath} = scripts[0];
@@ -746,4 +741,18 @@ function fs__rename(path_old, path_new) {
     assert_internal(path__abs(path_new));
     mkdirp.sync(path_module.dirname(path_new));
     fs.renameSync(path_old, path_new);
+}
+
+function is_script(path, suffix, reframeConfig) {
+    assert_internal(reframeConfig._processed.pageExtensions.constructor===Array);
+    const extensions = (
+        [
+            ...reframeConfig._processed.pageExtensions,
+            ...['js', 'jsx'],
+        ]
+    );
+    return (
+        extensions
+        .some(ext => path.endsWith(suffix+'.'+ext))
+    );
 }

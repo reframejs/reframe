@@ -17,8 +17,8 @@ const assert_internal = assert;
 
     const pagesDir = input_path || find_pages_dir();
     assert_internal(pagesDir);
-    const {reframeConfig} = find_reframe_config(pagesDir);
-    startServer({pagesDir, reframeConfig});
+    const {reframeConfig, reframeConfigPath} = find_reframe_config(pagesDir);
+    startServer({pagesDir, reframeConfig, reframeConfigPath});
 
     return;
 
@@ -31,7 +31,7 @@ const assert_internal = assert;
         console.log(green_checkmark()+' Reframe config found at '+path_relative_to_homedir(config_path));
         const reframeConfig = require(config_path);
         assert_usage(reframeConfig.constructor===Object);
-        return {reframeConfig};
+        return {reframeConfig, reframeConfigPath: config_path};
     }
     function find_pages_dir() {
         const pagesDir = find('pages/');
@@ -45,12 +45,12 @@ const assert_internal = assert;
         return file_path;
     }
 
-    async function startServer({pagesDir, reframeConfig, ...args}) {
+    async function startServer({pagesDir, reframeConfig, reframeConfigPath, ...args}) {
         assert_usage(
             pagesDir
         );
 
-        const server = await createServer({pagesDir, reframeConfig, ...args});
+        const server = await createServer({pagesDir, reframeConfig, reframeConfigPath, ...args});
 
         await server.start();
 
@@ -61,7 +61,9 @@ const assert_internal = assert;
         // build opts
         pagesDir,
         reframeConfig,
-     // context = get_context(),
+        reframeConfigPath,
+        context = reframeConfigPath && path_module.dirname(reframeConfigPath) || pagesDir,
+     // context = pagesDir,
 
         // server opts
         server: server__created_by_user,
@@ -88,7 +90,7 @@ const assert_internal = assert;
                 reframeConfig,
                 pagesDir,
                 log: opts.log,
-             // context,
+                context,
             })
         );
 

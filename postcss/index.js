@@ -8,16 +8,6 @@ function postcss({loaderOptions}={}) {
             add_postcss_rule(config, loaderOptions);
             return config;
         },
-        /*
-        pageMixin: {
-            scripts: [
-                {
-                    src: 'https://example.org/neat-script.js',
-                    async: true,
-                },
-            ],
-        },
-        */
     };
 }
 

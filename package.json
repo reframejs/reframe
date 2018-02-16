@@ -16,7 +16,8 @@
         "path-to-regexp",
         "postcss",
         "react",
-        "react-router"
+        "react-router",
+        "typescript"
     ],
     "devDependencies": {
         "lerna": "^2.5.1"
