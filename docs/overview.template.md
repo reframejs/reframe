@@ -319,6 +319,7 @@ Reframe **doesn't** take care of:
 ### Plugins
 
 ###### Languages
+ - [@reframe/typescript](/typescript) - Use Reframe with TypeScript.
  - [@reframe/postcss](/postcss) - Use Reframe with PostCSS.
 
 ###### Routing
