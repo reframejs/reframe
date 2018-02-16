@@ -335,7 +335,7 @@ Reframe **doesn't** take care of:
 
 ### Quick Start
 
-Let's create our first React app with Reframe.
+Let's create a React app with Reframe.
 
 1. We create a `pages/` directory:
 
@@ -356,6 +356,7 @@ const HelloWorldPage = {
         </div>
     ),
 };
+
 export default HelloWorldPage;
 ~~~
 
