@@ -390,7 +390,7 @@ $ reframe ~/tmp/reframe-playground/pages
 ✔ Server running at http://localhost:3000
 ~~~
 
-Our page is now live at (http://localhost:3000)[http://localhost:3000].
+Our page is now live at [http://localhost:3000](http://localhost:3000).
 
 And that's it: We have created our first React web app by simply creating one React Component and one page config.
 
