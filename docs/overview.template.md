@@ -29,7 +29,7 @@
 Reframe allows you to create web apps by simply defining so called "page configs".
 Reframe then takes care of the rest: It automatically transpiles, bundles, serves, and routes your pages.
 
-~~~js
+~~~jsx
 // We create a landing page by defining a page config:
 const LandingPage = {
     route: '/', // Page's URL
@@ -76,7 +76,7 @@ So, creating a static app is simply a matter of setting `htmlIsStatic: true` to 
 
 Let's create a web app by defining a page config `HelloPage`:
 
-~~~js
+~~~jsx
 // ~/tmp/reframe-playground/pages/HelloPage.html.js
 
 !INLINE ../example/pages/HelloPage.html.js --hide-source-path
@@ -344,7 +344,7 @@ mkdir -p ~/tmp/reframe-playground/pages
 
 2. Then, we create a new JavaScript file at `~/tmp/reframe-playground/pages/HelloWorldPage.html.js` that exports the following page config:
 
-~~~js
+~~~jsx
 import React from 'react';
 
 const HelloWorldPage = {
