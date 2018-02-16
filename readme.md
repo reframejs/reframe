@@ -377,33 +377,35 @@ In other words, you can't escape in a progressive manner.
 
 #### Performance
 
-- Code splitting.
+- **Code splitting**
   <br/>
-  Every page loads two scripts.
-  A first script that is shared and cached accross all pages, which includes common code such as React and polyfills.
-  And a second script that loads the React components of the page.
-  This means that a page requiring KB-heavy libraries won't affect the KB-size of other pages.
-- Optimal HTTP caching.
+  Every page loads two scripts:
+  A script that is shared and cached accross all pages
+  (which includes common code such as React and polyfills)
+  and a another script that includes the React components of the page.
+  This means that a KB-heavy page won't affect the KB-size of the other pages.
+- **Optimal HTTP caching**
   <br/>
-  Every dynamic server response is cached with a Etag header.
-  Every static server response is indefinitely cached.
+  Every dynamic server response is cached with a Etag header,
+  and every static server response is indefinitely cached.
   (Static assets are served under hashed URLs with the `Cache-Control` header set to `immutable` and `max-age`'s maximum value.)
-- DOM-static pages.
+- **DOM-static pages**
   <br/>
   A page can be configured to be rendered only on the server.
   These pages are faster to load as the page isn't hydrated and
   React is not loaded in the browser.
-- Partial DOM-dynamic pages.
+- **Partial DOM-dynamic pages**
   <br/>
   A page can be configured so that only certain parts of the page are hydrated.
   This makes the hydration of the page quicker
-  and less JavaScript is loaded in the browser. (Only the React components of the hydrated parts are loaded.)
-- HTML-static pages.
+  and less JavaScript is loaded in the browser.
+  (Only the React components of the hydrated parts are loaded.)
+- **HTML-static pages**
   <br/>
   A page can be configured to be rendered to HTML at build-time instead of request-time.
-  In other words, the page is rendered to HTML only once, namely when Reframe is building the frontend.
+  In other words, the page is rendered to HTML only once, when Reframe is building the frontend.
   The HTML is statically served and the load time is decreased.
-- SSR.
+- **SSR**
   <br/>
   All pages are rendered to HTML before being hydrated, decreasing the (perceived) load time.
 
