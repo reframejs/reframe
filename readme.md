@@ -437,18 +437,18 @@ Reframe **doesn't** take care of:
 ### Plugins
 
 ###### Languages
- - [@reframe/postcss](/postcss) - Use Reframe with PostCSS
+ - [@reframe/postcss](/postcss) - Use Reframe with PostCSS.
 
 ###### Routing
- - [@reframe/react-router](/react-router) - Use Reframe with React Router v4
- - [@reframe/crossroads](/crossroads) - Use Reframe with [Crossroads.js](https://github.com/millermedeiros/crossroads.js)
- - [@reframe/path-to-regexp](/path-to-regexp) - Use Reframe with `path-to-regexp`
+ - [@reframe/react-router](/react-router) - Use Reframe with React Router v4.
+ - [@reframe/crossroads](/crossroads) - Use Reframe with [Crossroads.js](https://github.com/millermedeiros/crossroads.js).
+ - [@reframe/path-to-regexp](/path-to-regexp) - Use Reframe with [`path-to-regexp`](https://github.com/pillarjs/path-to-regexp).
 
 ###### Kits
- - [@reframe/default-kit](/default-kit) - Reframe's default kit
+ - [@reframe/default-kit](/default-kit) - Reframe's default kit.
 
 ###### View renderers
- - [@reframe/react](/react) - Use Reframe with React
+ - [@reframe/react](/react) - Use Reframe with React.
 
 ### Quick Start
 
