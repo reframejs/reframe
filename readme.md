@@ -322,14 +322,14 @@ Let's measure Reframe's lock-in degree.
 ###### Code re-use after escape
 
 Reframe is built on top of widely-used and high-quality "Do One Thing and Do It Well" (DOTADIW) libraries such as webpack, hapi, React, React Router, etc.
-This means that you can re-use lot's of code after escaping Reframe.
+This means that you can re-use lot's of code after escaping Reframe:
 For example, if you escape from Reframe but still plan on using a hapi server, then your whole server code can be re-used.
 
-In general, all code that your write against on of these basic DOTADIW library is code that you can use independently of Reframe.
+In general, all code that your write against one of these DOTADIW library is code that you can use independently of Reframe.
 
-> Most of your code can be re-used after escaping Reframe
+> Most of your code can be re-used after escaping Reframe.
 
-When worrying about framework lock-in, one of the main question to ask yourself is "am I writing code against the framework itself or against a DOTADIW library?".
+When worrying about framework lock-in, one of the main question to ask yourself is "am I writing code against an interface introduced by the framework or against an interface of a DOTADIW library?".
 If the latter is the case, then you are not locking yourself into the framework.
 
 ###### Progressive escape
@@ -352,7 +352,7 @@ if you replace Reframe's build `@reframe/build` with your own build implementati
 then you have full control over the build step,
 while still using the rest of Reframe.
 
-> Reframe can be *progressively* escaped
+> Reframe can be *progressively* escaped.
 
 And if you replace all these three packages with your own code, you effectively entirely escape from Reframe.
 
@@ -363,10 +363,9 @@ The Customization Manual explains how to escape from these three packages and in
 
 ###### Meteor, the counter example
 
-On the other side of spectrum, there is Meteor.
-It consists of many parts that only work within the Meteor world:
-Its build system, its package system, its ORM, etc.
-
+On the other side of spectrum of the lock-in degree, there is Meteor.
+It consists of many parts that you can only use if you use the entire Meteor stack.
+For example, you can use its build system only if you use Meteor in its entirely.
 This means that, if you want to escape Meteor, you will have to re-write all code related to these Meteor-specific parts.
 
 And it has not been designed with loosely coupled parts;
