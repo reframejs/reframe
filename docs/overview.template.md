@@ -47,8 +47,8 @@ You can build a React web app with **no build configuration** and **no server co
 
 > All you need to create a web app is one React component and one page config per page.
 
-And, if you need to, **everything is customizable**.
-For example, you can customize the transpiling & bundling, the server, the browser entry, the Node.js entry, etc.
+And, if you need to, **everything is customizable**:
+You can customize the transpiling & bundling, the server, the browser entry, the Node.js entry, etc.
 
 With Reframe you can create:
 
@@ -94,11 +94,10 @@ Reframe did the following:
  - Reframe used webpack to transpile `HelloPage.html.js`.
  - Reframe started a Node.js/hapi server serving all static browser assets and serving our page by (re-)rendering its HTML on every request.
 
-The "Quick Start" section below gives a step-by-step guide to create your first React web app with Reframe.
+The "Quick Start" section below gives a step-by-step guide to create a React app with Reframe.
 
 ### Why Reframe
 
-Reframe has been designed with a focus on:
  - [Ease of Use](#ease-of-use)
  - [Universality](#universality)
  - [Customization](#customization)
@@ -112,7 +111,7 @@ The "Quick Start" section below shows how easy it is.
 
 #### Universality
 
-A fundamental aspect of the page config is that it allows you to configure a page to be what we call "HTML-static" or "HTML-dynamic", and "DOM-static" or "DOM-dynamic":
+A fundamental aspect of the page config is that it allows you to configure a page to be what we call "HTML-static", "HTML-dynamic", "DOM-static" and "DOM-dynamic":
  - *HTML-static*
    <br/>
    The page is rendered to HTML at build-time.
@@ -167,8 +166,8 @@ Reframe is the only React framework that supports all app types.
 
 #### Customization
 
-Reframe is desgined with easy customization in mind.
-For example, the following are easy to achieve:
+Reframe is desgined with easy customization in mind,
+and the following examples are easy to achieve:
  - Custom server
    - Add server routes to add RESTful/GraphQL API endpoints, authentication endpoints, etc.
    - Custom hapi server config. (Reframe uses the hapi server framework by default.)
@@ -183,14 +182,13 @@ For example, the following are easy to achieve:
    - TypeScript support
    - CSS preprocessors support, such as PostCSS, SASS, etc.
    - etc.
- - Custom routing library. (Reframe uses `path-to-regexp` by default.)
+ - Custom routing library. (Reframe uses React Router by default.)
  - Custom view library such as Preact.
 
 #### No Lock-in
 
 Strictly speaking, Reframe does have a lock-in: You write page configs that only Reframe understands.
 And, not only Reframe, but every framework can be escaped from.
-
 But the escape cost greatly varies:
  1. How much code can be re-used after the escape?
  2. How progressively can the framework be escaped?
@@ -245,10 +243,11 @@ The Customization Manual explains how to escape from these three packages and in
 
 ###### Meteor, the counter example
 
-On the other side of spectrum of the lock-in degree, there is Meteor.
+On the other side of the lock-in degree spectrum, there is Meteor.
+
 It consists of many parts that you can only use if you use the entire Meteor stack.
 For example, you can use its build system only if you use Meteor in its entirely.
-This means that, if you want to escape Meteor, you will have to re-write all code related to these Meteor-specific parts.
+This means that, if you want to escape Meteor, you will have to re-write all code related to these works-only-with-Meteor parts.
 
 And it has not been designed with loosely coupled parts;
 With Meteor, it's mostly either all-in or all-out.
