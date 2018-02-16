@@ -336,7 +336,6 @@ Reframe **doesn't** take care of:
 ### Quick Start
 
 Let's create our first React app.
-We create our first page by defining a page config and a React component.
 
 1. We create a `pages/` directory:
 
@@ -344,7 +343,7 @@ We create our first page by defining a page config and a React component.
 mkdir -p ~/tmp/reframe-playground/pages
 ~~~
 
-2. We then create a new JavaScript file at `~/tmp/reframe-playground/pages/HelloWorldPage.html.js` that exports the following page config:
+2. Then, we create a new JavaScript file at `~/tmp/reframe-playground/pages/HelloWorldPage.html.js` that exports the following page config:
 
 ~~~js
 import React from 'react';
@@ -393,7 +392,7 @@ $ reframe ~/tmp/reframe-playground/pages
 That's it: We have created our first React web app by simply creating one React Component and one page config.
 
 The "Basic Usage" section of the [Usage Manual](/docs/usage-manual.md) contains further information, including:
- - How to configure pages that need to (asynchronously) load data.
  - How to add CSS and static assets.
  - How to link pages.
+ - How to configure pages that need to (asynchronously) load data.
  - How to configure pages to be DOM-dynamic or DOM-static, and HTML-static or HTML-dynamic.
