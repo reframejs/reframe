@@ -309,13 +309,13 @@ For example, the following are easy to achieve:
 Strictly speaking, Reframe does have a lock-in: You write page configs that only Reframe understands.
 And, not only Reframe, but every framework can be escaped from.
 
-But the escape-cost greatly varies:
+But the escape cost greatly varies:
  1. How much code can be re-used after the escape?
- 2. How progressive can the framework be escaped?
+ 2. How progressively can the framework be escaped?
 
 These two points measure the lock-in degree of a framework.
 
-For example, if escaping from a framework means not being able to re-use any code, then the framework is very bad from a lock-in perspective.
+For example, if no code can be re-used after escaping a framework, then that framework is very bad from a lock-in perspective.
 
 Let's measure Reframe's lock-in degree.
 
@@ -369,7 +369,9 @@ Its build system, its package system, its ORM, etc.
 
 This means that, if you want to escape Meteor, you will have to re-write all code related to these Meteor-specific parts.
 
-And it has not been designed with loosely coupled parts; With Meteor, it's mostly either all-in or all-out, and you can't escape in a progressive manner.
+And it has not been designed with loosely coupled parts;
+With Meteor, it's mostly either all-in or all-out.
+In other words, you can't escape in a progressive manner.
 
 
 
