@@ -1,12 +1,12 @@
 {
   "name": "@reframe/default-kit",
-  "version": "0.0.1-rc.1",
+  "version": "0.0.1-rc.2",
   "scripts": {
     "docs": "mdocs"
   },
   "dependencies": {
-    "@reframe/crossroads": "0.0.1-rc.1",
-    "@reframe/react": "0.0.1-rc.1",
+    "@reframe/crossroads": "0.0.1-rc.2",
+    "@reframe/react": "0.0.1-rc.2",
     "@repage/navigator": "latest",
     "@repage/renderer": "latest"
   },

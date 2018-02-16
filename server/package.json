@@ -1,8 +1,8 @@
 {
   "name": "@reframe/server",
-  "version": "0.0.1-rc.1",
+  "version": "0.0.1-rc.2",
   "dependencies": {
-    "@reframe/build": "0.0.1-rc.1",
+    "@reframe/build": "0.0.1-rc.2",
     "@repage/core": "latest",
     "@repage/renderer": "latest",
     "@repage/renderer-react": "latest",
