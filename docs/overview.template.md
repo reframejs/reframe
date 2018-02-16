@@ -201,22 +201,27 @@ For example, if escaping from a framework means not being able to re-use any cod
 
 Let's measure Reframe's lock-in degree.
 
-###### Post-escape code re-use
+###### Code re-use after escape
 
-Reframe is build on top of widely used and high-quality "Do One Thing and Do It Well" (DOTADIW) libraries such as webpack, hapi, React, React Router, etc.
-This means that, if you escape from Reframe but still plan on using webpack, then your whole webpack related code can be re-used.
+Reframe is built on top of widely-used and high-quality "Do One Thing and Do It Well" (DOTADIW) libraries such as webpack, hapi, React, React Router, etc.
+This means that you can re-use lot's of code after escaping Reframe.
+For example, if you escape from Reframe but still plan on using a hapi server, then your whole server code can be re-used.
 
 In general, all code that your write against on of these basic DOTADIW library is code that you can use independently of Reframe.
 
 When worrying about framework lock-in, one of the main question to ask yourself is "am I writing code against the framework itself or against a DOTADIW library?".
 If the latter is the case, then you are not locking yourself into the framework.
 
+In short:
+
+> Most of your code can be re-used after escaping Reframe
+
 ###### Progressive escape
 
 Reframe consists of three packages:
- - `@reframe/build` that transpiles and bundles assets.
+ - `@reframe/build` that transpiles code and bundles browser assets.
  - `@reframe/server` that creates and manages the server.
- - `@reframe/browser` that handles the browser-side code and hydrates the page.
+ - `@reframe/browser` that handles the browser side and hydrates the page.
 
 Each of these packages can be replaced with code of your own.
 
@@ -238,25 +243,19 @@ The Customization Manual explains how to escape from these three packages and in
  - Entirely custom server using Express (instead of hapi and by getting rid of `@reframe/server`).
  - Entirely custom browser-side code (by getting rid of `@reframe/browser`).
 
+In short:
+
+> Reframe can be *progressively* escaped
+
 ###### Meteor, the counter example
 
 On the other side of spectrum, there is Meteor.
-It consists of many parts that only work within Meteor:
+It consists of many parts that only work within the Meteor world:
 Its build system, its package system, its ORM, etc.
 
 This means that, if you want to escape Meteor, you will have to re-write all code related to these Meteor-specific parts.
 
-Meteor has not been designed with loosely coupled parts; With Meteor, it's mostly either all-in or all-out, and you can't escape Meteor in a progressive manner.
-
-###### Wrap up
-
-To sum up:
-
-> Most code can be re-used after escaping Reframe
-
-> Reframe can be *progressively* escaped
-
-In general, Reframe puts great care in the story of escaping Reframe.
+And it has not been designed with loosely coupled parts; With Meteor, it's mostly either all-in or all-out, and you can't escape in a progressive manner.
 
 
 
