@@ -1,7 +1,8 @@
 {
   "name": "@reframe/browser",
-  "version": "0.0.1-rc.2",
+  "version": "0.0.1-rc.4",
   "dependencies": {
+    "@reframe/utils": "0.0.1-rc.4",
     "@repage/browser": "latest",
     "@repage/core": "latest",
     "@repage/navigator": "latest",

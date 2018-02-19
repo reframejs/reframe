@@ -1,8 +1,8 @@
 {
   "name": "@reframe/utils",
-  "version": "0.0.1-rc.2",
+  "version": "0.0.1-rc.4",
   "dependencies": {
-    "@reframe/default-kit": "0.0.1-rc.2",
+    "@reframe/default-kit": "0.0.1-rc.4",
     "reassert": "latest"
   },
   "publishConfig": {

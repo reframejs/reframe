@@ -1,12 +1,13 @@
 {
   "name": "@reframe/build",
-  "version": "0.0.1-rc.2",
+  "version": "0.0.1-rc.4",
   "main": "./build",
   "dependencies": {
     "@rebuild/build": "latest",
     "@rebuild/config": "latest",
     "@rebuild/serve": "latest",
-    "@reframe/browser": "0.0.1-rc.2",
+    "@reframe/browser": "0.0.1-rc.4",
+    "@reframe/utils": "0.0.1-rc.4",
     "@repage/build": "latest",
     "@repage/core": "latest",
     "@repage/renderer": "latest",
