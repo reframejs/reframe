@@ -17,9 +17,9 @@
     -
     Create all kinds of apps.
     &nbsp;&nbsp;&nbsp;
-    <b>No lock-in</b>
+    <b>Easy escape</b>
     -
-    Progressive escape.
+    Minimal lock-in.
 </p></div>
 
 <br/>

@@ -11,9 +11,17 @@ const HelloComponent = (
 );
 
 const HelloPage = {
-    route: '/hello/:name', // Page's URL. (Reframe's routing is based on React Router.)
-    title: 'Hi there', // Page's <title>
-    view: HelloComponent, // Page's root React component
+    // Page's root React component
+    view: HelloComponent,
+
+    // Page's URL.
+    // The route string follows the same syntax than React Router.
+    // (This route is analogous to `<Route path="/hello/:name" component={HelloComponent}/>`)
+    // Add the `@reframe/react-router` plugin to use React Router's components `<Route>`, `<Switch>`, etc.
+    route: '/hello/:name',
+
+    // Page's <title>
+    title: 'Hi there',
 };
 
 export default HelloPage;

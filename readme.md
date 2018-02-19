@@ -94,9 +94,9 @@
     -
     Create all kinds of apps.
     &nbsp;&nbsp;&nbsp;
-    <b>No lock-in</b>
+    <b>Easy escape</b>
     -
-    Progressive escape.
+    Minimal lock-in.
 </p></div>
 
 <br/>
@@ -116,7 +116,7 @@
    - [Ease of Use](#ease-of-use)
    - [Universality](#universality)
    - [Customization](#customization)
-   - [No Lock-in](#no-lock-in)
+   - [Easy Escape](easy-escape)
    - [Performance](#performance)
  - [Reframe Project Scope](#reframe-project-scope)
  - [Plugins](#plugins)
@@ -126,7 +126,7 @@
 
 ### What is Reframe
 
-Reframe allows you to create web apps by simply defining so called "page configs".
+Reframe allows you to create web apps by defining so called "page configs".
 Reframe then takes care of the rest: It automatically transpiles, bundles, serves, and routes your pages.
 
 ~~~jsx
@@ -141,7 +141,7 @@ const LandingPage = {
 A *page config* is a plain JavaScript object that configures a page by assigning it
  - a React component (required),
  - a route (required), and
- - further (optional) page configurations (such as the page's &lt;title&gt;, meta tags, script tags, whether the page should be hydrated or not, whether the page's HTML should be rendered at build-time or at request-time, etc.).
+ - further (optional) page configurations (page's &lt;title&gt;, meta tags, whether the page's HTML should be rendered at build-time or at request-time, whether the page should be hydrated or not, etc.).
 
 You can build a React web app with **no build configuration** and **no server configuration**.
 
@@ -192,9 +192,17 @@ const HelloComponent = (
 );
 
 const HelloPage = {
-    route: '/hello/:name', // Page's URL. (Reframe's routing is based on React Router.)
-    title: 'Hi there', // Page's <title>
-    view: HelloComponent, // Page's root React component
+    // Page's root React component
+    view: HelloComponent,
+
+    // Page's URL.
+    // The route string follows the same syntax than React Router.
+    // (This route is analogous to `<Route path="/hello/:name" component={HelloComponent}/>`)
+    // Add the `@reframe/react-router` plugin to use React Router's components `<Route>`, `<Switch>`, etc.
+    route: '/hello/:name',
+
+    // Page's <title>
+    title: 'Hi there',
 };
 
 export default HelloPage;
@@ -219,7 +227,7 @@ The "Quick Start" section below gives a step-by-step guide to create a React app
  - [Ease of Use](#ease-of-use)
  - [Universality](#universality)
  - [Customization](#customization)
- - [No Lock-in](#no-lock-in)
+ - [Easy Escape](#easy-escape)
  - [Performance](#performance)
 
 #### Ease of Use
@@ -287,7 +295,7 @@ Reframe is the only React framework that supports all app types.
 Reframe is desgined with easy customization in mind,
 and the following examples are easy to achieve:
  - Custom server
-   - Add server routes to add RESTful/GraphQL API endpoints, authentication endpoints, etc.
+   - Add server endpoints: RESTful/GraphQL API endpoints, authentication endpoints, etc.
    - Custom hapi server config. (Reframe uses the hapi server framework by default.)
    - Use a process manager such as PM2.
    - etc.
@@ -300,32 +308,33 @@ and the following examples are easy to achieve:
    - TypeScript support
    - CSS preprocessors support, such as PostCSS, SASS, etc.
    - etc.
- - Custom routing library. (Reframe uses React Router by default.)
+ - Custom routing library. (Reframe is based on React Router by default.)
  - Custom view library such as Preact.
 
-#### No Lock-in
-
-Strictly speaking, this section should be called "Minimal Lock-in":
-When you write page configs (which only Reframe understands) then you are locking yourself into Reframe.
-But Reframe is designed to keep lock-in characteristics to a minimum, and to make the experience of escaping Reframe as smooth as possible.
+#### Easy Escape
 
 Every framework can be escaped from but the escape-cost varies dramatically.
-
-The escape-cost is measured by two criteria:
+The escape-cost can be measured by two criteria:
  1. How much code can be re-used after the escape?
  2. How progressively can the framework be escaped?
 
-For example, if no code can be re-used after escaping a framework, then that framework is very bad from a lock-in perspective.
+For example, if no code can be re-used after escaping a framework, then that framework has a very high escape-cost.
+In other words, that framework strongly locks you in.
 
 Let's measure Reframe's escape-cost.
 
 ###### Code re-use after escape
 
 Reframe is built on top of widely-used and high-quality "Do One Thing and Do It Well" (DOTADIW) libraries such as webpack, hapi, React, React Router, etc.
-This means that you can re-use lot's of code after escaping Reframe:
-For example, if you escape from Reframe but still plan on using a hapi server, then your server code can be re-used after the escape.
 
-In general, all code that your write against one of these DOTADIW library is code that you can use independently of Reframe.
+Reframe mostly gets out of the way between your code and these DOTADIW libraries:
+With Reframe,
+most of the code you write directly uses these DOTADIW libraries, independently of Reframe.
+
+For example,
+you add RESTFul API endpoints by directly using hapi's interface.
+That code implementing the RESTFul API is entirely independent of Reframe and can be fully re-used after escaping Reframe.
+(Technically, on the server-side, Reframe is mostly just a hapi plugin; Your server code will use hapi directly, know nothing about Reframe, and will be re-useable after escaping Reframe.)
 
 > Most of your code can be re-used after escaping Reframe.
 
@@ -366,10 +375,10 @@ The Customization Manual explains how to escape from these three packages and in
 On the other side of the escape-cost spectrum, there is Meteor.
 
 It consists of many parts that you can only use if you use the entire Meteor stack.
-For example, you can use its build system only if you use Meteor in its entirely.
+For example, you can use its build system only if you use Meteor in its entirety.
 This means that, if you want to escape Meteor, you will have to re-write all code related to these works-only-with-Meteor parts.
 
-And it has not been designed with loosely coupled parts;
+It has also not been designed with loosely coupled parts;
 With Meteor, it's mostly either all-in or all-out.
 In other words, you can't escape in a progressive manner.
 
@@ -380,13 +389,13 @@ In other words, you can't escape in a progressive manner.
 - **Code splitting**
   <br/>
   Every page loads two scripts:
-  A script that is shared and cached accross all pages
+  One script that is shared and cached accross all pages
   (which includes common code such as React and polyfills)
-  and a another script that includes the React components of the page.
+  and a second script that includes the React components of the page.
   This means that a KB-heavy page won't affect the KB-size of the other pages.
 - **Optimal HTTP caching**
   <br/>
-  Every dynamic server response is cached with a Etag header,
+  Every dynamic server response is cached with a ETag header,
   and every static server response is indefinitely cached.
   (Static assets are served under hashed URLs with the `Cache-Control` header set to `immutable` and `max-age`'s maximum value.)
 - **DOM-static pages**
@@ -407,7 +416,7 @@ In other words, you can't escape in a progressive manner.
   The HTML is statically served and the load time is decreased.
 - **SSR**
   <br/>
-  All pages are rendered to HTML before being hydrated, decreasing the (perceived) load time.
+  Pages are rendered to HTML before being hydrated, decreasing the (perceived) load time.
 
 
 
@@ -417,23 +426,23 @@ Reframe takes care of:
 
  - **Building**
    <br/>
-   Reframe transpiles and bundles the browser static assets. (Uses webpack.)
+   Reframe transpiles and bundles. (Uses webpack.)
  - **Server**
    <br/>
-   Reframe sets up a Node.js server serving the browser static assets and your pages' HTML. (Uses hapi.)
+   Reframe sets up a Node.js server serving static assets and your pages' HTML. (Uses hapi.)
  - **Routing**
    <br/>
    Reframe routes URLs to your pages.
 
 Reframe **doesn't** take care of:
 
- - View logic / state management
+ - View logic / state management.
    <br/>
-   It's up to you to manage the state of your interactive views (or use Redux / MobX).
- - Database
+   It's up to you to manage the state of your views (or use Redux / MobX).
+ - Database.
    <br/>
    It's up to you to create, populate, and query databases.
-   (You can add API endpoints to the hapi server that Reframe creates.)
+   (You can add RESTFul/GraphQL API endpoints to the hapi server that Reframe creates.)
 
 
 ### Plugins
@@ -443,7 +452,7 @@ Reframe **doesn't** take care of:
  - [@reframe/postcss](/postcss) - Use Reframe with PostCSS.
 
 ###### Routing
- - [@reframe/react-router](/react-router) - Use Reframe with React Router v4.
+ - [@reframe/react-router](/react-router) - Use React Router's components.
  - [@reframe/crossroads](/crossroads) - Use Reframe with [Crossroads.js](https://github.com/millermedeiros/crossroads.js).
  - [@reframe/path-to-regexp](/path-to-regexp) - Use Reframe with [`path-to-regexp`](https://github.com/pillarjs/path-to-regexp).
 
@@ -463,7 +472,7 @@ Let's create a React app with Reframe.
 mkdir -p ~/tmp/reframe-playground/pages
 ~~~
 
-2. Then, we create a new JavaScript file at `~/tmp/reframe-playground/pages/HelloWorldPage.html.js` that exports the following page config:
+2. Then, we create a new JavaScript file at `~/tmp/reframe-playground/pages/HelloWorldPage.html.js` that exports a page config:
 
 ~~~jsx
 import React from 'react';
@@ -492,7 +501,7 @@ cd ~/tmp/reframe-playground/
 npm install react
 ~~~
 
-4. And finally, we run the CLI:
+4. Finally, we run the CLI:
 
 ~~~shell
 cd ~/tmp/reframe-playground/
@@ -512,7 +521,7 @@ $ reframe ~/tmp/reframe-playground/pages
 
 Our page is now live at [http://localhost:3000](http://localhost:3000).
 
-And that's it: We have created a web app by simply creating one React Component and one page config.
+That's it: We have created a web app by simply creating one React Component and one page config.
 
 The "Basic Usage" section of the [Usage Manual](/docs/usage-manual.md) contains further information, including:
  - How to add CSS and static assets.
