@@ -5,7 +5,7 @@
 [<p align="center"><img src="https://github.com/brillout/reframe/raw/master/docs/images/logo-with-title.svg?sanitize=true" width=450 height=94 style="max-width:100%;" alt="Reframe"/></p>](https://github.com/brillout/reframe)
 
 <div><p align="center">
-        Framework to create React web apps.
+        Framework to create web apps with React.
 </p></div>
 
 <div><p align="center">
