@@ -782,12 +782,17 @@ const pageB = {
 export default pageB;
 ~~~
 
-Reframe doesn't interfere when a link is clicked: the link follows through, and the new page is entirely loaded.
+There are two types of page navigation:
+ - *HTML-navigation*
+   <br/>
+   When clicking a link, the new page's HTML is loaded.
+   (In other words, the browser discards the current DOM and builds a new DOM upon the new page's HTML.)
+ - *pushState-navigation*
+   <br/>
+   When clicking a link, the URL is changed by a `history.pushState()` call and the DOM is manipulated (instead of loading the new page's HTML).
 
-It is possible to customize Reframe to navigate pages by loading the page config of the new page instead of loading the entire page.
-But we don't recommend going down that path,
-as it adds non-negligible complexity,
-while similar performance characteritics can be achieved using the [Turbo Link Technique](https://github.com/turbolinks/turbolinks).
+Reframe does HTML-navigation for pages defined with page configs
+and you can use React Router's components to have pushState-navigation.
 
 
 
@@ -821,7 +826,7 @@ $ reframe
 
 ## Custom Server
 
-Instead of using the CLI, Reframe can be used as hapi plugin(s), as show in the next example.
+Instead of using the CLI, Reframe can be used as hapi plugin(s), as shown in the next example.
 
 ~~~js
 // /example/custom/server/hapi-server.js
@@ -922,6 +927,48 @@ export default {
 };
 ~~~
 
+
+
+## Advanced Routing
+
+###### Reframe's default router: `path-to-regexp`
+
+By default, Reframe uses [`path-to-regexp`](https://github.com/pillarjs/path-to-regexp) to match route strings with URLs, which React Router uses as well.
+
+For example, for the following page config, Reframe will use `path-to-regexp` to determine if a URL matches the page's route `'/hello/:name'`.
+
+~~~jsx
+const HelloPage = {
+    route: '/hello/:name',
+    view: ({route: {args: {name}}}) => <div>Welcome {name}</div>,
+};
+~~~
+
+We refer to [`path-to-regexp`'s docs](https://github.com/pillarjs/path-to-regexp) for further information about the route string syntax.
+
+###### React Router
+
+You can use React Router's components by adding the plugin [`@reframe/react-router`](/react-router), which allow you to have
+ - **pushState-navigation**
+   <br/>
+   What "pushState-navigation" means is explained in [Links & Page Navigation](#links--page-navigation).
+ - **Nested Route**
+   <br/>
+   For pages that differ in only some parts, in other words, where the majority of the view is the same.
+ - **SPA**
+   <br/>
+   App where the app's entire browser-side code is bundled in one script and loaded at once.
+ - **URL hash**
+   <br/>
+   URL with a `window.location.hash`.
+
+###### Custom router
+
+Reframe can be used with any routing library.
+
+It can, for example, be used with [Crossroads.js](https://github.com/millermedeiros/crossroads.js).
+
+We refer to the source code of the plugin [`@reframe/crossroads`](/crossroads) for further information about how to use Reframe with another routing library.
 
 
 ## Partial DOM-dynamic
