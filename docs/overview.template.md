@@ -16,7 +16,7 @@
    - [Ease of Use](#ease-of-use)
    - [Universality](#universality)
    - [Customization](#customization)
-   - [Easy Escape](easy-escape)
+   - [Easy Escape](#easy-escape)
    - [Performance](#performance)
  - [Reframe Project Scope](#reframe-project-scope)
  - [Plugins](#plugins)
