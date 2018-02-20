@@ -9,7 +9,6 @@ const pageB = {
             Link to page A: <a href={'/page-a'}>/page-a</a>
         </div>
     ),
-    htmlIsStatic: true,
 };
 
 export default pageB;

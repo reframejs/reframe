@@ -437,7 +437,7 @@ And the HTML returned by the server is:
 
 ## Links & Page Navigation
 
-With Reframe's default setup, links are simply link tags such as `<a href="/about">About</a>`.
+Links are simply link tags such as `<a href="/about">About</a>`.
 
 For example:
 
@@ -559,7 +559,7 @@ export default {
 
 ## Advanced Routing
 
-###### Reframe's default router: `path-to-regexp`
+###### Reframe's default router
 
 By default, Reframe uses [`path-to-regexp`](https://github.com/pillarjs/path-to-regexp) to match route strings with URLs, which React Router uses as well.
 
