@@ -27,7 +27,7 @@ This manual covers most common use cases.
  - [Custom Server](#custom-server)
  - [Custom Head](#custom-head)
  - [404 Page](#404-page)
- - [Advanced Routing](advanced-routing)
+ - [Advanced Routing](#advanced-routing)
  - [Partial DOM-dynamic](#partial-dom-dynamic)
  - [Custom Browser JavaScript](#custom-browser-javascript)
  - [Related External Docs](#related-external-docs)
