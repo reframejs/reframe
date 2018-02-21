@@ -11,7 +11,7 @@ async function startServer() {
     const pagesDir = path.resolve(__dirname, './pages');
 
     const {HapiPluginReframe} = (
-        await getReframeHapiPlugins({
+        await getHapiPlugins({
             pagesDir,
             getWebpackBrowserConfig,
             getWebpackServerConfig,

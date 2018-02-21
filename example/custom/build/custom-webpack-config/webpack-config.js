@@ -8,6 +8,9 @@ const rules = [
                     'babel-preset-react',
                     'babel-preset-env',
                 ].map(require.resolve),
+                plugins: [
+                    'babel-plugin-transform-object-rest-spread'
+                ].map(require.resolve),
             }
         },
         exclude: [/node_modules/],

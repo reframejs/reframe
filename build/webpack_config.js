@@ -6,7 +6,9 @@ const {Config, StandardConfig, StandardNodeConfig, ReactConfig} = require('@rebu
 module.exports = {get_webpack_browser_config, get_webpack_server_config};
 
 function get_webpack_browser_config({entries, outputPath}) {
-    assert_internal(Object.values(entries).length > 0);
+    if( !entries || Object.values(entries).length===0 ) {
+        return {};
+    }
 
     const browser_config = new Config();
 
@@ -22,7 +24,9 @@ function get_webpack_browser_config({entries, outputPath}) {
 }
 
 function get_webpack_server_config({entries, outputPath}) {
-    assert_internal(Object.values(entries).length > 0);
+    if( !entries || Object.values(entries).length===0 ) {
+        return {};
+    }
 
     const server_config = new Config();
 

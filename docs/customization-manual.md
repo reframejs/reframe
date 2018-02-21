@@ -583,7 +583,7 @@ async function startServer() {
     const pagesDir = path.resolve(__dirname, './pages');
 
     const {HapiPluginReframe} = (
-        await getReframeHapiPlugins({
+        await getHapiPlugins({
             pagesDir,
             getWebpackBrowserConfig,
             getWebpackServerConfig,
@@ -626,6 +626,9 @@ const rules = [
                 presets: [
                     'babel-preset-react',
                     'babel-preset-env',
+                ].map(require.resolve),
+                plugins: [
+                    'babel-plugin-transform-object-rest-spread'
                 ].map(require.resolve),
             }
         },

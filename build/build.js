@@ -111,7 +111,6 @@ function get_webpack_config({
     } = get_infos_for_webpack({pagesDir, reframeConfig});
 
     let browser_build = {};
-    assert_internal(Object.values(browser_entries).length>0);
     browser_build.entries = browser_entries;
     browser_build.outputPath = output_path__browser;
     browser_build.config = get_webpack_browser_config(browser_build);
@@ -124,9 +123,9 @@ function get_webpack_config({
         browser_build.config = getWebpackBrowserConfig(browser_build);
         assert_usage(browser_build.config);
     }
+    add_context_to_config(context, browser_build.config);
 
     let server_build = {};
-    assert_internal(Object.values(server_entries).length>0);
     server_build.entries = server_entries;
     server_build.outputPath = output_path__server;
     server_build.config = get_webpack_server_config(server_build);
@@ -139,6 +138,7 @@ function get_webpack_config({
         server_build.config = getWebpackServerConfig(server_build);
         assert_usage(server_build.config);
     }
+    add_context_to_config(context, server_build.config);
 
 
     const webpack_config = [browser_build.config, server_build.config];
