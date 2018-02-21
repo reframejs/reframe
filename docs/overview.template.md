@@ -392,7 +392,7 @@ reframe
 which prints
 
 ~~~shell
-$ reframe ~/tmp/reframe-playground/pages
+$ reframe
 ✔ Page directory found at ~/tmp/reframe-playground/pages
 ✔ Frontend built at ~/tmp/reframe-playground/dist/browser/ [DEV]
 ✔ Server running at http://localhost:3000
