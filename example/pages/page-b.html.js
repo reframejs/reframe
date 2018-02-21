@@ -6,7 +6,7 @@ const pageB = {
         <div>
             This is page B.
             <br/>
-            Link to page A: <a href={'/page-a'}>/page-a</a>
+            Link to page A: <a href='/page-a'>/page-a</a>
         </div>
     ),
 };

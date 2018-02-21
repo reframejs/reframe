@@ -437,7 +437,7 @@ And the HTML returned by the server is:
 
 ## Links & Page Navigation
 
-Links are simply link tags such as `<a href="/about">About</a>`.
+Pages are linked by using link tags such as `<a href="/about">About</a>`.
 
 For example:
 
@@ -455,7 +455,7 @@ There are two types of page navigation:
    (In other words, the browser discards the current DOM and builds a new DOM upon the new page's HTML.)
  - *pushState-navigation*
    <br/>
-   When clicking a link, the URL is changed by a `history.pushState()` call and the DOM is manipulated (instead of loading the new page's HTML).
+   When clicking a link, the URL is changed by `history.pushState()` and the DOM is manipulated (instead of loading the new page's HTML).
 
 Reframe does HTML-navigation for pages defined with page configs
 and you can use React Router's components to have pushState-navigation.
@@ -469,7 +469,7 @@ By default, Reframe compiles for development.
 We can tell Reframe to compile for production by
  - setting `process.env.NODE_ENV = 'production';` in Node.js, or by
  - setting `export NODE_ENV='production'` in a Unix(-like) OS, or by
- - running `reframe --prod` in a shell
+ - running `reframe --prod` in the shell
 
 When compiling for production,
 the auto-reload feature is disabled,
@@ -561,9 +561,10 @@ export default {
 
 ###### Reframe's default router
 
-By default, Reframe uses [`path-to-regexp`](https://github.com/pillarjs/path-to-regexp) to match route strings with URLs, which React Router uses as well.
+By default, Reframe uses [`path-to-regexp`](https://github.com/pillarjs/path-to-regexp) to match URLs with a route.
+(React Router uses `path-to-regexp` as well.)
 
-For example, for the following page config, Reframe will use `path-to-regexp` to determine if a URL matches the page's route `'/hello/:name'`.
+For example, in the following page config, Reframe will use `path-to-regexp` to determine if a URL matches the page's route `'/hello/:name'`.
 
 ~~~jsx
 const HelloPage = {
@@ -576,19 +577,22 @@ We refer to [`path-to-regexp`'s docs](https://github.com/pillarjs/path-to-regexp
 
 ###### React Router
 
-You can use React Router's components by adding the plugin [`@reframe/react-router`](/react-router), which allow you to have
+You can use React Router's components by adding the plugin [`@reframe/react-router`](/react-router).
+
+The React Router components allow you to have
+
  - **pushState-navigation**
    <br/>
    What "pushState-navigation" means is explained in [Links & Page Navigation](#links--page-navigation).
- - **Nested Route**
+ - **Nested Routes**
    <br/>
    For pages that differ in only some parts, in other words, where the majority of the view is the same.
- - **SPA**
+ - **SPAs**
    <br/>
-   App where the app's entire browser-side code is bundled in one script and loaded at once.
+   Apps where the app's entire browser-side code is bundled in one script and loaded at once.
  - **URL hash**
    <br/>
-   URL with a `window.location.hash`.
+   URLs with a `window.location.hash`.
 
 ###### Custom router
 
