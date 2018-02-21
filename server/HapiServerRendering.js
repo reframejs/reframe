@@ -7,9 +7,6 @@ const {processReframeConfig} = require('@reframe/utils');
 
 const Repage = require('@repage/core');
 const {getPageHtml} = require('@repage/server');
-const RepageRouterCrossroads = require('@repage/router-crossroads');
-const RepageRenderer = require('@repage/renderer');
-const RepageRendererReact = require('@repage/renderer-react');
 
 
 module.exports = {HapiServerRendering__create};
@@ -33,34 +30,19 @@ function HapiServerRendering__create({getPages, reframeConfig={}}={}) {
             return;
 
             async function onPreResponse(request, h) {
-                if( ! request.response.isBoom || request.response.output.statusCode !== 404 ) {
+                if( request_is_already_served(request) ) {
                     return h.continue;
                 }
 
-                const uri = request.url.href;
-                assert_internal(uri && uri.constructor===String, uri);
-
                 init_repage_object();
 
-                let {html, renderToHtmlIsMissing} = await getPageHtml(repage, uri, {canBeNull: true});
-                assert_internal(html === null || html && html.constructor===String, html);
-
-                assert_internal([true, false].includes(renderToHtmlIsMissing));
-                assert_internal(!renderToHtmlIsMissing || html===null);
-                assert_usage(renderToHtmlIsMissing===false);
+                const html = await compute_html(request, repage);
 
                 if( html === null ) {
                     return h.continue;
                 }
 
-                const response = h.response(html);
-                response.type('text/html');
-
-                if( ! doNotComputeEtag ) {
-                    response.etag(compute_source_code_hash(response.source));
-                }
-
-                return response;
+                return compute_response(html, doNotComputeEtag, h);
             }
 
             function init_repage_object() {
@@ -92,18 +74,50 @@ function HapiServerRendering__create({getPages, reframeConfig={}}={}) {
                 assert_internal(pages_);
 
                 const repage = new Repage();
-
-                repage.addPlugins([
-                    RepageRouterCrossroads,
-                    RepageRenderer,
-                    RepageRendererReact,
-                    ...reframeConfig._processed.repage_plugins,
-                ]);
-
+                repage.addPlugins(reframeConfig._processed.repage_plugins);
                 repage.addPages(pages_);
 
                 return repage;
             }
         },
     };
+}
+
+function request_is_already_served() {
+    return (
+        ! request.response.isBoom ||
+        request.response.output.statusCode !== 404
+    );
+}
+
+function assert_html(html, renderToHtmlIsMissing) {
+    assert_internal(html === null || html && html.constructor===String, html);
+
+    assert_internal([true, false].includes(renderToHtmlIsMissing));
+    assert_internal(!renderToHtmlIsMissing || html===null);
+    assert_usage(renderToHtmlIsMissing===false);
+}
+
+function compute_response(html, doNotComputeEtag, h) {
+    const response = h.response(html);
+    response.type('text/html');
+    add_etag_header(response, doNotComputeEtag);
+    return response;
+}
+
+function add_etag_header(response, doNotComputeEtag) {
+    if( doNotComputeEtag ) {
+        return;
+    }
+    response.etag(compute_source_code_hash(response.source));
+}
+
+async function compute_html(request, repage) {
+    const uri = request.url.href;
+    assert_internal(uri && uri.constructor===String, uri);
+
+    let {html, renderToHtmlIsMissing} = await getPageHtml(repage, uri, {canBeNull: true});
+    assert_html(html, renderToHtmlIsMissing);
+
+    return html;
 }
