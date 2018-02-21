@@ -96,7 +96,7 @@
     &nbsp;&nbsp;&nbsp;
     <b>Escape</b>
     -
-    Easy & progressive escape.
+    Easy, progressive escape.
 </p></div>
 
 <br/>
