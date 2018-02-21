@@ -94,9 +94,9 @@
     -
     Create all kinds of apps.
     &nbsp;&nbsp;&nbsp;
-    <b>Escape</b>
+    <b>Escapable</b>
     -
-    Easy and progressive escape.
+    Easy & progressive escape.
 </p></div>
 
 <br/>
@@ -130,11 +130,16 @@ Reframe allows you to create web apps by defining so called "page configs".
 Reframe then takes care of the rest: It automatically transpiles, bundles, serves, and routes your pages.
 
 ~~~jsx
-// We create a landing page by defining a page config:
+// We define a page config to create a landing page
 const LandingPage = {
-    route: '/', // Page's URL
-    view: () => <div>Welcome to Reframe</div>, // Page's root React component
-    title: 'Welcome' // Page's <title>
+    // Page's URL
+    route: '/',
+
+    // Page's React component
+    view: () => <div>Welcome to Reframe</div>,
+
+    // Page's <title>
+    title: 'Welcome'
 };
 ~~~
 
@@ -167,8 +172,8 @@ With Reframe you can create:
    No (or almost no) JavaScript is loaded in the browser.
  - **Hybrid apps**
    <br/>
-   Apps where pages are mixed:
-   Some pages are rendered to HTML at build-time while others at request-time, and some pages have a static DOM while others have a dynamic DOM.
+   Apps with mixed page types:
+   Some pages are rendered to HTML at build-time and others at request-time, and some pages have a static DOM while others have a dynamic DOM.
 
 Reframe generates a certain type of app depending on how you configure your pages.
 For example, if you add `htmlIsStatic: true` to a page config, then that page's HTML is rendered at build-time instead of request-time.
@@ -192,13 +197,13 @@ const HelloComponent = (
 );
 
 const HelloPage = {
-    // Page's root React component
+    // Page's React component
     view: HelloComponent,
 
     // Page's URL.
-    // The route string follows the same syntax than React Router.
+    // Reframe follows the same route string syntax than React Router.
     // (This route is analogous to `<Route path="/hello/:name" component={HelloComponent}/>`)
-    // Add the plugin `@reframe/react-router` to use React Router's components `<Route>`, `<Switch>`, etc.
+    // (To use React Router's components `<Route>`, `<Switch>`, etc. add the plugin `@reframe/react-router`)
     route: '/hello/:name',
 
     // Page's <title>

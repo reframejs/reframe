@@ -79,11 +79,11 @@ Reframe + React Router v4 = :heart:
 
 # `@reframe/react-router`
 
-Use Reframe with React Router v4.
+Use React Router's components.
 
 ### Usage
 
-Add `@reframe/react-router` to your `reframe.config` to use Reframe with React Router v4:
+Add `@reframe/react-router` to your `reframe.config`:
 
 ~~~js
 // reframe.config

@@ -94,9 +94,8 @@ module.exports = {
     plugins: [
         postcss({
             loaderOptions: {
-                // Loader options
-                // This is where you add PostCSS plugins, PostCSS parser, etc
-                // All options defined here are passed down to the `postcss-loader` options.
+                // All options defined here are passed down as `postcss-loader` options.
+                // This is where you add PostCSS plugins, PostCSS parser, etc.
             },
         })
     ],

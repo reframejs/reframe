@@ -30,11 +30,16 @@ Reframe allows you to create web apps by defining so called "page configs".
 Reframe then takes care of the rest: It automatically transpiles, bundles, serves, and routes your pages.
 
 ~~~jsx
-// We create a landing page by defining a page config:
+// We define a page config to create a landing page
 const LandingPage = {
-    route: '/', // Page's URL
-    view: () => <div>Welcome to Reframe</div>, // Page's root React component
-    title: 'Welcome' // Page's <title>
+    // Page's URL
+    route: '/',
+
+    // Page's React component
+    view: () => <div>Welcome to Reframe</div>,
+
+    // Page's <title>
+    title: 'Welcome'
 };
 ~~~
 
@@ -67,8 +72,8 @@ With Reframe you can create:
    No (or almost no) JavaScript is loaded in the browser.
  - **Hybrid apps**
    <br/>
-   Apps where pages are mixed:
-   Some pages are rendered to HTML at build-time while others at request-time, and some pages have a static DOM while others have a dynamic DOM.
+   Apps with mixed page types:
+   Some pages are rendered to HTML at build-time and others at request-time, and some pages have a static DOM while others have a dynamic DOM.
 
 Reframe generates a certain type of app depending on how you configure your pages.
 For example, if you add `htmlIsStatic: true` to a page config, then that page's HTML is rendered at build-time instead of request-time.
@@ -89,10 +94,10 @@ The `reframe` CLI does the rest:
 </p>
 
 Reframe did the following:
- - Reframe searched for a `/pages` directory and found one at `~/tmp/reframe-playground/pages`.
- - Reframe read the `/pages` directory and found our page config at `~/tmp/reframe-playground/pages/HelloPage.html.js`.
+ - Reframe searched for a `pages/` directory and found one at `~/tmp/reframe-playground/pages`.
+ - Reframe read the `pages/` directory and found our page config at `~/tmp/reframe-playground/pages/HelloPage.html.js`.
  - Reframe used webpack to transpile `HelloPage.html.js`.
- - Reframe started a Node.js/hapi server serving all static browser assets and serving our page by (re-)rendering its HTML on every request.
+ - Reframe started a Node.js/hapi server serving all static assets and rendering and serving our page's HTML.
 
 The "Quick Start" section below gives a step-by-step guide to create a React app with Reframe.
 
@@ -153,7 +158,7 @@ For example, you can create:
    No (or almost no) JavaScript is loaded in the browser.
  - Hybrid apps.
    <br/>
-   An app can have pages of different kinds:
+   An app can have pages of different types:
    Some pages can be configured to be HTML-static, some pages to be HTML-dynamic, some others to be DOM-static, and some to be DOM-dynamic.
    You can for example configure your landing page to be HTML-static and DOM-static,
    your product page to be HTML-dynamic and DOM-static,
@@ -187,7 +192,7 @@ and the following examples are easy to achieve:
 
 #### Easy Escape
 
-Every framework can be escaped from but the escape-cost varies dramatically.
+Every framework can be escaped from but the escape-cost can vary dramatically.
 The escape-cost can be measured by two criteria:
  1. How much code can be re-used after the escape?
  2. How progressively can the framework be escaped?
@@ -206,9 +211,9 @@ With Reframe,
 most of the code you write directly uses these DOTADIW libraries, independently of Reframe.
 
 For example,
-you add RESTFul API endpoints by directly using hapi's interface.
-That code implementing the RESTFul API is entirely independent of Reframe and can be fully re-used after escaping Reframe.
-(Technically, on the server-side, Reframe is mostly just a hapi plugin; Your server code will use hapi directly, know nothing about Reframe, and will be re-useable after escaping Reframe.)
+you would add RESTFul API endpoints by directly using hapi's interface.
+The code implementing the RESTFul API is then entirely independent of Reframe and can be fully re-used after escaping Reframe.
+(Technically Reframe is, on the server-side, mostly just a hapi plugin; Most of your server code will use hapi directly, know nothing about Reframe, and will be re-useable after escaping Reframe.)
 
 > Most of your code can be re-used after escaping Reframe.
 
@@ -219,7 +224,7 @@ If the latter is the case, then you are not locking yourself into the framework.
 
 Reframe consists of three packages:
  - `@reframe/build` that transpiles code and bundles browser assets.
- - `@reframe/server` that creates and manages the server.
+ - `@reframe/server` that creates the server.
  - `@reframe/browser` that handles the browser side and hydrates the page.
 
 Each of these packages can be replaced with code of your own.
@@ -249,7 +254,7 @@ The Customization Manual explains how to escape from these three packages and in
 On the other side of the escape-cost spectrum, there is Meteor.
 
 It consists of many parts that you can only use if you use the entire Meteor stack.
-For example, you can use its build system only if you use Meteor in its entirety.
+For example, you can use its build system or its server only if you use Meteor in its entirety.
 This means that, if you want to escape Meteor, you will have to re-write all code related to these works-only-with-Meteor parts.
 
 It has also not been designed with loosely coupled parts;
@@ -266,7 +271,7 @@ In other words, you can't escape in a progressive manner.
   One script that is shared and cached accross all pages
   (which includes common code such as React and polyfills)
   and a second script that includes the React components of the page.
-  This means that a KB-heavy page won't affect the KB-size of the other pages.
+  This means that a KB-heavy page won't affect the KB-size of other pages.
 - **Optimal HTTP caching**
   <br/>
   Every dynamic server response is cached with a ETag header,

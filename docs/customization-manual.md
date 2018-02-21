@@ -94,9 +94,9 @@
     -
     Create all kinds of apps.
     &nbsp;&nbsp;&nbsp;
-    <b>Escape</b>
+    <b>Escapable</b>
     -
-    Easy and progressive escape.
+    Easy & progressive escape.
 </p></div>
 
 <br/>

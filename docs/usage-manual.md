@@ -94,9 +94,9 @@
     -
     Create all kinds of apps.
     &nbsp;&nbsp;&nbsp;
-    <b>Escape</b>
+    <b>Escapable</b>
     -
-    Easy and progressive escape.
+    Easy & progressive escape.
 </p></div>
 
 <br/>
@@ -355,13 +355,13 @@ const HelloComponent = (
 );
 
 const HelloPage = {
-    // Page's root React component
+    // Page's React component
     view: HelloComponent,
 
     // Page's URL.
-    // The route string follows the same syntax than React Router.
+    // Reframe follows the same route string syntax than React Router.
     // (This route is analogous to `<Route path="/hello/:name" component={HelloComponent}/>`)
-    // Add the plugin `@reframe/react-router` to use React Router's components `<Route>`, `<Switch>`, etc.
+    // (To use React Router's components `<Route>`, `<Switch>`, etc. add the plugin `@reframe/react-router`)
     route: '/hello/:name',
 
     // Page's <title>
