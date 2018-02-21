@@ -171,7 +171,7 @@ Reframe is the only React framework that supports all app types.
 
 #### Customization
 
-Reframe is desgined with easy customization in mind,
+Reframe is designed with easy customization in mind,
 and the following examples are easy to achieve:
  - Custom server
    - Add server endpoints: RESTful/GraphQL API endpoints, authentication endpoints, etc.
@@ -213,7 +213,7 @@ most of the code you write directly uses these DOTADIW libraries, independently 
 For example,
 you would add RESTFul API endpoints by directly using hapi's interface.
 The code implementing the RESTFul API is then entirely independent of Reframe and can be fully re-used after escaping Reframe.
-(Technically Reframe is, on the server-side, mostly just a hapi plugin; Most of your server code will use hapi directly, know nothing about Reframe, and will be re-useable after escaping Reframe.)
+(Technically Reframe is, on the server-side, mostly just a hapi plugin; Most of your server code will use hapi directly, know nothing about Reframe, and will be re-usable after escaping Reframe.)
 
 > Most of your code can be re-used after escaping Reframe.
 
@@ -268,7 +268,7 @@ In other words, you can't escape in a progressive manner.
 - **Code splitting**
   <br/>
   Every page loads two scripts:
-  One script that is shared and cached accross all pages
+  One script that is shared and cached across all pages
   (which includes common code such as React and polyfills)
   and a second script that includes the React components of the page.
   This means that a KB-heavy page won't affect the KB-size of other pages.
