@@ -12,7 +12,7 @@ const path_module = require('path');
 const {get_context} = require('./utils/get_context');
 const fs = require('fs');
 const mkdirp = require('mkdirp');
-const {processReframeConfig} = require('@reframe/utils');
+const {processReframeConfig} = require('@reframe/utils/processReframeConfig');
 
 const Repage = require('@repage/core');
 const {getStaticPages} = require('@repage/build');
@@ -353,13 +353,13 @@ async function onBuild({build_info__repage, fs_handler, reframeConfig}) {
     assert_internal(args_browser);
     await writeHtmlStaticPages({args_browser, pages, fs_handler, reframeConfig});
 
-    const {HapiServeBrowserAssets} = args_browser;
-    assert_internal(HapiServeBrowserAssets, args_server, args_browser);
+    const {HapiPluginStaticAssets} = args_browser;
+    assert_internal(HapiPluginStaticAssets, args_server, args_browser);
 
     const browserDistPath = args_browser.output.dist_root_directory;
     assert_internal(path_module.isAbsolute(browserDistPath));
 
-    return {pages, HapiServeBrowserAssets, browserDistPath, isFirstBuild};
+    return {pages, HapiPluginStaticAssets, browserDistPath, isFirstBuild};
 }
 
 async function writeHtmlStaticPages({pages, args_browser, fs_handler, reframeConfig}) {

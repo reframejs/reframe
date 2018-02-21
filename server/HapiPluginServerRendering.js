@@ -1,15 +1,54 @@
 const assert = require('reassert');
 const assert_usage = assert;
 const assert_internal = assert;
-const {compute_source_code_hash} = require('./utils/compute_source_code_hash');
-
+const {compute_file_hash} = require('@reframe/utils/compute_file_hash');
 const {getPageHtml} = require('@repage/server');
+const {processReframeConfig} = require('@reframe/utils/processReframeConfig');
+const Repage = require('@repage/core');
 
 
-module.exports = {HapiPlugin_ServerRendering__create};
+module.exports = {HapiPluginServerRendering__create};
 
 
-function HapiPlugin_ServerRendering__create(getRepageObject) {
+function HapiPluginServerRendering__create(build_state, reframeConfig) {
+    const repage_plugins = get_repage_plugins(reframeConfig);
+
+    const cache = {};
+    const getRepageObject = () => get_repage_object(build_state.pages, cache, repage_plugins);
+
+    const HapiPluginServerRendering = create_hapi_plugin(getRepageObject);
+    return HapiPluginServerRendering;
+}
+
+function get_repage_plugins(reframeConfig) {
+    processReframeConfig(reframeConfig);
+    const {repage_plugins} = reframeConfig._processed;
+    assert_internal(repage_plugins.constructor===Array);
+    return repage_plugins;
+}
+
+function create_repage_object(pages, repage_plugins) {
+    assert_internal(pages);
+
+    const repage_object = new Repage();
+    repage_object.addPlugins(repage_plugins);
+    repage_object.addPages(pages);
+
+    return repage_object;
+}
+
+function get_repage_object(pages, cache, repage_plugins) {
+    assert_internal(pages.constructor===Array, pages);
+    if( pages !== cache.pages ) {
+        cache.pages = pages;
+        cache.repage_object = create_repage_object(pages, repage_plugins);
+    }
+
+    assert_internal(cache.repage_object.isRepageObject);
+    return cache.repage_object;
+}
+
+function create_hapi_plugin(getRepageObject) {
 
     return {
         name: 'reframe-server-rendering',
@@ -59,10 +98,10 @@ function compute_response(html, h) {
 }
 
 function add_etag_header(response) {
-    response.etag(compute_source_code_hash(response.source));
+    response.etag(compute_file_hash(response.source));
 }
 
-function request_is_already_served() {
+function request_is_already_served(request) {
     return (
         ! request.response.isBoom ||
         request.response.output.statusCode !== 404

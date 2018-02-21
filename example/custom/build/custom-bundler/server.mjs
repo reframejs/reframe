@@ -1,6 +1,6 @@
 import Hapi from 'hapi';
 import buildAll from './build-all.mjs';
-import ReframeServer from '@reframe/server';
+import getHapiPlugins from '@reframe/server/getHapiPlugins';
 
 process.on('unhandledRejection', err => {throw err});
 
@@ -11,21 +11,12 @@ async function build({onBuild}) {
     onBuild({pages, browserDistPath});
 }
 
-function getHapiPlugins() {
-    return (
-        ReframeServer.getReframeHapiPlugins({
-            build,
-        })
-    );
-}
-
 async function startServer() {
     const server = Hapi.Server({port: 3000});
 
-    const {HapiServerRendering, HapiServeBrowserAssets} = await getHapiPlugins();
+    const {HapiPluginReframe} = await getHapiPlugins({build})
     await server.register([
-        {plugin: HapiServeBrowserAssets},
-        {plugin: HapiServerRendering},
+        {plugin: HapiPluginReframe},
     ]);
 
     await server.start();

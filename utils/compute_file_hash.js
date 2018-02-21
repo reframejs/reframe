@@ -2,9 +2,9 @@ const assert = require('reassert');
 const assert_internal = assert;
 const crypto = require('crypto');
 
-module.exports = {compute_source_code_hash};
+module.exports = {compute_file_hash};
 
-function compute_source_code_hash(str) {
+function compute_file_hash(str) {
     assert_internal(str.constructor===String, str);
     return (
         crypto

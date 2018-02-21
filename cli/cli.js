@@ -74,7 +74,7 @@ const assert_internal = assert;
         ...server_opts
     }) {
         const Hapi = require('hapi');
-        const {getReframeHapiPlugins} = require('@reframe/server');
+        const {getHapiPlugins} = require('@reframe/server/getHapiPlugins');
 
         const server = (
             server__created_by_user ||
@@ -85,8 +85,8 @@ const assert_internal = assert;
             })
         );
 
-        const {HapiServerRendering, HapiServeBrowserAssets} = (
-            await getReframeHapiPlugins({
+        const {HapiPluginReframe} = (
+            await getHapiPlugins({
                 reframeConfig,
                 pagesDir,
                 log: opts.log,
@@ -95,8 +95,7 @@ const assert_internal = assert;
         );
 
         await server.register([
-            {plugin: HapiServeBrowserAssets},
-            {plugin: HapiServerRendering},
+            {plugin: HapiPluginReframe},
         ]);
 
         return server;

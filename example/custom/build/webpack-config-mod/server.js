@@ -1,5 +1,5 @@
 const Hapi = require('hapi');
-const {getReframeHapiPlugins} = require('@reframe/server');
+const {getHapiPlugins} = require('@reframe/server/getHapiPlugins');
 const {getWebpackBrowserConfig, getWebpackServerConfig} = require('./config-mod');
 const path = require('path');
 
@@ -10,7 +10,7 @@ async function startServer() {
 
     const pagesDir = path.resolve(__dirname, './pages');
 
-    const {HapiServerRendering, HapiServeBrowserAssets} = (
+    const {HapiPluginReframe} = (
         await getReframeHapiPlugins({
             pagesDir,
             getWebpackBrowserConfig,
@@ -19,8 +19,7 @@ async function startServer() {
     );
 
     await server.register([
-        {plugin: HapiServeBrowserAssets},
-        {plugin: HapiServerRendering},
+        {plugin: HapiPluginReframe},
     ]);
 
     await server.start();
