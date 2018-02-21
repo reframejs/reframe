@@ -162,21 +162,20 @@ For example:
 // /example/custom/server/hapi-server.js
 
 const Hapi = require('hapi');
-const {getReframeHapiPlugins} = require('@reframe/server');
+const {getHapiPlugins} = require('@reframe/server/getHapiPlugins');
 const path = require('path');
 
 (async () => {
     const server = Hapi.Server({port: 3000});
 
-    const {HapiServerRendering, HapiServeBrowserAssets} = (
-        await getReframeHapiPlugins({
+    const {HapiPluginReframe} = (
+        await getHapiPlugins({
             pagesDir: path.resolve(__dirname, '../../pages'),
         })
     );
 
     await server.register([
-        {plugin: HapiServeBrowserAssets},
-        {plugin: HapiServerRendering},
+        {plugin: HapiPluginReframe},
     ]);
 
     server.route({
@@ -572,7 +571,7 @@ function getWebpackServerConfig({config}) {
 // /example/custom/build/webpack-config-mod/server.js
 
 const Hapi = require('hapi');
-const {getReframeHapiPlugins} = require('@reframe/server');
+const {getHapiPlugins} = require('@reframe/server/getHapiPlugins');
 const {getWebpackBrowserConfig, getWebpackServerConfig} = require('./config-mod');
 const path = require('path');
 
@@ -583,7 +582,7 @@ async function startServer() {
 
     const pagesDir = path.resolve(__dirname, './pages');
 
-    const {HapiServerRendering, HapiServeBrowserAssets} = (
+    const {HapiPluginReframe} = (
         await getReframeHapiPlugins({
             pagesDir,
             getWebpackBrowserConfig,
@@ -592,8 +591,7 @@ async function startServer() {
     );
 
     await server.register([
-        {plugin: HapiServeBrowserAssets},
-        {plugin: HapiServerRendering},
+        {plugin: HapiPluginReframe},
     ]);
 
     await server.start();
@@ -664,7 +662,7 @@ module.exports = {getWebpackBrowserConfig, getWebpackServerConfig};
 // /example/custom/build/custom-webpack-config/server.js
 
 const Hapi = require('hapi');
-const {getReframeHapiPlugins} = require('@reframe/server');
+const {getHapiPlugins} = require('@reframe/server/getHapiPlugins');
 const {getWebpackBrowserConfig, getWebpackServerConfig} = require('./webpack-config');
 
 startServer();
@@ -672,8 +670,8 @@ startServer();
 async function startServer() {
     const server = Hapi.Server({port: 3000});
 
-    const {HapiServerRendering, HapiServeBrowserAssets} = (
-        await getReframeHapiPlugins({
+    const {HapiPluginReframe} = (
+        await getHapiPlugins({
             getWebpackBrowserConfig,
             getWebpackServerConfig,
             log: true,
@@ -681,8 +679,7 @@ async function startServer() {
     );
 
     await server.register([
-        {plugin: HapiServeBrowserAssets},
-        {plugin: HapiServerRendering},
+        {plugin: HapiPluginReframe},
     ]);
 
     await server.start();
@@ -703,7 +700,7 @@ The following is an example of a custom build step using [Rollup](https://github
 
 import Hapi from 'hapi';
 import buildAll from './build-all.mjs';
-import ReframeServer from '@reframe/server';
+import getHapiPlugins from '@reframe/server/getHapiPlugins';
 
 process.on('unhandledRejection', err => {throw err});
 
@@ -714,21 +711,12 @@ async function build({onBuild}) {
     onBuild({pages, browserDistPath});
 }
 
-function getHapiPlugins() {
-    return (
-        ReframeServer.getReframeHapiPlugins({
-            build,
-        })
-    );
-}
-
 async function startServer() {
     const server = Hapi.Server({port: 3000});
 
-    const {HapiServerRendering, HapiServeBrowserAssets} = await getHapiPlugins();
+    const {HapiPluginReframe} = await getHapiPlugins({build})
     await server.register([
-        {plugin: HapiServeBrowserAssets},
-        {plugin: HapiServerRendering},
+        {plugin: HapiPluginReframe},
     ]);
 
     await server.start();

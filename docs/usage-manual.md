@@ -831,21 +831,20 @@ Instead of using the CLI, Reframe can be used as hapi plugin(s), as shown in the
 // /example/custom/server/hapi-server.js
 
 const Hapi = require('hapi');
-const {getReframeHapiPlugins} = require('@reframe/server');
+const {getHapiPlugins} = require('@reframe/server/getHapiPlugins');
 const path = require('path');
 
 (async () => {
     const server = Hapi.Server({port: 3000});
 
-    const {HapiServerRendering, HapiServeBrowserAssets} = (
-        await getReframeHapiPlugins({
+    const {HapiPluginReframe} = (
+        await getHapiPlugins({
             pagesDir: path.resolve(__dirname, '../../pages'),
         })
     );
 
     await server.register([
-        {plugin: HapiServeBrowserAssets},
-        {plugin: HapiServerRendering},
+        {plugin: HapiPluginReframe},
     ]);
 
     server.route({
