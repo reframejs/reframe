@@ -148,7 +148,7 @@ A *page config* is a plain JavaScript object that configures a page by assigning
  - a route (required), and
  - further (optional) page configurations (page's &lt;title&gt;, meta tags, whether the page's HTML should be rendered at build-time or at request-time, whether the page should be hydrated or not, etc.).
 
-You can build a React web app with **no build configuration** and **no server configuration**.
+You can create a React web app with **no build configuration** and **no server configuration**.
 
 > All you need to create a web app is one React component and one page config per page.
 
