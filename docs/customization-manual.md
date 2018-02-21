@@ -94,9 +94,9 @@
     -
     Create all kinds of apps.
     &nbsp;&nbsp;&nbsp;
-    <b>Easy escape</b>
+    <b>Escape</b>
     -
-    Minimal lock-in.
+    Easy & progressive escape.
 </p></div>
 
 <br/>
