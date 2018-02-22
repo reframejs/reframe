@@ -17,16 +17,15 @@ async function getHapiPlugins({
 }) {
     const build_state = {};
     await build({
-        onBuild: async args => {
-            assert_internal(args.browserDistPath);
-            assert_internal(args.pages);
+        onBuild: async build_state__new => {
+            assert_internal(build_state__new.browserDistPath);
+            assert_internal(build_state__new.pages);
             assert_usage(
-                !build_state.browserDistPath || build_state.browserDistPath===args.browserDistPath,
+                !build_state.browserDistPath || build_state.browserDistPath===build_state__new.browserDistPath,
                 "The directory holding the static assets isn't expected to move.",
-                "Yet it is moving from `"+build_state.browserDistPath+"` to `"+args.browserDistPath+"`."
+                "Yet it is moving from `"+build_state.browserDistPath+"` to `"+build_state__new.browserDistPath+"`."
             );
-            build_state.browserDistPath = args.browserDistPath;
-            build_state.pages = args.pages;
+            Object.assign(build_state, build_state__new);
         },
         context,
         reframeConfig,
@@ -43,5 +42,6 @@ async function getHapiPlugins({
         HapiPluginReframe,
         HapiPluginServerRendering,
         HapiPluginStaticAssets,
+        build_state,
     };
 }
