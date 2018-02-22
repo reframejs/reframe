@@ -45,7 +45,7 @@
         - The main job of `processReframeConfig` is to flatten things
             - As seen in the previous note, things can be recursive, and therefore we need to flatten things: E.g. several `webpackBrowserConfig` can be defined and `processReframeConfig` combines these into a supra `_processed.webpackBrowserConfigModifier`.
 
-        - Every processed data in saved in `reframeConfig._processed`
+        - Every processed data is saved in `reframeConfig._processed` and the rest of `reframeConfig` is left untouched
 */
 
 
