@@ -6,7 +6,7 @@ module.exports = {createHapiServer};
 async function createHapiServer({
     // build opts
     pagesDir,
-    reframeConfig,
+    reframeConfig={},
     appDirPath,
 
     // server opts
@@ -32,7 +32,7 @@ async function createHapiServer({
         await getHapiPlugins({
             reframeConfig,
             pagesDir,
-            log: opts.log,
+         // log: opts.log,
             context: appDirPath,
         })
     );

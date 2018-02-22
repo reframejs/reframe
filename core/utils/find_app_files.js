@@ -1,23 +1,29 @@
 const find_up = require('find-up');
 const find = require('@brillout/find');
+const path_module = require('path');
 
-    function find_reframe_config(cwd) {
-        const config_path = find_up.sync('reframe.config', {cwd});
-        assert_internal(config_path===null || path_module.isAbsolute(config_path));
-        if( ! config_path ) {
-            return {reframeConfig: undefined};
-        }
-        const reframeConfig = require(config_path);
-        assert_usage(reframeConfig.constructor===Object);
-        return {reframeConfig, reframeConfigPath: config_path};
-    }
-    function find_pages_dir() {
-        const pagesDir = find('pages/', {canBeMissing: true});
-        return pagesDir;
-    }
+module.exports = {find_app_files};
 
-    function find(filename, opts={}) {
-        const file_path = find(filename, {anchorFile: ['reframe.config', 'reframe.browser.config'], ...opts});
-        return file_path;
-    }
+function find_app_files(cwd) {
+    assert_internal(cwd);
 
+    const pagesDir = find_pages_dir(cwd);
+
+    const reframeConfigPath = find_reframe_config(cwd);
+
+    const appDirPath = (reframeConfigPath || pagesDir) && path_module.dirname(reframeConfigPath || pagesDir);
+
+    return {reframeConfigPath, pagesDir, appDirPath}
+}
+
+function find_reframe_config(cwd) {
+    const reframeConfigPath = find_up.sync('reframe.config', {cwd});
+    assert_internal(reframeConfigPath===null || path_module.isAbsolute(reframeConfigPath));
+    return reframeConfigPath;
+}
+
+function find_pages_dir(cwd) {
+    const pagesDir = find('pages/', {anchorFile: ['reframe.config'], canBeMissing: true, cwd});
+    assert_internal(pagesDir===null || path_module.isAbsolute(pagesDir));
+    return pagesDir;
+}

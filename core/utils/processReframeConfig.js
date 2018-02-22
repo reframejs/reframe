@@ -9,6 +9,7 @@ const {process__common} = require('./processReframeBrowserConfig');
 module.exports = {processReframeConfig};
 
 function processReframeConfig(reframeConfig) {
+    assert_usage(reframeConfig.constructor===Object);
     add_default_kit(reframeConfig);
     process__common(reframeConfig, 'reframe.config');
     const {_processed} = reframeConfig;
