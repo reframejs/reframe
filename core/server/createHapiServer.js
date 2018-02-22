@@ -37,7 +37,6 @@ async function createHapiServer({
         await getHapiPlugins({
             reframeConfig,
             pagesDirPath,
-         // log: opts.log,
             appDirPath,
         })
     );

@@ -57,7 +57,7 @@ Instead of using Reframe as CLI, we can use it as hapi plugins.
 For example:
 
 ~~~js
-!INLINE ../example/custom/server/hapi-server.js
+!INLINE ../examples/custom/server/hapi-server.js
 ~~~
 
 
@@ -69,7 +69,7 @@ This allows us, for example, to choose any server framework.
 The following is a custom server implementation using Express instead of hapi.
 
 ~~~js
-!INLINE ../example/custom/server/express-server.js
+!INLINE ../examples/custom/server/express-server.js
 ~~~
 
 ## Custom Browser JavaScript
@@ -106,11 +106,11 @@ Reframe will then use the `.entry.js` code as browser entry instead of generatin
 For example:
 
 ~~~js
-!INLINE ../example/pages/TrackingPage.html.js
+!INLINE ../examples/pages/TrackingPage.html.js
 ~~~
 
 ~~~js
-!INLINE ../example/pages/TrackingPage.entry.js
+!INLINE ../examples/pages/TrackingPage.entry.js
 ~~~
 
 ### External Scripts
@@ -128,16 +128,16 @@ See the "Custom Head" section of the Usage Manual for more information.
 Multiple pages can share common browser code by using the `diskPath` property in the page config, as shown in the following example:
 
 ~~~js
-!INLINE ../example/custom/browser/pages/terms.html.js
+!INLINE ../examples/custom/browser/pages/terms.html.js
 ~~~
 ~~~js
-!INLINE ../example/custom/browser/pages/privacy.html.js
+!INLINE ../examples/custom/browser/pages/privacy.html.js
 ~~~
 ~~~js
-!INLINE ../example/custom/browser/pages/PageCommon.js
+!INLINE ../examples/custom/browser/pages/PageCommon.js
 ~~~
 ~~~js
-!INLINE ../example/custom/browser/pages/PageCommon.entry.js
+!INLINE ../examples/custom/browser/pages/PageCommon.entry.js
 ~~~
 
 ### Full Customization
@@ -169,10 +169,10 @@ At this point, our browser JavaScript doesn't depend on Reframe nor on Repage.
 It is fully under our control.
 
 ~~~js
-!INLINE ../example/custom/browser/pages/custom-browser.html.js
+!INLINE ../examples/custom/browser/pages/custom-browser.html.js
 ~~~
 ~~~js
-!INLINE ../example/custom/browser/pages/custom-browser.entry.js
+!INLINE ../examples/custom/browser/pages/custom-browser.entry.js
 ~~~
 
 ## Custom Build
@@ -200,10 +200,10 @@ await getReframeHapiPlugins({
 The following example uses `getWebpackBrowserConfig()` to add the PostCSS loader to the configuration.
 
 ~~~js
-!INLINE ../example/custom/build/webpack-config-mod/config-mod.js
+!INLINE ../examples/custom/build/webpack-config-mod/config-mod.js
 ~~~
 ~~~js
-!INLINE ../example/custom/build/webpack-config-mod/server.js
+!INLINE ../examples/custom/build/webpack-config-mod/server.js
 ~~~
 
 ### Full Custom Webpack Config
@@ -221,10 +221,10 @@ For example, a browser entry saved at `/path/to/MyPage.entry.js` would match a p
 The following is a `getWebpackBrowserConfig()` usage example for a entirely custom config.
 
 ~~~js
-!INLINE ../example/custom/build/custom-webpack-config/webpack-config.js
+!INLINE ../examples/custom/build/custom-webpack-config/webpack-config.js
 ~~~
 ~~~js
-!INLINE ../example/custom/build/custom-webpack-config/server.js
+!INLINE ../examples/custom/build/custom-webpack-config/server.js
 ~~~
 
 ### Full Build Customization
@@ -235,19 +235,19 @@ But we can implement a fully custom build step, which means that we can use a bu
 The following is an example of a custom build step using [Rollup](https://github.com/rollup/rollup) and [Node.js's support for ES modules over the --experimental-modules flag](https://nodejs.org/api/esm.html).
 
 ~~~js
-!INLINE ../example/custom/build/custom-bundler/server.mjs
+!INLINE ../examples/custom/build/custom-bundler/server.mjs
 ~~~
 ~~~js
-!INLINE ../example/custom/build/custom-bundler/build-all.mjs
+!INLINE ../examples/custom/build/custom-bundler/build-all.mjs
 ~~~
 ~~~js
-!INLINE ../example/custom/build/custom-bundler/build-script.mjs
+!INLINE ../examples/custom/build/custom-bundler/build-script.mjs
 ~~~
 ~~~js
-!INLINE ../example/custom/build/custom-bundler/build-html.mjs
+!INLINE ../examples/custom/build/custom-bundler/build-html.mjs
 ~~~
 ~~~js
-!INLINE ../example/custom/build/custom-bundler/get-pages.mjs
+!INLINE ../examples/custom/build/custom-bundler/get-pages.mjs
 ~~~
 
 ## Custom Repage
