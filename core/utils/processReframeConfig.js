@@ -66,25 +66,11 @@ function processReframeConfig(reframeConfig) {
     const {_processed} = reframeConfig;
     const {plugin_objects} = _processed;
     add_webpack_config_modifiers(_processed, plugin_objects);
-    add_browser_config_paths(_processed, plugin_objects);
     add_page_extensions(_processed, plugin_objects);
+    add_browser_config_paths(_processed, plugin_objects);
 }
 
-function add_default_kit(reframeConfig) {
-    /*
-    assert_internal(_processed.repage_plugins.constructor===Array);
-    for(plugin_object in _processed.plugin_objects) {
-        if( plugin_objects.skipDefaultKit ) {
-            return;
-        }
-    }
-    */
-    if( ! reframeConfig.skipDefaultKit ) {
-        reframeConfig.plugins = reframeConfig.plugins || [];
-        reframeConfig.plugins.unshift(defaultKit());
-    }
-}
-
+// Here we assemble several webpack config modifiers into one supra modifier
 function add_webpack_config_modifiers(_processed, plugin_objects) {
     if( 'webpackServerConfigModifier' in _processed && 'webpackBrowserConfigModifier' in _processed ) {
         return;
@@ -112,6 +98,35 @@ function add_webpack_config_modifiers(_processed, plugin_objects) {
     _processed.webpackServerConfigModifier = modifiers[1];
 }
 
+// Add expected extensions to filenames of page configs
+//  - E.g. the `@reframe/typescript` plugin needs Reframe to consider `pages/MyPage.html.ts` (ending with `.ts`) as a page config file.
+function add_page_extensions(_processed, plugin_objects) {
+    _processed.pageExtensions = [];
+    plugin_objects.forEach(plugin_object => {
+        if( plugin_object.pageExtensions ) {
+            _processed.pageExtensions.push(...plugin_object.pageExtensions);
+        }
+    });
+}
+
+// By default, Reframe uses the `@reframe/default-kit`
+function add_default_kit(reframeConfig) {
+    /*
+    assert_internal(_processed.repage_plugins.constructor===Array);
+    for(plugin_object in _processed.plugin_objects) {
+        if( plugin_objects.skipDefaultKit ) {
+            return;
+        }
+    }
+    */
+    if( ! reframeConfig.skipDefaultKit ) {
+        reframeConfig.plugins = reframeConfig.plugins || [];
+        reframeConfig.plugins.unshift(defaultKit());
+    }
+}
+
+// Here we collect all paths of browser-side reframe config files
+//  - We define browser-side config objects as paths (instead of loaded module) because the browser-side code is bundled separately from the sever-side code
 function add_browser_config_paths(_processed, plugin_objects) {
     if( _processed.browserConfigs ) {
         return;
@@ -124,14 +139,5 @@ function add_browser_config_paths(_processed, plugin_objects) {
         }
         assert_usage(reframeBrowserConfig.diskPath && path_module.isAbsolute(reframeBrowserConfig.diskPath));
         browserConfigs.push(reframeBrowserConfig);
-    });
-}
-
-function add_page_extensions(_processed, plugin_objects) {
-    _processed.pageExtensions = [];
-    plugin_objects.forEach(plugin_object => {
-        if( plugin_object.pageExtensions ) {
-            _processed.pageExtensions.push(...plugin_object.pageExtensions);
-        }
     });
 }
