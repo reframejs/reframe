@@ -5,9 +5,9 @@
     "reframe": "./cli.js"
   },
   "dependencies": {
-    "@brillout/find": "latest",
     "@reframe/browser": "0.0.1-rc.4",
     "@reframe/server": "0.0.1-rc.4",
+    "chalk": "^2.3.1",
     "find-up": "^2.1.0",
     "lerna": "^2.5.1",
     "reassert": "latest"

@@ -2,6 +2,7 @@
   "name": "@reframe/utils",
   "version": "0.0.1-rc.4",
   "dependencies": {
+    "@brillout/find": "latest",
     "@reframe/default-kit": "0.0.1-rc.4",
     "reassert": "latest"
   },

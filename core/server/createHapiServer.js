@@ -11,6 +11,8 @@ async function createHapiServer({
     pagesDirPath,
     reframeConfig,
     appDirPath,
+    logger,
+    log,
 
     // server opts
     port = 3000,
@@ -38,6 +40,8 @@ async function createHapiServer({
             reframeConfig,
             pagesDirPath,
             appDirPath,
+            logger,
+            log,
         })
     );
 

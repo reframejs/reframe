@@ -21,7 +21,12 @@ function run() {
 async function startHapiServer({pagesDirPath, reframeConfig, appDirPath}) {
     const {createHapiServer} = require('@reframe/server/createHapiServer');
 
-    const {server} = await createHapiServer({pagesDirPath, reframeConfig, appDirPath});
+    const {server} = await createHapiServer({
+        pagesDirPath,
+        reframeConfig,
+        appDirPath,
+        logger: {onFirstCompilationSuccess: log_build_success},
+    });
 
     await server.start();
 
@@ -75,6 +80,29 @@ function get_cli_args() {
     };
 }
 
+function log_build_success({compilationInfo}) {
+    const chalk = require('chalk');
+    const browser_compilation_info = compilationInfo[0];
+    const {output: {dist_root_directory}} = browser_compilation_info;
+    console.log(green_checkmark()+' Frontend uwi built at '+dist_root_directory+' '+env_tag());
+
+    return;
+
+    function env_tag() {
+        return (
+            is_production() ? (
+                chalk.yellow('[PROD]')
+            ) : (
+                chalk.blueBright('[DEV]')
+            )
+       );
+    }
+
+    function is_production() {
+        return process.env.NODE_ENV === 'production';
+    }
+}
+
 function log_found_file(file_path, description) {
     const {path_relative_to_homedir} = require('@reframe/utils/path_relative_to_homedir');
     if( file_path ) {
@@ -83,7 +111,7 @@ function log_found_file(file_path, description) {
 }
 
 function log_server_started(server) {
-    console.log(green_checkmark()+` Server running at ${server.info.uri}`);
+    console.log(green_checkmark()+' Server running at '+server.info.uri);
 }
 
 function green_checkmark() {
