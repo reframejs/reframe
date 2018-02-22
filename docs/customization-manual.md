@@ -170,7 +170,7 @@ const path = require('path');
 
     const {HapiPluginReframe} = (
         await getHapiPlugins({
-            pagesDir: path.resolve(__dirname, '../../pages'),
+            pagesDirPath: path.resolve(__dirname, '../../pages'),
         })
     );
 
@@ -219,12 +219,12 @@ const express = require('express');
 startExpressServer();
 
 async function startExpressServer() {
-    const pagesDir = path.resolve(__dirname, '../../pages');
+    const pagesDirPath = path.resolve(__dirname, '../../pages');
     let pages;
     const onBuild = args => {pages = args.pages};
     const {browserDistPath} = (
         await build({
-            pagesDir,
+            pagesDirPath,
             onBuild,
         })
     );
@@ -521,7 +521,7 @@ to `getReframeHapiPlugins()`.
 
 ~~~js
 await getReframeHapiPlugins({
-    pagesDir,
+    pagesDirPath,
     getWebpackBrowserConfig,
     getWebpackServerConfig,
 });
@@ -580,11 +580,11 @@ startServer();
 async function startServer() {
     const server = Hapi.Server({port: 3000});
 
-    const pagesDir = path.resolve(__dirname, './pages');
+    const pagesDirPath = path.resolve(__dirname, './pages');
 
     const {HapiPluginReframe} = (
         await getHapiPlugins({
-            pagesDir,
+            pagesDirPath,
             getWebpackBrowserConfig,
             getWebpackServerConfig,
         })

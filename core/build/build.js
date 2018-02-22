@@ -20,7 +20,7 @@ const {getStaticPages} = require('@repage/build');
 module.exports = build;
 
 function build({
-    pagesDir,
+    pagesDirPath,
 
     onBuild: onBuild_user,
 
@@ -35,22 +35,22 @@ function build({
     ...rebuild_opts
 }) {
     assert_usage(
-        pagesDir || getWebpackServerConfig && getWebpackBrowserConfig,
-        "Provide either argument `pagesDir` or `getWebpackBrowserConfig` and `getWebpackServerConfig`."
+        pagesDirPath || getWebpackServerConfig && getWebpackBrowserConfig,
+        "Provide either argument `pagesDirPath` or `getWebpackBrowserConfig` and `getWebpackServerConfig`."
     );
     assert_usage(
-        !pagesDir || pagesDir.constructor===String && pagesDir.startsWith('/'),
-        pagesDir
+        !pagesDirPath || pagesDirPath.constructor===String && pagesDirPath.startsWith('/'),
+        pagesDirPath
     );
 
-    if( pagesDir ) {
-        handle_output_dir({pagesDir});
+    if( pagesDirPath ) {
+        handle_output_dir({pagesDirPath});
     }
 
     processReframeConfig(reframeConfig);
 
     const webpack_config = get_webpack_config({
-        pagesDir,
+        pagesDirPath,
         reframeConfig,
         getWebpackBrowserConfig,
         getWebpackServerConfig,
@@ -89,15 +89,15 @@ function build({
     return first_build_promise;
 }
 
-function get_dist_base_path({pagesDir}) {
-    const dist_parent = path_module.dirname(pagesDir);
+function get_dist_base_path({pagesDirPath}) {
+    const dist_parent = path_module.dirname(pagesDirPath);
     assert_internal(dist_parent.startsWith('/'));
     const output_path__base = path_module.resolve(dist_parent, './dist');
     return {output_path__base};
 }
 
 function get_webpack_config({
-    pagesDir,
+    pagesDirPath,
     reframeConfig={},
     getWebpackBrowserConfig,
     getWebpackServerConfig,
@@ -108,7 +108,7 @@ function get_webpack_config({
         browser_entries,
         output_path__server,
         server_entries,
-    } = get_infos_for_webpack({pagesDir, reframeConfig});
+    } = get_infos_for_webpack({pagesDirPath, reframeConfig});
 
     let browser_build = {};
     browser_build.entries = browser_entries;
@@ -146,17 +146,17 @@ function get_webpack_config({
     return webpack_config;
 }
 
-function get_infos_for_webpack({pagesDir, reframeConfig}) {
-    if( ! pagesDir ) {
+function get_infos_for_webpack({pagesDirPath, reframeConfig}) {
+    if( ! pagesDirPath ) {
         return {};
     }
 
-    const {output_path__base} = get_dist_base_path({pagesDir});
+    const {output_path__base} = get_dist_base_path({pagesDirPath});
     const output_path__source = path_module.resolve(output_path__base, './source');
     const output_path__browser = path_module.resolve(output_path__base, './browser');
     const output_path__server = path_module.resolve(output_path__base, './server');
 
-    const {browser_entries, server_entries} = get_webpack_entries({pagesDir, output_path__base, output_path__source, reframeConfig});
+    const {browser_entries, server_entries} = get_webpack_entries({pagesDirPath, output_path__base, output_path__source, reframeConfig});
 
     return {
         output_path__browser,
@@ -166,13 +166,13 @@ function get_infos_for_webpack({pagesDir, reframeConfig}) {
     };
 }
 
-function get_webpack_entries({pagesDir, output_path__base, output_path__source, reframeConfig}) {
+function get_webpack_entries({pagesDirPath, output_path__base, output_path__source, reframeConfig}) {
     const browser_entries = {};
     const server_entries = {};
 
     const reframe_browser_conifg__path = generate_reframe_browser_config({output_path__source, reframeConfig});
 
-    fs__ls(pagesDir)
+    fs__ls(pagesDirPath)
     .forEach(page_file => {
         const file_name = path_module.basename(page_file);
         const entry_name = file_name.split('.').slice(0, -1).join('.');
@@ -211,7 +211,7 @@ function get_webpack_entries({pagesDir, output_path__base, output_path__source, 
     assert_internal(Object.values(browser_entries).length>0);
     assert_usage(
         Object.values(server_entries).length>0,
-        "No page config found at `"+pagesDir+"`.",
+        "No page config found at `"+pagesDirPath+"`.",
         "Do your page configs have the correct suffix?",
      // "PageExtensions: "+reframeConfig._processed.pageExtensions
     );
@@ -624,8 +624,8 @@ function path__abs(path) {
     return path.startsWith(path_module.sep);
 }
 
-function handle_output_dir({pagesDir}) {
-    const {output_path__base} = get_dist_base_path({pagesDir});
+function handle_output_dir({pagesDirPath}) {
+    const {output_path__base} = get_dist_base_path({pagesDirPath});
     move_and_stamp_output_dir({output_path__base});
 }
 

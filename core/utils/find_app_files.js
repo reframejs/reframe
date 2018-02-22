@@ -9,13 +9,13 @@ module.exports = {find_app_files};
 function find_app_files(cwd) {
     assert_internal(cwd);
 
-    const pagesDir = find_pages_dir(cwd);
+    const pagesDirPath = find_pages_dir(cwd);
 
     const reframeConfigPath = find_reframe_config(cwd);
 
-    const appDirPath = (reframeConfigPath || pagesDir) && path_module.dirname(reframeConfigPath || pagesDir);
+    const appDirPath = (reframeConfigPath || pagesDirPath) && path_module.dirname(reframeConfigPath || pagesDirPath);
 
-    return {reframeConfigPath, pagesDir, appDirPath}
+    return {reframeConfigPath, pagesDirPath, appDirPath}
 }
 
 function find_reframe_config(cwd) {
@@ -25,7 +25,7 @@ function find_reframe_config(cwd) {
 }
 
 function find_pages_dir(cwd) {
-    const pagesDir = find('pages/', {anchorFile: ['reframe.config'], canBeMissing: true, cwd});
-    assert_internal(pagesDir===null || path_module.isAbsolute(pagesDir));
-    return pagesDir;
+    const pagesDirPath = find('pages/', {anchorFile: ['reframe.config'], canBeMissing: true, cwd});
+    assert_internal(pagesDirPath===null || path_module.isAbsolute(pagesDirPath));
+    return pagesDirPath;
 }

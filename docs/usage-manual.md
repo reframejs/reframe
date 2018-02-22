@@ -839,7 +839,7 @@ const path = require('path');
 
     const {HapiPluginReframe} = (
         await getHapiPlugins({
-            pagesDir: path.resolve(__dirname, '../../pages'),
+            pagesDirPath: path.resolve(__dirname, '../../pages'),
         })
     );
 

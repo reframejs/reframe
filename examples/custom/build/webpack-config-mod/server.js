@@ -8,11 +8,11 @@ startServer();
 async function startServer() {
     const server = Hapi.Server({port: 3000});
 
-    const pagesDir = path.resolve(__dirname, './pages');
+    const pagesDirPath = path.resolve(__dirname, './pages');
 
     const {HapiPluginReframe} = (
         await getHapiPlugins({
-            pagesDir,
+            pagesDirPath,
             getWebpackBrowserConfig,
             getWebpackServerConfig,
         })

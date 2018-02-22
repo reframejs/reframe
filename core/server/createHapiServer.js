@@ -8,7 +8,7 @@ module.exports = {createHapiServer};
 
 async function createHapiServer({
     // build opts
-    pagesDir,
+    pagesDirPath,
     reframeConfig,
     appDirPath,
 
@@ -21,7 +21,7 @@ async function createHapiServer({
 }) {
     reframeConfig = reframeConfig || {};
 
-    assert_usage(pagesDir);
+    assert_usage(pagesDirPath);
     assert_usage(reframeConfig);
     assert_usage(appDirPath);
 
@@ -36,7 +36,7 @@ async function createHapiServer({
     const {HapiPluginReframe, build_state} = (
         await getHapiPlugins({
             reframeConfig,
-            pagesDir,
+            pagesDirPath,
          // log: opts.log,
             context: appDirPath,
         })

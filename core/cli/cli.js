@@ -11,17 +11,17 @@ function run() {
         process.env['NODE_ENV']='production';
     }
 
-    const {pagesDir, reframeConfigPath, appDirPath} = find_files(cwd);
+    const {pagesDirPath, reframeConfigPath, appDirPath} = find_files(cwd);
 
     const reframeConfig = reframeConfigPath && require(reframeConfigPath);
 
-    startHapiServer({pagesDir, reframeConfig, appDirPath});
+    startHapiServer({pagesDirPath, reframeConfig, appDirPath});
 }
 
-async function startHapiServer({pagesDir, reframeConfig, appDirPath}) {
+async function startHapiServer({pagesDirPath, reframeConfig, appDirPath}) {
     const {createHapiServer} = require('@reframe/server/createHapiServer');
 
-    const {server} = await createHapiServer({pagesDir, reframeConfig, appDirPath});
+    const {server} = await createHapiServer({pagesDirPath, reframeConfig, appDirPath});
 
     await server.start();
 
@@ -34,18 +34,18 @@ function find_files(cwd) {
     const assert_internal = assert;
     const assert_usage = assert;
 
-    const {pagesDir, reframeConfigPath, appDirPath} = find_app_files(cwd);
+    const {pagesDirPath, reframeConfigPath, appDirPath} = find_app_files(cwd);
 
     log_found_file(reframeConfigPath, 'Reframe config');
-    log_found_file(pagesDir, 'Pages directory');
+    log_found_file(pagesDirPath, 'Pages directory');
 
     assert_usage(
-        pagesDir,
+        pagesDirPath,
         "Can't find `pages/` directory."
     );
     assert_internal(appDirPath);
 
-    return {pagesDir, reframeConfigPath, appDirPath};
+    return {pagesDirPath, reframeConfigPath, appDirPath};
 }
 
 function get_cli_args() {

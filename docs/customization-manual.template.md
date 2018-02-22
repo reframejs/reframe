@@ -191,7 +191,7 @@ to `getReframeHapiPlugins()`.
 
 ~~~js
 await getReframeHapiPlugins({
-    pagesDir,
+    pagesDirPath,
     getWebpackBrowserConfig,
     getWebpackServerConfig,
 });
