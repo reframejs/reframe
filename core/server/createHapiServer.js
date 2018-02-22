@@ -1,12 +1,15 @@
 const Hapi = require('hapi');
 const {getHapiPlugins} = require('./getHapiPlugins');
+const assert = require('reassert');
+const assert_internal = assert;
+const assert_usage = assert;
 
 module.exports = {createHapiServer};
 
 async function createHapiServer({
     // build opts
     pagesDir,
-    reframeConfig={},
+    reframeConfig,
     appDirPath,
 
     // server opts
@@ -16,6 +19,8 @@ async function createHapiServer({
     },
     ...server_opts
 }) {
+    reframeConfig = reframeConfig || {};
+
     assert_usage(pagesDir);
     assert_usage(reframeConfig);
     assert_usage(appDirPath);

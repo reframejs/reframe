@@ -13,7 +13,7 @@ function run() {
 
     const {pagesDir, reframeConfigPath, appDirPath} = find_files(cwd);
 
-    const reframeConfig = require(reframeConfigPath);
+    const reframeConfig = reframeConfigPath && require(reframeConfigPath);
 
     startHapiServer({pagesDir, reframeConfig, appDirPath});
 }
@@ -21,7 +21,7 @@ function run() {
 async function startHapiServer({pagesDir, reframeConfig, appDirPath}) {
     const {createHapiServer} = require('@reframe/server/createHapiServer');
 
-    const server = await createHapiServer({pagesDir, reframeConfig, appDirPath});
+    const {server} = await createHapiServer({pagesDir, reframeConfig, appDirPath});
 
     await server.start();
 
@@ -30,6 +30,9 @@ async function startHapiServer({pagesDir, reframeConfig, appDirPath}) {
 
 function find_files(cwd) {
     const {find_app_files} = require('@reframe/utils/find_app_files');
+    const assert = require('reassert');
+    const assert_internal = assert;
+    const assert_usage = assert;
 
     const {pagesDir, reframeConfigPath, appDirPath} = find_app_files(cwd);
 
@@ -48,6 +51,7 @@ function find_files(cwd) {
 function get_cli_args() {
     const assert = require('reassert');
     const assert_usage = assert;
+    const path_module = require('path');
 
     const cli_args = process.argv.slice(2);
     const cli_args_opts = cli_args.filter(arg => arg.startsWith('--'));

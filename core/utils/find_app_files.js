@@ -1,6 +1,8 @@
+const path_module = require('path');
+const assert = require('reassert');
+const assert_internal = assert;
 const find_up = require('find-up');
 const find = require('@brillout/find');
-const path_module = require('path');
 
 module.exports = {find_app_files};
 
