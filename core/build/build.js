@@ -9,9 +9,9 @@ const serve = require('@rebuild/serve');
 const log_title = require('@rebuild/build/utils/log_title');
 const dir = require('node-dir');
 const path_module = require('path');
-const {get_context} = require('./utils/get_context');
 const fs = require('fs');
 const mkdirp = require('mkdirp');
+const {get_parent_dirname} = require('@reframe/utils/get_parent_dirname');
 const {processReframeConfig} = require('@reframe/utils/processReframeConfig');
 
 const Repage = require('@repage/core');
@@ -30,7 +30,7 @@ function build({
     getWebpackServerConfig,
 
     doNotAutoReload=isProduction(),
-    context,
+    appDirPath,
     log: log_option,
     ...rebuild_opts
 }) {
@@ -54,7 +54,7 @@ function build({
         reframeConfig,
         getWebpackBrowserConfig,
         getWebpackServerConfig,
-        context,
+        appDirPath,
     });
 
     const fs_handler = new FilesystemHandler();
@@ -101,7 +101,7 @@ function get_webpack_config({
     reframeConfig={},
     getWebpackBrowserConfig,
     getWebpackServerConfig,
-    context,
+    appDirPath,
 }) {
     const {
         output_path__browser,
@@ -114,7 +114,7 @@ function get_webpack_config({
     browser_build.entries = browser_entries;
     browser_build.outputPath = output_path__browser;
     browser_build.config = get_webpack_browser_config(browser_build);
-    add_context_to_config(context, browser_build.config);
+    add_context_to_config(appDirPath, browser_build.config);
     if( reframeConfig._processed.webpackBrowserConfigModifier ) {
         browser_build.config = reframeConfig._processed.webpackBrowserConfigModifier(browser_build);
         assert_internal(browser_build.config);
@@ -123,13 +123,13 @@ function get_webpack_config({
         browser_build.config = getWebpackBrowserConfig(browser_build);
         assert_usage(browser_build.config);
     }
-    add_context_to_config(context, browser_build.config);
+    add_context_to_config(appDirPath, browser_build.config);
 
     let server_build = {};
     server_build.entries = server_entries;
     server_build.outputPath = output_path__server;
     server_build.config = get_webpack_server_config(server_build);
-    add_context_to_config(context, server_build.config);
+    add_context_to_config(appDirPath, server_build.config);
     if( reframeConfig._processed.webpackServerConfigModifier ) {
         server_build.config = reframeConfig._processed.webpackServerConfigModifier(server_build);
         assert_internal(server_build.config);
@@ -138,7 +138,7 @@ function get_webpack_config({
         server_build.config = getWebpackServerConfig(server_build);
         assert_usage(server_build.config);
     }
-    add_context_to_config(context, server_build.config);
+    add_context_to_config(appDirPath, server_build.config);
 
 
     const webpack_config = [browser_build.config, server_build.config];
@@ -327,10 +327,10 @@ function fs__ls(dirpath) {
     return files;
 }
 
-function add_context_to_config(context, config) {
+function add_context_to_config(appDirPath, config) {
     assert_internal(config.constructor===Object);
-    if( ! config.context || context ) {
-        config.context = context || get_context();
+    if( ! config.context || appDirPath ) {
+        config.context = appDirPath || get_parent_dirname();
     }
     assert_internal(config.context);
     assert_internal(config.context.startsWith('/'));

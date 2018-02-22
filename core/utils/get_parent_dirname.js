@@ -3,9 +3,9 @@ const assert_internal = assert;
 const get_caller = require('parent-module');
 const path_module = require('path');
 
-module.exports = {get_context};
+module.exports = {get_parent_dirname};
 
-function get_context() {
+function get_parent_dirname() {
     return path_module.dirname(parent_module());
 }
 

@@ -38,7 +38,7 @@ async function createHapiServer({
             reframeConfig,
             pagesDirPath,
          // log: opts.log,
-            context: appDirPath,
+            appDirPath,
         })
     );
 

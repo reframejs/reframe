@@ -1,6 +1,6 @@
 const {HapiPluginServerRendering__create} = require('./HapiPluginServerRendering');
 const buildDefault = require('@reframe/build');
-const {get_context} = require('@reframe/build/utils/get_context');
+const {get_parent_dirname} = require('@reframe/utils/get_parent_dirname');
 const {HapiPluginStaticAssets__create} = require('@rebuild/build/utils/HapiPluginStaticAssets');
 const {HapiPluginReframe__create} = require('./HapiPluginReframe');
 const assert = require('reassert');
@@ -10,7 +10,7 @@ const assert_usage = assert;
 module.exports = {getHapiPlugins};
 
 async function getHapiPlugins({
-    context = get_context(),
+    appDirPath = get_parent_dirname(),
     build = buildDefault,
     reframeConfig={},
     ...build_opts
@@ -27,7 +27,7 @@ async function getHapiPlugins({
             );
             Object.assign(build_state, build_state__new);
         },
-        context,
+        appDirPath,
         reframeConfig,
         ...build_opts,
     });
