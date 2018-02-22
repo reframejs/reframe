@@ -158,7 +158,7 @@ But we can go further by not using `@reframe/browser/hydratePage` and re-writing
 Let's look at the code of `@reframe/browser/hydratePage`
 
 ~~~js
-!INLINE ../browser/hydratePage.js
+!INLINE ../core/browser/hydratePage.js
 ~~~
 
 As we can see, the code simply initializes a Repage instance and calls `@repage/browser`'s `hydratePage()` function.

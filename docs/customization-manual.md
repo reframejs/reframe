@@ -159,7 +159,7 @@ Instead of using Reframe as CLI, we can use it as hapi plugins.
 For example:
 
 ~~~js
-// /example/custom/server/hapi-server.js
+// /examples/custom/server/hapi-server.js
 
 const Hapi = require('hapi');
 const {getHapiPlugins} = require('@reframe/server/getHapiPlugins');
@@ -200,7 +200,7 @@ This allows us, for example, to choose any server framework.
 The following is a custom server implementation using Express instead of hapi.
 
 ~~~js
-// /example/custom/server/express-server.js
+// /examples/custom/server/express-server.js
 
 const assert = require('reassert');
 const assert_internal = assert;
@@ -303,7 +303,7 @@ Reframe will then use the `.entry.js` code as browser entry instead of generatin
 For example:
 
 ~~~js
-// /example/pages/TrackingPage.html.js
+// /examples/pages/TrackingPage.html.js
 
 import React from 'react';
 
@@ -323,7 +323,7 @@ export default {
 ~~~
 
 ~~~js
-// /example/pages/TrackingPage.entry.js
+// /examples/pages/TrackingPage.entry.js
 
 import hydratePage from '@reframe/browser/hydratePage';
 import TrackingPage from './TrackingPage.html.js';
@@ -357,7 +357,7 @@ See the "Custom Head" section of the Usage Manual for more information.
 Multiple pages can share common browser code by using the `diskPath` property in the page config, as shown in the following example:
 
 ~~~js
-// /example/custom/browser/pages/terms.html.js
+// /examples/custom/browser/pages/terms.html.js
 
 import React from 'react';
 import PageCommon from './PageCommon';
@@ -376,7 +376,7 @@ export default {
 };
 ~~~
 ~~~js
-// /example/custom/browser/pages/privacy.html.js
+// /examples/custom/browser/pages/privacy.html.js
 
 import React from 'react';
 import PageCommon from './PageCommon';
@@ -395,7 +395,7 @@ export default {
 };
 ~~~
 ~~~js
-// /example/custom/browser/pages/PageCommon.js
+// /examples/custom/browser/pages/PageCommon.js
 
 const PageCommon = {
     title: 'My Web App',
@@ -415,7 +415,7 @@ const PageCommon = {
 export default PageCommon;
 ~~~
 ~~~js
-// /example/custom/browser/pages/PageCommon.entry.js
+// /examples/custom/browser/pages/PageCommon.entry.js
 
 window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 ga('create', 'UA-XXXXX-Y', 'auto');
@@ -441,7 +441,7 @@ But we can go further by not using `@reframe/browser/hydratePage` and re-writing
 Let's look at the code of `@reframe/browser/hydratePage`
 
 ~~~js
-// /browser/hydratePage.js
+// /core/browser/hydratePage.js
 
 const {processReframeBrowserConfig} = require('@reframe/utils/processReframeBrowserConfig');
 
@@ -471,7 +471,7 @@ At this point, our browser JavaScript doesn't depend on Reframe nor on Repage.
 It is fully under our control.
 
 ~~~js
-// /example/custom/browser/pages/custom-browser.html.js
+// /examples/custom/browser/pages/custom-browser.html.js
 
 import React from 'react';
 import {TimeComponent} from '../../../views/TimeComponent';
@@ -495,7 +495,7 @@ export default {
 };
 ~~~
 ~~~js
-// /example/custom/browser/pages/custom-browser.entry.js
+// /examples/custom/browser/pages/custom-browser.entry.js
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -530,7 +530,7 @@ await getReframeHapiPlugins({
 The following example uses `getWebpackBrowserConfig()` to add the PostCSS loader to the configuration.
 
 ~~~js
-// /example/custom/build/webpack-config-mod/config-mod.js
+// /examples/custom/build/webpack-config-mod/config-mod.js
 
 module.exports = {getWebpackBrowserConfig, getWebpackServerConfig};
 
@@ -568,7 +568,7 @@ function getWebpackServerConfig({config}) {
 }
 ~~~
 ~~~js
-// /example/custom/build/webpack-config-mod/server.js
+// /examples/custom/build/webpack-config-mod/server.js
 
 const Hapi = require('hapi');
 const {getHapiPlugins} = require('@reframe/server/getHapiPlugins');
@@ -615,7 +615,7 @@ For example, a browser entry saved at `/path/to/MyPage.entry.js` would match a p
 The following is a `getWebpackBrowserConfig()` usage example for a entirely custom config.
 
 ~~~js
-// /example/custom/build/custom-webpack-config/webpack-config.js
+// /examples/custom/build/custom-webpack-config/webpack-config.js
 
 const rules = [
     {
@@ -662,7 +662,7 @@ const getWebpackServerConfig = () => ({
 module.exports = {getWebpackBrowserConfig, getWebpackServerConfig};
 ~~~
 ~~~js
-// /example/custom/build/custom-webpack-config/server.js
+// /examples/custom/build/custom-webpack-config/server.js
 
 const Hapi = require('hapi');
 const {getHapiPlugins} = require('@reframe/server/getHapiPlugins');
@@ -699,7 +699,7 @@ But we can implement a fully custom build step, which means that we can use a bu
 The following is an example of a custom build step using [Rollup](https://github.com/rollup/rollup) and [Node.js's support for ES modules over the --experimental-modules flag](https://nodejs.org/api/esm.html).
 
 ~~~js
-// /example/custom/build/custom-bundler/server.mjs
+// /examples/custom/build/custom-bundler/server.mjs
 
 import Hapi from 'hapi';
 import buildAll from './build-all.mjs';
@@ -727,7 +727,7 @@ async function startServer() {
 }
 ~~~
 ~~~js
-// /example/custom/build/custom-bundler/build-all.mjs
+// /examples/custom/build/custom-bundler/build-all.mjs
 
 import buildScript from './build-script.mjs';
 import buildHtml from './build-html.mjs';
@@ -757,7 +757,7 @@ function getBrowserDistPath() {
 }
 ~~~
 ~~~js
-// /example/custom/build/custom-bundler/build-script.mjs
+// /examples/custom/build/custom-bundler/build-script.mjs
 
 import rollup from 'rollup';
 import resolve from 'rollup-plugin-node-resolve';
@@ -813,7 +813,7 @@ function getCompileInfo({browserDistPath, pages}) {
 }
 ~~~
 ~~~js
-// /example/custom/build/custom-bundler/build-html.mjs
+// /examples/custom/build/custom-bundler/build-html.mjs
 
 import Repage from '@repage/core';
 import RepageBuild from '@repage/build';
@@ -877,7 +877,7 @@ function getRepageObject(pages) {
 }
 ~~~
 ~~~js
-// /example/custom/build/custom-bundler/get-pages.mjs
+// /examples/custom/build/custom-bundler/get-pages.mjs
 
 import HelloPage from './pages/hello.html.mjs';
 import LandingPage from './pages/landing.html.mjs';
@@ -946,7 +946,7 @@ function getRepageInstance() {
 
 ## Get rid of Reframe
 
-As show in this document, every part of Reframe can be re-written to depend on `@repage` packages only.
+As shown in this document, every part of Reframe can be re-written to depend on `@repage` packages only.
 In turn, [Repage](https://github.com/brillout/repage) can progressively be overwritten over time as well.
 This means that we can eventually and over time get rid of the entire Reframe and the entire Repage code.
 
