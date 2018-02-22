@@ -1,3 +1,54 @@
+/*
+    The function `processReframeConfig` is responsible for:
+     - processing the `reframe.config` file
+     - processing plugins
+
+    Notes:
+
+        - The object exported by a plugin and the object exported by the `reframe.config` file have the exact same interface: Everything that can be configured in `reframe.config` can be configured by a plugin.
+
+        - A plugin can add another plugin. In other words the reframe config is recursive. Consider the following example:
+            ~~~js
+            // reframe.config
+            module.exports = {
+                plugins: [
+                    pluginA()
+                ],
+                webpackBrowserConfig: ({config}) => {
+                    // do a neat thing on the config
+                    return config;
+                },
+            };
+
+            function pluginA() {
+                return {
+                    plugins: [
+                        pluginB()
+                    ],
+                    webpackBrowserConfig: ({config}) => {
+                        // do something more
+                        return config;
+                    },
+                };
+            }
+
+            function pluginB() {
+                return {
+                    webpackBrowserConfig: ({config}) => {
+                        // do even more stuff on the config
+                        return config;
+                    },
+                };
+            }
+            ~~~js
+
+        - The main job of `processReframeConfig` is to flatten things
+            - As seen in the previous note, things can be recursive, and therefore we need to flatten things: E.g. several `webpackBrowserConfig` can be defined and `processReframeConfig` combines these into a supra `_processed.webpackBrowserConfigModifier`.
+
+        - Every processed data in saved in `reframeConfig._processed`
+*/
+
+
 const assert = require('reassert');
 const assert_internal = assert;
 const assert_usage = assert;
