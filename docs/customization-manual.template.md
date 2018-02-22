@@ -287,6 +287,6 @@ function getRepageInstance() {
 
 ## Get rid of Reframe
 
-As show in this document, every part of Reframe can be re-written to depend on `@repage` packages only.
+As shown in this document, every part of Reframe can be re-written to depend on `@repage` packages only.
 In turn, [Repage](https://github.com/brillout/repage) can progressively be overwritten over time as well.
 This means that we can eventually and over time get rid of the entire Reframe and the entire Repage code.

@@ -1,23 +1,20 @@
 {
     "private": true,
     "workspaces": [
-        "browser",
-        "build",
-        "server",
-
-        "utils",
-        "cli",
-
+        "core/browser",
+        "core/build",
+        "core/server",
+        "core/utils",
+        "core/cli",
+        "plugins/crossroads",
+        "plugins/default-kit",
+        "plugins/path-to-regexp",
+        "plugins/postcss",
+        "plugins/react",
+        "plugins/react-router",
+        "plugins/typescript",
         "docs",
-        "example",
-
-        "crossroads",
-        "default-kit",
-        "path-to-regexp",
-        "postcss",
-        "react",
-        "react-router",
-        "typescript"
+        "examples"
     ],
     "devDependencies": {
         "lerna": "^2.9.0"
