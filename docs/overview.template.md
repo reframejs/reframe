@@ -22,14 +22,12 @@ Reframe allows you to create web apps by defining so called "page configs".
 Reframe then takes care of the rest: It automatically transpiles, bundles, routes, renders, and serves your pages.
 
 ~~~jsx
-// We define a page config to create a landing page
+// We define a page config to create a page
 const LandingPage = {
   // Page's URL
   route: '/',
-
   // Page's React component
   view: () => <div>Welcome to Reframe</div>,
-
   // Page's <title>
   title: 'Welcome'
 };
@@ -122,7 +120,7 @@ The "Quick Start" section below gives a step-by-step guide to create a React app
    by pre-rendering pages to HTML,
    and by statically rendering views.
 
-The [Reframe Rational](/docs/reframe-rational.md) document goes into the details of these perks.
+The [Reframe Rational](/docs/reframe-rational.md) explains these perks in more detail.
 
 
 
