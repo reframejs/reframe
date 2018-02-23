@@ -1,10 +1,47 @@
 #!/usr/bin/env node
 
-process.on('unhandledRejection', err => {throw err});
+const program = require('commander');
+const pkg = require('./package.json');
+const fs = require('fs');
+const path = require('path');
+let argValue;
 
-run();
+program
+    .version(pkg.version, '-v, --version')
+    .command('init <project-name>')
+    .description('creates new project scaffolding')
+    .action( (project) => {
+        argValue = 'init';
+        createScaffold(project);
+    });
 
-function run() {
+program
+    .command('start')
+    .description('starts dev server on localhost')
+    .action( () => {
+        argValue = 'start';
+        start();
+    });
+
+program
+    .arguments('<arg>')
+    .action((arg) => {
+        argValue = arg;
+        console.error(`Sorry, ${arg} is not a valid command!  Please use -h or --help for valid commands.`);
+    });
+
+program.parse(process.argv);
+
+if (typeof argValue === 'undefined') {
+    console.error('No command given!  Please use -h or --help for valid commands.');
+    process.exit(1);
+}
+
+//process.on('unhandledRejection', err => {throw err});
+
+//start();
+
+function start() {
     const {opts, cwd} = get_cli_args();
 
     if( opts.prod ) {
@@ -95,7 +132,7 @@ function log_build_success({compilationInfo}) {
             ) : (
                 chalk.blueBright('[DEV]')
             )
-       );
+        );
     }
 
     function is_production() {
@@ -117,4 +154,49 @@ function log_server_started(server) {
 function green_checkmark() {
     const chalk = require('chalk');
     return chalk.green('\u2714');
+}
+
+function createScaffold(projectName) {
+    const {homeViewTemplate, homePageTemplate} = require('./templates/homeTemplate');
+    const viewTemplate = homeViewTemplate();
+    const pageTemplate = homePageTemplate(projectName);
+    let currentDir = path.normalize(path.resolve(process.cwd(), projectName));
+
+    fs.mkdir(currentDir, (err) => {
+        if (err) {
+            console.log(err);
+        } else {
+            let tempPath = path.resolve(currentDir, 'app');
+            fs.mkdir(tempPath, (err) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    let viewPath = path.resolve(currentDir, 'app', 'views');
+                    fs.mkdir(viewPath, (err) => {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            let tempPath = path.resolve(currentDir, 'app', 'views', 'homeView.js');
+                            fs.writeFile(tempPath, viewTemplate, (err) => {
+                                if (err)
+                                    console.log(err);
+                            });
+                        }
+                    });
+                    let pagePath = path.resolve(currentDir, 'app', 'pages');
+                    fs.mkdir(pagePath, (err) => {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            let tempPath = path.resolve(currentDir, 'app', 'pages', 'homePage.js');
+                            fs.writeFile(tempPath, pageTemplate, (err) => {
+                                if (err)
+                                    console.log(err);
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    });
 }
