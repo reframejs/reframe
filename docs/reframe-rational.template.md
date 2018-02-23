@@ -1,7 +1,7 @@
 !INLINE ./header.md --hide-source-path
 
 !MENU
-!MENU_ORDER 40
+!MENU_ORDER 20
 
 <br/>
 
@@ -22,7 +22,7 @@ This is Reframe's raison d'etre.
 #### Easy
 
 Creating a React app is simply a matter of creating React components and page configs.
-The "Quick Start" section below shows how easy it is.
+And creating a certain type of app is simply a matter of configurating your page configs.
 
 
 #### Universal
@@ -55,18 +55,23 @@ For example, you can create:
  - Server-side rendered apps.
    <br/>
    (In other words HTML-dynamic apps: All pages are configured to be HTML-dynamic.)
- - Static websites.
+ - Static apps.
    <br/>
    (In other words HTML-static apps: All pages are configured to be HTML-static.)
    <br/>
    Since all pages are rendered to HTML at build-time, no Node.js server is needed.
    These apps can be deployed to static website hostings such as GitHub Pages or Netlify.
- - DOM-static apps
+ - DOM-static apps.
    <br/>
    (In other words, apps where all pages are configured to be DOM-static.)
    <br/>
    Since the page is not hydrated, React is not loaded in the browser.
    No (or almost no) JavaScript is loaded in the browser.
+ - Static websites.
+   <br/>
+   (In other words HTML-static and DOM-static apps: All pages are configured to be HTML-static and DOM-static.)
+   <br/>
+   These apps can be deployed to static website hostings as well.
  - Hybrid apps.
    <br/>
    An app can have pages of different types:

@@ -67,7 +67,6 @@ Reframe did the following:
  - Reframe used webpack to transpile `HelloPage.html.js`.
  - Reframe started a Node.js/hapi server serving all static assets and rendering and serving our page's HTML.
 
-
 With Reframe you can create:
 
  - **Server-side rendered apps**
