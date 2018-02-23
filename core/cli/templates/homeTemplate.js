@@ -6,14 +6,6 @@ function homeViewTemplate() {
 `import React, { Component } from 'react';
 
 class HomeView extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    };
-
-    static defaultProps = {
-    }
 
     render() {
         return (
