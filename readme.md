@@ -103,7 +103,8 @@
 
 [Overview](/../../)<br/>
 [Usage Manual](/docs/usage-manual.md)<br/>
-[Customization Manual](/docs/customization-manual.md)
+[Customization Manual](/docs/customization-manual.md)<br/>
+[Plugins](/docs/plugins.md)
 
 <br/>
 
@@ -119,9 +120,7 @@
    - [Easy Escape](#easy-escape)
    - [Performance](#performance)
  - [Reframe Project Scope](#reframe-project-scope)
- - [Plugins](#plugins)
  - [Quick Start](#quick-start)
-
 
 
 ### What is Reframe
@@ -226,6 +225,7 @@ Reframe did the following:
  - Reframe started a Node.js/hapi server serving all static assets and rendering and serving our page's HTML.
 
 The "Quick Start" section below gives a step-by-step guide to create a React app with Reframe.
+
 
 ### Why Reframe
 
@@ -424,7 +424,6 @@ In other words, you can't escape in a progressive manner.
   Pages are rendered to HTML before being hydrated, decreasing the (perceived) load time.
 
 
-
 ### Reframe Project Scope
 
 Reframe takes care of:
@@ -449,23 +448,6 @@ Reframe **doesn't** take care of:
    It's up to you to create, populate, and query databases.
    (You can add RESTFul/GraphQL API endpoints to the hapi server that Reframe creates.)
 
-
-### Plugins
-
-###### Languages
- - [@reframe/typescript](/typescript) - Use Reframe with TypeScript.
- - [@reframe/postcss](/postcss) - Use Reframe with PostCSS.
-
-###### Routing
- - [@reframe/react-router](/react-router) - Use React Router's components.
- - [@reframe/crossroads](/crossroads) - Use Reframe with [Crossroads.js](https://github.com/millermedeiros/crossroads.js).
- - [@reframe/path-to-regexp](/path-to-regexp) - Use Reframe with [`path-to-regexp`](https://github.com/pillarjs/path-to-regexp).
-
-###### Kits
- - [@reframe/default-kit](/default-kit) - Reframe's default kit.
-
-###### View renderers
- - [@reframe/react](/react) - Use Reframe with React.
 
 ### Quick Start
 
