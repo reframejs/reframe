@@ -5,9 +5,9 @@
 
 <br/>
 
-List of Reframe plugins. Make a PR to add yours.
-
 # Plugins
+
+List of Reframe plugins. Make a PR to add yours.
 
 ###### Languages
  - [@reframe/typescript](/typescript) - Use Reframe with TypeScript.
