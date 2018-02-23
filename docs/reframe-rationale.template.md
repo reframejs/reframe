@@ -5,9 +5,9 @@
 
 <br/>
 
-# Reframe Rational
+# Reframe Rationale
 
-The Reframe Rational explains in details why someone would want to use Reframe.
+The Reframe Rationale explains in details why someone would want to use Reframe.
 This is Reframe's raison d'etre.
 
 ##### Contents

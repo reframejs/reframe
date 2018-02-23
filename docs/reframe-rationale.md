@@ -7,7 +7,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/reframe-rational.template.md` instead.
+    Edit `/docs/reframe-rationale.template.md` instead.
 
 
 
@@ -22,7 +22,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/reframe-rational.template.md` instead.
+    Edit `/docs/reframe-rationale.template.md` instead.
 
 
 
@@ -37,7 +37,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/reframe-rational.template.md` instead.
+    Edit `/docs/reframe-rationale.template.md` instead.
 
 
 
@@ -52,7 +52,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/reframe-rational.template.md` instead.
+    Edit `/docs/reframe-rationale.template.md` instead.
 
 
 
@@ -67,7 +67,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/reframe-rational.template.md` instead.
+    Edit `/docs/reframe-rationale.template.md` instead.
 
 
 
@@ -102,16 +102,16 @@
 <br/>
 
 [Overview](/../../)<br/>
-[Reframe Rational](/docs/reframe-rational.md)<br/>
+[Reframe Rationale](/docs/reframe-rationale.md)<br/>
 [Usage Manual](/docs/usage-manual.md)<br/>
 [Customization Manual](/docs/customization-manual.md)<br/>
 [Plugins](/docs/plugins.md)
 
 <br/>
 
-# Reframe Rational
+# Reframe Rationale
 
-The Reframe Rational explains in details why someone would want to use Reframe.
+The Reframe Rationale explains in details why someone would want to use Reframe.
 This is Reframe's raison d'etre.
 
 ##### Contents
@@ -331,7 +331,7 @@ The "Usage Manual" and "Customization Manual" documents cover these possibilites
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/reframe-rational.template.md` instead.
+    Edit `/docs/reframe-rationale.template.md` instead.
 
 
 
@@ -346,7 +346,7 @@ The "Usage Manual" and "Customization Manual" documents cover these possibilites
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/reframe-rational.template.md` instead.
+    Edit `/docs/reframe-rationale.template.md` instead.
 
 
 
@@ -361,7 +361,7 @@ The "Usage Manual" and "Customization Manual" documents cover these possibilites
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/reframe-rational.template.md` instead.
+    Edit `/docs/reframe-rationale.template.md` instead.
 
 
 
@@ -376,7 +376,7 @@ The "Usage Manual" and "Customization Manual" documents cover these possibilites
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/reframe-rational.template.md` instead.
+    Edit `/docs/reframe-rationale.template.md` instead.
 
 
 
@@ -391,7 +391,7 @@ The "Usage Manual" and "Customization Manual" documents cover these possibilites
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/reframe-rational.template.md` instead.
+    Edit `/docs/reframe-rationale.template.md` instead.
 
 
 

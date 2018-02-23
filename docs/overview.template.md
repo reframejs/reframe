@@ -122,7 +122,7 @@ The "Quick Start" section below gives a step-by-step guide to create a React app
    by pre-rendering pages to HTML,
    and by statically rendering views.
 
-The [Reframe Rational](/docs/reframe-rational.md) explains these perks in more detail.
+The [Reframe Rationale](/docs/reframe-rationale.md) explains these perks in more detail.
 
 
 

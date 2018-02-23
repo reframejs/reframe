@@ -102,7 +102,7 @@
 <br/>
 
 [Overview](/../../)<br/>
-[Reframe Rational](/docs/reframe-rational.md)<br/>
+[Reframe Rationale](/docs/reframe-rationale.md)<br/>
 [Usage Manual](/docs/usage-manual.md)<br/>
 [Customization Manual](/docs/customization-manual.md)<br/>
 [Plugins](/docs/plugins.md)
@@ -249,7 +249,7 @@ The "Quick Start" section below gives a step-by-step guide to create a React app
    by pre-rendering pages to HTML,
    and by statically rendering views.
 
-The [Reframe Rational](/docs/reframe-rational.md) explains these perks in more detail.
+The [Reframe Rationale](/docs/reframe-rationale.md) explains these perks in more detail.
 
 
 
