@@ -2,7 +2,7 @@
 
 const program = require('commander');
 const pkg = require('./package.json');
-const fs = require('fs');
+const fs = require('fs-extra');
 const path = require('path');
 let argValue;
 
@@ -156,47 +156,37 @@ function green_checkmark() {
     return chalk.green('\u2714');
 }
 
-function createScaffold(projectName) {
+async function createScaffold(projectName) {
     const {homeViewTemplate, homePageTemplate} = require('./templates/homeTemplate');
+    const {jsonPkgTemplate} = require('./templates/jsonPkgTemplate');
     const viewTemplate = homeViewTemplate();
     const pageTemplate = homePageTemplate(projectName);
-    let currentDir = path.normalize(path.resolve(process.cwd(), projectName));
+    const pkgTemplate = jsonPkgTemplate(projectName);
+    let currentDir = path.resolve(process.cwd(), projectName);
 
-    fs.mkdir(currentDir, (err) => {
-        if (err) {
-            console.log(err);
-        } else {
-            let tempPath = path.resolve(currentDir, 'app');
-            fs.mkdir(tempPath, (err) => {
-                if (err) {
-                    console.log(err);
-                } else {
-                    let viewPath = path.resolve(currentDir, 'app', 'views');
-                    fs.mkdir(viewPath, (err) => {
-                        if (err) {
-                            console.log(err);
-                        } else {
-                            let tempPath = path.resolve(currentDir, 'app', 'views', 'homeView.js');
-                            fs.writeFile(tempPath, viewTemplate, (err) => {
-                                if (err)
-                                    console.log(err);
-                            });
-                        }
-                    });
-                    let pagePath = path.resolve(currentDir, 'app', 'pages');
-                    fs.mkdir(pagePath, (err) => {
-                        if (err) {
-                            console.log(err);
-                        } else {
-                            let tempPath = path.resolve(currentDir, 'app', 'pages', 'homePage.js');
-                            fs.writeFile(tempPath, pageTemplate, (err) => {
-                                if (err)
-                                    console.log(err);
-                            });
-                        }
-                    });
-                }
-            });
-        }
-    });
+    // add files to projectname/app/views
+    try {
+        let tempPath = path.resolve(currentDir, 'app', 'views');
+        let fileName = 'homeView.js';
+        await fs.outputFile(path.resolve(tempPath, fileName), viewTemplate);
+    } catch (err) {
+        console.log(err);
+    }
+
+    // add files to projectName/app/pages
+    try {
+        let tempPath = path.resolve(currentDir, 'app', 'pages');
+        let fileName = 'homePage.html.js';
+        await fs.outputFile(path.resolve(tempPath, fileName), pageTemplate);
+    } catch (err) {
+        console.log(err);
+    }
+
+    // add files to projectName root directory
+    try {
+        let fileName = 'package.json';
+        await fs.outputFile(path.resolve(currentDir, fileName), pkgTemplate);
+    } catch (err) {
+        console.log(err);
+    }
 }
