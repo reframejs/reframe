@@ -357,13 +357,13 @@ const HelloComponent = (
 );
 
 const HelloPage = {
-  // Page's React component
-  view: HelloComponent,
-
   // Page's URL.
   // Reframe follows the same route string syntax than React Router.
   // To use React Router's components `<Route>`, `<Switch>`, etc. add the plugin `@reframe/react-router`.
   route: '/hello/:name',
+
+  // Page's React component
+  view: HelloComponent,
 
   // Page's <title>
   title: 'Hi there',
