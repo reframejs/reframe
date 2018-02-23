@@ -1,14 +1,14 @@
 !INLINE ./header.md --hide-source-path
 
 !MENU
-!MENU_ORDER 20
+!MENU_ORDER 30
 
 <br/>
 
+# Usage Manual
+
 The usage manual acts as reference for using Reframe wihtout advanced customization.
 This manual covers most common use cases.
-
-# Usage Manual
 
 #### Contents
 

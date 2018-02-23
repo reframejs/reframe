@@ -102,15 +102,17 @@
 <br/>
 
 [Overview](/../../)<br/>
+[Reframe Rational](/docs/reframe-rational.md)<br/>
 [Usage Manual](/docs/usage-manual.md)<br/>
-[Customization Manual](/docs/customization-manual.md)
+[Customization Manual](/docs/customization-manual.md)<br/>
+[Plugins](/docs/plugins.md)
 
 <br/>
 
+# Usage Manual
+
 The usage manual acts as reference for using Reframe wihtout advanced customization.
 This manual covers most common use cases.
-
-# Usage Manual
 
 #### Contents
 
@@ -355,14 +357,13 @@ const HelloComponent = (
 );
 
 const HelloPage = {
+  // Reframe follows the same route string syntax than React Router.
+  // React Router's components `<Route>`, `<Switch>`, etc. can be used
+  // by adding the plugin `@reframe/react-router`.
+  route: '/hello/:name',
+
   // Page's React component
   view: HelloComponent,
-
-  // Page's URL.
-  // Reframe follows the same route string syntax than React Router.
-  // (This route is analogous to `<Route path="/hello/:name" component={HelloComponent}/>`.)
-  // (To use React Router's components `<Route>`, `<Switch>`, etc. add the plugin `@reframe/react-router`.)
-  route: '/hello/:name',
 
   // Page's <title>
   title: 'Hi there',
