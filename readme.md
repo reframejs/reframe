@@ -126,14 +126,14 @@ Reframe then takes care of the rest: It automatically transpiles, bundles, route
 ~~~jsx
 // We define a page config to create a landing page
 const LandingPage = {
-    // Page's URL
-    route: '/',
+  // Page's URL
+  route: '/',
 
-    // Page's React component
-    view: () => <div>Welcome to Reframe</div>,
+  // Page's React component
+  view: () => <div>Welcome to Reframe</div>,
 
-    // Page's <title>
-    title: 'Welcome'
+  // Page's <title>
+  title: 'Welcome'
 };
 ~~~
 
@@ -169,8 +169,7 @@ const HelloPage = {
 
   // Page's URL.
   // Reframe follows the same route string syntax than React Router.
-  // (This route is analogous to `<Route path="/hello/:name" component={HelloComponent}/>`.)
-  // (To use React Router's components `<Route>`, `<Switch>`, etc. add the plugin `@reframe/react-router`.)
+  // To use React Router's components `<Route>`, `<Switch>`, etc. add the plugin `@reframe/react-router`.
   route: '/hello/:name',
 
   // Page's <title>
