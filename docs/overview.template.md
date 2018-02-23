@@ -26,8 +26,10 @@ Reframe then takes care of the rest: It automatically transpiles, bundles, route
 const LandingPage = {
   // Page's URL
   route: '/',
+
   // Page's React component
   view: () => <div>Welcome to Reframe</div>,
+
   // Page's <title>
   title: 'Welcome'
 };
