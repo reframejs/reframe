@@ -1,7 +1,7 @@
 !INLINE ./header.md --hide-source-path
 
 !MENU
-!MENU_ORDER 40
+!MENU_ORDER 50
 
 <br/>
 
@@ -23,5 +23,3 @@ List of Reframe plugins. Make a PR to add yours.
 
 ###### View renderers
  - [@reframe/react](/plugins/react) - Use Reframe with React.
-
-
