@@ -109,10 +109,10 @@
 
 <br/>
 
+# Usage Manual
+
 The usage manual acts as reference for using Reframe wihtout advanced customization.
 This manual covers most common use cases.
-
-# Usage Manual
 
 #### Contents
 

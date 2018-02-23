@@ -111,7 +111,7 @@
 
 # Reframe Rational
 
-The Reframe Rational document explains in details why someone would want to use Reframe.
+The Reframe Rational explains in details why someone would want to use Reframe.
 This is Reframe's raison d'etre.
 
 ##### Contents

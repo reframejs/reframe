@@ -109,6 +109,8 @@
 
 <br/>
 
+# Customization Manual
+
 The customization manual acts as reference for advanced Reframe customization. Basic customization are covered in the Usage Manual.
 
 As your app grows, you will likely need to implement edge cases not covered by Reframe.
@@ -128,8 +130,6 @@ And if you replace all three packages, then you effectively got rid of Reframe.
 
 The customizing manual gives a good overview of how packages can be re-written but partially lacks detailed information.
 Open a GitHub issue to get detailed info and support.
-
-# Customization Manual
 
 ##### Contents
 
