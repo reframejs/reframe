@@ -7,20 +7,25 @@
 
 # Reframe Rational
 
+The Reframe Rational document explains in details why someone would want to use Reframe.
+This is Reframe's raison d'etre.
+
 ##### Contents
 
- - [Ease of Use](#ease-of-use)
- - [Universality](#universality)
- - [Customization](#customization)
- - [Easy Escape](#easy-escape)
- - [Performance](#performance)
+ - [Easy](#easy)
+ - [Universal](#universal)
+ - [Escapable](#escapable)
+ - [Customizable](#customizable)
+ - [Performant](#performant)
 
-#### Ease of Use
+
+#### Easy
 
 Creating a React app is simply a matter of creating React components and page configs.
 The "Quick Start" section below shows how easy it is.
 
-#### Universality
+
+#### Universal
 
 A fundamental aspect of the page config is that it allows you to configure a page to be what we call "HTML-static", "HTML-dynamic", "DOM-static" and "DOM-dynamic":
  - *HTML-static*
@@ -75,28 +80,8 @@ Reframe is the only React framework that supports all app types.
 > Instead of learning different frameworks to create different types of apps,
 > you learn Reframe once to be able to create all types of apps.
 
-#### Customization
 
-Reframe is designed with easy customization in mind,
-and the following examples are easy to achieve:
- - Custom server
-   - Add server endpoints: RESTful/GraphQL API endpoints, authentication endpoints, etc.
-   - Custom hapi server config. (Reframe uses the hapi server framework by default.)
-   - Use a process manager such as PM2.
-   - etc.
- - Custom browser JavaScript
-   - Add error logging, analytics, etc.
-   - Full control of the hydration process.
-   - etc.
- - Custom transpiling & bundling
-   - Reframe can be used with almost any webpack config. (Reframe assumes pretty much nothing about the webpack config.)
-   - TypeScript support
-   - CSS preprocessors support, such as PostCSS, SASS, etc.
-   - etc.
- - Custom routing library. (Reframe is based on React Router by default.)
- - Custom view library such as Preact.
-
-#### Easy Escape
+#### Escapable
 
 Every framework can be escaped from but the escape-cost can vary dramatically.
 The escape-cost can be measured by two criteria:
@@ -168,8 +153,31 @@ With Meteor, it's mostly either all-in or all-out.
 In other words, you can't escape in a progressive manner.
 
 
+#### Customizable
 
-#### Performance
+Reframe is designed with easy customization in mind,
+and the following examples are easy to achieve:
+ - Custom server
+   - Add server endpoints: RESTful/GraphQL API endpoints, authentication endpoints, etc.
+   - Custom hapi server config. (Reframe uses the hapi server framework by default.)
+   - Use a process manager such as PM2.
+   - etc.
+ - Custom browser JavaScript
+   - Add error logging, analytics, etc.
+   - Full control of the hydration process.
+   - etc.
+ - Custom transpiling & bundling
+   - Reframe can be used with almost any webpack config. (Reframe assumes pretty much nothing about the webpack config.)
+   - TypeScript support
+   - CSS preprocessors support, such as PostCSS, SASS, etc.
+   - etc.
+ - Custom routing library. (Reframe is based on React Router by default.)
+ - Custom view library such as Preact.
+
+The "Usage Manual" and "Customization Manual" documents cover these possibilites.
+
+
+#### Performant
 
 - **Code splitting**
   <br/>

@@ -13,14 +13,13 @@
 
  - [What is Reframe](#what-is-reframe)
  - [Why Reframe](#why-reframe)
- - [Reframe Project Scope](#reframe-project-scope)
  - [Quick Start](#quick-start)
 
 
 ### What is Reframe
 
 Reframe allows you to create web apps by defining so called "page configs".
-Reframe then takes care of the rest: It automatically transpiles, bundles, serves, and routes your pages.
+Reframe then takes care of the rest: It automatically transpiles, bundles, routes, renders, and serves your pages.
 
 ~~~jsx
 // We define a page config to create a landing page
@@ -48,6 +47,27 @@ You can create a React web app with **no build configuration** and **no server c
 And, if you need to, **everything is customizable**:
 You can customize the transpiling & bundling, the server, the browser entry, the Node.js entry, etc.
 
+Let's create a web app by defining a page config `HelloPage`:
+
+~~~jsx
+// ~/tmp/reframe-playground/pages/HelloPage.html.js
+
+!INLINE ../examples/pages/HelloPage.html.js --hide-source-path
+~~~
+
+The `reframe` CLI does the rest:
+
+<p align="center">
+    <img src='https://github.com/brillout/reframe/raw/master/docs/images/reframe_overview_screenshot.png?sanitize=true' width=1200 style="max-width:100%;"/>
+</p>
+
+Reframe did the following:
+ - Reframe searched for a `pages/` directory and found one at `~/tmp/reframe-playground/pages`.
+ - Reframe read the `pages/` directory and found our page config at `~/tmp/reframe-playground/pages/HelloPage.html.js`.
+ - Reframe used webpack to transpile `HelloPage.html.js`.
+ - Reframe started a Node.js/hapi server serving all static assets and rendering and serving our page's HTML.
+
+
 With Reframe you can create:
 
  - **Server-side rendered apps**
@@ -72,26 +92,6 @@ Reframe generates a certain type of app depending on how you configure your page
 For example, if you add `htmlIsStatic: true` to a page config, then that page's HTML is rendered at build-time instead of request-time.
 So, creating a static app is simply a matter of setting `htmlIsStatic: true` to all page configs.
 
-Let's create a web app by defining a page config `HelloPage`:
-
-~~~jsx
-// ~/tmp/reframe-playground/pages/HelloPage.html.js
-
-!INLINE ../examples/pages/HelloPage.html.js --hide-source-path
-~~~
-
-The `reframe` CLI does the rest:
-
-<p align="center">
-    <img src='https://github.com/brillout/reframe/raw/master/docs/images/reframe_overview_screenshot.png?sanitize=true' width=1200 style="max-width:100%;"/>
-</p>
-
-Reframe did the following:
- - Reframe searched for a `pages/` directory and found one at `~/tmp/reframe-playground/pages`.
- - Reframe read the `pages/` directory and found our page config at `~/tmp/reframe-playground/pages/HelloPage.html.js`.
- - Reframe used webpack to transpile `HelloPage.html.js`.
- - Reframe started a Node.js/hapi server serving all static assets and rendering and serving our page's HTML.
-
 The "Quick Start" section below gives a step-by-step guide to create a React app with Reframe.
 
 
@@ -99,8 +99,8 @@ The "Quick Start" section below gives a step-by-step guide to create a React app
 
  - **Easy**
    <br/>
-   With Reframe, you create web apps .
-   The Quick Start section bellow 
+   Create web apps by simply defining page configs and React components.
+   The Quick Start section bellow shows how easy it is.
  - **Universal**
    <br/>
    Reframe is the only framework that supports all types of apps.
@@ -108,12 +108,14 @@ The "Quick Start" section below gives a step-by-step guide to create a React app
    you learn Reframe once to be able to create all types of apps.
  - **Escapable**
    <br/>
-   Every framework can be escaped from but the escape-cost can vary dramatically.
+   Every framework can be escaped from, but the escape-cost can vary dramatically.
    Reframe has been designed to have a very low escape-cost.
+   In other words, if you don't want to be locked into a framework, then Reframe could be the right framework for you.
  - **Customizable**
    <br/>
-   Reframe can easily be customized both with plugins and manually.
-   Allowing you fully customize the webpack config, the server
+   Reframe can easily be customized with plugins or manually.
+   Allowing you to fully customize the webpack config, the server, the browser-side entry code, the routing, etc.
+   And plugins are available to easily use Reframe with React Router v4, TypeScript, PostCSS, etc.
  - **Performant**
    <br/>
    Reframe creates high-performance apps by doing
@@ -124,29 +126,6 @@ The "Quick Start" section below gives a step-by-step guide to create a React app
 
 The "Reframe Rational" document goes into the details of how Reframe achieves these perks.
 
-### Reframe Project Scope
-
-Reframe takes care of:
-
- - **Building**
-   <br/>
-   Reframe transpiles and bundles. (Uses webpack.)
- - **Server**
-   <br/>
-   Reframe sets up a Node.js server serving static assets and your pages' HTML. (Uses hapi.)
- - **Routing**
-   <br/>
-   Reframe routes URLs to your pages.
-
-Reframe **doesn't** take care of:
-
- - View logic / state management.
-   <br/>
-   It's up to you to manage the state of your views (or use Redux / MobX).
- - Database.
-   <br/>
-   It's up to you to create, populate, and query databases.
-   (You can add RESTFul/GraphQL API endpoints to the hapi server that Reframe creates.)
 
 
 ### Quick Start
