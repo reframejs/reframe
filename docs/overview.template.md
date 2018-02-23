@@ -122,7 +122,7 @@ The "Quick Start" section below gives a step-by-step guide to create a React app
    Reframe creates high performance apps by doing
    code splitting,
    optimal HTTP caching,
-   by rendering pages to HTML and hydrating the page,
+   by pre-rendering pages to HTML,
    and by statically rendering views.
 
 The [Reframe Rational](/docs/reframe-rational.md) document goes into the details of these perks.

@@ -102,8 +102,8 @@
 <br/>
 
 [Overview](/../../)<br/>
-[Reframe Rational](/docs/reframe-rational.md)<br/>
 [Usage Manual](/docs/usage-manual.md)<br/>
+[Reframe Rational](/docs/reframe-rational.md)<br/>
 [Customization Manual](/docs/customization-manual.md)<br/>
 [Plugins](/docs/plugins.md)
 
@@ -237,21 +237,23 @@ The "Quick Start" section below gives a step-by-step guide to create a React app
    <br/>
    Every framework can be escaped from, but the escape-cost can vary dramatically.
    Reframe has been designed to have a very low escape-cost.
-   In other words, if you don't want to be locked into a framework, then Reframe could be the right framework for you.
+   If you are afraid of being locked into a framework, then Reframe could be the right choice for you.
+ - **Plugins**
+   <br/>
+   Plugins can modify Reframe to a great extent.
+   There are plugins for using Reframe with React Router v4, TypeScript, PostCSS, etc.
  - **Customizable**
    <br/>
-   Reframe can easily be customized with plugins or manually.
-   Allowing you to fully customize the webpack config, the server, the browser-side entry code, the routing, etc.
-   And plugins are available to easily use Reframe with React Router v4, TypeScript, PostCSS, etc.
- - **Performant**
+   Reframe allows you to easily and fully customize the webpack config, the server, the browser-side entry code, the routing, etc.
+ - **Performance**
    <br/>
-   Reframe creates high-performance apps by doing
+   Reframe creates high performance apps by doing
    code splitting,
    optimal HTTP caching,
-   prerendering pages to HTML,
+   by pre-rendering pages to HTML,
    and by statically rendering views.
 
-The "Reframe Rational" document goes into the details of how Reframe achieves these perks.
+The [Reframe Rational](/docs/reframe-rational.md) document goes into the details of these perks.
 
 
 
