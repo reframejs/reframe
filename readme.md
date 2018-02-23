@@ -146,9 +146,6 @@ You can create a React web app with **no build configuration** and **no server c
 
 > All you need to create a web app is one React component and one page config per page.
 
-And, if you need to, **everything is customizable**:
-You can customize the transpiling & bundling, the server, the browser entry, the Node.js entry, etc.
-
 Let's create a web app by defining a page config `HelloPage`:
 
 ~~~jsx
@@ -244,7 +241,7 @@ The "Quick Start" section below gives a step-by-step guide to create a React app
    There are plugins for using Reframe with React Router v4, TypeScript, PostCSS, etc.
  - **Customizable**
    <br/>
-   Reframe allows you to easily and fully customize the webpack config, the server, the browser-side entry code, the routing, etc.
+   Reframe allows you to easily and fully customize the webpack config, the server, the browser entry, the Node.js entry, the routing, etc.
  - **Performance**
    <br/>
    Reframe creates high performance apps by doing
