@@ -754,13 +754,7 @@ import React from 'react';
 
 const pageA = {
     route: '/page-a',
-    view: () => (
-        <div>
-            This is page A.
-            <br/>
-            Link to page B: <a href='/page-b'>/page-b</a>
-        </div>
-    ),
+    view: () => <div>This is page A. <a href='/page-b'>Link to page B</a>.</div>,
 };
 
 export default pageA;
@@ -772,13 +766,7 @@ import React from 'react';
 
 const pageB = {
     route: '/page-b',
-    view: () => (
-        <div>
-            This is page B.
-            <br/>
-            Link to page A: <a href='/page-a'>/page-a</a>
-        </div>
-    ),
+    view: () => <div>This is page B. <a href='/page-a'>Link to page A</a>.</div>,
 };
 
 export default pageB;

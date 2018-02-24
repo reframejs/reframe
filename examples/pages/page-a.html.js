@@ -2,13 +2,7 @@ import React from 'react';
 
 const pageA = {
     route: '/page-a',
-    view: () => (
-        <div>
-            This is page A.
-            <br/>
-            Link to page B: <a href='/page-b'>/page-b</a>
-        </div>
-    ),
+    view: () => <div>This is page A. <a href='/page-b'>Link to page B</a>.</div>,
 };
 
 export default pageA;
