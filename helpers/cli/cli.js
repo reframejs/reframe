@@ -24,9 +24,10 @@ program
 program
     .command('start')
     .description('starts dev server on localhost')
-    .action( () => {
+    .option("-p, --production", "start for production")
+    .action( (options) => {
         argValue = 'start';
-        start();
+        start(options.production);
     });
 
 program
@@ -43,10 +44,10 @@ if (typeof argValue === 'undefined') {
     process.exit(1);
 }
 
-function start() {
+function start(prod) {
     const {opts, cwd} = get_cli_args();
 
-    if( opts.prod ) {
+    if( prod ) {
         process.env['NODE_ENV']='production';
     }
 
