@@ -1,6 +1,6 @@
-module.exports = {getWebpackBrowserConfig, getWebpackServerConfig};
+module.exports = {webpackBrowserConfig};
 
-function getWebpackBrowserConfig({config}) {
+function webpackBrowserConfig({config}) {
     const cssRule = {
         test: /\.css$/,
         use: [
@@ -25,10 +25,5 @@ function getWebpackBrowserConfig({config}) {
 
     config.module.rules[cssRuleIndex] = cssRule;
 
-    return config;
-}
-
-function getWebpackServerConfig({config}) {
-    // We don't modify the server config as the server doesn't load any CSS
     return config;
 }
