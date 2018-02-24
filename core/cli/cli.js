@@ -45,8 +45,8 @@ function find_files(cwd) {
     log_found_file(pagesDirPath, 'Pages directory');
 
     assert_usage(
-        pagesDirPath,
-        "Can't find `pages/` directory."
+        pagesDirPath || reframeConfigPath,
+        "Can't find `pages/` directory nor `reframe.config.js` file."
     );
     assert_internal(appDirPath);
 
