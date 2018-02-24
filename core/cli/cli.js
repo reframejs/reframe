@@ -37,10 +37,6 @@ if (typeof argValue === 'undefined') {
     process.exit(1);
 }
 
-//process.on('unhandledRejection', err => {throw err});
-
-//start();
-
 function start() {
     const {opts, cwd} = get_cli_args();
 
@@ -164,29 +160,22 @@ async function createScaffold(projectName) {
     const pkgTemplate = jsonPkgTemplate(projectName);
     let currentDir = path.resolve(process.cwd(), projectName);
 
-    // add files to projectname/app/views
-    try {
-        let tempPath = path.resolve(currentDir, 'app', 'views');
-        let fileName = 'homeView.js';
-        await fs.outputFile(path.resolve(tempPath, fileName), viewTemplate);
-    } catch (err) {
-        console.log(err);
-    }
+    // add files to projectName/app/views
+    let viewPath = path.resolve(currentDir, 'app', 'views');
+    let viewFileName = 'homeView.js';
+    await fs.outputFile(path.resolve(viewPath, viewFileName), viewTemplate);
 
     // add files to projectName/app/pages
-    try {
-        let tempPath = path.resolve(currentDir, 'app', 'pages');
-        let fileName = 'homePage.html.js';
-        await fs.outputFile(path.resolve(tempPath, fileName), pageTemplate);
-    } catch (err) {
-        console.log(err);
-    }
+    let pagePath = path.resolve(currentDir, 'app', 'pages');
+    let pageFileName = 'homePage.html.js';
+    await fs.outputFile(path.resolve(pagePath, pageFileName), pageTemplate);
 
     // add files to projectName root directory
-    try {
-        let fileName = 'package.json';
-        await fs.outputFile(path.resolve(currentDir, fileName), pkgTemplate);
-    } catch (err) {
-        console.log(err);
-    }
+    let pkgFileName = 'package.json';
+    await fs.outputFile(path.resolve(currentDir, pkgFileName), pkgTemplate);
 }
+
+process.on('unhandledRejection', err => {
+    console.log(err);
+    process.exit(1);
+});

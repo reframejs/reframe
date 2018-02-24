@@ -8,7 +8,8 @@ function jsonPkgTemplate(projectName) {
         "react": "^16.2.0"
     },
     "private": true
-}`;
+}
+`;
 
     return template;
 }

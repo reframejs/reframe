@@ -16,7 +16,8 @@ class HomeView extends Component {
     }
 }
 
-export default HomeView;`;
+export default HomeView;
+`;
 
     return template;
 }
@@ -33,7 +34,8 @@ const HomePage = {
     title: '${projectName}'
 };
 
-export default HomePage;`;
+export default HomePage;
+`;
 
     return template;
 }
