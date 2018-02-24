@@ -26,34 +26,30 @@ function build({
 
     reframeConfig={},
 
-    getWebpackBrowserConfig,
-    getWebpackServerConfig,
-
     doNotAutoReload=isProduction(),
     appDirPath,
     log: log_option,
     ...rebuild_opts
 }) {
     assert_usage(
-        pagesDirPath || getWebpackServerConfig && getWebpackBrowserConfig,
-        "Provide either argument `pagesDirPath` or `getWebpackBrowserConfig` and `getWebpackServerConfig`."
-    );
-    assert_usage(
         !pagesDirPath || pagesDirPath.constructor===String && pagesDirPath.startsWith('/'),
         pagesDirPath
+    );
+
+    processReframeConfig(reframeConfig);
+
+    assert_usage(
+        pagesDirPath || reframeConfig._processed.webpackBrowserConfigModifier && reframeConfig._processed.webpackServerConfigModifier,
+        "Provide either argument `pagesDirPath` or provide `webpackBrowserConfig` and `webpackServerConfig` in `reframe.config.js`."
     );
 
     if( pagesDirPath ) {
         handle_output_dir({pagesDirPath});
     }
 
-    processReframeConfig(reframeConfig);
-
     const webpack_config = get_webpack_config({
         pagesDirPath,
         reframeConfig,
-        getWebpackBrowserConfig,
-        getWebpackServerConfig,
         appDirPath,
     });
 
@@ -99,8 +95,6 @@ function get_dist_base_path({pagesDirPath}) {
 function get_webpack_config({
     pagesDirPath,
     reframeConfig={},
-    getWebpackBrowserConfig,
-    getWebpackServerConfig,
     appDirPath,
 }) {
     const {
@@ -117,10 +111,6 @@ function get_webpack_config({
     add_context_to_config(appDirPath, browser_build.config);
     if( reframeConfig._processed.webpackBrowserConfigModifier ) {
         browser_build.config = reframeConfig._processed.webpackBrowserConfigModifier(browser_build);
-        assert_internal(browser_build.config);
-    }
-    if( getWebpackBrowserConfig ) {
-        browser_build.config = getWebpackBrowserConfig(browser_build);
         assert_usage(browser_build.config);
     }
     add_context_to_config(appDirPath, browser_build.config);
@@ -132,10 +122,6 @@ function get_webpack_config({
     add_context_to_config(appDirPath, server_build.config);
     if( reframeConfig._processed.webpackServerConfigModifier ) {
         server_build.config = reframeConfig._processed.webpackServerConfigModifier(server_build);
-        assert_internal(server_build.config);
-    }
-    if( getWebpackServerConfig ) {
-        server_build.config = getWebpackServerConfig(server_build);
         assert_usage(server_build.config);
     }
     add_context_to_config(appDirPath, server_build.config);
