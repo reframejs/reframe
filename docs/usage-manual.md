@@ -741,9 +741,11 @@ And the HTML returned by the server is:
 
 ## Links & Page Navigation
 
-Pages are linked by using link tags such as `<a href="/about">About</a>`.
+The basic way to navigate between pages is to use link tags such as `<a href="/about">About</a>`.
 
-For example:
+See [Advanced Routing](#advanced-routing) for alternative ways of navigating.
+
+An example of basic page navigation:
 
 ~~~js
 // /examples/pages/page-a.html.js
@@ -781,18 +783,6 @@ const pageB = {
 
 export default pageB;
 ~~~
-
-There are two types of page navigation:
- - *HTML-navigation*
-   <br/>
-   When clicking a link, the new page's HTML is loaded.
-   (In other words, the browser discards the current DOM and builds a new DOM upon the new page's HTML.)
- - *pushState-navigation*
-   <br/>
-   When clicking a link, the URL is changed by `history.pushState()` and the DOM is manipulated (instead of loading the new page's HTML).
-
-Reframe does HTML-navigation for pages defined with page configs
-and you can use React Router's components to have pushState-navigation.
 
 
 
@@ -944,17 +934,16 @@ const HelloPage = {
 };
 ~~~
 
-We refer to [`path-to-regexp`'s docs](https://github.com/pillarjs/path-to-regexp) for further information about the route string syntax.
+See [`path-to-regexp`'s docs](https://github.com/pillarjs/path-to-regexp) for further information about the route string syntax.
 
 ###### React Router
 
 You can use React Router's components by adding the plugin [`@reframe/react-router`](/react-router).
 
-The React Router components allow you to have
-
+Using React Router components allow you to implement:
  - **pushState-navigation**
    <br/>
-   What "pushState-navigation" means is explained in [Links & Page Navigation](#links--page-navigation).
+   What "pushState-navigation" means is explained below.
  - **Nested Routes**
    <br/>
    For pages that differ in only some parts, in other words, where the majority of the view is the same.
@@ -964,6 +953,31 @@ The React Router components allow you to have
  - **URL hash**
    <br/>
    URLs with a `window.location.hash`.
+
+###### Html-navigation VS pushState-navigation
+
+There are two ways of navigating between pages:
+ - *HTML-navigation*
+   <br/>
+   When clicking a link, the new page's HTML is loaded.
+   (In other words, the browser discards the current DOM and builds a new DOM upon the new page's HTML.)
+ - *pushState-navigation*
+   <br/>
+   When clicking a link, the URL is changed by `history.pushState()` and the DOM is manipulated (instead of loading the new page's HTML).
+
+By default, Reframe does HTML-navigation when using `<a>` links between pages defined with page configs.
+
+###### pushState-navigation
+
+By using React Router's components you can do pushState-navigation.
+Pages are then defined by React Router's component instead of page configs.
+
+Note that with *page* we denote any view that is identified with a URL:
+If two URLs have similar views that differ in only in a small way,
+we still speak of two pages because these two views have two different URLs.
+
+Also note that the broswer-side code is splitted only between pages defined with page configs,
+and pages defined with React Router components will share the same browser-side code bundle.
 
 ###### Custom router
 
