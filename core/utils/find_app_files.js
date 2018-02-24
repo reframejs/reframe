@@ -11,7 +11,7 @@ function find_app_files(cwd) {
 
     const pagesDirPath = find_pages_dir(cwd);
 
-    const reframeConfigPath = find_reframe_config(cwd);
+    const reframeConfigPath = find_reframe_config(pagesDirPath);
 
     const appDirPath = (reframeConfigPath || pagesDirPath) && path_module.dirname(reframeConfigPath || pagesDirPath);
 
@@ -25,7 +25,7 @@ function find_reframe_config(cwd) {
 }
 
 function find_pages_dir(cwd) {
-    const pagesDirPath = find('pages/', {anchorFile: ['reframe.config.js'], canBeMissing: true, cwd});
+    const pagesDirPath = find('pages/', {anchorFiles: ['reframe.config.js', 'package.json', '.git'], canBeMissing: true, cwd});
     assert_internal(pagesDirPath===null || path_module.isAbsolute(pagesDirPath));
     return pagesDirPath;
 }
