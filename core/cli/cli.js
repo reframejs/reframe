@@ -7,6 +7,11 @@ const path = require('path');
 const spawn = require('cross-spawn');
 let argValue;
 
+process.on('unhandledRejection', err => {
+    console.log(err);
+    process.exit(1);
+});
+
 program
     .version(pkg.version, '-v, --version')
     .command('init <project-name>')
@@ -183,14 +188,9 @@ function install(directory) {
 
     child.stdout.on('data', data => {
         console.log(data);
-    }
+    });
 
     child.on('close', code => {
         console.log(`process completed with code: ${code}`);
-    }
+    });
 }
-
-process.on('unhandledRejection', err => {
-    console.log(err);
-    process.exit(1);
-});
