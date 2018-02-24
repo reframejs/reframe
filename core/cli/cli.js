@@ -84,7 +84,7 @@ function log_build_success({compilationInfo}) {
     const chalk = require('chalk');
     const browser_compilation_info = compilationInfo[0];
     const {output: {dist_root_directory}} = browser_compilation_info;
-    console.log(green_checkmark()+' Frontend uwi built at '+dist_root_directory+' '+env_tag());
+    console.log(green_checkmark()+' Frontend built at '+dist_root_directory+' '+env_tag());
 
     return;
 
