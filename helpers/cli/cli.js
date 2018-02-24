@@ -4,6 +4,7 @@ const program = require('commander');
 const pkg = require('./package.json');
 const fs = require('fs-extra');
 const path = require('path');
+const spawn = require('cross-spawn');
 let argValue;
 
 program
@@ -173,6 +174,20 @@ async function createScaffold(projectName) {
     // add files to projectName root directory
     let pkgFileName = 'package.json';
     await fs.outputFile(path.resolve(currentDir, pkgFileName), pkgTemplate);
+
+    install(currentDir);
+}
+
+function install(directory) {
+    const child = spawn('npm', ['install'], { stdio: 'inherit', cwd: directory });
+
+    child.stdout.on('data', data => {
+        console.log(data);
+    }
+
+    child.on('close', code => {
+        console.log(`process completed with code: ${code}`);
+    }
 }
 
 process.on('unhandledRejection', err => {
