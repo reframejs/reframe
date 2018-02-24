@@ -223,7 +223,7 @@ The "Quick Start" section below gives a step-by-step guide to create a React app
  - **Easy**
    <br/>
    Create web apps by simply defining page configs and React components.
-   The Quick Start section bellow shows how easy it is.
+   The Quick Start section below shows how easy it is.
  - **Universal**
    <br/>
    Reframe is the only framework that supports all types of apps.

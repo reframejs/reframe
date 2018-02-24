@@ -918,7 +918,7 @@ a low-level plugin-based page management library,
 and you can use Reframe with a custom Repage instance.
 
 To do so,
-and as shown in the example bellow,
+and as shown in the example below,
 we export a `getRepageInstance` function
 that returns the Repage instance we want to use
 in a `reframe.config.js` file.
