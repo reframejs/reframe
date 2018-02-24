@@ -7,7 +7,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/postcss/readme.template.md` instead.
+    Edit `/plugins/postcss/readme.template.md` instead.
 
 
 
@@ -22,7 +22,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/postcss/readme.template.md` instead.
+    Edit `/plugins/postcss/readme.template.md` instead.
 
 
 
@@ -37,7 +37,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/postcss/readme.template.md` instead.
+    Edit `/plugins/postcss/readme.template.md` instead.
 
 
 
@@ -52,7 +52,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/postcss/readme.template.md` instead.
+    Edit `/plugins/postcss/readme.template.md` instead.
 
 
 
@@ -67,7 +67,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/postcss/readme.template.md` instead.
+    Edit `/plugins/postcss/readme.template.md` instead.
 
 
 
@@ -83,10 +83,10 @@ Use Reframe with PostCSS.
 
 ### Usage
 
-Add `@reframe/postcss` to your `reframe.config` to use Reframe with PostCSS:
+Add `@reframe/postcss` to your `reframe.config.js` to use Reframe with PostCSS:
 
 ~~~js
-// reframe.config
+// reframe.config.js
 
 const postcss = require('@reframe/postcss'); // npm install @reframe/postcss
 
@@ -105,7 +105,7 @@ module.exports = {
 ### Example
 
 ~~~js
-// /postcss/example/reframe.config
+// /postcss/example/reframe.config.js
 
 const postcss = require('@reframe/postcss');
 
@@ -180,7 +180,7 @@ export default LandingPage;
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/postcss/readme.template.md` instead.
+    Edit `/plugins/postcss/readme.template.md` instead.
 
 
 
@@ -195,7 +195,7 @@ export default LandingPage;
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/postcss/readme.template.md` instead.
+    Edit `/plugins/postcss/readme.template.md` instead.
 
 
 
@@ -210,7 +210,7 @@ export default LandingPage;
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/postcss/readme.template.md` instead.
+    Edit `/plugins/postcss/readme.template.md` instead.
 
 
 
@@ -225,7 +225,7 @@ export default LandingPage;
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/postcss/readme.template.md` instead.
+    Edit `/plugins/postcss/readme.template.md` instead.
 
 
 
@@ -240,7 +240,7 @@ export default LandingPage;
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/postcss/readme.template.md` instead.
+    Edit `/plugins/postcss/readme.template.md` instead.
 
 
 

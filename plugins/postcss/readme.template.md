@@ -6,10 +6,10 @@ Use Reframe with PostCSS.
 
 ### Usage
 
-Add `@reframe/postcss` to your `reframe.config` to use Reframe with PostCSS:
+Add `@reframe/postcss` to your `reframe.config.js` to use Reframe with PostCSS:
 
 ~~~js
-// reframe.config
+// reframe.config.js
 
 const postcss = require('@reframe/postcss'); // npm install @reframe/postcss
 
@@ -28,7 +28,7 @@ module.exports = {
 ### Example
 
 ~~~js
-!INLINE ./example/reframe.config
+!INLINE ./example/reframe.config.js
 ~~~
 
 ~~~sugarss

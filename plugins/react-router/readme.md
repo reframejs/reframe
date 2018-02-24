@@ -7,7 +7,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/react-router/readme.template.md` instead.
+    Edit `/plugins/react-router/readme.template.md` instead.
 
 
 
@@ -22,7 +22,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/react-router/readme.template.md` instead.
+    Edit `/plugins/react-router/readme.template.md` instead.
 
 
 
@@ -37,7 +37,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/react-router/readme.template.md` instead.
+    Edit `/plugins/react-router/readme.template.md` instead.
 
 
 
@@ -52,7 +52,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/react-router/readme.template.md` instead.
+    Edit `/plugins/react-router/readme.template.md` instead.
 
 
 
@@ -67,7 +67,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/react-router/readme.template.md` instead.
+    Edit `/plugins/react-router/readme.template.md` instead.
 
 
 
@@ -83,10 +83,10 @@ Use React Router's components.
 
 ### Usage
 
-Add `@reframe/react-router` to your `reframe.config`:
+Add `@reframe/react-router` to your `reframe.config.js`:
 
 ~~~js
-// reframe.config
+// reframe.config.js
 
 const reactRouter = require('@reframe/react-router'); // npm install @reframe/react-router
 
@@ -100,7 +100,7 @@ module.exports = {
 ### Example
 
 ~~~js
-// /react-router/example/reframe.config
+// /react-router/example/reframe.config.js
 
 const reactRouter = require('@reframe/react-router');
 
@@ -162,7 +162,7 @@ export default pageConfig;
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/react-router/readme.template.md` instead.
+    Edit `/plugins/react-router/readme.template.md` instead.
 
 
 
@@ -177,7 +177,7 @@ export default pageConfig;
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/react-router/readme.template.md` instead.
+    Edit `/plugins/react-router/readme.template.md` instead.
 
 
 
@@ -192,7 +192,7 @@ export default pageConfig;
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/react-router/readme.template.md` instead.
+    Edit `/plugins/react-router/readme.template.md` instead.
 
 
 
@@ -207,7 +207,7 @@ export default pageConfig;
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/react-router/readme.template.md` instead.
+    Edit `/plugins/react-router/readme.template.md` instead.
 
 
 
@@ -222,7 +222,7 @@ export default pageConfig;
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/react-router/readme.template.md` instead.
+    Edit `/plugins/react-router/readme.template.md` instead.
 
 
 

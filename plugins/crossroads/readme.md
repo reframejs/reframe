@@ -5,7 +5,7 @@ Routing with [Crossroads.js](https://github.com/millermedeiros/crossroads.js).
 ### Usage
 
 ~~~js
-// reframe.config
+// reframe.config.js
 
 const crossroads = require('@reframe/crossroads'); // npm install @reframe/crossroads
 

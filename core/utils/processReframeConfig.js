@@ -1,15 +1,15 @@
 /*
     The function `processReframeConfig` is responsible for:
-     - processing the `reframe.config` file
+     - processing the `reframe.config.js` file
      - processing plugins
 
     Notes:
 
-        - The object exported by a plugin and the object exported by the `reframe.config` file have the exact same interface: Everything that can be configured in `reframe.config` can be configured by a plugin.
+        - The object exported by a plugin and the object exported by the `reframe.config.js` file have the exact same interface: Everything that can be configured in `reframe.config.js` can be configured by a plugin.
 
         - A plugin can add another plugin. In other words the reframe config is recursive. Consider the following example:
             ~~~js
-            // reframe.config
+            // reframe.config.js
             module.exports = {
                 plugins: [
                     pluginA()
@@ -62,7 +62,7 @@ module.exports = {processReframeConfig};
 function processReframeConfig(reframeConfig) {
     assert_usage(reframeConfig.constructor===Object);
     add_default_kit(reframeConfig);
-    process__common(reframeConfig, 'reframe.config');
+    process__common(reframeConfig, 'reframe.config.js');
     const {_processed} = reframeConfig;
     const {plugin_objects} = _processed;
     add_webpack_config_modifiers(_processed, plugin_objects);

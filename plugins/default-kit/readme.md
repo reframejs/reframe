@@ -12,7 +12,7 @@ The default kit includes:
 The default kit is included by default and you have to opt-out if you don't want the default kit:
 
 ~~~js
-// reframe.config
+// reframe.config.js
 
 module.exports = {
     skipDefaultKit: true
@@ -28,7 +28,7 @@ module.exports = {
 In certain cases, when customizing Reframe, you will need to add the default kit yourself:
 
 ~~~js
-// reframe.config
+// reframe.config.js
 
 const defaultKit = require('@reframe/default-kit'); // npm install @reframe/default-kit
 

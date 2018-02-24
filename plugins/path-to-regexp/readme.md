@@ -7,7 +7,7 @@ Note that `@reframe/path-to-regexp` doesn't use the npm module `path-to-regexp` 
 ### Usage
 
 ~~~js
-// reframe.config
+// reframe.config.js
 
 const pathToRegexp = require('@reframe/path-to-regexp'); // npm install @reframe/path-to-regexp
 

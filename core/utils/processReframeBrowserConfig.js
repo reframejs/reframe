@@ -6,7 +6,7 @@ const assert_plugin = assert;
 module.exports = {processReframeBrowserConfig, process__common};
 
 function processReframeBrowserConfig(reframeBrowserConfig) {
-    process__common(reframeBrowserConfig, 'reframe.browser.config', true);
+    process__common(reframeBrowserConfig, 'reframe.browser.config.js', true);
 }
 
 function process__common(cfg, name, isBrowserConfig) {

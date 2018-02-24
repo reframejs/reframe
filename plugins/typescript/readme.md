@@ -7,7 +7,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/typescript/readme.template.md` instead.
+    Edit `/plugins/typescript/readme.template.md` instead.
 
 
 
@@ -22,7 +22,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/typescript/readme.template.md` instead.
+    Edit `/plugins/typescript/readme.template.md` instead.
 
 
 
@@ -37,7 +37,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/typescript/readme.template.md` instead.
+    Edit `/plugins/typescript/readme.template.md` instead.
 
 
 
@@ -52,7 +52,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/typescript/readme.template.md` instead.
+    Edit `/plugins/typescript/readme.template.md` instead.
 
 
 
@@ -67,7 +67,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/typescript/readme.template.md` instead.
+    Edit `/plugins/typescript/readme.template.md` instead.
 
 
 
@@ -83,10 +83,10 @@ Use Reframe with TypeScript.
 
 ### Usage
 
-Add `@reframe/typescript` to your `reframe.config` to use Reframe with TypeScript:
+Add `@reframe/typescript` to your `reframe.config.js` to use Reframe with TypeScript:
 
 ~~~js
-// reframe.config
+// reframe.config.js
 
 const ts = require('@reframe/typescript'); // npm install @reframe/typescript
 
@@ -113,7 +113,7 @@ module.exports = {
 ### Example
 
 ~~~js
-// /typescript/example/reframe.config
+// /typescript/example/reframe.config.js
 
 const ts = require('@reframe/typescript');
 
@@ -148,7 +148,7 @@ export default {
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/typescript/readme.template.md` instead.
+    Edit `/plugins/typescript/readme.template.md` instead.
 
 
 
@@ -163,7 +163,7 @@ export default {
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/typescript/readme.template.md` instead.
+    Edit `/plugins/typescript/readme.template.md` instead.
 
 
 
@@ -178,7 +178,7 @@ export default {
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/typescript/readme.template.md` instead.
+    Edit `/plugins/typescript/readme.template.md` instead.
 
 
 
@@ -193,7 +193,7 @@ export default {
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/typescript/readme.template.md` instead.
+    Edit `/plugins/typescript/readme.template.md` instead.
 
 
 
@@ -208,7 +208,7 @@ export default {
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/typescript/readme.template.md` instead.
+    Edit `/plugins/typescript/readme.template.md` instead.
 
 
 

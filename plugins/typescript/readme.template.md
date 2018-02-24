@@ -6,10 +6,10 @@ Use Reframe with TypeScript.
 
 ### Usage
 
-Add `@reframe/typescript` to your `reframe.config` to use Reframe with TypeScript:
+Add `@reframe/typescript` to your `reframe.config.js` to use Reframe with TypeScript:
 
 ~~~js
-// reframe.config
+// reframe.config.js
 
 const ts = require('@reframe/typescript'); // npm install @reframe/typescript
 
@@ -36,7 +36,7 @@ module.exports = {
 ### Example
 
 ~~~js
-!INLINE ./example/reframe.config
+!INLINE ./example/reframe.config.js
 ~~~
 
 ~~~tsx

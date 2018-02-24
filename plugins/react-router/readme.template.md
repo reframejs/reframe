@@ -6,10 +6,10 @@ Use React Router's components.
 
 ### Usage
 
-Add `@reframe/react-router` to your `reframe.config`:
+Add `@reframe/react-router` to your `reframe.config.js`:
 
 ~~~js
-// reframe.config
+// reframe.config.js
 
 const reactRouter = require('@reframe/react-router'); // npm install @reframe/react-router
 
@@ -23,7 +23,7 @@ module.exports = {
 ### Example
 
 ~~~js
-!INLINE ./example/reframe.config
+!INLINE ./example/reframe.config.js
 ~~~
 
 ~~~js

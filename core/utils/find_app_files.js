@@ -19,13 +19,13 @@ function find_app_files(cwd) {
 }
 
 function find_reframe_config(cwd) {
-    const reframeConfigPath = find_up.sync('reframe.config', {cwd});
+    const reframeConfigPath = find_up.sync('reframe.config.js', {cwd});
     assert_internal(reframeConfigPath===null || path_module.isAbsolute(reframeConfigPath));
     return reframeConfigPath;
 }
 
 function find_pages_dir(cwd) {
-    const pagesDirPath = find('pages/', {anchorFile: ['reframe.config'], canBeMissing: true, cwd});
+    const pagesDirPath = find('pages/', {anchorFile: ['reframe.config.js'], canBeMissing: true, cwd});
     assert_internal(pagesDirPath===null || path_module.isAbsolute(pagesDirPath));
     return pagesDirPath;
 }
