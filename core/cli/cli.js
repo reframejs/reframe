@@ -24,10 +24,11 @@ program
 program
     .command('start')
     .description('starts dev server on localhost')
+    .option("-p, --production", "start for production")
     .option("-l, --log", "prints build and page information")
-    .action( () => {
+    .action( (options) => {
         argValue = 'start';
-        start(options.log);
+        start(options.production, options.log);
     });
 
 program
@@ -44,10 +45,11 @@ if (typeof argValue === 'undefined') {
     process.exit(1);
 }
 
-function start(showHapiServerLog) {
-    const {opts, cwd} = get_cli_args();
+function start(prod, showHapiServerLog) {
 
-    if( opts.prod ) {
+    const cwd = process.cwd();
+
+    if( prod ) {
         process.env['NODE_ENV']='production';
     }
 
@@ -55,10 +57,10 @@ function start(showHapiServerLog) {
 
     const reframeConfig = reframeConfigPath && require(reframeConfigPath);
 
-    startHapiServer({pagesDirPath, reframeConfig, appDirPath}, showHapiServerLog);
+    startHapiServer({pagesDirPath, reframeConfig, appDirPath, showHapiServerLog});
 }
 
-async function startHapiServer({pagesDirPath, reframeConfig, appDirPath}, showHapiServerLog) {
+async function startHapiServer({pagesDirPath, reframeConfig, appDirPath, showHapiServerLog}) {
     const {createHapiServer} = require('@reframe/server/createHapiServer');
 
     const {server} = await createHapiServer({
@@ -66,7 +68,7 @@ async function startHapiServer({pagesDirPath, reframeConfig, appDirPath}, showHa
         reframeConfig,
         appDirPath,
         logger: {onFirstCompilationSuccess: log_build_success},
-        showHapiServerLog
+        log: showHapiServerLog
     });
 
     await server.start();
@@ -92,33 +94,6 @@ function find_files(cwd) {
     assert_internal(appDirPath);
 
     return {pagesDirPath, reframeConfigPath, appDirPath};
-}
-
-function get_cli_args() {
-    const assert = require('reassert');
-    const assert_usage = assert;
-    const path_module = require('path');
-
-    const cli_args = process.argv.slice(2);
-    const cli_args_opts = cli_args.filter(arg => arg.startsWith('--'));
-    const cli_args_input = cli_args.filter(arg => !arg.startsWith('-'));
-    assert_usage(
-        cli_args_input.length<=1,
-        "Too many arguments."
-    );
-
-    const cwd = path_module.resolve(process.cwd(), cli_args_input[0]||'');
-
-    const opts = {};
-    cli_args_opts.forEach(arg => {
-        const opt_name = arg.slice(2);
-        opts[opt_name] = true;
-    });
-
-    return {
-        opts,
-        cwd,
-    };
 }
 
 function log_build_success({compilationInfo}) {
@@ -168,13 +143,13 @@ async function createScaffold(projectName) {
     const pkgTemplate = jsonPkgTemplate(projectName);
     let currentDir = path.resolve(process.cwd(), projectName);
 
-    // add files to projectName/app/views
-    let viewPath = path.resolve(currentDir, 'app', 'views');
+    // add files to projectName/views
+    let viewPath = path.resolve(currentDir, 'views');
     let viewFileName = 'homeView.js';
     await fs.outputFile(path.resolve(viewPath, viewFileName), viewTemplate);
 
-    // add files to projectName/app/pages
-    let pagePath = path.resolve(currentDir, 'app', 'pages');
+    // add files to projectName/pages
+    let pagePath = path.resolve(currentDir, 'pages');
     let pageFileName = 'homePage.html.js';
     await fs.outputFile(path.resolve(pagePath, pageFileName), pageTemplate);
 
