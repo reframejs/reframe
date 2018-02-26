@@ -386,10 +386,7 @@ async function writeHtmlFiles({pages, buildState, fileWriter, reframeConfig}) {
     function get_file_path(url) {
         const {pathname} = url;
         assert_internal(pathname.startsWith('/'));
-        const file_path__relative = (
-                (pathname === '/' ? '/index' : pathname)+'.html'
-                .slice(1)
-        );
+        const file_path__relative = (pathname === '/' ? 'index' : pathname.slice(1))+'.html'
         const file_path = (
             (BROWSER_DIST_DIR+file_path__relative)
             .replace(/\//g, path_module.sep)
