@@ -141,13 +141,13 @@ async function createScaffold(projectName) {
     const pkgTemplate = jsonPkgTemplate(projectName);
     let currentDir = path.resolve(process.cwd(), projectName);
 
-    // add files to projectName/app/views
-    let viewPath = path.resolve(currentDir, 'app', 'views');
+    // add files to projectName/views
+    let viewPath = path.resolve(currentDir, 'views');
     let viewFileName = 'homeView.js';
     await fs.outputFile(path.resolve(viewPath, viewFileName), viewTemplate);
 
-    // add files to projectName/app/pages
-    let pagePath = path.resolve(currentDir, 'app', 'pages');
+    // add files to projectName/pages
+    let pagePath = path.resolve(currentDir, 'pages');
     let pageFileName = 'homePage.html.js';
     await fs.outputFile(path.resolve(pagePath, pageFileName), pageTemplate);
 
