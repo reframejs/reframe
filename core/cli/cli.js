@@ -24,9 +24,10 @@ program
 program
     .command('start')
     .description('starts dev server on localhost')
+    .option("-l, --log", "prints build and page information")
     .action( () => {
         argValue = 'start';
-        start();
+        start(options.log);
     });
 
 program
@@ -43,7 +44,7 @@ if (typeof argValue === 'undefined') {
     process.exit(1);
 }
 
-function start() {
+function start(showHapiServerLog) {
     const {opts, cwd} = get_cli_args();
 
     if( opts.prod ) {
@@ -54,10 +55,10 @@ function start() {
 
     const reframeConfig = reframeConfigPath && require(reframeConfigPath);
 
-    startHapiServer({pagesDirPath, reframeConfig, appDirPath});
+    startHapiServer({pagesDirPath, reframeConfig, appDirPath}, showHapiServerLog);
 }
 
-async function startHapiServer({pagesDirPath, reframeConfig, appDirPath}) {
+async function startHapiServer({pagesDirPath, reframeConfig, appDirPath}, showHapiServerLog) {
     const {createHapiServer} = require('@reframe/server/createHapiServer');
 
     const {server} = await createHapiServer({
@@ -65,6 +66,7 @@ async function startHapiServer({pagesDirPath, reframeConfig, appDirPath}) {
         reframeConfig,
         appDirPath,
         logger: {onFirstCompilationSuccess: log_build_success},
+        showHapiServerLog
     });
 
     await server.start();
