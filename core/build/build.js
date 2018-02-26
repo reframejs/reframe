@@ -2,7 +2,6 @@ const assert = require('reassert');
 const assert_internal = assert;
 const assert_usage = assert;
 const log = require('reassert/log');
-//const serve = require('@rebuild/serve');
 const {IsoBuilder} = require('@rebuild/iso');
 //const log_title = require('@rebuild/build/utils/log_title');
 //const dir = require('node-dir');
@@ -77,9 +76,11 @@ function build({
         return build_info;
     };
 
+    /*
     addFileChangeListener(() => {
         isoBuilder.build();
     });
+    */
 
     return await isoBuilder.build();
 
