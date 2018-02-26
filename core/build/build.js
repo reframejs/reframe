@@ -19,7 +19,8 @@ const {getStaticPages} = require('@repage/build');
 
 module.exports = build;
 
-const SOURCE_DIR = 'source/';
+const SOURCE_DIR = 'source'+path_module.sep;
+const BROWSER_DIST_DIR = 'browser'+path_module.sep;
 
 function build({
     pagesDirPath,
@@ -65,17 +66,15 @@ function build({
 
         await isoBuilder.build_browser(browser_entries);
 
-        let {buildState} = isoBuilder;
-        writeHtmlFiles({buildState, fileWriter});
-    };
-
-    isoBuilder.onBuild(() => {
-        if( ! onBuild_user ) {
-            return;
-        }
         const build_info = extract_build_info(isoBuilder.buildState);
-        onBuild_user(build_info);
-    });
+
+        let {buildState} = isoBuilder;
+        await writeHtmlFiles({pages: build_info.pages, buildState, fileWriter, reframeConfig});
+
+        if( onBuild_user ) {
+            onBuild_user(build_info);
+        }
+    };
 
     addFileChangeListener(() => {
         isoBuilder.build();
@@ -85,6 +84,7 @@ function build({
 
 
 
+    /*
     const webpack_config = get_webpack_config({
         pagesDirPath,
         reframeConfig,
@@ -119,6 +119,7 @@ function build({
     });
 
     return first_build_promise;
+    */
 }
 
 async function get_server_entries({pagesDirPath}) {
@@ -188,8 +189,8 @@ function get_page_files({pagesDirPath}) {
 
 async function generate_browser_noop_entry({fileWriter}) {
     const {fileAbsolutePath} = await fileWriter.write({
-        fileContent: '// No-op JavaScript used as Webpack entry',
-        filePath: SOURCE_DIR+'noop.entry.js,
+        fileContent: '// No-op JavaScript used as webpack entry',
+        filePath: SOURCE_DIR+'noop.entry.js',
     });
     return fileAbsolutePath;
 }
@@ -273,15 +274,9 @@ function extract_build_info(buildState) {
 
     const {isFirstBuild} = buildState;
 
-    const pages = get_pages(buildState);
+    const pages = get_pages({buildState, reframeConfig});
 
     return {pages, HapiPluginStaticAssets, browserDistPath, isFirstBuild};
-}
-
-function get_pages(buildState) {
-    const server_entries__compiled = buildState.server.entries;
-    server_entries__compiled.forEach(({distPath}) => {
-    });
 }
 
 async function onBuild({build_info__repage, fs_handler, reframeConfig}) {
@@ -310,6 +305,7 @@ async function onBuild({build_info__repage, fs_handler, reframeConfig}) {
     return {pages, HapiPluginStaticAssets, browserDistPath, isFirstBuild};
 }
 
+/*
 async function writeHtmlStaticPages({pages, args_browser, fs_handler, reframeConfig}) {
     (await get_static_pages_info())
     .forEach(({url, html}) => {
@@ -360,6 +356,66 @@ async function writeHtmlStaticPages({pages, args_browser, fs_handler, reframeCon
 
         assert_internal(args_browser.output.dist_root_directory.startsWith('/'));
     }
+}
+*/
+async function writeHtmlFiles({pages, buildState, fileWriter, reframeConfig}) {
+    (await get_static_pages_info())
+    .forEach(async ({url, html}) => {
+        assert_input({url, html});
+        await writeFile.write({
+            fileContent: html,
+            filePath: get_file_path(url),
+        });
+    });
+
+    return;
+
+    function get_static_pages_info() {
+        const repage = new Repage();
+
+        repage.addPlugins([
+            ...reframeConfig._processed.repage_plugins,
+        ]);
+
+        repage.addPages(pages);
+
+        return getStaticPages(repage);
+    }
+
+    function get_file_path(url) {
+        const {pathname} = url;
+        assert_internal(pathname.startsWith('/'));
+        const file_path__relative = (
+                (pathname === '/' ? '/index' : pathname)+'.html'
+                .slice(1)
+        );
+        const file_path = (
+            (BROWSER_DIST_DIR+file_path__relative)
+            .replace(/\//g, path_module.sep)
+        );
+        return file_path;
+    }
+
+    function assert_input({url, html}) {
+        assert_internal(html===null || html && html.constructor===String, html);
+        assert_internal(html);
+
+        assert_internal(url.pathname.startsWith('/'));
+        assert_internal(url.search==='');
+        assert_internal(url.hash==='');
+    }
+}
+
+function get_pages({buildState, reframeConfig}) {
+    const args_browser = {output: buildState.browser.output};
+    const args_server = {output: buildState.server.output};
+    return get_page_infos({args_browser, args_server, reframeConfig});
+    /*
+    const server_entries__compiled = buildState.server.entries;
+    server_entries__compiled.forEach(({distPath}) => {
+        
+    });
+    */
 }
 
 function get_page_infos({args_browser, args_server, reframeConfig}) {
