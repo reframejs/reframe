@@ -7,7 +7,6 @@ const {IsoBuilder} = require('@rebuild/iso');
 //const dir = require('node-dir');
 const path_module = require('path');
 const fs = require('fs');
-const {get_parent_dirname} = require('@reframe/utils/get_parent_dirname');
 const {processReframeConfig} = require('@reframe/utils/processReframeConfig');
 
 const Repage = require('@repage/core');
@@ -50,23 +49,23 @@ function build({
     isoBuilder.webpackServerConfigModifier = reframeConfig._processed.webpackServerConfigModifier;
 
     isoBuilder.builder = async () => {
-        const {filerWriter} = isoBuilder;
+        const {fileWriter} = isoBuilder;
         const {serverEntry} = reframeConfig._processed;
 
         await fileWriter.clear();
 
-        const server_entries = await get_server_entries({fileWriter, pagesDirPath, serverEntry});
+        const server_entries = await get_server_entries({fileWriter, pagesDirPath, serverEntry, reframeConfig});
 
         await isoBuilder.build_server(server_entries);
 
-        let {buildState} = isoBuilder;
+        var {buildState} = isoBuilder;
         const browser_entries = await get_browser_entries({pagesDirPath, buildState, fileWriter, reframeConfig});
 
         await isoBuilder.build_browser(browser_entries);
 
-        const build_info = extract_build_info(isoBuilder.buildState);
+        const build_info = extract_build_info(isoBuilder.buildState, reframeConfig);
 
-        let {buildState} = isoBuilder;
+        var {buildState} = isoBuilder;
         await writeHtmlFiles({pages: build_info.pages, buildState, fileWriter, reframeConfig});
 
         if( onBuild_user ) {
@@ -82,7 +81,7 @@ function build({
     });
     */
 
-    return await isoBuilder.build();
+    return isoBuilder.build();
 
 
     /*
@@ -123,10 +122,10 @@ function build({
     */
 }
 
-async function get_server_entries({pagesDirPath}) {
+async function get_server_entries({pagesDirPath, reframeConfig}) {
     const server_entries = {};
 
-    get_page_files({pagesDirPath})
+    get_page_files({pagesDirPath, reframeConfig})
     .forEach(({file_path, file_name, entry_name, is_universal, is_dom, is_entry, is_html}) => {
         if( is_universal || is_html ) {
             server_entries[entry_name] = [file_path];
@@ -146,11 +145,11 @@ async function get_browser_entries({pagesDirPath, buildState, fileWriter, refram
 
     const reframe_browser_conifg__path = await generate_reframe_browser_config({fileWriter, reframeConfig});
 
-    get_page_files({pagesDirPath})
+    get_page_files({pagesDirPath, reframeConfig})
     .forEach(({file_path, file_name, entry_name, is_universal, is_dom, is_entry, is_html}) => {
         if( is_universal || is_dom ) {
             const file_name__dist = file_name.split('.').slice(0, -2).concat(['entry', 'js']).join('.');
-            const entry_file_path = await generate_browser_entry({file_path, file_name__dist, reframe_browser_conifg__path});
+            const entry_file_path = generate_browser_entry({fileWriter, file_path, file_name__dist, reframe_browser_conifg__path});
             const entry_name__browser = entry_name.split('.').slice(0, -1).concat(['entry']).join('.');
             browser_entries[entry_name__browser] = [entry_file_path];
         }
@@ -161,7 +160,7 @@ async function get_browser_entries({pagesDirPath, buildState, fileWriter, refram
 
     if( Object.values(browser_entries).length === 0 ) {
         const entry_name = 'dummy-entry';
-        const noop_file_path = await generate_browser_noop_entry({fileWriter});
+        const noop_file_path = generate_browser_noop_entry({fileWriter});
         browser_entries[entry_name] = [noop_file_path];
     }
 
@@ -170,7 +169,7 @@ async function get_browser_entries({pagesDirPath, buildState, fileWriter, refram
     return browser_entries;
 }
 
-function get_page_files({pagesDirPath}) {
+function get_page_files({pagesDirPath, reframeConfig}) {
     return (
         fs__ls(pagesDirPath)
         .map(file_path => {
@@ -188,15 +187,15 @@ function get_page_files({pagesDirPath}) {
     );
 }
 
-async function generate_browser_noop_entry({fileWriter}) {
-    const {fileAbsolutePath} = await fileWriter.write({
+function generate_browser_noop_entry({fileWriter}) {
+    const fileAbsolutePath = fileWriter.write({
         fileContent: '// No-op JavaScript used as webpack entry',
         filePath: SOURCE_DIR+'noop.entry.js',
     });
     return fileAbsolutePath;
 }
 
-async function generate_reframe_browser_config({fileWriter, reframeConfig}) {
+function generate_reframe_browser_config({fileWriter, reframeConfig}) {
     const source_code = [
         "const reframeBrowserConfig = {};",
         "reframeBrowserConfig.plugins = [",
@@ -212,9 +211,9 @@ async function generate_reframe_browser_config({fileWriter, reframeConfig}) {
         "module.exports = reframeBrowserConfig;",
     ].join('\n')
 
-    const filePath = SOURCE_DIR+'reframe.browser.config.js',
+    const filePath = SOURCE_DIR+'reframe.browser.config.js';
 
-    const {fileAbsolutePath} = await fileWriter.write({
+    const fileAbsolutePath = fileWriter.write({
         fileContent: source_code,
         filePath,
     });
@@ -222,7 +221,7 @@ async function generate_reframe_browser_config({fileWriter, reframeConfig}) {
     return fileAbsolutePath;
 }
 
-async function generate_browser_entry({file_path, file_name__dist, fileWriter, reframe_browser_conifg__path}) {
+function generate_browser_entry({file_path, file_name__dist, fileWriter, reframe_browser_conifg__path}) {
     assert_internal(path_module.isAbsolute(file_path));
     assert_internal(path_module.isAbsolute(reframe_browser_conifg__path));
     assert_internal(!path_module.isAbsolute(file_name__dist));
@@ -238,7 +237,7 @@ async function generate_browser_entry({file_path, file_name__dist, fileWriter, r
             "hydratePage(pageConfig, reframeBrowserConfig);",
         ].join('\n')
     );
-    const {fileAbsolutePath} = await fileWriter.write({
+    const fileAbsolutePath = fileWriter.write({
         fileContent: source_code,
         filePath: SOURCE_DIR+file_name__dist,
     });
@@ -270,14 +269,15 @@ function fs__ls(dirpath) {
     return files;
 }
 
-function extract_build_info(buildState) {
-    const {HapiPluginStaticAssets, browserDistPath} = buildState.browser;
-
-    const {isFirstBuild} = buildState;
+function extract_build_info(buildState, reframeConfig) {
+    const {HapiPluginStaticAssets, output} = buildState.browser;
+    assert_internal(HapiPluginStaticAssets);
+    const {dist_root_directory: browserDistPath} = output;
+    assert_internal(browserDistPath, output);
 
     const pages = get_pages({buildState, reframeConfig});
 
-    return {pages, HapiPluginStaticAssets, browserDistPath, isFirstBuild};
+    return {pages, HapiPluginStaticAssets, browserDistPath};
 }
 
 async function onBuild({build_info__repage, fs_handler, reframeConfig}) {
@@ -363,7 +363,7 @@ async function writeHtmlFiles({pages, buildState, fileWriter, reframeConfig}) {
     (await get_static_pages_info())
     .forEach(async ({url, html}) => {
         assert_input({url, html});
-        await fileWriter.write({
+        fileWriter.write({
             fileContent: html,
             filePath: get_file_path(url),
         });

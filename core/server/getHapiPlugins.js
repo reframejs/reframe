@@ -18,8 +18,8 @@ async function getHapiPlugins({
     const build_state = {};
     await build({
         onBuild: async build_state__new => {
-            assert_internal(build_state__new.browserDistPath);
-            assert_internal(build_state__new.pages);
+            assert_internal(build_state__new.browserDistPath, build_state__new);
+            assert_internal(build_state__new.pages, build_state__new);
             assert_usage(
                 !build_state.browserDistPath || build_state.browserDistPath===build_state__new.browserDistPath,
                 "The directory holding the static assets isn't expected to move.",
