@@ -43,9 +43,36 @@ function build({
         "Provide either argument `pagesDirPath` or provide `webpackBrowserConfig` and `webpackServerConfig` in `reframe.config.js`."
     );
 
-    if( pagesDirPath ) {
-        handle_output_dir({pagesDirPath});
-    }
+    const isoBuilder = new IsoBuilder();
+
+    isoBuilder.webpackBrowserConfigModifier = reframeConfig._processed.webpackBrowserConfigModifier;
+    isoBuilder.webpackServerConfigModifier = reframeConfig._processed.webpackServerConfigModifier;
+
+    isoBuilder.builder = async () => {
+        isoBuilder.fileWriter.clear();
+
+        const server_entries = await get_server_entries(isoBuilder.fileWriter, pagesDirPath);
+
+        const server_entries__compiled = await isoBuilder.build_server(server_entries);
+
+        const browser_entries = await get_browser_entries(isoBuilder.buildState, isoBuilder.fileWriter);
+
+        const browser_entries__compiled = await isoBuilder.build_browser(browser_entries);
+
+        writeHtmlFiles(isoBuilder.buildState, isoBuilder.fileWriter);
+    };
+
+    isoBuilder.onBuild(() => {
+        onBuild_user(isoBuilder.buildState);
+    });
+
+    addFileChangeListener(() => {
+        isoBuilder.build();
+    });
+
+    isoBuilder.build();
+
+
 
     const webpack_config = get_webpack_config({
         pagesDirPath,
@@ -608,112 +635,6 @@ function isProduction() {
 
 function path__abs(path) {
     return path.startsWith(path_module.sep);
-}
-
-function handle_output_dir({pagesDirPath}) {
-    const {output_path__base} = get_dist_base_path({pagesDirPath});
-    move_and_stamp_output_dir({output_path__base});
-}
-
-function move_and_stamp_output_dir({output_path__base}) {
-    const stamp_path = path__resolve(output_path__base, 'reframe-stamp');
-
-    handle_existing_output_dir();
-    assert_emtpy_output_dir();
-    create_output_dir();
-
-    return;
-
-    function create_output_dir() {
-        mkdirp.sync(path_module.dirname(output_path__base));
-        const timestamp = get_timestamp();
-        assert_internal(timestamp);
-        const stamp_content = get_timestamp()+'\n';
-        fs__write_file(stamp_path, stamp_content);
-    }
-
-    function get_timestamp() {
-        const now = new Date();
-
-        const date = (
-            [
-                now.getFullYear(),
-                now.getMonth()+1,
-                now.getDate()+1,
-            ]
-            .map(pad)
-            .join('-')
-        );
-
-        const time = (
-            [
-                now.getHours(),
-                now.getMinutes(),
-                now.getSeconds(),
-            ]
-            .map(pad)
-            .join('-')
-        );
-
-        return date+'_'+time;
-
-        function pad(n) {
-            return (
-                n>9 ? n : ('0'+n)
-            );
-        }
-    }
-
-    function handle_existing_output_dir() {
-        if( ! fs__path_exists(output_path__base) ) {
-            return;
-        }
-        assert_usage(
-            fs__path_exists(stamp_path),
-            "Reframe's stamp `"+stamp_path+"` not found.",
-            "It is therefore assumed that `"+output_path__base+"` has not been created by Reframe.",
-            "Remove `"+output_path__base+"`, so that Reframe can safely write distribution files."
-        );
-        move_old_output_dir();
-    }
-
-    function assert_emtpy_output_dir() {
-        if( ! fs__path_exists(output_path__base) ) {
-            return;
-        }
-        const files = fs__ls(output_path__base);
-        assert_internal(files.length<=1, files);
-        assert_internal(files.length===1, files);
-        assert_internal(files[0].endsWith('previous'), files);
-    }
-
-    function move_old_output_dir() {
-        const stamp_content = fs__path_exists(stamp_path) && fs__read(stamp_path).trim();
-        assert_internal(
-            stamp_content,
-            'Reframe stamp is missing at `'+stamp_path+'`.',
-            'Remove `'+output_path__base+'` and retry.',
-        );
-        assert_internal(stamp_content && !/\s/.test(stamp_content), stamp_content);
-        const graveyard_path = path__resolve(output_path__base, 'previous', stamp_content);
-        move_all_files(output_path__base, graveyard_path);
-    }
-
-    function move_all_files(path_old, path_new) {
-        const files = fs__ls(path_old);
-        files
-        .filter(filepath => !path_new.startsWith(filepath))
-        .forEach(filepath => {
-            const filepath__relative = path_module.relative(path_old, filepath);
-            assert_internal(filepath__relative.split(path_module.sep).length===1, path_old, filepath);
-            const filepath__new = path__resolve(path_new, filepath__relative);
-            fs__rename(filepath, filepath__new);
-        });
-    }
-}
-
-function fs__read(filepath) {
-    return fs.readFileSync(filepath, 'utf8');
 }
 
 function path__resolve(path1, path2, ...paths) {
