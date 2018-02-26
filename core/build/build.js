@@ -19,6 +19,8 @@ const {getStaticPages} = require('@repage/build');
 
 module.exports = build;
 
+const SOURCE_DIR = 'source/';
+
 function build({
     pagesDirPath,
 
@@ -49,21 +51,30 @@ function build({
     isoBuilder.webpackServerConfigModifier = reframeConfig._processed.webpackServerConfigModifier;
 
     isoBuilder.builder = async () => {
-        isoBuilder.fileWriter.clear();
+        const {filerWriter} = isoBuilder;
+        const {serverEntry} = reframeConfig._processed;
 
-        const server_entries = await get_server_entries(isoBuilder.fileWriter, pagesDirPath);
+        await fileWriter.clear();
 
-        const server_entries__compiled = await isoBuilder.build_server(server_entries);
+        const server_entries = await get_server_entries({fileWriter, pagesDirPath, serverEntry});
 
-        const browser_entries = await get_browser_entries(isoBuilder.buildState, isoBuilder.fileWriter);
+        await isoBuilder.build_server(server_entries);
 
-        const browser_entries__compiled = await isoBuilder.build_browser(browser_entries);
+        let {buildState} = isoBuilder;
+        const browser_entries = await get_browser_entries({pagesDirPath, buildState, fileWriter, reframeConfig});
 
-        writeHtmlFiles(isoBuilder.buildState, isoBuilder.fileWriter);
+        await isoBuilder.build_browser(browser_entries);
+
+        let {buildState} = isoBuilder;
+        writeHtmlFiles({buildState, fileWriter});
     };
 
     isoBuilder.onBuild(() => {
-        onBuild_user(isoBuilder.buildState);
+        if( ! onBuild_user ) {
+            return;
+        }
+        const build_info = extract_build_info(isoBuilder.buildState);
+        onBuild_user(build_info);
     });
 
     addFileChangeListener(() => {
@@ -79,8 +90,6 @@ function build({
         reframeConfig,
         appDirPath,
     });
-
-    const fs_handler = new FilesystemHandler();
 
     let resolve_first_build_promise;
     const first_build_promise = new Promise(resolve => resolve_first_build_promise = ret => resolve(ret));
@@ -112,132 +121,80 @@ function build({
     return first_build_promise;
 }
 
-function get_dist_base_path({pagesDirPath}) {
-    const dist_parent = path_module.dirname(pagesDirPath);
-    assert_internal(dist_parent.startsWith('/'));
-    const output_path__base = path_module.resolve(dist_parent, './dist');
-    return {output_path__base};
-}
-
-function get_webpack_config({
-    pagesDirPath,
-    reframeConfig={},
-    appDirPath,
-}) {
-    const {
-        output_path__browser,
-        browser_entries,
-        output_path__server,
-        server_entries,
-    } = get_infos_for_webpack({pagesDirPath, reframeConfig});
-
-    let browser_build = {};
-    browser_build.entries = browser_entries;
-    browser_build.outputPath = output_path__browser;
-    browser_build.config = get_webpack_browser_config(browser_build);
-    add_context_to_config(appDirPath, browser_build.config);
-    if( reframeConfig._processed.webpackBrowserConfigModifier ) {
-        browser_build.config = reframeConfig._processed.webpackBrowserConfigModifier(browser_build);
-        assert_usage(browser_build.config);
-    }
-    add_context_to_config(appDirPath, browser_build.config);
-
-    let server_build = {};
-    server_build.entries = server_entries;
-    server_build.outputPath = output_path__server;
-    server_build.config = get_webpack_server_config(server_build);
-    add_context_to_config(appDirPath, server_build.config);
-    if( reframeConfig._processed.webpackServerConfigModifier ) {
-        server_build.config = reframeConfig._processed.webpackServerConfigModifier(server_build);
-        assert_usage(server_build.config);
-    }
-    add_context_to_config(appDirPath, server_build.config);
-
-
-    const webpack_config = [browser_build.config, server_build.config];
-
-    return webpack_config;
-}
-
-function get_infos_for_webpack({pagesDirPath, reframeConfig}) {
-    if( ! pagesDirPath ) {
-        return {};
-    }
-
-    const {output_path__base} = get_dist_base_path({pagesDirPath});
-    const output_path__source = path_module.resolve(output_path__base, './source');
-    const output_path__browser = path_module.resolve(output_path__base, './browser');
-    const output_path__server = path_module.resolve(output_path__base, './server');
-
-    const {browser_entries, server_entries} = get_webpack_entries({pagesDirPath, output_path__base, output_path__source, reframeConfig});
-
-    return {
-        output_path__browser,
-        browser_entries,
-        output_path__server,
-        server_entries,
-    };
-}
-
-function get_webpack_entries({pagesDirPath, output_path__base, output_path__source, reframeConfig}) {
-    const browser_entries = {};
+async function get_server_entries({pagesDirPath}) {
     const server_entries = {};
 
-    const reframe_browser_conifg__path = generate_reframe_browser_config({output_path__source, reframeConfig});
+    get_page_files({pagesDirPath})
+    .forEach(({file_path, file_name, entry_name, is_universal, is_dom, is_entry, is_html}) => {
+        if( is_universal || is_html ) {
+            server_entries[entry_name] = [file_path];
+        }
+    });
 
-    fs__ls(pagesDirPath)
-    .forEach(page_file => {
-        const file_name = path_module.basename(page_file);
-        const entry_name = file_name.split('.').slice(0, -1).join('.');
+    assert_usage(
+        Object.values(server_entries).length>0,
+        "No page config found at `"+pagesDirPath+"`."
+    );
 
-        const is_universal = is_script(page_file, '.universal', reframeConfig);
-        const is_dom = is_script(page_file, '.dom', reframeConfig);
-        const is_entry = is_script(page_file, '.entry', reframeConfig);
-        const is_html = is_script(page_file, '.html', reframeConfig);
-        assert_internal(is_universal + is_dom + is_entry + is_html <= 1, page_file);
+    return server_entries;
+}
 
+async function get_browser_entries({pagesDirPath, buildState, fileWriter, reframeConfig}) {
+    const browser_entries = {};
+
+    const reframe_browser_conifg__path = await generate_reframe_browser_config({fileWriter, reframeConfig});
+
+    get_page_files({pagesDirPath})
+    .forEach(({file_path, file_name, entry_name, is_universal, is_dom, is_entry, is_html}) => {
         if( is_universal || is_dom ) {
             const file_name__dist = file_name.split('.').slice(0, -2).concat(['entry', 'js']).join('.');
-            const dist_path = path_module.resolve(output_path__source, file_name__dist);
-            generate_entry({page_file, dist_path, reframe_browser_conifg__path});
+            const entry_file_path = await generate_browser_entry({file_path, file_name__dist, reframe_browser_conifg__path});
             const entry_name__browser = entry_name.split('.').slice(0, -1).concat(['entry']).join('.');
-            browser_entries[entry_name__browser] = [dist_path];
-            if( is_universal ) {
-                server_entries[entry_name] = [page_file];
-            }
+            browser_entries[entry_name__browser] = [entry_file_path];
         }
         if( is_entry ) {
-            browser_entries[entry_name] = [page_file];
-        }
-        if( is_html ) {
-            server_entries[entry_name] = [page_file];
+            browser_entries[entry_name] = [file_path];
         }
     });
 
     if( Object.values(browser_entries).length === 0 ) {
         const entry_name = 'dummy-entry';
-        const dist_path = path_module.resolve(output_path__source, './'+entry_name+'.js');
-        generate_dummy_entry({dist_path});
-        browser_entries[entry_name] = [dist_path];
+        const noop_file_path = await generate_browser_noop_entry({fileWriter});
+        browser_entries[entry_name] = [noop_file_path];
     }
 
     assert_internal(Object.values(browser_entries).length>0);
-    assert_usage(
-        Object.values(server_entries).length>0,
-        "No page config found at `"+pagesDirPath+"`.",
-        "Do your page configs have the correct suffix?",
-     // "PageExtensions: "+reframeConfig._processed.pageExtensions
+
+    return browser_entries;
+}
+
+function get_page_files({pagesDirPath}) {
+    return (
+        fs__ls(pagesDirPath)
+        .map(file_path => {
+            const file_name = path_module.basename(file_path);
+            const entry_name = file_name.split('.').slice(0, -1).join('.');
+
+            const is_universal = is_script(file_path, '.universal', reframeConfig);
+            const is_dom = is_script(file_path, '.dom', reframeConfig);
+            const is_entry = is_script(file_path, '.entry', reframeConfig);
+            const is_html = is_script(file_path, '.html', reframeConfig);
+            assert_internal(is_universal + is_dom + is_entry + is_html <= 1, file_path);
+
+            return {file_path, file_name, entry_name, is_universal, is_dom, is_entry, is_html};
+        })
     );
-
-    return {browser_entries, server_entries};
 }
 
-function generate_dummy_entry({dist_path}) {
-    assert_internal(dist_path.startsWith('/'));
-    fs__write_file(dist_path, '// Dummy JavaScript acting as Webpack entry');
+async function generate_browser_noop_entry({fileWriter}) {
+    const {fileAbsolutePath} = await fileWriter.write({
+        fileContent: '// No-op JavaScript used as Webpack entry',
+        filePath: SOURCE_DIR+'noop.entry.js,
+    });
+    return fileAbsolutePath;
 }
 
-function generate_reframe_browser_config({output_path__source, reframeConfig}) {
+async function generate_reframe_browser_config({fileWriter, reframeConfig}) {
     const source_code = [
         "const reframeBrowserConfig = {};",
         "reframeBrowserConfig.plugins = [",
@@ -245,7 +202,7 @@ function generate_reframe_browser_config({output_path__source, reframeConfig}) {
             reframeConfig._processed.browserConfigs.map(({diskPath}) => {
                 assert_internal(path_module.isAbsolute(diskPath), diskPath);
                 assert_internal(path_points_to_a_file(diskPath), diskPath);
-                return "require('"+diskPath+"')(),";
+                return "  require('"+diskPath+"')(),";
             })
         ),
         "];",
@@ -253,11 +210,37 @@ function generate_reframe_browser_config({output_path__source, reframeConfig}) {
         "module.exports = reframeBrowserConfig;",
     ].join('\n')
 
-    const code_path = path_module.join(output_path__source, './reframe.browser.config.js')
+    const filePath = SOURCE_DIR+'reframe.browser.config.js',
 
-    fs__write_file(code_path, source_code);
+    const {fileAbsolutePath} = await fileWriter.write({
+        fileContent: source_code,
+        filePath,
+    });
 
-    return code_path;
+    return fileAbsolutePath;
+}
+
+async function generate_browser_entry({file_path, file_name__dist, fileWriter, reframe_browser_conifg__path}) {
+    assert_internal(path_module.isAbsolute(file_path));
+    assert_internal(path_module.isAbsolute(reframe_browser_conifg__path));
+    assert_internal(!path_module.isAbsolute(file_name__dist));
+    const source_code = (
+        [
+            "const hydratePage = require('"+require.resolve('@reframe/browser/hydratePage')+"');",
+            "const reframeBrowserConfig = require('"+reframe_browser_conifg__path+"');",
+            "",
+            "// hybrid cjs and ES6 module import",
+            "let pageConfig = require('"+file_path+"');",
+            "pageConfig = Object.keys(pageConfig).length===1 && pageConfig.default || pageConfig;",
+            "",
+            "hydratePage(pageConfig, reframeBrowserConfig);",
+        ].join('\n')
+    );
+    const {fileAbsolutePath} = await fileWriter.write({
+        fileContent: source_code,
+        filePath: SOURCE_DIR+file_name__dist,
+    });
+    return fileAbsolutePath;
 }
 
 function path_points_to_a_file(file_path) {
@@ -267,61 +250,6 @@ function path_points_to_a_file(file_path) {
         return true;
     } catch(e) {}
     return false;
-}
-
-function generate_entry({page_file, dist_path, reframe_browser_conifg__path}) {
-    assert_internal(page_file.startsWith('/'));
-    assert_internal(dist_path.startsWith('/'));
-    assert_internal(reframe_browser_conifg__path.startsWith('/'));
-    const source_code = (
-        [
-            "const hydratePage = require('"+require.resolve('@reframe/browser/hydratePage')+"');",
-            "const reframeBrowserConfig = require('"+reframe_browser_conifg__path+"');",
-            "",
-            "// hybrid cjs and ES6 module import",
-            "let pageConfig = require('"+page_file+"');",
-            "pageConfig = Object.keys(pageConfig).length===1 && pageConfig.default || pageConfig;",
-            "",
-            "hydratePage(pageConfig, reframeBrowserConfig);",
-        ].join('\n')
-    );
-    fs__write_file(dist_path, source_code);
-}
-
-function fs__write_file(path, content) {
-    assert_internal(path.startsWith('/'));
-    mkdirp.sync(path_module.dirname(path));
-    fs.writeFileSync(path, content);
-}
-
-function fs__path_exists(path) {
-    try {
-        fs.statSync(path);
-        return true;
-    }
-    catch(e) {
-        return false;
-    }
-}
-
-function fs__file_exists(path) {
-    try {
-        return fs.statSync(path).isFile();
-    }
-    catch(e) {
-        return false;
-    }
-}
-
-function fs__remove(path) {
-    if( fs__file_exists(path) ) {
-        fs.unlinkSync(path);
-    }
-    /*
-    try {
-        fs.unlinkSync(path);
-    } catch(e) {}
-    */
 }
 
 function fs__ls(dirpath) {
@@ -340,13 +268,20 @@ function fs__ls(dirpath) {
     return files;
 }
 
-function add_context_to_config(appDirPath, config) {
-    assert_internal(config.constructor===Object);
-    if( ! config.context || appDirPath ) {
-        config.context = appDirPath || get_parent_dirname();
-    }
-    assert_internal(config.context);
-    assert_internal(config.context.startsWith('/'));
+function extract_build_info(buildState) {
+    const {HapiPluginStaticAssets, browserDistPath} = buildState.browser;
+
+    const {isFirstBuild} = buildState;
+
+    const pages = get_pages(buildState);
+
+    return {pages, HapiPluginStaticAssets, browserDistPath, isFirstBuild};
+}
+
+function get_pages(buildState) {
+    const server_entries__compiled = buildState.server.entries;
+    server_entries__compiled.forEach(({distPath}) => {
+    });
 }
 
 async function onBuild({build_info__repage, fs_handler, reframeConfig}) {
@@ -606,27 +541,6 @@ function get_source_path(entry_point, filter) {
     const source_path = source_entry_points[0];
     assert_internal(source_path.constructor===String);
     return source_path;
-}
-
-function FilesystemHandler() {
-    const written_files = [];
-
-    return {
-        writeFile,
-        removePreviouslyWrittenFiles,
-    };
-
-    function writeFile(path, content) {
-        assert_usage(path__abs(path));
-        written_files.push(path);
-        fs__write_file(path, content);
-    }
-
-    function removePreviouslyWrittenFiles() {
-        written_files.forEach(path => {
-            fs__remove(path);
-        });
-    }
 }
 
 function isProduction() {
