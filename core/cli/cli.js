@@ -45,7 +45,8 @@ if (typeof argValue === 'undefined') {
 }
 
 function start(prod) {
-    const {opts, cwd} = get_cli_args();
+
+    const cwd = process.cwd();
 
     if( prod ) {
         process.env['NODE_ENV']='production';
@@ -91,33 +92,6 @@ function find_files(cwd) {
     assert_internal(appDirPath);
 
     return {pagesDirPath, reframeConfigPath, appDirPath};
-}
-
-function get_cli_args() {
-    const assert = require('reassert');
-    const assert_usage = assert;
-    const path_module = require('path');
-
-    const cli_args = process.argv.slice(2);
-    const cli_args_opts = cli_args.filter(arg => arg.startsWith('--'));
-    const cli_args_input = cli_args.filter(arg => !arg.startsWith('-'));
-    assert_usage(
-        cli_args_input.length<=1,
-        "Too many arguments."
-    );
-
-    const cwd = path_module.resolve(process.cwd(), cli_args_input[0]||'');
-
-    const opts = {};
-    cli_args_opts.forEach(arg => {
-        const opt_name = arg.slice(2);
-        opts[opt_name] = true;
-    });
-
-    return {
-        opts,
-        cwd,
-    };
 }
 
 function log_build_success({compilationInfo}) {
