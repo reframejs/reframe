@@ -1,16 +1,13 @@
-process.on('unhandledRejection', err => {throw err});
-
 const assert = require('reassert');
 const assert_internal = assert;
 const assert_usage = assert;
 const log = require('reassert/log');
-const {get_webpack_browser_config, get_webpack_server_config} = require('./webpack_config');
-const serve = require('@rebuild/serve');
-const log_title = require('@rebuild/build/utils/log_title');
-const dir = require('node-dir');
+//const serve = require('@rebuild/serve');
+const {IsoBuilder} = require('@rebuild/iso');
+//const log_title = require('@rebuild/build/utils/log_title');
+//const dir = require('node-dir');
 const path_module = require('path');
 const fs = require('fs');
-const mkdirp = require('mkdirp');
 const {get_parent_dirname} = require('@reframe/utils/get_parent_dirname');
 const {processReframeConfig} = require('@reframe/utils/processReframeConfig');
 
@@ -48,6 +45,8 @@ function build({
 
     const isoBuilder = new IsoBuilder();
 
+    isoBuilder.log = log_option;
+    isoBuilder.appDirPath = appDirPath;
     isoBuilder.webpackBrowserConfigModifier = reframeConfig._processed.webpackBrowserConfigModifier;
     isoBuilder.webpackServerConfigModifier = reframeConfig._processed.webpackServerConfigModifier;
 
@@ -74,14 +73,15 @@ function build({
         if( onBuild_user ) {
             onBuild_user(build_info);
         }
+
+        return build_info;
     };
 
     addFileChangeListener(() => {
         isoBuilder.build();
     });
 
-    isoBuilder.build();
-
+    return await isoBuilder.build();
 
 
     /*
@@ -254,7 +254,7 @@ function path_points_to_a_file(file_path) {
 }
 
 function fs__ls(dirpath) {
-    assert_internal(path__abs(dirpath));
+    assert_internal(is_abs(dirpath));
     /*
     const files = dir.files(dirpath, {sync: true, recursive: false});
     */
@@ -263,7 +263,7 @@ function fs__ls(dirpath) {
         .map(filename => path__resolve(dirpath, filename))
     );
     files.forEach(filepath => {
-        assert_internal(path__abs(filepath), dirpath, files);
+        assert_internal(is_abs(filepath), dirpath, files);
         assert_internal(path_module.relative(dirpath, filepath).split(path_module.sep).length===1, dirpath, files);
     });
     return files;
@@ -362,7 +362,7 @@ async function writeHtmlFiles({pages, buildState, fileWriter, reframeConfig}) {
     (await get_static_pages_info())
     .forEach(async ({url, html}) => {
         assert_input({url, html});
-        await writeFile.write({
+        await fileWriter.write({
             fileContent: html,
             filePath: get_file_path(url),
         });
@@ -603,21 +603,14 @@ function isProduction() {
     return process.env['NODE_ENV'] === 'production';
 }
 
-function path__abs(path) {
-    return path.startsWith(path_module.sep);
+function is_abs(path) {
+    return path_module.isAbsolute(path);
 }
 
 function path__resolve(path1, path2, ...paths) {
-    assert_internal(path1 && path__abs(path1), path1);
+    assert_internal(path1 && is_abs(path1), path1);
     assert_internal(path2);
     return path_module.resolve(path1, path2, ...paths);
-}
-
-function fs__rename(path_old, path_new) {
-    assert_internal(path__abs(path_old));
-    assert_internal(path__abs(path_new));
-    mkdirp.sync(path_module.dirname(path_new));
-    fs.renameSync(path_old, path_new);
 }
 
 function is_script(path, suffix, reframeConfig) {
