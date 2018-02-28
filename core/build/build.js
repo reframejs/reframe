@@ -59,9 +59,9 @@ function build({
         await isoBuilder.build_server(server_entries);
         if( there_is_a_newer_run() ) return;
 
+        var {buildState} = isoBuilder;
         enhance_page_objects_1({page_objects, buildState, fileWriter, reframeConfig});
 
-        var {buildState} = isoBuilder;
         const browser_entries = get_browser_entries({page_objects, fileWriter});
 
         await isoBuilder.build_browser(browser_entries);
@@ -105,17 +105,17 @@ function get_pages() {
             page_object.page_config__source_path = file_path;
             page_object.server_entry = {
                 entry_name,
-                file_path,
+                source_path: file_path,
             };
         }
         if( is_universal || is_dom ) {
             assert_usage(!page_object.browser_entry.source_path);
-            assert_usage(!page_object.browser_config__source_path);
-            page_object.browser_config__source_path = file_path;
+            assert_usage(!page_object.browser_page_config__source);
+            page_object.browser_page_config__source = file_path;
         }
         if( is_entry ) {
             assert_usage(!page_object.browser_entry.source_path);
-            assert_usage(!page_object.browser_config__source_path);
+            assert_usage(!page_object.browser_page_config__source);
             page_object.browser_entry__source_path = file_path;
             page_object.browser_entry = {
                 entry_name,
@@ -146,11 +146,11 @@ function get_server_entries({page_objects}) {
     Object.values(page_objects)
     .filter(page_object => page_object.server_entry)
     .forEach(page_object => {
-        const {entry_name, file_path} = page_object.server_entry;
+        const {entry_name, source_path} = page_object.server_entry;
         assert_internal(entry_name);
-        assert_internal(file_path);
+        assert_internal(source_path);
         assert_internal(!server_entries[entry_name]);
-        server_entries[entry_name] = file_path;
+        server_entries[entry_name] = [source_path];
     });
 
     return server_entries;
@@ -164,12 +164,12 @@ function get_browser_entries({page_objects, /*fileWriter,*/}) {
     Object.values(page_objects)
     .filter(page_object => page_object.browser_entry)
     .forEach(page_object => {
-        const {entry_name, file_path} = page_object.browser_entry;
+        const {entry_name, source_path} = page_object.browser_entry;
         assert_internal(entry_name);
-        assert_internal(file_path);
-        already_added[file_path] = true;
+        assert_internal(source_path);
+        already_added[source_path] = true;
         assert_internal(!browser_entries[entry_name]);
-        browser_entries[entry_name] = [file_path];
+        browser_entries[entry_name] = [source_path];
     });
 
     Object.value(page_objects)
@@ -212,12 +212,12 @@ function generate_and_add_browser_entries({page_objects, fileWriter, reframeConf
 
     Object.values(page_objects)
     .filter(page_object => {
-        return page_object.browser_config__source_path;
+        return page_object.browser_page_config__source;
     });
     .forEach(page_object => {
-        const {page_config__source_path} = page_object;
+        const {browser_page_config__source} = page_object;
         const browser_entry__file_name = page_object.page_name+'.entry.js';
-        const browser_entry__source_path = generate_browser_entry({fileWriter, page_config__source_path, browser_entry__file_name, reframe_browser_config__path});
+        const browser_entry__source_path = generate_browser_entry({fileWriter, browser_page_config__source, browser_entry__file_name, reframe_browser_config__path});
         const {entry_name} = get_names(browser_entry__source_path);
         assert_internal(!page_object.browser_entry);
         page_object.browser_entry = {
@@ -292,8 +292,8 @@ function generate_reframe_browser_config({fileWriter, reframeConfig}) {
     return fileAbsolutePath;
 }
 
-function generate_browser_entry({page_config__source_path, browser_entry__file_name, fileWriter, reframe_browser_config__path}) {
-    assert_internal(path_module.isAbsolute(page_config__source_path));
+function generate_browser_entry({browser_page_config__source, browser_entry__file_name, fileWriter, reframe_browser_config__path}) {
+    assert_internal(path_module.isAbsolute(browser_page_config__source));
     assert_internal(path_module.isAbsolute(reframe_browser_config__path));
     assert_internal(!path_module.isAbsolute(browser_entry__file_name));
     const source_code = (
@@ -302,7 +302,7 @@ function generate_browser_entry({page_config__source_path, browser_entry__file_n
             "const reframeBrowserConfig = require('"+reframe_browser_config__path+"');",
             "",
             "// hybrid cjs and ES6 module import",
-            "let pageConfig = require('"+page_config__source_path+"');",
+            "let pageConfig = require('"+browser_page_config__source+"');",
             "pageConfig = Object.keys(pageConfig).length===1 && pageConfig.default || pageConfig;",
             "",
             "hydratePage(pageConfig, reframeBrowserConfig);",
@@ -373,7 +373,7 @@ async function writeHtmlFiles({page_objects, buildState, fileWriter, reframeConf
     }
 }
 
-function enhance_page_objects_1({page_objects, buildState, reframeConfig}) {
+function enhance_page_objects_1({page_objects, buildState, fileWriter, reframeConfig}) {
     const args_server = {output: buildState.server.output};
     load_page_configs({page_objects, args_server});
     add_disk_path_absolute(page_objects);
@@ -445,7 +445,9 @@ function add_disk_path_absolute(page_objects) {
             if( ! (script_spec||{}).diskPath ) {
                 return;
             }
-            script_spec.disk_path__absolute = get_disk_path__absolute(script_spec, page_config);
+            const disk_path__absolute = get_disk_path__absolute(script_spec, page_config);
+            assert_internal(is_abs(disk_path__absolute));
+            script_spec.disk_path__absolute = disk_path__absolute;
         });
     });
 }
@@ -455,7 +457,6 @@ function add_disk_path(page_objects, output) {
     .filter(page_object => page_object.page_config)
     .forEach(page_object => {
         const {page_config} = page_object;
-        assert_internal(page_config.page_config__source_path);
         (page_config.scripts||[])
         .forEach((script_spec, i) => {
             if( ! (script_spec||{}).diskPath ) {
@@ -511,7 +512,7 @@ function load_page_configs({page_objects, args_server}) {
 
     Object.values(args_server.output.entry_points)
     .map(entry_point => {
-        const page_object = page_objects[entry_point.entry_name];
+        const page_object = Object.values(page_objects).find(page_object => page_object.server_entry.entry_name===entry_point.entry_name);
         assert_internal(page_object);
         const script_dist_path = get_script_dist_path(entry_point);
         const page_config = require__magic(script_dist_path);
