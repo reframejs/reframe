@@ -59,8 +59,10 @@ function build({
         await isoBuilder.build_server(server_entries);
         if( there_is_a_newer_run() ) return;
 
+        enhance_page_objects({page_objects, buildState, reframeConfig});
+
         var {buildState} = isoBuilder;
-        const browser_entries = get_browser_entries({pagesDirPath, buildState, fileWriter, reframeConfig});
+        const browser_entries = get_browser_entries({page_objects, buildState, fileWriter, reframeConfig});
 
         await isoBuilder.build_browser(browser_entries);
         if( there_is_a_newer_run() ) return;
@@ -90,6 +92,12 @@ function build({
     return isoBuilder.build();
 }
 
+function enhance_page_objects({page_objects, buildState, reframeConfig}) {
+    get_pages__({buildState, reframeConfig});
+    load_page_configs({args_server, reframeConfig});
+}
+
+
 function get_pages() {
     const page_objects = {};
 
@@ -102,9 +110,15 @@ function get_pages() {
             page_object.server_entry = [file_path];
         }
         if( is_universal || is_dom ) {
+            assert_usage(!page_object.browser_entry__source_path);
+            assert_usage(!page_object.browser_config__source_path);
+            page_object.browser_config__source_path = file_path;
         }
         if( is_entry ) {
-            page_object.page_browser_config_path__source = file_path;
+            assert_usage(!page_object.browser_entry__source_path);
+            assert_usage(!page_object.browser_config__source_path);
+            page_object.browser_entry__source_path = file_path;
+            page_object.browser_entry = [file_path];
         }
     });
 
@@ -135,7 +149,7 @@ function get_server_entries({page_objects}) {
     return server_entries;
 }
 
-function get_browser_entries({pagesDirPath, buildState, fileWriter, reframeConfig}) {
+function get_browser_entries({page_objects, buildState, fileWriter, reframeConfig}) {
     const browser_entries = {};
 
     fileWriter.startWriteSession('browser_source_files');
@@ -264,8 +278,6 @@ function extract_build_info(buildState, reframeConfig) {
     const {dist_root_directory: browserDistPath} = output;
     assert_internal(browserDistPath, output);
 
-    const pages = get_pages__({buildState, reframeConfig});
-
     return {pages, HapiPluginStaticAssets, browserDistPath};
 }
 
@@ -322,16 +334,10 @@ function get_pages__({buildState, reframeConfig}) {
     const args_browser = {output: buildState.browser.output};
     const args_server = {output: buildState.server.output};
     return get_page_infos({args_browser, args_server, reframeConfig});
-    /*
-    const server_entries__compiled = buildState.server.entries;
-    server_entries__compiled.forEach(({distPath}) => {
-        
-    });
-    */
 }
 
 function get_page_infos({args_browser, args_server, reframeConfig}) {
-    const page_infos = load_page_infos({args_server}, reframeConfig);
+    const page_infos = load_page_configs({args_server, reframeConfig});
     add_browser_files({page_infos, args_browser, reframeConfig});
     return page_infos;
 }
@@ -456,28 +462,29 @@ function find_dist_files({disk_path, output, reframeConfig}) {
     return {scripts, styles};
 }
 
-function load_page_infos({args_server}, reframeConfig) {
+function load_page_configs({page_objects, args_server, reframeConfig}) {
     require('source-map-support').install();
-    const page_infos = (
-        Object.values(args_server.output.entry_points)
-        .map(entry_point => {
-            const modulePath = get_nodejs_path(entry_point, reframeConfig);
-            const page_info = require__magic(modulePath);
-            page_info.sourcePath = get_source_path(entry_point);
-            assert_internal(
-                page_info.sourcePath.startsWith('/'),
-                args_server.output.entry_points,
-                page_info.sourcePath
-            );
-            assert_usage(
-                page_info.route || page_info.pageLodaer,
-                page_info,
-                "The page object printed above at `"+page_info.sourcePath+"` is missing the `route` property."
-            );
-            return page_info;
-        })
-    );
-    return page_infos;
+    const page_configs = {};
+
+    Object.values(args_server.output.entry_points)
+    .map(entry_point => {
+        const modulePath = get_nodejs_path(entry_point, reframeConfig);
+        const page_info = require__magic(modulePath);
+        page_info.sourcePath = get_source_path(entry_point);
+        assert_internal(
+            page_info.sourcePath.startsWith('/'),
+            args_server.output.entry_points,
+            page_info.sourcePath
+        );
+        assert_usage(
+            page_info.route || page_info.pageLodaer,
+            page_info,
+            "The page object printed above at `"+page_info.sourcePath+"` is missing the `route` property."
+        );
+        return page_info;
+    });
+
+    return page_configs;
 }
 
 function require__magic(modulePath) {
