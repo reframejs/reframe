@@ -59,7 +59,7 @@ function build({
         await isoBuilder.build_server(server_entries);
         if( there_is_a_newer_run() ) return;
 
-        enhance_page_objects({page_objects, buildState, reframeConfig});
+        enhance_page_objects_1({page_objects, buildState, reframeConfig});
 
         var {buildState} = isoBuilder;
         const browser_entries = get_browser_entries({page_objects, buildState, fileWriter, reframeConfig});
@@ -67,12 +67,14 @@ function build({
         await isoBuilder.build_browser(browser_entries);
         if( there_is_a_newer_run() ) return;
 
+        enhance_page_objects_2({page_objects, buildState, reframeConfig});
+
         var {buildState} = isoBuilder;
         await writeHtmlFiles({page_objects, buildState, fileWriter, reframeConfig});
         if( there_is_a_newer_run() ) return;
 
         const build_info = {
-            pages: page_objects.map(({pageConfig}) => pageConfig),
+            pages: Object.values(page_objects).map(({page_config}) => page_config),
             ...extract_build_info(isoBuilder.buildState, reframeConfig)
         };
 
@@ -96,12 +98,15 @@ function get_pages() {
     const page_objects = {};
 
     get_page_files({pagesDirPath, reframeConfig})
-    .forEach(({file_path, file_name, entry_name, is_universal, is_dom, is_entry, is_html}) => {
-        const page_object = page_objects[entry_name] = page_objects[entry_name] || {entry_name};
+    .forEach(({file_path, file_name, page_name, entry_name, is_universal, is_dom, is_entry, is_html}) => {
+        const page_object = page_objects[page_name] = page_objects[page_name] || {page_name};
         if( is_universal || is_html ) {
             assert_usage(!page_object.server_entry);
             page_object.page_config__source_path = file_path;
-            page_object.server_entry = [file_path];
+            page_object.server_entry = {
+                entry_name,
+                file_path,
+            };
         }
         if( is_universal || is_dom ) {
             assert_usage(!page_object.browser_entry__source_path);
@@ -112,18 +117,23 @@ function get_pages() {
             assert_usage(!page_object.browser_entry__source_path);
             assert_usage(!page_object.browser_config__source_path);
             page_object.browser_entry__source_path = file_path;
-            page_object.browser_entry = [file_path];
+            page_object.browser_entry = {
+                entry_name,
+                file_path,
+            };
         }
     });
 
+    /*
     Object.values(page_objects)
     .forEach(page_object => {
         assert_usage(page_object.page_config__source_path);
-        assert_internal(page_object.server_entry.length===1);
+        assert_internal(is_abs(page_object.server_entry.file_path));
     });
+    */
 
     assert_usage(
-        Object.values(page_objects).length>0,
+        Object.values(page_objects).filter(page_objects => page_objects.page_config__source_path).length>0,
         "No page config found at `"+pagesDirPath+"`."
     );
 
@@ -134,10 +144,11 @@ function get_server_entries({page_objects}) {
     const server_entries = {};
 
     Object.values(page_objects)
+    .filter(page_object => page_object.server_entry)
     .forEach(page_object => {
-        assert_internal(page_object.entry_name);
-        assert_internal(page_object.server_entry);
-        server_entries[page_object.entry_name] = page_object.server_entry;
+        assert_internal(page_object.server_entry.entry_name);
+        assert_internal(page_object.server_entry.file_path);
+        server_entries[page_object.server_entry.entry_name] = page_object.server_entry.file_path;
     });
 
     return server_entries;
@@ -193,6 +204,7 @@ function get_page_files({pagesDirPath, reframeConfig}) {
         .map(file_path => {
             const file_name = path_module.basename(file_path);
             const entry_name = file_name.split('.').slice(0, -1).join('.');
+            const page_name = file_name.split('.')[0];
 
             const is_universal = is_script(file_path, '.universal', reframeConfig);
             const is_dom = is_script(file_path, '.dom', reframeConfig);
@@ -200,7 +212,7 @@ function get_page_files({pagesDirPath, reframeConfig}) {
             const is_html = is_script(file_path, '.html', reframeConfig);
             assert_internal(is_universal + is_dom + is_entry + is_html <= 1, file_path);
 
-            return {file_path, file_name, entry_name, is_universal, is_dom, is_entry, is_html};
+            return {file_path, file_name, entry_name, page_name, is_universal, is_dom, is_entry, is_html};
         })
     );
 }
@@ -298,7 +310,7 @@ async function writeHtmlFiles({page_objects, buildState, fileWriter, reframeConf
             ...reframeConfig._processed.repage_plugins,
         ]);
 
-        repage.addPages(page_objects.map(({pageConfig}) => pageConfig));
+        repage.addPages(Object.values(page_objects).map(({page_config}) => page_config));
 
         return getStaticPages(repage);
     }
@@ -324,59 +336,68 @@ async function writeHtmlFiles({page_objects, buildState, fileWriter, reframeConf
     }
 }
 
-function enhance_page_objects({page_objects, buildState, reframeConfig}) {
-    const args_browser = {output: buildState.browser.output};
+function enhance_page_objects_1({page_objects, buildState, reframeConfig}) {
     const args_server = {output: buildState.server.output};
-    load_page_configs({page_objects, args_server, reframeConfig});
-    add_browser_files({page_infos, args_browser, reframeConfig});
+    load_page_configs({page_objects, args_server});
 }
 
-function add_browser_files({page_infos, args_browser: {output}, reframeConfig}) {
-    page_infos.forEach(page_info => {
-        assert_internal(page_info.sourcePath.startsWith('/'), page_info, page_info.sourcePath);
-        add_disk_path(page_info, output, reframeConfig);
-        add_same_named_entries(page_info, output, reframeConfig);
-    });
+function enhance_page_objects_2{page_objects, buildState, reframeConfig}) {
+    const args_browser = {output: buildState.browser.output};
+    add_scripts_to_page_configs({page_objects, args_browser, reframeConfig});
 }
 
-function add_same_named_entries(page_info, output, reframeConfig) {
-    const filepath = page_info.sourcePath;
-    if( ! is_script(filepath, '.universal', reframeConfig) && ! is_script(filepath, '.html', reframeConfig) ) {
-        return;
-    }
-    const pagename = path_module.basename(filepath).split('.').slice(0, -2).join('.');
+function add_scripts_to_page_configs({page_objects, args_browser: {output}, reframeConfig}) {
+    add_browser_entry_points(page_objects, output, reframeConfig);
+    add_disk_path(page_objects, output, reframeConfig);
+}
 
+function add_browser_entry_points(page_objects, output, reframeConfig) {
     Object.values(output.entry_points)
     .forEach(entry_point => {
-        const is_match = (
-            entry_point.source_entry_points
-            .some(source_entry => {
-                const source_filename = path_module.basename(source_entry);
-                return (
-                    is_script(source_filename, '.entry', reframeConfig) &&
-                    source_filename.split('.').includes(pagename)
-                );
-            })
-        );
-        if( ! is_match ) {
-            return;
-        }
+        assert_internal(entry_point.entry_name);
+        Object.values(page_objects)
+        .forEach(page_object => {
+            const {entry_name} = (page_object.browser_entry||{});
+            if( entry_name===entry_point.entry_name ) {
+                page_object.browser_entry.entry_point = entry_point;
+                if( page_object.page_config ) {
+                    add_entry_point_to_page_config(entry_point, page_object.page_config);
+                }
+            }
+        });
+    });
 
-        assert_internal(entry_point.scripts.length>=1, entry_point);
-        page_info.scripts = make_paths_array_unique([
-            ...(page_info.scripts||[]),
-            ...entry_point.scripts
-        ]);
-
-        assert_internal(entry_point.styles.length>=0, entry_point);
-        page_info.styles = make_paths_array_unique([
-            ...(page_info.styles||[]),
-            ...entry_point.styles
-        ]);
+    Object.values(page_objects)
+    .forEach(page_object => {
+        assert_internal(! page_object.browser_entry || page_object.browser_entry.entry_point, page_object);
     });
 }
 
-function add_disk_path(page_info, output, reframeConfig) {
+function add_entry_point_to_page_config(entry_point, page_config) {
+    assert_internal(entry_point.scripts.length>=1, entry_point);
+    page_config.scripts = make_paths_array_unique([
+        ...(page_config.scripts||[]),
+        ...entry_point.scripts
+    ]);
+
+    assert_internal(entry_point.styles.length>=0, entry_point);
+    page_config.styles = make_paths_array_unique([
+        ...(page_config.styles||[]),
+        ...entry_point.styles
+    ]);
+}
+
+function add_disk_path(page_objects, output, reframeConfig) {
+    Object.values(page_objects)
+    .filter(page_object => page_object.page_config)
+    .forEach(page_object => {
+        const {page_config} = page_object;
+        page_config.scripts
+        assert_internal(page_config.page_config__source_path);
+        assert_internal(page_object.browser_entry.entry_point);
+        
+    });
+
     (page_info.scripts||[])
     .forEach((script_spec, i) => {
         if( ! (script_spec||{}).diskPath ) {
@@ -384,10 +405,10 @@ function add_disk_path(page_info, output, reframeConfig) {
         }
         const disk_path__relative = script_spec.diskPath;
         assert_usage((disk_path__relative||{}).constructor===String, disk_path__relative);
-        assert_internal(!disk_path__relative.startsWith('/'), disk_path__relative);
-        const source_path_parent = path_module.dirname(page_info.sourcePath);
-        assert_internal(source_path_parent.startsWith('/'));
-        const disk_path = path_module.resolve(source_path_parent, disk_path__relative);
+        assert_internal(!is_abs(disk_path__relative), disk_path__relative);
+        const source_path_parent = path_module.dirname(page_config.page_config__source_path);
+        assert_internal(is_abs(source_path_parent));
+        const disk_path = path__resolve(source_path_parent, disk_path__relative);
         const dist_files = find_dist_files({disk_path, output, reframeConfig});
         assert_usage(
             dist_files!==null,
@@ -451,7 +472,7 @@ function find_dist_files({disk_path, output, reframeConfig}) {
     return {scripts, styles};
 }
 
-function load_page_configs({page_objects, args_server, reframeConfig}) {
+function load_page_configs({page_objects, args_server}) {
     require('source-map-support').install();
 
     Object.values(args_server.output.entry_points)
