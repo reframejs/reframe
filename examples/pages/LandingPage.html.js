@@ -9,7 +9,6 @@ const Section = ({title, children}) => (
 
 const Link = ({pathname}) => (
     <div>
-        uew
         <a href={pathname}>{pathname}</a>
     </div>
 );

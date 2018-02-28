@@ -52,18 +52,13 @@ function build({
         const {fileWriter} = isoBuilder;
         const {serverEntry} = reframeConfig._processed;
 
-        await fileWriter.clear();
-        if( there_is_a_newer_run() ) return;
-
-        const server_entries = await get_server_entries({fileWriter, pagesDirPath, serverEntry, reframeConfig});
-        if( there_is_a_newer_run() ) return;
+        const server_entries = get_server_entries({pagesDirPath, serverEntry, reframeConfig});
 
         await isoBuilder.build_server(server_entries);
         if( there_is_a_newer_run() ) return;
 
         var {buildState} = isoBuilder;
-        const browser_entries = await get_browser_entries({pagesDirPath, buildState, fileWriter, reframeConfig});
-        if( there_is_a_newer_run() ) return;
+        const browser_entries = get_browser_entries({pagesDirPath, buildState, fileWriter, reframeConfig});
 
         await isoBuilder.build_browser(browser_entries);
         if( there_is_a_newer_run() ) return;
@@ -128,7 +123,7 @@ function build({
     */
 }
 
-async function get_server_entries({pagesDirPath, reframeConfig}) {
+function get_server_entries({pagesDirPath, reframeConfig}) {
     const server_entries = {};
 
     get_page_files({pagesDirPath, reframeConfig})
@@ -146,10 +141,12 @@ async function get_server_entries({pagesDirPath, reframeConfig}) {
     return server_entries;
 }
 
-async function get_browser_entries({pagesDirPath, buildState, fileWriter, reframeConfig}) {
+function get_browser_entries({pagesDirPath, buildState, fileWriter, reframeConfig}) {
     const browser_entries = {};
 
-    const reframe_browser_conifg__path = await generate_reframe_browser_config({fileWriter, reframeConfig});
+    fileWriter.startWriteSession('browser_source_files');
+
+    const reframe_browser_conifg__path = generate_reframe_browser_config({fileWriter, reframeConfig});
 
     get_page_files({pagesDirPath, reframeConfig})
     .forEach(({file_path, file_name, entry_name, is_universal, is_dom, is_entry, is_html}) => {
@@ -171,6 +168,8 @@ async function get_browser_entries({pagesDirPath, buildState, fileWriter, refram
     }
 
     assert_internal(Object.values(browser_entries).length>0);
+
+    fileWriter.endWriteSession();
 
     return browser_entries;
 }
@@ -194,7 +193,7 @@ function get_page_files({pagesDirPath, reframeConfig}) {
 }
 
 function generate_browser_noop_entry({fileWriter}) {
-    const fileAbsolutePath = fileWriter.write({
+    const fileAbsolutePath = fileWriter.writeFile({
         fileContent: '// No-op JavaScript used as webpack entry',
         filePath: SOURCE_DIR+'noop.entry.js',
     });
@@ -219,7 +218,7 @@ function generate_reframe_browser_config({fileWriter, reframeConfig}) {
 
     const filePath = SOURCE_DIR+'reframe.browser.config.js';
 
-    const fileAbsolutePath = fileWriter.write({
+    const fileAbsolutePath = fileWriter.writeFile({
         fileContent: source_code,
         filePath,
     });
@@ -243,7 +242,7 @@ function generate_browser_entry({file_path, file_name__dist, fileWriter, reframe
             "hydratePage(pageConfig, reframeBrowserConfig);",
         ].join('\n')
     );
-    const fileAbsolutePath = fileWriter.write({
+    const fileAbsolutePath = fileWriter.writeFile({
         fileContent: source_code,
         filePath: SOURCE_DIR+file_name__dist,
     });
@@ -368,14 +367,18 @@ async function writeHtmlStaticPages({pages, args_browser, fs_handler, reframeCon
 }
 */
 async function writeHtmlFiles({pages, buildState, fileWriter, reframeConfig}) {
+    fileWriter.startWriteSession('html_files');
+
     (await get_static_pages_info())
     .forEach(async ({url, html}) => {
         assert_input({url, html});
-        fileWriter.write({
+        fileWriter.writeFile({
             fileContent: html,
             filePath: get_file_path(url),
         });
     });
+
+    fileWriter.endWriteSession();
 
     return;
 
