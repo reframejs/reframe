@@ -52,7 +52,7 @@ function build({
         const {fileWriter} = isoBuilder;
         const {serverEntry} = reframeConfig._processed;
 
-        const page_objects = get_pages();
+        const page_objects = get_pages({pagesDirPath, reframeConfig});
 
         const server_entries = get_server_entries({page_objects, serverEntry});
 
@@ -94,7 +94,7 @@ function build({
     return isoBuilder.build();
 }
 
-function get_pages() {
+function get_pages({pagesDirPath, reframeConfig}) {
     const page_objects = {};
 
     get_page_files({pagesDirPath, reframeConfig})
@@ -109,12 +109,12 @@ function get_pages() {
             };
         }
         if( is_universal || is_dom ) {
-            assert_usage(!page_object.browser_entry.source_path);
+            assert_usage(!page_object.browser_entry);
             assert_usage(!page_object.browser_page_config__source);
             page_object.browser_page_config__source = file_path;
         }
         if( is_entry ) {
-            assert_usage(!page_object.browser_entry.source_path);
+            assert_usage(!page_object.browser_entry);
             assert_usage(!page_object.browser_page_config__source);
             page_object.browser_entry__source_path = file_path;
             page_object.browser_entry = {
@@ -137,7 +137,7 @@ function get_pages() {
         "No page config found at `"+pagesDirPath+"`."
     );
 
-    return server_entries;
+    return page_objects;
 }
 
 function get_server_entries({page_objects}) {
@@ -172,9 +172,10 @@ function get_browser_entries({page_objects, /*fileWriter,*/}) {
         browser_entries[entry_name] = [source_path];
     });
 
-    Object.value(page_objects)
+    Object.values(page_objects)
     .filter(page_object => page_object.page_config)
     .forEach(page_object => {
+        const {page_config} = page_object;
         (page_config.scripts||[])
         .forEach((script_spec, i) => {
             if( ! (script_spec||{}).diskPath ) {
@@ -213,7 +214,7 @@ function generate_and_add_browser_entries({page_objects, fileWriter, reframeConf
     Object.values(page_objects)
     .filter(page_object => {
         return page_object.browser_page_config__source;
-    });
+    })
     .forEach(page_object => {
         const {browser_page_config__source} = page_object;
         const browser_entry__file_name = page_object.page_name+'.entry.js';
@@ -321,7 +322,7 @@ function extract_build_info(buildState, reframeConfig) {
     const {dist_root_directory: browserDistPath} = output;
     assert_internal(browserDistPath, output);
 
-    return {pages, HapiPluginStaticAssets, browserDistPath};
+    return {HapiPluginStaticAssets, browserDistPath};
 }
 
 async function writeHtmlFiles({page_objects, buildState, fileWriter, reframeConfig}) {
@@ -380,7 +381,7 @@ function enhance_page_objects_1({page_objects, buildState, fileWriter, reframeCo
     generate_and_add_browser_entries({page_objects, fileWriter, reframeConfig});
 }
 
-function enhance_page_objects_2{page_objects, buildState}) {
+function enhance_page_objects_2({page_objects, buildState}) {
     const args_browser = {output: buildState.browser.output};
     add_scripts_to_page_configs({page_objects, args_browser});
 }
@@ -405,20 +406,15 @@ function add_browser_entry_points(page_objects, output) {
             }
         });
     });
-
-    Object.values(page_objects)
-    .forEach(page_object => {
-        assert_internal(! page_object.browser_entry || page_object.browser_entry.entry_point, page_object);
-    });
 }
 
 function add_entry_point_to_page_config(entry_point, page_config, removeIndex) {
     assert_internal(entry_point.scripts.length>=1, entry_point);
-    if( removeIndex ) {
+    if( removeIndex!==undefined ) {
         page_config.scripts = make_paths_array_unique([
-            ...page_config.scripts.slice(0, i),
+            ...page_config.scripts.slice(0, removeIndex),
             ...entry_point.scripts,
-            ...page_config.scripts.slice(i+1),
+            ...page_config.scripts.slice(removeIndex+1),
         ]);
     } else {
         page_config.scripts = make_paths_array_unique([
@@ -439,13 +435,14 @@ function add_disk_path_absolute(page_objects) {
     .filter(page_object => page_object.page_config)
     .forEach(page_object => {
         const {page_config} = page_object;
-        assert_internal(page_config.page_config__source_path);
+        const {page_config__source_path} = page_object;
+        assert_internal(page_config__source_path);
         (page_config.scripts||[])
         .forEach((script_spec, i) => {
             if( ! (script_spec||{}).diskPath ) {
                 return;
             }
-            const disk_path__absolute = get_disk_path__absolute(script_spec, page_config);
+            const disk_path__absolute = get_disk_path__absolute(script_spec, page_config, page_config__source_path);
             assert_internal(is_abs(disk_path__absolute));
             script_spec.disk_path__absolute = disk_path__absolute;
         });
@@ -470,11 +467,11 @@ function add_disk_path(page_objects, output) {
     });
 }
 
-function get_disk_path__absolute(script_spec, page_config) {
+function get_disk_path__absolute(script_spec, page_config, page_config__source_path) {
     const disk_path__relative = script_spec.diskPath;
     assert_usage((disk_path__relative||{}).constructor===String, disk_path__relative);
     assert_internal(!is_abs(disk_path__relative), disk_path__relative);
-    const source_path_parent = path_module.dirname(page_config.page_config__source_path);
+    const source_path_parent = path_module.dirname(page_config__source_path);
     assert_internal(is_abs(source_path_parent));
     const disk_path__absolute = path__resolve(source_path_parent, disk_path__relative);
     return disk_path__absolute;
@@ -496,7 +493,7 @@ function make_paths_array_unique(paths) {
 function find_entry_point({disk_path__absolute, output}) {
     const entry_points__matching = (
         Object.values(output.entry_points)
-        .filter(ep =>
+        .filter(entry_point =>
             entry_point.source_entry_points.some(source_entry_point => {
                 assert_internal(is_abs(source_entry_point));
                 return source_entry_point===disk_path__absolute;
@@ -519,7 +516,7 @@ function load_page_configs({page_objects, args_server}) {
         assert_usage(
             page_config && page_config.constructor===Object,
             "The page config, defined at `"+page_object.page_config__source_path+"`, should return a plain JavaScript object.",
-            "Instead it returns: `"+page_config+"`.
+            "Instead it returns: `"+page_config+"`."
         );
         assert_usage(
             page_config.route,
