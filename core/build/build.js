@@ -48,25 +48,31 @@ function build({
     isoBuilder.webpackBrowserConfigModifier = reframeConfig._processed.webpackBrowserConfigModifier;
     isoBuilder.webpackServerConfigModifier = reframeConfig._processed.webpackServerConfigModifier;
 
-    isoBuilder.builder = async () => {
+    isoBuilder.builder = async there_is_a_newer_run => {
         const {fileWriter} = isoBuilder;
         const {serverEntry} = reframeConfig._processed;
 
         await fileWriter.clear();
+        if( there_is_a_newer_run() ) return;
 
         const server_entries = await get_server_entries({fileWriter, pagesDirPath, serverEntry, reframeConfig});
+        if( there_is_a_newer_run() ) return;
 
         await isoBuilder.build_server(server_entries);
+        if( there_is_a_newer_run() ) return;
 
         var {buildState} = isoBuilder;
         const browser_entries = await get_browser_entries({pagesDirPath, buildState, fileWriter, reframeConfig});
+        if( there_is_a_newer_run() ) return;
 
         await isoBuilder.build_browser(browser_entries);
+        if( there_is_a_newer_run() ) return;
 
         const build_info = extract_build_info(isoBuilder.buildState, reframeConfig);
 
         var {buildState} = isoBuilder;
         await writeHtmlFiles({pages: build_info.pages, buildState, fileWriter, reframeConfig});
+        if( there_is_a_newer_run() ) return;
 
         if( onBuild_user ) {
             onBuild_user(build_info);
