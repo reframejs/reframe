@@ -59,10 +59,10 @@ function build({
         await isoBuilder.build_server(server_entries);
         if( there_is_a_newer_run() ) return;
 
-        enhance_page_objects_1({page_objects, buildState});
+        enhance_page_objects_1({page_objects, buildState, fileWriter, reframeConfig});
 
         var {buildState} = isoBuilder;
-        const browser_entries = get_browser_entries({page_objects, buildState, fileWriter, reframeConfig});
+        const browser_entries = get_browser_entries({page_objects, fileWriter});
 
         await isoBuilder.build_browser(browser_entries);
         if( there_is_a_newer_run() ) return;
@@ -109,17 +109,17 @@ function get_pages() {
             };
         }
         if( is_universal || is_dom ) {
-            assert_usage(!page_object.browser_entry__source_path);
+            assert_usage(!page_object.browser_entry.source_path);
             assert_usage(!page_object.browser_config__source_path);
             page_object.browser_config__source_path = file_path;
         }
         if( is_entry ) {
-            assert_usage(!page_object.browser_entry__source_path);
+            assert_usage(!page_object.browser_entry.source_path);
             assert_usage(!page_object.browser_config__source_path);
             page_object.browser_entry__source_path = file_path;
             page_object.browser_entry = {
                 entry_name,
-                file_path,
+                source_path: file_path,
             };
         }
     });
@@ -146,16 +146,31 @@ function get_server_entries({page_objects}) {
     Object.values(page_objects)
     .filter(page_object => page_object.server_entry)
     .forEach(page_object => {
-        assert_internal(page_object.server_entry.entry_name);
-        assert_internal(page_object.server_entry.file_path);
-        server_entries[page_object.server_entry.entry_name] = page_object.server_entry.file_path;
+        const {entry_name, file_path} = page_object.server_entry;
+        assert_internal(entry_name);
+        assert_internal(file_path);
+        assert_internal(!server_entries[entry_name]);
+        server_entries[entry_name] = file_path;
     });
 
     return server_entries;
 }
 
-function get_browser_entries({page_objects, buildState, fileWriter, reframeConfig}) {
+function get_browser_entries({page_objects, /*fileWriter,*/}) {
+
     const browser_entries = {};
+    const already_added = {};
+
+    Object.values(page_objects)
+    .filter(page_object => page_object.browser_entry)
+    .forEach(page_object => {
+        const {entry_name, file_path} = page_object.browser_entry;
+        assert_internal(entry_name);
+        assert_internal(file_path);
+        already_added[file_path] = true;
+        assert_internal(!browser_entries[entry_name]);
+        browser_entries[entry_name] = [file_path];
+    });
 
     Object.value(page_objects)
     .filter(page_object => page_object.page_config)
@@ -165,36 +180,16 @@ function get_browser_entries({page_objects, buildState, fileWriter, reframeConfi
             if( ! (script_spec||{}).diskPath ) {
                 return;
             }
-            script_spec.disk_path__absolute = get_disk_path__absolute(script_spec, page_config);
+            const {disk_path__absolute} = script_spec;
+            assert_internal(disk_path__absolute);
+            if( already_added[disk_path__absolute] ) {
+                return;
+            }
+            already_added[disk_path__absolute] = true;
+            const {entry_name} = get_names(script_spec.disk_path__absolute);
+            assert_internal(!browser_entries[entry_name]);
+            browser_entries[entry_name] = [disk_path__absolute];
         });
-    });
-
-    const browser_entries = {};
-
-    fileWriter.startWriteSession('browser_source_files');
-
-    const reframe_browser_conifg__path = generate_reframe_browser_config({fileWriter, reframeConfig});
-
- // let autoreload_entry;
-
-    get_page_files({pagesDirPath, reframeConfig})
-    .forEach(({file_path, file_name, entry_name, is_universal, is_dom, is_entry, is_html}) => {
-        if( is_universal || is_dom ) {
-            const file_name__dist = file_name.split('.').slice(0, -2).concat(['entry', 'js']).join('.');
-            const entry_file_path = generate_browser_entry({fileWriter, file_path, file_name__dist, reframe_browser_conifg__path});
-            const entry_name__browser = entry_name.split('.').slice(0, -1).concat(['entry']).join('.');
-            browser_entries[entry_name__browser] = [entry_file_path];
-            return;
-        }
-        if( is_entry ) {
-            browser_entries[entry_name] = [file_path];
-            return;
-        }
-        /*
-        if( ! autoreload_entry ) {
-        }
-        */
-     // browser_entries[entry_name] = [];
     });
 
     /*
@@ -207,18 +202,38 @@ function get_browser_entries({page_objects, buildState, fileWriter, reframeConfi
 
     assert_internal(Object.values(browser_entries).length>0);
 
-    fileWriter.endWriteSession();
-
     return browser_entries;
+}
+
+function generate_and_add_browser_entries({page_objects, fileWriter, reframeConfig}) {
+    fileWriter.startWriteSession('browser_source_files');
+
+    const reframe_browser_config__path = generate_reframe_browser_config({fileWriter, reframeConfig});
+
+    Object.values(page_objects)
+    .filter(page_object => {
+        return page_object.browser_config__source_path;
+    });
+    .forEach(page_object => {
+        const {page_config__source_path} = page_object;
+        const browser_entry__file_name = page_object.page_name+'.entry.js';
+        const browser_entry__source_path = generate_browser_entry({fileWriter, page_config__source_path, browser_entry__file_name, reframe_browser_config__path});
+        const {entry_name} = get_names(browser_entry__source_path);
+        assert_internal(!page_object.browser_entry);
+        page_object.browser_entry = {
+            entry_name,
+            source_path: browser_entry__source_path,
+        };
+    });
+
+    fileWriter.endWriteSession();
 }
 
 function get_page_files({pagesDirPath, reframeConfig}) {
     return (
         fs__ls(pagesDirPath)
         .map(file_path => {
-            const file_name = path_module.basename(file_path);
-            const entry_name = file_name.split('.').slice(0, -1).join('.');
-            const page_name = file_name.split('.')[0];
+            const {file_name, entry_name, page_name} = get_names(file_path);
 
             const is_universal = is_script(file_path, '.universal', reframeConfig);
             const is_dom = is_script(file_path, '.dom', reframeConfig);
@@ -229,6 +244,14 @@ function get_page_files({pagesDirPath, reframeConfig}) {
             return {file_path, file_name, entry_name, page_name, is_universal, is_dom, is_entry, is_html};
         })
     );
+}
+
+function get_names(file_path) {
+    const file_name = path_module.basename(file_path);
+    assert_internal(!file_name.includes(path_module.sep));
+    const entry_name = file_name.split('.').slice(0, -1).join('.');
+    const page_name = file_name.split('.')[0];
+    return {file_name, entry_name, page_name};
 }
 
 function generate_browser_noop_entry({fileWriter}) {
@@ -269,17 +292,17 @@ function generate_reframe_browser_config({fileWriter, reframeConfig}) {
     return fileAbsolutePath;
 }
 
-function generate_browser_entry({file_path, file_name__dist, fileWriter, reframe_browser_conifg__path}) {
-    assert_internal(path_module.isAbsolute(file_path));
-    assert_internal(path_module.isAbsolute(reframe_browser_conifg__path));
-    assert_internal(!path_module.isAbsolute(file_name__dist));
+function generate_browser_entry({page_config__source_path, browser_entry__file_name, fileWriter, reframe_browser_config__path}) {
+    assert_internal(path_module.isAbsolute(page_config__source_path));
+    assert_internal(path_module.isAbsolute(reframe_browser_config__path));
+    assert_internal(!path_module.isAbsolute(browser_entry__file_name));
     const source_code = (
         [
             "const hydratePage = require('"+require.resolve('@reframe/browser/hydratePage')+"');",
-            "const reframeBrowserConfig = require('"+reframe_browser_conifg__path+"');",
+            "const reframeBrowserConfig = require('"+reframe_browser_config__path+"');",
             "",
             "// hybrid cjs and ES6 module import",
-            "let pageConfig = require('"+file_path+"');",
+            "let pageConfig = require('"+page_config__source_path+"');",
             "pageConfig = Object.keys(pageConfig).length===1 && pageConfig.default || pageConfig;",
             "",
             "hydratePage(pageConfig, reframeBrowserConfig);",
@@ -287,7 +310,7 @@ function generate_browser_entry({file_path, file_name__dist, fileWriter, reframe
     );
     const fileAbsolutePath = fileWriter.writeFile({
         fileContent: source_code,
-        filePath: SOURCE_DIR+file_name__dist,
+        filePath: SOURCE_DIR+browser_entry__file_name,
     });
     return fileAbsolutePath;
 }
@@ -350,10 +373,11 @@ async function writeHtmlFiles({page_objects, buildState, fileWriter, reframeConf
     }
 }
 
-function enhance_page_objects_1({page_objects, buildState}) {
+function enhance_page_objects_1({page_objects, buildState, reframeConfig}) {
     const args_server = {output: buildState.server.output};
     load_page_configs({page_objects, args_server});
     add_disk_path_absolute(page_objects);
+    generate_and_add_browser_entries({page_objects, fileWriter, reframeConfig});
 }
 
 function enhance_page_objects_2{page_objects, buildState}) {
@@ -526,19 +550,6 @@ function get_script_dist_path(entry_point) {
     assert_internal(script_dist_path, entry_point);
     return script_dist_path;
 }
-/*
-function get_source_path(entry_point, filter) {
-    let {source_entry_points} = entry_point;
-    assert_internal(source_entry_points.length>=1, entry_point);
-    if( filter ) {
-        source_entry_points = source_entry_points.filter(filter);
-    }
-    assert_internal(source_entry_points.length===1, entry_point);
-    const source_path = source_entry_points[0];
-    assert_internal(source_path.constructor===String);
-    return source_path;
-}
-*/
 
 function isProduction() {
     return process.env['NODE_ENV'] === 'production';
