@@ -286,6 +286,7 @@ function extract_build_info(buildState, reframeConfig) {
     return {pages, HapiPluginStaticAssets, browserDistPath};
 }
 
+/*
 async function onBuild({build_info__repage, fs_handler, reframeConfig}) {
     const {compilationInfo, isFirstBuild} = build_info__repage;
  // const [args_server, args_browser] = compilationInfo;
@@ -311,6 +312,7 @@ async function onBuild({build_info__repage, fs_handler, reframeConfig}) {
 
     return {pages, HapiPluginStaticAssets, browserDistPath, isFirstBuild};
 }
+*/
 
 /*
 async function writeHtmlStaticPages({pages, args_browser, fs_handler, reframeConfig}) {
