@@ -92,12 +92,6 @@ function build({
     return isoBuilder.build();
 }
 
-function enhance_page_objects({page_objects, buildState, reframeConfig}) {
-    get_pages__({buildState, reframeConfig});
-    load_page_configs({args_server, reframeConfig});
-}
-
-
 function get_pages() {
     const page_objects = {};
 
@@ -330,16 +324,11 @@ async function writeHtmlFiles({page_objects, buildState, fileWriter, reframeConf
     }
 }
 
-function get_pages__({buildState, reframeConfig}) {
+function enhance_page_objects({page_objects, buildState, reframeConfig}) {
     const args_browser = {output: buildState.browser.output};
     const args_server = {output: buildState.server.output};
-    return get_page_infos({args_browser, args_server, reframeConfig});
-}
-
-function get_page_infos({args_browser, args_server, reframeConfig}) {
-    const page_infos = load_page_configs({args_server, reframeConfig});
+    load_page_configs({page_objects, args_server, reframeConfig});
     add_browser_files({page_infos, args_browser, reframeConfig});
-    return page_infos;
 }
 
 function add_browser_files({page_infos, args_browser: {output}, reframeConfig}) {
@@ -464,27 +453,25 @@ function find_dist_files({disk_path, output, reframeConfig}) {
 
 function load_page_configs({page_objects, args_server, reframeConfig}) {
     require('source-map-support').install();
-    const page_configs = {};
 
     Object.values(args_server.output.entry_points)
     .map(entry_point => {
-        const modulePath = get_nodejs_path(entry_point, reframeConfig);
-        const page_info = require__magic(modulePath);
-        page_info.sourcePath = get_source_path(entry_point);
-        assert_internal(
-            page_info.sourcePath.startsWith('/'),
-            args_server.output.entry_points,
-            page_info.sourcePath
+        const page_object = page_objects[entry_point.entry_name];
+        assert_internal(page_object);
+        const script_dist_path = get_script_dist_path(entry_point);
+        const page_config = require__magic(script_dist_path);
+        assert_usage(
+            page_config && page_config.constructor===Object,
+            "The page config, defined at `"+page_object.page_config__source_path+"`, should return a plain JavaScript object.",
+            "Instead it returns: `"+page_config+"`.
         );
         assert_usage(
-            page_info.route || page_info.pageLodaer,
-            page_info,
-            "The page object printed above at `"+page_info.sourcePath+"` is missing the `route` property."
+            page_config.route,
+            page_config,
+            "The page config, printed above and defined at `"+page_object.page_config__source_path+"`, is missing the `route` property."
         );
-        return page_info;
+        page_object.page_config = page_config;
     });
-
-    return page_configs;
 }
 
 function require__magic(modulePath) {
@@ -496,16 +483,19 @@ function require__magic(modulePath) {
     return module_exports;
 }
 
-function get_nodejs_path(entry_point, reframeConfig) {
-    const scripts = (
-        entry_point.all_assets.filter(asset => is_script(asset.filename, '', reframeConfig))
-    );
-    assert_internal(scripts.length===1, entry_point);
-    const {filepath} = scripts[0];
-    assert_internal(filepath, entry_point);
-    assert_internal(filepath.constructor===String);
-    return filepath;
+function get_script_dist_path(entry_point) {
+    assert_internal(entry_point.all_assets.length===1, entry_point);
+    let script_dist_path;
+    entry_point.all_assets.forEach(({asset_type, filepath}) => {
+        if( asset_type==='script' ) {
+            assert_internal(!script_dist_path, entry_point);
+            script_dist_path = filepath;
+        }
+    });
+    assert_internal(script_dist_path, entry_point);
+    return script_dist_path;
 }
+/*
 function get_source_path(entry_point, filter) {
     let {source_entry_points} = entry_point;
     assert_internal(source_entry_points.length>=1, entry_point);
@@ -517,6 +507,7 @@ function get_source_path(entry_point, filter) {
     assert_internal(source_path.constructor===String);
     return source_path;
 }
+*/
 
 function isProduction() {
     return process.env['NODE_ENV'] === 'production';
