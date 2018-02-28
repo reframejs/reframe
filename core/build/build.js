@@ -52,6 +52,7 @@ function build({
         const {fileWriter} = isoBuilder;
         const {serverEntry} = reframeConfig._processed;
 
+        const pages = {};
         const server_entries = get_server_entries({pagesDirPath, serverEntry, reframeConfig});
 
         await isoBuilder.build_server(server_entries);
@@ -83,44 +84,6 @@ function build({
     */
 
     return isoBuilder.build();
-
-
-    /*
-    const webpack_config = get_webpack_config({
-        pagesDirPath,
-        reframeConfig,
-        appDirPath,
-    });
-
-    let resolve_first_build_promise;
-    const first_build_promise = new Promise(resolve => resolve_first_build_promise = ret => resolve(ret));
-
-    serve(webpack_config, {
-        doNotCreateServer: true,
-        doNotGenerateIndexHtml: true,
-        doNotAutoReload,
-        log: log_option,
-        ...rebuild_opts,
-        onBuild: async build_info__repage => {
-            const build_info__reframe = await onBuild({build_info__repage, fs_handler, reframeConfig});
-
-            if( log_option && build_info__reframe.isFirstBuild ) {
-                log_title('Pages');
-                log(build_info__reframe.pages);
-            }
-
-            if( onBuild_user ) {
-                await onBuild_user(build_info__reframe);
-            }
-
-            if( build_info__reframe.isFirstBuild ) {
-                resolve_first_build_promise(build_info__reframe);
-            }
-        },
-    });
-
-    return first_build_promise;
-    */
 }
 
 function get_server_entries({pagesDirPath, reframeConfig}) {
@@ -264,31 +227,6 @@ function generate_browser_entry({file_path, file_name__dist, fileWriter, reframe
     return fileAbsolutePath;
 }
 
-function path_points_to_a_file(file_path) {
-    try {
-        // `require.resolve` throws if `file_path` is not a file
-        require.resolve(file_path);
-        return true;
-    } catch(e) {}
-    return false;
-}
-
-function fs__ls(dirpath) {
-    assert_internal(is_abs(dirpath));
-    /*
-    const files = dir.files(dirpath, {sync: true, recursive: false});
-    */
-    const files = (
-        fs.readdirSync(dirpath)
-        .map(filename => path__resolve(dirpath, filename))
-    );
-    files.forEach(filepath => {
-        assert_internal(is_abs(filepath), dirpath, files);
-        assert_internal(path_module.relative(dirpath, filepath).split(path_module.sep).length===1, dirpath, files);
-    });
-    return files;
-}
-
 function extract_build_info(buildState, reframeConfig) {
     const {HapiPluginStaticAssets, output} = buildState.browser;
     assert_internal(HapiPluginStaticAssets);
@@ -300,87 +238,6 @@ function extract_build_info(buildState, reframeConfig) {
     return {pages, HapiPluginStaticAssets, browserDistPath};
 }
 
-/*
-async function onBuild({build_info__repage, fs_handler, reframeConfig}) {
-    const {compilationInfo, isFirstBuild} = build_info__repage;
- // const [args_server, args_browser] = compilationInfo;
-    const [args_browser, args_server] = compilationInfo;
-    assert_internal(args_server.constructor===Object);
-    assert_internal(args_browser.constructor===Object);
- // log(args_server.output);
- // log(args_browser.output);
-
-    fs_handler.removePreviouslyWrittenFiles();
-
-    const pages = await get_page_infos({args_browser, args_server, reframeConfig});
- // log(pages);
-
-    assert_internal(args_browser);
-    await writeHtmlStaticPages({args_browser, pages, fs_handler, reframeConfig});
-
-    const {HapiPluginStaticAssets} = args_browser;
-    assert_internal(HapiPluginStaticAssets, args_server, args_browser);
-
-    const browserDistPath = args_browser.output.dist_root_directory;
-    assert_internal(path_module.isAbsolute(browserDistPath));
-
-    return {pages, HapiPluginStaticAssets, browserDistPath, isFirstBuild};
-}
-*/
-
-/*
-async function writeHtmlStaticPages({pages, args_browser, fs_handler, reframeConfig}) {
-    (await get_static_pages_info())
-    .forEach(({url, html}) => {
-        write_html_file({url, html});
-    });
-
-    return;
-
-    function get_static_pages_info() {
-        const repage = new Repage();
-
-        repage.addPlugins([
-            ...reframeConfig._processed.repage_plugins,
-        ]);
-
-        repage.addPages(pages);
-
-        return getStaticPages(repage);
-    }
-
-    function write_html_file({url, html}) {
-        assert_input({url, html, args_browser});
-        const disk_path = get_disk_path(url);
-        fs_handler.writeFile(disk_path, html);
-    }
-
-    function get_disk_path(url) {
-        const {pathname} = url;
-        const {dist_root_directory} = args_browser.output;
-        assert_internal(pathname.startsWith('/'));
-        assert_internal(dist_root_directory.startsWith('/'));
-        const disk_path = (
-            path_module.resolve(
-                dist_root_directory,
-                '.'+(pathname === '/' ? '/index' : pathname)+'.html'
-            )
-        );
-        return disk_path;
-    }
-
-    function assert_input({url, html, args_browser}) {
-        assert_internal(html===null || html && html.constructor===String, html);
-        assert_internal(html);
-
-        assert_internal(url.pathname.startsWith('/'));
-        assert_internal(url.search==='');
-        assert_internal(url.hash==='');
-
-        assert_internal(args_browser.output.dist_root_directory.startsWith('/'));
-    }
-}
-*/
 async function writeHtmlFiles({pages, buildState, fileWriter, reframeConfig}) {
     fileWriter.startWriteSession('html_files');
 
@@ -649,4 +506,29 @@ function is_script(path, suffix, reframeConfig) {
         extensions
         .some(ext => path.endsWith(suffix+'.'+ext))
     );
+}
+
+function path_points_to_a_file(file_path) {
+    try {
+        // `require.resolve` throws if `file_path` is not a file
+        require.resolve(file_path);
+        return true;
+    } catch(e) {}
+    return false;
+}
+
+function fs__ls(dirpath) {
+    assert_internal(is_abs(dirpath));
+    /*
+    const files = dir.files(dirpath, {sync: true, recursive: false});
+    */
+    const files = (
+        fs.readdirSync(dirpath)
+        .map(filename => path__resolve(dirpath, filename))
+    );
+    files.forEach(filepath => {
+        assert_internal(is_abs(filepath), dirpath, files);
+        assert_internal(path_module.relative(dirpath, filepath).split(path_module.sep).length===1, dirpath, files);
+    });
+    return files;
 }
