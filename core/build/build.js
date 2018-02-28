@@ -52,8 +52,9 @@ function build({
         const {fileWriter} = isoBuilder;
         const {serverEntry} = reframeConfig._processed;
 
-        const pages = {};
-        const server_entries = get_server_entries({pagesDirPath, serverEntry, reframeConfig});
+        const page_objects = get_pages();
+
+        const server_entries = get_server_entries({page_objects, serverEntry});
 
         await isoBuilder.build_server(server_entries);
         if( there_is_a_newer_run() ) return;
@@ -64,11 +65,14 @@ function build({
         await isoBuilder.build_browser(browser_entries);
         if( there_is_a_newer_run() ) return;
 
-        const build_info = extract_build_info(isoBuilder.buildState, reframeConfig);
-
         var {buildState} = isoBuilder;
-        await writeHtmlFiles({pages: build_info.pages, buildState, fileWriter, reframeConfig});
+        await writeHtmlFiles({page_objects, buildState, fileWriter, reframeConfig});
         if( there_is_a_newer_run() ) return;
+
+        const build_info = {
+            pages: page_objects.map(({pageConfig}) => pageConfig),
+            ...extract_build_info(isoBuilder.buildState, reframeConfig)
+        };
 
         if( onBuild_user ) {
             onBuild_user(build_info);
@@ -86,20 +90,47 @@ function build({
     return isoBuilder.build();
 }
 
-function get_server_entries({pagesDirPath, reframeConfig}) {
-    const server_entries = {};
+function get_pages() {
+    const page_objects = {};
 
     get_page_files({pagesDirPath, reframeConfig})
     .forEach(({file_path, file_name, entry_name, is_universal, is_dom, is_entry, is_html}) => {
+        const page_object = page_objects[entry_name] = page_objects[entry_name] || {entry_name};
         if( is_universal || is_html ) {
-            server_entries[entry_name] = [file_path];
+            assert_usage(!page_object.server_entry);
+            page_object.page_config__source_path = file_path;
+            page_object.server_entry = [file_path];
+        }
+        if( is_universal || is_dom ) {
+        }
+        if( is_entry ) {
+            page_object.page_browser_config_path__source = file_path;
         }
     });
 
+    Object.values(page_objects)
+    .forEach(page_object => {
+        assert_usage(page_object.page_config__source_path);
+        assert_internal(page_object.server_entry.length===1);
+    });
+
     assert_usage(
-        Object.values(server_entries).length>0,
+        Object.values(page_objects).length>0,
         "No page config found at `"+pagesDirPath+"`."
     );
+
+    return server_entries;
+}
+
+function get_server_entries({page_objects}) {
+    const server_entries = {};
+
+    Object.values(page_objects)
+    .forEach(page_object => {
+        assert_internal(page_object.entry_name);
+        assert_internal(page_object.server_entry);
+        server_entries[page_object.entry_name] = page_object.server_entry;
+    });
 
     return server_entries;
 }
@@ -233,12 +264,12 @@ function extract_build_info(buildState, reframeConfig) {
     const {dist_root_directory: browserDistPath} = output;
     assert_internal(browserDistPath, output);
 
-    const pages = get_pages({buildState, reframeConfig});
+    const pages = get_pages__({buildState, reframeConfig});
 
     return {pages, HapiPluginStaticAssets, browserDistPath};
 }
 
-async function writeHtmlFiles({pages, buildState, fileWriter, reframeConfig}) {
+async function writeHtmlFiles({page_objects, buildState, fileWriter, reframeConfig}) {
     fileWriter.startWriteSession('html_files');
 
     (await get_static_pages_info())
@@ -261,7 +292,7 @@ async function writeHtmlFiles({pages, buildState, fileWriter, reframeConfig}) {
             ...reframeConfig._processed.repage_plugins,
         ]);
 
-        repage.addPages(pages);
+        repage.addPages(page_objects.map(({pageConfig}) => pageConfig));
 
         return getStaticPages(repage);
     }
@@ -287,7 +318,7 @@ async function writeHtmlFiles({pages, buildState, fileWriter, reframeConfig}) {
     }
 }
 
-function get_pages({buildState, reframeConfig}) {
+function get_pages__({buildState, reframeConfig}) {
     const args_browser = {output: buildState.browser.output};
     const args_server = {output: buildState.server.output};
     return get_page_infos({args_browser, args_server, reframeConfig});
