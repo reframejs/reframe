@@ -148,6 +148,8 @@ function get_browser_entries({pagesDirPath, buildState, fileWriter, reframeConfi
 
     const reframe_browser_conifg__path = generate_reframe_browser_config({fileWriter, reframeConfig});
 
+ // let autoreload_entry;
+
     get_page_files({pagesDirPath, reframeConfig})
     .forEach(({file_path, file_name, entry_name, is_universal, is_dom, is_entry, is_html}) => {
         if( is_universal || is_dom ) {
@@ -155,17 +157,26 @@ function get_browser_entries({pagesDirPath, buildState, fileWriter, reframeConfi
             const entry_file_path = generate_browser_entry({fileWriter, file_path, file_name__dist, reframe_browser_conifg__path});
             const entry_name__browser = entry_name.split('.').slice(0, -1).concat(['entry']).join('.');
             browser_entries[entry_name__browser] = [entry_file_path];
+            return;
         }
         if( is_entry ) {
             browser_entries[entry_name] = [file_path];
+            return;
         }
+        /*
+        if( ! autoreload_entry ) {
+        }
+        */
+     // browser_entries[entry_name] = [];
     });
 
+    /*
     if( Object.values(browser_entries).length === 0 ) {
         const entry_name = 'dummy-entry';
         const noop_file_path = generate_browser_noop_entry({fileWriter});
         browser_entries[entry_name] = [noop_file_path];
     }
+    */
 
     assert_internal(Object.values(browser_entries).length>0);
 
@@ -193,9 +204,13 @@ function get_page_files({pagesDirPath, reframeConfig}) {
 }
 
 function generate_browser_noop_entry({fileWriter}) {
+    const source_code = [
+        '// No-op JavaScript that only includes the client-side autoreload script',
+     // "require('"+uhew+"');",
+    ].join('\n');
     const fileAbsolutePath = fileWriter.writeFile({
-        fileContent: '// No-op JavaScript used as webpack entry',
-        filePath: SOURCE_DIR+'noop.entry.js',
+        fileContent: source_code,
+        filePath: SOURCE_DIR+'__noop_autoreload.entry.js',
     });
     return fileAbsolutePath;
 }
