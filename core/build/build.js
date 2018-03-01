@@ -103,11 +103,9 @@ async function build({
 function on_page_file_removal_or_addition(path, listener) {
     const watcher = chokidar.watch(path, {ignoreInitial: true});
     watcher.on('add', (p) => {
-        console.log('add', p);
         listener();
     });
     watcher.on('unlink', () => {
-        console.log('remove');
         listener();
     });
 }
