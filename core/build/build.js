@@ -110,9 +110,9 @@ function get_pages({pagesDirPath, reframeConfig}) {
     const page_objects = {};
 
     get_page_files({pagesDirPath, reframeConfig})
-    .forEach(({file_path, file_name, page_name, entry_name, is_universal, is_dom, is_entry, is_html}) => {
+    .forEach(({file_path, file_name, page_name, entry_name, is_dom, is_entry, is_base}) => {
         const page_object = page_objects[page_name] = page_objects[page_name] || {page_name};
-        if( is_universal || is_html ) {
+        if( is_base ) {
             assert_usage(!page_object.server_entry);
             page_object.page_config__source_path = file_path;
             page_object.server_entry = {
@@ -120,7 +120,7 @@ function get_pages({pagesDirPath, reframeConfig}) {
                 source_path: file_path,
             };
         }
-        if( is_universal || is_dom ) {
+        if( is_dom ) {
             assert_usage(!page_object.browser_entry);
             assert_usage(!page_object.browser_page_config__source);
             page_object.browser_page_config__source = file_path;
@@ -222,10 +222,13 @@ function generate_and_add_browser_entries({page_objects, fileWriter, reframeConf
 
     Object.values(page_objects)
     .filter(page_object => {
+        if( page_object.browser_entry ) {
+            return false;
+        }
         if( page_object.browser_page_config__source ) {
             return true;
         }
-        if( page_object.page_config__source_path && page_object.page_config.domStatic===false ) {
+        if( page_object.page_config__source_path && page_object.page_config.domStatic!==true ) {
             return true;
         }
         return false;
@@ -267,12 +270,10 @@ function get_page_files({pagesDirPath, reframeConfig}) {
 
             const file_name_parts = file_name.split('.');
 
-            const suffix_universal = file_name_parts.includes('universal');
             const suffix_dom = file_name_parts.includes('dom');
             const suffix_entry = file_name_parts.includes('entry');
-            const suffix_html = file_name_parts.includes('html');
             const suffix_mixin = file_name_parts.includes('mixin');
-            const number_of_suffixes = suffix_universal + suffix_dom + suffix_entry + suffix_html;
+            const number_of_suffixes = suffix_dom + suffix_entry + suffix_mixin;
             assert_usage(
                 number_of_suffixes <= 1,
                 "The file `"+file_path+"` has conflicting suffixes.",
@@ -284,10 +285,9 @@ function get_page_files({pagesDirPath, reframeConfig}) {
                 file_name,
                 entry_name,
                 page_name,
-                is_universal: suffix_universal,
                 is_dom: suffix_dom,
                 is_entry: suffix_entry,
-                is_html: number_of_suffixes===0 || suffix_html,
+                is_base: number_of_suffixes===0,
             };
         })
     );
