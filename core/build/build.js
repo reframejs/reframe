@@ -174,13 +174,10 @@ function get_browser_entries__browser_entry({page_objects, browser_entries, alre
     .forEach(page_object => {
         const {entry_name, source_path} = page_object.browser_entry;
         assert_internal(entry_name);
-        if( ! source_path ) {
-            browser_entries[entry_name] = [];
-        } else {
-            already_added[source_path] = true;
-            assert_internal(!browser_entries[entry_name]);
-            browser_entries[entry_name] = [source_path];
-        }
+        assert_internal(source_path);
+        already_added[source_path] = true;
+        assert_internal(!browser_entries[entry_name], entry_name);
+        browser_entries[entry_name] = [source_path];
     });
 }
 function get_browser_entries__script_disk_path({page_objects, browser_entries, already_added}) {
@@ -240,12 +237,12 @@ function generate_and_add_browser_entries({page_objects, fileWriter, reframeConf
     });
 
     Object.values(page_objects)
-    .filter(page_object => {
-        return page_object.page_config__source_path && !page_object.browser_page_config__source;
-    })
+    .filter(page_object => page_object.page_config__source_path && !page_object.browser_page_config__source)
     .forEach(page_object => {
         page_object.browser_entry = {
-            entry_name: 'noop-autoreload',
+            entry_name: page_object.page_name+'.js_noop',
+            source_path: page_object.page_config__source_path,
+            only_include_style: true,
         };
     });
 
@@ -392,34 +389,65 @@ function enhance_page_objects_1({page_objects, buildState, fileWriter, reframeCo
 }
 
 function enhance_page_objects_2({page_objects, buildState}) {
-    const args_browser = {output: buildState.browser.output};
-    add_scripts_to_page_configs({page_objects, args_browser});
+    add_assets_to_page_configs({page_objects, buildState});
 }
 
-function add_scripts_to_page_configs({page_objects, args_browser: {output}}) {
-    add_browser_entry_points(page_objects, output);
-    add_disk_path(page_objects, output);
+function add_assets_to_page_configs({page_objects, buildState}) {
+    add_browser_entry_points(page_objects, buildState);
+    add_autoreload_client(page_objects, buildState);
+    add_disk_path(page_objects, buildState);
 }
 
-function add_browser_entry_points(page_objects, output) {
-    Object.values(output.entry_points)
+function add_autoreload_client(page_objects, {browser: {output: output__browser}}) {
+    const entry_point__autoreload = Object.values(output__browser.entry_points).find(({entry_name}) => entry_name==='autoreload_client');
+    assert_internal(entry_point__autoreload, output__browser.entry_points);
+    Object.values(page_objects)
+    .filter(page_object => page_object.page_config__source_path && (!page_object.browser_entry || page_object.browser_entry.only_include_style))
+    .forEach(page_object => {
+        assert_internal(page_object.page_config);
+        add_entry_point_to_page_config(entry_point__autoreload, page_object.page_config);
+    });
+}
+
+function add_browser_entry_points(page_objects, {browser: {output: output__browser}, server: {output: output__server}}) {
+    Object.values(output__browser.entry_points)
     .forEach(entry_point => {
         assert_internal(entry_point.entry_name);
         Object.values(page_objects)
         .forEach(page_object => {
-            const {entry_name} = (page_object.browser_entry||{});
+            const {entry_name, only_include_style} = (page_object.browser_entry||{});
             if( entry_name===entry_point.entry_name ) {
-             // page_object.browser_entry.entry_point = entry_point;
                 if( page_object.page_config ) {
-                    add_entry_point_to_page_config(entry_point, page_object.page_config);
+                    if( only_include_style ) {
+                        add_entry_point_styles_to_page_config(entry_point, page_object.page_config);
+                    } else {
+                        add_entry_point_to_page_config(entry_point, page_object.page_config);
+                    }
                 }
             }
         });
     });
+
+    /*
+    Object.values(output__server.entry_points)
+    .forEach(entry_point => {
+        assert_internal(entry_point.entry_name);
+        Object.values(page_objects)
+        .forEach(page_object => {
+            const {entry_name} = (page_object.server_entry||{});
+            if( entry_name===entry_point.entry_name ) {
+                if( page_object.page_config ) {
+                    add_entry_point_styles_to_page_config(entry_point, page_object.page_config);
+                }
+            }
+        });
+    });
+    */
 }
 
 function add_entry_point_to_page_config(entry_point, page_config, removeIndex) {
     assert_internal(entry_point.scripts.length>=1, entry_point);
+    assert_internal(!entry_point.entry_name.endsWith('.js_noop.js'));
     if( removeIndex!==undefined ) {
         page_config.scripts = make_paths_array_unique([
             ...page_config.scripts.slice(0, removeIndex),
@@ -433,6 +461,10 @@ function add_entry_point_to_page_config(entry_point, page_config, removeIndex) {
         ]);
     }
 
+    add_entry_point_styles_to_page_config(entry_point, page_config);
+}
+
+function add_entry_point_styles_to_page_config(entry_point, page_config) {
     assert_internal(entry_point.styles.length>=0, entry_point);
     page_config.styles = make_paths_array_unique([
         ...(page_config.styles||[]),
@@ -459,7 +491,7 @@ function add_disk_path_absolute(page_objects) {
     });
 }
 
-function add_disk_path(page_objects, output) {
+function add_disk_path(page_objects, {browser: {output}}) {
     Object.values(page_objects)
     .filter(page_object => page_object.page_config)
     .forEach(page_object => {
@@ -547,7 +579,6 @@ function require__magic(modulePath) {
 }
 
 function get_script_dist_path(entry_point) {
-    assert_internal(entry_point.all_assets.length===1, entry_point);
     let script_dist_path;
     entry_point.all_assets.forEach(({asset_type, filepath}) => {
         if( asset_type==='script' ) {
