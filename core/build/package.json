@@ -13,6 +13,7 @@
     "@repage/renderer": "latest",
     "@repage/renderer-react": "latest",
     "@repage/router-crossroads": "latest",
+    "chokidar": "^2.0.2",
     "mkdirp": "^0.5.1",
     "node-dir": "^0.1.17",
     "parent-module": "^0.1.0",

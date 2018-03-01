@@ -8,6 +8,7 @@ const {IsoBuilder} = require('@rebuild/iso');
 const path_module = require('path');
 const fs = require('fs');
 const {processReframeConfig} = require('@reframe/utils/processReframeConfig');
+const chokidar = require('chokidar');
 
 const Repage = require('@repage/core');
 const {getStaticPages} = require('@repage/build');
@@ -17,7 +18,7 @@ module.exports = build;
 const SOURCE_DIR = 'source'+path_module.sep;
 const BROWSER_DIST_DIR = 'browser'+path_module.sep;
 
-function build({
+async function build({
     pagesDirPath,
 
     onBuild: onBuild_user,
@@ -79,19 +80,36 @@ function build({
         };
 
         if( onBuild_user ) {
+            assert_internal(build_info.browserDistPath);
             onBuild_user(build_info);
         }
 
+        assert_internal(build_info.browserDistPath);
         return build_info;
     };
 
-    /*
-    addFileChangeListener(() => {
-        isoBuilder.build();
-    });
-    */
+    if( ! is_production() ) {
+        on_page_file_removal_or_addition(
+            pagesDirPath,
+            () => isoBuilder.build()
+        );
+    }
 
-    return isoBuilder.build();
+    const build_info = await isoBuilder.build();
+
+    return build_info;
+}
+
+function on_page_file_removal_or_addition(path, listener) {
+    const watcher = chokidar.watch(path, {ignoreInitial: true});
+    watcher.on('add', (p) => {
+        console.log('add', p);
+        listener();
+    });
+    watcher.on('unlink', () => {
+        console.log('remove');
+        listener();
+    });
 }
 
 function get_pages({pagesDirPath, reframeConfig}) {
@@ -598,4 +616,8 @@ function fs__ls(dirpath) {
         assert_internal(path_module.relative(dirpath, filepath).split(path_module.sep).length===1, dirpath, files);
     });
     return files;
+}
+
+function is_production() {
+   return process.env.NODE_ENV === 'production';
 }
