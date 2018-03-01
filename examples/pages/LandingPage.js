@@ -60,6 +60,7 @@ const LandingPage = {
     route: '/',
     view: LandingComponent,
     htmlIsStatic: true,
+    domStatic: true,
 };
 
 module.exports = LandingPage;

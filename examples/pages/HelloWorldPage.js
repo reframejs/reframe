@@ -8,6 +8,7 @@ const HelloWorldPage = {
     route: '/hello', // Page's URL
     view: HelloWorldComponent,
     htmlIsStatic: true, // Let Reframe know that HelloPage's HTML is static.
+    domStatic: true,
 };
 
 module.exports = HelloWorldPage;

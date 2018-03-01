@@ -15,4 +15,5 @@ export default {
         const characters = await getCharacters();
         return {characters};
     },
+    domStatic: true,
 };
