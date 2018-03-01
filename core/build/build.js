@@ -18,7 +18,7 @@ module.exports = build;
 const SOURCE_DIR = 'source'+path_module.sep;
 const BROWSER_DIST_DIR = 'browser'+path_module.sep;
 
-async function build({
+function build({
     pagesDirPath,
 
     onBuild: onBuild_user,
@@ -80,11 +80,9 @@ async function build({
         };
 
         if( onBuild_user ) {
-            assert_internal(build_info.browserDistPath);
             onBuild_user(build_info);
         }
 
-        assert_internal(build_info.browserDistPath);
         return build_info;
     };
 
@@ -95,9 +93,7 @@ async function build({
         );
     }
 
-    const build_info = await isoBuilder.build();
-
-    return build_info;
+    return isoBuilder.build();
 }
 
 function on_page_file_removal_or_addition(path, listener) {
