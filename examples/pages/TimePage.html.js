@@ -4,4 +4,5 @@ export default {
     title: 'Current Time',
     route: '/time',
     view: TimeComponent,
+    domStatic: false,
 };

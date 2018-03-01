@@ -222,12 +222,22 @@ function generate_and_add_browser_entries({page_objects, fileWriter, reframeConf
 
     Object.values(page_objects)
     .filter(page_object => {
-        return page_object.browser_page_config__source;
+        if( page_object.browser_page_config__source ) {
+            return true;
+        }
+        if( page_object.page_config__source_path && page_object.page_config.domStatic===false ) {
+            return true;
+        }
+        return false;
     })
     .forEach(page_object => {
-        const {browser_page_config__source} = page_object;
+        const page_config__source = (
+            page_object.browser_page_config__source ||
+            page_object.page_config__source_path
+        );
+        assert_internal(page_config__source);
         const browser_entry__file_name = page_object.page_name+'.entry.js';
-        const browser_entry__source_path = generate_browser_entry({fileWriter, browser_page_config__source, browser_entry__file_name, reframe_browser_config__path});
+        const browser_entry__source_path = generate_browser_entry({fileWriter, page_config__source, browser_entry__file_name, reframe_browser_config__path});
         const {entry_name} = get_names(browser_entry__source_path);
         assert_internal(!page_object.browser_entry);
         page_object.browser_entry = {
@@ -237,7 +247,7 @@ function generate_and_add_browser_entries({page_objects, fileWriter, reframeConf
     });
 
     Object.values(page_objects)
-    .filter(page_object => page_object.page_config__source_path && !page_object.browser_page_config__source)
+    .filter(page_object => page_object.page_config__source_path && !page_object.browser_entry)
     .forEach(page_object => {
         page_object.browser_entry = {
             entry_name: page_object.page_name+'.js_noop',
@@ -300,8 +310,8 @@ function generate_reframe_browser_config({fileWriter, reframeConfig}) {
     return fileAbsolutePath;
 }
 
-function generate_browser_entry({browser_page_config__source, browser_entry__file_name, fileWriter, reframe_browser_config__path}) {
-    assert_internal(path_module.isAbsolute(browser_page_config__source));
+function generate_browser_entry({page_config__source, browser_entry__file_name, fileWriter, reframe_browser_config__path}) {
+    assert_internal(path_module.isAbsolute(page_config__source));
     assert_internal(path_module.isAbsolute(reframe_browser_config__path));
     assert_internal(!path_module.isAbsolute(browser_entry__file_name));
     const source_code = (
@@ -310,7 +320,7 @@ function generate_browser_entry({browser_page_config__source, browser_entry__fil
             "const reframeBrowserConfig = require('"+reframe_browser_config__path+"');",
             "",
             "// hybrid cjs and ES6 module import",
-            "let pageConfig = require('"+browser_page_config__source+"');",
+            "let pageConfig = require('"+page_config__source+"');",
             "pageConfig = Object.keys(pageConfig).length===1 && pageConfig.default || pageConfig;",
             "",
             "hydratePage(pageConfig, reframeBrowserConfig);",
