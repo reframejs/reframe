@@ -156,22 +156,22 @@ function get_server_entries({page_objects}) {
     return server_entries;
 }
 
-function get_browser_entries({page_objects, /*fileWriter,*/}) {
-
-    const browser_entries = {};
-    const already_added = {};
-
+function get_browser_entries__browser_entry({page_objects, browser_entries, already_added}) {
     Object.values(page_objects)
     .filter(page_object => page_object.browser_entry)
     .forEach(page_object => {
         const {entry_name, source_path} = page_object.browser_entry;
         assert_internal(entry_name);
-        assert_internal(source_path);
-        already_added[source_path] = true;
-        assert_internal(!browser_entries[entry_name]);
-        browser_entries[entry_name] = [source_path];
+        if( ! source_path ) {
+            browser_entries[entry_name] = [];
+        } else {
+            already_added[source_path] = true;
+            assert_internal(!browser_entries[entry_name]);
+            browser_entries[entry_name] = [source_path];
+        }
     });
-
+}
+function get_browser_entries__script_disk_path({page_objects, browser_entries, already_added}) {
     Object.values(page_objects)
     .filter(page_object => page_object.page_config)
     .forEach(page_object => {
@@ -192,14 +192,14 @@ function get_browser_entries({page_objects, /*fileWriter,*/}) {
             browser_entries[entry_name] = [disk_path__absolute];
         });
     });
+}
+function get_browser_entries({page_objects, /*fileWriter,*/}) {
 
-    /*
-    if( Object.values(browser_entries).length === 0 ) {
-        const entry_name = 'dummy-entry';
-        const noop_file_path = generate_browser_noop_entry({fileWriter});
-        browser_entries[entry_name] = [noop_file_path];
-    }
-    */
+    const browser_entries = {};
+    const already_added = {};
+
+    get_browser_entries__browser_entry({page_objects, browser_entries, already_added});
+    get_browser_entries__script_disk_path({page_objects, browser_entries, already_added});
 
     assert_internal(Object.values(browser_entries).length>0);
 
@@ -224,6 +224,16 @@ function generate_and_add_browser_entries({page_objects, fileWriter, reframeConf
         page_object.browser_entry = {
             entry_name,
             source_path: browser_entry__source_path,
+        };
+    });
+
+    Object.values(page_objects)
+    .filter(page_object => {
+        return page_object.page_config__source_path && !page_object.browser_page_config__source;
+    })
+    .forEach(page_object => {
+        page_object.browser_entry = {
+            entry_name: 'noop-autoreload',
         };
     });
 
@@ -253,18 +263,6 @@ function get_names(file_path) {
     const entry_name = file_name.split('.').slice(0, -1).join('.');
     const page_name = file_name.split('.')[0];
     return {file_name, entry_name, page_name};
-}
-
-function generate_browser_noop_entry({fileWriter}) {
-    const source_code = [
-        '// No-op JavaScript that only includes the client-side autoreload script',
-     // "require('"+uhew+"');",
-    ].join('\n');
-    const fileAbsolutePath = fileWriter.writeFile({
-        fileContent: source_code,
-        filePath: SOURCE_DIR+'__noop_autoreload.entry.js',
-    });
-    return fileAbsolutePath;
 }
 
 function generate_reframe_browser_config({fileWriter, reframeConfig}) {
@@ -311,7 +309,7 @@ function generate_browser_entry({browser_page_config__source, browser_entry__fil
     );
     const fileAbsolutePath = fileWriter.writeFile({
         fileContent: source_code,
-        filePath: SOURCE_DIR+browser_entry__file_name,
+        filePath: SOURCE_DIR+'config-wrappers/'+browser_entry__file_name,
     });
     return fileAbsolutePath;
 }
