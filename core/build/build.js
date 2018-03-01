@@ -265,13 +265,30 @@ function get_page_files({pagesDirPath, reframeConfig}) {
         .map(file_path => {
             const {file_name, entry_name, page_name} = get_names(file_path);
 
-            const is_universal = is_script(file_path, '.universal', reframeConfig);
-            const is_dom = is_script(file_path, '.dom', reframeConfig);
-            const is_entry = is_script(file_path, '.entry', reframeConfig);
-            const is_html = is_script(file_path, '.html', reframeConfig);
-            assert_internal(is_universal + is_dom + is_entry + is_html <= 1, file_path);
+            const file_name_parts = file_name.split('.');
 
-            return {file_path, file_name, entry_name, page_name, is_universal, is_dom, is_entry, is_html};
+            const suffix_universal = file_name_parts.includes('universal');
+            const suffix_dom = file_name_parts.includes('dom');
+            const suffix_entry = file_name_parts.includes('entry');
+            const suffix_html = file_name_parts.includes('html');
+            const suffix_mixin = file_name_parts.includes('mixin');
+            const number_of_suffixes = suffix_universal + suffix_dom + suffix_entry + suffix_html;
+            assert_usage(
+                number_of_suffixes <= 1,
+                "The file `"+file_path+"` has conflicting suffixes.",
+                "Choose only one or none of `.html`, `.dom`, `.entry`, or `.html`, or `.mixin`"
+            );
+
+            return {
+                file_path,
+                file_name,
+                entry_name,
+                page_name,
+                is_universal: suffix_universal,
+                is_dom: suffix_dom,
+                is_entry: suffix_entry,
+                is_html: number_of_suffixes===0 || suffix_html,
+            };
         })
     );
 }
@@ -612,20 +629,6 @@ function path__resolve(path1, path2, ...paths) {
     assert_internal(path1 && is_abs(path1), path1);
     assert_internal(path2);
     return path_module.resolve(path1, path2, ...paths);
-}
-
-function is_script(path, suffix, reframeConfig) {
-    assert_internal(reframeConfig._processed.pageExtensions.constructor===Array);
-    const extensions = (
-        [
-            ...reframeConfig._processed.pageExtensions,
-            ...['js', 'jsx'],
-        ]
-    );
-    return (
-        extensions
-        .some(ext => path.endsWith(suffix+'.'+ext))
-    );
 }
 
 function path_points_to_a_file(file_path) {
