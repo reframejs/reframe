@@ -1,6 +1,6 @@
 const {HapiPluginServerRendering__create} = require('./HapiPluginServerRendering');
 const buildDefault = require('@reframe/build');
-const {get_parent_dirname} = require('@reframe/utils/get_parent_dirname');
+const get_parent_dirname = require('@brillout/get-parent-dirname');
 const {HapiPluginStaticAssets__create} = require('@rebuild/build/utils/HapiPluginStaticAssets');
 const {HapiPluginReframe__create} = require('./HapiPluginReframe');
 const assert = require('reassert');

@@ -16,7 +16,6 @@
     "chokidar": "^2.0.2",
     "mkdirp": "^0.5.1",
     "node-dir": "^0.1.17",
-    "parent-module": "^0.1.0",
     "reassert": "latest"
   },
   "publishConfig": {
