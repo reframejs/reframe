@@ -426,6 +426,9 @@ function add_assets_to_page_configs({page_objects, buildState}) {
 }
 
 function add_autoreload_client(page_objects, {browser: {output: output__browser}}) {
+    if( is_production() ) {
+        return;
+    }
     const entry_point__autoreload = Object.values(output__browser.entry_points).find(({entry_name}) => entry_name==='autoreload_client');
     assert_internal(entry_point__autoreload, output__browser.entry_points);
     Object.values(page_objects)
