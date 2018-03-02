@@ -15,7 +15,7 @@ const {getStaticPages} = require('@repage/build');
 
 module.exports = build;
 
-const SOURCE_DIR = 'source'+path_module.sep;
+const GENERATED_DIR = 'generated'+path_module.sep;
 const BROWSER_DIST_DIR = 'browser'+path_module.sep;
 
 function build({
@@ -239,7 +239,7 @@ function generate_and_add_browser_entries({page_objects, fileWriter, reframeConf
             page_object.page_config__source_path
         );
         assert_internal(page_config__source);
-        const browser_entry__file_name = page_object.page_name+'.entry.js';
+        const browser_entry__file_name = page_object.page_name+'.generated.entry.js';
         const browser_entry__source_path = generate_browser_entry({fileWriter, page_config__source, browser_entry__file_name, reframe_browser_config__path});
         const {entry_name} = get_names(browser_entry__source_path);
         assert_internal(!page_object.browser_entry);
@@ -253,7 +253,7 @@ function generate_and_add_browser_entries({page_objects, fileWriter, reframeConf
     .filter(page_object => page_object.page_config__source_path && !page_object.browser_entry)
     .forEach(page_object => {
         page_object.browser_entry = {
-            entry_name: page_object.page_name+'.js_noop',
+            entry_name: page_object.page_name+'.noop',
             source_path: page_object.page_config__source_path,
             only_include_style: true,
         };
@@ -317,7 +317,7 @@ function generate_reframe_browser_config({fileWriter, reframeConfig}) {
         "module.exports = reframeBrowserConfig;",
     ].join('\n')
 
-    const filePath = SOURCE_DIR+'reframe.browser.config.js';
+    const filePath = GENERATED_DIR+'reframe.generated.browser.config.js';
 
     const fileAbsolutePath = fileWriter.writeFile({
         fileContent: source_code,
@@ -345,7 +345,7 @@ function generate_browser_entry({page_config__source, browser_entry__file_name, 
     );
     const fileAbsolutePath = fileWriter.writeFile({
         fileContent: source_code,
-        filePath: SOURCE_DIR+'config-wrappers/'+browser_entry__file_name,
+        filePath: GENERATED_DIR+'browser_entries/'+browser_entry__file_name,
     });
     return fileAbsolutePath;
 }
@@ -474,7 +474,7 @@ function add_browser_entry_points(page_objects, {browser: {output: output__brows
 
 function add_entry_point_to_page_config(entry_point, page_config, removeIndex) {
     assert_internal(entry_point.scripts.length>=1, entry_point);
-    assert_internal(!entry_point.entry_name.endsWith('.js_noop.js'));
+    assert_internal(!entry_point.entry_name.split('.').includes('noop'));
     if( removeIndex!==undefined ) {
         page_config.scripts = make_paths_array_unique([
             ...page_config.scripts.slice(0, removeIndex),
