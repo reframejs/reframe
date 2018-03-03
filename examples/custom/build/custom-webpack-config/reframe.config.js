@@ -17,7 +17,7 @@ const rules = [
     }
 ];
 
-const getWebpackBrowserConfig = () => ({
+const webpackBrowserConfig = () => ({
     entry: [
         'babel-polyfill',
         '../../../pages/CounterPage.entry.js',
@@ -29,7 +29,7 @@ const getWebpackBrowserConfig = () => ({
     module: {rules},
 });
 
-const getWebpackServerConfig = () => ({
+const webpackServerConfig = () => ({
     entry: '../../../pages/CounterPage.html.js',
     target: 'node',
     output: {
@@ -40,4 +40,4 @@ const getWebpackServerConfig = () => ({
     module: {rules},
 });
 
-module.exports = {getWebpackBrowserConfig, getWebpackServerConfig};
+module.exports = {webpackBrowserConfig, webpackServerConfig};

@@ -15,8 +15,8 @@
     node-fetch "^1.7.3"
 
 "@brillout/find@latest":
-  version "0.2.7"
-  resolved "https://registry.yarnpkg.com/@brillout/find/-/find-0.2.7.tgz#7942556029704e064b5eb07b48c50ed706dba59f"
+  version "0.2.8"
+  resolved "https://registry.yarnpkg.com/@brillout/find/-/find-0.2.8.tgz#d3d950b3994346b87c4dab36b9e728ed81a13693"
   dependencies:
     find-up "^2.1.0"
     glob "^7.1.2"
@@ -24,6 +24,13 @@
     ignore "^3.3.7"
     path-is-inside "^1.0.2"
     reassert "^1.1.0"
+
+"@brillout/get-parent-dirname@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@brillout/get-parent-dirname/-/get-parent-dirname-0.0.1.tgz#fb0a203b4cc5a971c7ac1a4f633911f8c9161458"
+  dependencies:
+    parent-module "^0.1.0"
+    reassert "1.1.1"
 
 "@brillout/html-crust@^0.0.9", "@brillout/html-crust@latest":
   version "0.0.9"
@@ -1477,7 +1484,7 @@ chokidar@^1.7.0:
   optionalDependencies:
     fsevents "^1.0.0"
 
-chokidar@^2.0.0:
+chokidar@^2.0.0, chokidar@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-2.0.2.tgz#4dc65139eeb2714977735b6a35d06e97b494dfd7"
   dependencies:
@@ -5894,7 +5901,7 @@ readdirp@^2.0.0:
     readable-stream "^2.0.2"
     set-immediate-shim "^1.0.1"
 
-reassert@^1.0.0, reassert@^1.0.3, reassert@^1.0.4, reassert@^1.1.0, reassert@latest:
+reassert@1.1.1, reassert@^1.0.0, reassert@^1.0.3, reassert@^1.0.4, reassert@^1.1.0, reassert@latest:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/reassert/-/reassert-1.1.1.tgz#a983e03717458727b0de750a175b4b654c1a2069"
 

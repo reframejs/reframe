@@ -6,6 +6,7 @@ const AboutPage = {
     view: AboutComponent,
     renderToDom: null,
     htmlIsStatic: true,
+    domStatic: true,
 };
 
 module.exports = AboutPage;

@@ -23,8 +23,7 @@ async function createHapiServer({
 }) {
     reframeConfig = reframeConfig || {};
 
-    assert_usage(pagesDirPath);
-    assert_usage(reframeConfig);
+    assert_usage(pagesDirPath || reframeConfig);
     assert_usage(appDirPath);
 
     const server = (
