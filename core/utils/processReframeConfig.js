@@ -68,6 +68,7 @@ function processReframeConfig(reframeConfig) {
     add_webpack_config_modifiers(_processed, plugin_objects);
     add_page_extensions(_processed, plugin_objects);
     add_browser_config_paths(_processed, plugin_objects);
+    add_cli_plugins();
 }
 
 // Here we assemble several webpack config modifiers into one supra modifier
@@ -140,4 +141,23 @@ function add_browser_config_paths(_processed, plugin_objects) {
         assert_usage(reframeBrowserConfig.diskPath && path_module.isAbsolute(reframeBrowserConfig.diskPath));
         browserConfigs.push(reframeBrowserConfig);
     });
+}
+
+function add_cli_plugins() {
+    return {
+        webpackBrowserConfig: ({config}) => {
+            reframe_hello(config);
+            return config;
+        }
+    }
+}
+
+function reframe_hello(config) {
+    return {
+        command: 'hello',
+        description: 'testing hello plugin',
+        action: () => {
+            console.log('hello');
+        }
+    }
 }
