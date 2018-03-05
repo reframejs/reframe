@@ -157,10 +157,11 @@ function green_checkmark() {
 
 async function createScaffold(projectName) {
     const {homeViewTemplate, homePageTemplate} = require('./templates/homeTemplate');
-    const {jsonPkgTemplate} = require('./templates/jsonPkgTemplate');
+    const {jsonPkgTemplate, reframeConfigTemplate} = require('./templates/coreFilesTemplate');
     const viewTemplate = homeViewTemplate();
     const pageTemplate = homePageTemplate(projectName);
     const pkgTemplate = jsonPkgTemplate(projectName);
+    const configTemplate = reframeConfigTemplate();
     let currentDir = path.resolve(process.cwd(), projectName);
 
     // add files to projectName/views
@@ -170,12 +171,14 @@ async function createScaffold(projectName) {
 
     // add files to projectName/pages
     let pagePath = path.resolve(currentDir, 'pages');
-    let pageFileName = 'homePage.html.js';
+    let pageFileName = 'homePage.js';
     await fs.outputFile(path.resolve(pagePath, pageFileName), pageTemplate);
 
     // add files to projectName root directory
     let pkgFileName = 'package.json';
+    let configName = 'reframe.config.js';
     await fs.outputFile(path.resolve(currentDir, pkgFileName), pkgTemplate);
+    await fs.outputFile(path.resolve(currentDir, configName), configTemplate);
 
     //install(currentDir);
 }
