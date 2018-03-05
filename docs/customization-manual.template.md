@@ -15,16 +15,16 @@ With willingness to dive into Reframe and to re-write parts, pretty much all edg
 
 Reframe consists of three packages;
 `@reframe/build` that transpiles and bundles code,
-`@reframe/server` that creates a server serving dynamic HTMLs and static assets,
+`@reframe/server` that creates a server that serves dynamic HTMLs and static assets,
 and `@reframe/browser` that hydrates React components in the browser.
 Reframe is designed so that each package can be replaced with code of your own.
 
-If you replace `@reframe/browser` with your own code, then you have full control over the browser JavaScript.
-If you replace `@reframe/server` with your own code, then you have full control over the server.
-If you replace `@reframe/build` with your own code, then you have full control over the build step.
-And if you replace all three packages, then you effectively got rid of Reframe.
+If you replace `@reframe/browser` with code of your own, then you have full control over the browser JavaScript.
+If you replace `@reframe/server` with code of your own, then you have full control over the server.
+If you replace `@reframe/build` with code of your own, then you have full control over the build step.
+And, if you replace all three packages, you effectively got rid of Reframe.
 
-The customizing manual gives a good overview of how packages can be re-written but partially lacks detailed information.
+The customizing manual gives an overview of how packages can be re-written but partially lacks detailed information.
 Open a GitHub issue to get detailed info and support.
 
 ##### Contents
