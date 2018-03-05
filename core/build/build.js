@@ -3,7 +3,7 @@ const assert_internal = assert;
 const assert_usage = assert;
 const log = require('reassert/log');
 const {IsoBuilder} = require('@rebuild/iso');
-//const log_title = require('@rebuild/build/utils/log_title');
+const {Logger} = require('@rebuild/build/utils/Logger');
 //const dir = require('node-dir');
 const path_module = require('path');
 const fs = require('fs');
@@ -44,7 +44,7 @@ function build({
 
     const isoBuilder = new IsoBuilder();
 
-    isoBuilder.log = log_option;
+    isoBuilder.logger = Logger({log_config_and_stats: log_option});
     isoBuilder.appDirPath = appDirPath;
     isoBuilder.webpackBrowserConfigModifier = reframeConfig._processed.webpackBrowserConfigModifier;
     isoBuilder.webpackServerConfigModifier = reframeConfig._processed.webpackServerConfigModifier;
