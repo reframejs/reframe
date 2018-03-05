@@ -1,6 +1,6 @@
 const {HapiPluginServerRendering__create} = require('./HapiPluginServerRendering');
 const buildDefault = require('@reframe/build');
-const {get_parent_dirname} = require('@reframe/utils/get_parent_dirname');
+const get_parent_dirname = require('@brillout/get-parent-dirname');
 const {HapiPluginStaticAssets__create} = require('@rebuild/build/utils/HapiPluginStaticAssets');
 const {HapiPluginReframe__create} = require('./HapiPluginReframe');
 const assert = require('reassert');
@@ -18,8 +18,8 @@ async function getHapiPlugins({
     const build_state = {};
     await build({
         onBuild: async build_state__new => {
-            assert_internal(build_state__new.browserDistPath);
-            assert_internal(build_state__new.pages);
+            assert_internal(build_state__new.browserDistPath, build_state__new);
+            assert_internal(build_state__new.pages, build_state__new);
             assert_usage(
                 !build_state.browserDistPath || build_state.browserDistPath===build_state__new.browserDistPath,
                 "The directory holding the static assets isn't expected to move.",

@@ -9,9 +9,13 @@ module.exports = {find_app_files};
 function find_app_files(cwd) {
     assert_internal(cwd);
 
+    let reframeConfigPath = find_reframe_config(cwd);
+
     const pagesDirPath = find_pages_dir(cwd);
 
-    const reframeConfigPath = find_reframe_config(pagesDirPath);
+    if( ! reframeConfigPath && pagesDirPath ) {
+        reframeConfigPath = find_reframe_config(pagesDirPath);
+    }
 
     const appDirPath = (reframeConfigPath || pagesDirPath) && path_module.dirname(reframeConfigPath || pagesDirPath);
 
