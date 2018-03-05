@@ -1,4 +1,4 @@
-module.exports = {jsonPkgTemplate};
+module.exports = {jsonPkgTemplate, reframeConfigTemplate};
 
 function jsonPkgTemplate(projectName) {
     let template =
@@ -10,6 +10,14 @@ function jsonPkgTemplate(projectName) {
     "private": true
 }
 `;
+
+    return template;
+}
+
+function reframeConfigTemplate() {
+    let template =
+`module.exports = {};
+`
 
     return template;
 }
