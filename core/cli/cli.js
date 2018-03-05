@@ -5,7 +5,16 @@ const pkg = require('./package.json');
 const fs = require('fs-extra');
 const path = require('path');
 const spawn = require('cross-spawn');
+const inquirer = require('inquirer');
+const cwd = process.cwd();
+//const {pagesDirPath, reframeConfigPath, appDirPath} = find_files(cwd);
+//const reframeConfig = reframeConfigPath && require(reframeConfigPath);
+//const {processReframeConfig} = require('@reframe/utils/processReframeConfig');
+const {questions} = require('./questions');
 let argValue;
+
+//processReframeConfig(reframeConfig);
+//console.log(reframeConfig._processed);
 
 process.on('unhandledRejection', err => {
     console.log(err);
@@ -14,11 +23,14 @@ process.on('unhandledRejection', err => {
 
 program
     .version(pkg.version, '-v, --version')
-    .command('init <project-name>')
-    .description('creates new project scaffolding')
-    .action( (project) => {
+    .command('init')
+    .description('creates new project')
+    .action( () => {
         argValue = 'init';
-        createScaffold(project);
+        //createScaffold(project);
+        inquirer.prompt(questions).then(({projectName, useRedux, plugins}) => {
+            initApp(projectName, useRedux, plugins);
+        });
     });
 
 program
@@ -45,17 +57,25 @@ if (typeof argValue === 'undefined') {
     process.exit(1);
 }
 
-function start(prod, showHapiServerLog) {
+async function initApp(projectName, useRedux, plugins) {
+    await createScaffold(projectName);
+    await configureApp();
+}
 
-    const cwd = process.cwd();
+function configureApp() {
+    const {pagesDirPath, reframeConfigPath, appDirPath} = find_files(cwd);
+    const reframeConfig = reframeConfigPath && require(reframeConfigPath);
+    const {processReframeConfig} = require('@reframe/utils/processReframeConfig');
+
+    processReframeConfig(reframeConfig);
+    console.log(reframeConfig._processed);
+}
+
+function start(prod, showHapiServerLog) {
 
     if( prod ) {
         process.env['NODE_ENV']='production';
     }
-
-    const {pagesDirPath, reframeConfigPath, appDirPath} = find_files(cwd);
-
-    const reframeConfig = reframeConfigPath && require(reframeConfigPath);
 
     startHapiServer({pagesDirPath, reframeConfig, appDirPath, showHapiServerLog});
 }
@@ -157,7 +177,7 @@ async function createScaffold(projectName) {
     let pkgFileName = 'package.json';
     await fs.outputFile(path.resolve(currentDir, pkgFileName), pkgTemplate);
 
-    install(currentDir);
+    //install(currentDir);
 }
 
 function install(directory) {

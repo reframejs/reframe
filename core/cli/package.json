@@ -12,6 +12,7 @@
     "cross-spawn": "^6.0.4",
     "find-up": "^2.1.0",
     "fs-extra": "^5.0.0",
+    "inquirer": "^5.1.0",
     "lerna": "^2.5.1",
     "reassert": "latest"
   },
