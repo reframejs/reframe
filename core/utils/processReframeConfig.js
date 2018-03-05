@@ -60,9 +60,11 @@ const {process__common} = require('./processReframeBrowserConfig');
 module.exports = {processReframeConfig};
 
 function processReframeConfig(reframeConfig) {
+    if( reframeConfig._processed ) {
+        return;
+    }
     assert_usage(reframeConfig.constructor===Object);
-    add_default_kit(reframeConfig);
-    process__common(reframeConfig, 'reframe.config.js');
+    process__common(reframeConfig, 'reframe.config.js', false, get_default_plugin(reframeConfig));
     const {_processed} = reframeConfig;
     const {plugin_objects} = _processed;
     add_webpack_config_modifiers(_processed, plugin_objects);
@@ -98,7 +100,7 @@ function add_webpack_config_modifiers(_processed, plugin_objects) {
 }
 
 // By default, Reframe uses the `@reframe/default-kit`
-function add_default_kit(reframeConfig) {
+function get_default_plugin(reframeConfig) {
     /*
     assert_internal(_processed.repage_plugins.constructor===Array);
     for(plugin_object in _processed.plugin_objects) {
@@ -106,11 +108,12 @@ function add_default_kit(reframeConfig) {
             return;
         }
     }
-    */
-    if( ! reframeConfig.skipDefaultKit ) {
-        reframeConfig.plugins = reframeConfig.plugins || [];
-        reframeConfig.plugins.unshift(defaultKit());
+    /*/
+    if( reframeConfig.skipDefaultKit ) {
+        return;
     }
+    //*/
+    return defaultKit();
 }
 
 // Here we collect all paths of browser-side reframe config files
