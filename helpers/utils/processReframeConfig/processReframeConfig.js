@@ -82,6 +82,7 @@ function processReframeConfig(reframeConfig) {
     get_webpack_config_modifiers(_processed, r_objects);
     get_browser_config_paths(_processed, r_objects);
     get_repage_plugins(_processed, r_objects, false);
+    add_cli_plugins();
     reframeConfig._processed = _processed;
 }
 
@@ -147,4 +148,23 @@ function get_browser_config_paths(_processed, r_objects) {
         assert_usage(reframeBrowserConfig.diskPath && path_module.isAbsolute(reframeBrowserConfig.diskPath));
         browserConfigs.push(reframeBrowserConfig);
     });
+}
+
+function add_cli_plugins() {
+    return {
+        webpackBrowserConfig: ({config}) => {
+            reframe_hello(config);
+            return config;
+        }
+    }
+}
+
+function reframe_hello(config) {
+    return {
+        command: 'hello',
+        description: 'testing hello plugin',
+        action: () => {
+            console.log('hello');
+        }
+    }
 }
