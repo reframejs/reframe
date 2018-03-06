@@ -9,6 +9,7 @@ const path_module = require('path');
 const fs = require('fs');
 const {processReframeConfig} = require('@reframe/utils/processReframeConfig');
 const chokidar = require('chokidar');
+const get_parent_dirname = require('@brillout/get-parent-dirname');
 
 const Repage = require('@repage/core');
 const {getStaticPages} = require('@repage/build');
@@ -26,7 +27,7 @@ function build({
     reframeConfig={},
 
     doNotAutoReload=isProduction(),
-    appDirPath,
+    appDirPath = get_parent_dirname(),
     log: log_option,
     ...rebuild_opts
 }) {

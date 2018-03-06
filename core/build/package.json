@@ -3,6 +3,7 @@
   "version": "0.0.1-rc.5",
   "main": "./build",
   "dependencies": {
+    "@brillout/get-parent-dirname": "latest",
     "@rebuild/build": "latest",
     "@rebuild/config": "latest",
     "@rebuild/serve": "latest",

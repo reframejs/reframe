@@ -2,7 +2,7 @@
   "name": "@reframe/server",
   "version": "0.0.1-rc.5",
   "dependencies": {
-    "@brillout/get-parent-dirname": "^0.0.1",
+    "@brillout/get-parent-dirname": "latest",
     "@reframe/build": "0.0.1-rc.5",
     "@reframe/utils": "0.0.1-rc.5",
     "@repage/core": "latest",

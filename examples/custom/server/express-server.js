@@ -5,7 +5,7 @@ const build = require('@reframe/build');
 
 const Repage = require('@repage/core');
 const {getPageHtml} = require('@repage/server');
-const RepageRouterCrossroads = require('@repage/router-crossroads');
+const RepageRouterPathToRegexp = require('@repage/router-path-to-regexp');
 const RepageRenderer = require('@repage/renderer');
 const RepageRendererReact = require('@repage/renderer-react');
 
@@ -54,7 +54,7 @@ function createRepageObject(pages) {
     const repage = new Repage();
 
     repage.addPlugins([
-        RepageRouterCrossroads,
+        RepageRouterPathToRegexp,
         RepageRenderer,
         RepageRendererReact,
     ]);
