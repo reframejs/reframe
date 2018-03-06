@@ -21,10 +21,10 @@ function process__common(cfg, name, isBrowserConfig, extra_plugin) {
     add_repage_plugins(_processed, plugin_objects, isBrowserConfig);
 }
 
-function get_all_plugin_objects(reframeConfig, extra_plugin=[]) {
+function get_all_plugin_objects(reframeConfig, extra_plugin) {
     const cycleCatcher = new WeakMap();
     return [
-        ...retrieve_plugin_objects(extra_plugin, cycleCatcher),
+        ...(extra_plugin ? retrieve_plugin_objects(extra_plugin, cycleCatcher) : []),
         ...retrieve_plugin_objects(reframeConfig, cycleCatcher),
     ];
 }
