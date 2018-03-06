@@ -104,9 +104,9 @@ The "Quick Start" section below gives a step-by-step guide to create a React app
    you learn Reframe once to be able to create all types of apps.
  - **Escapable**
    <br/>
-   Every framework can be escaped from, but the escape-cost can vary dramatically.
-   Reframe has been designed to have a very low escape-cost.
-   If you are afraid of being locked into a framework, then Reframe could be the right choice for you.
+   Most of your code (~95%-99%) will be entirely independent of Reframe.
+   This means that, if you decide to get rid of Reframe, you will have to rewrite only ~1%-5% of your code.
+   The [Reframe Rationale](/docs/reframe-rationale.md) explains why.
  - **Plugins**
    <br/>
    Plugins can modify Reframe to a great extent.
