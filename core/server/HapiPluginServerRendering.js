@@ -91,14 +91,19 @@ async function compute_html(request, repage_object) {
 }
 
 function compute_response(html, h) {
-    const response = h.response(html);
-    response.type('text/html');
-    add_etag_header(response);
-    return response;
-}
-
-function add_etag_header(response) {
-    response.etag(compute_file_hash(response.source));
+    const etag = compute_file_hash(html);
+    const response_304 = (
+        h.entity({
+            etag,
+        })
+    );
+    if( response_304 ) {
+        return response_304;
+    }
+    const response_200 = h.response(html);
+    response_200.etag(etag);
+    response_200.type('text/html');
+    return response_200;
 }
 
 function request_is_already_served(request) {
