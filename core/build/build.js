@@ -113,7 +113,7 @@ function get_pages({pagesDirPath, reframeConfig}) {
     .forEach(({file_path, file_name, page_name, entry_name, is_dom, is_entry, is_base}) => {
         const page_object = page_objects[page_name] = page_objects[page_name] || {page_name};
         if( is_base ) {
-            assert_usage(!page_object.server_entry);
+            assert_usage(!page_object.server_entry, page_object, page_object.server_entry, file_path);
             page_object.page_config__source_path = file_path;
             page_object.server_entry = {
                 entry_name,
