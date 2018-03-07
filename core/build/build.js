@@ -10,6 +10,7 @@ const fs = require('fs');
 const {processReframeConfig} = require('@reframe/utils/processReframeConfig');
 const chokidar = require('chokidar');
 const get_parent_dirname = require('@brillout/get-parent-dirname');
+const mime = require('mime');
 
 const Repage = require('@repage/core');
 const {getStaticPages} = require('@repage/build');
@@ -266,6 +267,7 @@ function generate_and_add_browser_entries({page_objects, fileWriter, reframeConf
 function get_page_files({pagesDirPath, reframeConfig}) {
     return (
         fs__ls(pagesDirPath)
+        .filter(is_javascript_file)
         .map(file_path => {
             const {file_name, entry_name, page_name} = get_names(file_path);
 
@@ -292,6 +294,41 @@ function get_page_files({pagesDirPath, reframeConfig}) {
             };
         })
     );
+}
+
+function is_javascript_file(file_path) {
+    assert_internal(check('path/to/file.js'));
+    assert_internal(check('./file.js'));
+    assert_internal(check('file.web.js'));
+    assert_internal(check('file.mjs'));
+    assert_internal(check('file.jsx'));
+    assert_internal(check('file.web.jsx'));
+    assert_internal(check('page.entry.jsx'));
+    assert_internal(check('page.entry.js'));
+    assert_internal(check('page.dom.js'));
+    assert_internal(check('page.html.js'));
+    assert_internal(check('page.universal.js'));
+    assert_internal(!check('page.css'));
+
+    return check(file_path);
+
+    function check(file_path) {
+        let mime_type = mime.getType(file_path);
+        if( !mime_type ) {
+            return true;
+        }
+        mime_type = mime_type.toLowerCase();
+        if( mime_type.includes('coffeescript') ) {
+            return true;
+        }
+        if( mime_type.includes('javascript') ) {
+            return true;
+        }
+        if( mime_type.includes('jsx') ) {
+            return true;
+        }
+        return false;
+    }
 }
 
 function get_names(file_path) {
