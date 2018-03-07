@@ -111,6 +111,10 @@ function on_page_file_removal_or_addition(path, listener) {
 function get_pages({pagesDirPath, reframeConfig}) {
     const page_objects = {};
 
+    if( ! pagesDirPath ) {
+        return page_objects;
+    }
+
     get_page_files({pagesDirPath, reframeConfig})
     .forEach(({file_path, file_name, page_name, entry_name, is_dom, is_entry, is_base}) => {
         const page_object = page_objects[page_name] = page_objects[page_name] || {page_name};
@@ -468,7 +472,9 @@ function add_autoreload_client(page_objects, {browser: {output: output__browser}
         return;
     }
     const entry_point__autoreload = Object.values(output__browser.entry_points).find(({entry_name}) => entry_name==='autoreload_client');
-    assert_internal(entry_point__autoreload, output__browser.entry_points);
+    if( entry_point__autoreload ) {
+        return;
+    }
     Object.values(page_objects)
     .filter(page_object => page_object.page_config__source_path && (!page_object.browser_entry || page_object.browser_entry.only_include_style))
     .forEach(page_object => {
@@ -546,12 +552,12 @@ function add_disk_path_absolute(page_objects) {
     .forEach(page_object => {
         const {page_config} = page_object;
         const {page_config__source_path} = page_object;
-        assert_internal(page_config__source_path);
         (page_config.scripts||[])
         .forEach((script_spec, i) => {
             if( ! (script_spec||{}).diskPath ) {
                 return;
             }
+            assert_internal(page_config__source_path, page_config, script_spec);
             const disk_path__absolute = get_disk_path__absolute(script_spec, page_config, page_config__source_path);
             assert_internal(is_abs(disk_path__absolute));
             script_spec.disk_path__absolute = disk_path__absolute;
@@ -619,8 +625,13 @@ function load_page_configs({page_objects, args_server}) {
 
     Object.values(args_server.output.entry_points)
     .map(entry_point => {
-        const page_object = Object.values(page_objects).find(page_object => page_object.server_entry.entry_name===entry_point.entry_name);
-        assert_internal(page_object);
+        let page_object = Object.values(page_objects).find(page_object => page_object.server_entry.entry_name===entry_point.entry_name);
+        if( ! page_object ) {
+            assert_internal(entry_point.source_entry_points.length===1, entry_point)
+            page_object = page_objects[entry_point.entry_name] = {
+                page_config__source_path: entry_point.source_entry_points[0],
+            };
+        }
         const script_dist_path = get_script_dist_path(entry_point);
         const page_config = require__magic(script_dist_path);
         assert_usage(

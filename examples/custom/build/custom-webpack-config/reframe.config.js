@@ -30,7 +30,7 @@ const webpackBrowserConfig = () => ({
 });
 
 const webpackServerConfig = () => ({
-    entry: '../../../pages/CounterPage.html.js',
+    entry: '../../../pages/CounterPage.js',
     target: 'node',
     output: {
         publicPath: '/',
