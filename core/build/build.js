@@ -73,11 +73,19 @@ function build({
         enhance_page_objects_2({page_objects, buildState});
 
         var {buildState} = isoBuilder;
-        await writeHtmlFiles({page_objects, buildState, fileWriter, reframeConfig});
+        const page_configs = (
+            Object.values(page_objects)
+            .filter(po => po.page_config)
+            .map(page_object => {
+                assert_internal(page_object.page_config.route, page_object);
+                return page_object.page_config;
+            })
+        );
+        await writeHtmlFiles({page_configs, buildState, fileWriter, reframeConfig});
         if( there_is_a_newer_run() ) return;
 
         const build_info = {
-            pages: Object.values(page_objects).map(({page_config}) => page_config),
+            pages: page_configs,
             ...extract_build_info(isoBuilder.buildState, reframeConfig)
         };
 
@@ -401,7 +409,7 @@ function extract_build_info(buildState, reframeConfig) {
     return {HapiPluginStaticAssets, browserDistPath};
 }
 
-async function writeHtmlFiles({page_objects, buildState, fileWriter, reframeConfig}) {
+async function writeHtmlFiles({page_configs, buildState, fileWriter, reframeConfig}) {
     fileWriter.startWriteSession('html_files');
 
     (await get_static_pages_info())
@@ -424,7 +432,7 @@ async function writeHtmlFiles({page_objects, buildState, fileWriter, reframeConf
             ...reframeConfig._processed.repage_plugins,
         ]);
 
-        repage.addPages(Object.values(page_objects).map(({page_config}) => page_config));
+        repage.addPages(page_configs);
 
         return getStaticPages(repage);
     }
@@ -625,7 +633,7 @@ function load_page_configs({page_objects, args_server}) {
 
     Object.values(args_server.output.entry_points)
     .map(entry_point => {
-        let page_object = Object.values(page_objects).find(page_object => page_object.server_entry.entry_name===entry_point.entry_name);
+        let page_object = Object.values(page_objects).find(page_object => (page_object.server_entry||{}).entry_name===entry_point.entry_name);
         if( ! page_object ) {
             assert_internal(entry_point.source_entry_points.length===1, entry_point)
             page_object = page_objects[entry_point.entry_name] = {

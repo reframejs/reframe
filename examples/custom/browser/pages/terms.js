@@ -1,5 +1,5 @@
 import React from 'react';
-import PageCommon from './PageCommon';
+import PageCommon from './PageCommon.mixin';
 
 export default {
     route: '/terms',
