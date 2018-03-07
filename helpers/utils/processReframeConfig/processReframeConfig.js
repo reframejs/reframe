@@ -84,7 +84,7 @@ function processReframeConfig(reframeConfig) {
     get_browser_config_paths(_processed, r_objects);
     get_repage_plugins(_processed, r_objects, false);
     get_project_files(_processed, r_objects);
-    add_cli_plugins();
+    //add_cli_plugins();
     reframeConfig._processed = _processed;
 }
 
