@@ -59,16 +59,18 @@ if (typeof argValue === 'undefined') {
 
 async function initApp(projectName, useRedux, plugins) {
     await createScaffold(projectName);
-    await configureApp();
+    await configureApp(projectName);
 }
 
-function configureApp() {
+function configureApp(projectName) {
+    let cwd = path.resolve(process.cwd(), projectName);
     const {pagesDirPath, reframeConfigPath, appDirPath} = find_files(cwd);
     const reframeConfig = reframeConfigPath && require(reframeConfigPath);
     const {processReframeConfig} = require('@reframe/utils/processReframeConfig');
+    //console.log(processReframeConfig);
 
     processReframeConfig(reframeConfig);
-    console.log(reframeConfig._processed);
+    //console.log(reframeConfig._processed);
 }
 
 function start(prod, showHapiServerLog) {

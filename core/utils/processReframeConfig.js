@@ -67,7 +67,7 @@ function processReframeConfig(reframeConfig) {
     const {plugin_objects} = _processed;
     add_webpack_config_modifiers(_processed, plugin_objects);
     add_browser_config_paths(_processed, plugin_objects);
-    add_cli_plugins();
+    //add_cli_plugins();
 }
 
 // Here we assemble several webpack config modifiers into one supra modifier
