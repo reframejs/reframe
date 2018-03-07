@@ -5,6 +5,7 @@
     "reframe": "./cli.js"
   },
   "dependencies": {
+    "@brillout/relative-to-homedir": "latest",
     "@reframe/browser": "0.0.1-rc.5",
     "@reframe/server": "0.0.1-rc.5",
     "chalk": "^2.3.1",

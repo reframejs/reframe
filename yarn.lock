@@ -45,6 +45,10 @@
     find-up "^2.1.0"
     reassert latest
 
+"@brillout/relative-to-homedir@latest":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@brillout/relative-to-homedir/-/relative-to-homedir-0.0.1.tgz#5488478b6f4f0eab481215ec9e120969b997853f"
+
 "@rebuild/build@0.0.1-rc.4", "@rebuild/build@latest":
   version "0.0.1-rc.4"
   resolved "https://registry.yarnpkg.com/@rebuild/build/-/build-0.0.1-rc.4.tgz#a1e586fb263f1c4d02049d5d65167d473ec6114b"
