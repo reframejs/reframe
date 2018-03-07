@@ -104,9 +104,9 @@ function log_build_success({compilationInfo}) {
 }
 
 function log_found_file(file_path, description) {
-    const {path_relative_to_homedir} = require('@reframe/utils/path_relative_to_homedir');
+    const relative_to_homedir = require('@brillout/relative-to-homedir');
     if( file_path ) {
-        console.log(green_checkmark()+' '+description+' found at '+path_relative_to_homedir(file_path));
+        console.log(green_checkmark()+' '+description+' found at '+relative_to_homedir(file_path));
     }
 }
 
