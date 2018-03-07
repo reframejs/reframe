@@ -1,5 +1,5 @@
-import HelloPage from './pages/hello.html.mjs';
-import LandingPage from './pages/landing.html.mjs';
+import HelloPage from './pages/hello.mjs';
+import LandingPage from './pages/landing.mjs';
 import expose from './expose.js';
 
 export default getPages;

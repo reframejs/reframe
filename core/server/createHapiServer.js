@@ -1,10 +1,10 @@
 const Hapi = require('hapi');
-const {getHapiPlugins} = require('./getHapiPlugins');
+const getHapiPlugins = require('./getHapiPlugins');
 const assert = require('reassert');
 const assert_internal = assert;
 const assert_usage = assert;
 
-module.exports = {createHapiServer};
+module.exports = createHapiServer;
 
 async function createHapiServer({
     // build opts

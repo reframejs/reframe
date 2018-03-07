@@ -1,5 +1,5 @@
 const Hapi = require('hapi');
-const {getHapiPlugins} = require('@reframe/server/getHapiPlugins');
+const getHapiPlugins = require('@reframe/server/getHapiPlugins');
 const path = require('path');
 
 (async () => {

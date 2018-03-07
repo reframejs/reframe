@@ -7,7 +7,7 @@ const assert = require('reassert');
 const assert_internal = assert;
 const assert_usage = assert;
 
-module.exports = {getHapiPlugins};
+module.exports = getHapiPlugins;
 
 async function getHapiPlugins({
     appDirPath = get_parent_dirname(),

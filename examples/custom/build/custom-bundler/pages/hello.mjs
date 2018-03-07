@@ -30,7 +30,7 @@ const HelloComponent = (
 );
 
 const HelloPage = {
-    route: '/hello/{name}',
+    route: '/hello/:name',
     view: HelloComponent,
 };
 

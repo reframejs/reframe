@@ -1,6 +1,6 @@
 import Repage from '@repage/core';
 import RepageBuild from '@repage/build';
-import RepageRouterCrossroads from '@repage/router-crossroads';
+import RepagePathToRegexp from '@repage/router-path-to-regexp';
 import RepageRenderer from '@repage/renderer';
 import RepageRendererReact from '@repage/renderer-react';
 
@@ -49,7 +49,7 @@ function getRepageObject(pages) {
     const repage = new Repage();
 
     repage.addPlugins([
-        RepageRouterCrossroads,
+        RepagePathToRegexp,
         RepageRenderer,
         RepageRendererReact,
     ]);

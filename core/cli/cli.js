@@ -19,7 +19,7 @@ function run() {
 }
 
 async function startHapiServer({pagesDirPath, reframeConfig, appDirPath}) {
-    const {createHapiServer} = require('@reframe/server/createHapiServer');
+    const createHapiServer = require('@reframe/server/createHapiServer');
 
     const {server} = await createHapiServer({
         pagesDirPath,
