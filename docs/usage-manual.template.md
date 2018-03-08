@@ -238,7 +238,7 @@ but we also have control over whether the DOM is static or not.
 Before we move on to the DOM, let's look at a special case of an HTML-dynamic page.
 
 ~~~js
-!INLINE ../examples/pages/HelloPage.html.js
+!INLINE ../examples/pages/HelloPage.js
 ~~~
 
 Not only is this page HTML-dynamic but it actually has to.
@@ -259,7 +259,7 @@ Let's now create pages with interactive views.
 Let's consider the following page config that defines a page displaying the current time.
 
 ~~~js
-!INLINE ../examples/pages/TimePage.universal.js
+!INLINE ../examples/pages/TimePage.js
 ~~~
 
 ~~~js
@@ -351,7 +351,7 @@ In addition, static assets can be referenced in CSS files by using the CSS `url`
 The following shows code using CSS and static assets as described above.
 
 ~~~js
-!INLINE ../examples/pages/GlitterPage.universal.js
+!INLINE ../examples/pages/GlitterPage.js
 ~~~
 
 ~~~js
@@ -380,7 +380,7 @@ We can therefore use `async getInitialProps()` to fetch the data that page's Rea
 For example:
 
 ~~~js
-!INLINE ../examples/pages/GameOfThronesPage.html.js
+!INLINE ../examples/pages/GameOfThronesPage.js
 ~~~
 
 ~~~js
@@ -407,7 +407,7 @@ Because `aysnc getInitialProps()` is called and waited for prior to rendering th
 Alternatively, we can fetch data in a statefull component.
 
 ~~~js
-!INLINE ../examples/pages/GameOfThrones2Page.universal.js
+!INLINE ../examples/pages/GameOfThrones2Page.js
 ~~~
 
 Note that,
@@ -444,10 +444,10 @@ See [Advanced Routing](#advanced-routing) for alternative ways of navigating.
 An example of basic page navigation:
 
 ~~~js
-!INLINE ../examples/pages/page-a.html.js
+!INLINE ../examples/pages/page-a.js
 ~~~
 ~~~js
-!INLINE ../examples/pages/page-b.html.js
+!INLINE ../examples/pages/page-b.js
 ~~~
 
 
@@ -508,7 +508,7 @@ We refer to [`@brillout/html-crust`'s documentation](https://github.com/brillout
 For example, the page config
 
 ~~~js
-!INLINE ../examples/pages/custom-html.html.js
+!INLINE ../examples/pages/custom-html.js
 ~~~
 
 creates a page with following HTML
@@ -647,7 +647,7 @@ another `MyDynamicPage.dom.js` for browser-side rendering.
 Like in the following.
 
 ~~~js
-!INLINE ../examples/pages/NewsPage.html.js
+!INLINE ../examples/pages/NewsPage.js
 ~~~
 
 ~~~js

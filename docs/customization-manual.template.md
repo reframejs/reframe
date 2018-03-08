@@ -106,7 +106,7 @@ Reframe will then use the `.entry.js` code as browser entry instead of generatin
 For example:
 
 ~~~js
-!INLINE ../examples/pages/TrackingPage.html.js
+!INLINE ../examples/pages/TrackingPage.js
 ~~~
 
 ~~~js
@@ -128,13 +128,13 @@ See the "Custom Head" section of the Usage Manual for more information.
 Multiple pages can share common browser code by using the `diskPath` property in the page config, as shown in the following example:
 
 ~~~js
-!INLINE ../examples/custom/browser/pages/terms.html.js
+!INLINE ../examples/custom/browser/pages/terms.js
 ~~~
 ~~~js
-!INLINE ../examples/custom/browser/pages/privacy.html.js
+!INLINE ../examples/custom/browser/pages/privacy.js
 ~~~
 ~~~js
-!INLINE ../examples/custom/browser/pages/PageCommon.js
+!INLINE ../examples/custom/browser/pages/PageCommon.mixin.js
 ~~~
 ~~~js
 !INLINE ../examples/custom/browser/pages/PageCommon.entry.js
@@ -169,10 +169,10 @@ At this point, our browser JavaScript doesn't depend on Reframe nor on Repage.
 It is fully under our control.
 
 ~~~js
-!INLINE ../examples/custom/browser/pages/custom-browser.html.js
+!INLINE ../examples/custom/browser/pages/custom-hydration.js
 ~~~
 ~~~js
-!INLINE ../examples/custom/browser/pages/custom-browser.entry.js
+!INLINE ../examples/custom/browser/pages/custom-hydration.entry.js
 ~~~
 
 ## Custom Build

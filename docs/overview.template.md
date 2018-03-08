@@ -49,7 +49,7 @@ Let's create a web app by defining a page config `HelloPage`:
 ~~~jsx
 // ~/tmp/reframe-playground/pages/HelloPage.html.js
 
-!INLINE ../examples/pages/HelloPage.html.js --hide-source-path
+!INLINE ../examples/pages/HelloPage.js --hide-source-path
 ~~~
 
 The `reframe` CLI does the rest:
