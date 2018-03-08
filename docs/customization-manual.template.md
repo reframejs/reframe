@@ -7,7 +7,7 @@
 
 # Customization Manual
 
-The customization manual acts as reference for advanced Reframe customization. Basic customization are covered in the Usage Manual.
+The customization manual acts as reference for advanced Reframe customization. Basic customizations are covered in the Usage Manual.
 
 As your app grows, you will likely need to implement edge cases not covered by Reframe.
 In these situations, we refer to this Customization Manual.
@@ -17,12 +17,12 @@ Reframe consists of three packages;
 `@reframe/build` that transpiles and bundles code,
 `@reframe/server` that creates a server that serves dynamic HTMLs and static assets,
 and `@reframe/browser` that hydrates React components in the browser.
-Reframe is designed so that each package can be replaced with code of your own.
+Reframe is designed so that each of these three packages can be replaced with code of your own.
 
-If you replace `@reframe/browser` with code of your own, then you have full control over the browser JavaScript.
+If you replace `@reframe/browser` with code of your own, then you have full control over the browser-side.
 If you replace `@reframe/server` with code of your own, then you have full control over the server.
 If you replace `@reframe/build` with code of your own, then you have full control over the build step.
-And, if you replace all three packages, you effectively got rid of Reframe.
+And, if you replace all three packages, you effectively get rid of Reframe.
 
 The customizing manual gives an overview of how packages can be re-written but partially lacks detailed information.
 Open a GitHub issue to get detailed info and support.
@@ -53,7 +53,7 @@ Open a GitHub issue to get detailed info and support.
 
 ### Reframe as hapi plugin
 
-Instead of using Reframe as CLI, we can use it as hapi plugins.
+Instead of using Reframe with its CLI, we can use Reframe as hapi plugins.
 For example:
 
 ~~~js
@@ -63,7 +63,7 @@ For example:
 
 ### Full Customization
 
-Instead of using `const {getReframeHapiPlugins} = require('@reframe/server');` we can also re-write the whole server from scratch.
+Instead of using `const getHapiPlugins = require('@reframe/server/getHapiPlugins');` we can also re-write the whole server from scratch.
 
 This allows us, for example, to choose any server framework.
 The following is a custom server implementation using Express instead of hapi.
@@ -83,13 +83,11 @@ The following is a custom server implementation using Express instead of hapi.
 
 ### Custom Browser Entry
 
-When Reframe stumbles upon a `.universal.js` or `.dom.js` page config, it automatically generates a browser entry code that will load in the browser.
-
-The following is an example of such generated browser entry code.
+By default Reframe automatically generates a browser entry code such as the following:
 
 ~~~js
 var hydratePage = require('/usr/lib/node_modules/@reframe/cli/node_modules/@reframe/browser/hydratePage.js');
-var pageConfig = require('/home/brillout/tmp/reframe-playground/pages/HelloPage.universal.js');
+var pageConfig = require('/home/brillout/tmp/reframe-playground/pages/HelloPage.js');
 
 // hybrid cjs and ES6 module import
 pageConfig = Object.keys(pageConfig).length===1 && pageConfig.default || pageConfig;
@@ -99,9 +97,9 @@ hydratePage(pageConfig);
 
 We can, however, create the browser entry code ourselves.
 
-Instead of providing a `.universal.js` or `.dom.js` page config,
-we provide only one page config `.html.js` along with a `.entry.js` file.
-Reframe will then use the `.entry.js` code as browser entry instead of generating one.
+We do that by providing a `pages/MyPage.entry.js` file along the page config `pages/MyPage.js`.
+Reframe will then use `MyPage.entry.js` code as browser entry instead of generating one.
+Reframe matches `MyPage.entry.js` with `MyPage.js` because the two filenames share the same prefix `MyPage`.
 
 For example:
 
@@ -116,8 +114,8 @@ For example:
 ### External Scripts
 
 The page's `<head>` is fully customaziable,
-and we can load external scripts such as `<script async src='https://www.google-analytics.com/analytics.js'></script>`,
-load a `<script>` as ES6 module,
+and we can load external scripts (such as `<script async src='https://www.google-analytics.com/analytics.js'></script>`),
+load a ES6 module with `<script type="module">`,
 add a `async` attribute to a `<script>`,
 etc.
 
@@ -142,7 +140,7 @@ Multiple pages can share common browser code by using the `diskPath` property in
 
 ### Full Customization
 
-We saw in the section "Custom Browser Entry" how to write the browser entry code ourself.
+In the section "Custom Browser Entry" we saw how to write the browser entry code ourself.
 
 For example:
 
@@ -161,7 +159,7 @@ Let's look at the code of `@reframe/browser/hydratePage`
 !INLINE ../core/browser/hydratePage.js
 ~~~
 
-As we can see, the code simply initializes a Repage instance and calls `@repage/browser`'s `hydratePage()` function.
+As we can see, the code initializes a [Repage](https://github.com/brillout/repage) instance and calls `@repage/browser`'s `hydratePage()` function.
 
 Instead of using Repage we can manually hydrate the page ourselves.
 The following is an example of doing so.
@@ -186,7 +184,7 @@ It is fully under our control.
 ### Webpack Config Modification
 
 The webpack configuration generated by Reframe can be modified by providing
-`webpackServerConfig` and `webpackBrowserConfig`
+`webpackServerConfig()` and `webpackBrowserConfig()`
 in the `reframe.config.js` file.
 
 ~~~js
@@ -198,7 +196,7 @@ module.exports = {
 };
 ~~~
 
-The following example uses `getWebpackBrowserConfig()` to add the PostCSS loader to the configuration.
+The following example uses `webpackBrowserConfig()` to add the PostCSS loader to the configuration.
 
 ~~~js
 !INLINE ../examples/custom/build/webpack-config-mod/reframe.config.js
@@ -207,13 +205,13 @@ The following example uses `getWebpackBrowserConfig()` to add the PostCSS loader
 ### Full Custom Webpack Config
 
 The
-`webpackServerConfig` and `webpackBrowserConfig` option set in `reframe.config.js`,
-mentioned in the previous section,
+`webpackServerConfig()` and `webpackBrowserConfig()` options
+(mentioned in the previous section)
 also allows us to use an entire custom webpack configuration.
 
-The only restriction for a fully custom config is that the browser entry file and the corresponding server entry file have the same base name.
+The only restriction for a fully custom config is that the browser entry file and the corresponding server entry file share the same name prefix.
 Reframe can't otherwise know which browser entry is meant for which page config.
-For example, a browser entry saved at `/path/to/MyPage.entry.js` would match a page config saved at `/path/to/MyPage.html.js`, because they share the same base name `MyPage`.
+For example, a browser entry saved at `/path/to/MyPage.entry.js` would match a page config saved at `/path/to/MyPage.html.js`, because they share the same prefix `MyPage`.
 
 The following is an example for a entirely custom config.
 
@@ -226,7 +224,7 @@ The following is an example for a entirely custom config.
 By default, Reframe uses webpack.
 But we can implement a fully custom build step, which means that we can use a build tool other than webpack.
 
-The following is an example of a custom build step using [Rollup](https://github.com/rollup/rollup) and [Node.js's support for ES modules over the --experimental-modules flag](https://nodejs.org/api/esm.html).
+The following is an example of a custom build step using [Rollup](https://github.com/rollup/rollup) and [Node.js's support for ES modules](https://nodejs.org/api/esm.html) over the --experimental-modules flag.
 
 ~~~js
 !INLINE ../examples/custom/build/custom-bundler/server.mjs
@@ -254,7 +252,7 @@ To do so,
 and as shown in the example below,
 we export a `getRepageInstance` function
 that returns the Repage instance we want to use
-in a `reframe.config.js` file.
+in the `reframe.config.js` file.
 
 The `reframe.config.js` file can be located at any ancestor directory of the `pages/` directory.
 
@@ -282,5 +280,5 @@ function getRepageInstance() {
 ## Get rid of Reframe
 
 As shown in this document, every part of Reframe can be re-written to depend on `@repage` packages only.
-In turn, [Repage](https://github.com/brillout/repage) can progressively be overwritten over time as well.
-This means that we can eventually and over time get rid of the entire Reframe and the entire Repage code.
+And [Repage](https://github.com/brillout/repage) can progressively be overwritten over time as well.
+This means that we can eventually and over time get rid of the entire Reframe code and the entire Repage code.
