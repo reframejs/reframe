@@ -40,5 +40,5 @@ module.exports = {
 ~~~
 
 ~~~tsx
-!INLINE ./example/pages/landing.html.tsx
+!INLINE ./example/pages/landing.tsx
 ~~~

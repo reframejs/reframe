@@ -125,7 +125,7 @@ module.exports = {
 ~~~
 
 ~~~tsx
-// /typescript/example/pages/landing.html.tsx
+// /typescript/example/pages/landing.tsx
 
 import * as React from "react";
 
@@ -136,6 +136,7 @@ const Hello = (props: HelloProps) => <h1>Hello from {props.compiler} and {props.
 export default {
     route: '/',
     view: () => <Hello compiler="TypeScript" framework="React" />,
+    domStatic: true,
 };
 ~~~
 
