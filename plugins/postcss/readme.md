@@ -147,7 +147,7 @@ module.exports = {
 ~~~
 
 ~~~js
-// /postcss/example/pages/landing.universal.js
+// /postcss/example/pages/landing.js
 
 import React from 'react';
 import './landing.css';
@@ -166,6 +166,7 @@ const LandingComponent = () => (
 const LandingPage = {
     route: '/',
     view: LandingComponent,
+    domStatic: true,
 };
 
 export default LandingPage;

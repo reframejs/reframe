@@ -5,8 +5,10 @@
     "docs": "mdocs"
   },
   "dependencies": {
+    "@rebuild/config": "latest",
     "css-loader": "^0.28.9",
     "postcss-loader": "^2.1.0",
+    "reassert": "latest",
     "style-loader": "^0.20.1"
   },
   "publishConfig": {

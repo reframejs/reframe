@@ -36,5 +36,5 @@ module.exports = {
 ~~~
 
 ~~~js
-!INLINE ./example/pages/landing.universal.js
+!INLINE ./example/pages/landing.js
 ~~~

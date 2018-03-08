@@ -480,7 +480,7 @@ function add_autoreload_client(page_objects, {browser: {output: output__browser}
         return;
     }
     const entry_point__autoreload = Object.values(output__browser.entry_points).find(({entry_name}) => entry_name==='autoreload_client');
-    if( entry_point__autoreload ) {
+    if( ! entry_point__autoreload ) {
         return;
     }
     Object.values(page_objects)
