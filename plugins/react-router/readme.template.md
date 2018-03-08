@@ -27,5 +27,5 @@ module.exports = {
 ~~~
 
 ~~~js
-!INLINE ./example/pages/page.universal.js
+!INLINE ./example/pages/page.js
 ~~~

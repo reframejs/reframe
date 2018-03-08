@@ -112,7 +112,7 @@ module.exports = {
 ~~~
 
 ~~~js
-// /react-router/example/pages/page.universal.js
+// /react-router/example/pages/page.js
 
 import React from 'react';
 import {Link, Route} from "react-router-dom";
