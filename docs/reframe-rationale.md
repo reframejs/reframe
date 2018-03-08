@@ -211,7 +211,7 @@ With Reframe,
 most of the code you write directly uses these DOTADIW libraries, independently of Reframe.
 
 For example,
-you would add RESTFul API endpoints by directly using hapi's interface.
+you would add a RESTFul API by directly using hapi's interface.
 The code implementing the RESTFul API is then entirely independent of Reframe and can be fully re-used after escaping Reframe.
 (Technically Reframe is, on the server-side, mostly just a hapi plugin; Most of your server code will use hapi directly, know nothing about Reframe, and will be re-usable after escaping Reframe.)
 
@@ -242,7 +242,7 @@ while still using the rest of Reframe.
 
 > Reframe can be escaped in a progressive manner.
 
-By replacing all these three packages with code of your own, you effectively escape Reframe entirely.
+By replacing all these three packages with code of your own, you effectively entirely escape from Reframe.
 
 The Customization Manual explains how to escape from these three packages and includes examples such as:
  - Entirely custom build using Rollup (instead of webpack and by getting rid of `@reframe/build`).

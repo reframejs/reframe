@@ -119,16 +119,16 @@ With willingness to dive into Reframe and to re-write parts, pretty much all edg
 
 Reframe consists of three packages;
 `@reframe/build` that transpiles and bundles code,
-`@reframe/server` that creates a server serving dynamic HTMLs and static assets,
+`@reframe/server` that creates a server that serves dynamic HTMLs and static assets,
 and `@reframe/browser` that hydrates React components in the browser.
 Reframe is designed so that each package can be replaced with code of your own.
 
-If you replace `@reframe/browser` with your own code, then you have full control over the browser JavaScript.
-If you replace `@reframe/server` with your own code, then you have full control over the server.
-If you replace `@reframe/build` with your own code, then you have full control over the build step.
-And if you replace all three packages, then you effectively got rid of Reframe.
+If you replace `@reframe/browser` with code of your own, then you have full control over the browser JavaScript.
+If you replace `@reframe/server` with code of your own, then you have full control over the server.
+If you replace `@reframe/build` with code of your own, then you have full control over the build step.
+And, if you replace all three packages, you effectively got rid of Reframe.
 
-The customizing manual gives a good overview of how packages can be re-written but partially lacks detailed information.
+The customizing manual gives an overview of how packages can be re-written but partially lacks detailed information.
 Open a GitHub issue to get detailed info and support.
 
 ##### Contents
@@ -164,7 +164,7 @@ For example:
 // /examples/custom/server/hapi-server.js
 
 const Hapi = require('hapi');
-const {getHapiPlugins} = require('@reframe/server/getHapiPlugins');
+const getHapiPlugins = require('@reframe/server/getHapiPlugins');
 const path = require('path');
 
 (async () => {
@@ -211,7 +211,7 @@ const build = require('@reframe/build');
 
 const Repage = require('@repage/core');
 const {getPageHtml} = require('@repage/server');
-const RepageRouterCrossroads = require('@repage/router-crossroads');
+const RepageRouterPathToRegexp = require('@repage/router-path-to-regexp');
 const RepageRenderer = require('@repage/renderer');
 const RepageRendererReact = require('@repage/renderer-react');
 
@@ -260,7 +260,7 @@ function createRepageObject(pages) {
     const repage = new Repage();
 
     repage.addPlugins([
-        RepageRouterCrossroads,
+        RepageRouterPathToRegexp,
         RepageRenderer,
         RepageRendererReact,
     ]);
@@ -305,7 +305,7 @@ Reframe will then use the `.entry.js` code as browser entry instead of generatin
 For example:
 
 ~~~js
-// /examples/pages/TrackingPage.html.js
+// /examples/pages/TrackingPage.js
 
 import React from 'react';
 
@@ -321,6 +321,7 @@ export default {
             src: 'https://www.google-analytics.com/analytics.js',
         },
     ],
+    domStatic: true,
 };
 ~~~
 
@@ -328,7 +329,7 @@ export default {
 // /examples/pages/TrackingPage.entry.js
 
 import hydratePage from '@reframe/browser/hydratePage';
-import TrackingPage from './TrackingPage.html.js';
+import TrackingPage from './TrackingPage.js';
 
 window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 ga('create', 'UA-XXXXX-Y', 'auto');
@@ -336,8 +337,8 @@ ga('send', 'pageview');
 
 (async () => {
     const before = new Date();
-    // we are reusing the .html.js page definition `TrackingPage` but
-    // we could also use another page definition
+    // We are reusing the `TrackingPage` page confg but
+    // we could also use another page definition.
     await hydratePage(TrackingPage);
     const after = new Date();
     ga('send', 'event', {eventAction: 'page hydration time', eventValue: after - before});
@@ -359,10 +360,10 @@ See the "Custom Head" section of the Usage Manual for more information.
 Multiple pages can share common browser code by using the `diskPath` property in the page config, as shown in the following example:
 
 ~~~js
-// /examples/custom/browser/pages/terms.html.js
+// /examples/custom/browser/pages/terms.js
 
 import React from 'react';
-import PageCommon from './PageCommon';
+import PageCommon from './PageCommon.mixin';
 
 export default {
     route: '/terms',
@@ -378,10 +379,10 @@ export default {
 };
 ~~~
 ~~~js
-// /examples/custom/browser/pages/privacy.html.js
+// /examples/custom/browser/pages/privacy.js
 
 import React from 'react';
-import PageCommon from './PageCommon';
+import PageCommon from './PageCommon.mixin';
 
 export default {
     route: '/privacy',
@@ -397,7 +398,7 @@ export default {
 };
 ~~~
 ~~~js
-// /examples/custom/browser/pages/PageCommon.js
+// /examples/custom/browser/pages/PageCommon.mixin.js
 
 const PageCommon = {
     title: 'My Web App',
@@ -473,7 +474,7 @@ At this point, our browser JavaScript doesn't depend on Reframe nor on Repage.
 It is fully under our control.
 
 ~~~js
-// /examples/custom/browser/pages/custom-browser.html.js
+// /examples/custom/browser/pages/custom-hydration.js
 
 import React from 'react';
 import {TimeComponent} from '../../../views/TimeComponent';
@@ -497,7 +498,7 @@ export default {
 };
 ~~~
 ~~~js
-// /examples/custom/browser/pages/custom-browser.entry.js
+// /examples/custom/browser/pages/custom-hydration.entry.js
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -616,7 +617,7 @@ const webpackBrowserConfig = () => ({
 });
 
 const webpackServerConfig = () => ({
-    entry: '../../../pages/CounterPage.html.js',
+    entry: '../../../pages/CounterPage.js',
     target: 'node',
     output: {
         publicPath: '/',
@@ -755,7 +756,7 @@ function getCompileInfo({browserDistPath, pages}) {
 
 import Repage from '@repage/core';
 import RepageBuild from '@repage/build';
-import RepageRouterCrossroads from '@repage/router-crossroads';
+import RepagePathToRegexp from '@repage/router-path-to-regexp';
 import RepageRenderer from '@repage/renderer';
 import RepageRendererReact from '@repage/renderer-react';
 
@@ -804,7 +805,7 @@ function getRepageObject(pages) {
     const repage = new Repage();
 
     repage.addPlugins([
-        RepageRouterCrossroads,
+        RepagePathToRegexp,
         RepageRenderer,
         RepageRendererReact,
     ]);
@@ -817,8 +818,8 @@ function getRepageObject(pages) {
 ~~~js
 // /examples/custom/build/custom-bundler/get-pages.mjs
 
-import HelloPage from './pages/hello.html.mjs';
-import LandingPage from './pages/landing.html.mjs';
+import HelloPage from './pages/hello.mjs';
+import LandingPage from './pages/landing.mjs';
 import expose from './expose.js';
 
 export default getPages;
