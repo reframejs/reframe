@@ -55,7 +55,7 @@ Let's create a web app by defining a page config `HelloPage`:
 The `reframe` CLI does the rest:
 
 <p align="center">
-    <img src='https://github.com/brillout/reframe/raw/master/docs/images/reframe_overview_screenshot.png?sanitize=true' width=1200 style="max-width:100%;"/>
+    <img src='https://github.com/reframejs/reframe/raw/master/docs/images/reframe_overview_screenshot.png?sanitize=true' width=1200 style="max-width:100%;"/>
 </p>
 
 Reframe did the following:
