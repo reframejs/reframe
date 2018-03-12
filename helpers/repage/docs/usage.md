@@ -82,7 +82,7 @@ Render pages on the server, and/or in the browser, and/or statically.
 Low-level, unopinionated, plugin-based and "adaptable".
 
 [Overview](/helpers/repage/readme.md)<br/>
-[Usage](/helpers/repage/docs/usage.md)
+[**Usage**](/helpers/repage/docs/usage.md)
 
 ## Usage
 

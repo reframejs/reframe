@@ -81,7 +81,7 @@ A JavaScript library to manage pages.
 Render pages on the server, and/or in the browser, and/or statically.
 Low-level, unopinionated, plugin-based and "adaptable".
 
-[Overview](/helpers/repage/readme.md)<br/>
+[**Overview**](/helpers/repage/readme.md)<br/>
 [Usage](/helpers/repage/docs/usage.md)
 
 ## Overview
