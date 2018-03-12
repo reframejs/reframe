@@ -87,7 +87,7 @@ Low-level, unopinionated, plugin-based and "adaptable".
 Repage is **a low-level tool meant to be used by library authors**.
 If your intention is to create a web app,
 you are most likely better off,
-if you **use a higher-level tool such as [Reframe](https://github.com/brillout/reframe) instead**.
+if you **use a higher-level tool such as [Reframe](https://github.com/reframejs/reframe) instead**.
 (Reframe is built on top of Repage.)
 
 If your intention is to create a framework to create web apps, where the app's pages are rendered on the server, and/or in the browser, and/or statically, then you are at the right address.
