@@ -7,7 +7,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/overview.template.md` instead.
+    Edit `/helpers/repage/docs/overview.template.md` instead.
 
 
 
@@ -22,7 +22,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/overview.template.md` instead.
+    Edit `/helpers/repage/docs/overview.template.md` instead.
 
 
 
@@ -37,7 +37,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/overview.template.md` instead.
+    Edit `/helpers/repage/docs/overview.template.md` instead.
 
 
 
@@ -52,7 +52,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/overview.template.md` instead.
+    Edit `/helpers/repage/docs/overview.template.md` instead.
 
 
 
@@ -67,7 +67,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/overview.template.md` instead.
+    Edit `/helpers/repage/docs/overview.template.md` instead.
 
 
 
@@ -79,8 +79,8 @@ A JavaScript library to manage pages.
 Render pages on the server, and/or in the browser, and/or statically.
 Low-level, unopinionated, plugin-based and "adaptable".
 
-[Overview](/../../)<br/>
-[Usage](/docs/usage.md)
+[Overview](/helpers/repage/readme.md)<br/>
+[Usage](/helpers/repage/docs/usage.md)
 
 # Overview
 
@@ -166,7 +166,7 @@ See the usage section for usage information.
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/overview.template.md` instead.
+    Edit `/helpers/repage/docs/overview.template.md` instead.
 
 
 
@@ -181,7 +181,7 @@ See the usage section for usage information.
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/overview.template.md` instead.
+    Edit `/helpers/repage/docs/overview.template.md` instead.
 
 
 
@@ -196,7 +196,7 @@ See the usage section for usage information.
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/overview.template.md` instead.
+    Edit `/helpers/repage/docs/overview.template.md` instead.
 
 
 
@@ -211,7 +211,7 @@ See the usage section for usage information.
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/overview.template.md` instead.
+    Edit `/helpers/repage/docs/overview.template.md` instead.
 
 
 
@@ -226,7 +226,7 @@ See the usage section for usage information.
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/overview.template.md` instead.
+    Edit `/helpers/repage/docs/overview.template.md` instead.
 
 
 

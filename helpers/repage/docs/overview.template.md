@@ -3,7 +3,6 @@ Render pages on the server, and/or in the browser, and/or statically.
 Low-level, unopinionated, plugin-based and "adaptable".
 
 !MENU
-!MENU_LINK /../../
 !OUTPUT ../readme.md
 
 # Overview
