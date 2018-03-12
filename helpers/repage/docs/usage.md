@@ -265,10 +265,10 @@ This is the canonical way to render HTML-static pages.
 You can run the code above yourself:
 
 ~~~shell
-sudo npm i -g yarn && mkdir -p ~/tmp && cd ~/tmp && git clone https://github.com/brillout/repage.git && cd repage && npm i && ./node_modules/.bin/lerna bootstrap
+sudo npm i -g yarn && mkdir -p ~/tmp && cd ~/tmp && git clone https://github.com/reframejs/reframe.git && cd reframe && yarn
 ~~~
 ~~~shell
-node ~/tmp/repage/example/build
+node ~/tmp/reframe/helpers/repage/example/build
 ~~~
 
 
@@ -295,10 +295,10 @@ hydratePage(repage, LandingPage);
 You can run the code above yourself:
 
 ~~~shell
-sudo npm i -g yarn && mkdir -p ~/tmp && cd ~/tmp && git clone https://github.com/brillout/repage.git && cd repage && npm i && ./node_modules/.bin/lerna bootstrap
+sudo npm i -g yarn && mkdir -p ~/tmp && cd ~/tmp && git clone https://github.com/reframejs/reframe.git && cd reframe && yarn
 ~~~
 ~~~shell
-node ~/tmp/repage/example/browser
+node ~/tmp/reframe/helpers/repage/example/browser
 ~~~
 
 Let's now look at server-side rendering.
@@ -341,10 +341,10 @@ This is the canonical way to render HTML-dynamic pages.
 You can run the code above yourself:
 
 ~~~shell
-sudo npm i -g yarn && mkdir -p ~/tmp && cd ~/tmp && git clone https://github.com/brillout/repage.git && cd repage && npm i && ./node_modules/.bin/lerna bootstrap
+sudo npm i -g yarn && mkdir -p ~/tmp && cd ~/tmp && git clone https://github.com/reframejs/reframe.git && cd reframe && yarn
 ~~~
 ~~~shell
-node ~/tmp/repage/example/server
+node ~/tmp/reframe/helpers/repage/example/server
 ~~~
 
 
