@@ -18,7 +18,7 @@ const LandingComponent = (
 const LandingPage = {
     route: '/',
     view: LandingComponent,
-    htmlIsStatic: true,
+    htmlStatic: true,
 };
 
 export default LandingPage;

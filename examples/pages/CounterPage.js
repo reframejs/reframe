@@ -4,7 +4,7 @@ const CounterPage = {
     route: '/counter',
     title: 'Counter',
     view: CounterComponent,
-    htmlIsStatic: true,
+    htmlStatic: true,
     scripts: [
         {diskPath: './CounterPage.entry.js'},
     ],

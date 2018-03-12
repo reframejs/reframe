@@ -212,8 +212,8 @@ With Reframe you can create:
    Some pages are rendered to HTML at build-time and others at request-time, and some pages have a static DOM while others have a dynamic DOM.
 
 Reframe generates a certain type of app depending on how you configure your pages.
-For example, if you add `htmlIsStatic: true` to a page config, then that page's HTML is rendered at build-time instead of request-time.
-So, creating a static app is simply a matter of setting `htmlIsStatic: true` to all page configs.
+For example, if you add `htmlStatic: true` to a page config, then that page's HTML is rendered at build-time instead of request-time.
+So, creating a static app is simply a matter of setting `htmlStatic: true` to all page configs.
 
 The "Quick Start" section below gives a step-by-step guide to create a React app with Reframe.
 

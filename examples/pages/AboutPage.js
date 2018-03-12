@@ -5,7 +5,7 @@ const AboutPage = {
     route: '/about',
     view: AboutComponent,
     renderToDom: null,
-    htmlIsStatic: true,
+    htmlStatic: true,
     domStatic: true,
 };
 

@@ -19,5 +19,5 @@ export default {
     view: NewsComponent,
     // `LatestNewsComponent` needs to be refreshed on every page load.
     // We therefore declare the page as HTML-dynamic.
-    htmlIsStatic: false,
+    htmlStatic: false,
 };

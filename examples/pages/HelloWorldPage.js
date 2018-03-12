@@ -7,7 +7,7 @@ const HelloWorldPage = {
     description: 'A Hello World page created with Reframe.',
     route: '/hello', // Page's URL
     view: HelloWorldComponent,
-    htmlIsStatic: true, // Let Reframe know that HelloPage's HTML is static.
+    htmlStatic: true, // Let Reframe know that HelloPage's HTML is static.
     domStatic: true,
 };
 

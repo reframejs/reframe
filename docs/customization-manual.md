@@ -401,7 +401,7 @@ export default {
 const PageCommon = {
     title: 'My Web App',
     description: 'This Web App helps you with ...',
-    htmlIsStatic: true,
+    htmlStatic: true,
     scripts: [
         {
             async: true,
@@ -492,7 +492,7 @@ export default {
             </div>
         </div>
     ),
-    htmlIsStatic: true,
+    htmlStatic: true,
 };
 ~~~
 ~~~js

@@ -307,12 +307,12 @@ export default {
             (Generated at {new Date().toLocaleTimeString()})
         </div>
     ),
-    htmlIsStatic: true,
+    htmlStatic: true,
 };
 ~~~
 
 When we declare the page to be HTML-static
-(with `htmlIsStatic: true`),
+(with `htmlStatic: true`),
 Reframe renders the HTML only once, namely when building the frontend.
 
 If the time when building the frontend was 12:00:00,
@@ -323,9 +323,9 @@ We say that the HTML is generated at *build-time* and that the page is *HTML-sta
 We can actually see the HTML generated at build-time at `~/tmp/reframe-playground/dist/browser/index.html`.
 
 To sum up,
-`htmlIsStatic: false` declares the page as HTML-dynamic: The HTML is rendered at request-time.
+`htmlStatic: false` declares the page as HTML-dynamic: The HTML is rendered at request-time.
 And
-`htmlIsStatic: true` declares the page as HTML-static: The HTML is rendered at build-time.
+`htmlStatic: true` declares the page as HTML-static: The HTML is rendered at build-time.
 
 For pages with lot's of elements, generating the HTML at build-time instead of request-time can be a considerable performance gain.
 
@@ -1034,7 +1034,7 @@ export default {
     view: NewsComponent,
     // `LatestNewsComponent` needs to be refreshed on every page load.
     // We therefore declare the page as HTML-dynamic.
-    htmlIsStatic: false,
+    htmlStatic: false,
 };
 ~~~
 

@@ -1,7 +1,7 @@
 const PageCommon = {
     title: 'My Web App',
     description: 'This Web App helps you with ...',
-    htmlIsStatic: true,
+    htmlStatic: true,
     scripts: [
         {
             async: true,

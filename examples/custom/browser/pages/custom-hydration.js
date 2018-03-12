@@ -16,5 +16,5 @@ export default {
             </div>
         </div>
     ),
-    htmlIsStatic: true,
+    htmlStatic: true,
 };
