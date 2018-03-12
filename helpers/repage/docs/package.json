@@ -1,8 +1,8 @@
 {
-  "name": "__reframe_docs",
+  "name": "__repage_docs",
   "private": true,
   "version": "0.0.1-rc.5",
   "dependencies": {
-    "@brillout/mdocs": "latest"
+    "@brillout/mdocs": "^0.1.5"
   }
 }

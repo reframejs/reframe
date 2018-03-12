@@ -1,0 +1,13 @@
+{
+  "name": "@repage/router-crossroads",
+  "version": "0.0.1-rc.5",
+  "browser": "./browser.js",
+  "main": "./server.js",
+  "dependencies": {
+    "crossroads": "^0.12.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": "github:brillout/repage"
+}

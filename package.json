@@ -4,8 +4,7 @@
         "core/browser",
         "core/build",
         "core/server",
-        "core/utils",
-        "core/cli",
+
         "plugins/crossroads",
         "plugins/default-kit",
         "plugins/path-to-regexp",
@@ -13,8 +12,34 @@
         "plugins/react",
         "plugins/react-router",
         "plugins/typescript",
+
         "docs",
-        "examples"
+        "examples",
+
+        "helpers/utils",
+        "helpers/cli",
+
+        "helpers/repage/core/core",
+        "helpers/repage/core/build",
+        "helpers/repage/core/browser",
+        "helpers/repage/core/server",
+
+        "helpers/repage/plugins/navigator",
+        "helpers/repage/plugins/renderer",
+        "helpers/repage/plugins/renderer-react",
+        "helpers/repage/plugins/router-crossroads",
+        "helpers/repage/plugins/router-path-to-regexp",
+        "helpers/repage/plugins/router-static",
+
+        "helpers/repage/docs",
+        "helpers/repage/example",
+
+        "helpers/rebuild/config",
+        "helpers/rebuild/cli",
+        "helpers/rebuild/build",
+        "helpers/rebuild/iso",
+        "helpers/rebuild/example",
+        "helpers/rebuild/serve"
     ],
     "devDependencies": {
         "lerna": "^2.9.0"

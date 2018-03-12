@@ -1,0 +1,11 @@
+<html>
+  <body>
+    <script src="http://localhost:3218/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io('http://localhost:3218');
+      socket.on('autoreload', function(){
+          document.location.reload();
+      });
+    </script>
+  </body>
+</html>

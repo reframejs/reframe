@@ -1,5 +1,5 @@
 {
-  "name": "example",
+  "name": "__reframe_examples",
   "private": true,
   "dependencies": {
     "@brillout/fetch": "^0.0.2",

@@ -7,6 +7,7 @@
     "@rebuild/build": "latest",
     "@rebuild/config": "latest",
     "@rebuild/serve": "latest",
+    "@rebuild/iso": "0.0.1-rc.4",
     "@reframe/browser": "0.0.1-rc.5",
     "@reframe/utils": "0.0.1-rc.5",
     "@repage/build": "latest",

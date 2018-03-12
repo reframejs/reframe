@@ -1,0 +1,14 @@
+{
+  "name": "@rebuild/iso",
+  "version": "0.0.1-rc.4",
+  "dependencies": {
+    "@brillout/get-parent-dirname": "latest",
+    "@rebuild/build": "0.0.1-rc.4",
+    "@rebuild/serve": "0.0.1-rc.4",
+    "touch": "^3.1.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": "github:brillout/rebuild"
+}
