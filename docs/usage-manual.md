@@ -103,7 +103,7 @@
 
 [Overview](/../../)<br/>
 [Reframe Rationale](/docs/reframe-rationale.md)<br/>
-[Usage Manual](/docs/usage-manual.md)<br/>
+[**Usage Manual**](/docs/usage-manual.md)<br/>
 [Customization Manual](/docs/customization-manual.md)<br/>
 [Plugins](/docs/plugins.md)
 
