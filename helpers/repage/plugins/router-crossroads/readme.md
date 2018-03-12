@@ -1,1 +1,1 @@
-Docs at https://github.com/brillout/reframe/tree/master/helpers/repage
+Docs at https://github.com/reframejs/reframe/tree/master/helpers/repage
