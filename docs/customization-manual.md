@@ -464,7 +464,7 @@ async function hydratePage(page, reframeBrowserConfig={}) {
 }
 ~~~
 
-As we can see, the code initializes a [Repage](https://github.com/brillout/repage) instance and calls `@repage/browser`'s `hydratePage()` function.
+As we can see, the code initializes a [Repage](https://github.com/reframejs/reframe/tree/master/helpers/repage) instance and calls `@repage/browser`'s `hydratePage()` function.
 
 Instead of using Repage we can manually hydrate the page ourselves.
 The following is an example of doing so.
@@ -848,7 +848,7 @@ function getPages() {
 
 ## Custom Repage
 
-Reframe is built on top of [Repage](https://github.com/brillout/repage),
+Reframe is built on top of [Repage](https://github.com/reframejs/reframe/tree/master/helpers/repage),
 a low-level plugin-based page management library,
 and you can use Reframe with a custom Repage instance.
 
@@ -884,7 +884,7 @@ function getRepageInstance() {
 ## Get rid of Reframe
 
 As shown in this document, every part of Reframe can be re-written to depend on `@repage` packages only.
-And [Repage](https://github.com/brillout/repage) can progressively be overwritten over time as well.
+And [Repage](https://github.com/reframejs/reframe/tree/master/helpers/repage) can progressively be overwritten over time as well.
 This means that we can eventually and over time get rid of the entire Reframe code and the entire Repage code.
 
 <!---
