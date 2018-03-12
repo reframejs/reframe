@@ -75,6 +75,8 @@
 
 
 -->
+# Repage
+
 A JavaScript library to manage pages.
 Render pages on the server, and/or in the browser, and/or statically.
 Low-level, unopinionated, plugin-based and "adaptable".
@@ -82,7 +84,7 @@ Low-level, unopinionated, plugin-based and "adaptable".
 [Overview](/helpers/repage/readme.md)<br/>
 [Usage](/helpers/repage/docs/usage.md)
 
-# Overview
+## Overview
 
 Repage is **a low-level tool meant to be used by library authors**.
 If your intention is to create a web app,

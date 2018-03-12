@@ -1,6 +1,8 @@
+!INLINE ./header.md --hide-source-path
+
 !MENU
 
-# Usage
+## Usage
 
 Repage's usage revolves around *page objects*. A page object is a JavaScript object that defines a page.
 

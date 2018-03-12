@@ -75,10 +75,16 @@
 
 
 -->
+# Repage
+
+A JavaScript library to manage pages.
+Render pages on the server, and/or in the browser, and/or statically.
+Low-level, unopinionated, plugin-based and "adaptable".
+
 [Overview](/helpers/repage/readme.md)<br/>
 [Usage](/helpers/repage/docs/usage.md)
 
-# Usage
+## Usage
 
 Repage's usage revolves around *page objects*. A page object is a JavaScript object that defines a page.
 

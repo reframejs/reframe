@@ -1,11 +1,9 @@
-A JavaScript library to manage pages.
-Render pages on the server, and/or in the browser, and/or statically.
-Low-level, unopinionated, plugin-based and "adaptable".
+!INLINE ./header.md --hide-source-path
 
 !MENU
 !OUTPUT ../readme.md
 
-# Overview
+## Overview
 
 Repage is **a low-level tool meant to be used by library authors**.
 If your intention is to create a web app,
