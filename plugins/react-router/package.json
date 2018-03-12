@@ -12,7 +12,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "repository": "github:brillout/reframe",
+  "repository": "github:reframejs/reframe",
   "devDependencies": {
     "@brillout/mdocs": "latest"
   }
