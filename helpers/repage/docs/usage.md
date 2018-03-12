@@ -90,7 +90,7 @@ and `renderToDom` to render the page by manipulating the DOM.
 The following is an example of defining a page over these three properties.
 
 ~~~js
-// /../../example/pages/about.js
+// /helpers/repage/example/pages/about.js
 
 const title = 'About Page';
 
@@ -137,7 +137,7 @@ and the plugin implements the two render functions `renderToHtml` and `renderToD
 Let's look at a page defined like that.
 
 ~~~js
-// /../../example/pages/landing.js
+// /helpers/repage/example/pages/landing.js
 
 const React = require('react');
 const RepageRenderReact = require('@repage/renderer-react');
@@ -175,7 +175,7 @@ We can also add plugins globally as we will see in the next code snippet.
 Now that we have defined some page objects, let's create a repage object and add our page objects to it.
 
 ~~~js
-// /../../example/common.js
+// /helpers/repage/example/common.js
 
 const Repage = require('@repage/core');
 
@@ -212,7 +212,7 @@ Let's now render our pages.
 Let's first look at static rendering.
 
 ~~~js
-// /../../example/build.js
+// /helpers/repage/example/build.js
 
 process.on('unhandledRejection', err => {throw err});
 
@@ -269,7 +269,7 @@ node ~/tmp/repage/example/build
 Let's now look at browser-side rendering.
 
 ~~~js
-// /../../example/browser/main.js
+// /helpers/repage/example/browser/main.js
 
 const {hydratePage} = require('@repage/browser');
 const RepageNavigator = require('@repage/navigator/browser');
@@ -300,7 +300,7 @@ Let's now look at server-side rendering.
 Running
 
 ~~~js
-// /../../example/server.js
+// /helpers/repage/example/server.js
 
 process.on('unhandledRejection', err => {throw err});
 
@@ -345,7 +345,7 @@ node ~/tmp/repage/example/server
 Finally, let's look at a page object with a parametrized route and with async initial data loading.
 
 ~~~js
-// /../../example/pages/hello.js
+// /helpers/repage/example/pages/hello.js
 
 const React = require('react');
 const RepageRenderReact = require('@repage/renderer-react');

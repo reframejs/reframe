@@ -760,7 +760,7 @@ import RepageRendererReact from '@repage/renderer-react';
 
 import getPages from './get-pages.mjs';
 
-import fs from 'docs';
+import fs from 'fs';
 import path from 'path';
 import mkdirp from 'mkdirp';
 

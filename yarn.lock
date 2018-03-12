@@ -38,9 +38,9 @@
   dependencies:
     reassert "^1.0.3"
 
-"@brillout/mdocs@^0.1.5", "@brillout/mdocs@latest":
-  version "0.1.9"
-  resolved "https://registry.yarnpkg.com/@brillout/mdocs/-/mdocs-0.1.9.tgz#fb133857cc6966fc4653b6aa64c460260a462f20"
+"@brillout/mdocs@latest":
+  version "0.1.10"
+  resolved "https://registry.yarnpkg.com/@brillout/mdocs/-/mdocs-0.1.10.tgz#bc72c04ade1b0d719b832fb2e339253b907cd0df"
   dependencies:
     find-up "^2.1.0"
     reassert latest
