@@ -77,26 +77,25 @@ function add_webpack_config_modifiers(_processed, plugin_objects) {
         return;
     }
 
-    const modifiers = (
-        ['Browser', 'Server']
-        .map(configEnv => {
-            let modifier = null;
-            plugin_objects
-            .forEach(plugin_object => {
-                const modifier_name = 'webpack'+configEnv+'Config';
-                if( plugin_object[modifier_name] ) {
-                    assert_plugin(plugin_object[modifier_name] instanceof Function);
-                    const previous_modifier = modifier || (({config}) => config);
-                    modifier = args => plugin_object[modifier_name]({...args, config: previous_modifier(args)});
-                }
-            });
-            assert_internal(modifier===null || modifier instanceof Function);
-            return modifier;
-        })
-    );
+    _processed.webpackBrowserConfigModifier = assemble_modifiers('webpackBrowserConfig');
+    _processed.webpackServerConfigModifier = assemble_modifiers('webpackServerConfig');
 
-    _processed.webpackBrowserConfigModifier = modifiers[0];
-    _processed.webpackServerConfigModifier = modifiers[1];
+    return;
+
+    function assemble_modifiers(modifier_name) {
+        let supra_modifier = null;
+        plugin_objects
+        .forEach(plugin_object => {
+            if( ! plugin_object[modifier_name] ) {
+                return;
+            }
+            assert_plugin(plugin_object[modifier_name] instanceof Function);
+            const previous_modifier = supra_modifier || (({config}) => config);
+            supra_modifier = args => plugin_object[modifier_name]({...args, config: previous_modifier(args)});
+        });
+        assert_internal(supra_modifier===null || supra_modifier instanceof Function);
+        return supra_modifier;
+    }
 }
 
 // By default, Reframe uses the `@reframe/default-kit`
