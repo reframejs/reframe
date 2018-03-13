@@ -17,56 +17,56 @@ function process__common(cfg, name, isBrowserConfig, extra_plugin) {
     assert_internal(!('_processed' in cfg), cfg);
     cfg.name = cfg.name || name;
     const _processed = cfg._processed = {};
-    const plugin_objects = _processed.plugin_objects = get_all_plugin_objects(cfg, extra_plugin);
-    add_repage_plugins(_processed, plugin_objects, isBrowserConfig);
+    const r_objects = _processed.r_objects = get_all_r_objects(cfg, extra_plugin);
+    add_repage_plugins(_processed, r_objects, isBrowserConfig);
 }
 
-function get_all_plugin_objects(reframeConfig, extra_plugin) {
+function get_all_r_objects(reframeConfig, extra_plugin) {
     const cycleCatcher = new WeakMap();
     return [
-        ...(extra_plugin ? retrieve_plugin_objects(extra_plugin, cycleCatcher) : []),
-        ...retrieve_plugin_objects(reframeConfig, cycleCatcher),
+        ...(extra_plugin ? retrieve_r_objects(extra_plugin, cycleCatcher) : []),
+        ...retrieve_r_objects(reframeConfig, cycleCatcher),
     ];
 }
-function retrieve_plugin_objects(plugin_object, cycleCatcher) {
-    assert_usage(plugin_object && plugin_object.constructor===Object, plugin_object);
-    assert_usage(plugin_object.name, plugin_object, 'The plugin printed above is missing a name.');
-    if( cycleCatcher.has(plugin_object) ) {
+function retrieve_r_objects(r_object, cycleCatcher) {
+    assert_usage(r_object && r_object.constructor===Object, r_object);
+    assert_usage(r_object.name, r_object, 'The plugin printed above is missing a name.');
+    if( cycleCatcher.has(r_object) ) {
         return;
     }
-    cycleCatcher.set(plugin_object, true);
-    const plugin_objects = [
-        plugin_object,
+    cycleCatcher.set(r_object, true);
+    const r_objects = [
+        r_object,
     ];
-    (plugin_object.plugins||[])
-    .forEach(_plugin_object => {
-        plugin_objects.push(...retrieve_plugin_objects(_plugin_object, cycleCatcher));
+    (r_object.plugins||[])
+    .forEach(_r_object => {
+        r_objects.push(...retrieve_r_objects(_r_object, cycleCatcher));
     });
-    return plugin_objects;
+    return r_objects;
 }
 
-function add_repage_plugins(_processed, plugin_objects, isBrowserConfig) {
+function add_repage_plugins(_processed, r_objects, isBrowserConfig) {
     if( _processed.repage_plugins ) {
         return;
     }
     const repage_plugins = _processed.repage_plugins = [];
 
-    plugin_objects
-    .forEach(plugin_object => {
-        const {pageMixin, name} = plugin_object;
-        assert_internal(name, plugin_object);
+    r_objects
+    .forEach(r_object => {
+        const {pageMixin, name} = r_object;
+        assert_internal(name, r_object);
         if( pageMixin ) {
-            const plugin_obj = {pageMixin, name};
+            const repage_plugin_obj = {pageMixin, name};
             if( isBrowserConfig ) {
-                plugin_obj.isAllowedInBrowser = true;
+                repage_plugin_obj.isAllowedInBrowser = true;
             }
-            repage_plugins.push(plugin_obj);
+            repage_plugins.push(repage_plugin_obj);
         }
     });
 
-    plugin_objects
-    .forEach(plugin_object => {
-        const {repagePlugins} = plugin_object;
+    r_objects
+    .forEach(r_object => {
+        const {repagePlugins} = r_object;
         if( repagePlugins ) {
             repage_plugins.push(...repagePlugins);
         }

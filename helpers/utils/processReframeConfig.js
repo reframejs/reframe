@@ -66,13 +66,13 @@ function processReframeConfig(reframeConfig) {
     assert_usage(reframeConfig.constructor===Object);
     process__common(reframeConfig, 'reframe.config.js', false, get_default_plugin(reframeConfig));
     const {_processed} = reframeConfig;
-    const {plugin_objects} = _processed;
-    add_webpack_config_modifiers(_processed, plugin_objects);
-    add_browser_config_paths(_processed, plugin_objects);
+    const {r_objects} = _processed;
+    add_webpack_config_modifiers(_processed, r_objects);
+    add_browser_config_paths(_processed, r_objects);
 }
 
 // Here we assemble several webpack config modifiers into one supra modifier
-function add_webpack_config_modifiers(_processed, plugin_objects) {
+function add_webpack_config_modifiers(_processed, r_objects) {
     if( 'webpackServerConfigModifier' in _processed && 'webpackBrowserConfigModifier' in _processed ) {
         return;
     }
@@ -84,14 +84,14 @@ function add_webpack_config_modifiers(_processed, plugin_objects) {
 
     function assemble_modifiers(modifier_name) {
         let supra_modifier = null;
-        plugin_objects
-        .forEach(plugin_object => {
-            if( ! plugin_object[modifier_name] ) {
+        r_objects
+        .forEach(r_object => {
+            if( ! r_object[modifier_name] ) {
                 return;
             }
-            assert_plugin(plugin_object[modifier_name] instanceof Function);
+            assert_plugin(r_object[modifier_name] instanceof Function);
             const previous_modifier = supra_modifier || (({config}) => config);
-            supra_modifier = args => plugin_object[modifier_name]({...args, config: previous_modifier(args)});
+            supra_modifier = args => r_object[modifier_name]({...args, config: previous_modifier(args)});
         });
         assert_internal(supra_modifier===null || supra_modifier instanceof Function);
         return supra_modifier;
@@ -102,8 +102,8 @@ function add_webpack_config_modifiers(_processed, plugin_objects) {
 function get_default_plugin(reframeConfig) {
     /*
     assert_internal(_processed.repage_plugins.constructor===Array);
-    for(plugin_object in _processed.plugin_objects) {
-        if( plugin_objects.skipDefaultKit ) {
+    for(r_object in _processed.r_objects) {
+        if( r_objects.skipDefaultKit ) {
             return;
         }
     }
@@ -117,13 +117,13 @@ function get_default_plugin(reframeConfig) {
 
 // Here we collect all paths of browser-side reframe config files
 //  - We define browser-side config objects as paths (instead of loaded module) because the browser-side code is bundled separately from the sever-side code
-function add_browser_config_paths(_processed, plugin_objects) {
+function add_browser_config_paths(_processed, r_objects) {
     if( _processed.browserConfigs ) {
         return;
     }
     const browserConfigs = _processed.browserConfigs = [];
-    plugin_objects.forEach(plugin_object => {
-        const {reframeBrowserConfig} = plugin_object;
+    r_objects.forEach(r_object => {
+        const {reframeBrowserConfig} = r_object;
         if( ! reframeBrowserConfig ) {
             return;
         }
