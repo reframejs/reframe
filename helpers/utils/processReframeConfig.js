@@ -10,6 +10,10 @@
           In other words, everything that can be configured in `reframe.config.js`
           can as well be configured by a plugin.
 
+        - All processing is based on `r_objects`.
+          `r_objects` is an array that contains the objects exported by all plugins
+          and by `reframe.config.js`.
+
         - A plugin can add another plugin.
           In other words, the reframe config is recursive.
           Consider the following example:
