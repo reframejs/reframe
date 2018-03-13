@@ -14,6 +14,9 @@
           `r_objects` is an array that contains the objects exported by all plugins
           and by `reframe.config.js`.
 
+        - All computed data is saved in `reframeConfig._processed` and
+          the rest of `reframeConfig` is left untouched
+
         - A plugin can add another plugin.
           In other words, the reframe config is recursive.
           Consider the following example:
@@ -56,9 +59,6 @@
               therefore we need to flatten things.
               E.g. several `webpackBrowserConfig` can be defined and `processReframeConfig`
               combines these into a supra `_processed.webpackBrowserConfigModifier`.
-
-        - Every processed data is saved in `reframeConfig._processed` and
-          the rest of `reframeConfig` is left untouched
 */
 
 
@@ -68,7 +68,7 @@ const assert_usage = assert;
 const assert_plugin = assert;
 const path_module = require('path');
 const defaultKit = require('@reframe/default-kit');
-const {process__common} = require('./processReframeBrowserConfig');
+const {get_r_objects, get_repage_plugins} = require('./process_common');
 
 module.exports = {processReframeConfig};
 
@@ -77,15 +77,16 @@ function processReframeConfig(reframeConfig) {
         return;
     }
     assert_usage(reframeConfig.constructor===Object);
-    process__common(reframeConfig, 'reframe.config.js', false, get_default_plugin(reframeConfig));
-    const {_processed} = reframeConfig;
-    const {r_objects} = _processed;
-    add_webpack_config_modifiers(_processed, r_objects);
-    add_browser_config_paths(_processed, r_objects);
+    const _processed = {};
+    const r_objects = get_r_objects(reframeConfig, get_default_plugin(reframeConfig));
+    get_webpack_config_modifiers(_processed, r_objects);
+    get_browser_config_paths(_processed, r_objects);
+    get_repage_plugins(_processed, r_objects, false);
+    reframeConfig._processed = _processed;
 }
 
 // Here we assemble several webpack config modifiers into one supra modifier
-function add_webpack_config_modifiers(_processed, r_objects) {
+function get_webpack_config_modifiers(_processed, r_objects) {
     if( 'webpackServerConfigModifier' in _processed && 'webpackBrowserConfigModifier' in _processed ) {
         return;
     }
@@ -133,7 +134,7 @@ function get_default_plugin(reframeConfig) {
 
 // Here we collect all paths of browser-side reframe config files
 //  - We define browser-side config objects as paths (instead of loaded module) because the browser-side code is bundled separately from the sever-side code
-function add_browser_config_paths(_processed, r_objects) {
+function get_browser_config_paths(_processed, r_objects) {
     if( _processed.browserConfigs ) {
         return;
     }

@@ -3,7 +3,7 @@ const assert_usage = assert;
 const assert_internal = assert;
 const {compute_file_hash} = require('@reframe/utils/compute_file_hash');
 const {getPageHtml} = require('@repage/server');
-const {processReframeConfig} = require('@reframe/utils/processReframeConfig');
+const {processReframeConfig} = require('@reframe/utils/processReframeConfig/processReframeConfig');
 const Repage = require('@repage/core');
 
 

@@ -3,29 +3,14 @@ const assert_internal = assert;
 const assert_usage = assert;
 const assert_plugin = assert;
 
-module.exports = {processReframeBrowserConfig, process__common};
+module.exports = {get_r_objects, get_repage_plugins};
 
-function processReframeBrowserConfig(reframeBrowserConfig) {
-    if( reframeBrowserConfig._processed ) {
-        return;
-    }
-    process__common(reframeBrowserConfig, 'reframe.browser.config.js', true);
-}
-
-function process__common(cfg, name, isBrowserConfig, extra_plugin) {
-    assert_internal(cfg && cfg.constructor===Object, cfg);
-    assert_internal(!('_processed' in cfg), cfg);
-    cfg.name = cfg.name || name;
-    const _processed = cfg._processed = {};
-    const r_objects = _processed.r_objects = get_all_r_objects(cfg, extra_plugin);
-    add_repage_plugins(_processed, r_objects, isBrowserConfig);
-}
-
-function get_all_r_objects(reframeConfig, extra_plugin) {
+function get_r_objects(reframe_config, extra_plugin) {
+    reframe_config.name = reframe_config.name || 'user_reframe_config';
     const cycleCatcher = new WeakMap();
     return [
         ...(extra_plugin ? retrieve_r_objects(extra_plugin, cycleCatcher) : []),
-        ...retrieve_r_objects(reframeConfig, cycleCatcher),
+        ...retrieve_r_objects(reframe_config, cycleCatcher),
     ];
 }
 function retrieve_r_objects(r_object, cycleCatcher) {
@@ -45,7 +30,8 @@ function retrieve_r_objects(r_object, cycleCatcher) {
     return r_objects;
 }
 
-function add_repage_plugins(_processed, r_objects, isBrowserConfig) {
+function get_repage_plugins(_processed, r_objects, isBrowserConfig) {
+    assert_internal([true, false].includes(isBrowserConfig));
     if( _processed.repage_plugins ) {
         return;
     }

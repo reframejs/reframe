@@ -1,4 +1,4 @@
-const {processReframeBrowserConfig} = require('@reframe/utils/processReframeBrowserConfig');
+const {processReframeBrowserConfig} = require('@reframe/utils/processReframeConfig/processReframeBrowserConfig');
 
 const Repage = require('@repage/core');
 const {hydratePage: repage_hydratePage} = require('@repage/browser');
