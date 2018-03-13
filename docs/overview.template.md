@@ -125,67 +125,9 @@ The "Quick Start" section below gives a step-by-step guide to create a React app
 The [Reframe Rationale](/docs/reframe-rationale.md) explains these perks in more detail.
 
 
-
 ### Quick Start
 
-Let's create a React app with Reframe.
-
-1. We create a `pages/` directory:
-
-~~~shell
-mkdir -p ~/tmp/reframe-playground/pages
-~~~
-
-2. Then, we create a new JavaScript file at `~/tmp/reframe-playground/pages/HelloWorldPage.html.js` that exports a page config:
-
-~~~jsx
-import React from 'react';
-
-const HelloWorldPage = {
-    route: '/',
-    view: () => (
-        <div>
-            Hello World, from Reframe.
-        </div>
-    ),
-};
-
-export default HelloWorldPage;
-~~~
-
-3. We install Reframe's CLI and React:
-
-~~~shell
-npm install -g @reframe/cli
-~~~
-~~~shell
-cd ~/tmp/reframe-playground/
-~~~
-~~~shell
-npm install react
-~~~
-
-4. Finally, we run the CLI:
-
-~~~shell
-cd ~/tmp/reframe-playground/
-~~~
-~~~shell
-reframe
-~~~
-
-which prints
-
-~~~shell
-$ reframe
-✔ Page directory found at ~/tmp/reframe-playground/pages
-✔ Frontend built at ~/tmp/reframe-playground/dist/browser/ [DEV]
-✔ Server running at http://localhost:3000
-~~~
-
-Our page is now live at [http://localhost:3000](http://localhost:3000).
-
-That's it: We have created a web app by simply creating one React Component and one page config.
+!INLINE ./start.md --hide-source-path
 
 The "Basic Usage" section of the [Usage Manual](/docs/usage-manual.md) contains further information, including:
  - How to add CSS and static assets.
