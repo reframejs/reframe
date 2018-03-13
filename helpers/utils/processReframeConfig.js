@@ -5,9 +5,14 @@
 
     Notes:
 
-        - The object exported by a plugin and the object exported by the `reframe.config.js` file have the exact same interface: Everything that can be configured in `reframe.config.js` can be configured by a plugin.
+        - The object exported by a plugin and
+          the object exported by the `reframe.config.js` file target the same interface.
+          In other words, everything that can be configured in `reframe.config.js`
+          can as well be configured by a plugin.
 
-        - A plugin can add another plugin. In other words the reframe config is recursive. Consider the following example:
+        - A plugin can add another plugin.
+          In other words, the reframe config is recursive.
+          Consider the following example:
             ~~~js
             // reframe.config.js
             module.exports = {
@@ -43,9 +48,13 @@
             ~~~js
 
         - The main job of `processReframeConfig` is to flatten things
-            - As seen in the previous note, things can be recursive, and therefore we need to flatten things: E.g. several `webpackBrowserConfig` can be defined and `processReframeConfig` combines these into a supra `_processed.webpackBrowserConfigModifier`.
+            - As seen in the previous note, things can be recursive, and
+              therefore we need to flatten things.
+              E.g. several `webpackBrowserConfig` can be defined and `processReframeConfig`
+              combines these into a supra `_processed.webpackBrowserConfigModifier`.
 
-        - Every processed data is saved in `reframeConfig._processed` and the rest of `reframeConfig` is left untouched
+        - Every processed data is saved in `reframeConfig._processed` and
+          the rest of `reframeConfig` is left untouched
 */
 
 
@@ -84,6 +93,8 @@ function add_webpack_config_modifiers(_processed, r_objects) {
 
     function assemble_modifiers(modifier_name) {
         let supra_modifier = null;
+
+        // We assemble all `r_objects`'s config modifiers into one `supra_modifier`
         r_objects
         .forEach(r_object => {
             if( ! r_object[modifier_name] ) {
@@ -94,6 +105,7 @@ function add_webpack_config_modifiers(_processed, r_objects) {
             supra_modifier = args => r_object[modifier_name]({...args, config: previous_modifier(args)});
         });
         assert_internal(supra_modifier===null || supra_modifier instanceof Function);
+
         return supra_modifier;
     }
 }
