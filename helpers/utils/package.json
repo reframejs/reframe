@@ -1,9 +1,9 @@
 {
   "name": "@reframe/utils",
-  "version": "0.0.1-rc.5",
+  "version": "0.0.1-rc.6",
   "dependencies": {
     "@brillout/find": "latest",
-    "@reframe/default-kit": "0.0.1-rc.5",
+    "@reframe/default-kit": "0.0.1-rc.6",
     "reassert": "latest"
   },
   "publishConfig": {
