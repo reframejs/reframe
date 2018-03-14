@@ -262,7 +262,7 @@ Let's create a React app with Reframe.
 mkdir -p ~/tmp/reframe-playground/pages
 ~~~
 
-2. Then, we create a new JavaScript file at `~/tmp/reframe-playground/pages/HelloPage.js` that exports a page config:
+2. We create a new JavaScript file at `~/tmp/reframe-playground/pages/HelloPage.js` that exports a page config:
 
 ~~~jsx
 import React from 'react';
@@ -279,7 +279,7 @@ const HelloPage = {
 export default HelloPage;
 ~~~
 
-3. We install Reframe's CLI and React:
+3. We install React and the Reframe CLI:
 
 ~~~shell
 npm install -g @reframe/cli

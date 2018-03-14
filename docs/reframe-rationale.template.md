@@ -29,6 +29,8 @@ And creating a certain type of app is simply a matter of configurating your page
 
 !INLINE ./universal-page-config.md --hide-source-path
 
+This fine-grain control over the "static-ness" of your pages gives you the ability to implement all app types.
+
 For example, you can create:
  - Server-side rendered apps.
    <br/>

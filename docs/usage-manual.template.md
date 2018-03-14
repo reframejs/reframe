@@ -43,7 +43,7 @@ This manual covers most common use cases.
 !INLINE ./universal-page-config.md --hide-source-path
 
 By default, a page is HTML-dynamic and DOM-dynamic.
-By setting `htmlStatic: true` in the page's config, the page is made HTML-static.
+A page is made HTML-static by setting `htmlStatic: true` in its page config,
 And by setting `domStatic: true`, the page is made DOM-static.
 
 For example:
@@ -68,7 +68,7 @@ export default {
 ~~~
 
 The page will always display the same time, namely the time when the page's HTML was generated at build-time.
-That's because `htmlStatic: true` makes Reframe generate the HTML at build-time instead of request-time.
+That's because `htmlStatic: true` makes Reframe generate the HTML at build-time (instead of request-time).
 And also because `domStatic: true` makes Reframe not hydrate the page, in other words, `TimeComponent` is not attached to the DOM, is not loaded in the browser, and is only used to generate the page's HTML.
 
 Removing `htmlStatic: true` makes Reframe generate the HTML at request-time, and the page then shows the current time whenever the page is (re-)loaded.
@@ -235,8 +235,7 @@ etc.
 The Reframe CLI displays a `[PROD]` notification when compiling for production:
 
 ~~~shell
-$ export NODE_ENV='production'
-$ reframe
+$ reframe --prod
 ✔ Page directory found at ~/tmp/reframe/example/pages/
 ✔ Frontend built at ~/tmp/reframe/example/dist/browser/ [PROD]
 ✔ Server running at http://localhost:3000
@@ -383,7 +382,7 @@ We refer to the source code of the plugin [`@reframe/crossroads`](/crossroads) f
 
 ## Custom Browser JavaScript
 
-If our page is saved as `pages/MyPage.html.js` and, if we save some JavaScript code saved as `pages/MyPage.entry.js`, then Reframe will take `pages/MyPage.entry.js` as browser entry point.
+If our page is saved as `pages/MyPage.html.js` and, if we save a JavaScript file as `pages/MyPage.entry.js`, then Reframe will take `pages/MyPage.entry.js` as browser entry point.
 See the Customization Manual for further information.
 
 We can as well add arbitrary script tags to the page's HTML (external scripts, async scripts, etc.).

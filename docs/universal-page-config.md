@@ -19,5 +19,3 @@ A fundamental aspect of the page config is that it allows you to configure a pag
    The page is hydrated.
    <br/>
    (In other words, React components are attached to the DOM and the page's DOM will eventually be updated by React.)
-
-This fine-grain control over the "static-ness" of your pages gives you the ability to implement all app types.
