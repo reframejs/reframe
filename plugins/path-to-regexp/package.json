@@ -1,11 +1,11 @@
 {
   "name": "@reframe/path-to-regexp",
-  "version": "0.0.1-rc.6",
+  "version": "0.0.1-rc.7",
   "scripts": {
     "docs": "mdocs"
   },
   "dependencies": {
-    "@repage/router-path-to-regexp": "0.0.1-rc.6"
+    "@repage/router-path-to-regexp": "0.0.1-rc.7"
   },
   "publishConfig": {
     "access": "public"

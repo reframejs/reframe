@@ -1,13 +1,13 @@
 {
   "name": "@reframe/cli",
-  "version": "0.0.1-rc.6",
+  "version": "0.0.1-rc.7",
   "bin": {
     "reframe": "./cli.js"
   },
   "dependencies": {
     "@brillout/relative-to-homedir": "latest",
-    "@reframe/browser": "0.0.1-rc.6",
-    "@reframe/server": "0.0.1-rc.6",
+    "@reframe/browser": "0.0.1-rc.7",
+    "@reframe/server": "0.0.1-rc.7",
     "chalk": "^2.3.1",
     "find-up": "^2.1.0",
     "reassert": "latest"
