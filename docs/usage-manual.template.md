@@ -38,7 +38,54 @@ This manual covers most common use cases.
 
 !INLINE ./start.md --hide-source-path
 
-## HTML-static vs HTML-dynamic
+## Static VS Dynamic
+
+!INLINE ./universal-page-config.md --hide-source-path
+
+By default, Reframe makes a page HTML-dynamic and DOM-dynamic.
+By setting `domStatic: true` to a page config the page is made DOM-static and by setting `htmlStatic: true` the page is made HTML-static.
+
+For example:
+
+~~~jsx
+import React from 'react';
+import TimeComponent from '../views';
+
+
+const toTimeString =
+
+export {TimeComponent, toTimeString};
+
+export default {
+    route: '/',
+    view: () => (
+        <div>
+            Hello World, from Reframe.
+            <br/>
+            (Generated at {new Date().toLocaleTimeString()})
+        </div>
+    ),
+    domStatic: true,
+    htmlStatic: true,
+};
+~~~
+
+-    // We let Reframe know that the HTML is not static
+-   // so that Reframe re-renders a new HTML
+-   // with the current date on every request
+
+Will 
+
+This flexibilty comes from two page config options: `domStatic` and `htmlStatic`.
+
+Setting `htmlStatic: true` tells Reframe that the page's HTML should be generated at build-time 
+
+Setting `domStatic: true` tells Reframe that the page's view doesn't need to be hydrated.
+(In other words, the DOM doesn't have any React component attached to it and the DOM will not change.)
+
+At th e
+
+HTML-static vs HTML-dynamic
 
 Let's consider the Hello World page of our previous section.
 When is its HTML generated?

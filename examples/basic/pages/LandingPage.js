@@ -23,8 +23,13 @@ const LandingComponent = () => (
         </Section>
 
         <Section title={'HTML-dynamic'}>
-            <Link pathname={'/date'}/>
             <Link pathname={'/hello/lisa'}/>
+        </Section>
+
+        <Section title={'Static VS Dynamic'}>
+            <Link pathname={'/time'}/>
+            <Link pathname={'/time/html-static'}/>
+            <Link pathname={'/time/html-dynamic'}/>
         </Section>
 
         <Section title={'CSS & Static Assets'}>
@@ -32,7 +37,6 @@ const LandingComponent = () => (
         </Section>
 
         <Section title={'DOM-dynamic'}>
-            <Link pathname={'/time'}/>
             <Link pathname={'/counter'}/>
             <Link pathname={'/counter2'}/>
         </Section>
@@ -54,7 +58,6 @@ const LandingComponent = () => (
     </div>
 );
 
-module.exports = {LandingComponent};
 const LandingPage = {
     title: 'Welcome',
     route: '/',
