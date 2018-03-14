@@ -15,7 +15,7 @@
     &nbsp;&nbsp;&nbsp;
     <b>Universal</b>
     -
-    Create all kinds of apps.
+    Create any type of app.
     &nbsp;&nbsp;&nbsp;
     <b>Escapable</b>
     -

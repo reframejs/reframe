@@ -92,7 +92,7 @@
     &nbsp;&nbsp;&nbsp;
     <b>Universal</b>
     -
-    Create all kinds of apps.
+    Create any type of app.
     &nbsp;&nbsp;&nbsp;
     <b>Escapable</b>
     -
@@ -283,6 +283,12 @@ Removing `domStatic: true` makes Reframe hydrate the page, and the page's DOM is
 DOM-static pages are considerably more performant as the browser doesn't have to load nor render the page's React components.
 
 And HTML-static pages are more performant as the HTML is rendered only once at build-time instead of being re-rendered on every request.
+
+If all pages are HTML-static,
+then all HTMLs are rendered at build-time,
+no server code is required,
+and the app can be deployed to a static website host
+such as [GitHub Pages](https://pages.github.com/) or Netlify.
 
 Also,
 keep in mind that interative views are inherently and considerably more complex than static views.

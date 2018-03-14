@@ -79,6 +79,12 @@ DOM-static pages are considerably more performant as the browser doesn't have to
 
 And HTML-static pages are more performant as the HTML is rendered only once at build-time instead of being re-rendered on every request.
 
+If all pages are HTML-static,
+then all HTMLs are rendered at build-time,
+no server code is required,
+and the app can be deployed to a static website host
+such as [GitHub Pages](https://pages.github.com/) or Netlify.
+
 Also,
 keep in mind that interative views are inherently and considerably more complex than static views.
 It is recommended to implement app requirements with static views whenever possible,

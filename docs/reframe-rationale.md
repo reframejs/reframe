@@ -92,7 +92,7 @@
     &nbsp;&nbsp;&nbsp;
     <b>Universal</b>
     -
-    Create all kinds of apps.
+    Create any type of app.
     &nbsp;&nbsp;&nbsp;
     <b>Escapable</b>
     -
@@ -111,8 +111,7 @@
 
 # Reframe Rationale
 
-The Reframe Rationale explains in details why someone would want to use Reframe.
-This is Reframe's raison d'etre.
+The Reframe Rationale explains in details what makes Reframe a good choice to create web apps.
 
 ##### Contents
 
