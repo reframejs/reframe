@@ -62,7 +62,7 @@ Reframe did the following:
  - Reframe searched for a `pages/` directory and found one at `~/tmp/reframe-playground/pages`.
  - Reframe read the `pages/` directory and found our page config at `~/tmp/reframe-playground/pages/HelloPage.html.js`.
  - Reframe used webpack to transpile `HelloPage.html.js`.
- - Reframe started a Node.js/hapi server serving all static assets and rendering and serving our page's HTML.
+ - Reframe started a Node.js/hapi server that serves all static assets and renders our page's HTML.
 
 With Reframe you can create:
 
@@ -131,6 +131,6 @@ The [Reframe Rationale](/docs/reframe-rationale.md) explains these perks in more
 
 The "Basic Usage" section of the [Usage Manual](/docs/usage-manual.md) contains further information, including:
  - How to add CSS and static assets.
- - How to link pages.
- - How to configure pages that need to (asynchronously) load data.
- - How to configure pages to be DOM-dynamic or DOM-static, and HTML-static or HTML-dynamic.
+ - How to navigate between pages.
+ - How to configure pages to (asynchronously) load data.
+ - How to configure pages to be DOM-static and/or HTML-static.
