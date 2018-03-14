@@ -104,11 +104,11 @@ Reframe matches `MyPage.entry.js` with `MyPage.js` because the two filenames sha
 For example:
 
 ~~~js
-!INLINE ../examples/pages/TrackingPage.js
+!INLINE ../examples/basics/pages/TrackingPage.js
 ~~~
 
 ~~~js
-!INLINE ../examples/pages/TrackingPage.entry.js
+!INLINE ../examples/basics/pages/TrackingPage.entry.js
 ~~~
 
 ### External Scripts

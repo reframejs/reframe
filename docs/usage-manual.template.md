@@ -204,7 +204,7 @@ but we also have control over whether the DOM is static or not.
 Before we move on to the DOM, let's look at a special case of an HTML-dynamic page.
 
 ~~~js
-!INLINE ../examples/pages/HelloPage.js
+!INLINE ../examples/basics/pages/HelloPage.js
 ~~~
 
 Not only is this page HTML-dynamic but it actually has to.
@@ -225,11 +225,11 @@ Let's now create pages with interactive views.
 Let's consider the following page config that defines a page displaying the current time.
 
 ~~~js
-!INLINE ../examples/pages/TimePage.js
+!INLINE ../examples/basics/pages/TimePage.js
 ~~~
 
 ~~~js
-!INLINE ../examples/views/TimeComponent.js
+!INLINE ../examples/basics/views/TimeComponent.js
 ~~~
 
 Looking at the HTML `view-source:http://localhost:3000/time`:
@@ -317,15 +317,15 @@ In addition, static assets can be referenced in CSS files by using the CSS `url`
 The following shows code using CSS and static assets as described above.
 
 ~~~js
-!INLINE ../examples/pages/GlitterPage.js
+!INLINE ../examples/basics/pages/GlitterPage.js
 ~~~
 
 ~~~js
-!INLINE ../examples/views/GlitterComponent.js
+!INLINE ../examples/basics/views/GlitterComponent.js
 ~~~
 
 ~~~css
-!INLINE ../examples/views/GlitterStyle.css
+!INLINE ../examples/basics/views/GlitterStyle.css
 ~~~
 
 Note that CSS and static assets are handled by webpack,
@@ -346,11 +346,11 @@ We can therefore use `async getInitialProps()` to fetch the data that page's Rea
 For example:
 
 ~~~js
-!INLINE ../examples/pages/GameOfThronesPage.js
+!INLINE ../examples/basics/pages/GameOfThronesPage.js
 ~~~
 
 ~~~js
-!INLINE ../examples/views/GameOfThrones.js
+!INLINE ../examples/basics/views/GameOfThrones.js
 ~~~
 
 Because `aysnc getInitialProps()` is called and waited for prior to rendering the HTML, our page's HTML `view-source:http://localhost:3000/game-of-thrones` displays the data already.
@@ -373,7 +373,7 @@ Because `aysnc getInitialProps()` is called and waited for prior to rendering th
 Alternatively, we can fetch data in a statefull component.
 
 ~~~js
-!INLINE ../examples/pages/GameOfThrones2Page.js
+!INLINE ../examples/basics/pages/GameOfThrones2Page.js
 ~~~
 
 Note that,
@@ -410,10 +410,10 @@ See [Advanced Routing](#advanced-routing) for alternative ways of navigating.
 An example of basic page navigation:
 
 ~~~js
-!INLINE ../examples/pages/page-a.js
+!INLINE ../examples/basics/pages/page-a.js
 ~~~
 ~~~js
-!INLINE ../examples/pages/page-b.js
+!INLINE ../examples/basics/pages/page-b.js
 ~~~
 
 
@@ -474,7 +474,7 @@ We refer to [`@brillout/html-crust`'s documentation](https://github.com/brillout
 For example, the page config
 
 ~~~js
-!INLINE ../examples/pages/custom-html.js
+!INLINE ../examples/basics/pages/custom-html.js
 ~~~
 
 creates a page with following HTML
@@ -613,11 +613,11 @@ another `MyDynamicPage.dom.js` for browser-side rendering.
 Like in the following.
 
 ~~~js
-!INLINE ../examples/pages/NewsPage.js
+!INLINE ../examples/basics/pages/NewsPage.js
 ~~~
 
 ~~~js
-!INLINE ../examples/pages/NewsPage.dom.js
+!INLINE ../examples/basics/pages/NewsPage.dom.js
 ~~~
 
 When we define a page with two separate page configs like this,

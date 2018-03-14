@@ -15,7 +15,7 @@ const express = require('express');
 startExpressServer();
 
 async function startExpressServer() {
-    const pagesDirPath = path.resolve(__dirname, '../../pages');
+    const pagesDirPath = path.resolve(__dirname, '../../basics/pages');
     let pages;
     const onBuild = args => {pages = args.pages};
     const {browserDistPath} = (
