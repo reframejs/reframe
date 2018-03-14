@@ -131,7 +131,7 @@ And creating a certain type of app is simply a matter of configurating your page
 
 #### Universal
 
-A fundamental aspect of the page config is that it allows you to configure a page to be what we call "HTML-static", "HTML-dynamic", "DOM-static" and "DOM-dynamic":
+A fundamental aspect of the page config is that it allows you to configure a page to be "HTML-static" or "HTML-dynamic" and "DOM-static" or "DOM-dynamic":
  - *HTML-static*
    <br/>
    The page is rendered to HTML at build-time.

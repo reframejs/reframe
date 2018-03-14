@@ -172,7 +172,7 @@ const path = require('path');
 
     const {HapiPluginReframe} = (
         await getHapiPlugins({
-            pagesDirPath: path.resolve(__dirname, '../../pages'),
+            pagesDirPath: path.resolve(__dirname, '../../basics/pages'),
         })
     );
 
@@ -221,7 +221,7 @@ const express = require('express');
 startExpressServer();
 
 async function startExpressServer() {
-    const pagesDirPath = path.resolve(__dirname, '../../pages');
+    const pagesDirPath = path.resolve(__dirname, '../../basics/pages');
     let pages;
     const onBuild = args => {pages = args.pages};
     const {browserDistPath} = (
@@ -303,7 +303,7 @@ Reframe matches `MyPage.entry.js` with `MyPage.js` because the two filenames sha
 For example:
 
 ~~~js
-// /examples/pages/TrackingPage.js
+// /examples/basics/pages/TrackingPage.js
 
 import React from 'react';
 
@@ -324,7 +324,7 @@ export default {
 ~~~
 
 ~~~js
-// /examples/pages/TrackingPage.entry.js
+// /examples/basics/pages/TrackingPage.entry.js
 
 import hydratePage from '@reframe/browser/hydratePage';
 import TrackingPage from './TrackingPage.js';
@@ -444,7 +444,7 @@ Let's look at the code of `@reframe/browser/hydratePage`
 ~~~js
 // /core/browser/hydratePage.js
 
-const {processReframeBrowserConfig} = require('@reframe/utils/processReframeBrowserConfig');
+const {processReframeBrowserConfig} = require('@reframe/utils/processReframeConfig/processReframeBrowserConfig');
 
 const Repage = require('@repage/core');
 const {hydratePage: repage_hydratePage} = require('@repage/browser');
@@ -605,7 +605,7 @@ const rules = [
 const webpackBrowserConfig = () => ({
     entry: [
         'babel-polyfill',
-        '../../../pages/CounterPage.entry.js',
+        '../../../basics/pages/CounterPage.entry.js',
     ],
     output: {
         publicPath: '/',
@@ -615,7 +615,7 @@ const webpackBrowserConfig = () => ({
 });
 
 const webpackServerConfig = () => ({
-    entry: '../../../pages/CounterPage.js',
+    entry: '../../../basics/pages/CounterPage.js',
     target: 'node',
     output: {
         publicPath: '/',

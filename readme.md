@@ -252,7 +252,6 @@ The "Quick Start" section below gives a step-by-step guide to create a React app
 The [Reframe Rationale](/docs/reframe-rationale.md) explains these perks in more detail.
 
 
-
 ### Quick Start
 
 Let's create a React app with Reframe.
@@ -263,12 +262,12 @@ Let's create a React app with Reframe.
 mkdir -p ~/tmp/reframe-playground/pages
 ~~~
 
-2. Then, we create a new JavaScript file at `~/tmp/reframe-playground/pages/HelloWorldPage.html.js` that exports a page config:
+2. Then, we create a new JavaScript file at `~/tmp/reframe-playground/pages/HelloPage.js` that exports a page config:
 
 ~~~jsx
 import React from 'react';
 
-const HelloWorldPage = {
+const HelloPage = {
     route: '/',
     view: () => (
         <div>
@@ -277,7 +276,7 @@ const HelloWorldPage = {
     ),
 };
 
-export default HelloWorldPage;
+export default HelloPage;
 ~~~
 
 3. We install Reframe's CLI and React:
@@ -306,7 +305,7 @@ which prints
 ~~~shell
 $ reframe
 ✔ Page directory found at ~/tmp/reframe-playground/pages
-✔ Frontend built at ~/tmp/reframe-playground/dist/browser/ [DEV]
+✔ Code built at ~/tmp/reframe-playground/dist/ [DEV]
 ✔ Server running at http://localhost:3000
 ~~~
 
