@@ -76,15 +76,6 @@
 
 -->
 <div><p align="right"><sup>
-    <a href="https://discord.gg/kqXf65G">
-        <img
-          src="https://github.com/reframejs/reframe/raw/master/docs/images/online-icon.svg?sanitize=true"
-          width="13"
-          height="20"
-        >
-        Chat on Discord
-    </a>
-    <br/>
     <a href="https://twitter.com/reframejs">
         <img
           src="https://github.com/reframejs/reframe/raw/master/docs/images/twitter-logo.svg?sanitize=true"
@@ -92,6 +83,15 @@
           height="20"
         >
         Follow on Twitter
+    </a>
+    &nbsp;&nbsp;&nbsp;
+    <a href="https://discord.gg/kqXf65G">
+        <img
+          src="https://github.com/reframejs/reframe/raw/master/docs/images/online-icon.svg?sanitize=true"
+          width="13"
+          height="20"
+        >
+        Chat on Discord
     </a>
 </sup></p></div>
 
