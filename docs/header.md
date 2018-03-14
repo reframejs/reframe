@@ -3,16 +3,16 @@
         <img
           src="https://github.com/reframejs/reframe/raw/master/docs/images/twitter-logo.svg?sanitize=true"
           width="14"
-          height="20"
+          height="14"
         >
         Follow on Twitter
     </a>
-    &nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <a href="https://discord.gg/kqXf65G">
         <img
           src="https://github.com/reframejs/reframe/raw/master/docs/images/online-icon.svg?sanitize=true"
           width="13"
-          height="20"
+          height="13"
         >
         Chat on Discord
     </a>
