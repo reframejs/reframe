@@ -18,12 +18,14 @@
 
 ### What is Reframe
 
-Reframe allows you to create web apps by defining so called "page configs".
-Reframe then takes care of the rest: It automatically transpiles, bundles, routes, renders, and serves your pages.
+Reframe allows you to create web apps by defining so-called "page configs".
+Reframe takes care of the rest:
+It automatically transpiles, bundles, routes, renders, and serves your pages.
 
 ~~~jsx
-// We define a page config to create a page
-const LandingPage = {
+// We create a page by defining a page config:
+
+const WelcomePage = {
   // Page's URL
   route: '/',
 
@@ -33,6 +35,8 @@ const LandingPage = {
   // Page's <title>
   title: 'Welcome'
 };
+
+export default WelcomePage;
 ~~~
 
 A *page config* is a plain JavaScript object that configures a page by assigning it
@@ -41,6 +45,8 @@ A *page config* is a plain JavaScript object that configures a page by assigning
  - further (optional) page configurations (page's &lt;title&gt;, meta tags, whether the page's HTML should be rendered at build-time or at request-time, whether the page should be hydrated or not, etc.).
 
 You can create a React web app with **no build configuration** and **no server configuration**.
+
+But, if you need to, **everything is customizable**.
 
 > All you need to create a web app is one React component and one page config per page.
 
@@ -101,7 +107,8 @@ The "Quick Start" section below gives a step-by-step guide to create a React app
    Reframe is the only framework that supports every type of app.
    Instead of learning different frameworks to create different types of apps,
    learn Reframe once to be able to create all types of apps.
-   The [Reframe Rationale](/docs/reframe-rationale.md) explains the different types of web apps and shows how Reframe supports them all.
+   The [Reframe Rationale](/docs/reframe-rationale.md) explains the different types of web apps there is,
+   and shows how Reframe supports them all.
  - **Escapable**
    <br/>
    Most of your code (~95%-99%) will be entirely independent of Reframe.

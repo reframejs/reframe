@@ -69,9 +69,9 @@ export default {
 
 The page will always display the same time, namely the time when the page's HTML was generated at build-time.
 That's because `htmlStatic: true` makes Reframe generate the HTML at build-time (instead of request-time).
-And also because `domStatic: true` makes Reframe not hydrate the page, in other words, `TimeComponent` is not attached to the DOM, is not loaded in the browser, and is only used to generate the page's HTML.
+And also because `domStatic: true` makes Reframe not hydrate the page, in other words, `TimeComponent` is not attached to the DOM, it is not loaded in the browser, and it is only used to generate the page's HTML.
 
-Removing `htmlStatic: true` makes Reframe generate the HTML at request-time, and the page then shows the current time whenever the page is (re-)loaded.
+Removing `htmlStatic: true` makes Reframe generate the HTML at request-time, and the page then shows the current time whenever the page (re-)loads.
 
 Removing `domStatic: true` makes Reframe hydrate the page, and the page's DOM is updated every second to always show the current time.
 
@@ -86,7 +86,7 @@ and the app can be deployed to a static website host
 such as [GitHub Pages](https://pages.github.com/) or Netlify.
 
 Also,
-keep in mind that interative views are inherently and considerably more complex than static views.
+keep in mind that interactive views are inherently and considerably more complex than static views.
 It is recommended to implement app requirements with static views whenever possible,
 and to implement interactive views only when necessary.
 Reframe embraces that recommandation by allowing you to write web apps where a majority of the pages are DOM-static.
