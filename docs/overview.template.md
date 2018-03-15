@@ -85,7 +85,7 @@ With Reframe you can create:
    <br/>
    No (or almost no) JavaScript is loaded in the browser.
    <br/>
-   Basically: Good ol' 1998 websites :floppy_disk:
+   Basically: Good ol' 1998 websites <sup><sub>:floppy_disk:</sub></sup>
  - **Hybrid apps**
    <br/>
    Apps with mixed page types:
