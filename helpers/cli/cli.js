@@ -12,6 +12,7 @@ const cwd = process.cwd();
 //const {processReframeConfig} = require('@reframe/utils/processReframeConfig');
 const {questions} = require('./questions');
 let argValue;
+let reframeConfig;
 
 //processReframeConfig(reframeConfig);
 //console.log(reframeConfig._processed);
@@ -44,6 +45,14 @@ program
     });
 
 program
+    .command('log')
+    .description('logs vars')
+    .action( () => {
+        argValue = 'log';
+        console.log(reframeConfig);
+    });
+
+program
     .arguments('<arg>')
     .action((arg) => {
         argValue = arg;
@@ -58,19 +67,26 @@ if (typeof argValue === 'undefined') {
 }
 
 async function initApp(projectName, useRedux, plugins) {
-    await createScaffold(projectName);
+    //await createScaffold(projectName);
     await configureApp(projectName);
 }
 
 function configureApp(projectName) {
     let cwd = path.resolve(process.cwd(), projectName);
     const {pagesDirPath, reframeConfigPath, appDirPath} = find_files(cwd);
-    const reframeConfig = reframeConfigPath && require(reframeConfigPath);
-    const {processReframeConfig} = require('@reframe/utils/processReframeConfig');
+    reframeConfig = reframeConfigPath && require(reframeConfigPath);
+    const {processReframeConfig} = require('@reframe/utils/processReframeConfig/processReframeConfig');
     //console.log(processReframeConfig);
 
     processReframeConfig(reframeConfig);
-    //console.log(reframeConfig._processed);
+    //console.log(reframeConfig._processed.cli);
+
+    reframeConfig._processed.cli.plugins.forEach(plugin => {
+        console.log(plugin);
+        // console.log(plugin.command);
+        // console.log(plugin.description);
+        // console.log(plugin.action);
+    });
 }
 
 function start(prod, showHapiServerLog) {
