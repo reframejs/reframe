@@ -20,7 +20,7 @@ const rules = [
 const webpackBrowserConfig = () => ({
     entry: [
         'babel-polyfill',
-        '../../../pages/CounterPage.entry.js',
+        '../../../basics/pages/CounterPage.entry.js',
     ],
     output: {
         publicPath: '/',
@@ -30,7 +30,7 @@ const webpackBrowserConfig = () => ({
 });
 
 const webpackServerConfig = () => ({
-    entry: '../../../pages/CounterPage.js',
+    entry: '../../../basics/pages/CounterPage.js',
     target: 'node',
     output: {
         publicPath: '/',

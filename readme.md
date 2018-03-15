@@ -76,7 +76,23 @@
 
 -->
 <div><p align="right"><sup>
-    <img src="https://github.com/reframejs/reframe/raw/master/docs/images/online-icon.svg?sanitize=true" width="13" height="20"> Chat with Reframe author on <a href="https://discord.gg/kqXf65G">discord.gg/kqXf65G</a>
+    <a href="https://twitter.com/reframejs">
+        <img
+          src="https://github.com/reframejs/reframe/raw/master/docs/images/twitter-logo.svg?sanitize=true"
+          width="15"
+          height="13"
+        >
+        Follow on Twitter
+    </a>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="https://discord.gg/kqXf65G">
+        <img
+          src="https://github.com/reframejs/reframe/raw/master/docs/images/online-icon.svg?sanitize=true"
+          width="14"
+          height="10"
+        >
+        Chat on Discord
+    </a>
 </sup></p></div>
 
 [<p align="center"><img src="https://github.com/reframejs/reframe/raw/master/docs/images/logo-with-title.svg?sanitize=true" width=450 height=94 style="max-width:100%;" alt="Reframe"/></p>](https://github.com/reframejs/reframe)
@@ -92,7 +108,7 @@
     &nbsp;&nbsp;&nbsp;
     <b>Universal</b>
     -
-    Create all kinds of apps.
+    Create any type of app.
     &nbsp;&nbsp;&nbsp;
     <b>Escapable</b>
     -
@@ -189,7 +205,7 @@ Reframe did the following:
  - Reframe searched for a `pages/` directory and found one at `~/tmp/reframe-playground/pages`.
  - Reframe read the `pages/` directory and found our page config at `~/tmp/reframe-playground/pages/HelloPage.html.js`.
  - Reframe used webpack to transpile `HelloPage.html.js`.
- - Reframe started a Node.js/hapi server serving all static assets and rendering and serving our page's HTML.
+ - Reframe started a Node.js/hapi server that serves all static assets and renders our page's HTML.
 
 With Reframe you can create:
 
@@ -223,34 +239,23 @@ The "Quick Start" section below gives a step-by-step guide to create a React app
  - **Easy**
    <br/>
    Create web apps by simply defining page configs and React components.
-   The Quick Start section below shows how easy it is.
  - **Universal**
    <br/>
-   Reframe is the only framework that supports all types of apps.
+   Reframe is the only framework that supports every type of app.
    Instead of learning different frameworks to create different types of apps,
-   you learn Reframe once to be able to create all types of apps.
+   learn Reframe once to be able to create all types of apps.
+   The [Reframe Rationale](/docs/reframe-rationale.md) explains the different types of web apps and shows how Reframe supports them all.
  - **Escapable**
    <br/>
    Most of your code (~95%-99%) will be entirely independent of Reframe.
    This means that, if you decide to get rid of Reframe, you will have to rewrite only ~1%-5% of your code.
    The [Reframe Rationale](/docs/reframe-rationale.md) explains why.
- - **Plugins**
-   <br/>
-   Plugins can modify Reframe to a great extent.
-   There are plugins for using Reframe with React Router v4, TypeScript, PostCSS, etc.
- - **Customizable**
-   <br/>
-   Reframe allows you to easily and fully customize the webpack config, the server, the browser entry, the Node.js entry, the routing, etc.
- - **Performance**
-   <br/>
-   Reframe creates high performance apps by doing
-   code splitting,
-   optimal HTTP caching,
-   by pre-rendering pages to HTML,
-   and by statically rendering views.
 
-The [Reframe Rationale](/docs/reframe-rationale.md) explains these perks in more detail.
+Also,
+Reframe is based on **plugins** (React Router v4 plugin, TypeScript plugin, PostCSS plugin, ...),
+is **highly customizable** (fully customize the webpack config, the server, the browser entry, the Node.js entry, the routing, ...), and is **performant** (code splitting, optimal HTTP caching, HTML pre-rendering, ...).
 
+The [Reframe Rationale](/docs/reframe-rationale.md) goes into detail.
 
 
 ### Quick Start
@@ -263,12 +268,12 @@ Let's create a React app with Reframe.
 mkdir -p ~/tmp/reframe-playground/pages
 ~~~
 
-2. Then, we create a new JavaScript file at `~/tmp/reframe-playground/pages/HelloWorldPage.html.js` that exports a page config:
+2. We create a new JavaScript file at `~/tmp/reframe-playground/pages/HelloPage.js` that exports a page config:
 
 ~~~jsx
 import React from 'react';
 
-const HelloWorldPage = {
+const HelloPage = {
     route: '/',
     view: () => (
         <div>
@@ -277,10 +282,10 @@ const HelloWorldPage = {
     ),
 };
 
-export default HelloWorldPage;
+export default HelloPage;
 ~~~
 
-3. We install Reframe's CLI and React:
+3. We install React and the Reframe CLI:
 
 ~~~shell
 npm install -g @reframe/cli
@@ -306,7 +311,7 @@ which prints
 ~~~shell
 $ reframe
 ✔ Page directory found at ~/tmp/reframe-playground/pages
-✔ Frontend built at ~/tmp/reframe-playground/dist/browser/ [DEV]
+✔ Code built at ~/tmp/reframe-playground/dist/ [DEV]
 ✔ Server running at http://localhost:3000
 ~~~
 
@@ -316,9 +321,9 @@ That's it: We have created a web app by simply creating one React Component and 
 
 The "Basic Usage" section of the [Usage Manual](/docs/usage-manual.md) contains further information, including:
  - How to add CSS and static assets.
- - How to link pages.
- - How to configure pages that need to (asynchronously) load data.
- - How to configure pages to be DOM-dynamic or DOM-static, and HTML-static or HTML-dynamic.
+ - How to navigate between pages.
+ - How to configure pages to (asynchronously) load data.
+ - How to configure pages to be DOM-static and/or HTML-static.
 
 <!---
 
