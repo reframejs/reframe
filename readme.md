@@ -227,6 +227,8 @@ With Reframe you can create:
    Apps where the DOM is static and React is only used to render HTML.
    <br/>
    No (or almost no) JavaScript is loaded in the browser.
+   <br/>
+   Basically: Good ol' 1998 websites :floppy_disk:
  - **Hybrid apps**
    <br/>
    Apps with mixed page types:
