@@ -106,8 +106,7 @@ The "Quick Start" section below gives a step-by-step guide to create a React app
    Reframe is the only framework that supports every type of app.
    Instead of learning different frameworks to create different types of apps,
    learn Reframe once to be able to create all types of apps.
-   The [Reframe Rationale](/docs/reframe-rationale.md) explains the different types of web apps there is,
-   and shows how Reframe supports them all.
+   The [Reframe Rationale](/docs/reframe-rationale.md) shows how Reframe supports all app types.
  - **Escapable**
    <br/>
    Most of your code (~95%-99%) will be entirely independent of Reframe.
