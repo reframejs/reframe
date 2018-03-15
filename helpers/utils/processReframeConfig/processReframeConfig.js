@@ -82,7 +82,7 @@ function processReframeConfig(reframeConfig) {
     get_webpack_config_modifiers(_processed, r_objects);
     get_browser_config_paths(_processed, r_objects);
     get_repage_plugins(_processed, r_objects, false);
-    //add_cli_plugins();
+    add_cli_plugins(_processed, r_objects);
     reframeConfig._processed = _processed;
 }
 
@@ -150,16 +150,15 @@ function get_browser_config_paths(_processed, r_objects) {
     });
 }
 
-function add_cli_plugins() {
-    return {
-        webpackBrowserConfig: ({config}) => {
-            reframe_hello(config);
-            return config;
-        }
-    }
+function add_cli_plugins(config, r_objects) {
+    return config.cli = {
+            plugins: [
+                reframe_hello()
+            ]
+    };
 }
 
-function reframe_hello(config) {
+function reframe_hello() {
     return {
         command: 'hello',
         description: 'testing hello plugin',
