@@ -7,22 +7,54 @@ const path = require('path');
 const spawn = require('cross-spawn');
 const inquirer = require('inquirer');
 const cwd = process.cwd();
-//const {pagesDirPath, reframeConfigPath, appDirPath} = find_files(cwd);
-//const reframeConfig = reframeConfigPath && require(reframeConfigPath);
-//const {processReframeConfig} = require('@reframe/utils/processReframeConfig');
+// const {pagesDirPath, reframeConfigPath, appDirPath} = find_files(cwd);
+// const reframeConfig = reframeConfigPath && require(reframeConfigPath);
+// const {processReframeConfig} = require('@reframe/utils/processReframeConfig');
 const {questions} = require('./questions');
 let argValue;
-let reframeConfig;
-
-//processReframeConfig(reframeConfig);
-//console.log(reframeConfig._processed);
 
 process.on('unhandledRejection', err => {
     console.log(err);
     process.exit(1);
 });
 
-program
+let appExists = fs.existsSync(path.resolve(cwd, 'reframe.config.js'));
+
+if (appExists) {
+
+    const {pagesDirPath, reframeConfigPath, appDirPath} = find_files(cwd);
+    const reframeConfig = reframeConfigPath && require(reframeConfigPath);
+    const {processReframeConfig} = require('@reframe/utils/processReframeConfig/processReframeConfig');
+
+    processReframeConfig(reframeConfig);
+
+    const cliPlugins = reframeConfig._processed.cli.plugins[0];
+
+    program
+    .command('start')
+    .description('starts dev server on localhost')
+    .option("-p, --production", "start for production")
+    .option("-l, --log", "prints build and page information")
+    .action( (options) => {
+        argValue = 'start';
+        start(options.production, options.log);
+    });
+
+    program
+    .command('config')
+    .description('processReframeConfig')
+    .action( () => {
+        argValue = 'config';
+        // let projectName = path.basename(cwd);
+        // configureApp(projectName);
+        console.log(cliPlugins.hello);
+    });
+    program
+    .command(cliPlugins.hello.command)
+    .description(cliPlugins.hello.description)
+    .action(cliPlugins.hello.action);
+} else {
+    program
     .version(pkg.version, '-v, --version')
     .command('init')
     .description('creates new project')
@@ -33,23 +65,36 @@ program
             initApp(projectName, useRedux, plugins);
         });
     });
+}
 
-program
-    .command('start')
-    .description('starts dev server on localhost')
-    .option("-p, --production", "start for production")
-    .option("-l, --log", "prints build and page information")
-    .action( (options) => {
-        argValue = 'start';
-        start(options.production, options.log);
-    });
+// program
+//     .version(pkg.version, '-v, --version')
+//     .command('init')
+//     .description('creates new project')
+//     .action( () => {
+//         argValue = 'init';
+//         //createScaffold(project);
+//         inquirer.prompt(questions).then(({projectName, useRedux, plugins}) => {
+//             initApp(projectName, useRedux, plugins);
+//         });
+//     });
+
+// program
+//     .command('start')
+//     .description('starts dev server on localhost')
+//     .option("-p, --production", "start for production")
+//     .option("-l, --log", "prints build and page information")
+//     .action( (options) => {
+//         argValue = 'start';
+//         start(options.production, options.log);
+//     });
 
 program
     .command('log')
-    .description('logs vars')
+    .description('logs info')
     .action( () => {
         argValue = 'log';
-        console.log(reframeConfig);
+        console.log('check for something');
     });
 
 program
@@ -72,11 +117,9 @@ async function initApp(projectName, useRedux, plugins) {
 }
 
 function configureApp(projectName) {
-    let cwd = path.resolve(process.cwd(), projectName);
     const {pagesDirPath, reframeConfigPath, appDirPath} = find_files(cwd);
     reframeConfig = reframeConfigPath && require(reframeConfigPath);
     const {processReframeConfig} = require('@reframe/utils/processReframeConfig/processReframeConfig');
-    //console.log(processReframeConfig);
 
     processReframeConfig(reframeConfig);
     //console.log(reframeConfig._processed.cli);

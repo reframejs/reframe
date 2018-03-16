@@ -160,10 +160,12 @@ function add_cli_plugins(config, r_objects) {
 
 function reframe_hello() {
     return {
-        command: 'hello',
-        description: 'testing hello plugin',
-        action: () => {
-            console.log('hello');
+        hello: {
+            command: 'hello',
+            description: 'testing hello plugin',
+            action: () => {
+                console.log('hello');
+            }
         }
     }
 }
