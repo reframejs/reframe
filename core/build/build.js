@@ -279,6 +279,7 @@ function generate_and_add_browser_entries({page_objects, fileWriter, reframeConf
 function get_page_files({pagesDirPath, reframeConfig}) {
     return (
         fs__ls(pagesDirPath)
+        .filter(is_file)
         .filter(is_javascript_file)
         .map(file_path => {
             const {file_name, entry_name, page_name} = get_names(file_path);
@@ -306,6 +307,10 @@ function get_page_files({pagesDirPath, reframeConfig}) {
             };
         })
     );
+}
+
+function is_file(file_path) {
+    return !fs.lstatSync(file_path).isDirectory();
 }
 
 function is_javascript_file(file_path) {
@@ -348,6 +353,10 @@ function get_names(file_path) {
     assert_internal(!file_name.includes(path_module.sep));
     const entry_name = file_name.split('.').slice(0, -1).join('.');
     const page_name = file_name.split('.')[0];
+    assert_usage(
+        entry_name && page_name && file_name,
+        "Invalid file name `"+file_path+"`"
+    );
     return {file_name, entry_name, page_name};
 }
 
