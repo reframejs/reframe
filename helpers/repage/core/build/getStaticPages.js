@@ -35,7 +35,7 @@ function getStaticPages(repage) {
                 if( ! pageInfo.renderToHtml ) {
                     html = null
                 } else {
-                    html = await pageInfo.renderToHtml({page: pageInfo, route: {args: {}}, isStaticRendering: true});
+                    html = await pageInfo.renderToHtml({page: pageInfo, route: {url, args: {}}, isStaticRendering: true});
                 }
                 return {
                     url,
