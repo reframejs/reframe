@@ -7,9 +7,6 @@ const path = require('path');
 const spawn = require('cross-spawn');
 const inquirer = require('inquirer');
 const cwd = process.cwd();
-// const {pagesDirPath, reframeConfigPath, appDirPath} = find_files(cwd);
-// const reframeConfig = reframeConfigPath && require(reframeConfigPath);
-// const {processReframeConfig} = require('@reframe/utils/processReframeConfig');
 const {questions} = require('./questions');
 let argValue;
 
@@ -28,9 +25,10 @@ if (appExists) {
 
     processReframeConfig(reframeConfig);
 
-    const cliPlugins = reframeConfig._processed.cli.plugins[0];
+    const cliPlugins = reframeConfig._processed.cli_plugins;
 
     program
+    .version(pkg.version, '-v, --version')
     .command('start')
     .description('starts dev server on localhost')
     .option("-p, --production", "start for production")
@@ -45,14 +43,15 @@ if (appExists) {
     .description('processReframeConfig')
     .action( () => {
         argValue = 'config';
-        // let projectName = path.basename(cwd);
-        // configureApp(projectName);
-        console.log(cliPlugins.hello);
+        console.log(cliPlugins);
     });
-    program
-    .command(cliPlugins.hello.command)
-    .description(cliPlugins.hello.description)
-    .action(cliPlugins.hello.action);
+
+    cliPlugins.forEach(plugin => {
+        program
+        .command(plugin.name)
+        .description(plugin.description)
+        .action(plugin.action);
+    });
 } else {
     program
     .version(pkg.version, '-v, --version')
@@ -66,28 +65,6 @@ if (appExists) {
         });
     });
 }
-
-// program
-//     .version(pkg.version, '-v, --version')
-//     .command('init')
-//     .description('creates new project')
-//     .action( () => {
-//         argValue = 'init';
-//         //createScaffold(project);
-//         inquirer.prompt(questions).then(({projectName, useRedux, plugins}) => {
-//             initApp(projectName, useRedux, plugins);
-//         });
-//     });
-
-// program
-//     .command('start')
-//     .description('starts dev server on localhost')
-//     .option("-p, --production", "start for production")
-//     .option("-l, --log", "prints build and page information")
-//     .action( (options) => {
-//         argValue = 'start';
-//         start(options.production, options.log);
-//     });
 
 program
     .command('log')
@@ -112,24 +89,12 @@ if (typeof argValue === 'undefined') {
 }
 
 async function initApp(projectName, useRedux, plugins) {
-    //await createScaffold(projectName);
-    await configureApp(projectName);
+    await createScaffold(projectName);
+    //await configureApp(projectName);
 }
 
 function configureApp(projectName) {
-    const {pagesDirPath, reframeConfigPath, appDirPath} = find_files(cwd);
-    reframeConfig = reframeConfigPath && require(reframeConfigPath);
-    const {processReframeConfig} = require('@reframe/utils/processReframeConfig/processReframeConfig');
-
-    processReframeConfig(reframeConfig);
-    //console.log(reframeConfig._processed.cli);
-
-    reframeConfig._processed.cli.plugins.forEach(plugin => {
-        console.log(plugin);
-        // console.log(plugin.command);
-        // console.log(plugin.description);
-        // console.log(plugin.action);
-    });
+    //unnecessary for now, but leaving for future use.
 }
 
 function start(prod, showHapiServerLog) {
@@ -236,7 +201,7 @@ async function createScaffold(projectName) {
 
     // add files to projectName/pages
     let pagePath = path.resolve(currentDir, 'pages');
-    let pageFileName = 'homePage.js';
+    let pageFileName = 'homePage.config.js';
     await fs.outputFile(path.resolve(pagePath, pageFileName), pageTemplate);
 
     // add files to projectName root directory
@@ -245,7 +210,7 @@ async function createScaffold(projectName) {
     await fs.outputFile(path.resolve(currentDir, pkgFileName), pkgTemplate);
     await fs.outputFile(path.resolve(currentDir, configName), configTemplate);
 
-    //install(currentDir);
+    install(currentDir);
 }
 
 function install(directory) {

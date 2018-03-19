@@ -5,11 +5,12 @@ const assert_plugin = assert;
 
 module.exports = {get_r_objects, get_repage_plugins};
 
-function get_r_objects(reframe_config, extra_plugin) {
+function get_r_objects(reframe_config, extra_plugin, cli_plugins) {
     reframe_config.name = reframe_config.name || 'user_reframe_config';
     const cycleCatcher = new WeakMap();
     return [
         ...(extra_plugin ? retrieve_r_objects(extra_plugin, cycleCatcher) : []),
+        ...(cli_plugins ? retrieve_r_objects(cli_plugins, cycleCatcher) : []),
         ...retrieve_r_objects(reframe_config, cycleCatcher),
     ];
 }
