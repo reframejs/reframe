@@ -15,17 +15,23 @@ async function build() {
     const {fileStructure: {pagesDir, staticAssetsDir}} = reframeConfig;
 
     isoBuilder.builder = async there_is_a_newer_run => {
+        const pageConfigs = readPagesDir(pagesDir);
+
         const serverEntries = getServerEntries(pagesDir);
         const serverConfig = getServerConfig(serverEntries);
         const serverCompiler = webpack(serverConfig);
         await isoBuilder.build_server(server_entries);
 
-        const browserEntries = 
+        writeBrowserEntryFiles();
+
+        const browserEntries = getBrowserEntries();
         const browserConfig = getBrowserConfig(browserEntries);
         const browserCompiler = webpack(browserConfig);
         await isoBuilder.build_browser(browserCompiler);
 
         pageConfigs = 
+
+        writeHtmlFiles()
 
         return isoBuilder;
     };
