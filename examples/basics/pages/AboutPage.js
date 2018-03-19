@@ -4,7 +4,6 @@ const AboutPage = {
     title: 'About',
     route: '/about',
     view: AboutComponent,
-    renderToDom: null,
     htmlStatic: true,
     domStatic: true,
 };
