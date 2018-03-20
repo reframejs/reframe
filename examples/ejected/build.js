@@ -2,12 +2,14 @@ const {IsoBuilder} = require('@rebuild/iso');
 const getReframeConfig = require('@reframe/utils/getReframeConfig');
 const webpack = require('webpack');
 const getBrowserConfig = require('./getBrowserConfig');
-const getServerConfig = require('./getServerConfig');
+const getNodeConfig = require('./getNodeConfig');
 
 module.exports = build();
 
 async function build() {
     const isoBuilder = new IsoBuilder();
+
+    const fileWriter = new FileWriter();
 
     let pageConfigs;
 
@@ -17,19 +19,19 @@ async function build() {
     isoBuilder.builder = async there_is_a_newer_run => {
         const pageConfigs = readPagesDir(pagesDir);
 
-        const serverEntries = getServerEntries(pageConfigs);
-        const serverConfig = getServerConfig(serverEntries);
-        const serverCompiler = webpack(serverConfig);
-        await isoBuilder.build_server(server_entries);
+        const nodeEntries = getNodeEntries(pageConfigs);
+        const nodeConfig = getNodeConfig(nodeEntries);
+        const nodeCompiler = webpack(nodeConfig);
+        await isoBuilder.build_node(node_entries);
 
-        writeBrowserEntryFiles(pageConfigs);
+        writeBrowserEntryFiles(pageConfigs, fileWriter);
 
         const browserEntries = getBrowserEntries();
         const browserConfig = getBrowserConfig(browserEntries);
         const browserCompiler = webpack(browserConfig);
         await isoBuilder.build_browser(browserCompiler);
 
-        writeHtmlFiles(pageConfigs);
+        writeHtmlFiles(pageConfigs, fileWriter);
 
         return isoBuilder;
     };

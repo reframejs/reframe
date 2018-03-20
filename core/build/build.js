@@ -37,6 +37,8 @@ function build({
         pagesDirPath
     );
 
+    console.log(get_context_dir());
+
     processReframeConfig(reframeConfig);
 
     assert_usage(
@@ -727,4 +729,20 @@ function fs__ls(dirpath) {
 
 function is_production() {
    return process.env.NODE_ENV === 'production';
+}
+
+function get_context_dir() {
+    const callsites = require('callsites');
+    const stacks = callsites();
+    console.log(stacks);
+    console.log(new Error().stack);
+    for(let i = 0; i<stacks.length; i++) {
+        const stack = stacks[i];
+        const filePath = stack.getFileName();
+        console.log(filePath);
+        if( false && ! filePath.split(path_module.sep).includes('node_modules') ) {
+            return path_module.dirname(filePath);
+        }
+    }
+    return process.cwd();
 }
