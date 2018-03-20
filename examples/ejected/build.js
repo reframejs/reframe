@@ -17,21 +17,19 @@ async function build() {
     isoBuilder.builder = async there_is_a_newer_run => {
         const pageConfigs = readPagesDir(pagesDir);
 
-        const serverEntries = getServerEntries(pagesDir);
+        const serverEntries = getServerEntries(pageConfigs);
         const serverConfig = getServerConfig(serverEntries);
         const serverCompiler = webpack(serverConfig);
         await isoBuilder.build_server(server_entries);
 
-        writeBrowserEntryFiles();
+        writeBrowserEntryFiles(pageConfigs);
 
         const browserEntries = getBrowserEntries();
         const browserConfig = getBrowserConfig(browserEntries);
         const browserCompiler = webpack(browserConfig);
         await isoBuilder.build_browser(browserCompiler);
 
-        pageConfigs = 
-
-        writeHtmlFiles()
+        writeHtmlFiles(pageConfigs);
 
         return isoBuilder;
     };
