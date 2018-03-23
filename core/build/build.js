@@ -37,7 +37,7 @@ function build({
         pagesDirPath
     );
 
-    console.log(get_context_dir());
+    console.log('c', get_context_dir());
 
     processReframeConfig(reframeConfig);
 
@@ -734,13 +734,14 @@ function is_production() {
 function get_context_dir() {
     const callsites = require('callsites');
     const stacks = callsites();
-    console.log(stacks);
+ // console.log(stacks);
     console.log(new Error().stack);
     for(let i = 0; i<stacks.length; i++) {
         const stack = stacks[i];
+        console.log(Object.keys(stack.__proto__));
         const filePath = stack.getFileName();
-        console.log(filePath);
-        if( false && ! filePath.split(path_module.sep).includes('node_modules') ) {
+     // console.log(filePath);
+        if( ! filePath.split(path_module.sep).includes('node_modules') ) {
             return path_module.dirname(filePath);
         }
     }
