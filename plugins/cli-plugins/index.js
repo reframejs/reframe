@@ -13,19 +13,29 @@ function cliPlugins() {
 function testOne() {
     return {
         name: 'hello',
-        description: 'testing hello plugin',
-        action: () => {
-            console.log('hello');
-        }
-    };
+        cliCommands: [
+            {
+                name: 'hello',
+                description: 'testing hello plugin',
+                action: () => {
+                    console.log('hello');
+                },
+            },
+        ],
+    }
 }
 
 function testTwo() {
     return {
         name: 'goodbye',
-        description: 'testing goodbye plugin',
-        action: () => {
-            console.log('goodbye');
-        }
-    };
+        cliCommands: [
+            {
+                name: 'goodbye',
+                description: 'testing goodbye plugin',
+                action: () => {
+                    console.log('goodbye');
+                },
+            },
+        ],
+    }
 }

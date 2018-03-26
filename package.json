@@ -5,6 +5,7 @@
         "core/build",
         "core/server",
 
+        "plugins/cli-plugins",
         "plugins/crossroads",
         "plugins/default-kit",
         "plugins/path-to-regexp",
