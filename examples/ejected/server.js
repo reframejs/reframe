@@ -1,17 +1,15 @@
 const Hapi = require('hapi');
 const HapiPluginServerRendering = require('@reframe/server/HapiPluginServerRendering');
 const HapiPluginStaticAssets = require('@reframe/server/HapiPluginStaticAssets');
-const getReframeConfig = require('@reframe/utils/getReframeConfig');
+const getProjectConfig = require('@reframe/utils/getProjectConfig');
 
 module.exports = start();
 
 async function start() {
-    const reframeConfig = getReframeConfig();
-    const {serverConfig, fileStructure: {staticAssetDir, buildFile}} = reframeConfig._processed;
+    const projectConfig = getProjectConfig();
+    const {hapiServerConfig, htmlRenderer, projectFiles: {staticAssetDir, getPageConfigs}} = projectConfig;
 
-    const {getPageConfigs} = await require(buildFile)();
-
-    const server = Hapi.Server(serverConfig);
+    const server = Hapi.Server(hapiServerConfig);
 
     await server.register([
         {
@@ -24,6 +22,7 @@ async function start() {
             plugin: HapiPluginServerRendering,
             options: {
                 getPageConfigs,
+                htmlRenderer,
             },
         },
     ]);

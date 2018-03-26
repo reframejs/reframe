@@ -8,6 +8,7 @@ const {Logger} = require('@rebuild/build/utils/Logger');
 const path_module = require('path');
 const fs = require('fs');
 const {processReframeConfig} = require('@reframe/utils/processReframeConfig/processReframeConfig');
+const getProjectConfig = require('@reframe/utils/getProjectConfig');
 const chokidar = require('chokidar');
 const get_parent_dirname = require('@brillout/get-parent-dirname');
 const mime = require('mime');
@@ -21,26 +22,21 @@ const GENERATED_DIR = 'generated'+path_module.sep;
 const BROWSER_DIST_DIR = 'browser'+path_module.sep;
 
 function build({
-    pagesDirPath,
-
     onBuild: onBuild_user,
-
-    reframeConfig={},
-
-    doNotAutoReload=isProduction(),
-    appDirPath = get_parent_dirname(),
     log: log_option,
     ...rebuild_opts
 }) {
-    assert_usage(
-        !pagesDirPath || pagesDirPath.constructor===String && pagesDirPath.startsWith('/'),
-        pagesDirPath
-    );
+    const projectConfig = getProjectConfig();
+    assert_internal(projectConfig);
+
+    const {pagesDir: pagesDirPath, projectRootDir: appDirPath} = projectConfig.getProjectFiles();
+
+    const reframeConfig = {_processed: projectConfig};
 
     processReframeConfig(reframeConfig);
 
     assert_usage(
-        pagesDirPath || reframeConfig._processed.webpackBrowserConfigModifier && reframeConfig._processed.webpackServerConfigModifier,
+        pagesDirPath || reframeConfig.webpackBrowserConfigModifier && reframeConfig.webpackServerConfigModifier,
         "Provide either argument `pagesDirPath` or provide `webpackBrowserConfig` and `webpackServerConfig` in `reframe.config.js`."
     );
 
