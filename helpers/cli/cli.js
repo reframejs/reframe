@@ -7,6 +7,7 @@ const path = require('path');
 const spawn = require('cross-spawn');
 const inquirer = require('inquirer');
 const cwd = process.cwd();
+const {pagesDirPath, reframeConfigPath, appDirPath} = find_files(cwd);
 const {questions} = require('./questions');
 let argValue;
 
@@ -15,11 +16,8 @@ process.on('unhandledRejection', err => {
     process.exit(1);
 });
 
-let appExists = fs.existsSync(path.resolve(cwd, 'reframe.config.js'));
+if (pagesDirPath && reframeConfigPath) {
 
-if (appExists) {
-
-    const {pagesDirPath, reframeConfigPath, appDirPath} = find_files(cwd);
     const reframeConfig = reframeConfigPath && require(reframeConfigPath);
     const {processReframeConfig} = require('@reframe/utils/processReframeConfig/processReframeConfig');
 
@@ -47,10 +45,12 @@ if (appExists) {
     });
 
     cliPlugins.forEach(plugin => {
-        program
-        .command(plugin.name)
-        .description(plugin.description)
-        .action(plugin.action);
+        plugin.cliCommands.forEach(command => {
+            program
+            .command(command.name)
+            .description(command.description)
+            .action(command.action);
+        });
     });
 } else {
     program
@@ -128,20 +128,20 @@ async function startHapiServer({pagesDirPath, reframeConfig, appDirPath, showHap
 
 function find_files(cwd) {
     const {find_app_files} = require('@reframe/utils/find_app_files');
-    const assert = require('reassert');
-    const assert_internal = assert;
-    const assert_usage = assert;
+    // const assert = require('reassert');
+    // const assert_internal = assert;
+    // const assert_usage = assert;
 
     const {pagesDirPath, reframeConfigPath, appDirPath} = find_app_files(cwd);
 
     log_found_file(reframeConfigPath, 'Reframe config');
     log_found_file(pagesDirPath, 'Pages directory');
 
-    assert_usage(
-        pagesDirPath || reframeConfigPath,
-        "Can't find `pages/` directory nor `reframe.config.js` file."
-    );
-    assert_internal(appDirPath);
+    // assert_usage(
+    //     pagesDirPath || reframeConfigPath,
+    //     "Can't find `pages/` directory nor `reframe.config.js` file."
+    // );
+    // assert_internal(appDirPath);
 
     return {pagesDirPath, reframeConfigPath, appDirPath};
 }
