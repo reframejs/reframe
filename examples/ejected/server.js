@@ -7,24 +7,12 @@ module.exports = start();
 
 async function start() {
     const projectConfig = getProjectConfig();
-    const {hapiServerConfig, htmlRenderer, projectFiles: {staticAssetDir, getPageConfigs}} = projectConfig;
 
-    const server = Hapi.Server(hapiServerConfig);
+    const server = Hapi.Server(projectConfig.hapiServerConfig);
 
     await server.register([
-        {
-            plugin: HapiPluginStaticAssets,
-            options: {
-                staticAssetDir,
-            },
-        },
-        {
-            plugin: HapiPluginServerRendering,
-            options: {
-                getPageConfigs,
-                htmlRenderer,
-            },
-        },
+        HapiPluginStaticAssets,
+        HapiPluginServerRendering,
     ]);
 
     return server;
