@@ -9,7 +9,6 @@
     "@reframe/browser": "0.0.1-rc.7",
     "@reframe/server": "0.0.1-rc.7",
     "chalk": "^2.3.1",
-    "find-up": "^2.1.0",
     "reassert": "latest"
   },
   "publishConfig": {

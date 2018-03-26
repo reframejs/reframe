@@ -37,8 +37,6 @@ function build({
         pagesDirPath
     );
 
- // console.log('c', get_context_dir());
-
     processReframeConfig(reframeConfig);
 
     assert_usage(
@@ -665,6 +663,16 @@ function load_page_configs({page_objects, args_server}) {
         );
         page_object.page_config = page_config;
     });
+
+    Object.values(page_objects)
+    .forEach(page_object => {
+        assert_internal(
+            !page_object.page_config__source_path || page_object.page_config,
+            page_object,
+            args_server.output,
+            page_object.page_config__source_path
+        );
+    });
 }
 
 function require__magic(modulePath) {
@@ -729,43 +737,4 @@ function fs__ls(dirpath) {
 
 function is_production() {
    return process.env.NODE_ENV === 'production';
-}
-
-
-
-//const fs = require('fs');
-function get_context_dir() {
-    const callsites = require('callsites');
-    const stacks = callsites();
-    console.log(new Error().stack);
-    console.log(process.argv);
-    console.log(process.argv0);
-    console.log(process.mainModule);
-    console.log('aft');
-    for(let i = stacks.length-1; i>=0; i--) {
-        const stack = stacks[i];
-        if( stack.isNative() ) {
-            continue;
-        }
-        const filePath = stack.getFileName();
-        console.log(filePath);
-        if( isNode(filePath) ) {
-            continue;
-        }
-        if( ! isExecutable(filePath) && ! isDependency(filePath) ) {
-            return path_module.dirname(filePath);
-        }
-        break;
-    }
-    return process.cwd();
-}
-
-function isNode(filePath) {
-    return !path_module.isAbsolute(filePath);
-}
-function isDependency(filePath) {
-    return filePath.split(path_module.sep).includes('node_modules');
-}
-function isExecutable(filePath) {
-    const fileContent = fs.readFileSync(filePath);
 }

@@ -69,6 +69,7 @@ const assert_plugin = assert;
 const path_module = require('path');
 const defaultKit = require('@reframe/default-kit');
 const {get_r_objects, get_repage_plugins} = require('./process_common');
+const get_project_files = require('./get_project_files');
 
 module.exports = {processReframeConfig};
 
@@ -82,6 +83,7 @@ function processReframeConfig(reframeConfig) {
     get_webpack_config_modifiers(_processed, r_objects);
     get_browser_config_paths(_processed, r_objects);
     get_repage_plugins(_processed, r_objects, false);
+    get_project_files(_processed, r_objects);
     reframeConfig._processed = _processed;
 }
 
