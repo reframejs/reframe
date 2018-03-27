@@ -68,8 +68,7 @@ const assert_usage = assert;
 const assert_plugin = assert;
 const path_module = require('path');
 const defaultKit = require('@reframe/default-kit');
-const cliPlugins = require('../../../plugins/cli-plugins/index');
-// const cliPlugins = require('@reframe/cli-plugins');
+const cliPlugins = require('@reframe/cli-plugins');
 const {get_r_objects, get_repage_plugins} = require('./process_common');
 const get_project_files = require('./get_project_files');
 

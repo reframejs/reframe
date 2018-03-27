@@ -4,6 +4,7 @@
   "dependencies": {
     "@brillout/find": "latest",
     "@reframe/default-kit": "0.0.1-rc.7",
+    "@reframe/cli-plugins": "0.0.1-rc.7",
     "callsites": "^2.0.0",
     "find-up": "^2.1.0",
     "reassert": "latest"
