@@ -1,5 +1,5 @@
 import React from 'react';
-import {TimeComponent} from '../views/TimeComponent';
+import TimeComponent from '../views/TimeComponent';
 import {CounterComponent} from '../views/CounterComponent';
 
 const PanelComponent = () => (
