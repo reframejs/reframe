@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {TimeComponent} from '../views/TimeComponent';
+import TimeComponent from '../views/TimeComponent';
 import {LatestNewsComponent} from '../views/LatestNewsComponent';
 
 const NewsComponent = () => (

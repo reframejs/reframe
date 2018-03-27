@@ -50,6 +50,7 @@ function get_views({page, initial_props}) {
             };
         })
         .map(view_object => {
+            assert_internal(view_object.react_component, view_object);
             let react_element = React.createElement(view_object.react_component, initial_props);
             if( viewWrapper ) {
                 const extra_args = Object.assign(
