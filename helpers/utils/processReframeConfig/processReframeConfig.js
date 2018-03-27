@@ -68,8 +68,8 @@ const assert_usage = assert;
 const assert_plugin = assert;
 const path_module = require('path');
 const defaultKit = require('@reframe/default-kit');
-//const cliPlugins = require('../../../plugins/cli-plugins/index');
-const cliPlugins = require('@reframe/cli-plugins');
+const cliPlugins = require('../../../plugins/cli-plugins/index');
+// const cliPlugins = require('@reframe/cli-plugins');
 const {get_r_objects, get_repage_plugins} = require('./process_common');
 
 module.exports = {processReframeConfig};
@@ -84,7 +84,7 @@ function processReframeConfig(reframeConfig) {
     get_webpack_config_modifiers(_processed, r_objects);
     get_browser_config_paths(_processed, r_objects);
     get_repage_plugins(_processed, r_objects, false);
-    get_cli_plugins(_processed, r_objects);
+    get_cli_commands(_processed, r_objects);
     reframeConfig._processed = _processed;
 }
 
@@ -152,15 +152,15 @@ function get_browser_config_paths(_processed, r_objects) {
     });
 }
 
-function get_cli_plugins(_processed, r_objects) {
+function get_cli_commands(_processed, r_objects) {
 
-    const cli_plugins = _processed.cli_commands = [];
+    const cli_commands = _processed.cli_commands = [];
 
     r_objects
     .forEach(r_object => {
         if (r_object.cliCommands) {
-            r_object.plugins.forEach(plugin => {
-                cli_plugins.push(plugin);
+            r_object.cliCommands.forEach(command => {
+                cli_commands.push(command);
             });
         }
     });
