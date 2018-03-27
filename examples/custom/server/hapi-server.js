@@ -7,7 +7,7 @@ const path = require('path');
 
     const {HapiPluginReframe} = (
         await getHapiPlugins({
-            pagesDirPath: path.resolve(__dirname, '../../pages'),
+            pagesDirPath: path.resolve(__dirname, '../../basics/pages'),
         })
     );
 

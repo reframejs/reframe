@@ -1,6 +1,6 @@
 {
   "name": "@repage/router-static",
-  "version": "0.0.1-rc.5",
+  "version": "0.0.1-rc.7",
   "browser": "./browser.js",
   "main": "./server.js",
   "publishConfig": {

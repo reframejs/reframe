@@ -7,8 +7,7 @@
 
 # Reframe Rationale
 
-The Reframe Rationale explains in details why someone would want to use Reframe.
-This is Reframe's raison d'etre.
+The Reframe Rationale explains in details what makes Reframe a good choice to create web apps.
 
 ##### Contents
 
@@ -27,27 +26,7 @@ And creating a certain type of app is simply a matter of configurating your page
 
 #### Universal
 
-A fundamental aspect of the page config is that it allows you to configure a page to be what we call "HTML-static", "HTML-dynamic", "DOM-static" and "DOM-dynamic":
- - *HTML-static*
-   <br/>
-   The page is rendered to HTML at build-time.
-   <br/>
-   (In other words, the page is rendered to HTML only once, when Reframe is building the frontend.)
- - *HTML-dynamic*
-   <br/>
-   The page is rendered to HTML at request-time.
-   <br/>
-   (In other words, the page is (re-)rendered to HTML every time the user requests the page.)
- - *DOM-static*
-   <br/>
-   The page is not hydrated.
-   <br/>
-   (In other words, the DOM doesn't have any React component attached to it and the DOM will not change.)
- - *DOM-dynamic*
-   <br/>
-   The page is hydrated.
-   <br/>
-   (In other words, React components are attached to the DOM and the page's DOM will eventually be updated by React.)
+!INLINE ./universal-page-config.md --hide-source-path
 
 This fine-grain control over the "static-ness" of your pages gives you the ability to implement all app types.
 

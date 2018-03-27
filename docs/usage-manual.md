@@ -76,7 +76,23 @@
 
 -->
 <div><p align="right"><sup>
-    <img src="https://github.com/reframejs/reframe/raw/master/docs/images/online-icon.svg?sanitize=true" width="13" height="20"> Chat with Reframe author on <a href="https://discord.gg/kqXf65G">discord.gg/kqXf65G</a>
+    <a href="https://twitter.com/reframejs">
+        <img
+          src="https://github.com/reframejs/reframe/raw/master/docs/images/twitter-logo.svg?sanitize=true"
+          width="15"
+          height="13"
+        >
+        Follow on Twitter
+    </a>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="https://discord.gg/kqXf65G">
+        <img
+          src="https://github.com/reframejs/reframe/raw/master/docs/images/online-icon.svg?sanitize=true"
+          width="14"
+          height="10"
+        >
+        Chat on Discord
+    </a>
 </sup></p></div>
 
 [<p align="center"><img src="https://github.com/reframejs/reframe/raw/master/docs/images/logo-with-title.svg?sanitize=true" width=450 height=94 style="max-width:100%;" alt="Reframe"/></p>](https://github.com/reframejs/reframe)
@@ -92,7 +108,7 @@
     &nbsp;&nbsp;&nbsp;
     <b>Universal</b>
     -
-    Create all kinds of apps.
+    Create any type of app.
     &nbsp;&nbsp;&nbsp;
     <b>Escapable</b>
     -
@@ -119,8 +135,7 @@ This manual covers most common use cases.
 ###### Basic Usage
 
  - [Getting Started](#getting-started)
- - [HTML-static VS HTML-dynamic](#html-static-vs-html-dynamic)
- - [DOM-static VS DOM-dynamic](#dom-static-vs-dom-dynamic)
+ - [Static Pages VS Dynamic Pages](#static-pages-vs-dynamic-pages)
  - [CSS & Static Assets](#css--static-assets)
  - [Async Data](#async-data)
  - [Links & Page Navigation](#links--page-navigation)
@@ -132,7 +147,6 @@ This manual covers most common use cases.
  - [Custom Head](#custom-head)
  - [404 Page](#404-page)
  - [Advanced Routing](#advanced-routing)
- - [Partial DOM-dynamic](#partial-dom-dynamic)
  - [Custom Browser JavaScript](#custom-browser-javascript)
  - [Related External Docs](#related-external-docs)
 
@@ -140,355 +154,163 @@ This manual covers most common use cases.
 
 ## Getting Started
 
-Let's start by writing a Hello World page.
+Let's create a React app with Reframe.
 
-We first create a `pages/` directory
+1. We create a `pages/` directory:
 
 ~~~shell
 mkdir -p ~/tmp/reframe-playground/pages
 ~~~
 
-we then create a new file `~/tmp/reframe-playground/pages/HelloPage.html.js` with following content
+2. We create a new JavaScript file at `~/tmp/reframe-playground/pages/HelloPage.js` that exports a page config:
 
-~~~js
+~~~jsx
 import React from 'react';
-
-const HelloWorldPage = {
-    route: '/',
-    view: () => (
-        <div>
-            Hello World, from Reframe.
-        </div>
-    ),
-};
-export default HelloWorldPage;
-~~~
-
-We call `HelloWorldPage` a *page config*.
-Every page is defined by such page config.
-
-Note that it is important to save the page config with a filename that ends with `.html.js`.
-We will discuss later why.
-
-Let's now run our Hello World page.
-For that, we will use the reframe CLI and we will need React.
-Let's install these two.
-
-~~~shell
-npm install -g @reframe/cli
-~~~
-~~~shell
-cd ~/tmp/reframe-playground/ && npm install react
-~~~
-
-We run the CLI
-
-~~~shell
-reframe ~/tmp/reframe-playground/pages
-~~~
-
-which prints
-
-~~~shell
-$ reframe ~/tmp/reframe-playground/pages
-✔ Frontend built at ~/tmp/reframe-playground/dist/browser/ [DEV]
-✔ Server running at http://localhost:3000
-~~~
-
-and spins up a server making our page available at http://localhost:3000.
-
-The HTML `view-source:http://localhost:3000/` is
-
-~~~html
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <meta charset="utf-8">
-    </head>
-    <body>
-        <div id="react-root"><div>Hello World, from Reframe.</div></div>
-    </body>
-</html>
-~~~
-
-As we can see, the page doesn't load any JavaScript.
-The DOM is static, as there isn't any JavaScript to manipulate the DOM.
-We say that the page is *DOM-static*.
-
-We can also create pages with interactive views and a dynamic DOM.
-We will see later how.
-
-Our page is what we call "HTML-dynamic", and we now discuss what this means.
-
-
-
-## HTML-static vs HTML-dynamic
-
-Let's consider the Hello World page of our previous section.
-When is its HTML generated?
-To get an answer we modify the page to display a timestamp.
-We alter the page config from our previous section at `~/tmp/reframe-playground/pages/HelloPage.html.js` to
-
-~~~js
-import React from 'react';
-
-export default {
-    route: '/',
-    view: () => (
-        <div>
-            Hello World, from Reframe.
-            <br/>
-            (Generated at {new Date().toLocaleTimeString()})
-        </div>
-    ),
-};
-~~~
-
-If you haven't already, let's start a server
-
-~~~shell
-npm install -g @reframe/cli
-reframe ~/tmp/reframe-playground/pages
-~~~
-
-and the shell prints
-
-~~~shell
-$ reframe ~/tmp/reframe-playground/pages
-✔ Frontend built at ~/tmp/reframe-playground/dist/browser/ [DEV]
-✔ Server running at http://localhost:3000
-~~~
-
-If you haven't closed the server from the previous section, then
-Reframe automatically re-compiled the frontend and printed a `✔ Re-build` notification to your shell.
-
-~~~shell
-$ reframe ~/tmp/reframe-playground/pages
-✔ Frontend built at ~/tmp/reframe-playground/dist/browser/ [DEV]
-✔ Server running at http://localhost:3000
-✔ Re-build
-~~~
-
-We now reload the page and &mdash; assuming the time is 13:37:00 &mdash; the HTML `view-source:http://localhost:3000/hello` is
-
-~~~html
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <meta charset="utf-8">
-    </head>
-    <body>
-        <div id="react-root"><div>Hello from Reframe.<br/>(Generated at 13:37:00)</div></div>
-    </body>
-</html>
-~~~
-
-If we reload one second later &mdash; at 13:37:01 &mdash; we get the same HTML except that
-`(Generated at 13:37:00)` is now replaced with `(Generated at 13:37:01)`.
-This means that the HTML is (re-)rendered every time we load the page.
-We say that the HTML is generated at *request-time* and that the page is *HTML-dynamic*.
-
-Now, the HTML of our Hello World page doesn't really need to be dynamic.
-Let's make it static.
-
-For that we change our page config `~/tmp/reframe-playground/pages/HelloPage.html.js` to
-
-~~~js
-import React from 'react';
-
-export default {
-    route: '/',
-    view: () => (
-        <div>
-            Hello World, from Reframe.
-            <br/>
-            (Generated at {new Date().toLocaleTimeString()})
-        </div>
-    ),
-    htmlStatic: true,
-};
-~~~
-
-When we declare the page to be HTML-static
-(with `htmlStatic: true`),
-Reframe renders the HTML only once, namely when building the frontend.
-
-If the time when building the frontend was 12:00:00,
-then our page will always show `(Generated at 12:00:00)`, no matter when we load the page.
-
-We say that the HTML is generated at *build-time* and that the page is *HTML-static*.
-
-We can actually see the HTML generated at build-time at `~/tmp/reframe-playground/dist/browser/index.html`.
-
-To sum up,
-`htmlStatic: false` declares the page as HTML-dynamic: The HTML is rendered at request-time.
-And
-`htmlStatic: true` declares the page as HTML-static: The HTML is rendered at build-time.
-
-For pages with lot's of elements, generating the HTML at build-time instead of request-time can be a considerable performance gain.
-
-Also,
-if we declare all our pages as HTML-static,
-then all HTMLs are rendered at build-time,
-no server code is required,
-our app is static,
-and we can deploy our app to a static website host
-such as [GitHub Pages](https://pages.github.com/) or Netlify.
-
-Not only do we have control over whether the HTML is static or not,
-but we also have control over whether the DOM is static or not.
-Before we move on to the DOM, let's look at a special case of an HTML-dynamic page.
-
-~~~js
-// /examples/pages/HelloPage.js
-
-import React from 'react';
-
-const HelloComponent = (
-  props => {
-    // Our route argument `name` is available at `props.route.args.name`
-    const name = props.route.args.name;
-    return (
-      <div>Hello {name}</div>
-    );
-  }
-);
 
 const HelloPage = {
-  // Reframe follows the same route string syntax than React Router.
-  // React Router's components `<Route>`, `<Switch>`, etc. can be used
-  // by adding the plugin `@reframe/react-router`.
-  route: '/hello/:name',
-
-  // Page's React component
-  view: HelloComponent,
-
-  // Page's <title>
-  title: 'Hi there',
+    route: '/',
+    view: () => (
+        <div>
+            Hello World, from Reframe.
+        </div>
+    ),
 };
 
 export default HelloPage;
 ~~~
 
-Not only is this page HTML-dynamic but it actually has to.
-That is because its route, `/hello/{name}`, is parameterized.
-There are an infinite number of pages with URLs matching the route, such as `/hello/Alice-1`, `/hello/Alice-2`, `/hello/Alice-3`, etc.
-We can't compute an infinite number of pages at build-time; the page has to be HTML-dyanmic.
+3. We install React and the Reframe CLI:
 
-All pages with a parameterized route are HTML-dynamic.
+~~~shell
+npm install -g @reframe/cli
+~~~
+~~~shell
+cd ~/tmp/reframe-playground/
+~~~
+~~~shell
+npm install react
+~~~
 
-In general, as HTML-static pages are more performant, we recommand to make a page HTML-dynamic only if necessary.
+4. Finally, we run the CLI:
 
-Let's now create pages with interactive views.
+~~~shell
+cd ~/tmp/reframe-playground/
+~~~
+~~~shell
+reframe
+~~~
+
+which prints
+
+~~~shell
+$ reframe
+✔ Page directory found at ~/tmp/reframe-playground/pages
+✔ Code built at ~/tmp/reframe-playground/dist/ [DEV]
+✔ Server running at http://localhost:3000
+~~~
+
+Our page is now live at [http://localhost:3000](http://localhost:3000).
+
+That's it: We have created a web app by simply creating one React Component and one page config.
 
 
 
-## DOM-static VS DOM-dynamic
+## Static Pages VS Dynamic Pages
 
-Let's consider the following page config that defines a page displaying the current time.
+A fundamental aspect of the page config is that it allows you to configure a page to be "HTML-static" or "HTML-dynamic" and "DOM-static" or "DOM-dynamic":
+ - *HTML-static*
+   <br/>
+   The page is rendered to HTML at build-time.
+   <br/>
+   (In other words, the page is rendered to HTML only once, when Reframe is building the frontend.)
+ - *HTML-dynamic*
+   <br/>
+   The page is rendered to HTML at request-time.
+   <br/>
+   (In other words, the page is (re-)rendered to HTML every time the user requests the page.)
+ - *DOM-static*
+   <br/>
+   The page is not hydrated.
+   <br/>
+   (In other words, the DOM doesn't have any React component attached to it and the DOM will not change.)
+ - *DOM-dynamic*
+   <br/>
+   The page is hydrated.
+   <br/>
+   (In other words, React components are attached to the DOM and the page's DOM will eventually be updated by React.)
+
+By default, a page is HTML-dynamic and DOM-dynamic.
+A page is made HTML-static by setting `htmlStatic: true` in its page config,
+And by setting `domStatic: true`, the page is made DOM-static.
+
+For example:
 
 ~~~js
-// /examples/pages/TimePage.js
+// /pages/TimePage.js
 
-import {TimeComponent} from '../views/TimeComponent';
+import TimeComponent from '../views/TimeComponent';
 
 export default {
-    title: 'Current Time',
-    route: '/time',
+    route: '/',
     view: TimeComponent,
+    htmlStatic: true,
+    domStatic: true,
 };
 ~~~
 
-~~~js
-// /examples/views/TimeComponent.js
+~~~jsx
+// /views/TimeComponent
 
 import React from 'react';
 
 class TimeComponent extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {now: new Date()};
+        this.state = {time: this.getTime()};
     }
     componentDidMount() {
-        setInterval(
-            () => this.setState({now: new Date()}),
-            1000
+        setInterval(() => this.setState({time: this.getTime()}), 1000);
+    }
+    getTime() {
+        const now = new Date();
+        const time = (
+            [now.getHours(), now.getMinutes(), now.getSeconds()]
+            .map(d => d<=9 ? '0'+d : d)
+            .join(':')
         );
+        return time;
     }
     render() {
-        return <span>{toTimeString(this.state.now)}</span>;
+        return <span>{this.state.time}</span>;
     }
 }
 
-const toTimeString = now => (
-    [
-        now.getHours(),
-        now.getMinutes(),
-        now.getSeconds(),
-    ]
-    .map(d => d<=9 ? '0'+d : d)
-    .join(':')
-);
-
-export {TimeComponent, toTimeString};
+export default TimeComponent;
 ~~~
 
-Looking at the HTML `view-source:http://localhost:3000/time`:
+The page will always display the same time, namely the time when the page's HTML was generated at build-time.
+That's because `htmlStatic: true` makes Reframe generate the HTML at build-time (instead of request-time).
+And also because `domStatic: true` makes Reframe not hydrate the page, in other words, `TimeComponent` is not attached to the DOM, is not loaded in the browser, and is only used to generate the page's HTML.
 
-~~~html
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Current Time</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <meta charset="utf-8">
-    </head>
-    <body>
-        <div id="react-root"><div>Time: 13:38:00</div></div>
-        <script type="text/javascript" src="/commons.hash_cef317062944dce98c01.js"></script>
-        <script type="text/javascript" src="/TimePage.entry.hash_972c7f760528baca032a.js"></script>
-    </body>
-</html>
-~~~
+Removing `htmlStatic: true` makes Reframe generate the HTML at request-time, and the page then shows the current time whenever the page is (re-)loaded.
 
-we see that, in contrast to our previous DOM-static pages, the page loads JavaScript code.
+Removing `domStatic: true` makes Reframe hydrate the page, and the page's DOM is updated every second to always show the current time.
 
-The JavaScript code
-mounts a `<TimeComponent />` to the DOM element `#react-root`, and
-the mounted `<TimeComponent />` then updates the DOM every second to always show the current time.
+DOM-static pages are considerably more performant as the browser doesn't have to load nor render the page's React components.
 
-The DOM changes over time and we say that the page is *DOM-dynamic*.
+And HTML-static pages are more performant as the HTML is rendered only once at build-time instead of being re-rendered on every request.
 
-But why does Reframe hydrate the DOM whereas it previously didn't at our previous examples?
-It's because our page config is saved as `TimePage.universal.js`,
-a filename name ending with `.universal.js`,
-whereas our previous examples were saved as `*.html.js` files.
+If all pages are HTML-static,
+then all HTMLs are rendered at build-time,
+no server code is required,
+and the app can be deployed to a static website host
+such as [GitHub Pages](https://pages.github.com/) or Netlify.
 
-So,
-a page with a page config saved as `pages/*.html.js` is treated as DOM-static and
-a page with a page config saved as `pages/*.universal.js` is treated as DOM-dynamic.
-Reframe also picks up `pages/*.entry.js` and `pages/*.dom.js` files and we will talk about these in the sections "Partial DOM-dynamic" and "Custom Browser JavaScript".
-
-In case you are curious, the loaded JavaScript are:
- - `/commons.hash_xxxxxxxxxxxxxxxxxxxx.js`
-   which
-   is around 250KB in production,
-   inlcudes React (~100KB),
-   polyfills (~100KB),
-   the router, and the `@reframe/browser` package.
-   It is loaded by all pages and is indefinitely cached across all pages.
- - `/TimePage.entry.hash_xxxxxxxxxxxxxxxxxxxx.js`
-   which
-   includes the transpiled version of `TimePage.universal.js` and a tiny wrapper.
-   It is specific to the page and is usually lightweight.
-
-As DOM-static pages are more performant, we recommand to make pages DOM-dynamic only if necessary.
-
-So, when defining the page with a `.universal.js` file, the entire page is hydrated.
-
-
+Also,
+keep in mind that interative views are inherently and considerably more complex than static views.
+It is recommended to implement app requirements with static views whenever possible,
+and to implement interactive views only when necessary.
+Reframe embraces that recommandation by allowing you to write web apps where a majority of the pages are DOM-static.
 
 ## CSS & Static Assets
 
@@ -520,7 +342,7 @@ In addition, static assets can be referenced in CSS files by using the CSS `url`
 The following shows code using CSS and static assets as described above.
 
 ~~~js
-// /examples/pages/GlitterPage.js
+// /examples/basics/pages/GlitterPage.js
 
 const {GlitterComponent} = require('../views/GlitterComponent');
 
@@ -535,7 +357,7 @@ module.exports = GlitterPage;
 ~~~
 
 ~~~js
-// /examples/views/GlitterComponent.js
+// /examples/basics/views/GlitterComponent.js
 
 import React from 'react';
 import './GlitterStyle.css';
@@ -566,7 +388,7 @@ export {GlitterComponent};
 ~~~
 
 ~~~css
-// /examples/views/GlitterStyle.css
+// /examples/basics/views/GlitterStyle.css
 
 body {
     background-color: pink;
@@ -610,7 +432,7 @@ We can therefore use `async getInitialProps()` to fetch the data that page's Rea
 For example:
 
 ~~~js
-// /examples/pages/GameOfThronesPage.js
+// /examples/basics/pages/GameOfThronesPage.js
 
 import React from 'react';
 import {CharacterNames, getCharacters} from '../views/GameOfThrones';
@@ -634,7 +456,7 @@ export default {
 ~~~
 
 ~~~js
-// /examples/views/GameOfThrones.js
+// /examples/basics/views/GameOfThrones.js
 
 import React from 'react';
 import fetch from '@brillout/fetch';
@@ -689,7 +511,7 @@ Because `aysnc getInitialProps()` is called and waited for prior to rendering th
 Alternatively, we can fetch data in a statefull component.
 
 ~~~js
-// /examples/pages/GameOfThrones2Page.js
+// /examples/basics/pages/GameOfThrones2Page.js
 
 import React from 'react';
 import {CharacterNames, getCharacters} from '../views/GameOfThrones';
@@ -750,7 +572,7 @@ See [Advanced Routing](#advanced-routing) for alternative ways of navigating.
 An example of basic page navigation:
 
 ~~~js
-// /examples/pages/page-a.js
+// /examples/basics/pages/page-a.js
 
 import React from 'react';
 
@@ -763,7 +585,7 @@ const pageA = {
 export default pageA;
 ~~~
 ~~~js
-// /examples/pages/page-b.js
+// /examples/basics/pages/page-b.js
 
 import React from 'react';
 
@@ -797,8 +619,7 @@ etc.
 The Reframe CLI displays a `[PROD]` notification when compiling for production:
 
 ~~~shell
-$ export NODE_ENV='production'
-$ reframe
+$ reframe --prod
 ✔ Page directory found at ~/tmp/reframe/example/pages/
 ✔ Frontend built at ~/tmp/reframe/example/dist/browser/ [PROD]
 ✔ Server running at http://localhost:3000
@@ -822,7 +643,7 @@ const path = require('path');
 
     const {HapiPluginReframe} = (
         await getHapiPlugins({
-            pagesDirPath: path.resolve(__dirname, '../../pages'),
+            pagesDirPath: path.resolve(__dirname, '../../basics/pages'),
         })
     );
 
@@ -863,7 +684,7 @@ We refer to [`@brillout/html-crust`'s documentation](https://github.com/brillout
 For example, the page config
 
 ~~~js
-// /examples/pages/custom-html.js
+// /examples/basics/pages/custom-html.js
 
 import React from 'react';
 
@@ -981,98 +802,9 @@ It can, for example, be used with [Crossroads.js](https://github.com/millermedei
 We refer to the source code of the plugin [`@reframe/crossroads`](/crossroads) for further information about how to use Reframe with another routing library.
 
 
-## Partial DOM-dynamic
-
-When defining the page with a `.universal.js` file, the entire page is hydrated.
-But this is not always what we want.
-Imagine a page where a vast majority of the page is DOM-static and
-only some parts of the page need to be made DOM-dynamic.
-It that case,
-it would be wasteful to load the view's entire code in the browser and
-to hydrate the whole page.
-Instead, we can tell Reframe to hydrate parts of the page only.
-We call this technique *partial DOM-dynamic*.
-
-Besides being able to hydrate the entire page with a `.universal.js` page config,
-we can tell Reframe to hydrate only some parts of the page.
-This means that, while these parts are DOM-dynamic, the rest of the page stays DOM-static.
-
-This can be a significant performance improvement
-when large portions of the page don't need to be DOM-dynamic.
-
-It also introduces a separation between the DOM-static part and the DOM-dynamic part of the page,
-which makes reasoning about the page easier.
-
-To achieve such partial hydration,
-instead of defining the page with one page config `MyDynamicPage.universal.js`,
-we define the page with two page configs.
-One page config `MyDynamicPage.html.js` for server-side rendering and
-another `MyDynamicPage.dom.js` for browser-side rendering.
-Like in the following.
-
-~~~js
-// /examples/pages/NewsPage.js
-
-import React from 'react';
-
-import {TimeComponent} from '../views/TimeComponent';
-import {LatestNewsComponent} from '../views/LatestNewsComponent';
-
-const NewsComponent = () => (
-    <div>
-        <LatestNewsComponent />
-        <br/>
-        <small style={{color: 'blue'}}>
-            Time: <span id="time-root"><TimeComponent /></span>
-        </small>
-    </div>
-);
-
-export default {
-    title: 'News Site',
-    route: '/news',
-    view: NewsComponent,
-    // `LatestNewsComponent` needs to be refreshed on every page load.
-    // We therefore declare the page as HTML-dynamic.
-    htmlStatic: false,
-};
-~~~
-
-~~~js
-// /examples/pages/NewsPage.dom.js
-
-import React from 'react';
-
-import {TimeComponent} from '../views/TimeComponent';
-
-export default {
-    view: [
-        {
-            containerId: 'time-root',
-            view: TimeComponent,
-        }
-    ],
-};
-~~~
-
-When we define a page with two separate page configs like this,
-not only do we hydrate only what's necessary, but we also load only the code that is necessary.
-Because only the `.dom.js` page config is loaded in the browser, and
-the `.html.js` page config is never loaded in the browser.
-For example, we can see that the `NewsPage.dom.js` file only loads `TimeComponent` and not the (imaginary) KB heavy `LatestNewsComponent`.
-
-Note that we can set `view` to an array with more than one view object, and that way we can hydrate several parts of the page.
-
-Beyond being able to define partial hydration,
-we can gain further control over what's happening in the browser
-by writing the browser entry code ourselves.
-(Instead of using the default browser entry code generated by Reframe.)
-
-
-
 ## Custom Browser JavaScript
 
-If our page is saved as `pages/MyPage.html.js` and, if we save some JavaScript code saved as `pages/MyPage.entry.js`, then Reframe will take `pages/MyPage.entry.js` as browser entry point.
+If our page is saved as `pages/MyPage.html.js` and, if we save a JavaScript file as `pages/MyPage.entry.js`, then Reframe will take `pages/MyPage.entry.js` as browser entry point.
 See the Customization Manual for further information.
 
 We can as well add arbitrary script tags to the page's HTML (external scripts, async scripts, etc.).

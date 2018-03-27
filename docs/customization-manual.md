@@ -76,7 +76,23 @@
 
 -->
 <div><p align="right"><sup>
-    <img src="https://github.com/reframejs/reframe/raw/master/docs/images/online-icon.svg?sanitize=true" width="13" height="20"> Chat with Reframe author on <a href="https://discord.gg/kqXf65G">discord.gg/kqXf65G</a>
+    <a href="https://twitter.com/reframejs">
+        <img
+          src="https://github.com/reframejs/reframe/raw/master/docs/images/twitter-logo.svg?sanitize=true"
+          width="15"
+          height="13"
+        >
+        Follow on Twitter
+    </a>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="https://discord.gg/kqXf65G">
+        <img
+          src="https://github.com/reframejs/reframe/raw/master/docs/images/online-icon.svg?sanitize=true"
+          width="14"
+          height="10"
+        >
+        Chat on Discord
+    </a>
 </sup></p></div>
 
 [<p align="center"><img src="https://github.com/reframejs/reframe/raw/master/docs/images/logo-with-title.svg?sanitize=true" width=450 height=94 style="max-width:100%;" alt="Reframe"/></p>](https://github.com/reframejs/reframe)
@@ -92,7 +108,7 @@
     &nbsp;&nbsp;&nbsp;
     <b>Universal</b>
     -
-    Create all kinds of apps.
+    Create any type of app.
     &nbsp;&nbsp;&nbsp;
     <b>Escapable</b>
     -
@@ -172,7 +188,7 @@ const path = require('path');
 
     const {HapiPluginReframe} = (
         await getHapiPlugins({
-            pagesDirPath: path.resolve(__dirname, '../../pages'),
+            pagesDirPath: path.resolve(__dirname, '../../basics/pages'),
         })
     );
 
@@ -221,7 +237,7 @@ const express = require('express');
 startExpressServer();
 
 async function startExpressServer() {
-    const pagesDirPath = path.resolve(__dirname, '../../pages');
+    const pagesDirPath = path.resolve(__dirname, '../../basics/pages');
     let pages;
     const onBuild = args => {pages = args.pages};
     const {browserDistPath} = (
@@ -303,7 +319,7 @@ Reframe matches `MyPage.entry.js` with `MyPage.js` because the two filenames sha
 For example:
 
 ~~~js
-// /examples/pages/TrackingPage.js
+// /examples/basics/pages/TrackingPage.js
 
 import React from 'react';
 
@@ -324,7 +340,7 @@ export default {
 ~~~
 
 ~~~js
-// /examples/pages/TrackingPage.entry.js
+// /examples/basics/pages/TrackingPage.entry.js
 
 import hydratePage from '@reframe/browser/hydratePage';
 import TrackingPage from './TrackingPage.js';
@@ -444,7 +460,7 @@ Let's look at the code of `@reframe/browser/hydratePage`
 ~~~js
 // /core/browser/hydratePage.js
 
-const {processReframeBrowserConfig} = require('@reframe/utils/processReframeBrowserConfig');
+const {processReframeBrowserConfig} = require('@reframe/utils/processReframeConfig/processReframeBrowserConfig');
 
 const Repage = require('@repage/core');
 const {hydratePage: repage_hydratePage} = require('@repage/browser');
@@ -605,7 +621,7 @@ const rules = [
 const webpackBrowserConfig = () => ({
     entry: [
         'babel-polyfill',
-        '../../../pages/CounterPage.entry.js',
+        '../../../basics/pages/CounterPage.entry.js',
     ],
     output: {
         publicPath: '/',
@@ -615,7 +631,7 @@ const webpackBrowserConfig = () => ({
 });
 
 const webpackServerConfig = () => ({
-    entry: '../../../pages/CounterPage.js',
+    entry: '../../../basics/pages/CounterPage.js',
     target: 'node',
     output: {
         publicPath: '/',
