@@ -33,8 +33,6 @@ function build({
 
     const reframeConfig = {_processed: projectConfig};
 
-    processReframeConfig(reframeConfig);
-
     assert_usage(
         pagesDirPath || reframeConfig.webpackBrowserConfigModifier && reframeConfig.webpackServerConfigModifier,
         "Provide either argument `pagesDirPath` or provide `webpackBrowserConfig` and `webpackServerConfig` in `reframe.config.js`."
@@ -77,7 +75,7 @@ function build({
                 return page_object.page_config;
             })
         );
-        await writeHtmlFiles({page_configs, buildState, fileWriter, reframeConfig});
+        await writeHtmlFiles({page_configs, fileWriter, reframeConfig});
         if( there_is_a_newer_run() ) return;
 
         const build_info = {
@@ -414,7 +412,7 @@ function extract_build_info(buildState, reframeConfig) {
     return {HapiPluginStaticAssets, browserDistPath};
 }
 
-async function writeHtmlFiles({page_configs, buildState, fileWriter, reframeConfig}) {
+async function writeHtmlFiles({page_configs, fileWriter, reframeConfig}) {
     fileWriter.startWriteSession('html_files');
 
     (await get_static_pages_info())
