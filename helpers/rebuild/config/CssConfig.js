@@ -50,24 +50,22 @@ function config_css(config) {
             extract_plugin,
         ],
         module: {rules: {css: {
-            use: extract_loader,
+            use: [
+                extract_loader,
+                require.resolve("css-loader"),
+            ],
         }}},
     };
 }
 
 function add_extract_text_plugin({config, loaders}) {
-    const ExtractTextPlugin = require('extract-text-webpack-plugin');
+    const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
     const filename = get_style_filename(config);
 
-    const extract_plugin = new ExtractTextPlugin({filename});
+    const extract_plugin = new MiniCssExtractPlugin({filename});
 
-    const extract_loader = (
-        extract_plugin.extract({
-            fallback: require.resolve("style-loader"),
-            use: loaders,
-        })
-    );
+    const extract_loader = MiniCssExtractPlugin.loader;
 
     return {extract_plugin, extract_loader};
 }
@@ -87,7 +85,7 @@ function get_style_filename(config) {
         assert_internal(config.output.filename.includes(NAME));
         filename = filename.replace(NAME, NAME+'.style');
     }
-    filename = filename.replace(/\[chunkhash\]/g, '[contenthash]');
+ // filename = filename.replace(/\[chunkhash\]/g, '[contenthash]');
     return filename
 }
 
