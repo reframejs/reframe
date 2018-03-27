@@ -23,7 +23,7 @@ if (pagesDirPath && reframeConfigPath) {
 
     processReframeConfig(reframeConfig);
 
-    const cliPlugins = reframeConfig._processed.cli_plugins;
+    const cliCommands = reframeConfig._processed.cli_commands;
 
     program
     .version(pkg.version, '-v, --version')
@@ -41,16 +41,17 @@ if (pagesDirPath && reframeConfigPath) {
     .description('processReframeConfig')
     .action( () => {
         argValue = 'config';
-        console.log(cliPlugins);
+        //console.log(cliCommands);
+        cliCommands.forEach(command => {
+            console.log(command);
+        });
     });
 
-    cliPlugins.forEach(plugin => {
-        plugin.cliCommands.forEach(command => {
-            program
-            .command(command.name)
-            .description(command.description)
-            .action(command.action);
-        });
+    cliCommands.forEach(command => {
+        program
+        .command(command.name)
+        .description(command.description)
+        .action(command.action);
     });
 } else {
     program
