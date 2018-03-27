@@ -16,9 +16,9 @@ process.on('unhandledRejection', err => {
     process.exit(1);
 });
 
-if (pagesDirPath && reframeConfigPath) {
+if (pagesDirPath || reframeConfigPath) {
 
-    const reframeConfig = reframeConfigPath && require(reframeConfigPath);
+    const reframeConfig = reframeConfigPath && require(reframeConfigPath) || {};
     const {processReframeConfig} = require('@reframe/utils/processReframeConfig/processReframeConfig');
 
     processReframeConfig(reframeConfig);
