@@ -1,6 +1,6 @@
 {
   "name": "@repage/router-path-to-regexp",
-  "version": "0.0.1-rc.8",
+  "version": "0.0.1-rc.9",
   "browser": "./browser.js",
   "main": "./server.js",
   "dependencies": {

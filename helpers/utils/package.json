@@ -1,10 +1,10 @@
 {
   "name": "@reframe/utils",
-  "version": "0.0.1-rc.8",
+  "version": "0.0.1-rc.9",
   "dependencies": {
     "@brillout/find": "latest",
-    "@reframe/cli-plugins": "0.0.1-rc.8",
-    "@reframe/default-kit": "0.0.1-rc.8",
+    "@reframe/cli-plugins": "0.0.1-rc.9",
+    "@reframe/default-kit": "0.0.1-rc.9",
     "callsites": "^2.0.0",
     "find-up": "^2.1.0",
     "reassert": "latest"

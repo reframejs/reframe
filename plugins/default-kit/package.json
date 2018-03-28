@@ -1,15 +1,15 @@
 {
   "name": "@reframe/default-kit",
-  "version": "0.0.1-rc.8",
+  "version": "0.0.1-rc.9",
   "scripts": {
     "docs": "mdocs"
   },
   "dependencies": {
-    "@reframe/crossroads": "0.0.1-rc.8",
-    "@reframe/path-to-regexp": "0.0.1-rc.8",
-    "@reframe/react": "0.0.1-rc.8",
-    "@repage/navigator": "0.0.1-rc.8",
-    "@repage/renderer": "0.0.1-rc.8"
+    "@reframe/crossroads": "0.0.1-rc.9",
+    "@reframe/path-to-regexp": "0.0.1-rc.9",
+    "@reframe/react": "0.0.1-rc.9",
+    "@repage/navigator": "0.0.1-rc.9",
+    "@repage/renderer": "0.0.1-rc.9"
   },
   "publishConfig": {
     "access": "public"
