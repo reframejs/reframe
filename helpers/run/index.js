@@ -6,10 +6,11 @@ const getProjectConfig = require('@reframe/utils/getProjectConfig');
 const program = require('commander');
 const pkg = require('./package.json');
 
+const assert_internal = require('reassert/internal');
+
 const projectConfig = getProjectConfig();
 const {pagesDir: pagesDirPath, projectRootDir: appDirPath, reframeConfigPath} = projectConfig.projectFiles;
-
-const {processReframeConfig} = require('@reframe/utils/processReframeConfig/processReframeConfig');
+assert_internal(pagesDirPath || reframeConfigPath);
 
 let noCommandFound = true;
 
@@ -43,9 +44,9 @@ projectConfig
     });
 });
 
-program.parse(process.argv);
-
 loading_spinner.stop();
+
+program.parse(process.argv);
 
 if( noCommandFound ) {
     program.outputHelp();
@@ -53,11 +54,8 @@ if( noCommandFound ) {
 
 
 function start(prod, showHapiServerLog) {
-
     log_found_file(reframeConfigPath, 'Reframe config');
     log_found_file(pagesDirPath, 'Pages directory');
-
-    assert_internal(pagesDirPath || reframeConfigPath);
 
     if( prod ) {
         process.env['NODE_ENV']='production';
