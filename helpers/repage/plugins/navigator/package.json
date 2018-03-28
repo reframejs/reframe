@@ -1,6 +1,6 @@
 {
   "name": "@repage/navigator",
-  "version": "0.0.1-rc.7",
+  "version": "0.0.1-rc.8",
   "browser": "./browser.js",
   "main": "./server.js",
   "dependencies": {
