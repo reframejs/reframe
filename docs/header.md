@@ -5,7 +5,7 @@
           width="15"
           height="13"
         >
-        Follow on Twitter
+        Follow
     </a>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <a href="https://discord.gg/kqXf65G">
@@ -14,7 +14,7 @@
           width="14"
           height="10"
         >
-        Chat on Discord
+        Chat
     </a>
 </sup></p></div>
 
