@@ -1,11 +1,11 @@
 {
   "name": "@reframe/crossroads",
-  "version": "0.0.1-rc.7",
+  "version": "0.0.1-rc.8",
   "scripts": {
     "docs": "mdocs"
   },
   "dependencies": {
-    "@repage/router-crossroads": "0.0.1-rc.7"
+    "@repage/router-crossroads": "0.0.1-rc.8"
   },
   "publishConfig": {
     "access": "public"

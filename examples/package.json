@@ -3,17 +3,17 @@
   "private": true,
   "dependencies": {
     "@brillout/fetch": "^0.0.2",
-    "@reframe/browser": "0.0.1-rc.7",
-    "@reframe/build": "0.0.1-rc.7",
-    "@reframe/server": "0.0.1-rc.7",
-    "@reframe/run": "0.0.1-rc.7",
-    "@repage/browser": "0.0.1-rc.7",
-    "@repage/core": "0.0.1-rc.7",
-    "@repage/navigator": "0.0.1-rc.7",
-    "@repage/renderer": "0.0.1-rc.7",
-    "@repage/renderer-react": "0.0.1-rc.7",
-    "@repage/router-path-to-regexp": "0.0.1-rc.7",
-    "@repage/server": "0.0.1-rc.7",
+    "@reframe/browser": "0.0.1-rc.8",
+    "@reframe/build": "0.0.1-rc.8",
+    "@reframe/run": "0.0.1-rc.8",
+    "@reframe/server": "0.0.1-rc.8",
+    "@repage/browser": "0.0.1-rc.8",
+    "@repage/core": "0.0.1-rc.8",
+    "@repage/navigator": "0.0.1-rc.8",
+    "@repage/renderer": "0.0.1-rc.8",
+    "@repage/renderer-react": "0.0.1-rc.8",
+    "@repage/router-path-to-regexp": "0.0.1-rc.8",
+    "@repage/server": "0.0.1-rc.8",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
@@ -35,5 +35,5 @@
     "style-loader": "^0.19.1",
     "sugarss": "^1.0.1"
   },
-  "version": "0.0.1-rc.7"
+  "version": "0.0.1-rc.8"
 }

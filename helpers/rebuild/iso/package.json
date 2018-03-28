@@ -1,10 +1,10 @@
 {
   "name": "@rebuild/iso",
-  "version": "0.0.1-rc.7",
+  "version": "0.0.1-rc.8",
   "dependencies": {
     "@brillout/get-parent-dirname": "latest",
-    "@rebuild/build": "0.0.1-rc.7",
-    "@rebuild/serve": "0.0.1-rc.7",
+    "@rebuild/build": "0.0.1-rc.8",
+    "@rebuild/serve": "0.0.1-rc.8",
     "touch": "^3.1.0"
   },
   "publishConfig": {

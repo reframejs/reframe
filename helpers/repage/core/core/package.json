@@ -1,6 +1,6 @@
 {
   "name": "@repage/core",
-  "version": "0.0.1-rc.7",
+  "version": "0.0.1-rc.8",
   "main": "./core",
   "dependencies": {
     "reassert": "latest"
