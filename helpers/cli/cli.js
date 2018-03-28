@@ -35,9 +35,6 @@ if( projectRootDir ) {
 function projectLessCli() {
     const program = require('commander');
     const pkg = require('./package.json');
-    const fs = require('fs-extra');
-    const path = require('path');
-    const spawn = require('cross-spawn');
     const inquirer = require('inquirer');
     const {questions} = require('./questions');
 
@@ -69,6 +66,8 @@ function projectLessCli() {
 }
 
 async function scaffoldApp(projectName) {
+    const path = require('path');
+    const fs = require('fs-extra');
     const {homeViewTemplate, homePageTemplate} = require('./templates/homeTemplate');
     const {jsonPkgTemplate, reframeConfigTemplate} = require('./templates/coreFilesTemplate');
     const viewTemplate = homeViewTemplate();
@@ -97,13 +96,35 @@ async function scaffoldApp(projectName) {
 }
 
 function install(directory) {
-    const child = spawn('npm', ['install'], { stdio: 'inherit', cwd: directory });
+    const spawn = require('cross-spawn');
 
-    child.stdout.on('data', data => {
+    const child = spawn(
+        'npm',
+        [
+            'install',
+            // We let the user decide whether to user `yarn.lock` or `package-lock.json`
+            '--no-package-lock',
+        ],
+        { stdio: 'inherit', cwd: directory }
+    );
+
+    child.on('data', data => {
+        if( isUselessLog(data) ) {
+            return;
+        }
         console.log(data);
     });
 
     child.on('close', code => {
         console.log(`process completed with code: ${code}`);
     });
+}
+
+function isUselessLog(data) {
+    // See https://github.com/npm/npm/issues/11632#issuecomment-361811419
+    if( data.includes('SKIPPING OPTIONAL DEPENDENCY') && data.includes('fsevents') ) {
+        return true;
+    }
+
+    return false;
 }
