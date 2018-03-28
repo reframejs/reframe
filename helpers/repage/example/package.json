@@ -12,6 +12,6 @@
     "@repage/router-crossroads": "0.0.1-rc.7",
     "@repage/server": "0.0.1-rc.7",
     "react": "^16.1.1",
-    "reassert": "^1.0.3"
+    "reassert": "latest"
   }
 }
