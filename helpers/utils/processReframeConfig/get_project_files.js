@@ -7,8 +7,21 @@ const find_reframe_config = require('@reframe/utils/find_reframe_config');
 
 module.exports = get_project_files;
 
+let projectFiles__cache;
+
 function get_project_files(_processed/*, r_objects*/) {
-    _processed.getProjectFiles = getProjectFiles;
+    Object.defineProperty(
+        _processed,
+        'projectFiles',
+        {
+            get: () => {
+                if( ! projectFiles__cache ) {
+                    projectFiles__cache = getProjectFiles();
+                }
+                return projectFiles__cache;
+            },
+        }
+    );
 }
 
 function getProjectFiles() {

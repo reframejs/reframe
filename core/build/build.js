@@ -29,7 +29,7 @@ function build({
     const projectConfig = getProjectConfig();
     assert_internal(projectConfig);
 
-    const {pagesDir: pagesDirPath, projectRootDir: appDirPath} = projectConfig.getProjectFiles();
+    const {pagesDir: pagesDirPath, projectRootDir: appDirPath} = projectConfig.projectFiles;
 
     const reframeConfig = {_processed: projectConfig};
 
