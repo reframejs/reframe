@@ -102,29 +102,16 @@ function install(directory) {
         'npm',
         [
             'install',
+            '--save',
+            '--loglevel',
+            'error',
             // We let the user decide whether to user `yarn.lock` or `package-lock.json`
             '--no-package-lock',
         ],
         { stdio: 'inherit', cwd: directory }
     );
 
-    child.on('data', data => {
-        if( isUselessLog(data) ) {
-            return;
-        }
-        console.log(data);
-    });
-
     child.on('close', code => {
         console.log(`process completed with code: ${code}`);
     });
-}
-
-function isUselessLog(data) {
-    // See https://github.com/npm/npm/issues/11632#issuecomment-361811419
-    if( data.includes('SKIPPING OPTIONAL DEPENDENCY') && data.includes('fsevents') ) {
-        return true;
-    }
-
-    return false;
 }
