@@ -85,8 +85,7 @@ program
 program.parse(process.argv);
 
 if (typeof argValue === 'undefined') {
-    console.error('No command given!  Please use -h or --help for valid commands.');
-    process.exit(1);
+    program.outputHelp();
 }
 
 async function initApp(projectName, useRedux, plugins) {
