@@ -1,16 +1,13 @@
 {
-  "name": "@reframe/cli",
+  "name": "@reframe/run",
   "version": "0.0.1-rc.7",
-  "bin": {
-    "reframe": "./cli.js"
-  },
   "dependencies": {
+    "@brillout/relative-to-homedir": "latest",
+    "@reframe/browser": "0.0.1-rc.7",
+    "@reframe/server": "0.0.1-rc.7",
     "@reframe/utils": "0.0.1-rc.7",
+    "chalk": "^2.3.1",
     "commander": "^2.14.1",
-    "cross-spawn": "^6.0.4",
-    "fs-extra": "^5.0.0",
-    "inquirer": "^5.1.0",
-    "ora": "^2.0.0",
     "reassert": "latest"
   },
   "publishConfig": {

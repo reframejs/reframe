@@ -6,7 +6,16 @@ const {processReframeConfig} = require('@reframe/utils/processReframeConfig/proc
 
 module.exports = getProjectConfig;
 
+let projectConfig__cache;
+
 function getProjectConfig() {
+    if( ! projectConfig__cache ) {
+        projectConfig__cache = computeProjectConfig();
+    }
+    return projectConfig__cache;
+}
+
+function computeProjectConfig() {
     const currentDir = getCurrentDir();
 
     let {reframeConfigPath} = find_reframe_config(currentDir);

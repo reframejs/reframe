@@ -19,6 +19,7 @@
 
         "helpers/utils",
         "helpers/cli",
+        "helpers/run",
 
         "helpers/repage/core/core",
         "helpers/repage/core/build",
