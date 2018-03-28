@@ -6,7 +6,6 @@ const webpackConfig = require('./webpack.config');
 (async () => {
     const dist_info = await serve(webpackConfig, {
         log: true,
-        useCustomServer: true,
     });
     log('Serving of hello world example done.');
     log(dist_info);

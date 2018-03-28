@@ -1,6 +1,7 @@
 const compile = require('@rebuild/build/compile');
 const assert = require('reassert');
 const assert_usage = assert;
+const {webpack_config_modifier, get_compiler_handler} = require('./utils/custom_server');
 
 module.exports = serve;
 
@@ -10,22 +11,9 @@ function serve(
         doNotAutoReload = false,
         doNotCreateServer = false,
         doNotFireReloadEvents = false,
-        useCustomServer = doNotCreateServer,
         ...args
     }={}
 ) {
-    assert_usage(
-        !doNotCreateServer || useCustomServer,
-        "The option `doNotCreateServer==true` requires `useCustomServer==true`. (We don't have control over webpack-dev-server.)",
-    );
-
-    let {webpack_config_modifier, get_compiler_handler} = (
-        ! useCustomServer ? (
-            require('./utils/webpack_dev_server')
-        ) : (
-            require('./utils/custom_server')
-        )
-    );
     if( doNotAutoReload || is_production() ) {
         webpack_config_modifier = null;
     }
@@ -35,7 +23,6 @@ function serve(
     return compile(arg, {
         compiler_handler,
         webpack_config_modifier,
-        useCustomServer,
         doNotCreateServer,
         compiler_handler__secondary,
         ...args

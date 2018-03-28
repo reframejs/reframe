@@ -9,8 +9,7 @@
     "parent-module": "^0.1.0",
     "reassert": "latest",
     "socket.io": "^2.0.4",
-    "socket.io-client": "^2.0.4",
-    "webpack-dev-server": "^2.9.4"
+    "socket.io-client": "^2.0.4"
   },
   "publishConfig": {
     "access": "public"
