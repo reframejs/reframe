@@ -4,11 +4,11 @@
 const chokidar = require('chokidar');
 const parent_module = require('parent-module');
 const path_module = require('path');
-const {reload_browser} = require('./reload_browser');
+const reloadBrowser = require('./reloadBrowser');
 
-module.exports = {watch};
+module.exports = watchDir;
 
-function watch(path, port=3218) {
+function watchDir(path) {
     const path_absolute = (
         path.startsWith('/') ? (
             path
@@ -17,7 +17,7 @@ function watch(path, port=3218) {
         )
     );
     chokidar.watch(path_absolute).on('all', () => {
-        reload_browser({port});
+        reloadBrowser();
     });
 }
 

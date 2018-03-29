@@ -1,6 +1,6 @@
 const assert = require('reassert');
 const assert_internal = assert;
-const {watch} = require('../utils/autoreload/watch');
+const watchDir = require('../utils/autoreload/watchDir');
 const {start_a_server} = require('../utils/serve_static_dir');
 const {HapiPluginStaticAssets__create} = require('@rebuild/build/utils/HapiPluginStaticAssets');
 
@@ -78,7 +78,7 @@ function get_compiler_handler({doNotCreateServer, doNotFireReloadEvents}) {
         */
 
         if( ! doNotFireReloadEvents ) {
-            watch(dirPath);
+            watchDir(dirPath);
         }
 
         const HapiPluginStaticAssets = HapiPluginStaticAssets__create(dirPath);

@@ -1,11 +1,8 @@
-const io = require('socket.io-client');
+const PORT = 3218;
+const socket = new WebSocket('ws://localhost:'+PORT);
 
-//module.exports = install;
-install();
-
-function install(port=3218) {
-    const socket = io('http://localhost:'+port);
-    socket.on('autoreload', function(){
+socket.addEventListener('message', ev => {
+    if( ev.data === 'RELOAD' ) {
         document.location.reload();
-    });
-}
+    }
+});

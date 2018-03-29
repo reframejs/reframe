@@ -8,8 +8,7 @@
     "inert": "5.x.x",
     "parent-module": "^0.1.0",
     "reassert": "latest",
-    "socket.io": "^2.0.4",
-    "socket.io-client": "^2.0.4"
+    "ws": "^5.1.0"
   },
   "publishConfig": {
     "access": "public"

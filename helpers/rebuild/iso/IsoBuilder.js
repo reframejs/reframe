@@ -5,8 +5,8 @@ const mkdirp = require('mkdirp');
 const serve = require('@rebuild/serve');
 const build = require('@rebuild/build');
 const {Logger} = require('@rebuild/build/utils/Logger');
-const {reload_browser} = require('@rebuild/serve/utils/autoreload/reload_browser');
-const autoreload_client_path = require.resolve('@rebuild/serve/utils/autoreload/client');
+const reloadBrowser = require('@rebuild/serve/utils/autoreload/reloadBrowser');
+const autoreloadClientPath = require.resolve('@rebuild/serve/utils/autoreload/client');
 const get_parent_dirname = require('@brillout/get-parent-dirname');
 const path_module = require('path');
 const fs = require('fs');
@@ -92,7 +92,7 @@ async function build_all(isoBuilder, latest_run) {
     const build_info = await wait_on_latest_run(latest_run);
 
     if( run_number===latest_run.run_number ) {
-        reload_browser();
+        reloadBrowser();
      // console.log('browser reloaded');
         isoBuilder.logger.onBuildStateChange({
             is_compiling: false,
@@ -159,7 +159,7 @@ function build_browser(isoBuilder, build_cache__browser, onCompilationStateChang
     assert_usage(webpack_entries.constructor===Object);
     if( ! is_production() ) {
         assert_usage(!webpack_entries['autoreload_client']);
-        webpack_entries['autoreload_client'] = [autoreload_client_path];
+        webpack_entries['autoreload_client'] = [autoreloadClientPath];
     }
 
     return build_iso({
