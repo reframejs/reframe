@@ -1,6 +1,6 @@
 {
     "name": "@reframe/cli-plugins",
-    "version": "0.0.1-rc.9",
+    "version": "0.0.1-rc.10",
     "publishConfig": {
         "access": "public"
     },

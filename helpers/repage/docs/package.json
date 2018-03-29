@@ -1,7 +1,7 @@
 {
   "name": "__repage_docs",
   "private": true,
-  "version": "0.0.1-rc.9",
+  "version": "0.0.1-rc.10",
   "dependencies": {
     "@brillout/mdocs": "latest"
   }
