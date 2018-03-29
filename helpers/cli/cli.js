@@ -20,14 +20,14 @@ const {projectRootDir} = projectConfig.projectFiles;
 loading_spinner.stop();
 
 if( projectRootDir ) {
-    const reframePackageLocation = require.resolve('@reframe/run', {paths: [projectRootDir]});
+    const runPath = require.resolve('@reframe/run', {paths: [projectRootDir]});
     assert_usage(
-        reframePackageLocation,
-        "Couldn't find the npm package `@reframe/run`.",
-        "It is required to run reframe.",
-        "TODO Include it `@reframe/run` included in the `package.json` of the project at ``?"
+        runPath,
+        "Package `@reframe/run` is missing.",
+        "You need to install it: `npm install @reframe/run`.",
+        "Project in question: `"+projectRootDir+"`.",
     );
-    require(reframePackageLocation);
+    require(runPath);
 } else {
     projectLessCli();
 }
