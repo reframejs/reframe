@@ -92,8 +92,10 @@ async function build_all(isoBuilder, latest_run) {
     const build_info = await wait_on_latest_run(latest_run);
 
     if( run_number===latest_run.run_number ) {
-        reloadBrowser();
-     // console.log('browser reloaded');
+        if( ! is_production() ) {
+            reloadBrowser();
+         // console.log('browser reloaded');
+        }
         isoBuilder.logger.onBuildStateChange({
             is_compiling: false,
             is_failure: false,
