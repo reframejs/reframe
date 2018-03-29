@@ -20,14 +20,20 @@ const {projectRootDir} = projectConfig.projectFiles;
 loading_spinner.stop();
 
 if( projectRootDir ) {
-    const runPath = require.resolve('@reframe/run', {paths: [projectRootDir]});
-    assert_usage(
-        runPath,
-        "Package `@reframe/run` is missing.",
-        "You need to install it: `npm install @reframe/run`.",
-        "Project in question: `"+projectRootDir+"`.",
-    );
-    require(runPath);
+    const runPkgName = '@reframe/run';
+    let runPkgPath;
+    try {
+        runPkgPath = require.resolve(runPkgName, {paths: [projectRootDir]});
+    } catch(err) {
+        if( err.code!=='MODULE_NOT_FOUND' ) throw err;
+        assert_usage(
+            false,
+            "Package `"+runPkgName+"` is missing.",
+            "You need to install it: `npm install "+runPkgName+"`.",
+            "Project in question: `"+projectRootDir+"`.",
+        );
+    }
+    require(runPkgPath);
 } else {
     projectLessCli();
 }
