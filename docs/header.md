@@ -1,4 +1,12 @@
 <div><p align="right"><sup>
+    <a href="#">
+        <img
+          src="https://github.com/reframejs/reframe/raw/master/docs/images/star.svg?sanitize=true"
+          width="15"
+          height="13"
+        >
+        Star
+    </a>
     <a href="https://twitter.com/reframejs">
         <img
           src="https://github.com/reframejs/reframe/raw/master/docs/images/twitter-logo.svg?sanitize=true"
@@ -7,7 +15,7 @@
         >
         Follow
     </a>
-    &nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;
     <a href="https://discord.gg/kqXf65G">
         <img
           src="https://github.com/reframejs/reframe/raw/master/docs/images/online-icon.svg?sanitize=true"
