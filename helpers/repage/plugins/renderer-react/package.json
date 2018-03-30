@@ -1,6 +1,6 @@
 {
   "name": "@repage/renderer-react",
-  "version": "0.0.1-rc.11",
+  "version": "0.0.1-rc.12",
   "browser": "./browser.js",
   "main": "./server.js",
   "dependencies": {
