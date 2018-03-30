@@ -7,7 +7,7 @@
         >
         Follow
     </a>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;
     <a href="https://discord.gg/kqXf65G">
         <img
           src="https://github.com/reframejs/reframe/raw/master/docs/images/online-icon.svg?sanitize=true"

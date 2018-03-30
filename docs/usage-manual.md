@@ -82,16 +82,16 @@
           width="15"
           height="13"
         >
-        Follow on Twitter
+        Follow
     </a>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;
     <a href="https://discord.gg/kqXf65G">
         <img
           src="https://github.com/reframejs/reframe/raw/master/docs/images/online-icon.svg?sanitize=true"
           width="14"
           height="10"
         >
-        Chat on Discord
+        Chat
     </a>
 </sup></p></div>
 
