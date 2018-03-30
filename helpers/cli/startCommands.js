@@ -89,6 +89,3 @@ function startServer(buildState) {
     const server = require(resolvePackagePath('@reframe/server'));
     return server(buildState);
 }
-
-const buildDefault = require('@reframe/build');
-
