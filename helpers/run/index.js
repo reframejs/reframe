@@ -71,10 +71,6 @@ function log_found_file(file_path, description) {
     }
 }
 
-function log_server_started(server) {
-    console.log(green_checkmark()+' Server running at '+server.info.uri);
-}
-
 function green_checkmark() {
     const chalk = require('chalk');
     return chalk.green('\u2714');

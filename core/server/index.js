@@ -6,6 +6,7 @@ const HapiPluginStaticAssets = require('./HapiPluginStaticAssets');
 const {HapiPluginServerRendering__create} = require('./HapiPluginServerRendering');
 const {HapiPluginStaticAssets__create} = require('@rebuild/build/utils/HapiPluginStaticAssets');
 const getProjectConfig = require('@reframe/utils/getProjectConfig');
+const chalk = require('chalk');
 
 module.exports = startServer;
 
@@ -31,6 +32,8 @@ async function startServer(buildState) {
     ]);
 
     server.start();
+
+    console.log(chalk.green('\u2714')+' Server running at '+server.info.uri);
 
     return server;
 }
