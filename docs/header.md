@@ -1,5 +1,5 @@
 <div><p align="right"><sup>
-    <a href="#">
+    <a href="#js-repo-pjax-container">
         <img
           src="https://github.com/reframejs/reframe/raw/master/docs/images/star.svg?sanitize=true"
           width="15"
@@ -7,6 +7,7 @@
         >
         Star
     </a>
+    &nbsp;&nbsp;&nbsp;&nbsp;
     <a href="https://twitter.com/reframejs">
         <img
           src="https://github.com/reframejs/reframe/raw/master/docs/images/twitter-logo.svg?sanitize=true"
