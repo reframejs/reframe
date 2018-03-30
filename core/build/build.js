@@ -24,7 +24,6 @@ const BROWSER_DIST_DIR = 'browser'+path_module.sep;
 function build({
     onBuild: onBuild_user,
     log: log_option,
-    ...rebuild_opts
 }) {
     const projectConfig = getProjectConfig();
     assert_internal(projectConfig);

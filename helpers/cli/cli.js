@@ -11,43 +11,70 @@ const getProjectConfig = require('@reframe/utils/getProjectConfig');
 const assert = require('reassert');
 const assert_usage = assert;
 
+const startCommands = require('./startCommands');
+
 const cwd = process.cwd();
 getCurrentDir.currentDir = cwd;
 
 const projectConfig = getProjectConfig();
 const {projectRootDir} = projectConfig.projectFiles;
 
-loading_spinner.stop();
-
 if( projectRootDir ) {
-    const runPkgName = '@reframe/run';
-    let runPkgPath;
-    try {
-        runPkgPath = require.resolve(runPkgName, {paths: [projectRootDir]});
-    } catch(err) {
-        if( err.code!=='MODULE_NOT_FOUND' ) throw err;
-        assert_usage(
-            false,
-            "Package `"+runPkgName+"` is missing.",
-            "You need to install it: `npm install "+runPkgName+"`.",
-            "Project in question: `"+projectRootDir+"`.",
-        );
-    }
-    require(runPkgPath);
-} else {
-    projectLessCli();
+    projectConfig.addPlugin(
+        startCommands()
+    );
 }
 
-function projectLessCli() {
-    const program = require('commander');
-    const pkg = require('./package.json');
+const program = require('commander');
+const pkg = require('./package.json');
+
+let noCommandFound = true;
+
+if( ! projectRootDir ) {
+    addInitCommand();
+}
+
+projectConfig
+.cli_commands
+.forEach(cmdSpec => {
+    let cmd = (
+        program
+        .command(cmdSpec.name)
+    );
+
+    (cmdSpec.options||[])
+    .forEach(opt => {
+        cmd = cmd.option(opt.name, opt.description)
+    });
+
+    cmd
+    .description(cmdSpec.description)
+    .action(function() {
+        noCommandFound = false;
+        cmdSpec.action.apply(this, arguments);
+    });
+});
+
+program
+.arguments('<arg>')
+.action((arg) => {
+    noCommandFound = false;
+    console.error(`${arg} is not a valid command. Use -h or --help for valid commands.`);
+});
+
+loading_spinner.stop();
+
+program.parse(process.argv);
+
+if( noCommandFound ) {
+    program.outputHelp();
+}
+
+function addInitCommand() {
     const inquirer = require('inquirer');
     const {questions} = require('./questions');
 
-    let noCommandFound = true;
-
     program
-    .version(pkg.version, '-v, --version')
     .command('init')
     .description('creates new project')
     .action( () => {
@@ -56,19 +83,6 @@ function projectLessCli() {
             scaffoldApp(projectName);
         });
     });
-
-    program
-    .arguments('<arg>')
-    .action((arg) => {
-        noCommandFound = false;
-        console.error(`${arg} is not a valid command. Use -h or --help for valid commands.`);
-    });
-
-    program.parse(process.argv);
-
-    if( noCommandFound ) {
-        program.outputHelp();
-    }
 }
 
 async function scaffoldApp(projectName) {

@@ -1,3 +1,7 @@
+throw new Error('TODO - (re)move that code');
+
+
+
 const ora = require('ora');
 const loading_spinner = ora();
 loading_spinner.start();
@@ -14,36 +18,6 @@ assert_internal(pagesDirPath || reframeConfigPath);
 
 let noCommandFound = true;
 
-program
-.version(pkg.version, '-v, --version')
-.command('start')
-.description('starts dev server on localhost')
-.option("-p, --production", "start for production")
-.option("-l, --log", "prints build and page information")
-.action( (options) => {
-    noCommandFound = false;
-    start(options.production, options.log);
-});
-
-program
-.arguments('<arg>')
-.action((arg) => {
-    noCommandFound = false;
-    console.error(`${arg} is not a valid command. Use -h or --help for valid commands.`);
-});
-
-projectConfig
-.cli_commands
-.forEach(command => {
-    program
-    .command(command.name)
-    .description(command.description)
-    .action(function() {
-        noCommandFound = false;
-        command.action.apply(this, arguments);
-    });
-});
-
 loading_spinner.stop();
 
 program.parse(process.argv);
@@ -51,6 +25,9 @@ program.parse(process.argv);
 if( noCommandFound ) {
     program.outputHelp();
 }
+
+
+
 
 
 function start(prod, showHapiServerLog) {
@@ -62,24 +39,6 @@ function start(prod, showHapiServerLog) {
     }
 
     startHapiServer({pagesDirPath, appDirPath, showHapiServerLog});
-}
-
-async function startHapiServer({pagesDirPath, appDirPath, showHapiServerLog}) {
-    const createHapiServer = require('@reframe/server/createHapiServer');
-
-    const reframeConfig = {_processed: projectConfig};
-
-    const {server} = await createHapiServer({
-        pagesDirPath,
-        reframeConfig,
-        appDirPath,
-        logger: {onFirstCompilationSuccess: log_build_success},
-        log: showHapiServerLog
-    });
-
-    await server.start();
-
-    log_server_started(server);
 }
 
 function log_build_success({compilationInfo}) {

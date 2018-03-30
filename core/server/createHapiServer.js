@@ -13,6 +13,7 @@ async function createHapiServer({
     appDirPath,
     logger,
     log,
+    buildState,
 
     // server opts
     port = 3000,
@@ -35,7 +36,8 @@ async function createHapiServer({
     );
 
     const {HapiPluginReframe, build_state} = (
-        await getHapiPlugins({
+        getHapiPlugins({
+            buildState,
             reframeConfig,
             pagesDirPath,
             appDirPath,

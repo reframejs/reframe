@@ -10,6 +10,7 @@ module.exports = get_project_files;
 let projectFiles__cache;
 
 function get_project_files(_processed/*, r_objects*/) {
+    projectFiles__cache = null;
     Object.defineProperty(
         _processed,
         'projectFiles',
@@ -20,6 +21,8 @@ function get_project_files(_processed/*, r_objects*/) {
                 }
                 return projectFiles__cache;
             },
+            enumerable: true,
+            configurable: true,
         }
     );
 }

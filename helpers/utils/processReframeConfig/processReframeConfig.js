@@ -75,9 +75,6 @@ const get_project_files = require('./get_project_files');
 module.exports = {processReframeConfig};
 
 function processReframeConfig(reframeConfig) {
-    if( reframeConfig._processed ) {
-        return;
-    }
     assert_usage(reframeConfig.constructor===Object);
     const _processed = {};
     const r_objects = get_r_objects(reframeConfig, get_default_plugin(reframeConfig), add_cli_plugins());
@@ -91,10 +88,6 @@ function processReframeConfig(reframeConfig) {
 
 // Here we assemble several webpack config modifiers into one supra modifier
 function get_webpack_config_modifiers(_processed, r_objects) {
-    if( 'webpackServerConfigModifier' in _processed && 'webpackBrowserConfigModifier' in _processed ) {
-        return;
-    }
-
     _processed.webpackBrowserConfigModifier = assemble_modifiers('webpackBrowserConfig');
     _processed.webpackServerConfigModifier = assemble_modifiers('webpackServerConfig');
 
@@ -139,9 +132,6 @@ function get_default_plugin(reframeConfig) {
 // Here we collect all paths of browser-side reframe config files
 //  - We define browser-side config objects as paths (instead of loaded module) because the browser-side code is bundled separately from the sever-side code
 function get_browser_config_paths(_processed, r_objects) {
-    if( _processed.browserConfigs ) {
-        return;
-    }
     const browserConfigs = _processed.browserConfigs = [];
     r_objects.forEach(r_object => {
         const {reframeBrowserConfig} = r_object;
@@ -154,7 +144,6 @@ function get_browser_config_paths(_processed, r_objects) {
 }
 
 function get_cli_commands(_processed, r_objects) {
-
     const cli_commands = _processed.cli_commands = [];
 
     r_objects

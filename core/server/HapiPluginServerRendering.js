@@ -5,13 +5,14 @@ const {compute_file_hash} = require('@reframe/utils/compute_file_hash');
 const {getPageHtml} = require('@repage/server');
 const {processReframeConfig} = require('@reframe/utils/processReframeConfig/processReframeConfig');
 const Repage = require('@repage/core');
+const getProjectConfig = require('@reframe/utils/getProjectConfig');
 
 
 module.exports = {HapiPluginServerRendering__create};
 
 
-function HapiPluginServerRendering__create(build_state, reframeConfig) {
-    const repage_plugins = get_repage_plugins(reframeConfig);
+function HapiPluginServerRendering__create(build_state) {
+    const repage_plugins = get_repage_plugins();
 
     const cache = {};
     const getRepageObject = () => get_repage_object(build_state.pages, cache, repage_plugins);
@@ -20,9 +21,9 @@ function HapiPluginServerRendering__create(build_state, reframeConfig) {
     return HapiPluginServerRendering;
 }
 
-function get_repage_plugins(reframeConfig) {
-    processReframeConfig(reframeConfig);
-    const {repage_plugins} = reframeConfig._processed;
+function get_repage_plugins() {
+    const projectConfig = getProjectConfig();
+    const {repage_plugins} = projectConfig;
     assert_internal(repage_plugins.constructor===Array);
     return repage_plugins;
 }
