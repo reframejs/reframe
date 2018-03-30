@@ -1,11 +1,11 @@
 {
   "name": "@reframe/cli",
-  "version": "0.0.1-rc.10",
+  "version": "0.0.1-rc.11",
   "bin": {
     "reframe": "./cli.js"
   },
   "dependencies": {
-    "@reframe/utils": "0.0.1-rc.10",
+    "@reframe/utils": "0.0.1-rc.11",
     "commander": "^2.14.1",
     "cross-spawn": "^6.0.4",
     "fs-extra": "^5.0.0",

@@ -1,16 +1,16 @@
 {
   "name": "__repage_example",
-  "version": "0.0.1-rc.10",
+  "version": "0.0.1-rc.11",
   "private": true,
   "dependencies": {
-    "@rebuild/serve": "0.0.1-rc.10",
-    "@repage/browser": "0.0.1-rc.10",
-    "@repage/build": "0.0.1-rc.10",
-    "@repage/navigator": "0.0.1-rc.10",
-    "@repage/renderer": "0.0.1-rc.10",
-    "@repage/renderer-react": "0.0.1-rc.10",
-    "@repage/router-crossroads": "0.0.1-rc.10",
-    "@repage/server": "0.0.1-rc.10",
+    "@rebuild/serve": "0.0.1-rc.11",
+    "@repage/browser": "0.0.1-rc.11",
+    "@repage/build": "0.0.1-rc.11",
+    "@repage/navigator": "0.0.1-rc.11",
+    "@repage/renderer": "0.0.1-rc.11",
+    "@repage/renderer-react": "0.0.1-rc.11",
+    "@repage/router-crossroads": "0.0.1-rc.11",
+    "@repage/server": "0.0.1-rc.11",
     "react": "^16.1.1",
     "reassert": "latest"
   }

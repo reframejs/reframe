@@ -1,14 +1,14 @@
 {
   "name": "@reframe/browser",
-  "version": "0.0.1-rc.10",
+  "version": "0.0.1-rc.11",
   "dependencies": {
-    "@reframe/utils": "0.0.1-rc.10",
-    "@repage/browser": "0.0.1-rc.10",
-    "@repage/core": "0.0.1-rc.10",
-    "@repage/navigator": "0.0.1-rc.10",
-    "@repage/renderer": "0.0.1-rc.10",
-    "@repage/renderer-react": "0.0.1-rc.10",
-    "@repage/router-crossroads": "0.0.1-rc.10",
+    "@reframe/utils": "0.0.1-rc.11",
+    "@repage/browser": "0.0.1-rc.11",
+    "@repage/core": "0.0.1-rc.11",
+    "@repage/navigator": "0.0.1-rc.11",
+    "@repage/renderer": "0.0.1-rc.11",
+    "@repage/renderer-react": "0.0.1-rc.11",
+    "@repage/router-crossroads": "0.0.1-rc.11",
     "reassert": "latest"
   },
   "publishConfig": {

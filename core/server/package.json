@@ -1,15 +1,15 @@
 {
   "name": "@reframe/server",
-  "version": "0.0.1-rc.10",
+  "version": "0.0.1-rc.11",
   "dependencies": {
     "@brillout/get-parent-dirname": "latest",
-    "@reframe/build": "0.0.1-rc.10",
-    "@reframe/utils": "0.0.1-rc.10",
-    "@repage/core": "0.0.1-rc.10",
-    "@repage/renderer": "0.0.1-rc.10",
-    "@repage/renderer-react": "0.0.1-rc.10",
-    "@repage/router-crossroads": "0.0.1-rc.10",
-    "@repage/server": "0.0.1-rc.10",
+    "@reframe/build": "0.0.1-rc.11",
+    "@reframe/utils": "0.0.1-rc.11",
+    "@repage/core": "0.0.1-rc.11",
+    "@repage/renderer": "0.0.1-rc.11",
+    "@repage/renderer-react": "0.0.1-rc.11",
+    "@repage/router-crossroads": "0.0.1-rc.11",
+    "@repage/server": "0.0.1-rc.11",
     "reassert": "latest"
   },
   "publishConfig": {
