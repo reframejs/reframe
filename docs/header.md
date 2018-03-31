@@ -1,12 +1,17 @@
 <div><p align="right"><sup>
+    <img
+      src="https://github.com/reframejs/reframe/raw/master/docs/images/star.svg?sanitize=true"
+      width="16"
+      height="12"
+    >
+    Star if you like
     <a href="#">
         <img
-          src="https://github.com/reframejs/reframe/raw/master/docs/images/star.svg?sanitize=true"
+          src="https://github.com/reframejs/reframe/raw/master/docs/images/arrow-up.svg?sanitize=true"
           width="15"
           height="13"
         >
     </a>
-    Star if you like
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <a href="https://twitter.com/reframejs">
