@@ -258,7 +258,7 @@ Thus, creating a static app is simply a matter of setting `htmlStatic: true` to 
    <br/>
    Reframe is the only framework that supports every type of static and dynamic app.
    Instead of learning one framework to create a static app and a second framework to create a dynamic app,
-   you can only learn Reframe to be able to create both static and dynamic apps.
+   you can learn Reframe to be able to create both static and dynamic apps.
    <br/>
    [Reframe Rationale - Universal](/docs/reframe-rationale.md#universal) shows the different types of apps and how Reframe supports them all.
  - **Escapable**
