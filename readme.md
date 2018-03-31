@@ -150,7 +150,7 @@ Reframe takes care of the rest:
 It automatically transpiles, bundles, routes, renders, and serves your pages.
 
 ~~~jsx
-// We create a page by defining a page config:
+// Page config `WelcomePage`
 
 const WelcomePage = {
   // Page's URL
@@ -172,7 +172,7 @@ A *page config* is a plain JavaScript object that configures a page by assigning
  - further (optional) page configurations (page's &lt;title&gt;, meta tags, whether the page's HTML should be rendered at build-time or at request-time, whether the page should be hydrated or not, etc.).
 
 You can create a React web app with **no build configuration** and **no server configuration**.
-(But, if you need to, everything is customizable.)
+(But, if you need to, everything is configurable/customizable.)
 
 > All you need to create a web app is one React component and one page config per page.
 
@@ -223,9 +223,9 @@ Reframe did the following:
 
 With Reframe you can create:
 
- - **Server-side rendered apps**
+ - **Server-side rendered (SSR) apps**
    <br/>
-   Apps where pages are rendered to HTML on the server.
+   Apps where pages are rendered to HTML on the server (at request-time).
  - **Static apps**
    <br/>
    Apps where pages are rendered to HTML at build-time.
@@ -237,17 +237,15 @@ With Reframe you can create:
    <br/>
    No (or almost no) JavaScript is loaded in the browser.
    <br/>
-   Basically: Good ol' 1998 websites <sup><sub>:floppy_disk:</sub></sup>
+   Good ol' 1998 websites <sup><sub>:floppy_disk:</sub></sup>
  - **Hybrid apps**
    <br/>
-   Apps with mixed page types:
-   Some pages are rendered to HTML at build-time and others at request-time, and some pages have a static DOM while others have a dynamic DOM.
+   Apps with mixed types:
+   Some pages have their HTML rendered at build-time and some at request-time, and some pages have a static DOM and some have a dynamic DOM.
 
 Reframe generates a certain type of app depending on how you configure your pages.
 For example, if you add `htmlStatic: true` to a page config, then that page's HTML is rendered at build-time instead of request-time.
-So, creating a static app is simply a matter of setting `htmlStatic: true` to all page configs.
-
-The "Quick Start" section below gives a step-by-step guide to create a React app with Reframe.
+Thus, creating a static app is simply a matter of setting `htmlStatic: true` to all page configs.
 
 
 ### Why Reframe
@@ -255,21 +253,27 @@ The "Quick Start" section below gives a step-by-step guide to create a React app
  - **Easy**
    <br/>
    Create web apps by simply defining page configs and React components.
+   Reframe takes care of the rest.
  - **Universal**
    <br/>
-   Reframe is the only framework that supports every type of app.
-   Instead of learning different frameworks to create different types of apps,
-   learn Reframe once to be able to create all types of apps.
-   The [Reframe Rationale](/docs/reframe-rationale.md) shows how Reframe supports all app types.
+   Reframe is the only framework that supports every type of static and dynamic app.
+   Instead of learning one framework to create a static app and a second framework to create a dynamic app,
+   you can only learn Reframe to be able to create both static and dynamic apps.
+   <br/>
+   [Reframe Rationale - Universal](/docs/reframe-rationale.md#universal) shows the different types of apps and how Reframe supports them all.
  - **Escapable**
    <br/>
    Most of your code (~95%-99%) will be entirely independent of Reframe.
    This means that, if you decide to get rid of Reframe, you will have to rewrite only ~1%-5% of your code.
-   The [Reframe Rationale](/docs/reframe-rationale.md) explains why.
+   <br/>
+   And Reframe is designed so that you can progressively replace Reframe code with code of your own.
+   That way, you can progressively get rid of Reframe to eventually take full control over your app.
+   <br/>
+   More at [Reframe Rationale - Escapable](/docs/reframe-rationale.md#escapable).
 
 Also,
 Reframe is based on **plugins** (React Router v4 plugin, TypeScript plugin, PostCSS plugin, ...),
-is **highly customizable** (fully customize the webpack config, the server, the browser entry, the Node.js entry, the routing, ...), and is **performant** (code splitting, optimal HTTP caching, HTML pre-rendering, ...).
+is **fully customizable** (fully customize the webpack config, the building, the server, the browser code, the routing, the rendering, ...), and is **performant** (code splitting, optimal HTTP caching, static rendering, server-side rendering, ...).
 
 The [Reframe Rationale](/docs/reframe-rationale.md) goes into detail.
 

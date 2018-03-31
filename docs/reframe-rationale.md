@@ -155,29 +155,37 @@ And creating a certain type of app is simply a matter of configurating your page
 
 #### Universal
 
-A fundamental aspect of the page config is that it allows you to configure a page to be "HTML-static" or "HTML-dynamic" and "DOM-static" or "DOM-dynamic":
+An cornerstone feature of the page config is that it allows you to configure a page to be "HTML-static" or "HTML-dynamic" and "DOM-static" or "DOM-dynamic":
  - *HTML-static*
    <br/>
    The page is rendered to HTML at build-time.
    <br/>
    (In other words, the page is rendered to HTML only once, when Reframe is building the frontend.)
+   <br/>
+   Add `htmlStatic: true` to the page config.
  - *HTML-dynamic*
    <br/>
    The page is rendered to HTML at request-time.
    <br/>
    (In other words, the page is (re-)rendered to HTML every time the user requests the page.)
+   <br/>
+   Default setting.
  - *DOM-static*
    <br/>
    The page is not hydrated.
    <br/>
    (In other words, the DOM doesn't have any React component attached to it and the DOM will not change.)
+   <br/>
+   Add `domStatic: true` to the page config.
  - *DOM-dynamic*
    <br/>
    The page is hydrated.
    <br/>
    (In other words, React components are attached to the DOM and the page's DOM will eventually be updated by React.)
+   <br/>
+   Default setting.
 
-This fine-grain control over the "static-ness" of your pages gives you the ability to implement all app types.
+This fine-grain control over the "static-ness" of your pages gives you the ability to implement all types of static and dynamic apps.
 
 For example, you can create:
  - Server-side rendered apps.
@@ -208,10 +216,10 @@ For example, you can create:
    your product page to be HTML-dynamic and DOM-static,
    and your product search page to be HTML-static and DOM-dynamic.
 
-Reframe is the only React framework that supports all app types.
+Reframe is the only React framework that supports all types of apps.
 
 > Instead of learning different frameworks to create different types of apps,
-> you learn Reframe once to be able to create all types of apps.
+> you learn Reframe once to be able to create any type of app.
 
 
 #### Escapable

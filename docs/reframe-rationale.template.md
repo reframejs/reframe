@@ -28,7 +28,7 @@ And creating a certain type of app is simply a matter of configurating your page
 
 !INLINE ./universal-page-config.md --hide-source-path
 
-This fine-grain control over the "static-ness" of your pages gives you the ability to implement all app types.
+This fine-grain control over the "static-ness" of your pages gives you the ability to implement all types of static and dynamic apps.
 
 For example, you can create:
  - Server-side rendered apps.
@@ -59,10 +59,10 @@ For example, you can create:
    your product page to be HTML-dynamic and DOM-static,
    and your product search page to be HTML-static and DOM-dynamic.
 
-Reframe is the only React framework that supports all app types.
+Reframe is the only React framework that supports all types of apps.
 
 > Instead of learning different frameworks to create different types of apps,
-> you learn Reframe once to be able to create all types of apps.
+> you learn Reframe once to be able to create any type of app.
 
 
 #### Escapable
