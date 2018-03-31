@@ -76,20 +76,14 @@
 
 -->
 <div><p align="right"><sup>
-    <img
-      src="https://github.com/reframejs/reframe/raw/master/docs/images/star.svg?sanitize=true"
-      width="16"
-      height="12"
-    >
-    Star if you like
     <a href="#">
         <img
-          src="https://github.com/reframejs/reframe/raw/master/docs/images/arrow-up.svg?sanitize=true"
-          width="15"
-          height="13"
+          src="https://github.com/reframejs/reframe/raw/master/docs/images/star.svg?sanitize=true"
+          width="16"
+          height="12"
         >
     </a>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    Star if you like
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <a href="https://twitter.com/reframejs">
         <img
@@ -100,7 +94,6 @@
         Follow on Twitter
     </a>
     &nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <a href="https://discord.gg/kqXf65G">
         <img
           src="https://github.com/reframejs/reframe/raw/master/docs/images/online-icon.svg?sanitize=true"
