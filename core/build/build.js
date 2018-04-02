@@ -55,7 +55,7 @@ function build({
         await isoBuilder.build_server(server_entries);
         if( there_is_a_newer_run() ) return;
 
-        var {buildState} = isoBuilder;
+        const {buildState} = isoBuilder;
         enhance_page_objects_1({page_objects, buildState, fileWriter, reframeConfig});
 
         const browser_entries = get_browser_entries({page_objects, fileWriter});
@@ -65,7 +65,6 @@ function build({
 
         enhance_page_objects_2({page_objects, buildState});
 
-        var {buildState} = isoBuilder;
         const page_configs = (
             Object.values(page_objects)
             .filter(po => po.page_config)
@@ -451,8 +450,8 @@ async function writeHtmlFiles({page_configs, fileWriter, reframeConfig}) {
 }
 
 function enhance_page_objects_1({page_objects, buildState, fileWriter, reframeConfig}) {
-    const args_server = {output: buildState.server.output};
-    load_page_configs({page_objects, args_server});
+    const server_entry_points = buildState.server.output.entry_points;
+    load_page_configs({page_objects, server_entry_points});
     add_disk_path_absolute(page_objects);
     generate_and_add_browser_entries({page_objects, fileWriter, reframeConfig});
 }
@@ -462,16 +461,18 @@ function enhance_page_objects_2({page_objects, buildState}) {
 }
 
 function add_assets_to_page_configs({page_objects, buildState}) {
-    add_browser_entry_points(page_objects, buildState);
-    add_autoreload_client(page_objects, buildState);
-    add_disk_path(page_objects, buildState);
+    const browser_entry_points = buildState.browser.output.entry_points;
+    const server_entry_points = buildState.server.output.entry_points;
+    add_browser_entry_points({page_objects, browser_entry_points, server_entry_points});
+    add_autoreload_client({page_objects, browser_entry_points});
+    add_disk_path({page_objects, browser_entry_points});
 }
 
-function add_autoreload_client(page_objects, {browser: {output: output__browser}}) {
+function add_autoreload_client({page_objects, browser_entry_points}) {
     if( is_production() ) {
         return;
     }
-    const entry_point__autoreload = Object.values(output__browser.entry_points).find(({entry_name}) => entry_name==='autoreload_client');
+    const entry_point__autoreload = Object.values(browser_entry_points).find(({entry_name}) => entry_name==='autoreload_client');
     if( ! entry_point__autoreload ) {
         return;
     }
@@ -483,8 +484,8 @@ function add_autoreload_client(page_objects, {browser: {output: output__browser}
     });
 }
 
-function add_browser_entry_points(page_objects, {browser: {output: output__browser}, server: {output: output__server}}) {
-    Object.values(output__browser.entry_points)
+function add_browser_entry_points({page_objects, browser_entry_points, server_entry_points}) {
+    Object.values(browser_entry_points)
     .forEach(entry_point => {
         assert_internal(entry_point.entry_name);
         Object.values(page_objects)
@@ -503,7 +504,7 @@ function add_browser_entry_points(page_objects, {browser: {output: output__brows
     });
 
     /*
-    Object.values(output__server.entry_points)
+    Object.values(server_entry_points)
     .forEach(entry_point => {
         assert_internal(entry_point.entry_name);
         Object.values(page_objects)
@@ -565,7 +566,7 @@ function add_disk_path_absolute(page_objects) {
     });
 }
 
-function add_disk_path(page_objects, {browser: {output}}) {
+function add_disk_path({page_objects, browser_entry_points}) {
     Object.values(page_objects)
     .filter(page_object => page_object.page_config)
     .forEach(page_object => {
@@ -577,7 +578,7 @@ function add_disk_path(page_objects, {browser: {output}}) {
             }
             const {disk_path__absolute} = script_spec;
             assert_internal(disk_path__absolute);
-            const entry_point = find_entry_point({disk_path__absolute, output});
+            const entry_point = find_entry_point({disk_path__absolute, browser_entry_points});
             add_entry_point_to_page_config(entry_point, page_config, i);
         });
     });
@@ -606,9 +607,9 @@ function make_paths_array_unique(paths) {
     return [...new Set(paths)];
 }
 
-function find_entry_point({disk_path__absolute, output}) {
+function find_entry_point({disk_path__absolute, browser_entry_points}) {
     const entry_points__matching = (
-        Object.values(output.entry_points)
+        Object.values(browser_entry_points)
         .filter(entry_point =>
             entry_point.source_entry_points.some(source_entry_point => {
                 assert_internal(is_abs(source_entry_point));
@@ -616,14 +617,14 @@ function find_entry_point({disk_path__absolute, output}) {
             })
         )
     );
-    assert_internal(entry_points__matching.length===1, output.entry_points, disk_path__absolute);
+    assert_internal(entry_points__matching.length===1, browser_entry_points, disk_path__absolute);
     return entry_points__matching[0];
 }
 
-function load_page_configs({page_objects, args_server}) {
+function load_page_configs({page_objects, server_entry_points}) {
     require('source-map-support').install();
 
-    Object.values(args_server.output.entry_points)
+    Object.values(server_entry_points)
     .map(entry_point => {
         let page_object = Object.values(page_objects).find(page_object => (page_object.server_entry||{}).entry_name===entry_point.entry_name);
         if( ! page_object ) {
@@ -652,7 +653,7 @@ function load_page_configs({page_objects, args_server}) {
         assert_internal(
             !page_object.page_config__source_path || page_object.page_config,
             page_object,
-            args_server.output,
+            server_entry_points,
             page_object.page_config__source_path
         );
     });
