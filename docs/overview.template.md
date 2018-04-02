@@ -71,25 +71,35 @@ Reframe did the following:
 
 With Reframe you can create:
 
- - **Server-side rendered (SSR) apps**
+ - **Server-side rendered apps (SSR)**
    <br/>
-   Apps where pages are rendered to HTML on the server (at request-time).
- - **Static apps**
+   Apps where React renders the page's views to HTML on the server (at request-time).
+ - **Serverless apps & static websites**
    <br/>
    Apps where pages are rendered to HTML at build-time.
    <br/>
    These apps don't need a Node.js server and can be deployed to a static website hosting such as GitHub Pages or Netlify.
- - **DOM-static apps**
+ - **Good ol' 1998 websites <sup><sub>:floppy_disk:</sub></sup>**
    <br/>
    Apps where the DOM is static and React is only used to render HTML.
    <br/>
    No (or almost no) JavaScript is loaded in the browser.
    <br/>
-   Good ol' 1998 websites <sup><sub>:floppy_disk:</sub></sup>
+ - **Modern interactive apps**
+   Apps with a dynamic DOM by using React to create interactive views.
  - **Hybrid apps**
    <br/>
-   Apps with mixed types:
-   Some pages have their HTML rendered at build-time and some at request-time, and some pages have a static DOM and some have a dynamic DOM.
+   Apps that have static pages as well as dynamic pages:
+   Some pages have their HTML rendered at build-time while some at request-time, and some pages have a static DOM while some have a dynamic DOM.
+
+
+
+ **DOM-static apps**
+   Apps where pages are rendered to HTML on the server (at request-time).
+
+
+
+
 
 Reframe generates a certain type of app depending on how you configure your pages.
 For example, if you add `htmlStatic: true` to a page config, then that page's HTML is rendered at build-time instead of request-time.
