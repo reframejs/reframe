@@ -4,7 +4,7 @@ const HapiPluginServerRendering = require('./HapiPluginServerRendering');
 const HapiPluginStaticAssets = require('./HapiPluginStaticAssets');
 */
 const {HapiPluginServerRendering__create} = require('./HapiPluginServerRendering');
-const {HapiPluginStaticAssets__create} = require('@rebuild/build/utils/HapiPluginStaticAssets');
+const HapiPluginStaticAssets__create = require('./HapiPluginStaticAssets');
 const getProjectConfig = require('@reframe/utils/getProjectConfig');
 const chalk = require('chalk');
 
@@ -23,7 +23,7 @@ async function startServer(buildState) {
         },
     });
 
-    const HapiPluginStaticAssets = HapiPluginStaticAssets__create(buildState.browserDistPath);
+    const HapiPluginStaticAssets = HapiPluginStaticAssets__create();
     const HapiPluginServerRendering = HapiPluginServerRendering__create(buildState);
 
     await server.register([

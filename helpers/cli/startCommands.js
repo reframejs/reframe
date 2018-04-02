@@ -80,7 +80,6 @@ async function startBuild() {
             Object.assign(build_state, build_state__new);
         },
     });
-    assert_internal(build_state.browserDistPath);
     assert_internal(build_state.pages);
     return build_state;
 }

@@ -48,7 +48,7 @@ function build({
         const {fileWriter} = isoBuilder;
         const {serverEntry} = reframeConfig._processed;
 
-        const page_objects = get_pages({pagesDirPath, reframeConfig});
+        const page_objects = get_pages({pagesDirPath});
 
         const server_entries = get_server_entries({page_objects, serverEntry});
 
@@ -79,7 +79,6 @@ function build({
 
         const build_info = {
             pages: page_configs,
-            ...extract_build_info(isoBuilder.buildState, reframeConfig)
         };
 
         if( onBuild_user ) {
@@ -109,14 +108,14 @@ function on_page_file_removal_or_addition(path, listener) {
     });
 }
 
-function get_pages({pagesDirPath, reframeConfig}) {
+function get_pages({pagesDirPath}) {
     const page_objects = {};
 
     if( ! pagesDirPath ) {
         return page_objects;
     }
 
-    get_page_files({pagesDirPath, reframeConfig})
+    get_page_files({pagesDirPath})
     .forEach(({file_path, file_name, page_name, entry_name, is_dom, is_entry, is_base}) => {
         const page_object = page_objects[page_name] = page_objects[page_name] || {page_name};
         if( is_base ) {
@@ -269,7 +268,7 @@ function generate_and_add_browser_entries({page_objects, fileWriter, reframeConf
     fileWriter.endWriteSession();
 }
 
-function get_page_files({pagesDirPath, reframeConfig}) {
+function get_page_files({pagesDirPath}) {
     return (
         fs__ls(pagesDirPath)
         .filter(is_file)
@@ -400,15 +399,6 @@ function generate_browser_entry({page_config__source, browser_entry__file_name, 
         filePath: GENERATED_DIR+'browser_entries/'+browser_entry__file_name,
     });
     return fileAbsolutePath;
-}
-
-function extract_build_info(buildState, reframeConfig) {
-    const {HapiPluginStaticAssets, output} = buildState.browser;
-    assert_internal(HapiPluginStaticAssets);
-    const {dist_root_directory: browserDistPath} = output;
-    assert_internal(browserDistPath, output);
-
-    return {HapiPluginStaticAssets, browserDistPath};
 }
 
 async function writeHtmlFiles({page_configs, fileWriter, reframeConfig}) {
