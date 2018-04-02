@@ -78,7 +78,7 @@ With Reframe you can create:
    <br/>
    Apps where pages are rendered to HTML at build-time.
    <br/>
-   These apps don't need a Node.js server and can be deployed to a static website hosting such as GitHub Pages or Netlify.
+   These apps don't need a Node.js server and can be deployed to a static host such as GitHub Pages or Netlify.
  - **Good ol' 1998 websites <sup><sub>:floppy_disk:</sub></sup>**
    <br/>
    Apps where the DOM is static and React is only used to render HTML.
