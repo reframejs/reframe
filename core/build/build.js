@@ -179,35 +179,13 @@ function get_browser_entries__browser_entry({page_objects, browser_entries, alre
         browser_entries[entry_name] = [source_path];
     });
 }
-function get_browser_entries__script_disk_path({page_objects, browser_entries, already_added}) {
-    Object.values(page_objects)
-    .filter(page_object => page_object.page_config)
-    .forEach(page_object => {
-        const {page_config} = page_object;
-        (page_config.scripts||[])
-        .forEach((script_spec, i) => {
-            if( ! (script_spec||{}).diskPath ) {
-                return;
-            }
-            const {disk_path__absolute} = script_spec;
-            assert_internal(disk_path__absolute);
-            if( already_added[disk_path__absolute] ) {
-                return;
-            }
-            already_added[disk_path__absolute] = true;
-            const {entry_name} = get_names(script_spec.disk_path__absolute);
-            assert_internal(!browser_entries[entry_name]);
-            browser_entries[entry_name] = [disk_path__absolute];
-        });
-    });
-}
+
 function get_browser_entries({page_objects, /*fileWriter,*/}) {
 
     const browser_entries = {};
     const already_added = {};
 
     get_browser_entries__browser_entry({page_objects, browser_entries, already_added});
-    get_browser_entries__script_disk_path({page_objects, browser_entries, already_added});
 
     assert_internal(Object.values(browser_entries).length>0);
 
@@ -470,7 +448,6 @@ async function writeHtmlFiles({page_configs, fileWriter, reframeConfig}) {
 function enhance_page_objects_1({page_objects, buildState, fileWriter, reframeConfig}) {
     const server_entry_points = buildState.server.output.entry_points;
     load_page_configs({page_objects, server_entry_points});
-    add_disk_path_absolute(page_objects);
     generate_and_add_browser_entries({page_objects, fileWriter, reframeConfig});
 }
 
@@ -482,8 +459,6 @@ function getAssetMap({page_objects, buildState}) {
     add_browser_entry_points({assetMap, page_objects, browser_entry_points});
 
     add_autoreload_client({assetMap, page_objects, browser_entry_points});
-
-    add_disk_path({assetMap, page_objects, browser_entry_points});
 
     Object.entries(assetMap)
     .forEach(([pageName, pageAssets]) => {
@@ -515,7 +490,7 @@ function getPageConfigs({page_objects, assetMap}) {
 
             page_config.scripts = make_paths_array_unique([
                 ...(pageAssets.scripts||[]),
-                ...(page_config.scripts||[]).filter(scriptSpec => !scriptSpec.diskPath)
+                ...(page_config.scripts||[]),
             ]);
 
             page_config.styles = make_paths_array_unique([
@@ -609,55 +584,6 @@ function add_entry_point_styles_to_page_assets({assetMap, entry_point, pageName}
     );
 }
 
-function add_disk_path_absolute(page_objects) {
-    Object.values(page_objects)
-    .filter(page_object => page_object.page_config)
-    .forEach(page_object => {
-        const {page_config} = page_object;
-        const {page_config__source_path} = page_object;
-        (page_config.scripts||[])
-        .forEach((script_spec, i) => {
-            if( ! (script_spec||{}).diskPath ) {
-                return;
-            }
-            assert_internal(page_config__source_path, page_config, script_spec);
-            const disk_path__absolute = get_disk_path__absolute(script_spec, page_config, page_config__source_path);
-            assert_internal(is_abs(disk_path__absolute));
-            script_spec.disk_path__absolute = disk_path__absolute;
-        });
-    });
-}
-
-function add_disk_path({assetMap, page_objects, browser_entry_points}) {
-    Object.values(page_objects)
-    .filter(page_object => page_object.page_config)
-    .forEach(page_object => {
-        const {page_config} = page_object;
-        (page_config.scripts||[])
-        .forEach((script_spec, i) => {
-            if( ! (script_spec||{}).diskPath ) {
-                return;
-            }
-            const {disk_path__absolute} = script_spec;
-            assert_internal(disk_path__absolute);
-            const entry_point = find_entry_point({disk_path__absolute, browser_entry_points});
-            const pageName = page_object.page_name;
-            assert_internal(pageName, page_object);
-            add_entry_point_to_page_assets({assetMap, entry_point, removeIndex: i, pageName});
-        });
-    });
-}
-
-function get_disk_path__absolute(script_spec, page_config, page_config__source_path) {
-    const disk_path__relative = script_spec.diskPath;
-    assert_usage((disk_path__relative||{}).constructor===String, disk_path__relative);
-    assert_internal(!is_abs(disk_path__relative), disk_path__relative);
-    const source_path_parent = path_module.dirname(page_config__source_path);
-    assert_internal(is_abs(source_path_parent));
-    const disk_path__absolute = path__resolve(source_path_parent, disk_path__relative);
-    return disk_path__absolute;
-}
-
 function make_paths_array_unique(paths) {
     assert_internal(
         paths.every(
@@ -669,20 +595,6 @@ function make_paths_array_unique(paths) {
         paths
     );
     return [...new Set(paths)];
-}
-
-function find_entry_point({disk_path__absolute, browser_entry_points}) {
-    const entry_points__matching = (
-        Object.values(browser_entry_points)
-        .filter(entry_point =>
-            entry_point.source_entry_points.some(source_entry_point => {
-                assert_internal(is_abs(source_entry_point));
-                return source_entry_point===disk_path__absolute;
-            })
-        )
-    );
-    assert_internal(entry_points__matching.length===1, browser_entry_points, disk_path__absolute);
-    return entry_points__matching[0];
 }
 
 function load_page_configs({page_objects, server_entry_points}) {
