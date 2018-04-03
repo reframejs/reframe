@@ -217,7 +217,7 @@ function get_browser_entries({page_objects, /*fileWriter,*/}) {
 function generate_and_add_browser_entries({page_objects, fileWriter, reframeConfig}) {
     fileWriter.startWriteSession('browser_source_files');
 
-    const reframe_browser_config__path = generate_reframe_browser_config({fileWriter, reframeConfig});
+    const browser_config_path = generate_reframe_browser_config({fileWriter, reframeConfig});
 
     Object.values(page_objects)
     .filter(page_object => {
@@ -239,7 +239,7 @@ function generate_and_add_browser_entries({page_objects, fileWriter, reframeConf
         );
         assert_internal(page_config__source);
         const browser_entry__file_name = page_object.page_name+'.generated.entry.js';
-        const browser_entry__source_path = generate_browser_entry({fileWriter, page_config__source, browser_entry__file_name, reframe_browser_config__path});
+        const browser_entry__source_path = generate_browser_entry({fileWriter, page_config__source, browser_entry__file_name, browser_config_path});
         const {entry_name} = get_names(browser_entry__source_path);
         assert_internal(!page_object.browser_entry);
         page_object.browser_entry = {
@@ -347,8 +347,10 @@ function get_names(file_path) {
 
 function generate_reframe_browser_config({fileWriter, reframeConfig}) {
     const source_code = [
-        "const reframeBrowserConfig = {};",
-        "reframeBrowserConfig.plugins = [",
+        "const {processReframeBrowserConfig} = require('@reframe/utils/processReframeConfig/processReframeBrowserConfig');",
+        "const browserConfigObject = {};",
+        "",
+        "browserConfigObject.plugins = [",
         ...(
             reframeConfig._processed.browserConfigs.map(({diskPath}) => {
                 assert_internal(path_module.isAbsolute(diskPath), diskPath);
@@ -358,10 +360,14 @@ function generate_reframe_browser_config({fileWriter, reframeConfig}) {
         ),
         "];",
         "",
-        "module.exports = reframeBrowserConfig;",
+        "processReframeBrowserConfig(browserConfigObject);",
+        "",
+        "const browserConfig = browserConfigObject._processed;",
+        "",
+        "module.exports = browserConfig;",
     ].join('\n')
 
-    const filePath = GENERATED_DIR+'reframe.generated.browser.config.js';
+    const filePath = GENERATED_DIR+'browserConfig.js';
 
     const fileAbsolutePath = fileWriter.writeFile({
         fileContent: source_code,
@@ -371,22 +377,40 @@ function generate_reframe_browser_config({fileWriter, reframeConfig}) {
     return fileAbsolutePath;
 }
 
-function generate_browser_entry({page_config__source, browser_entry__file_name, fileWriter, reframe_browser_config__path}) {
+function generate_browser_entry({page_config__source, browser_entry__file_name, fileWriter, browser_config_path}) {
     assert_internal(path_module.isAbsolute(page_config__source));
-    assert_internal(path_module.isAbsolute(reframe_browser_config__path));
+    assert_internal(path_module.isAbsolute(browser_config_path));
     assert_internal(!path_module.isAbsolute(browser_entry__file_name));
-    const source_code = (
+
+    let source_code = (
         [
             "const hydratePage = require('"+require.resolve('@reframe/browser/hydratePage')+"');",
-            "const reframeBrowserConfig = require('"+reframe_browser_config__path+"');",
+            "const browserConfig = __BROWSER_CONFIG;",
             "",
             "// hybrid cjs and ES6 module import",
-            "let pageConfig = require('"+page_config__source+"');",
+            "let pageConfig = __PAGE_CONFIG;",
             "pageConfig = Object.keys(pageConfig).length===1 && pageConfig.default || pageConfig;",
             "",
-            "hydratePage(pageConfig, reframeBrowserConfig);",
+            "hydratePage(pageConfig, browserConfig);",
         ].join('\n')
     );
+
+    source_code = (
+        source_code
+        .replace(
+            /__BROWSER_CONFIG/g,
+            "require('"+browser_config_path+"')"
+        )
+    );
+
+    source_code = (
+        source_code
+        .replace(
+            /__PAGE_CONFIG/g,
+            "require('"+page_config__source+"')"
+        )
+    );
+
     const fileAbsolutePath = fileWriter.writeFile({
         fileContent: source_code,
         filePath: GENERATED_DIR+'browser_entries/'+browser_entry__file_name,
