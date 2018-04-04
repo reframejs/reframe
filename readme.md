@@ -236,13 +236,13 @@ With Reframe you can create:
    Apps where pages are rendered to HTML on the server (at request-time).
    <br/>
    SSR gives full control over SEO and improves load time.
-   By default, all apps created with Reframe have SSR.
+   By default, apps created with Reframe have SSR.
  - **Serverless** apps & static websites
    <br/>
    Apps where all pages are rendered to HTML at build-time.
    <br/>
    These apps don't need a Node.js server and can be deployed to a static host such as GitHub Pages or Netlify.
- - **Hybrid** apps
+ - **Hybrid apps**
    <br/>
    Apps that have static pages as well as dynamic pages:
    Some pages have their HTML rendered at build-time while some at request-time, and some pages have a static DOM while some have a dynamic DOM.
