@@ -231,18 +231,18 @@ With Reframe you can create:
  - **Modern interactive apps** <sup><sub>:sparkles:</sub></sup>
    <br/>
    Apps with a dynamic DOM where React is used to create interactive views.
- - **Apps with Server-side rendering (SSR)**
+ - Apps with **Server-side rendering (SSR)**
    <br/>
-   Apps with pages rendered to HTML on the server (at request-time).
+   Apps where pages are rendered to HTML on the server (at request-time).
    <br/>
-   Apps created with Reframe have SSR by default.
    SSR gives full control over SEO and improves load time.
- - **Serverless apps** & **static websites**
+   By default, all apps created with Reframe have SSR.
+ - **Serverless** apps & static websites
    <br/>
    Apps where all pages are rendered to HTML at build-time.
    <br/>
    These apps don't need a Node.js server and can be deployed to a static host such as GitHub Pages or Netlify.
- - **Hybrid apps**
+ - **Hybrid** apps
    <br/>
    Apps that have static pages as well as dynamic pages:
    Some pages have their HTML rendered at build-time while some at request-time, and some pages have a static DOM while some have a dynamic DOM.
