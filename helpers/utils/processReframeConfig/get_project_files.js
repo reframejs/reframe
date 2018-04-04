@@ -51,7 +51,7 @@ function getProjectFiles() {
         projectRootDir,
         staticAssetsDir: output_path__browser,
         // TODO move into a subdir
-        transpiledPageConfigsDir: output_path__server,
+        pagesDir__transpiled: output_path__server,
     };
 }
 
@@ -86,23 +86,36 @@ function getPageConfigPaths({}) {
     return pageConfigPaths;
 }
 
-function getPageConfigs({skipAssets}) {
-    const {transpiledPageConfigsDir} = getProjectFiles__with_cache();
+function getPageConfigs({skipAssets}={}) {
+    const {pagesDir__transpiled, pagesDir} = getProjectFiles__with_cache();
 
-    const pageConfigs = {};
+    const pageConfigs_map = {};
+    const pageConfigs = [];
 
-    fs__ls(transpiledPageConfigsDir)
-    .filter(filePath => filePath.endsWith('.js'))
-    .forEach(file_path => {
-        const {page_name} = get_names(file_path);
-        const pageConfig = require__magic(file_path);
-        assert_pageConfig(pageConfig, file_path);
-        pageConfig.pageName = page_name;
-        assert_internal(!pageConfigs[page_name]);
-        pageConfigs[page_name] = pageConfig;
-    });
+    return (
+        fs__ls(pagesDir__transpiled)
+        .filter(filePath => filePath.endsWith('.js'))
+        .map(file_path => {
+            const {page_name} = get_names(file_path);
+            assert_internal(page_name);
+            const pageConfig = require__magic(file_path);
+            assert_pageConfig(pageConfig, file_path);
 
-    return pageConfigs;
+            pageConfig.pageName = page_name;
+
+            pageConfig.pageConfigFile = (
+                path_module.resolve(
+                    pagesDir,
+                    path_module.relative(pagesDir__transpiled, file_path)
+                )
+            );
+            assert_internal(fs__file_exists(pageConfig.pageConfigFile));
+
+            assert_internal(!pageConfigs_map[page_name]);
+            pageConfigs_map[page_name] = true;
+            return pageConfig;
+        })
+    );
 }
 
 function assert_pageConfig(pageConfig, pageConfigPath) {
@@ -239,3 +252,12 @@ function path__resolve(path1, path2, ...paths) {
     assert_internal(path2);
     return path_module.resolve(path1, path2, ...paths);
 }
+function fs__file_exists(path) {
+    try {
+        return fs.statSync(path).isFile();
+    }
+    catch(e) {
+        return false;
+    }
+}
+

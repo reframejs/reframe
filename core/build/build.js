@@ -57,18 +57,20 @@ function build({
         if( there_is_a_newer_run() ) return;
 
         const {buildState} = isoBuilder;
+        /*
         enhance_page_objects_1({page_objects, buildState, fileWriter, reframeConfig});
+        */
 
         const pageBrowserEntries = generatePageBrowserEntries({fileWriter});
 
-        const browser_entries = get_browser_entries({page_objects, fileWriter});
+     // const browser_entries = get_browser_entries({page_objects, fileWriter});
 
-        await isoBuilder.build_browser(browser_entries);
+        await isoBuilder.build_browser(pageBrowserEntries);
         if( there_is_a_newer_run() ) return;
 
-        const assetMap = getAssetMap({page_objects, buildState});
+        const assetMap = getAssetMap({buildState});
 
-        const page_configs = getPageConfigs({page_objects, assetMap});
+        const page_configs = getPageConfigs({assetMap});
 
         await writeHtmlFiles({page_configs, fileWriter, reframeConfig});
         if( there_is_a_newer_run() ) return;
@@ -468,7 +470,7 @@ function generatePageBrowserEntries({fileWriter}) {
 
     const browser_config_path = generate_reframe_browser_config({fileWriter, reframeConfig: {_processed: projectConfig}});
 
-    Object.values(pageConfigs)
+    pageConfigs
     .forEach(pageConfig => {
         let browserEntryPath;
         if( pageConfig.browserEntry ) {
@@ -481,13 +483,15 @@ function generatePageBrowserEntries({fileWriter}) {
         const sourceCode = (
             [
                 "const browserConfig = require('"+browser_config_path+"');",
-                "let pageConfig = require('"+browserEntryPath+"');",
+                "let pageConfig = require('"+pageConfig.pageConfigFile+"');",
              // TODO use __esModule
              // "(pageConfig||{}).__esModule===true ? pageConfig.default : pageConfig;",
                 "pageConfig = Object.keys(pageConfig).length===1 && pageConfig.default || pageConfig;",
                 "",
                 "window.__REFRAME__BROWSER_CONFIG = browserConfig;",
                 "window.__REFRAME__PAGE_CONFIG = pageConfig;",
+                "",
+                "require('"+browserEntryPath+"');",
             ]
             .join('\n')
         );
@@ -522,14 +526,18 @@ function assert_browserEntryPath(browserEntryPath, pageConfig) {
     );
 }
 
-function getAssetMap({page_objects, buildState}) {
+function getAssetMap({buildState}) {
     const assetMap = {};
+
+    const projectConfig = getProjectConfig();
+
+    const pageConfigs = projectConfig.getPageConfigs();
 
     const browser_entry_points = buildState.browser.output.entry_points;
 
-    add_browser_entry_points({assetMap, page_objects, browser_entry_points});
+    add_browser_entry_points({assetMap, pageConfigs, browser_entry_points});
 
-    add_autoreload_client({assetMap, page_objects, browser_entry_points});
+    add_autoreload_client({assetMap, pageConfigs, browser_entry_points});
 
     assert_assertMap(assetMap);
 
@@ -551,36 +559,33 @@ function assert_assertMap(assetMap) {
 }
 
 
-function getPageConfigs({page_objects, assetMap}) {
-    const page_configs = (
-        Object.values(page_objects)
-        .filter(po => po.page_config)
-        .map(page_object => {
-            assert_internal(page_object.page_config.route, page_object);
-            const {page_config} = page_object;
+function getPageConfigs({assetMap}) {
+    const projectConfig = getProjectConfig();
 
-            const pageName = page_object.page_name;
-            assert_internal(pageName, page_object);
+    const pageConfigs = projectConfig.getPageConfigs();
 
-            const pageAssets = assetMap[pageName] || {};
+    pageConfigs
+    .map(pageConfig => {
+        const {pageName} = pageConfig;
+        assert_internal(pageName);
 
-            page_config.scripts = make_paths_array_unique([
-                ...(pageAssets.scripts||[]),
-                ...(page_config.scripts||[]),
-            ]);
+        const pageAssets = assetMap[pageName] || {};
 
-            page_config.styles = make_paths_array_unique([
-                ...(pageAssets.styles||[]),
-                ...(page_config.styles||[])
-            ]);
+        pageConfig.scripts = make_paths_array_unique([
+            ...(pageAssets.scripts||[]),
+            ...(pageConfig.scripts||[]),
+        ]);
 
-            return page_config;
-        })
-    );
-    return page_configs;
+        pageConfig.styles = make_paths_array_unique([
+            ...(pageAssets.styles||[]),
+            ...(pageConfig.styles||[])
+        ]);
+    });
+
+    return pageConfigs;
 }
 
-function add_autoreload_client({assetMap, page_objects, browser_entry_points}) {
+function add_autoreload_client({assetMap, pageConfigs, browser_entry_points}) {
     if( is_production() ) {
         return;
     }
@@ -588,31 +593,27 @@ function add_autoreload_client({assetMap, page_objects, browser_entry_points}) {
     if( ! entry_point__autoreload ) {
         return;
     }
-    Object.values(page_objects)
-    .filter(page_object => page_object.page_config__source_path && (!page_object.browser_entry || page_object.browser_entry.only_include_style))
-    .forEach(page_object => {
-        const pageName = page_object.page_name;
-        assert_internal(pageName, page_object);
+    pageConfigs
+    .forEach(pageConfig => {
+        const pageName = pageConfig;
+        assert_internal(pageName);
         add_entry_point_to_page_assets({entry_point: entry_point__autoreload, assetMap, pageName});
     });
 }
 
-function add_browser_entry_points({assetMap, page_objects, browser_entry_points}) {
+function add_browser_entry_points({assetMap, pageConfigs, browser_entry_points}) {
     Object.values(browser_entry_points)
     .forEach(entry_point => {
         assert_internal(entry_point.entry_name);
-        Object.values(page_objects)
-        .forEach(page_object => {
-            const {entry_name, only_include_style} = (page_object.browser_entry||{});
-            if( entry_name===entry_point.entry_name ) {
-                const pageName = page_object.page_name;
-                assert_internal(pageName);
-                if( page_object.page_config ) {
-                    if( only_include_style ) {
-                        add_entry_point_styles_to_page_assets({assetMap, entry_point, pageName});
-                    } else {
-                        add_entry_point_to_page_assets({assetMap, entry_point, pageName});
-                    }
+        pageConfigs
+        .forEach(pageConfig => {
+            const {pageName} = pageConfig;
+            assert_internal(pageName);
+            if( pageName===entry_point.entry_name ) {
+                if( pageConfig.domStatic ) {
+                    add_entry_point_styles_to_page_assets({assetMap, entry_point, pageName});
+                } else {
+                    add_entry_point_to_page_assets({assetMap, entry_point, pageName});
                 }
             }
         });
