@@ -8,7 +8,7 @@ const Repage = require('@repage/core');
 const getProjectConfig = require('@reframe/utils/getProjectConfig');
 
 const HapiPluginServerRendering = {
-    name: 'reframe-server-rendering',
+    name: 'ReframeServerRendering',
     multiple: false,
     register,
 };

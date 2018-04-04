@@ -1,9 +1,18 @@
 const {HapiPluginStaticAssets__create} = require('@rebuild/build/utils/HapiPluginStaticAssets');
 const getProjectConfig = require('@reframe/utils/getProjectConfig');
 
-module.exports = () => {
+const HapiPluginStaticAssets = {
+    name: 'ReframeStaticAssets',
+    multiple: false,
+    register,
+};
+
+module.exports = HapiPluginStaticAssets;
+
+async function register(server) {
     const projectConfig = getProjectConfig();
     const {staticAssetsDir} = projectConfig.projectFiles;
-    const HapiPluginStaticAssets = HapiPluginStaticAssets__create(staticAssetsDir);
-    return HapiPluginStaticAssets;
-};
+    await server.register([
+        {plugin: HapiPluginStaticAssets__create(staticAssetsDir)},
+    ]);
+}

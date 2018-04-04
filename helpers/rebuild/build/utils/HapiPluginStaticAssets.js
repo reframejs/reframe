@@ -11,7 +11,7 @@ module.exports = {HapiPluginStaticAssets__create};
 function HapiPluginStaticAssets__create(dirPath) {
     assert_usage(path_module.isAbsolute(dirPath));
     return {
-        name: 'reframe-serve-'+dirPath,
+        name: 'static-serve-'+dirPath,
         dependencies: ['inert'],
         mutliple: false,
         once: true,

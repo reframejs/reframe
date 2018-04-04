@@ -1,9 +1,6 @@
 const Hapi = require('hapi');
 const HapiPluginServerRendering = require('./HapiPluginServerRendering');
-/*
 const HapiPluginStaticAssets = require('./HapiPluginStaticAssets');
-*/
-const HapiPluginStaticAssets__create = require('./HapiPluginStaticAssets');
 const getProjectConfig = require('@reframe/utils/getProjectConfig');
 const chalk = require('chalk');
 
@@ -21,8 +18,6 @@ async function startServer() {
             request: ['internal'],
         },
     });
-
-    const HapiPluginStaticAssets = HapiPluginStaticAssets__create();
 
     await server.register([
         HapiPluginStaticAssets,
