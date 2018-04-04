@@ -30,8 +30,9 @@ function startCommands() {
                     }
                     */
                  // start(options.production, options.log);
-                    const buildState = await startBuild();
-                    startServer(buildState);
+                    const build = require(resolvePackagePath('@reframe/build'));
+                    await build();
+                    startServer();
                 },
             }
         ],
@@ -58,30 +59,6 @@ function resolvePackagePath(packageName) {
 
     assert_internal(packagePath);
     return packagePath;
-}
-
-async function startBuild() {
-    const projectConfig = getProjectConfig();
-    const {projectRootDir} = projectConfig.projectFiles;
-
-    const build = require(resolvePackagePath('@reframe/build'));
-    const build_state = {};
-    await build({
-        onBuild: async build_state__new => {
-            /*
-            assert_internal(build_state__new.browserDistPath, build_state__new);
-            assert_internal(build_state__new.pages, build_state__new);
-            assert_usage(
-                !build_state.browserDistPath || build_state.browserDistPath===build_state__new.browserDistPath,
-                "The directory holding the static assets isn't expected to move.",
-                "Yet it is moving from `"+build_state.browserDistPath+"` to `"+build_state__new.browserDistPath+"`."
-            );
-            */
-            Object.assign(build_state, build_state__new);
-        },
-    });
-    assert_internal(build_state.pages);
-    return build_state;
 }
 
 function startServer(buildState) {

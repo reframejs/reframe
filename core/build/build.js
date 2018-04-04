@@ -25,7 +25,7 @@ const BROWSER_DIST_DIR = 'browser'+path_module.sep;
 function build({
     onBuild: onBuild_user,
     log: log_option,
-}) {
+}={}) {
     const projectConfig = getProjectConfig();
     assert_internal(projectConfig);
 
@@ -70,21 +70,12 @@ function build({
 
         writeAssetMap({buildState, fileWriter});
 
-        const projectConfig = getProjectConfig();
-        const pageConfigs = projectConfig.getPageConfigs();
-
-        await writeHtmlFiles({pageConfigs, fileWriter, reframeConfig});
+        await writeHtmlFiles({fileWriter});
         if( there_is_a_newer_run() ) return;
 
-        const build_info = {
-            pages: pageConfigs,
-        };
-
         if( onBuild_user ) {
-            onBuild_user(build_info);
+            onBuild_user();
         }
-
-        return build_info;
     };
 
     if( ! is_production() ) {
@@ -403,7 +394,10 @@ function generate_browser_entry({page_config__source, browser_entry__file_name, 
     return fileAbsolutePath;
 }
 
-async function writeHtmlFiles({pageConfigs, fileWriter, reframeConfig}) {
+async function writeHtmlFiles({fileWriter}) {
+    const projectConfig = getProjectConfig();
+    const pageConfigs = projectConfig.getPageConfigs();
+
     fileWriter.startWriteSession('html_files');
 
     (await get_static_pages_info())
@@ -423,7 +417,7 @@ async function writeHtmlFiles({pageConfigs, fileWriter, reframeConfig}) {
         const repage = new Repage();
 
         repage.addPlugins([
-            ...reframeConfig._processed.repage_plugins,
+            ...projectConfig.repage_plugins,
         ]);
 
         repage.addPages(pageConfigs);
