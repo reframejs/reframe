@@ -223,29 +223,34 @@ Reframe did the following:
 
 With Reframe you can create:
 
- - **Server-side rendered (SSR) apps**
+ - **Good ol' 1998 websites** <sup><sub>:floppy_disk:</sub></sup>
    <br/>
-   Apps where pages are rendered to HTML on the server (at request-time).
- - **Static apps**
-   <br/>
-   Apps where pages are rendered to HTML at build-time.
-   <br/>
-   These apps don't need a Node.js server and can be deployed to a static website hosting such as GitHub Pages or Netlify.
- - **DOM-static apps**
-   <br/>
-   Apps where the DOM is static and React is only used to render HTML.
+   Apps with a static DOM where React is only used to render HTML.
    <br/>
    No (or almost no) JavaScript is loaded in the browser.
+ - **Modern interactive apps** <sup><sub>:sparkles:</sub></sup>
    <br/>
-   Good ol' 1998 websites <sup><sub>:floppy_disk:</sub></sup>
+   Apps with a dynamic DOM where React is used to create interactive views.
+ - **Apps with Server-side rendering (SSR)**
+   <br/>
+   Apps with pages rendered to HTML on the server (at request-time).
+   <br/>
+   Apps created with Reframe have SSR by default.
+   SSR gives full control over SEO and improves load time.
+ - **Serverless apps** & **static websites**
+   <br/>
+   Apps where all pages are rendered to HTML at build-time.
+   <br/>
+   These apps don't need a Node.js server and can be deployed to a static host such as GitHub Pages or Netlify.
  - **Hybrid apps**
    <br/>
-   Apps with mixed types:
-   Some pages have their HTML rendered at build-time and some at request-time, and some pages have a static DOM and some have a dynamic DOM.
+   Apps that have static pages as well as dynamic pages:
+   Some pages have their HTML rendered at build-time while some at request-time, and some pages have a static DOM while some have a dynamic DOM.
+
 
 Reframe generates a certain type of app depending on how you configure your pages.
 For example, if you add `htmlStatic: true` to a page config, then that page's HTML is rendered at build-time instead of request-time.
-Thus, creating a static app is simply a matter of setting `htmlStatic: true` to all page configs.
+Thus, creating a serverless app is simply a matter of setting `htmlStatic: true` to all page configs.
 
 
 ### Why Reframe
@@ -260,7 +265,7 @@ Thus, creating a static app is simply a matter of setting `htmlStatic: true` to 
    Instead of learning one framework to create a static app and a second framework to create a dynamic app,
    you can learn Reframe to be able to create both static and dynamic apps.
    <br/>
-   [Reframe Rationale - Universal](/docs/reframe-rationale.md#universal) shows the different types of apps and how Reframe supports them all.
+   [Reframe Rationale - Universal](/docs/reframe-rationale.md#universal) shows what different types of apps there are and how Reframe supports them all.
  - **Escapable**
    <br/>
    Most of your code (~95%-99%) will be entirely independent of Reframe.

@@ -332,7 +332,7 @@ For example:
 
 import React from 'react';
 
-import {TimeComponent} from '../views/TimeComponent';
+import TimeComponent from '../views/TimeComponent';
 
 export default {
     title: 'Tracking Example',
@@ -360,9 +360,9 @@ ga('send', 'pageview');
 
 (async () => {
     const before = new Date();
-    // We are reusing the `TrackingPage` page confg but
+    // We are reusing the `TrackingPage` page config but
     // we could also use another page definition.
-    await hydratePage(TrackingPage);
+    await hydratePage(TrackingPage, __BROWSER_CONFIG);
     const after = new Date();
     ga('send', 'event', {eventAction: 'page hydration time', eventValue: after - before});
 })();
@@ -469,20 +469,16 @@ Let's look at the code of `@reframe/browser/hydratePage`
 ~~~js
 // /core/browser/hydratePage.js
 
-const {processReframeBrowserConfig} = require('@reframe/utils/processReframeConfig/processReframeBrowserConfig');
-
 const Repage = require('@repage/core');
 const {hydratePage: repage_hydratePage} = require('@repage/browser');
 
 module.exports = hydratePage;
 
-async function hydratePage(page, reframeBrowserConfig={}) {
-    processReframeBrowserConfig(reframeBrowserConfig);
-
+async function hydratePage(page, browserConfig) {
     const repage = new Repage();
 
     repage.addPlugins([
-        ...reframeBrowserConfig._processed.repage_plugins,
+        ...browserConfig.repage_plugins,
     ]);
 
     return await repage_hydratePage(repage, page);
