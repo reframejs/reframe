@@ -1,16 +1,15 @@
 const Hapi = require('hapi');
-/*
 const HapiPluginServerRendering = require('./HapiPluginServerRendering');
+/*
 const HapiPluginStaticAssets = require('./HapiPluginStaticAssets');
 */
-const {HapiPluginServerRendering__create} = require('./HapiPluginServerRendering');
 const HapiPluginStaticAssets__create = require('./HapiPluginStaticAssets');
 const getProjectConfig = require('@reframe/utils/getProjectConfig');
 const chalk = require('chalk');
 
 module.exports = startServer;
 
-async function startServer(buildState) {
+async function startServer() {
     /*
     const projectConfig = getProjectConfig();
 
@@ -24,7 +23,6 @@ async function startServer(buildState) {
     });
 
     const HapiPluginStaticAssets = HapiPluginStaticAssets__create();
-    const HapiPluginServerRendering = HapiPluginServerRendering__create(buildState);
 
     await server.register([
         HapiPluginStaticAssets,

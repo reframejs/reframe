@@ -6,6 +6,10 @@ const assert = require('reassert');
 const assert_internal = assert;
 const assert_usage = assert;
 
+// TODO
+assert(false);
+
+/*
 module.exports = getHapiPlugins;
 
 function getHapiPlugins({
@@ -24,3 +28,4 @@ function getHapiPlugins({
         build_state: buildState,
     };
 }
+*/
