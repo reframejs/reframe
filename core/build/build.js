@@ -59,7 +59,7 @@ function build({
         const {buildState} = isoBuilder;
         enhance_page_objects_1({page_objects, buildState, fileWriter, reframeConfig});
 
-     // const pageBrowserEntries = generatePageBrowserEntries({pagesDirPath});
+        const pageBrowserEntries = generatePageBrowserEntries({fileWriter});
 
         const browser_entries = get_browser_entries({page_objects, fileWriter});
 
@@ -196,7 +196,7 @@ function get_browser_entries({page_objects, /*fileWriter,*/}) {
 }
 
 function generate_and_add_browser_entries({page_objects, fileWriter, reframeConfig}) {
-    fileWriter.startWriteSession('BROWSER_SOURCE_CODE');
+    fileWriter.startWriteSession('browser_entries');
 
     const browser_config_path = generate_reframe_browser_config({fileWriter, reframeConfig});
 
@@ -455,7 +455,7 @@ function enhance_page_objects_1({page_objects, buildState, fileWriter, reframeCo
     generate_and_add_browser_entries({page_objects, fileWriter, reframeConfig});
 }
 
-function generatePageBrowserEntries() {
+function generatePageBrowserEntries({fileWriter}) {
     const projectConfig = getProjectConfig();
 
     const pageConfigs = projectConfig.getPageConfigs({skipAssets: true});
@@ -466,7 +466,7 @@ function generatePageBrowserEntries() {
 
     fileWriter.startWriteSession('BROWSER_SOURCE_CODE');
 
-    const browser_config_path = generate_reframe_browser_config({fileWriter, reframeConfig});
+    const browser_config_path = generate_reframe_browser_config({fileWriter, reframeConfig: {_processed: projectConfig}});
 
     Object.values(pageConfigs)
     .forEach(pageConfig => {

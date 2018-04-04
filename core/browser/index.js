@@ -4,9 +4,9 @@ const browserConfig = __REFRAME__BROWSER_CONFIG;
 const pageConfig = __REFRAME__PAGE_CONFIG;
 
 (async () => {
-    // Include code that needs to run before the hydration here
+    // Include code here that needs to run before the hydration
 
     await hydratePage(pageConfig, browserConfig);
 
-    // Include code that needs to run after the hydration here
+    // Include code here that needs to run after the hydration
 })();
