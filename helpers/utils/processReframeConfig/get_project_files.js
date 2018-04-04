@@ -52,6 +52,7 @@ function getProjectFiles() {
         staticAssetsDir: output_path__browser,
         // TODO move into a subdir
         pagesDir__transpiled: output_path__server,
+        distDir: output_path__base,
     };
 }
 
@@ -86,13 +87,12 @@ function getPageConfigPaths({}) {
     return pageConfigPaths;
 }
 
-function getPageConfigs({skipAssets}={}) {
-    const {pagesDir__transpiled, pagesDir} = getProjectFiles__with_cache();
+function getPageConfigs({withoutStaticAssets=false}={}) {
+    const {pagesDir__transpiled, pagesDir, distDir} = getProjectFiles__with_cache();
 
     const pageConfigs_map = {};
-    const pageConfigs = [];
 
-    return (
+    const pageConfigs = (
         fs__ls(pagesDir__transpiled)
         .filter(filePath => filePath.endsWith('.js'))
         .map(file_path => {
@@ -116,6 +116,32 @@ function getPageConfigs({skipAssets}={}) {
             return pageConfig;
         })
     );
+
+    if( withoutStaticAssets ) {
+        return pageConfigs;
+    }
+
+    const assetMap = readAssetMap({distDir});
+
+    pageConfigs
+    .map(pageConfig => {
+        const {pageName} = pageConfig;
+        assert_internal(pageName);
+
+        const pageAssets = assetMap[pageName] || {};
+
+        pageConfig.scripts = make_paths_array_unique([
+            ...(pageAssets.scripts||[]),
+            ...(pageConfig.scripts||[]),
+        ]);
+
+        pageConfig.styles = make_paths_array_unique([
+            ...(pageAssets.styles||[]),
+            ...(pageConfig.styles||[])
+        ]);
+    });
+
+    return pageConfigs;
 }
 
 function assert_pageConfig(pageConfig, pageConfigPath) {
@@ -129,6 +155,11 @@ function assert_pageConfig(pageConfig, pageConfigPath) {
         pageConfig,
         "The page config, printed above and defined at `"+pageConfigPath+"`, is missing the `route` property."
     );
+}
+
+function readAssetMap({distDir}) {
+    const assetMapPath = path__resolve(distDir, 'assetMap.json');
+    return JSON.parse(fs__read(assetMapPath));
 }
 
 function get_page_files({pagesDirPath}) {
@@ -201,7 +232,15 @@ function is_javascript_file(file_path) {
     }
 }
 
+let time = 0;
+/* TODO remove
+setInterval(() => {
+    console.log(time);
+}, 1000);
+*/
+
 function fs__ls(dirpath) {
+    const beg = new Date();
     assert_internal(path_module.isAbsolute(dirpath));
     /*
     const files = dir.files(dirpath, {sync: true, recursive: false});
@@ -214,6 +253,7 @@ function fs__ls(dirpath) {
         assert_internal(path_module.isAbsolute(filepath), dirpath, files);
         assert_internal(path_module.relative(dirpath, filepath).split(path_module.sep).length===1, dirpath, files);
     });
+    time+=new Date() - beg;
     return files;
 }
 
@@ -234,6 +274,7 @@ function get_names(file_path) {
 }
 
 function require__magic(modulePath) {
+    const beg = new Date();
     if( ! source_map_installed ) {
         require('source-map-support').install();
         source_map_installed = true;
@@ -242,6 +283,7 @@ function require__magic(modulePath) {
     delete require.cache[modulePath];
     const module_exports = require(modulePath);
 
+  //time+=new Date() - beg;
     if( module_exports.__esModule === true ) {
         return module_exports.default;
     }
@@ -253,11 +295,33 @@ function path__resolve(path1, path2, ...paths) {
     return path_module.resolve(path1, path2, ...paths);
 }
 function fs__file_exists(path) {
+    const beg = new Date();
+    let exists = false;
+
     try {
-        return fs.statSync(path).isFile();
-    }
-    catch(e) {
-        return false;
-    }
+        exists = fs.statSync(path).isFile();
+    } catch(e) {}
+
+    time+=new Date() - beg;
+
+    return exists;
+}
+
+
+function fs__read(filepath) {
+    return fs.readFileSync(filepath, 'utf8');
+}
+
+function make_paths_array_unique(paths) {
+    assert_internal(
+        paths.every(
+            path => (
+                path && path.constructor===Object ||
+                path && path.constructor===String && path.startsWith('/')
+            )
+        ),
+        paths
+    );
+    return [...new Set(paths)];
 }
 

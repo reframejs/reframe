@@ -68,15 +68,16 @@ function build({
         await isoBuilder.build_browser(pageBrowserEntries);
         if( there_is_a_newer_run() ) return;
 
-        const assetMap = getAssetMap({buildState});
+        writeAssetMap({buildState, fileWriter});
 
-        const page_configs = getPageConfigs({assetMap});
+        const projectConfig = getProjectConfig();
+        const pageConfigs = projectConfig.getPageConfigs();
 
-        await writeHtmlFiles({page_configs, fileWriter, reframeConfig});
+        await writeHtmlFiles({pageConfigs, fileWriter, reframeConfig});
         if( there_is_a_newer_run() ) return;
 
         const build_info = {
-            pages: page_configs,
+            pages: pageConfigs,
         };
 
         if( onBuild_user ) {
@@ -402,7 +403,7 @@ function generate_browser_entry({page_config__source, browser_entry__file_name, 
     return fileAbsolutePath;
 }
 
-async function writeHtmlFiles({page_configs, fileWriter, reframeConfig}) {
+async function writeHtmlFiles({pageConfigs, fileWriter, reframeConfig}) {
     fileWriter.startWriteSession('html_files');
 
     (await get_static_pages_info())
@@ -425,7 +426,7 @@ async function writeHtmlFiles({page_configs, fileWriter, reframeConfig}) {
             ...reframeConfig._processed.repage_plugins,
         ]);
 
-        repage.addPages(page_configs);
+        repage.addPages(pageConfigs);
 
         return getStaticPages(repage);
     }
@@ -460,7 +461,7 @@ function enhance_page_objects_1({page_objects, buildState, fileWriter, reframeCo
 function generatePageBrowserEntries({fileWriter}) {
     const projectConfig = getProjectConfig();
 
-    const pageConfigs = projectConfig.getPageConfigs({skipAssets: true});
+    const pageConfigs = projectConfig.getPageConfigs({withoutStaticAssets: true});
 
     const {pagesDir} = projectConfig.projectFiles;
 
@@ -526,12 +527,12 @@ function assert_browserEntryPath(browserEntryPath, pageConfig) {
     );
 }
 
-function getAssetMap({buildState}) {
+function writeAssetMap({buildState, fileWriter}) {
     const assetMap = {};
 
     const projectConfig = getProjectConfig();
 
-    const pageConfigs = projectConfig.getPageConfigs();
+    const pageConfigs = projectConfig.getPageConfigs({withoutStaticAssets: true});
 
     const browser_entry_points = buildState.browser.output.entry_points;
 
@@ -541,7 +542,11 @@ function getAssetMap({buildState}) {
 
     assert_assertMap(assetMap);
 
-    return assetMap;
+    fileWriter.writeFile({
+        fileContent: JSON.stringify(assetMap, null, 2),
+        filePath: 'assetMap.json',
+        noSession: true,
+    });
 }
 
 function assert_assertMap(assetMap) {
@@ -558,32 +563,6 @@ function assert_assertMap(assetMap) {
     });
 }
 
-
-function getPageConfigs({assetMap}) {
-    const projectConfig = getProjectConfig();
-
-    const pageConfigs = projectConfig.getPageConfigs();
-
-    pageConfigs
-    .map(pageConfig => {
-        const {pageName} = pageConfig;
-        assert_internal(pageName);
-
-        const pageAssets = assetMap[pageName] || {};
-
-        pageConfig.scripts = make_paths_array_unique([
-            ...(pageAssets.scripts||[]),
-            ...(pageConfig.scripts||[]),
-        ]);
-
-        pageConfig.styles = make_paths_array_unique([
-            ...(pageAssets.styles||[]),
-            ...(pageConfig.styles||[])
-        ]);
-    });
-
-    return pageConfigs;
-}
 
 function add_autoreload_client({assetMap, pageConfigs, browser_entry_points}) {
     if( is_production() ) {
@@ -781,8 +760,4 @@ function fs__file_exists(path) {
     catch(e) {
         return false;
     }
-}
-
-function fs__read(filepath) {
-    return fs.readFileSync(filepath, 'utf8');
 }

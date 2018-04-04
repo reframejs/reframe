@@ -55,7 +55,7 @@ function create_file_writer(isoBuilder) {
     return {
         startWriteSession: fs_handler.startWriteSession,
         endWriteSession: fs_handler.endWriteSession,
-        writeFile: ({filePath, fileContent}) => {
+        writeFile: ({filePath, fileContent, noSession}) => {
             assert_usage(fileContent);
             assert_usage(filePath);
             assert_usage(!is_abs(filePath));
@@ -63,7 +63,7 @@ function create_file_writer(isoBuilder) {
             const {appDirPath} = isoBuilder;
             const {output_path__base} = get_dist_paths({appDirPath});
             const file_path = path__resolve(output_path__base, filePath);
-            fs_handler.writeFile(file_path, fileContent);
+            fs_handler.writeFile(file_path, fileContent, noSession);
             return file_path;
         },
     };
@@ -449,11 +449,16 @@ function FileSystemHandler() {
         current_session = null;
     }
 
-    function writeFile(path, content) {
-        assert_usage(current_session);
+    function writeFile(path, content, noSession) {
+        assert_usage(noSession || current_session);
         assert_usage(is_abs(path));
-        const session_object = sessions[current_session];
-        session_object.written_files__current.push(path);
+
+        let session_object;
+        if( ! noSession ) {
+            session_object = sessions[current_session];
+            session_object.written_files__current.push(path);
+        }
+
         const no_changes = fs__path_exists(path) && fs__read(path)===content;
         if( DEBUG_WATCH ) {
             if( ! no_changes && fs__path_exists(path) ) {
@@ -463,8 +468,10 @@ function FileSystemHandler() {
         if( no_changes ) {
             return;
         }
+
         fs__write_file(path, content);
-        if( session_object.is_first_session ) {
+
+        if( ! noSession && session_object.is_first_session ) {
             // Webpack bug fix
             //  - https://github.com/yessky/webpack-mild-compile
             //  - https://github.com/webpack/watchpack/issues/25
