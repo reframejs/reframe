@@ -239,4 +239,3 @@ function path__resolve(path1, path2, ...paths) {
     assert_internal(path2);
     return path_module.resolve(path1, path2, ...paths);
 }
-

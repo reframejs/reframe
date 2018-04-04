@@ -457,6 +457,108 @@ function generatePageBrowserEntries() {
     const projectConfig = getProjectConfig();
 
     const pageConfigs = projectConfig.getPageConfigs({skipAssets: true});
+
+    const {pagesDir} = projectConfig.projectFiles;
+
+    const pageBrowserEntries = {};
+
+    fileWriter.startWriteSession('browser_source_files');
+
+    const browser_config_path = generate_reframe_browser_config({fileWriter, reframeConfig});
+
+    Object.values(pageConfigs)
+    .forEach(pageConfig => {
+        let browserEntryPath;
+        if( pageConfig.browserEntry ) {
+            browserEntryPath = path__resolve(pagesDir, pageConfig.browserEntry);
+            assert_browserEntryPath(browserEntryPath, pageConfig);
+        } else {
+            browserEntryPath = require.resolve('@reframe/browser');
+        }
+
+        const source_code = fs__read(browserEntryPath);
+
+        source_code = (
+            source_code
+            .replace(
+                /__BROWSER_CONFIG/g,
+                "require('"+browser_config_path+"')"
+            )
+        );
+
+        source_code = (
+            source_code
+            .replace(
+                /__PAGE_CONFIG/g,
+                "require('"+page_config__source+"')"
+            )
+        );
+
+        const fileAbsolutePath = fileWriter.writeFile({
+            fileContent: source_code,
+            filePath: GENERATED_DIR+'browser_entries/'+browser_entry__file_name,
+        });
+
+        const {pageName} = pageConfig;
+        assert_internal(pageName);
+        assert_internal(!pageBrowserEntries[pageName]);
+        pageBrowserEntries[pageName] = fileAbsolutePath;
+    });
+
+
+    Object.values(page_objects)
+    .filter(page_object => {
+        if( page_object.browser_entry ) {
+            return false;
+        }
+        if( page_object.browser_page_config__source ) {
+            return true;
+        }
+        if( page_object.page_config__source_path && page_object.page_config.domStatic!==true ) {
+            return true;
+        }
+        return false;
+    })
+    .forEach(page_object => {
+        const page_config__source = (
+            page_object.browser_page_config__source ||
+            page_object.page_config__source_path
+        );
+        assert_internal(page_config__source);
+        const browser_entry__file_name = page_object.page_name+'.generated.entry.js';
+        const browser_entry__source_path = generate_browser_entry({fileWriter, page_config__source, browser_entry__file_name, browser_config_path});
+        const {entry_name} = get_names(browser_entry__source_path);
+        assert_internal(!page_object.browser_entry);
+        page_object.browser_entry = {
+            entry_name,
+            source_path: browser_entry__source_path,
+        };
+    });
+
+    Object.values(page_objects)
+    .filter(page_object => page_object.page_config__source_path && !page_object.browser_entry)
+    .forEach(page_object => {
+        page_object.browser_entry = {
+            entry_name: page_object.page_name+'.noop',
+            source_path: page_object.page_config__source_path,
+            only_include_style: true,
+        };
+    });
+
+    fileWriter.endWriteSession();
+}
+
+function assert_browserEntryPath(browserEntryPath, pageConfig) {
+    const errorIntro = 'The `browserEntry` of the page config of `'+pageConfig.pageName+'`';
+    assert_usage(
+        !path_module.isAbsolute(pageConfig.browserEntry),
+        errorIntro+' should be a relative path but it is an absolute path: `'+browserEntryPath
+    );
+    assert_usage(
+        fs__file_exists(browserEntryPath),
+        errorIntro+' is resolved to `'+browserEntryPath+'` but no file has been found there.',
+        '`browserEntry` should be the relative path from `'+pagesDir+'` to the browser entry file.'
+    );
 }
 
 function getAssetMap({page_objects, buildState}) {
@@ -673,10 +775,11 @@ function isProduction() {
     return process.env['NODE_ENV'] === 'production';
 }
 
-function path__resolve(path1, path2, ...paths) {
-    assert_internal(path1 && path_module.isAbsolute(path1), path1);
-    assert_internal(path2);
-    return path_module.resolve(path1, path2, ...paths);
+function path__resolve(p, ...paths) {
+    assert_internal(p && path_module.isAbsolute(p), p);
+    assert_internal(paths.length>0);
+    assert_internal(paths.every(p => !path_module.isAbsolute(p)));
+    return path_module.resolve(p, ...paths);
 }
 
 function path_points_to_a_file(file_path) {
@@ -707,4 +810,17 @@ function fs__ls(dirpath) {
 
 function is_production() {
    return process.env.NODE_ENV === 'production';
+}
+
+function fs__file_exists(path) {
+    try {
+        return fs.statSync(path).isFile();
+    }
+    catch(e) {
+        return false;
+    }
+}
+
+function fs__read(filepath) {
+    return fs.readFileSync(filepath, 'utf8');
 }
