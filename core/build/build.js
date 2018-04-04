@@ -568,7 +568,7 @@ function add_autoreload_client({assetMap, pageConfigs, browser_entry_points}) {
     }
     pageConfigs
     .forEach(pageConfig => {
-        const pageName = pageConfig;
+        const {pageName} = pageConfig;
         assert_internal(pageName);
         add_entry_point_to_page_assets({entry_point: entry_point__autoreload, assetMap, pageName});
     });
