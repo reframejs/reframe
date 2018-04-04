@@ -8,6 +8,7 @@
         "plugins/cli-plugins",
         "plugins/crossroads",
         "plugins/default-kit",
+        "plugins/init",
         "plugins/path-to-regexp",
         "plugins/postcss",
         "plugins/react",
