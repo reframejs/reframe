@@ -18,6 +18,7 @@ const {getStaticPages} = require('@repage/build');
 
 module.exports = build;
 
+// TODO rename source-code
 const GENERATED_DIR = 'generated'+path_module.sep;
 const BROWSER_DIST_DIR = 'browser'+path_module.sep;
 
@@ -58,7 +59,7 @@ function build({
         const {buildState} = isoBuilder;
         enhance_page_objects_1({page_objects, buildState, fileWriter, reframeConfig});
 
-        const pageBrowserEntries = generatePageBrowserEntries({pagesDirPath});
+     // const pageBrowserEntries = generatePageBrowserEntries({pagesDirPath});
 
         const browser_entries = get_browser_entries({page_objects, fileWriter});
 
@@ -195,7 +196,7 @@ function get_browser_entries({page_objects, /*fileWriter,*/}) {
 }
 
 function generate_and_add_browser_entries({page_objects, fileWriter, reframeConfig}) {
-    fileWriter.startWriteSession('browser_source_files');
+    fileWriter.startWriteSession('BROWSER_SOURCE_CODE');
 
     const browser_config_path = generate_reframe_browser_config({fileWriter, reframeConfig});
 
@@ -347,6 +348,7 @@ function generate_reframe_browser_config({fileWriter, reframeConfig}) {
         "module.exports = browserConfig;",
     ].join('\n')
 
+    // TODO rename filename
     const filePath = GENERATED_DIR+'browserConfig.js';
 
     const fileAbsolutePath = fileWriter.writeFile({
@@ -462,7 +464,7 @@ function generatePageBrowserEntries() {
 
     const pageBrowserEntries = {};
 
-    fileWriter.startWriteSession('browser_source_files');
+    fileWriter.startWriteSession('BROWSER_SOURCE_CODE');
 
     const browser_config_path = generate_reframe_browser_config({fileWriter, reframeConfig});
 
@@ -476,76 +478,35 @@ function generatePageBrowserEntries() {
             browserEntryPath = require.resolve('@reframe/browser');
         }
 
-        const source_code = fs__read(browserEntryPath);
-
-        source_code = (
-            source_code
-            .replace(
-                /__BROWSER_CONFIG/g,
-                "require('"+browser_config_path+"')"
-            )
+        const sourceCode = (
+            [
+                "const browserConfig = require('"+browser_config_path+"');",
+                "let pageConfig = require('"+browserEntryPath+"');",
+             // TODO use __esModule
+             // "(pageConfig||{}).__esModule===true ? pageConfig.default : pageConfig;",
+                "pageConfig = Object.keys(pageConfig).length===1 && pageConfig.default || pageConfig;",
+                "",
+                "window.__REFRAME__BROWSER_CONFIG = browserConfig;",
+                "window.__REFRAME__PAGE_CONFIG = pageConfig;",
+            ]
+            .join('\n')
         );
-
-        source_code = (
-            source_code
-            .replace(
-                /__PAGE_CONFIG/g,
-                "require('"+page_config__source+"')"
-            )
-        );
-
-        const fileAbsolutePath = fileWriter.writeFile({
-            fileContent: source_code,
-            filePath: GENERATED_DIR+'browser_entries/'+browser_entry__file_name,
-        });
 
         const {pageName} = pageConfig;
         assert_internal(pageName);
+
+        const fileAbsolutePath = fileWriter.writeFile({
+            fileContent: sourceCode,
+            filePath: GENERATED_DIR+'browser_entries/'+pageName+'_browser-entry.js',
+        });
+
         assert_internal(!pageBrowserEntries[pageName]);
         pageBrowserEntries[pageName] = fileAbsolutePath;
     });
 
-
-    Object.values(page_objects)
-    .filter(page_object => {
-        if( page_object.browser_entry ) {
-            return false;
-        }
-        if( page_object.browser_page_config__source ) {
-            return true;
-        }
-        if( page_object.page_config__source_path && page_object.page_config.domStatic!==true ) {
-            return true;
-        }
-        return false;
-    })
-    .forEach(page_object => {
-        const page_config__source = (
-            page_object.browser_page_config__source ||
-            page_object.page_config__source_path
-        );
-        assert_internal(page_config__source);
-        const browser_entry__file_name = page_object.page_name+'.generated.entry.js';
-        const browser_entry__source_path = generate_browser_entry({fileWriter, page_config__source, browser_entry__file_name, browser_config_path});
-        const {entry_name} = get_names(browser_entry__source_path);
-        assert_internal(!page_object.browser_entry);
-        page_object.browser_entry = {
-            entry_name,
-            source_path: browser_entry__source_path,
-        };
-    });
-
-    Object.values(page_objects)
-    .filter(page_object => page_object.page_config__source_path && !page_object.browser_entry)
-    .forEach(page_object => {
-        page_object.browser_entry = {
-            entry_name: page_object.page_name+'.noop',
-            source_path: page_object.page_config__source_path,
-            only_include_style: true,
-        };
-    });
-
     fileWriter.endWriteSession();
+
+    return pageBrowserEntries;
 }
 
 function assert_browserEntryPath(browserEntryPath, pageConfig) {
