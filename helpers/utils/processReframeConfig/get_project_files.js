@@ -1,13 +1,16 @@
-const assert = require('reassert');
-const assert_internal = assert;
+const assert_internal = require('reassert/internal');
+const assert_usage = require('reassert/usage');
 const path_module = require('path');
 const find = require('@brillout/find');
 const getCurrentDir = require('@reframe/utils/getCurrentDir');
 const find_reframe_config = require('@reframe/utils/find_reframe_config');
+const fs = require('fs');
+const mime = require('mime'); // TODO remove
 
 module.exports = get_project_files;
 
 let projectFiles__cache;
+let source_map_installed;
 
 function get_project_files(_processed/*, r_objects*/) {
     projectFiles__cache = null;
@@ -15,16 +18,21 @@ function get_project_files(_processed/*, r_objects*/) {
         _processed,
         'projectFiles',
         {
-            get: () => {
-                if( ! projectFiles__cache ) {
-                    projectFiles__cache = getProjectFiles();
-                }
-                return projectFiles__cache;
-            },
+            get: getProjectFiles__with_cache,
             enumerable: true,
             configurable: true,
         }
     );
+
+    _processed.getPageConfigPaths = getPageConfigPaths;
+    _processed.getPageConfigs = getPageConfigs;
+}
+
+function getProjectFiles__with_cache() {
+    if( ! projectFiles__cache ) {
+        projectFiles__cache = getProjectFiles();
+    }
+    return projectFiles__cache;
 }
 
 function getProjectFiles() {
@@ -34,13 +42,16 @@ function getProjectFiles() {
 
     const projectRootDir = (reframeConfigPath || pagesDir) && path_module.dirname(reframeConfigPath || pagesDir);
 
-    const {output_path__browser} = get_dist_paths({projectRootDir});
+    const {output_path__browser, output_path__server, output_path__base} = get_dist_paths({projectRootDir});
 
     return {
+        // TODO rename to reframeConfigFile
         reframeConfigPath,
         pagesDir,
         projectRootDir,
         staticAssetsDir: output_path__browser,
+        // TODO move into a subdir
+        transpiledPageConfigsDir: output_path__server,
     };
 }
 
@@ -59,3 +70,173 @@ function get_dist_paths({projectRootDir}) {
         output_path__server,
     };
 }
+
+function getPageConfigPaths({}) {
+    const {pagesDir} = getProjectFiles__with_cache();
+
+    const pageConfigPaths = [];
+
+    get_page_files({pagesDirPath: pagesDir})
+    .forEach(({file_path, file_name, page_name, entry_name, is_dom, is_entry, is_base}) => {
+        if( is_base ) {
+            pageConfigPaths.push(file_path);
+        }
+    });
+
+    return pageConfigPaths;
+}
+
+function getPageConfigs({skipAssets}) {
+    const {transpiledPageConfigsDir} = getProjectFiles__with_cache();
+
+    const pageConfigs = {};
+
+    fs__ls(transpiledPageConfigsDir)
+    .filter(filePath => filePath.endsWith('.js'))
+    .forEach(file_path => {
+        const {page_name} = get_names(file_path);
+        const pageConfig = require__magic(file_path);
+        assert_pageConfig(pageConfig, file_path);
+        pageConfig.pageName = page_name;
+        assert_internal(!pageConfigs[page_name]);
+        pageConfigs[page_name] = pageConfig;
+    });
+
+    return pageConfigs;
+}
+
+function assert_pageConfig(pageConfig, pageConfigPath) {
+    assert_usage(
+        pageConfig && pageConfig.constructor===Object,
+        "The page config, defined at `"+pageConfigPath+"`, should return a plain JavaScript object.",
+        "Instead it returns: `"+pageConfig+"`."
+    );
+    assert_usage(
+        pageConfig.route,
+        pageConfig,
+        "The page config, printed above and defined at `"+pageConfigPath+"`, is missing the `route` property."
+    );
+}
+
+function get_page_files({pagesDirPath}) {
+    return (
+        fs__ls(pagesDirPath)
+        .filter(is_file)
+        .filter(is_file)
+        .filter(is_javascript_file)
+        .map(file_path => {
+            const {file_name, entry_name, page_name} = get_names(file_path);
+
+            const file_name_parts = file_name.split('.');
+
+            const suffix_dom = file_name_parts.includes('dom');
+            const suffix_entry = file_name_parts.includes('entry');
+            const suffix_mixin = file_name_parts.includes('mixin');
+            const number_of_suffixes = suffix_dom + suffix_entry + suffix_mixin;
+            assert_usage(
+                number_of_suffixes <= 1,
+                "The file `"+file_path+"` has conflicting suffixes.",
+                "Choose only one or none of `.html`, `.dom`, `.entry`, or `.html`, or `.mixin`"
+            );
+
+            return {
+                file_path,
+                file_name,
+                entry_name,
+                page_name,
+                is_dom: suffix_dom,
+                is_entry: suffix_entry,
+                is_base: number_of_suffixes===0,
+            };
+        })
+    );
+}
+
+// TODO remove
+function is_javascript_file(file_path) {
+    assert_internal(check('path/to/file.js'));
+    assert_internal(check('./file.js'));
+    assert_internal(check('file.web.js'));
+    assert_internal(check('file.mjs'));
+    assert_internal(check('file.jsx'));
+    assert_internal(check('file.web.jsx'));
+    assert_internal(check('page.entry.jsx'));
+    assert_internal(check('page.entry.js'));
+    assert_internal(check('page.dom.js'));
+    assert_internal(check('page.html.js'));
+    assert_internal(check('page.universal.js'));
+    assert_internal(!check('page.css'));
+
+    return check(file_path);
+
+    function check(file_path) {
+        let mime_type = mime.getType(file_path);
+        if( !mime_type ) {
+            return true;
+        }
+        mime_type = mime_type.toLowerCase();
+        if( mime_type.includes('coffeescript') ) {
+            return true;
+        }
+        if( mime_type.includes('javascript') ) {
+            return true;
+        }
+        if( mime_type.includes('jsx') ) {
+            return true;
+        }
+        return false;
+    }
+}
+
+function fs__ls(dirpath) {
+    assert_internal(path_module.isAbsolute(dirpath));
+    /*
+    const files = dir.files(dirpath, {sync: true, recursive: false});
+    */
+    const files = (
+        fs.readdirSync(dirpath)
+        .map(filename => path__resolve(dirpath, filename))
+    );
+    files.forEach(filepath => {
+        assert_internal(path_module.isAbsolute(filepath), dirpath, files);
+        assert_internal(path_module.relative(dirpath, filepath).split(path_module.sep).length===1, dirpath, files);
+    });
+    return files;
+}
+
+function is_file(file_path) {
+    return !fs.lstatSync(file_path).isDirectory();
+}
+
+function get_names(file_path) {
+    const file_name = path_module.basename(file_path);
+    assert_internal(!file_name.includes(path_module.sep));
+    const entry_name = file_name.split('.').slice(0, -1).join('.');
+    const page_name = file_name.split('.')[0];
+    assert_usage(
+        entry_name && page_name && file_name,
+        "Invalid file name `"+file_path+"`"
+    );
+    return {file_name, entry_name, page_name};
+}
+
+function require__magic(modulePath) {
+    if( ! source_map_installed ) {
+        require('source-map-support').install();
+        source_map_installed = true;
+    }
+
+    delete require.cache[modulePath];
+    const module_exports = require(modulePath);
+
+    if( module_exports.__esModule === true ) {
+        return module_exports.default;
+    }
+    return module_exports;
+}
+function path__resolve(path1, path2, ...paths) {
+    assert_internal(path1 && path_module.isAbsolute(path1), path1);
+    assert_internal(path2);
+    return path_module.resolve(path1, path2, ...paths);
+}
+

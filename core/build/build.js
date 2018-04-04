@@ -11,7 +11,7 @@ const {processReframeConfig} = require('@reframe/utils/processReframeConfig/proc
 const getProjectConfig = require('@reframe/utils/getProjectConfig');
 const chokidar = require('chokidar');
 const get_parent_dirname = require('@brillout/get-parent-dirname');
-const mime = require('mime');
+const mime = require('mime'); // TODO remove
 
 const Repage = require('@repage/core');
 const {getStaticPages} = require('@repage/build');
@@ -57,6 +57,8 @@ function build({
 
         const {buildState} = isoBuilder;
         enhance_page_objects_1({page_objects, buildState, fileWriter, reframeConfig});
+
+        const pageBrowserEntries = generatePageBrowserEntries({pagesDirPath});
 
         const browser_entries = get_browser_entries({page_objects, fileWriter});
 
@@ -139,7 +141,7 @@ function get_pages({pagesDirPath}) {
     Object.values(page_objects)
     .forEach(page_object => {
         assert_usage(page_object.page_config__source_path);
-        assert_internal(is_abs(page_object.server_entry.file_path));
+        assert_internal(path_module.isAbsolute(page_object.server_entry.file_path));
     });
     */
 
@@ -451,6 +453,12 @@ function enhance_page_objects_1({page_objects, buildState, fileWriter, reframeCo
     generate_and_add_browser_entries({page_objects, fileWriter, reframeConfig});
 }
 
+function generatePageBrowserEntries() {
+    const projectConfig = getProjectConfig();
+
+    const pageConfigs = projectConfig.getPageConfigs({skipAssets: true});
+}
+
 function getAssetMap({page_objects, buildState}) {
     const assetMap = {};
 
@@ -460,6 +468,12 @@ function getAssetMap({page_objects, buildState}) {
 
     add_autoreload_client({assetMap, page_objects, browser_entry_points});
 
+    assert_assertMap(assetMap);
+
+    return assetMap;
+}
+
+function assert_assertMap(assetMap) {
     Object.entries(assetMap)
     .forEach(([pageName, pageAssets]) => {
         assert_internal(pageName && pageName!=='undefined');
@@ -471,9 +485,8 @@ function getAssetMap({page_objects, buildState}) {
             assert_internal(pathname && pathname.constructor===String && pathname.startsWith('/'), assetMap);
         });
     });
-
-    return assetMap;
 }
+
 
 function getPageConfigs({page_objects, assetMap}) {
     const page_configs = (
@@ -660,12 +673,8 @@ function isProduction() {
     return process.env['NODE_ENV'] === 'production';
 }
 
-function is_abs(path) {
-    return path_module.isAbsolute(path);
-}
-
 function path__resolve(path1, path2, ...paths) {
-    assert_internal(path1 && is_abs(path1), path1);
+    assert_internal(path1 && path_module.isAbsolute(path1), path1);
     assert_internal(path2);
     return path_module.resolve(path1, path2, ...paths);
 }
@@ -679,8 +688,9 @@ function path_points_to_a_file(file_path) {
     return false;
 }
 
+// TOOD: remove
 function fs__ls(dirpath) {
-    assert_internal(is_abs(dirpath));
+    assert_internal(path_module.isAbsolute(dirpath));
     /*
     const files = dir.files(dirpath, {sync: true, recursive: false});
     */
@@ -689,7 +699,7 @@ function fs__ls(dirpath) {
         .map(filename => path__resolve(dirpath, filename))
     );
     files.forEach(filepath => {
-        assert_internal(is_abs(filepath), dirpath, files);
+        assert_internal(path_module.isAbsolute(filepath), dirpath, files);
         assert_internal(path_module.relative(dirpath, filepath).split(path_module.sep).length===1, dirpath, files);
     });
     return files;
