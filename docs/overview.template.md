@@ -74,27 +74,30 @@ With Reframe you can create:
  - **Modern interactive apps** <sup><sub>:sparkles:</sub></sup>
    <br/>
    Apps with a dynamic DOM where React is used to create interactive views.
+   <br/>
+   By default **Server-Side Rendering** (**SSR**) is enabled.
+   (Pages are rendered to both the DOM and HTML.)
+   SSR gives full control over SEO and improves perceived load time.
  - **Good ol' 1998 websites** <sup><sub>:floppy_disk:</sub></sup>
    <br/>
-   Apps with a static DOM where React is used to render static views to HTML.
+   Apps with a static DOM and where React is only used to render HTML.
+   <br/>
+   Pages are rendered to HTML either statically at build-time or dynamically at request-time.
    <br/>
    No (or almost no) JavaScript is loaded in the browser.
- - Apps with **Server-side rendering (SSR)**
-   <br/>
-   Apps where pages are rendered to HTML on the server (at request-time).
-   <br/>
-   SSR gives full control over SEO and improves load time.
-   By default, apps created with Reframe have SSR.
  - **Serverless** interactive apps & static websites
    <br/>
-   Apps where all pages are rendered to HTML at build-time.
+   Apps where all pages are rendered to HTML statically at build-time.
+   <br/>
+   The DOM can be static (static website) or dynamic (serverless interactive app).
    <br/>
    These apps don't need a Node.js server and can be deployed to a static host such as GitHub Pages or Netlify.
  - **Hybrid apps**
    <br/>
-   Apps that have static pages as well as dynamic pages:
-   Some pages have their HTML rendered at build-time while some at request-time, and some pages have a static DOM while some have a dynamic DOM.
-
+   Apps where some pages are DOM-static, some DOM-dynamic, some HTML-static, and some HTML-dynamic.
+   <br/>
+   Allowing you to create apps with the motto "If possible, implement features with non-interative views".
+   (Non-interactive views are considerably easier to implement and also usually perform better.)
 
 Reframe generates a certain type of app depending on how you configure your pages.
 For example, if you add `htmlStatic: true` to a page config, then that page's HTML is rendered at build-time instead of request-time.
@@ -116,8 +119,8 @@ Thus, creating a serverless app is simply a matter of setting `htmlStatic: true`
    [Reframe Rationale - Universal](/docs/reframe-rationale.md#universal) shows what different types of apps there are and how Reframe supports them all.
  - **Escapable**
    <br/>
-   Most of your code (~95%-99%) will be entirely independent of Reframe.
-   This means that, if you decide to get rid of Reframe, you will have to rewrite only ~1%-5% of your code.
+   The vast majority of your code will be entirely independent of Reframe.
+   This means that, if you decide to get rid of Reframe, you will have to rewrite only few parts of your code.
    <br/>
    And Reframe is designed so that you can progressively replace Reframe code with code of your own.
    That way, you can progressively get rid of Reframe to eventually take full control over your app.
