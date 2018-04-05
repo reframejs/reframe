@@ -228,7 +228,7 @@ With Reframe you can create:
    Apps with a dynamic DOM where React is used to create interactive views.
  - **Good ol' 1998 websites** <sup><sub>:floppy_disk:</sub></sup>
    <br/>
-   Apps with a static DOM where React is used only to render HTML.
+   Apps with a static DOM where React is used to render static views to HTML.
    <br/>
    No (or almost no) JavaScript is loaded in the browser.
  - Apps with **Server-side rendering (SSR)**
