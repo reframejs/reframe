@@ -15,7 +15,7 @@ const deep_equal = require('deep-equal');
 
 const {get_webpack_browser_config, get_webpack_server_config} = require('./webpack_config');
 
-/*
+//*
 const DEBUG_WATCH = true;
 /*/
 const DEBUG_WATCH = false;
@@ -70,6 +70,10 @@ function create_file_writer(isoBuilder) {
 }
 
 async function build_all(isoBuilder, latest_run) {
+    if( DEBUG_WATCH ) {
+        console.log('Start build all');
+    }
+
     assert_isoBuilder(isoBuilder);
 
     isoBuilder.logger = isoBuilder.logger || Logger();
@@ -251,6 +255,9 @@ async function build_iso({
                 const {isFirstBuild} = build_info__repage;
                 assert_internal([true, false].includes(isFirstBuild));
                 if( ! isFirstBuild ) {
+                    if( DEBUG_WATCH ) {
+                        console.log('Rebuild done in '+webpack_ouput_path);
+                    }
                     isoBuilder.build();
                 }
             },
@@ -460,13 +467,25 @@ function FileSystemHandler() {
         }
 
         const no_changes = fs__path_exists(path) && fs__read(path)===content;
-        if( DEBUG_WATCH ) {
-            if( ! no_changes && fs__path_exists(path) ) {
-                console.log('\nChanged file content:\n', path, fs__read(path), content);
-            }
-        }
         if( no_changes ) {
             return;
+        }
+
+        if( DEBUG_WATCH ) {
+            console.log(
+                '\nChanged file content:\n',
+                path
+            );
+            /*
+            if( fs__path_exists(path) ) {
+                console.log(
+                    "Changes:",
+                    fs__read(path),
+                    '',
+                    content,
+                );
+            }
+            */
         }
 
         fs__write_file(path, content);
