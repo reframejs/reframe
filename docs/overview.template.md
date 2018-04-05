@@ -71,21 +71,21 @@ Reframe did the following:
 
 With Reframe you can create:
 
+ - **Modern interactive apps** <sup><sub>:sparkles:</sub></sup>
+   <br/>
+   Apps with a dynamic DOM where React is used to create interactive views.
  - **Good ol' 1998 websites** <sup><sub>:floppy_disk:</sub></sup>
    <br/>
    Apps with a static DOM where React is only used to render HTML.
    <br/>
    No (or almost no) JavaScript is loaded in the browser.
- - **Modern interactive apps** <sup><sub>:sparkles:</sub></sup>
-   <br/>
-   Apps with a dynamic DOM where React is used to create interactive views.
  - Apps with **Server-side rendering (SSR)**
    <br/>
    Apps where pages are rendered to HTML on the server (at request-time).
    <br/>
    SSR gives full control over SEO and improves load time.
    By default, apps created with Reframe have SSR.
- - **Serverless** apps & static websites
+ - **Serverless** interactive apps & static websites
    <br/>
    Apps where all pages are rendered to HTML at build-time.
    <br/>
