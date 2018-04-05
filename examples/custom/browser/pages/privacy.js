@@ -1,5 +1,6 @@
 import React from 'react';
 import PageCommon from './PageCommon.mixin';
+import TimeComponent from '../../../basics/views/TimeComponent';
 
 export default {
     route: '/privacy',
@@ -9,6 +10,8 @@ export default {
             <div>
                 Some text about privacy policy...
             </div>
+            <br/>
+            Current Time: <TimeComponent/>
         </div>
     ),
     ...PageCommon,

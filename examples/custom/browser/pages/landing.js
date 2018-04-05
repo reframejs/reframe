@@ -18,4 +18,6 @@ export default {
             </p>
         </div>
     ),
+    htmlStatic: true,
+    domStatic: true,
 };

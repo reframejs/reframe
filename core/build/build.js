@@ -532,7 +532,7 @@ function assert_browserEntryPath({browserEntrySpec, browserEntryPath, pageConfig
     );
     */
     assert_usage(
-        !path_module.isAbsolute(pageConfig.browserEntry),
+        !path_module.isAbsolute(browserEntrySpec.pathToEntry),
         errorIntro+'should be a relative path but it is an absolute path: `'+browserEntryPath
     );
     assert_usage(
