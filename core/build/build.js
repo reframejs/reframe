@@ -467,29 +467,44 @@ function generatePageBrowserEntries({fileWriter}) {
 
     pageConfigs
     .forEach(pageConfig => {
+        const browEnt = pageConfig.browserEntry;
+        const browserEntrySpec = {
+            pathToEntry: (browEnt||{}).pathToEntry || browEnt,
+            doNotIncludePageConfig: (browEnt||{}).doNotIncludePageConfig,
+        };
+
         let browserEntryPath;
-        if( pageConfig.browserEntry ) {
-            browserEntryPath = path__resolve(pagesDir, pageConfig.browserEntry);
-            assert_browserEntryPath(browserEntryPath, pageConfig, pagesDir);
+        if( browserEntrySpec.pathToEntry ) {
+            browserEntryPath = path__resolve(pagesDir, browserEntrySpec.pathToEntry);
+            assert_browserEntryPath({browserEntrySpec, browserEntryPath, pageConfig, pagesDir});
         } else {
             browserEntryPath = require.resolve('@reframe/browser');
         }
 
-        const sourceCode = (
+        let sourceCode = '';
+
+        sourceCode += (
             [
                 "const browserConfig = require('"+browser_config_path+"');",
-                "let pageConfig = require('"+pageConfig.pageConfigFile+"');",
-             // TODO use __esModule
-             // "(pageConfig||{}).__esModule===true ? pageConfig.default : pageConfig;",
-                "pageConfig = Object.keys(pageConfig).length===1 && pageConfig.default || pageConfig;",
-                "",
                 "window.__REFRAME__BROWSER_CONFIG = browserConfig;",
-                "window.__REFRAME__PAGE_CONFIG = pageConfig;",
                 "",
-                "require('"+browserEntryPath+"');",
             ]
             .join('\n')
         );
+
+        if( ! browserEntrySpec.doNotIncludePageConfig ) {
+            sourceCode += (
+                [
+                    "let pageConfig = require('"+pageConfig.pageConfigFile+"');",
+                    "pageConfig = (pageConfig||{}).__esModule===true ? pageConfig.default : pageConfig;",
+                    "window.__REFRAME__PAGE_CONFIG = pageConfig;",
+                    "",
+                ]
+                .join('\n')
+            );
+        }
+
+        sourceCode += "\n"+"require('"+browserEntryPath+"');";
 
         const {pageName} = pageConfig;
         assert_internal(pageName);
@@ -508,15 +523,21 @@ function generatePageBrowserEntries({fileWriter}) {
     return pageBrowserEntries;
 }
 
-function assert_browserEntryPath(browserEntryPath, pageConfig, pagesDir) {
-    const errorIntro = 'The `browserEntry` of the page config of `'+pageConfig.pageName+'`';
+function assert_browserEntryPath({browserEntrySpec, browserEntryPath, pageConfig, pagesDir}) {
+    const errorIntro = 'The `browserEntry` of the page config of `'+pageConfig.pageName+'` ';
+    /*
+    assert_usage(
+        browserEntrySpec.pathToEntry,
+        "is missing `pathToEntry`."
+    );
+    */
     assert_usage(
         !path_module.isAbsolute(pageConfig.browserEntry),
-        errorIntro+' should be a relative path but it is an absolute path: `'+browserEntryPath
+        errorIntro+'should be a relative path but it is an absolute path: `'+browserEntryPath
     );
     assert_usage(
         fs__file_exists(browserEntryPath),
-        errorIntro+' is resolved to `'+browserEntryPath+'` but no file has been found there.',
+        errorIntro+'is resolved to `'+browserEntryPath+'` but no file has been found there.',
         '`browserEntry` should be the relative path from `'+pagesDir+'` to the browser entry file.'
     );
 }
