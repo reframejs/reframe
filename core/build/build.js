@@ -470,7 +470,7 @@ function generatePageBrowserEntries({fileWriter}) {
         let browserEntryPath;
         if( pageConfig.browserEntry ) {
             browserEntryPath = path__resolve(pagesDir, pageConfig.browserEntry);
-            assert_browserEntryPath(browserEntryPath, pageConfig);
+            assert_browserEntryPath(browserEntryPath, pageConfig, pagesDir);
         } else {
             browserEntryPath = require.resolve('@reframe/browser');
         }
@@ -508,7 +508,7 @@ function generatePageBrowserEntries({fileWriter}) {
     return pageBrowserEntries;
 }
 
-function assert_browserEntryPath(browserEntryPath, pageConfig) {
+function assert_browserEntryPath(browserEntryPath, pageConfig, pagesDir) {
     const errorIntro = 'The `browserEntry` of the page config of `'+pageConfig.pageName+'`';
     assert_usage(
         !path_module.isAbsolute(pageConfig.browserEntry),

@@ -5,11 +5,7 @@ const CounterPage = {
     title: 'Counter',
     view: CounterComponent,
     htmlStatic: true,
-    /*
-    scripts: [
-        {diskPath: './CounterPage.entry.js'},
-    ],
-    */
+    browserEntry: './CounterPage.entry.js',
 };
 
 export default CounterPage;
