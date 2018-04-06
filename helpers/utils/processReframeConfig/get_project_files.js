@@ -76,12 +76,21 @@ function getPageConfigPaths({}) {
     const {pagesDir} = getProjectFiles__with_cache();
 
     const pageConfigPaths = [];
+    const pageConfigPaths__map = {};
 
     get_page_files({pagesDirPath: pagesDir})
     .forEach(({file_path, file_name, page_name, entry_name, is_dom, is_entry, is_base}) => {
-        if( is_base ) {
-            pageConfigPaths.push(file_path);
+        if( ! is_base ) {
+            return;
         }
+        assert_usage(
+            !pageConfigPaths__map[page_name]
+        );
+        pageConfigPaths__map[page_name] = true;
+        pageConfigPaths.push({
+            name: page_name,
+            pageFile: file_name,
+        });
     });
 
     return pageConfigPaths;

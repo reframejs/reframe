@@ -56,7 +56,7 @@ function build({
 
         const page_objects = get_pages({pagesDirPath});
 
-        const server_entries = get_server_entries({page_objects, serverEntry});
+        const server_entries = get_server_entries.call(this);
 
         await isoBuilder.build_server(server_entries);
         if( there_is_a_newer_run() ) return;
@@ -153,17 +153,27 @@ function get_pages({pagesDirPath}) {
     return page_objects;
 }
 
-function get_server_entries({page_objects}) {
+function get_server_entries() {
+    const {getPages, serverEntry} = this;
+    assert_usage(getPages);
+
     const server_entries = {};
 
-    Object.values(page_objects)
-    .filter(page_object => page_object.server_entry)
-    .forEach(page_object => {
-        const {entry_name, source_path} = page_object.server_entry;
-        assert_internal(entry_name);
-        assert_internal(source_path);
-        assert_internal(!server_entries[entry_name]);
-        server_entries[entry_name] = [source_path];
+    if( serverEntry ) {
+        assert_usage(path_module.isAbsolute(serverEntry));
+        server_entries.server = [serverEntry];
+    }
+
+    const pages = getPages();
+    assert_usage(pages instanceof Object);
+
+    Object.values(pages)
+    .forEach(pageInfo => {
+        assert_usage(pageInfo.name);
+        assert_usage(pageInfo.name!=='server');
+        assert_usage(pageInfo.pageFile);
+        assert_internal(!server_entries[page_name]);
+        server_entries[page_name] = [pageInfo.pageFile];
     });
 
     return server_entries;
