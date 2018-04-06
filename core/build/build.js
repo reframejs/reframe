@@ -4,7 +4,8 @@ const assert_internal = require('reassert/internal');
 
 const projectConfig = getProjectConfig();
 assert_internal(projectConfig);
-const {pagesDir, buildOutputDir, getPageConfigPaths} = projectConfig.projectFiles;
+const {getPageConfigPaths} = projectConfig;
+const {pagesDir, buildOutputDir} = projectConfig.projectFiles;
 
 const buildSSR = new WebpackSSR({
     watchDir: pagesDir,

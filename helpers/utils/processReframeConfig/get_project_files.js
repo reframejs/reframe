@@ -72,7 +72,7 @@ function get_dist_paths({projectRootDir}) {
     };
 }
 
-function getPageConfigPaths({}) {
+function getPageConfigPaths() {
     const {pagesDir} = getProjectFiles__with_cache();
 
     const pageConfigPaths = [];
@@ -89,7 +89,7 @@ function getPageConfigPaths({}) {
         pageConfigPaths__map[page_name] = true;
         pageConfigPaths.push({
             name: page_name,
-            pageFile: file_name,
+            pageFile: file_path,
         });
     });
 

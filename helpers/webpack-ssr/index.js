@@ -54,7 +54,7 @@ function build({
         const {fileWriter} = isoBuilder;
         const {serverEntry} = reframeConfig._processed;
 
-        const page_objects = get_pages({pagesDirPath});
+     // const page_objects = get_pages({pagesDirPath});
 
         const server_entries = get_server_entries.call(this);
 
@@ -155,7 +155,7 @@ function get_pages({pagesDirPath}) {
 
 function get_server_entries() {
     const {getPages, serverEntry} = this;
-    assert_usage(getPages);
+    assert_usage(getPages, this);
 
     const server_entries = {};
 
@@ -169,11 +169,13 @@ function get_server_entries() {
 
     Object.values(pages)
     .forEach(pageInfo => {
-        assert_usage(pageInfo.name);
-        assert_usage(pageInfo.name!=='server');
-        assert_usage(pageInfo.pageFile);
-        assert_internal(!server_entries[page_name]);
-        server_entries[page_name] = [pageInfo.pageFile];
+        assert_usage(pageInfo);
+        const {name, pageFile} = pageInfo;
+        assert_usage(name!=='server');
+        assert_usage(pageFile);
+        assert_usage(path_module.isAbsolute(pageFile), pageFile);
+        assert_internal(!server_entries[name]);
+        server_entries[name] = [pageFile];
     });
 
     return server_entries;
