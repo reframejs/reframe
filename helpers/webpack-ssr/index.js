@@ -6,11 +6,11 @@ const {Logger} = require('@rebuild/build/utils/Logger');
 //const dir = require('node-dir');
 const path_module = require('path');
 const fs = require('fs');
-const {processReframeConfig} = require('@reframe/utils/processReframeConfig/processReframeConfig');
 const getProjectConfig = require('@reframe/utils/getProjectConfig');
 const chokidar = require('chokidar');
-const get_parent_dirname = require('@brillout/get-parent-dirname');
-const mime = require('mime'); // TODO remove
+
+const get_parent_dirname = require('@brillout/get-parent-dirname'); // TODO remove from package.json
+const mime = require('mime'); // TODO remove from package.json
 
 const Repage = require('@repage/core');
 const {getStaticPages} = require('@repage/build');
