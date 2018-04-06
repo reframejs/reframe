@@ -7,35 +7,28 @@ const loading_spinner = ora();
 loading_spinner.start();
 
 const getCurrentDir = require('@reframe/utils/getCurrentDir');
+getCurrentDir.currentDir = process.cwd();
+
 const getProjectConfig = require('@reframe/utils/getProjectConfig');
-const assert = require('reassert');
-const assert_usage = assert;
-
-const startCommands = require('./startCommands');
-const initCommands = require('@reframe/init');
-
-const cwd = process.cwd();
-getCurrentDir.currentDir = cwd;
-
 const projectConfig = getProjectConfig();
+
 const {projectRootDir} = projectConfig.projectFiles;
 
 if( projectRootDir ) {
+    const startCommands = require('./startCommands');
     projectConfig.addPlugin(
         startCommands()
     );
-}
-
-const program = require('commander');
-const pkg = require('./package.json');
-
-let noCommandFound = true;
-
-if( ! projectRootDir ) {
+} else {
+    const initCommands = require('@reframe/init');
     projectConfig.addPlugin(
         initCommands()
     );
 }
+
+const program = require('commander');
+
+let noCommand = true;
 
 projectConfig
 .cli_commands
@@ -53,7 +46,7 @@ projectConfig
     cmd
     .description(cmdSpec.description)
     .action(function() {
-        noCommandFound = false;
+        noCommand = false;
         cmdSpec.action.apply(this, arguments);
     });
 });
@@ -61,7 +54,7 @@ projectConfig
 program
 .arguments('<arg>')
 .action((arg) => {
-    noCommandFound = false;
+    noCommand = false;
     console.error(`${arg} is not a valid command. Use -h or --help for valid commands.`);
 });
 
@@ -69,6 +62,6 @@ loading_spinner.stop();
 
 program.parse(process.argv);
 
-if( noCommandFound ) {
+if( noCommand ) {
     program.outputHelp();
 }

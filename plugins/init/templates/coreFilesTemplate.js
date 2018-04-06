@@ -1,10 +1,8 @@
 module.exports = {jsonPkgTemplate, reframeConfigTemplate};
 
 function jsonPkgTemplate(projectName) {
-    const assert_internal = require('reassert/internal');
     const pkg = require('../package.json');
     const {version} = pkg;
-    assert_internal(version);
 
     const template = (
 `{
