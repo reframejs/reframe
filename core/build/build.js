@@ -23,7 +23,7 @@ const GENERATED_DIR = 'generated'+path_module.sep;
 const BROWSER_DIST_DIR = 'browser'+path_module.sep;
 
 function build({
-    onBuild: onBuild_user,
+    onBuild,
     log: log_option,
 }={}) {
     const projectConfig = getProjectConfig();
@@ -73,8 +73,8 @@ function build({
         await writeHtmlFiles({fileWriter});
         if( there_is_a_newer_run() ) return;
 
-        if( onBuild_user ) {
-            onBuild_user();
+        if( onBuild ) {
+            onBuild();
         }
     };
 

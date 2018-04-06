@@ -6,6 +6,8 @@
   },
   "dependencies": {
     "@reframe/utils": "0.0.1-rc.12",
+    "@reframe/start": "0.0.1-rc.12",
+    "@reframe/init": "0.0.1-rc.12",
     "commander": "^2.14.1",
     "ora": "^2.0.0",
     "reassert": "latest"
