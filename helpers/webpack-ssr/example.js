@@ -22,4 +22,7 @@ ssrBuild.browserEntry = require.resolve('browser.js');
 
 //ssrBuild.serverEntry = require.resolve('server.js');
 
+ssrBuild.webpackRules = (
+);
+
 ssrBuild.build();

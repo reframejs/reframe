@@ -1,6 +1,5 @@
-const assert = require('reassert');
-const assert_internal = assert;
-const assert_usage = assert;
+const assert_internal = require('reassert/internal');
+const assert_usage = require('reassert/usage');
 const log = require('reassert/log');
 const {IsoBuilder} = require('@rebuild/iso');
 const {Logger} = require('@rebuild/build/utils/Logger');
@@ -16,7 +15,12 @@ const mime = require('mime'); // TODO remove
 const Repage = require('@repage/core');
 const {getStaticPages} = require('@repage/build');
 
-module.exports = build;
+module.exports = WebpackSSR;
+
+function WebpackSSR(opts) {
+    Object.assign(this, opts);
+    this.build = build.bind(this);
+}
 
 // TODO rename source-code
 const GENERATED_DIR = 'generated'+path_module.sep;
@@ -29,7 +33,7 @@ function build({
     const projectConfig = getProjectConfig();
     assert_internal(projectConfig);
 
-    const {pagesDir: pagesDirPath, projectRootDir: appDirPath} = projectConfig.projectFiles;
+    const {pagesDir: pagesDirPath} = projectConfig.projectFiles;
 
     const reframeConfig = {_processed: projectConfig};
 
@@ -41,7 +45,8 @@ function build({
     const isoBuilder = new IsoBuilder();
 
     isoBuilder.logger = Logger({log_config_and_stats: log_option});
-    isoBuilder.appDirPath = appDirPath;
+    assert_usage(this.outputDir);
+    isoBuilder.outputDir = this.outputDir;
     isoBuilder.webpackBrowserConfigModifier = reframeConfig._processed.webpackBrowserConfigModifier;
     isoBuilder.webpackServerConfigModifier = reframeConfig._processed.webpackServerConfigModifier;
 
@@ -78,9 +83,9 @@ function build({
         }
     };
 
-    if( ! is_production() ) {
+    if( this.watchDir && ! is_production() ) {
         on_page_file_removal_or_addition(
-            pagesDirPath,
+            this.watchDir,
             () => isoBuilder.build()
         );
     }

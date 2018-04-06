@@ -60,8 +60,8 @@ function create_file_writer(isoBuilder) {
             assert_usage(filePath);
             assert_usage(!is_abs(filePath));
             assert_isoBuilder(isoBuilder);
-            const {appDirPath} = isoBuilder;
-            const {output_path__base} = get_dist_paths({appDirPath});
+            const {outputDir} = isoBuilder;
+            const {output_path__base} = get_dist_paths({outputDir});
             const file_path = path__resolve(output_path__base, filePath);
             fs_handler.writeFile(file_path, fileContent, noSession);
             return file_path;
@@ -81,10 +81,10 @@ async function build_all(isoBuilder, latest_run) {
         is_compiling: true,
     });
 
-    const {appDirPath} = isoBuilder;
+    const {outputDir} = isoBuilder;
 
     if( latest_run.run_number === 0 ) {
-        handle_output_dir({appDirPath});
+        handle_output_dir({outputDir});
     }
 
     const run_number = ++latest_run.run_number;
@@ -144,8 +144,8 @@ async function wait_on_latest_run(latest_run) {
 
 function build_browser(isoBuilder, build_cache__browser, onCompilationStateChange, webpack_entries) {
     assert_isoBuilder(isoBuilder);
-    const {appDirPath, webpackBrowserConfigModifier} = isoBuilder;
-    const {output_path__browser} = get_dist_paths({appDirPath});
+    const {outputDir, webpackBrowserConfigModifier} = isoBuilder;
+    const {output_path__browser} = get_dist_paths({outputDir});
 
     const build_function = ({webpack_config, onBuild}) => (
         serve(webpack_config, {
@@ -172,7 +172,7 @@ function build_browser(isoBuilder, build_cache__browser, onCompilationStateChang
         isoBuilder,
         build_cache: build_cache__browser,
         webpack_entries,
-        appDirPath,
+        outputDir,
         webpack_config_modifier: webpackBrowserConfigModifier,
         webpack_get_config: get_webpack_browser_config,
         webpack_ouput_path: output_path__browser,
@@ -182,8 +182,8 @@ function build_browser(isoBuilder, build_cache__browser, onCompilationStateChang
 
 function build_server(isoBuilder, build_cache__server, onCompilationStateChange, webpack_entries) {
     assert_isoBuilder(isoBuilder);
-    const {appDirPath, webpackServerConfigModifier} = isoBuilder;
-    const {output_path__server} = get_dist_paths({appDirPath});
+    const {outputDir, webpackServerConfigModifier} = isoBuilder;
+    const {output_path__server} = get_dist_paths({outputDir});
 
     const build_function = ({webpack_config, onBuild}) => (
         build(webpack_config, {
@@ -203,7 +203,7 @@ function build_server(isoBuilder, build_cache__server, onCompilationStateChange,
         isoBuilder,
         build_cache: build_cache__server,
         webpack_entries,
-        appDirPath,
+        outputDir,
         webpack_config_modifier: webpackServerConfigModifier,
         webpack_get_config: get_webpack_server_config,
         webpack_ouput_path: output_path__server,
@@ -223,7 +223,7 @@ async function build_iso({
     isoBuilder,
     build_cache,
     webpack_entries,
-    appDirPath,
+    outputDir,
     webpack_config_modifier,
     webpack_get_config,
     webpack_ouput_path,
@@ -245,7 +245,7 @@ async function build_iso({
         webpack_config_modifier,
         webpack_get_config,
         webpack_entries,
-        appDirPath,
+        outputDir,
     });
 
     const {first_build_promise, wait_build, stop_build} = (
@@ -275,7 +275,7 @@ function remove_output_path(webpack_ouput_path) {
 }
 
 function assert_isoBuilder(isoBuilder) {
-    assert_usage(isoBuilder.appDirPath);
+    assert_usage(isoBuilder.outputDir);
     assert_usage(isoBuilder.builder);
 }
 
@@ -284,28 +284,28 @@ function get_webpack_config({
     webpack_ouput_path,
     webpack_entries,
     webpack_get_config,
-    appDirPath,
+    outputDir,
 }) {
 
     let webpack_build = {};
     webpack_build.entries = webpack_entries;
     webpack_build.outputPath = webpack_ouput_path;
     webpack_build.config = webpack_get_config(webpack_build);
-    add_context_to_config(appDirPath, webpack_build.config);
+    add_context_to_config(outputDir, webpack_build.config);
     if( webpack_config_modifier ) {
         webpack_build.config = webpack_config_modifier(webpack_build);
         assert_usage(webpack_build.config);
     }
-    add_context_to_config(appDirPath, webpack_build.config);
+    add_context_to_config(outputDir, webpack_build.config);
 
     return webpack_build.config;
 }
 
-function get_dist_paths({appDirPath}) {
-    if( ! appDirPath ) {
+function get_dist_paths({outputDir}) {
+    if( ! outputDir ) {
         return {};
     }
-    const output_path__base = path_module.resolve(appDirPath, './dist');
+    const output_path__base = outputDir;
     const output_path__browser = path_module.resolve(output_path__base, './browser');
     const output_path__server = path_module.resolve(output_path__base, './server');
 
@@ -318,8 +318,8 @@ function get_dist_paths({appDirPath}) {
 
 
 
-function handle_output_dir({appDirPath}) {
-    const {output_path__base} = get_dist_paths({appDirPath});
+function handle_output_dir({outputDir}) {
+    const {output_path__base} = get_dist_paths({outputDir});
     move_and_stamp_output_dir({output_path__base});
 }
 
@@ -562,10 +562,10 @@ function fs__ls(dirpath) {
     return files;
 }
 
-function add_context_to_config(appDirPath, config) {
+function add_context_to_config(outputDir, config) {
     assert_internal(config.constructor===Object);
-    if( ! config.context || appDirPath ) {
-        config.context = appDirPath || get_parent_dirname();
+    if( ! config.context || outputDir ) {
+        config.context = outputDir && path_module.dirname(outputDir) || get_parent_dirname();
     }
     assert_internal(config.context);
     assert_internal(config.context.startsWith('/'));

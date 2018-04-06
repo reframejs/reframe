@@ -1,3 +1,5 @@
+throw new Error('TODO_remove this');
+
 const Hapi = require('hapi');
 const getHapiPlugins = require('./getHapiPlugins');
 const assert = require('reassert');

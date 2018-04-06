@@ -26,8 +26,11 @@ function startCommands() {
                         process.env['NODE_ENV'] = 'production';
                     }
 
+                    /*
                     const build = require(resolvePackagePath('@reframe/build'));
                     await build({log});
+                    */
+                    await require(resolvePackagePath('@reframe/build'));
 
                     const server = require(resolvePackagePath('@reframe/server'));
                     server({log});

@@ -52,7 +52,7 @@ function getProjectFiles() {
         staticAssetsDir: output_path__browser,
         // TODO move into a subdir
         pagesDir__transpiled: output_path__server,
-        distDir: output_path__base,
+        buildOutputDir: output_path__base,
     };
 }
 
@@ -88,7 +88,7 @@ function getPageConfigPaths({}) {
 }
 
 function getPageConfigs({withoutStaticAssets=false}={}) {
-    const {pagesDir__transpiled, pagesDir, distDir} = getProjectFiles__with_cache();
+    const {pagesDir__transpiled, pagesDir, buildOutputDir} = getProjectFiles__with_cache();
 
     const pageConfigs_map = {};
 
@@ -121,7 +121,7 @@ function getPageConfigs({withoutStaticAssets=false}={}) {
         return pageConfigs;
     }
 
-    const assetMap = readAssetMap({distDir});
+    const assetMap = readAssetMap({buildOutputDir});
 
     pageConfigs
     .map(pageConfig => {
@@ -157,8 +157,8 @@ function assert_pageConfig(pageConfig, pageConfigPath) {
     );
 }
 
-function readAssetMap({distDir}) {
-    const assetMapPath = path__resolve(distDir, 'assetMap.json');
+function readAssetMap({buildOutputDir}) {
+    const assetMapPath = path__resolve(buildOutputDir, 'assetMap.json');
     return JSON.parse(fs__read(assetMapPath));
 }
 
