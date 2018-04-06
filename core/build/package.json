@@ -19,7 +19,8 @@
     "mime": "^2.2.0",
     "mkdirp": "^0.5.1",
     "node-dir": "^0.1.17",
-    "reassert": "latest"
+    "reassert": "latest",
+    "webpack-ssr": "0.0.1-rc.12"
   },
   "publishConfig": {
     "access": "public"
