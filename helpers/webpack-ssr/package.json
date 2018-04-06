@@ -1,0 +1,10 @@
+{
+  "name": "webpack-ssr",
+  "version": "0.0.1-rc.12",
+  "dependencies": {
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": "github:reframejs/reframe"
+}

@@ -22,6 +22,7 @@
         "helpers/utils",
         "helpers/cli",
         "helpers/run",
+        "helpers/webpack-ssr",
 
         "helpers/repage/core/core",
         "helpers/repage/core/build",
