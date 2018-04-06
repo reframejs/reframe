@@ -2,9 +2,9 @@ const getProjectConfig = require('@reframe/utils/getProjectConfig');
 const assert_internal = require('reassert/internal');
 const assert_usage = require('reassert/usage');
 
-module.exports = startPlugin;
+module.exports = startCommands;
 
-function startPlugin() {
+function startCommands() {
     return {
         name: require('./package.json'),
         cliCommands: [

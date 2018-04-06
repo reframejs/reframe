@@ -15,14 +15,14 @@ const projectConfig = getProjectConfig();
 const {projectRootDir} = projectConfig.projectFiles;
 
 if( projectRootDir ) {
-    const startPlugin = require('@reframe/start');
+    const startCommands = require('@reframe/start');
     projectConfig.addPlugin(
-        startPlugin()
+        startCommands()
     );
 } else {
-    const initPlugin = require('@reframe/init');
+    const initCommands = require('@reframe/init');
     projectConfig.addPlugin(
-        initPlugin()
+        initCommands()
     );
 }
 

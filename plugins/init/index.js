@@ -1,6 +1,6 @@
-module.exports = initPlugin;
+module.exports = initCommands;
 
-function initPlugin() {
+function initCommands() {
     return {
         name: require('./package.json').name,
         cliCommands: [
