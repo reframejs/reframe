@@ -2,11 +2,11 @@ const getProjectConfig = require('@reframe/utils/getProjectConfig');
 const assert_internal = require('reassert/internal');
 const assert_usage = require('reassert/usage');
 
-module.exports = startCommands;
+module.exports = startPlugin;
 
-function startCommands() {
+function startPlugin() {
     return {
-        name: require('./package.json').name+__filename.slice(__dirname.length + 1, -3),
+        name: require('./package.json'),
         cliCommands: [
             {
                 name: 'start',
@@ -21,18 +21,16 @@ function startCommands() {
                         description: "prints build and page information",
                     },
                 ],
-                action: async options => {
-                    const projectConfig = getProjectConfig();
-                    /*
-                    const {startBuild} = projectConfig.projectFiles;
-                    if( startBuild ) {
-                        await startBuild();
+                action: async ({production, log}) => {
+                    if( production ) {
+                        process.env['NODE_ENV'] = 'production';
                     }
-                    */
-                 // start(options.production, options.log);
+
                     const build = require(resolvePackagePath('@reframe/build'));
-                    await build();
-                    startServer();
+                    await build({log});
+
+                    const server = require(resolvePackagePath('@reframe/server'));
+                    server({log});
                 },
             }
         ],
@@ -59,9 +57,4 @@ function resolvePackagePath(packageName) {
 
     assert_internal(packagePath);
     return packagePath;
-}
-
-function startServer(buildState) {
-    const server = require(resolvePackagePath('@reframe/server'));
-    return server(buildState);
 }

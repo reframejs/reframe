@@ -34,10 +34,6 @@ function start(prod, showHapiServerLog) {
     log_found_file(reframeConfigPath, 'Reframe config');
     log_found_file(pagesDirPath, 'Pages directory');
 
-    if( prod ) {
-        process.env['NODE_ENV']='production';
-    }
-
     startHapiServer({pagesDirPath, appDirPath, showHapiServerLog});
 }
 

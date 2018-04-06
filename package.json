@@ -13,6 +13,7 @@
         "plugins/postcss",
         "plugins/react",
         "plugins/react-router",
+        "plugins/start",
         "plugins/typescript",
 
         "docs",

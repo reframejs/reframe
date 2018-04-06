@@ -1,0 +1,12 @@
+{
+    "name": "@reframe/start",
+    "version": "0.0.1-rc.12",
+    "dependencies": {
+        "@reframe/utils": "0.0.1-rc.12",
+        "reassert": "latest"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "repository": "github:reframejs/reframe"
+}
