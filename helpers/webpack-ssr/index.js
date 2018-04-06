@@ -30,29 +30,16 @@ function build({
     onBuild,
     log: log_option,
 }={}) {
-    const projectConfig = getProjectConfig();
-    assert_internal(projectConfig);
-
-    const {pagesDir: pagesDirPath} = projectConfig.projectFiles;
-
-    const reframeConfig = {_processed: projectConfig};
-
-    assert_usage(
-        pagesDirPath || reframeConfig.webpackBrowserConfigModifier && reframeConfig.webpackServerConfigModifier,
-        "Provide either argument `pagesDirPath` or provide `webpackBrowserConfig` and `webpackServerConfig` in `reframe.config.js`."
-    );
-
     const isoBuilder = new IsoBuilder();
 
     isoBuilder.logger = Logger({log_config_and_stats: log_option});
     assert_usage(this.outputDir);
     isoBuilder.outputDir = this.outputDir;
-    isoBuilder.webpackBrowserConfigModifier = reframeConfig._processed.webpackBrowserConfigModifier;
-    isoBuilder.webpackServerConfigModifier = reframeConfig._processed.webpackServerConfigModifier;
+    isoBuilder.webpackBrowserConfigModifier = this.webpackBrowserConfig;
+    isoBuilder.webpackServerConfigModifier = this.webpackNodejsConfig;
 
     isoBuilder.builder = async there_is_a_newer_run => {
         const {fileWriter} = isoBuilder;
-        const {serverEntry} = reframeConfig._processed;
 
      // const page_objects = get_pages({pagesDirPath});
 
