@@ -6,6 +6,7 @@ const getCurrentDir = require('@reframe/utils/getCurrentDir');
 const find_reframe_config = require('@reframe/utils/find_reframe_config');
 const fs = require('fs');
 const mime = require('mime'); // TODO remove
+const getPageInfos = require('webpack-ssr/getPageInfos');
 
 module.exports = get_project_files;
 
@@ -107,6 +108,34 @@ function getPageConfigPaths() {
 }
 */
 
+function getPageConfigs() {
+    const {buildOutputDir} = getProjectFiles__with_cache();
+
+    const pageInfos = getPageInfos({outputDir: buildOutputDir});
+
+    const pageConfigs = (
+        pageInfos
+        .map(({pageExport, pageAssets}) => {
+            const pageConfig = pageExport;
+
+            pageConfig.scripts = make_paths_array_unique([
+                ...(pageAssets.scripts||[]),
+                ...(pageConfig.scripts||[]),
+            ]);
+
+            pageConfig.styles = make_paths_array_unique([
+                ...(pageAssets.styles||[]),
+                ...(pageConfig.styles||[])
+            ]);
+
+            return pageConfig;
+        })
+    );
+
+    return pageConfigs;
+}
+
+/*
 function getPageConfigs({withoutStaticAssets=false}={}) {
     const {pagesDir__transpiled, pagesDir, buildOutputDir} = getProjectFiles__with_cache();
 
@@ -118,7 +147,7 @@ function getPageConfigs({withoutStaticAssets=false}={}) {
         .map(file_path => {
             const {page_name} = get_names(file_path);
             assert_internal(page_name);
-            const pageConfig = require__magic(file_path);
+            const pageConfig = forceRequire(file_path);
             assert_pageConfig(pageConfig, file_path);
 
             pageConfig.pageName = page_name;
@@ -163,6 +192,7 @@ function getPageConfigs({withoutStaticAssets=false}={}) {
 
     return pageConfigs;
 }
+*/
 
 function assert_pageConfig(pageConfig, pageConfigPath) {
     assert_usage(
@@ -175,11 +205,6 @@ function assert_pageConfig(pageConfig, pageConfigPath) {
         pageConfig,
         "The page config, printed above and defined at `"+pageConfigPath+"`, is missing the `route` property."
     );
-}
-
-function readAssetMap({buildOutputDir}) {
-    const assetMapPath = path__resolve(buildOutputDir, 'assetMap.json');
-    return JSON.parse(fs__read(assetMapPath));
 }
 
 function get_page_files({pagesDir}) {
@@ -292,22 +317,6 @@ function get_names(file_path) {
     return {file_name, entry_name, page_name};
 }
 
-function require__magic(modulePath) {
-    const beg = new Date();
-    if( ! source_map_installed ) {
-        require('source-map-support').install();
-        source_map_installed = true;
-    }
-
-    delete require.cache[modulePath];
-    const module_exports = require(modulePath);
-
-  //time+=new Date() - beg;
-    if( module_exports.__esModule === true ) {
-        return module_exports.default;
-    }
-    return module_exports;
-}
 function path__resolve(path1, path2, ...paths) {
     assert_internal(path1 && path_module.isAbsolute(path1), path1);
     assert_internal(path2);
@@ -326,10 +335,6 @@ function fs__file_exists(path) {
     return exists;
 }
 
-
-function fs__read(filepath) {
-    return fs.readFileSync(filepath, 'utf8');
-}
 
 function make_paths_array_unique(paths) {
     assert_internal(

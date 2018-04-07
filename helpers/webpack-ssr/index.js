@@ -7,6 +7,7 @@ const {Logger} = require('@rebuild/build/utils/Logger');
 const path_module = require('path');
 const fs = require('fs');
 const chokidar = require('chokidar');
+const forceRequire = require('./utils/forceRequire');
 
 const get_parent_dirname = require('@brillout/get-parent-dirname'); // TODO remove from package.json
 const mime = require('mime'); // TODO remove from package.json
@@ -669,7 +670,7 @@ function loadPageModules(server_entry_points) {
             const entry_point = server_entry_points[entryName];
             assert_internal(entry_point);
             const pageFileTranspiled = get_script_dist_path(entry_point);
-            const pageExport = require__magic(pageFileTranspiled);
+            const pageExport = forceRequire(pageFileTranspiled);
             const pageFile = this.pageFiles[pageName];
             assert_internal(pageFile);
             return {pageName, pageExport, pageFile, pageFileTranspiled};
@@ -691,7 +692,7 @@ function load_page_configs({page_objects, server_entry_points}) {
             };
         }
         const script_dist_path = get_script_dist_path(entry_point);
-        const page_config = require__magic(script_dist_path);
+        const page_config = forceRequire(script_dist_path);
         assert_usage(
             page_config && page_config.constructor===Object,
             "The page config, defined at `"+page_object.page_config__source_path+"`, should return a plain JavaScript object.",
@@ -714,15 +715,6 @@ function load_page_configs({page_objects, server_entry_points}) {
             page_object.page_config__source_path
         );
     });
-}
-
-function require__magic(modulePath) {
-    delete require.cache[modulePath];
-    const module_exports = require(modulePath);
-    if( module_exports.__esModule === true ) {
-        return module_exports.default;
-    }
-    return module_exports;
 }
 
 function get_script_dist_path(entry_point) {
