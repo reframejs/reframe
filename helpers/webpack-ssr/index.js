@@ -45,6 +45,8 @@ function build({
 
         this.pageFiles = getPageFiles.call(this);
 
+        this.pageNames = Object.keys(this.pageFiles);
+
         const server_entries = getServerEntries.call(this);
 
         await isoBuilder.build_server(server_entries);
@@ -67,7 +69,7 @@ function build({
         await isoBuilder.build_browser(pageBrowserEntries);
         if( there_is_a_newer_run() ) return;
 
-        writeAssetMap({buildState, fileWriter});
+        writeAssetMap.call(this, {buildState, fileWriter});
 
         await writeHtmlFiles({fileWriter});
         if( there_is_a_newer_run() ) return;
@@ -153,10 +155,14 @@ function getPageInfos() {
     const pageInfos__array = this.getPageInfos(pageModules);
     const pageInfos = {};
     pageInfos__array.forEach(pageInfo => {
-        const {pageName, browserEntryString} = pageInfo;
+        const {pageName, browserEntryString, browserEntryOnlyCss} = pageInfo;
         assert_usage(pageName);
         assert_usage(browserEntryString);
-        pageInfos[pageName] = pageInfo;
+        pageInfos[pageName] = {
+            pageName,
+            browserEntryString,
+            browserEntryOnlyCss: !!browserEntryOnlyCss,
+        };
     });
     return pageInfos;
 }
@@ -535,17 +541,19 @@ function generatePageBrowserEntries({fileWriter}) {
 }
 
 function writeAssetMap({buildState, fileWriter}) {
+    const {pageInfos, pageNames, pageModules} = this;
+    assert_internal(pageInfos);
+    assert_internal(pageNames);
+
     const assetMap = {};
 
-    const projectConfig = getProjectConfig();
-
-    const pageConfigs = projectConfig.getPageConfigs({withoutStaticAssets: true});
+    addPageModulePaths({assetMap, pageModules});
 
     const browser_entry_points = buildState.browser.output.entry_points;
 
-    add_browser_entry_points({assetMap, pageConfigs, browser_entry_points});
+    add_browser_entry_points({assetMap, pageInfos, browser_entry_points});
 
-    add_autoreload_client({assetMap, pageConfigs, browser_entry_points});
+    add_autoreload_client({assetMap, pageNames, browser_entry_points});
 
     assert_assertMap(assetMap);
 
@@ -553,6 +561,16 @@ function writeAssetMap({buildState, fileWriter}) {
         fileContent: JSON.stringify(assetMap, null, 2),
         filePath: 'assetMap.json',
         noSession: true,
+    });
+}
+
+function addPageModulePaths({assetMap, pageModules}) {
+    pageModules
+    .forEach(({pageName, pageModulePath}) => {
+        assert_internal(!assetMap[pageName]);
+        assetMap[pageName] = {
+            pageModulePath,
+        };
     });
 }
 
@@ -571,7 +589,7 @@ function assert_assertMap(assetMap) {
 }
 
 
-function add_autoreload_client({assetMap, pageConfigs, browser_entry_points}) {
+function add_autoreload_client({assetMap, pageNames, browser_entry_points}) {
     if( is_production() ) {
         return;
     }
@@ -579,24 +597,23 @@ function add_autoreload_client({assetMap, pageConfigs, browser_entry_points}) {
     if( ! entry_point__autoreload ) {
         return;
     }
-    pageConfigs
-    .forEach(pageConfig => {
-        const {pageName} = pageConfig;
+    pageNames
+    .forEach(pageName => {
         assert_internal(pageName);
         add_entry_point_to_page_assets({entry_point: entry_point__autoreload, assetMap, pageName});
     });
 }
 
-function add_browser_entry_points({assetMap, pageConfigs, browser_entry_points}) {
+function add_browser_entry_points({assetMap, pageInfos, browser_entry_points}) {
     Object.values(browser_entry_points)
     .forEach(entry_point => {
         assert_internal(entry_point.entry_name);
-        pageConfigs
-        .forEach(pageConfig => {
-            const {pageName} = pageConfig;
+        Object.values(pageInfos)
+        .forEach(({browserEntryOnlyCss, pageName}) => {
+            assert_usage([true, false].includes(browserEntryOnlyCss));
             assert_internal(pageName);
             if( pageName===entry_point.entry_name ) {
-                if( pageConfig.domStatic ) {
+                if( browserEntryOnlyCss ) {
                     add_entry_point_styles_to_page_assets({assetMap, entry_point, pageName});
                 } else {
                     add_entry_point_to_page_assets({assetMap, entry_point, pageName});
@@ -662,16 +679,16 @@ function make_paths_array_unique(paths) {
 
 function loadPageModules(server_entry_points) {
     const pageModules = (
-        Object.keys(this.pageFiles)
+        this.pageNames
         .map(pageName => {
             const entryName = pageName;
             const entry_point = server_entry_points[entryName];
             assert_internal(entry_point);
-            const script_dist_path = get_script_dist_path(entry_point);
-            const pageExport = require__magic(script_dist_path);
+            const pageModulePath = get_script_dist_path(entry_point);
+            const pageExport = require__magic(pageModulePath);
             const pageFile = this.pageFiles[pageName];
             assert_internal(pageFile);
-            return {pageName, pageExport, pageFile};
+            return {pageName, pageExport, pageFile, pageModulePath};
         })
     );
     return pageModules;
