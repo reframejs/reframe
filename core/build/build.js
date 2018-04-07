@@ -4,7 +4,7 @@ const assert_internal = require('reassert/internal');
 const assert_usage = require('reassert/usage');
 
 const projectConfig = getProjectConfig();
-const {getPageConfigPaths, webpackBrowserConfigModifier, webpackServerConfigModifier} = projectConfig;
+const {getPageConfigPaths, getPageConfigs, webpackBrowserConfigModifier, webpackServerConfigModifier} = projectConfig;
 const {pagesDir, buildOutputDir} = projectConfig.projectFiles;
 
 assert_usage(
@@ -16,7 +16,11 @@ const buildSSR = new WebpackSSR({
     watchDir: pagesDir,
     outputDir: buildOutputDir,
     getPageFiles: getPageConfigPaths,
- // getPages: ,
+    getPages: () => {
+        const pageConfigs = getPageConfigs({withoutStaticAssets: true});
+
+        return pageConfigs;
+    },
     webpackBrowserConfig: webpackBrowserConfigModifier,
     webpackNodejsConfig: webpackServerConfigModifier,
 });

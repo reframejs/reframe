@@ -53,7 +53,7 @@ function build({
         enhance_page_objects_1({page_objects, buildState, fileWriter, reframeConfig});
         */
 
-        const pageBrowserEntries = generatePageBrowserEntries({fileWriter});
+        const pageBrowserEntries = generatePageBrowserEntries.call(this, {fileWriter});
 
      // const browser_entries = get_browser_entries({page_objects, fileWriter});
 
@@ -159,7 +159,7 @@ function get_server_entries() {
             filePath
         );
         const fileName = path_module.basename(filePath);
-        /* TODO use fileName as entry_name?
+        /* TODO consider using fileName as entry_name?
         assert_usage(!server_entries[fileName]);
         server_entries[fileName] = [filePath];
         */
@@ -476,7 +476,7 @@ function enhance_page_objects_1({page_objects, buildState, fileWriter, reframeCo
 function generatePageBrowserEntries({fileWriter}) {
     const projectConfig = getProjectConfig();
 
-    const pageConfigs = projectConfig.getPageConfigs({withoutStaticAssets: true});
+    const pageConfigs = this.getPages();
 
     const {pagesDir} = projectConfig.projectFiles;
 
