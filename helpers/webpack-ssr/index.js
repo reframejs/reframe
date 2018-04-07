@@ -54,7 +54,7 @@ function build({
 
         this.pageModules = loadPageModules.call(this, buildState.server.output.entry_points);
 
-        this.pageInfos = this.getPageInfos(this.pageModules);
+        this.pageInfos = getPageInfos.call(this);
 
         /*
         enhance_page_objects_1({page_objects, buildState, fileWriter, reframeConfig});
@@ -145,6 +145,20 @@ function get_pages({pagesDirPath}) {
     );
 
     return page_objects;
+}
+
+function getPageInfos() {
+    const {pageModules} = this;
+    assert_internal(pageModules);
+    const pageInfos__array = this.getPageInfos(pageModules);
+    const pageInfos = {};
+    pageInfos__array.forEach(pageInfo => {
+        const {pageName, browserEntryString} = pageInfo;
+        assert_usage(pageName);
+        assert_usage(browserEntryString);
+        pageInfos[pageName] = pageInfo;
+    });
+    return pageInfos;
 }
 
 function getPageFiles() {
@@ -499,7 +513,7 @@ function generatePageBrowserEntries({fileWriter}) {
 
     fileWriter.startWriteSession('BROWSER_SOURCE_CODE');
 
-    pageInfos
+    Object.values(pageInfos)
     .forEach(pageInfo => {
         assert_usage(pageInfo);
         const {browserEntryString, pageName} = pageInfo;
