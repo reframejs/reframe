@@ -474,65 +474,22 @@ function enhance_page_objects_1({page_objects, buildState, fileWriter, reframeCo
 }
 
 function generatePageBrowserEntries({fileWriter}) {
-    const projectConfig = getProjectConfig();
-
-    const pageConfigs = this.getPages();
-
-    const {pagesDir} = projectConfig.projectFiles;
+    const pageInfos = this.getPages();
 
     const pageBrowserEntries = {};
 
     fileWriter.startWriteSession('BROWSER_SOURCE_CODE');
 
-    const browser_config_path = generate_reframe_browser_config({fileWriter, reframeConfig: {_processed: projectConfig}});
+    pageInfos
+    .forEach(pageInfo => {
+        assert_usage(pageInfo);
+        const {browserEntryString, pageName} = pageInfo;
 
-    pageConfigs
-    .forEach(pageConfig => {
-        const browEnt = pageConfig.browserEntry;
-        const browserEntrySpec = {
-            pathToEntry: (browEnt||{}).pathToEntry || browEnt,
-            doNotIncludePageConfig: (browEnt||{}).doNotIncludePageConfig,
-        };
-
-        let browserEntryPath;
-        if( browserEntrySpec.pathToEntry ) {
-            browserEntryPath = path__resolve(pagesDir, browserEntrySpec.pathToEntry);
-            assert_browserEntryPath({browserEntrySpec, browserEntryPath, pageConfig, pagesDir});
-        } else {
-            browserEntryPath = require.resolve('@reframe/browser');
-        }
-
-        let sourceCode = '';
-
-        sourceCode += (
-            [
-                "const browserConfig = require('"+browser_config_path+"');",
-                "window.__REFRAME__BROWSER_CONFIG = browserConfig;",
-                "",
-            ]
-            .join('\n')
-        );
-
-        if( ! browserEntrySpec.doNotIncludePageConfig ) {
-            sourceCode += (
-                [
-                    "let pageConfig = require('"+pageConfig.pageConfigFile+"');",
-                    "pageConfig = (pageConfig||{}).__esModule===true ? pageConfig.default : pageConfig;",
-                    "window.__REFRAME__PAGE_CONFIG = pageConfig;",
-                    "",
-                ]
-                .join('\n')
-            );
-        }
-
-        sourceCode += "\n"+"require('"+browserEntryPath+"');";
-
-        const {pageName} = pageConfig;
-        assert_internal(pageName);
+        assert_usage(browserEntryString && browserEntryString.constructor===String);
 
         const fileAbsolutePath = fileWriter.writeFile({
-            fileContent: sourceCode,
-            filePath: GENERATED_DIR+'browser_entries/'+pageName+'_browser-entry.js',
+            fileContent: browserEntryString,
+            filePath: GENERATED_DIR+'browser_entries/'+pageName+'-browser.js',
         });
 
         assert_internal(!pageBrowserEntries[pageName]);
@@ -542,25 +499,6 @@ function generatePageBrowserEntries({fileWriter}) {
     fileWriter.endWriteSession();
 
     return pageBrowserEntries;
-}
-
-function assert_browserEntryPath({browserEntrySpec, browserEntryPath, pageConfig, pagesDir}) {
-    const errorIntro = 'The `browserEntry` of the page config of `'+pageConfig.pageName+'` ';
-    /*
-    assert_usage(
-        browserEntrySpec.pathToEntry,
-        "is missing `pathToEntry`."
-    );
-    */
-    assert_usage(
-        !path_module.isAbsolute(browserEntrySpec.pathToEntry),
-        errorIntro+'should be a relative path but it is an absolute path: `'+browserEntryPath
-    );
-    assert_usage(
-        fs__file_exists(browserEntryPath),
-        errorIntro+'is resolved to `'+browserEntryPath+'` but no file has been found there.',
-        '`browserEntry` should be the relative path from `'+pagesDir+'` to the browser entry file.'
-    );
 }
 
 function writeAssetMap({buildState, fileWriter}) {

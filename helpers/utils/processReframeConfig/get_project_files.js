@@ -186,7 +186,6 @@ function get_page_files({pagesDir}) {
     return (
         fs__ls(pagesDir)
         .filter(is_file)
-        .filter(is_file)
         .filter(is_javascript_file)
         .map(file_path => {
             const {file_name, entry_name, page_name} = get_names(file_path);
