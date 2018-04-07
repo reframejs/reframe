@@ -547,7 +547,7 @@ function writeAssetMap({buildState, fileWriter}) {
 
     const assetMap = {};
 
-    addPageModulePaths({assetMap, pageModules});
+    addPageFileTranspiled({assetMap, pageModules});
 
     const browser_entry_points = buildState.browser.output.entry_points;
 
@@ -564,12 +564,12 @@ function writeAssetMap({buildState, fileWriter}) {
     });
 }
 
-function addPageModulePaths({assetMap, pageModules}) {
+function addPageFileTranspiled({assetMap, pageModules}) {
     pageModules
-    .forEach(({pageName, pageModulePath}) => {
+    .forEach(({pageName, pageFileTranspiled}) => {
         assert_internal(!assetMap[pageName]);
         assetMap[pageName] = {
-            pageModulePath,
+            pageFileTranspiled,
         };
     });
 }
@@ -684,11 +684,11 @@ function loadPageModules(server_entry_points) {
             const entryName = pageName;
             const entry_point = server_entry_points[entryName];
             assert_internal(entry_point);
-            const pageModulePath = get_script_dist_path(entry_point);
-            const pageExport = require__magic(pageModulePath);
+            const pageFileTranspiled = get_script_dist_path(entry_point);
+            const pageExport = require__magic(pageFileTranspiled);
             const pageFile = this.pageFiles[pageName];
             assert_internal(pageFile);
-            return {pageName, pageExport, pageFile, pageModulePath};
+            return {pageName, pageExport, pageFile, pageFileTranspiled};
         })
     );
     return pageModules;
