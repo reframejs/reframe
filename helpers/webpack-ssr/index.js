@@ -6,14 +6,10 @@ const {Logger} = require('@rebuild/build/utils/Logger');
 //const dir = require('node-dir');
 const path_module = require('path');
 const fs = require('fs');
-const getProjectConfig = require('@reframe/utils/getProjectConfig');
 const chokidar = require('chokidar');
 
 const get_parent_dirname = require('@brillout/get-parent-dirname'); // TODO remove from package.json
 const mime = require('mime'); // TODO remove from package.json
-
-const Repage = require('@repage/core');
-const {getStaticPages} = require('@repage/build');
 
 module.exports = WebpackSSR;
 
@@ -71,7 +67,7 @@ function build({
 
         writeAssetMap.call(this, {buildState, fileWriter});
 
-        await writeHtmlFiles({fileWriter});
+        await writeHtmlFiles.call(this, {fileWriter});
         if( there_is_a_newer_run() ) return;
 
         if( onBuild ) {
@@ -455,17 +451,20 @@ function generate_browser_entry({page_config__source, browser_entry__file_name, 
 }
 
 async function writeHtmlFiles({fileWriter}) {
-    const projectConfig = getProjectConfig();
-    const pageConfigs = projectConfig.getPageConfigs();
+    const {pageModules} = this;
+    assert_internal(pageModules);
+
+    const htmlFiles = await this.getHtmlFiles(pageModules);
+    assert_usage(htmlFiles && htmlFiles.constructor===Array);
 
     fileWriter.startWriteSession('html_files');
 
-    (await get_static_pages_info())
-    .forEach(async ({url, html}) => {
-        assert_input({url, html});
+    htmlFiles
+    .forEach(({pathname, html}) => {
+        assert_input({pathname, html});
         fileWriter.writeFile({
             fileContent: html,
-            filePath: get_file_path(url),
+            filePath: get_file_path(pathname),
         });
     });
 
@@ -473,20 +472,7 @@ async function writeHtmlFiles({fileWriter}) {
 
     return;
 
-    function get_static_pages_info() {
-        const repage = new Repage();
-
-        repage.addPlugins([
-            ...projectConfig.repage_plugins,
-        ]);
-
-        repage.addPages(pageConfigs);
-
-        return getStaticPages(repage);
-    }
-
-    function get_file_path(url) {
-        const {pathname} = url;
+    function get_file_path(pathname) {
         assert_internal(pathname.startsWith('/'));
         const file_path__relative = (pathname === '/' ? 'index' : pathname.slice(1))+'.html'
         const file_path = (
@@ -496,13 +482,11 @@ async function writeHtmlFiles({fileWriter}) {
         return file_path;
     }
 
-    function assert_input({url, html}) {
-        assert_internal(html===null || html && html.constructor===String, html);
-        assert_internal(html);
+    function assert_input({pathname, html}) {
+        assert_usage(html && html.constructor===String, html);
 
-        assert_internal(url.pathname.startsWith('/'));
-        assert_internal(url.search==='');
-        assert_internal(url.hash==='');
+        assert_usage(pathname);
+        assert_usage(pathname.startsWith('/'));
     }
 }
 
