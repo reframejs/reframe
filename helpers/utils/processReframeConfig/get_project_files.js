@@ -75,10 +75,20 @@ function get_dist_paths({projectRootDir}) {
 function getPageConfigPaths() {
     const {pagesDir} = getProjectFiles__with_cache();
 
+    return (
+        get_page_files({pagesDir})
+        .filter(({is_base}) => is_base)
+        .map(({file_path}) => file_path)
+    )
+}
+/*
+function getPageConfigPaths() {
+    const {pagesDir} = getProjectFiles__with_cache();
+
     const pageConfigPaths = [];
     const pageConfigPaths__map = {};
 
-    get_page_files({pagesDirPath: pagesDir})
+    get_page_files({pagesDir})
     .forEach(({file_path, file_name, page_name, entry_name, is_dom, is_entry, is_base}) => {
         if( ! is_base ) {
             return;
@@ -95,6 +105,7 @@ function getPageConfigPaths() {
 
     return pageConfigPaths;
 }
+*/
 
 function getPageConfigs({withoutStaticAssets=false}={}) {
     const {pagesDir__transpiled, pagesDir, buildOutputDir} = getProjectFiles__with_cache();
@@ -171,9 +182,9 @@ function readAssetMap({buildOutputDir}) {
     return JSON.parse(fs__read(assetMapPath));
 }
 
-function get_page_files({pagesDirPath}) {
+function get_page_files({pagesDir}) {
     return (
-        fs__ls(pagesDirPath)
+        fs__ls(pagesDir)
         .filter(is_file)
         .filter(is_file)
         .filter(is_javascript_file)

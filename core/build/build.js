@@ -15,7 +15,8 @@ assert_usage(
 const buildSSR = new WebpackSSR({
     watchDir: pagesDir,
     outputDir: buildOutputDir,
-    getPages: getPageConfigPaths,
+    getPageFiles: getPageConfigPaths,
+ // getPages: ,
     webpackBrowserConfig: webpackBrowserConfigModifier,
     webpackNodejsConfig: webpackServerConfigModifier,
 });

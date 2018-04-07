@@ -141,20 +141,36 @@ function get_pages({pagesDirPath}) {
 }
 
 function get_server_entries() {
-    const {getPages, serverEntry} = this;
-    assert_usage(getPages, this);
+    const {getPageFiles, serverEntryFile} = this;
+    assert_usage(getPageFiles, this);
 
     const server_entries = {};
 
-    if( serverEntry ) {
-        assert_usage(path_module.isAbsolute(serverEntry));
-        server_entries.server = [serverEntry];
+    if( serverEntryFile ) {
+        assert_usage(path_module.isAbsolute(serverEntryFile));
+        server_entries.server = [serverEntryFile];
     }
 
-    const pages = getPages();
-    assert_usage(pages instanceof Object);
+    const pageFiles = getPageFiles();
+    assert_usage(pageFiles instanceof Array);
+    pageFiles.forEach(filePath => {
+        assert_usage(
+            filePath && filePath.constructor===String && path_module.isAbsolute(filePath),
+            filePath
+        );
+        const fileName = path_module.basename(filePath);
+        /* TODO use fileName as entry_name?
+        assert_usage(!server_entries[fileName]);
+        server_entries[fileName] = [filePath];
+        */
+        server_entries[fileName.split('.')[0]] = [filePath];
+    });
 
-    Object.values(pages)
+    /*
+    const pageFiles = getPageFiles();
+    assert_usage(pageFiles instanceof Object);
+
+    Object.values(pageFiles)
     .forEach(pageInfo => {
         assert_usage(pageInfo);
         const {name, pageFile} = pageInfo;
@@ -164,6 +180,7 @@ function get_server_entries() {
         assert_internal(!server_entries[name]);
         server_entries[name] = [pageFile];
     });
+    */
 
     return server_entries;
 }
