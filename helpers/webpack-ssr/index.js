@@ -43,12 +43,19 @@ function build({
 
      // const page_objects = get_pages({pagesDirPath});
 
-        const server_entries = get_server_entries.call(this);
+        this.pageFiles = getPageFiles.call(this);
+
+        const server_entries = getServerEntries.call(this);
 
         await isoBuilder.build_server(server_entries);
         if( there_is_a_newer_run() ) return;
 
         const {buildState} = isoBuilder;
+
+        this.pageModules = loadPageModules.call(this, buildState.server.output.entry_points);
+
+        this.pageInfos = this.getPageInfos(this.pageModules);
+
         /*
         enhance_page_objects_1({page_objects, buildState, fileWriter, reframeConfig});
         */
@@ -140,9 +147,29 @@ function get_pages({pagesDirPath}) {
     return page_objects;
 }
 
-function get_server_entries() {
-    const {getPageFiles, serverEntryFile} = this;
-    assert_usage(getPageFiles, this);
+function getPageFiles() {
+    const pageFiles = {};
+    const filePaths = this.getPageFiles();
+    assert_usage(filePaths instanceof Array);
+    filePaths
+    .forEach(filePath => {
+        assert_usage(
+            filePath && filePath.constructor===String && path_module.isAbsolute(filePath),
+            filePath
+        );
+        const fileName = path_module.basename(filePath);
+        const pageName = fileName.split('.')[0];
+        assert_usage(
+            !pageFiles[pageName],
+            pageName
+        );
+        pageFiles[pageName] = filePath;
+    });
+    return pageFiles;
+}
+
+function getServerEntries() {
+    const {serverEntryFile} = this;
 
     const server_entries = {};
 
@@ -151,19 +178,11 @@ function get_server_entries() {
         server_entries.server = [serverEntryFile];
     }
 
-    const pageFiles = getPageFiles();
-    assert_usage(pageFiles instanceof Array);
-    pageFiles.forEach(filePath => {
-        assert_usage(
-            filePath && filePath.constructor===String && path_module.isAbsolute(filePath),
-            filePath
-        );
-        const fileName = path_module.basename(filePath);
-        /* TODO consider using fileName as entry_name?
-        assert_usage(!server_entries[fileName]);
-        server_entries[fileName] = [filePath];
-        */
-        server_entries[fileName.split('.')[0]] = [filePath];
+    const {pageFiles} = this;
+    Object.entries(pageFiles)
+    .forEach(([pageName, pageFile]) => {
+        assert_internal(!server_entries[pageName]);
+        server_entries[pageName] = [pageFile];
     });
 
     /*
@@ -474,7 +493,7 @@ function enhance_page_objects_1({page_objects, buildState, fileWriter, reframeCo
 }
 
 function generatePageBrowserEntries({fileWriter}) {
-    const pageInfos = this.getPages();
+    const {pageInfos} = this;
 
     const pageBrowserEntries = {};
 
@@ -627,6 +646,23 @@ function make_paths_array_unique(paths) {
     return [...new Set(paths)];
 }
 
+function loadPageModules(server_entry_points) {
+    const pageModules = (
+        Object.keys(this.pageFiles)
+        .map(pageName => {
+            const entryName = pageName;
+            const entry_point = server_entry_points[entryName];
+            assert_internal(entry_point);
+            const script_dist_path = get_script_dist_path(entry_point);
+            const pageExport = require__magic(script_dist_path);
+            const pageFile = this.pageFiles[pageName];
+            assert_internal(pageFile);
+            return {pageName, pageExport, pageFile};
+        })
+    );
+    return pageModules;
+}
+
 function load_page_configs({page_objects, server_entry_points}) {
     require('source-map-support').install();
 
@@ -725,14 +761,5 @@ function fs__ls(dirpath) {
 
 function is_production() {
    return process.env.NODE_ENV === 'production';
-}
-
-function fs__file_exists(path) {
-    try {
-        return fs.statSync(path).isFile();
-    }
-    catch(e) {
-        return false;
-    }
 }
 

@@ -17,35 +17,30 @@ const buildSSR = new WebpackSSR({
     watchDir: pagesDir,
     outputDir: buildOutputDir,
     getPageFiles: getPageConfigPaths,
-    getPages,
+    getPageInfos,
     webpackBrowserConfig: webpackBrowserConfigModifier,
     webpackNodejsConfig: webpackServerConfigModifier,
 });
 
 module.exports = buildSSR.build();
 
-function getPages() {
-    const pageConfigs = getPageConfigs({withoutStaticAssets: true});
-
+function getPageInfos(pageModules) {
     return (
-        pageConfigs
-        .map(pageConfig => {
-            const {pageConfigFile, pageName} = pageConfig;
-            assert_internal(pageConfigFile, pageName);
-
-            const browserEntryString = getBrowserEntryString(pageConfig);
+        pageModules
+        .map(({pageExport, pageName, pageFile}) => {
+            const browserEntryString = getBrowserEntryString({pageExport, pageName, pageFile});
 
             return {
                 pageName,
                 browserEntryString,
-                pageFile: pageConfigFile,
+                browserEntryOnlyCss: pageExport.domStatic,
             };
         })
     );
 }
 
-function getBrowserEntryString(pageConfig) {
-    const browserEntrySpec = getBrowserEntrySpec(pageConfig);
+function getBrowserEntryString({pageExport, pageFile, pageName}) {
+    const browserEntrySpec = getBrowserEntrySpec({pageExport, pageFile, pageName});
 
     let browserEntryString = '';
 
@@ -62,11 +57,9 @@ function getBrowserEntryString(pageConfig) {
     }
 
     if( ! browserEntrySpec.doNotIncludePageConfig ) {
-        const {pageConfigFile} = pageConfig;
-        assert_internal(pageConfigFile);
         browserEntryString += (
             [
-                "let pageConfig = require('"+pageConfigFile+"');",
+                "let pageConfig = require('"+pageFile+"');",
                 "pageConfig = (pageConfig||{}).__esModule===true ? pageConfig.default : pageConfig;",
                 "window.__REFRAME__PAGE_CONFIG = pageConfig;",
                 "",
@@ -83,16 +76,14 @@ function getBrowserEntryString(pageConfig) {
     return browserEntryString;
 }
 
-function getBrowserEntrySpec(pageConfig) {
-    const {browserEntry, pageConfigFile, pageName} = pageConfig;
-    assert_internal(pageConfigFile);
-    assert_internal(pageName);
+function getBrowserEntrySpec({pageExport, pageFile, pageName}) {
+    const {browserEntry} = pageExport;
 
     const pathToEntry = (browserEntry||{}).pathToEntry || browserEntry;
 
     let browserEntryPath;
     if( pathToEntry ) {
-        const pageDir = pathModule.dirname(pageConfigFile);
+        const pageDir = pathModule.dirname(pageFile);
         browserEntryPath = pathModule.resolve(pageDir, pathToEntry);
         assert_browserEntryPath({browserEntryPath, pathToEntry, pageName, pageDir});
     } else {
