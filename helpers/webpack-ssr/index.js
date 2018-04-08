@@ -1,35 +1,32 @@
 const assert_internal = require('reassert/internal');
 const assert_usage = require('reassert/usage');
-const log = require('reassert/log');
 const {IsoBuilder} = require('@rebuild/iso');
 const {Logger} = require('@rebuild/build/utils/Logger');
 //const dir = require('node-dir');
 const path_module = require('path');
 const fs = require('fs');
-const chokidar = require('chokidar');
 const forceRequire = require('./utils/forceRequire');
 
 const get_parent_dirname = require('@brillout/get-parent-dirname'); // TODO remove from package.json
 const mime = require('mime'); // TODO remove from package.json
 
-module.exports = WebpackSSR;
-
-function WebpackSSR(opts) {
-    Object.assign(this, opts);
-    this.build = build.bind(this);
-}
-
 // TODO rename source-code
 const GENERATED_DIR = 'generated'+path_module.sep;
 const BROWSER_DIST_DIR = 'browser'+path_module.sep;
 
-function build({
-    onBuild,
-    log: log_option,
-}={}) {
+module.exports = WebpackSSR;
+
+function WebpackSSR(opts) {
+    const instance = {};
+    Object.assign(instance, opts);
+    const build = BuildInstance.call(instance);
+    return () => build();
+}
+
+function BuildInstance() {
     const isoBuilder = new IsoBuilder();
 
-    isoBuilder.logger = Logger({log_config_and_stats: log_option});
+    isoBuilder.logger = Logger({log_config_and_stats: this.verbose});
     assert_usage(this.outputDir);
     isoBuilder.outputDir = this.outputDir;
     isoBuilder.webpackBrowserConfigModifier = this.webpackBrowserConfig;
@@ -70,30 +67,9 @@ function build({
 
         await writeHtmlFiles.call(this, {fileWriter});
         if( there_is_a_newer_run() ) return;
-
-        if( onBuild ) {
-            onBuild();
-        }
     };
 
-    if( this.watchDir && ! is_production() ) {
-        on_page_file_removal_or_addition(
-            this.watchDir,
-            () => isoBuilder.build()
-        );
-    }
-
-    return isoBuilder.build();
-}
-
-function on_page_file_removal_or_addition(path, listener) {
-    const watcher = chokidar.watch(path, {ignoreInitial: true});
-    watcher.on('add', (p) => {
-        listener();
-    });
-    watcher.on('unlink', () => {
-        listener();
-    });
+    return () => isoBuilder.build();
 }
 
 function get_pages({pagesDirPath}) {

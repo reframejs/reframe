@@ -1,4 +1,5 @@
-const WebpackSSR = require('webpack-ssr');
+const Build = require('webpack-ssr');
+const watchDir = require('webpack-ssr/watchDir');
 const getProjectConfig = require('@reframe/utils/getProjectConfig');
 const assert_internal = require('reassert/internal');
 const assert_usage = require('reassert/usage');
@@ -16,17 +17,24 @@ assert_usage(
     "No `pages/` directory found nor is `webpackBrowserConfig` and `webpackServerConfig` defined in `reframe.config.js`."
 );
 
-const buildSSR = new WebpackSSR({
-    watchDir: pagesDir,
+const build = new Build({
     outputDir: buildOutputDir,
     getPageFiles: getPageConfigPaths,
     getPageInfos,
     getHtmlFiles,
     webpackBrowserConfig: webpackBrowserConfigModifier,
     webpackNodejsConfig: webpackServerConfigModifier,
+    log: {
+        verbose: false,
+    },
 });
 
-module.exports = buildSSR.build();
+watchDir(
+    pagesDir,
+    () => {build()}
+);
+
+module.exports = build();
 
 function getPageInfos(pageModules) {
     return (
