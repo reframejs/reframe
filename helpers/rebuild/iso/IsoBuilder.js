@@ -34,18 +34,15 @@ function IsoBuilder() {
     const latest_run = {
         run_number:0,
     };
-    this.build = () => build_all(this, latest_run);
-
-    const onCompilationStateChange__binded = onCompilationStateChange.bind(null, this);
-    const build_cache__server = {};
-    this.build_server = (
-        (...args) =>
-            build_server(this, build_cache__server, onCompilationStateChange__binded, ...args)
-    );
-    const build_cache__browser = {};
-    this.build_browser = (
-        (...args) =>
-            build_browser(this, build_cache__browser, onCompilationStateChange__binded, ...args)
+    const buildCacheServer = {};
+    const buildCacheBrowser = {};
+    this.build = () => (
+        build_all({
+            isoBuilder: this,
+            latest_run,
+            buildCacheServer,
+            buildCacheBrowser,
+        })
     );
 }
 
@@ -69,7 +66,7 @@ function create_file_writer(isoBuilder) {
     };
 }
 
-async function build_all(isoBuilder, latest_run) {
+async function build_all({isoBuilder, latest_run, buildCacheServer, buildCacheBrowser}) {
     if( DEBUG_WATCH ) {
         console.log('Start build all');
     }
@@ -91,7 +88,17 @@ async function build_all(isoBuilder, latest_run) {
 
     const there_is_a_newer_run = () => latest_run.run_number>run_number;
 
-    latest_run.promise = isoBuilder.builder(there_is_a_newer_run);
+
+    const buildServer = (
+        webpack_entries =>
+            build_server({isoBuilder, buildCacheServer, webpack_entries})
+    );
+    const buildBrowser = (
+        webpack_entries =>
+            build_browser({isoBuilder, buildCacheBrowser, webpack_entries})
+    );
+
+    latest_run.promise = isoBuilder.builder({there_is_a_newer_run, buildServer, buildBrowser});
 
     const build_info = await wait_on_latest_run(latest_run);
 
@@ -142,7 +149,7 @@ async function wait_on_latest_run(latest_run) {
     }
 }
 
-function build_browser(isoBuilder, build_cache__browser, onCompilationStateChange, webpack_entries) {
+function build_browser({isoBuilder, buildCacheBrowser, webpack_entries}) {
     assert_isoBuilder(isoBuilder);
     const {outputDir, webpackBrowserConfigModifier} = isoBuilder;
     const {output_path__browser} = get_dist_paths({outputDir});
@@ -156,7 +163,7 @@ function build_browser(isoBuilder, build_cache__browser, onCompilationStateChang
             onCompilationStateChange: compilationState => {
                 assert_compilationState(compilationState);
                 isoBuilder.buildState.browser = compilationState;
-                onCompilationStateChange();
+                onCompilationStateChange(isoBuilder);
             },
             onBuild,
         })
@@ -170,7 +177,7 @@ function build_browser(isoBuilder, build_cache__browser, onCompilationStateChang
 
     return build_iso({
         isoBuilder,
-        build_cache: build_cache__browser,
+        build_cache: buildCacheBrowser,
         webpack_entries,
         outputDir,
         webpack_config_modifier: webpackBrowserConfigModifier,
@@ -180,7 +187,7 @@ function build_browser(isoBuilder, build_cache__browser, onCompilationStateChang
     });
 }
 
-function build_server(isoBuilder, build_cache__server, onCompilationStateChange, webpack_entries) {
+function build_server({isoBuilder, buildCacheServer, webpack_entries}) {
     assert_isoBuilder(isoBuilder);
     const {outputDir, webpackServerConfigModifier} = isoBuilder;
     const {output_path__server} = get_dist_paths({outputDir});
@@ -193,7 +200,7 @@ function build_server(isoBuilder, build_cache__server, onCompilationStateChange,
             onCompilationStateChange: compilationState => {
                 assert_compilationState(compilationState);
                 isoBuilder.buildState.server = compilationState;
-                onCompilationStateChange();
+                onCompilationStateChange(isoBuilder);
             },
             onBuild,
         })
@@ -201,7 +208,7 @@ function build_server(isoBuilder, build_cache__server, onCompilationStateChange,
 
     return build_iso({
         isoBuilder,
-        build_cache: build_cache__server,
+        build_cache: buildCacheServer,
         webpack_entries,
         outputDir,
         webpack_config_modifier: webpackServerConfigModifier,

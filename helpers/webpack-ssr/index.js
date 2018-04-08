@@ -32,7 +32,7 @@ function BuildInstance() {
     isoBuilder.webpackBrowserConfigModifier = this.webpackBrowserConfig;
     isoBuilder.webpackServerConfigModifier = this.webpackNodejsConfig;
 
-    isoBuilder.builder = async there_is_a_newer_run => {
+    isoBuilder.builder = async ({there_is_a_newer_run, buildServer, buildBrowser}) => {
         const {fileWriter} = isoBuilder;
 
      // const page_objects = get_pages({pagesDirPath});
@@ -43,7 +43,7 @@ function BuildInstance() {
 
         const server_entries = getServerEntries.call(this);
 
-        await isoBuilder.build_server(server_entries);
+        await buildServer(server_entries);
         if( there_is_a_newer_run() ) return;
 
         const {buildState} = isoBuilder;
@@ -60,7 +60,7 @@ function BuildInstance() {
 
      // const browser_entries = get_browser_entries({page_objects, fileWriter});
 
-        await isoBuilder.build_browser(pageBrowserEntries);
+        await buildBrowser(pageBrowserEntries);
         if( there_is_a_newer_run() ) return;
 
         writeAssetMap.call(this, {buildState, fileWriter});
