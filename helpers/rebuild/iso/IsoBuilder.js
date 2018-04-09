@@ -13,8 +13,6 @@ const fs = require('fs');
 const touch = require('touch');
 const deep_equal = require('deep-equal');
 
-const {get_webpack_browser_config, get_webpack_server_config} = require('./webpack_config');
-
 //*
 global.DEBUG_WATCH = true;
 //*/
@@ -35,7 +33,7 @@ function IsoBuilder() {
     const buildCacheServer = {};
     const buildCacheBrowser = {};
     this.build = () => (
-        build_all({
+        buildAll({
             isoBuilder: this,
             latest_run,
             buildCacheServer,
@@ -56,15 +54,14 @@ function create_file_writer(isoBuilder) {
             assert_usage(!is_abs(filePath));
             assert_isoBuilder(isoBuilder);
             const {outputDir} = isoBuilder;
-            const {output_path__base} = get_dist_paths({outputDir});
-            const file_path = path__resolve(output_path__base, filePath);
+            const file_path = path__resolve(outputDir, filePath);
             fs_handler.writeFile(file_path, fileContent, noSession);
             return file_path;
         },
     };
 }
 
-async function build_all({isoBuilder, latest_run, buildCacheServer, buildCacheBrowser}) {
+async function buildAll({isoBuilder, latest_run, buildCacheServer, buildCacheBrowser}) {
     if( global.DEBUG_WATCH ) {
         console.log('START BUILDER');
     }
@@ -79,7 +76,7 @@ async function build_all({isoBuilder, latest_run, buildCacheServer, buildCacheBr
     const {outputDir} = isoBuilder;
 
     if( latest_run.run_number === 0 ) {
-        handle_output_dir({outputDir});
+        moveAndStampOutputDir({outputDir});
     }
 
     const run_number = ++latest_run.run_number;
@@ -87,16 +84,16 @@ async function build_all({isoBuilder, latest_run, buildCacheServer, buildCacheBr
     const there_is_a_newer_run = () => latest_run.run_number>run_number;
 
 
-    const buildServer = (
-        webpack_entries =>
-            build_server({isoBuilder, buildCacheServer, webpack_entries, there_is_a_newer_run})
+    const buildForNodejs = (
+        webpackConfig =>
+            build_server({isoBuilder, buildCacheServer, webpackConfig, there_is_a_newer_run})
     );
-    const buildBrowser = (
-        webpack_entries =>
-            build_browser({isoBuilder, buildCacheBrowser, webpack_entries, there_is_a_newer_run})
+    const buildForBrowser = (
+        webpackConfig =>
+            build_browser({isoBuilder, buildCacheBrowser, webpackConfig, there_is_a_newer_run})
     );
 
-    latest_run.promise = isoBuilder.builder({there_is_a_newer_run, buildServer, buildBrowser});
+    latest_run.promise = isoBuilder.builder({there_is_a_newer_run, buildForNodejs, buildForBrowser});
 
     const build_info = await wait_on_latest_run(latest_run);
 
@@ -156,13 +153,11 @@ async function wait_on_latest_run(latest_run) {
     }
 }
 
-function build_browser({isoBuilder, buildCacheBrowser, webpack_entries, there_is_a_newer_run}) {
+function build_browser({webpackConfig, isoBuilder, buildCacheBrowser, there_is_a_newer_run}) {
     assert_isoBuilder(isoBuilder);
-    const {outputDir, webpackBrowserConfigModifier} = isoBuilder;
-    const {output_path__browser} = get_dist_paths({outputDir});
 
-    const build_function = ({webpack_config, onBuild}) => (
-        serve(webpack_config, {
+    const build_function = ({onBuild}) => (
+        serve(webpackConfig, {
             doNotCreateServer: true,
             doNotGenerateIndexHtml: true,
             doNotFireReloadEvents: true,
@@ -179,32 +174,27 @@ function build_browser({isoBuilder, buildCacheBrowser, webpack_entries, there_is
         })
     );
 
-    assert_usage(webpack_entries.constructor===Object);
+    const webpackEntries = webpackConfig.entry;
+    assert_usage(webpackEntries && webpackEntries.constructor===Object, webpackConfig);
     if( ! is_production() ) {
-        assert_usage(!webpack_entries['autoreload_client']);
-        webpack_entries['autoreload_client'] = [autoreloadClientPath];
+        assert_usage(!webpackEntries['autoreload_client']);
+        webpackEntries['autoreload_client'] = [autoreloadClientPath];
     }
 
     return build_iso({
+        webpackConfig,
         isoBuilder,
         build_cache: buildCacheBrowser,
-        webpack_entries,
-        outputDir,
-        webpack_config_modifier: webpackBrowserConfigModifier,
-        webpack_get_config: get_webpack_browser_config,
-        webpack_ouput_path: output_path__browser,
         build_function,
         compilationName: 'browserCompilation',
     });
 }
 
-function build_server({isoBuilder, buildCacheServer, webpack_entries, there_is_a_newer_run}) {
+function build_server({webpackConfig, isoBuilder, buildCacheServer, there_is_a_newer_run}) {
     assert_isoBuilder(isoBuilder);
-    const {outputDir, webpackServerConfigModifier} = isoBuilder;
-    const {output_path__server} = get_dist_paths({outputDir});
 
-    const build_function = ({webpack_config, onBuild}) => (
-        build(webpack_config, {
+    const build_function = ({onBuild}) => (
+        build(webpackConfig, {
             watch: true,
             doNotGenerateIndexHtml: true,
             logger: null,
@@ -221,13 +211,9 @@ function build_server({isoBuilder, buildCacheServer, webpack_entries, there_is_a
     );
 
     return build_iso({
+        webpackConfig,
         isoBuilder,
         build_cache: buildCacheServer,
-        webpack_entries,
-        outputDir,
-        webpack_config_modifier: webpackServerConfigModifier,
-        webpack_get_config: get_webpack_server_config,
-        webpack_ouput_path: output_path__server,
         build_function,
         compilationName: 'serverCompilation',
     });
@@ -242,38 +228,37 @@ function assert_compilationState(compilationState) {
     assert_internal(compilationState.output.dist_root_directory);
 }
 async function build_iso({
+    webpackConfig,
     isoBuilder,
     build_cache,
-    webpack_entries,
-    outputDir,
-    webpack_config_modifier,
-    webpack_get_config,
-    webpack_ouput_path,
     build_function,
     compilationName,
 }) {
-    assert_usage(webpack_entries || webpack_entries===null);
+    const {entry: webpackEntries, output: {path: webpackOutputPath}={}} = webpackConfig;
+    assert_usage(webpackEntries, webpackConfig);
+    assert_usage(webpackOutputPath, webpackConfig);
 
-    if( build_cache.webpack_entries ) {
-        if( deep_equal(webpack_entries, build_cache.webpack_entries) ) {
+    if( build_cache.webpackEntries ) {
+        if( deep_equal(webpackEntries, build_cache.webpackEntries) ) {
             return await build_cache.wait_build();
         } else {
             await build_cache.stop_build();
-            remove_output_path(webpack_ouput_path);
+            remove_output_path(webpackOutputPath);
         }
     }
 
-    const webpack_config = get_webpack_config({
+    /*
+    get_webpack_config({
         webpack_ouput_path,
         webpack_config_modifier,
-        webpack_get_config,
-        webpack_entries,
+        webpackEntries,
         outputDir,
     });
+    */
 
+    assert_internal(webpackConfig);
     const {first_build_promise, wait_build, stop_build} = (
         build_function({
-            webpack_config,
             onBuild: build_info__repage => {
                 const {isFirstBuild} = build_info__repage;
                 assert_internal([true, false].includes(isFirstBuild));
@@ -288,13 +273,13 @@ async function build_iso({
     );
 
     assert_internal(stop_build && wait_build);
-    Object.assign(build_cache, {stop_build, wait_build, webpack_entries});
+    Object.assign(build_cache, {stop_build, wait_build, webpackEntries});
 
     return await first_build_promise;
 }
 
-function remove_output_path(webpack_ouput_path) {
-    fs__remove(webpack_ouput_path);
+function remove_output_path(webpackOutputPath) {
+    fs__remove(webpackOutputPath);
 }
 
 function assert_isoBuilder(isoBuilder) {
@@ -302,6 +287,7 @@ function assert_isoBuilder(isoBuilder) {
     assert_usage(isoBuilder.builder);
 }
 
+/*
 function get_webpack_config({
     webpack_config_modifier,
     webpack_ouput_path,
@@ -323,31 +309,10 @@ function get_webpack_config({
 
     return webpack_build.config;
 }
+*/
 
-function get_dist_paths({outputDir}) {
-    if( ! outputDir ) {
-        return {};
-    }
-    const output_path__base = outputDir;
-    const output_path__browser = path_module.resolve(output_path__base, './browser');
-    const output_path__server = path_module.resolve(output_path__base, './server');
-
-    return {
-        output_path__base,
-        output_path__browser,
-        output_path__server,
-    };
-}
-
-
-
-function handle_output_dir({outputDir}) {
-    const {output_path__base} = get_dist_paths({outputDir});
-    move_and_stamp_output_dir({output_path__base});
-}
-
-function move_and_stamp_output_dir({output_path__base}) {
-    const stamp_path = path__resolve(output_path__base, 'build-stamp');
+function moveAndStampOutputDir({outputDir}) {
+    const stamp_path = path__resolve(outputDir, 'build-stamp');
 
     handle_existing_output_dir();
     assert_emtpy_output_dir();
@@ -356,7 +321,7 @@ function move_and_stamp_output_dir({output_path__base}) {
     return;
 
     function create_output_dir() {
-        mkdirp.sync(path_module.dirname(output_path__base));
+        mkdirp.sync(path_module.dirname(outputDir));
         const timestamp = get_timestamp();
         assert_internal(timestamp);
         const stamp_content = get_timestamp()+'\n';
@@ -370,7 +335,7 @@ function move_and_stamp_output_dir({output_path__base}) {
             [
                 now.getFullYear(),
                 now.getMonth()+1,
-                now.getDate()+1,
+                now.getDate(),
             ]
             .map(pad)
             .join('-')
@@ -396,23 +361,23 @@ function move_and_stamp_output_dir({output_path__base}) {
     }
 
     function handle_existing_output_dir() {
-        if( ! fs__path_exists(output_path__base) ) {
+        if( ! fs__path_exists(outputDir) ) {
             return;
         }
         assert_usage(
             fs__path_exists(stamp_path),
             "Reframe's stamp `"+stamp_path+"` not found.",
-            "It is therefore assumed that `"+output_path__base+"` has not been created by Reframe.",
-            "Remove `"+output_path__base+"`, so that Reframe can safely write distribution files."
+            "It is therefore assumed that `"+outputDir+"` has not been created by Reframe.",
+            "Remove `"+outputDir+"`, so that Reframe can safely write distribution files."
         );
         move_old_output_dir();
     }
 
     function assert_emtpy_output_dir() {
-        if( ! fs__path_exists(output_path__base) ) {
+        if( ! fs__path_exists(outputDir) ) {
             return;
         }
-        const files = fs__ls(output_path__base);
+        const files = fs__ls(outputDir);
         assert_internal(files.length<=1, files);
         assert_internal(files.length===1, files);
         assert_internal(files[0].endsWith('previous'), files);
@@ -423,11 +388,11 @@ function move_and_stamp_output_dir({output_path__base}) {
         assert_internal(
             stamp_content,
             'Reframe stamp is missing at `'+stamp_path+'`.',
-            'Remove `'+output_path__base+'` and retry.',
+            'Remove `'+outputDir+'` and retry.',
         );
         assert_internal(stamp_content && !/\s/.test(stamp_content), stamp_content);
-        const graveyard_path = path__resolve(output_path__base, 'previous', stamp_content);
-        move_all_files(output_path__base, graveyard_path);
+        const graveyard_path = path__resolve(outputDir, 'previous', stamp_content);
+        move_all_files(outputDir, graveyard_path);
     }
 
     function move_all_files(path_old, path_new) {

@@ -4,6 +4,7 @@ const {IsoBuilder} = require('@rebuild/iso');
 const {Logger} = require('@rebuild/build/utils/Logger');
 //const dir = require('node-dir');
 const path_module = require('path');
+const pathModule = path_module;
 const fs = require('fs');
 const forceRequire = require('./utils/forceRequire');
 
@@ -13,6 +14,7 @@ const mime = require('mime'); // TODO remove from package.json
 // TODO rename source-code
 const GENERATED_DIR = 'generated'+path_module.sep;
 const BROWSER_DIST_DIR = 'browser'+path_module.sep;
+const SERVER_DIST_DIR = 'server'+path_module.sep;
 
 module.exports = WebpackSSR;
 
@@ -29,10 +31,8 @@ function BuildInstance() {
     isoBuilder.logger = Logger({log_config_and_stats: this.log.verbose});
     assert_usage(this.outputDir);
     isoBuilder.outputDir = this.outputDir;
-    isoBuilder.webpackBrowserConfigModifier = this.webpackBrowserConfig;
-    isoBuilder.webpackServerConfigModifier = this.webpackNodejsConfig;
 
-    isoBuilder.builder = async ({there_is_a_newer_run, buildServer, buildBrowser}) => {
+    isoBuilder.builder = async ({there_is_a_newer_run, buildForNodejs, buildForBrowser}) => {
         const {fileWriter} = isoBuilder;
 
      // const page_objects = get_pages({pagesDirPath});
@@ -41,9 +41,11 @@ function BuildInstance() {
 
         this.pageNames = Object.keys(this.pageFiles);
 
-        const serverEntries = getServerEntries.call(this);
+        const nodejsEntries = getServerEntries.call(this);
+        const nodejsOutputPath = pathModule.resolve(this.outputDir, SERVER_DIST_DIR);
+        const nodejsConfig = this.getWebpackNodejsConfig({entries: nodejsEntries, outputPath: nodejsOutputPath});
 
-        await buildServer(serverEntries);
+        await buildForNodejs(nodejsConfig);
         if( there_is_a_newer_run() ) return;
 
         const {buildState} = isoBuilder;
@@ -56,11 +58,13 @@ function BuildInstance() {
         enhance_page_objects_1({page_objects, buildState, fileWriter, reframeConfig});
         */
 
-        const browserEntries = generateBrowserEntries.call(this, {fileWriter});
-
      // const browser_entries = get_browser_entries({page_objects, fileWriter});
 
-        await buildBrowser(browserEntries);
+        const browserEntries = generateBrowserEntries.call(this, {fileWriter});
+        const browserOutputPath = pathModule.resolve(this.outputDir, BROWSER_DIST_DIR);
+        const browserConfig = this.getWebpackBrowserConfig({entries: browserEntries, outputPath: browserOutputPath});
+
+        await buildForBrowser(browserConfig);
         if( there_is_a_newer_run() ) return;
 
         writeAssetMap.call(this, {buildState, fileWriter});
@@ -197,6 +201,7 @@ function getServerEntries() {
     return server_entries;
 }
 
+/*
 function get_browser_entries__browser_entry({page_objects, browser_entries, already_added}) {
     Object.values(page_objects)
     .filter(page_object => page_object.browser_entry)
@@ -209,8 +214,10 @@ function get_browser_entries__browser_entry({page_objects, browser_entries, alre
         browser_entries[entry_name] = [source_path];
     });
 }
+*/
 
-function get_browser_entries({page_objects, /*fileWriter,*/}) {
+/*
+function get_browser_entries({page_objects, fileWriter}) {
 
     const browser_entries = {};
     const already_added = {};
@@ -221,7 +228,9 @@ function get_browser_entries({page_objects, /*fileWriter,*/}) {
 
     return browser_entries;
 }
+*/
 
+/*
 function generate_and_add_browser_entries({page_objects, fileWriter, reframeConfig}) {
     fileWriter.startWriteSession('browser_entries');
 
@@ -268,6 +277,7 @@ function generate_and_add_browser_entries({page_objects, fileWriter, reframeConf
 
     fileWriter.endWriteSession();
 }
+*/
 
 function get_page_files({pagesDirPath}) {
     return (
@@ -467,11 +477,13 @@ async function writeHtmlFiles({fileWriter}) {
     }
 }
 
+/*
 function enhance_page_objects_1({page_objects, buildState, fileWriter, reframeConfig}) {
     const server_entry_points = buildState.server.output.entry_points;
     load_page_configs({page_objects, server_entry_points});
     generate_and_add_browser_entries({page_objects, fileWriter, reframeConfig});
 }
+*/
 
 function generateBrowserEntries({fileWriter}) {
     const {pageBrowserEntries} = this;

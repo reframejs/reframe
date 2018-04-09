@@ -12,6 +12,8 @@ const {pagesDir, buildOutputDir} = projectConfig.projectFiles;
 const Repage = require('@repage/core');
 const {getStaticPages} = require('@repage/build');
 
+const {Config, StandardConfig, StandardNodeConfig, ReactConfig} = require('@rebuild/config');
+
 assert_usage(
     pagesDir || webpackBrowserConfigModifier && webpackServerConfigModifier,
     "No `pages/` directory found nor is `webpackBrowserConfig` and `webpackServerConfig` defined in `reframe.config.js`."
@@ -22,8 +24,22 @@ const build = new Build({
     getPageFiles: getPageConfigPaths,
     getPageBrowserEntries,
     getPageHTMLs,
-    webpackBrowserConfig: webpackBrowserConfigModifier,
-    webpackNodejsConfig: webpackServerConfigModifier,
+    getWebpackBrowserConfig: ({config, setRule, setBabelConfig, entries, outputPath}) => {
+        return get_webpack_browser_config({entries, outputPath});
+        /*
+        setBabelConfig(config);
+        config = webpackBrowserConfigModifier(config);
+        return config;
+        */
+    },
+    getWebpackNodejsConfig: ({config, setRule, setBabelConfig, entries, outputPath}) => {
+        return get_webpack_server_config({entries, outputPath});
+        /*
+        setBabelConfig(config);
+        config = webpackServerConfigModifier(config);
+        return config;
+        */
+    },
     log,
 });
 
@@ -191,4 +207,40 @@ function isModulePath(filePath) {
         return true;
     } catch(e) {}
     return false;
+}
+
+function get_webpack_browser_config({entries, outputPath}) {
+    if( !entries || Object.values(entries).length===0 ) {
+        return {};
+    }
+
+    const browser_config = new Config();
+
+    browser_config.add([
+        new StandardConfig({
+            entry: entries,
+            outputPath,
+        }),
+        new ReactConfig(),
+    ]);
+
+    return browser_config.assemble();
+}
+
+function get_webpack_server_config({entries, outputPath}) {
+    if( !entries || Object.values(entries).length===0 ) {
+        return {};
+    }
+
+    const server_config = new Config();
+
+    server_config.add([
+        new StandardNodeConfig({
+            entry: entries,
+            outputPath,
+        }),
+        new ReactConfig(),
+    ]);
+
+    return server_config.assemble();
 }
