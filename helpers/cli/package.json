@@ -5,6 +5,7 @@
     "reframe": "./cli.js"
   },
   "dependencies": {
+    "@brillout/get-user-dir": "latest",
     "@reframe/utils": "0.0.1-rc.12",
     "@reframe/start": "0.0.1-rc.12",
     "@reframe/init": "0.0.1-rc.12",

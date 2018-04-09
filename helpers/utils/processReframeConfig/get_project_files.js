@@ -2,7 +2,7 @@ const assert_internal = require('reassert/internal');
 const assert_usage = require('reassert/usage');
 const path_module = require('path');
 const find = require('@brillout/find');
-const getCurrentDir = require('@reframe/utils/getCurrentDir');
+const getUserDir = require('@brillout/get-user-dir');
 const find_reframe_config = require('@reframe/utils/find_reframe_config');
 const fs = require('fs');
 const mime = require('mime'); // TODO remove
@@ -37,9 +37,9 @@ function getProjectFiles__with_cache() {
 }
 
 function getProjectFiles() {
-    const currentDir = getCurrentDir();
+    const userDir = getUserDir();
 
-    const {reframeConfigPath, pagesDir} = find_reframe_config(currentDir);
+    const {reframeConfigPath, pagesDir} = find_reframe_config(userDir);
 
     const projectRootDir = (reframeConfigPath || pagesDir) && path_module.dirname(reframeConfigPath || pagesDir);
 

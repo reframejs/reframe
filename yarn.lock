@@ -32,6 +32,12 @@
     parent-module "^0.1.0"
     reassert "1.1.1"
 
+"@brillout/get-user-dir@latest":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@brillout/get-user-dir/-/get-user-dir-0.1.0.tgz#d201f4d110fcfec1800ab72c82aa47eb26ad2abc"
+  dependencies:
+    callsites "^2.0.0"
+
 "@brillout/html-crust@latest":
   version "0.0.9"
   resolved "https://registry.yarnpkg.com/@brillout/html-crust/-/html-crust-0.0.9.tgz#bb9a6abd46c36b5ce9a0c9b22d2e839de642f50d"

@@ -1,6 +1,6 @@
 const assert = require('reassert');
 const assert_internal = assert;
-const getCurrentDir = require('@reframe/utils/getCurrentDir');
+const getUserDir = require('@brillout/get-user-dir');
 const find_reframe_config = require('@reframe/utils/find_reframe_config');
 const {processReframeConfig} = require('@reframe/utils/processReframeConfig/processReframeConfig');
 
@@ -16,9 +16,9 @@ function getProjectConfig() {
 }
 
 function computeProjectConfig() {
-    const currentDir = getCurrentDir();
+    const userDir = getUserDir();
 
-    let {reframeConfigPath} = find_reframe_config(currentDir);
+    let {reframeConfigPath} = find_reframe_config(userDir);
     const reframeConfig = reframeConfigPath && require(reframeConfigPath) || {};
 
     const projectConfig = {};

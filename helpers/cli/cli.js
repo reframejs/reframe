@@ -6,8 +6,8 @@ const ora = require('ora');
 const loading_spinner = ora();
 loading_spinner.start();
 
-const getCurrentDir = require('@reframe/utils/getCurrentDir');
-getCurrentDir.currentDir = process.cwd();
+const getUserDir = require('@brillout/get-user-dir');
+getUserDir.userDir = process.cwd();
 
 const getProjectConfig = require('@reframe/utils/getProjectConfig');
 const projectConfig = getProjectConfig();
