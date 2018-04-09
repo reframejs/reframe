@@ -7,12 +7,16 @@ function watchDir(dirPath, listener) {
         return;
     }
     const watcher = chokidar.watch(dirPath, {ignoreInitial: true});
-    watcher.on('add', () => {
+
+    const cb = () => {
+        if( global.DEBUG_WATCH ) {
+            console.log('REBUILD-REASON: new/removed file at `'+dirPath+'`');
+        }
         listener();
-    });
-    watcher.on('unlink', () => {
-        listener();
-    });
+    };
+
+    watcher.on('add', cb);
+    watcher.on('unlink', cb);
 }
 
 function isProduction() {

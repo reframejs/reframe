@@ -16,9 +16,9 @@ const deep_equal = require('deep-equal');
 const {get_webpack_browser_config, get_webpack_server_config} = require('./webpack_config');
 
 //*
-const DEBUG_WATCH = true;
+global.DEBUG_WATCH = true;
 /*/
-const DEBUG_WATCH = false;
+global.DEBUG_WATCH = false;
 //*/
 
 module.exports = {IsoBuilder};
@@ -67,8 +67,8 @@ function create_file_writer(isoBuilder) {
 }
 
 async function build_all({isoBuilder, latest_run, buildCacheServer, buildCacheBrowser}) {
-    if( DEBUG_WATCH ) {
-        console.log('Start build all');
+    if( global.DEBUG_WATCH ) {
+        console.log('START BUILDER');
     }
 
     assert_isoBuilder(isoBuilder);
@@ -196,6 +196,7 @@ function build_browser({isoBuilder, buildCacheBrowser, webpack_entries, there_is
         webpack_get_config: get_webpack_browser_config,
         webpack_ouput_path: output_path__browser,
         build_function,
+        compilationName: 'browserCompilation',
     });
 }
 
@@ -230,6 +231,7 @@ function build_server({isoBuilder, buildCacheServer, webpack_entries, there_is_a
         webpack_get_config: get_webpack_server_config,
         webpack_ouput_path: output_path__server,
         build_function,
+        compilationName: 'serverCompilation',
     });
 }
 
@@ -250,6 +252,7 @@ async function build_iso({
     webpack_get_config,
     webpack_ouput_path,
     build_function,
+    compilationName,
 }) {
     assert_usage(webpack_entries || webpack_entries===null);
 
@@ -277,8 +280,8 @@ async function build_iso({
                 const {isFirstBuild} = build_info__repage;
                 assert_internal([true, false].includes(isFirstBuild));
                 if( ! isFirstBuild ) {
-                    if( DEBUG_WATCH ) {
-                        console.log('Rebuild done in '+webpack_ouput_path);
+                    if( global.DEBUG_WATCH ) {
+                        console.log('REBUILD-REASON: webpack-watch for `'+compilationName+'`');
                     }
                     isoBuilder.build();
                 }
@@ -493,11 +496,8 @@ function FileSystemHandler() {
             return;
         }
 
-        if( DEBUG_WATCH ) {
-            console.log(
-                '\nChanged file content:\n',
-                path
-            );
+        if( global.DEBUG_WATCH ) {
+            console.log('FILE-CHANGED: '+path);
             /*
             if( fs__path_exists(path) ) {
                 console.log(
@@ -526,6 +526,9 @@ function FileSystemHandler() {
     function removePreviouslyWrittenFiles(session_object) {
         session_object.written_files__previously.forEach(path => {
             if( ! session_object.written_files__current.includes(path) ) {
+                if( global.DEBUG_WATCH ) {
+                    console.log('FILE-REMOVED: '+path);
+                }
                 fs__remove(path);
             }
         });
