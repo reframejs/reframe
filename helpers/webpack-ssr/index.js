@@ -26,7 +26,7 @@ function WebpackSSR(opts) {
 function BuildInstance() {
     const isoBuilder = new IsoBuilder();
 
-    isoBuilder.logger = Logger({log_config_and_stats: this.verbose});
+    isoBuilder.logger = Logger({log_config_and_stats: this.log.verbose});
     assert_usage(this.outputDir);
     isoBuilder.outputDir = this.outputDir;
     isoBuilder.webpackBrowserConfigModifier = this.webpackBrowserConfig;
@@ -41,26 +41,26 @@ function BuildInstance() {
 
         this.pageNames = Object.keys(this.pageFiles);
 
-        const server_entries = getServerEntries.call(this);
+        const serverEntries = getServerEntries.call(this);
 
-        await buildServer(server_entries);
+        await buildServer(serverEntries);
         if( there_is_a_newer_run() ) return;
 
         const {buildState} = isoBuilder;
 
         this.pageModules = loadPageModules.call(this, buildState.server.output.entry_points);
 
-        this.pageInfos = getPageInfos.call(this);
+        this.pageBrowserEntries = getPageBrowserEntries.call(this);
 
         /*
         enhance_page_objects_1({page_objects, buildState, fileWriter, reframeConfig});
         */
 
-        const pageBrowserEntries = generatePageBrowserEntries.call(this, {fileWriter});
+        const browserEntries = generateBrowserEntries.call(this, {fileWriter});
 
      // const browser_entries = get_browser_entries({page_objects, fileWriter});
 
-        await buildBrowser(pageBrowserEntries);
+        await buildBrowser(browserEntries);
         if( there_is_a_newer_run() ) return;
 
         writeAssetMap.call(this, {buildState, fileWriter});
@@ -122,22 +122,22 @@ function get_pages({pagesDirPath}) {
     return page_objects;
 }
 
-function getPageInfos() {
+function getPageBrowserEntries() {
     const {pageModules} = this;
     assert_internal(pageModules);
-    const pageInfos__array = this.getPageInfos(pageModules);
-    const pageInfos = {};
-    pageInfos__array.forEach(pageInfo => {
-        const {pageName, browserEntryString, browserEntryOnlyCss} = pageInfo;
+    const pageBrowserEntries__array = this.getPageBrowserEntries(pageModules);
+    const pageBrowserEntries = {};
+    pageBrowserEntries__array.forEach(pageBrowserEntry => {
+        const {pageName, browserEntryString, browserEntryOnlyCss} = pageBrowserEntry;
         assert_usage(pageName);
         assert_usage(browserEntryString);
-        pageInfos[pageName] = {
+        pageBrowserEntries[pageName] = {
             pageName,
             browserEntryString,
             browserEntryOnlyCss: !!browserEntryOnlyCss,
         };
     });
-    return pageInfos;
+    return pageBrowserEntries;
 }
 
 function getPageFiles() {
@@ -431,12 +431,12 @@ async function writeHtmlFiles({fileWriter}) {
     const {pageModules} = this;
     assert_internal(pageModules);
 
-    const htmlFiles = await this.getHtmlFiles(pageModules);
-    assert_usage(htmlFiles && htmlFiles.constructor===Array);
+    const htmlStrings = await this.getPageHTMLs(pageModules);
+    assert_usage(htmlStrings && htmlStrings.constructor===Array);
 
     fileWriter.startWriteSession('html_files');
 
-    htmlFiles
+    htmlStrings
     .forEach(({pathname, html}) => {
         assert_input({pathname, html});
         fileWriter.writeFile({
@@ -473,17 +473,17 @@ function enhance_page_objects_1({page_objects, buildState, fileWriter, reframeCo
     generate_and_add_browser_entries({page_objects, fileWriter, reframeConfig});
 }
 
-function generatePageBrowserEntries({fileWriter}) {
-    const {pageInfos} = this;
+function generateBrowserEntries({fileWriter}) {
+    const {pageBrowserEntries} = this;
 
-    const pageBrowserEntries = {};
+    const browserEntries = {};
 
     fileWriter.startWriteSession('BROWSER_SOURCE_CODE');
 
-    Object.values(pageInfos)
-    .forEach(pageInfo => {
-        assert_usage(pageInfo);
-        const {browserEntryString, pageName} = pageInfo;
+    Object.values(pageBrowserEntries)
+    .forEach(pageBrowserEntry => {
+        assert_usage(pageBrowserEntry);
+        const {browserEntryString, pageName} = pageBrowserEntry;
 
         assert_usage(browserEntryString && browserEntryString.constructor===String);
 
@@ -492,18 +492,18 @@ function generatePageBrowserEntries({fileWriter}) {
             filePath: GENERATED_DIR+'browser_entries/'+pageName+'-browser.js',
         });
 
-        assert_internal(!pageBrowserEntries[pageName]);
-        pageBrowserEntries[pageName] = fileAbsolutePath;
+        assert_internal(!browserEntries[pageName]);
+        browserEntries[pageName] = fileAbsolutePath;
     });
 
     fileWriter.endWriteSession();
 
-    return pageBrowserEntries;
+    return browserEntries;
 }
 
 function writeAssetMap({buildState, fileWriter}) {
-    const {pageInfos, pageNames, pageModules} = this;
-    assert_internal(pageInfos);
+    const {pageBrowserEntries, pageNames, pageModules} = this;
+    assert_internal(pageBrowserEntries);
     assert_internal(pageNames);
 
     const assetMap = {};
@@ -512,7 +512,7 @@ function writeAssetMap({buildState, fileWriter}) {
 
     const browser_entry_points = buildState.browser.output.entry_points;
 
-    add_browser_entry_points({assetMap, pageInfos, browser_entry_points});
+    add_browser_entry_points({assetMap, pageBrowserEntries, browser_entry_points});
 
     add_autoreload_client({assetMap, pageNames, browser_entry_points});
 
@@ -565,11 +565,11 @@ function add_autoreload_client({assetMap, pageNames, browser_entry_points}) {
     });
 }
 
-function add_browser_entry_points({assetMap, pageInfos, browser_entry_points}) {
+function add_browser_entry_points({assetMap, pageBrowserEntries, browser_entry_points}) {
     Object.values(browser_entry_points)
     .forEach(entry_point => {
         assert_internal(entry_point.entry_name);
-        Object.values(pageInfos)
+        Object.values(pageBrowserEntries)
         .forEach(({browserEntryOnlyCss, pageName}) => {
             assert_usage([true, false].includes(browserEntryOnlyCss));
             assert_internal(pageName);
@@ -623,6 +623,8 @@ function add_entry_point_styles_to_page_assets({assetMap, entry_point, pageName}
             ...styles
         ])
     );
+
+    pageAssets.scripts = pageAssets.scripts || [];
 }
 
 function make_paths_array_unique(paths) {

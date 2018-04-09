@@ -26,6 +26,7 @@ function startCommands() {
                         process.env['NODE_ENV'] = 'production';
                     }
 
+                    setOptions({log})
                     /*
                     const build = require(resolvePackagePath('@reframe/build'));
                     await build({log});
@@ -37,6 +38,13 @@ function startCommands() {
                 },
             }
         ],
+    };
+}
+
+function setOptions({log}) {
+    const projectConfig = getProjectConfig();
+    projectConfig.log = {
+        verbose: !!log,
     };
 }
 

@@ -1,7 +1,7 @@
 const compile = require('@rebuild/build/compile');
 const assert = require('reassert');
 const assert_usage = assert;
-const {webpack_config_modifier, get_compiler_handler} = require('./utils/custom_server');
+let {webpack_config_modifier, get_compiler_handler} = require('./utils/custom_server');
 
 module.exports = serve;
 

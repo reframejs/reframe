@@ -6,7 +6,7 @@ const assert_usage = require('reassert/usage');
 const pathModule = require('path');
 
 const projectConfig = getProjectConfig();
-const {getPageConfigPaths, webpackBrowserConfigModifier, webpackServerConfigModifier} = projectConfig;
+const {getPageConfigPaths, webpackBrowserConfigModifier, webpackServerConfigModifier, log} = projectConfig;
 const {pagesDir, buildOutputDir} = projectConfig.projectFiles;
 
 const Repage = require('@repage/core');
@@ -20,13 +20,11 @@ assert_usage(
 const build = new Build({
     outputDir: buildOutputDir,
     getPageFiles: getPageConfigPaths,
-    getPageInfos,
-    getHtmlFiles,
+    getPageBrowserEntries,
+    getPageHTMLs,
     webpackBrowserConfig: webpackBrowserConfigModifier,
     webpackNodejsConfig: webpackServerConfigModifier,
-    log: {
-        verbose: false,
-    },
+    log,
 });
 
 watchDir(
@@ -36,7 +34,7 @@ watchDir(
 
 module.exports = build();
 
-function getPageInfos(pageModules) {
+function getPageBrowserEntries(pageModules) {
     return (
         pageModules
         .map(({pageExport, pageName, pageFile}) => {
@@ -51,7 +49,7 @@ function getPageInfos(pageModules) {
     );
 }
 
-async function getHtmlFiles(pageModules) {
+async function getPageHTMLs(pageModules) {
     const pageConfigs = pageModules.map(({pageExport}) => pageExport);
 
     return (
