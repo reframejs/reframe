@@ -7,8 +7,9 @@ const path_module = require('path');
 const pathModule = path_module;
 const fs = require('fs');
 const forceRequire = require('./utils/forceRequire');
+const getUserDir = require('@brillout/get-user-dir');
 
-const get_parent_dirname = require('@brillout/get-parent-dirname'); // TODO remove from package.json
+//const get_parent_dirname = require('@brillout/get-parent-dirname'); // TODO remove from package.json
 const mime = require('mime'); // TODO remove from package.json
 
 // TODO rename source-code
@@ -44,7 +45,7 @@ function BuildInstance() {
         const nodejsEntries = getServerEntries.call(this);
         const nodejsOutputPath = pathModule.resolve(this.outputDir, SERVER_DIST_DIR);
         const nodejsConfig = this.getWebpackNodejsConfig({entries: nodejsEntries, outputPath: nodejsOutputPath});
-
+        addContext(nodejsConfig);
         await buildForNodejs(nodejsConfig);
         if( there_is_a_newer_run() ) return;
 
@@ -63,7 +64,7 @@ function BuildInstance() {
         const browserEntries = generateBrowserEntries.call(this, {fileWriter});
         const browserOutputPath = pathModule.resolve(this.outputDir, BROWSER_DIST_DIR);
         const browserConfig = this.getWebpackBrowserConfig({entries: browserEntries, outputPath: browserOutputPath});
-
+        addContext(browserConfig);
         await buildForBrowser(browserConfig);
         if( there_is_a_newer_run() ) return;
 
@@ -760,3 +761,7 @@ function is_production() {
    return process.env.NODE_ENV === 'production';
 }
 
+function addContext(webpackConfig) {
+    webpackConfig.context = webpackConfig.context || getUserDir();
+    assert_internal(webpackConfig.context);
+}

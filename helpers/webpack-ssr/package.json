@@ -2,6 +2,7 @@
   "name": "webpack-ssr",
   "version": "0.0.1-rc.12",
   "dependencies": {
+    "@brillout/get-user-dir": "latest"
   },
   "publishConfig": {
     "access": "public"

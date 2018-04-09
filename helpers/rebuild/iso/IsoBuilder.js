@@ -7,7 +7,7 @@ const build = require('@rebuild/build');
 const {Logger} = require('@rebuild/build/utils/Logger');
 const reloadBrowser = require('@rebuild/serve/utils/autoreload/reloadBrowser');
 const autoreloadClientPath = require.resolve('@rebuild/serve/utils/autoreload/client');
-const get_parent_dirname = require('@brillout/get-parent-dirname');
+//const get_parent_dirname = require('@brillout/get-parent-dirname'); TODO remove form package.josn
 const path_module = require('path');
 const fs = require('fs');
 const touch = require('touch');
@@ -550,6 +550,7 @@ function fs__ls(dirpath) {
     return files;
 }
 
+/*
 function add_context_to_config(outputDir, config) {
     assert_internal(config.constructor===Object);
     if( ! config.context || outputDir ) {
@@ -558,6 +559,7 @@ function add_context_to_config(outputDir, config) {
     assert_internal(config.context);
     assert_internal(config.context.startsWith('/'));
 }
+*/
 
 function path__resolve(path1, path2, ...paths) {
     assert_internal(path1 && is_abs(path1), path1);
