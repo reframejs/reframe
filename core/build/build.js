@@ -6,8 +6,6 @@ const assert_usage = require('reassert/usage');
 const pathModule = require('path');
 
 const projectConfig = getProjectConfig();
-const {getPageConfigPaths, webpackBrowserConfigModifier, webpackServerConfigModifier, log} = projectConfig;
-const {pagesDir, buildOutputDir} = projectConfig.projectFiles;
 
 const Repage = require('@repage/core');
 const {getStaticPages} = require('@repage/build');
@@ -15,36 +13,30 @@ const {getStaticPages} = require('@repage/build');
 const {Config, StandardConfig, StandardNodeConfig, ReactConfig} = require('@rebuild/config');
 
 assert_usage(
-    pagesDir || webpackBrowserConfigModifier && webpackServerConfigModifier,
+    projectConfig.projectFiles.pagesDir || projectConfig.webpackBrowserConfigModifier && projectConfig.webpackServerConfigModifier,
     "No `pages/` directory found nor is `webpackBrowserConfig` and `webpackServerConfig` defined in `reframe.config.js`."
 );
 
 const build = new Build({
-    outputDir: buildOutputDir,
-    getPageFiles: getPageConfigPaths,
+    outputDir: projectConfig.projectFiles.buildOutputDir,
+    getPageFiles: projectConfig.getPageConfigPaths,
     getPageBrowserEntries,
     getPageHTMLs,
     getWebpackBrowserConfig: ({config, setRule, setBabelConfig, entries, outputPath}) => {
-        return get_webpack_browser_config({entries, outputPath});
-        /*
-        setBabelConfig(config);
-        config = webpackBrowserConfigModifier(config);
+        config = get_webpack_browser_config({entries, outputPath});
+        config = projectConfig.webpackBrowserConfigModifier(config);
         return config;
-        */
     },
     getWebpackNodejsConfig: ({config, setRule, setBabelConfig, entries, outputPath}) => {
-        return get_webpack_server_config({entries, outputPath});
-        /*
-        setBabelConfig(config);
-        config = webpackServerConfigModifier(config);
+        config = get_webpack_server_config({entries, outputPath});
+        config = projectConfig.webpackServerConfigModifier(config);
         return config;
-        */
     },
-    log,
+    log: projectConfig.log,
 });
 
 watchDir(
-    pagesDir,
+    projectConfig.projectFiles.pagesDir,
     () => {build()}
 );
 
