@@ -1,7 +1,8 @@
 const Promise = require('bluebird'); Promise.longStackTraces();
-const assert = require('reassert/hard');
-const assert_usage = assert;
-const assert_internal = assert;
+const assert_warning = require('reassert/warning');
+const assert_usage = require('reassert/usage');
+const assert_internal = require('reassert/internal');
+const assert = assert_internal;
 const log = require('reassert/log');
 const webpack = require('webpack');
 const path_module = require('path');
@@ -16,9 +17,7 @@ const {Config, StandardConfig} = require('@rebuild/config');
 //const {Logger} = require('./utils/Logger');
 
 /*
-const DEBUG_WATCH = true;
-/*/
-const DEBUG_WATCH = false;
+global.DEBUG_WATCH = true;
 //*/
 
 module.exports = compile;
@@ -394,13 +393,18 @@ function get_webpack_compiler(webpack_config) {
     // infos about `webpack_compiler.plugin(eventName)`;
     // - https://github.com/webpack/webpack-dev-server/issues/847
     // - https://github.com/webpack/webpack-dev-server/blob/master/lib/Server.js
-    webpack_compiler.hooks.compile.tap('UnusedName'+Math.random(), () => {
+    webpack_compiler.hooks.compile.tap('weDontNeedToNameThis_aueipvuwivxp', () => {
+        global.DEBUG_WATCH && console.log('WEBPACK-COMPILE-START');
         onCompileStartListeners.forEach(fn => fn());
     });
 
-    DEBUG_WATCH && print_changed_files(webpack_compiler);
+    global.DEBUG_WATCH && print_changed_files(webpack_compiler);
 
-    webpack_compiler.hooks.done.tap('UnusedName'+Math.random(), webpack_stats => {
+    catch_webpack_not_terminating(webpack_compiler, {timeout_minutes: 2});
+
+    webpack_compiler.hooks.done.tap('weDontNeedToNameThis_apokminzbruunf', webpack_stats => {
+        global.DEBUG_WATCH && console.log('WEBPACK-COMPILE-DONE');
+
         resolve_first_compilation(webpack_stats);
 
         // Error handling reference;
@@ -418,12 +422,31 @@ function get_webpack_compiler(webpack_config) {
     return {webpack_compiler, first_compilation, first_successful_compilation, onCompileStart, onCompileEnd};
 }
 
+function catch_webpack_not_terminating(webpack_compiler, {timeout_minutes}) {
+    let is_compiling;
+    webpack_compiler.hooks.compile.tap('weDontNeedToNameThis_pamffwblasa', () => {
+        is_compiling = true;
+        setTimeout(() => {
+            assert_warning(
+                !is_compiling,
+                "Webpack compilation still not finished after 2 minutes.",
+                "It could mean that webpack ran into a bug and hang.",
+                "In that case you need to restart the building."
+            );
+        }, timeout_minutes*60*1000)
+    });
+
+    webpack_compiler.hooks.done.tap('weDontNeedToNameThis_uihaowczb', () => {
+        is_compiling = false;
+    });
+}
+
 function print_changed_files(webpack_compiler) {
     const mem = {
         startTime: Date.now(),
         prevTimestamps: {},
     };
-    webpack_compiler.hooks.emit.tap('uehwiqe', (compilation, cb) => {
+    webpack_compiler.hooks.emit.tap('weDontNeedToNameThis_aapmcjbzbzeldj', (compilation, cb) => {
         const fileTs = {};
         [...compilation.fileTimestamps.keys()].forEach(key => {
             fileTs[key] = compilation.fileTimestamps.get(key);

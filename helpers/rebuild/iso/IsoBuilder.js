@@ -17,8 +17,6 @@ const {get_webpack_browser_config, get_webpack_server_config} = require('./webpa
 
 //*
 global.DEBUG_WATCH = true;
-/*/
-global.DEBUG_WATCH = false;
 //*/
 
 module.exports = {IsoBuilder};
