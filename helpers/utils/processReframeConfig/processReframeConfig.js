@@ -94,19 +94,25 @@ function get_webpack_config_modifiers(_processed, r_objects) {
     return;
 
     function assemble_modifiers(modifier_name) {
-        let supra_modifier = null;
+        // TODO add webpack config modification utilities
+        const utils = {};
+
+        let supra_modifier = config => config;
 
         // We assemble all `r_objects`'s config modifiers into one `supra_modifier`
         r_objects
         .forEach(r_object => {
-            if( ! r_object[modifier_name] ) {
+            const modifier = r_object[modifier_name]
+            if( ! modifier ) {
                 return;
             }
             assert_plugin(r_object[modifier_name] instanceof Function);
-            const previous_modifier = supra_modifier || (({config}) => config);
-            supra_modifier = args => r_object[modifier_name]({...args, config: previous_modifier(args)});
+            const previous_modifier = supra_modifier;
+            supra_modifier = (
+                config =>
+                    modifier({...utils, config: previous_modifier(config)})
+            );
         });
-        assert_internal(supra_modifier===null || supra_modifier instanceof Function);
 
         return supra_modifier;
     }
