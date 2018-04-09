@@ -91,11 +91,11 @@ async function build_all({isoBuilder, latest_run, buildCacheServer, buildCacheBr
 
     const buildServer = (
         webpack_entries =>
-            build_server({isoBuilder, buildCacheServer, webpack_entries})
+            build_server({isoBuilder, buildCacheServer, webpack_entries, there_is_a_newer_run})
     );
     const buildBrowser = (
         webpack_entries =>
-            build_browser({isoBuilder, buildCacheBrowser, webpack_entries})
+            build_browser({isoBuilder, buildCacheBrowser, webpack_entries, there_is_a_newer_run})
     );
 
     latest_run.promise = isoBuilder.builder({there_is_a_newer_run, buildServer, buildBrowser});
@@ -117,7 +117,16 @@ async function build_all({isoBuilder, latest_run, buildCacheServer, buildCacheBr
     return build_info;
 }
 
-function onCompilationStateChange(isoBuilder) {
+function onCompilationStateChange({isoBuilder, compilationState, there_is_a_newer_run, action}) {
+    if( there_is_a_newer_run() ) {
+        return;
+    }
+    assert_compilationState(compilationState);
+    action();
+    logCompilationStateChange(isoBuilder);
+}
+
+function logCompilationStateChange(isoBuilder) {
     const build_state_browser = isoBuilder.buildState.browser;
     const build_state_server = isoBuilder.buildState.server;
 
@@ -149,7 +158,7 @@ async function wait_on_latest_run(latest_run) {
     }
 }
 
-function build_browser({isoBuilder, buildCacheBrowser, webpack_entries}) {
+function build_browser({isoBuilder, buildCacheBrowser, webpack_entries, there_is_a_newer_run}) {
     assert_isoBuilder(isoBuilder);
     const {outputDir, webpackBrowserConfigModifier} = isoBuilder;
     const {output_path__browser} = get_dist_paths({outputDir});
@@ -161,9 +170,12 @@ function build_browser({isoBuilder, buildCacheBrowser, webpack_entries}) {
             doNotFireReloadEvents: true,
             logger: null,
             onCompilationStateChange: compilationState => {
-                assert_compilationState(compilationState);
-                isoBuilder.buildState.browser = compilationState;
-                onCompilationStateChange(isoBuilder);
+                onCompilationStateChange({
+                    isoBuilder,
+                    compilationState,
+                    there_is_a_newer_run,
+                    action: () => isoBuilder.buildState.browser = compilationState,
+                });
             },
             onBuild,
         })
@@ -187,7 +199,7 @@ function build_browser({isoBuilder, buildCacheBrowser, webpack_entries}) {
     });
 }
 
-function build_server({isoBuilder, buildCacheServer, webpack_entries}) {
+function build_server({isoBuilder, buildCacheServer, webpack_entries, there_is_a_newer_run}) {
     assert_isoBuilder(isoBuilder);
     const {outputDir, webpackServerConfigModifier} = isoBuilder;
     const {output_path__server} = get_dist_paths({outputDir});
@@ -198,9 +210,12 @@ function build_server({isoBuilder, buildCacheServer, webpack_entries}) {
             doNotGenerateIndexHtml: true,
             logger: null,
             onCompilationStateChange: compilationState => {
-                assert_compilationState(compilationState);
-                isoBuilder.buildState.server = compilationState;
-                onCompilationStateChange(isoBuilder);
+                onCompilationStateChange({
+                    isoBuilder,
+                    compilationState,
+                    there_is_a_newer_run,
+                    action: () => isoBuilder.buildState.server = compilationState,
+                });
             },
             onBuild,
         })

@@ -11,7 +11,6 @@ function watchDir(dirPath, listener) {
         listener();
     });
     watcher.on('unlink', () => {
-        console.log('change event');
         listener();
     });
 }

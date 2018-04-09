@@ -286,7 +286,6 @@ function BuildStateManager(logger) {
         }
 
         if( ! is_compiling && is_failure ) {
-            console.log("Error going to log");
             logger.on_compilation_fail({compilation_info});
         }
 
