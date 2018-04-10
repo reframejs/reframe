@@ -25,7 +25,7 @@
     path-is-inside "^1.0.2"
     reassert "^1.1.0"
 
-"@brillout/get-user-dir@^0.1.0", "@brillout/get-user-dir@latest":
+"@brillout/get-user-dir@latest":
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/@brillout/get-user-dir/-/get-user-dir-0.1.0.tgz#d201f4d110fcfec1800ab72c82aa47eb26ad2abc"
   dependencies:

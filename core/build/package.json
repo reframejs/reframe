@@ -19,7 +19,7 @@
     "mkdirp": "^0.5.1",
     "node-dir": "^0.1.17",
     "reassert": "latest",
-    "webpack-ssr": "0.0.1-rc.12"
+    "webpack-ssr": "0.0.1-rc.14"
   },
   "publishConfig": {
     "access": "public"

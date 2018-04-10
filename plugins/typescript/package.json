@@ -5,7 +5,7 @@
     "docs": "mdocs"
   },
   "dependencies": {
-    "@brillout/get-user-dir": "0.0.1-rc.13",
+    "@brillout/get-user-dir": "latest",
     "find-up": "^2.1.0",
     "fork-ts-checker-webpack-plugin": "^0.4.0",
     "ts-loader": "^4.0.1",
