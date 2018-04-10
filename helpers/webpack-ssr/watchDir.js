@@ -6,6 +6,9 @@ function watchDir(dirPath, listener) {
     if( isProduction() ) {
         return;
     }
+    if( ! dirPath ) {
+        return;
+    }
     const watcher = chokidar.watch(dirPath, {ignoreInitial: true});
 
     const cb = () => {

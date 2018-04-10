@@ -27,6 +27,7 @@ function get_project_files(_processed/*, r_objects*/) {
 
     _processed.getPageConfigPaths = getPageConfigPaths;
     _processed.getPageConfigs = getPageConfigs;
+    _processed.assertProjectFound = assertProjectFound;
 }
 
 function getProjectFiles__with_cache() {
@@ -349,3 +350,12 @@ function make_paths_array_unique(paths) {
     return [...new Set(paths)];
 }
 
+function assertProjectFound() {
+    // TODO
+    /*
+    assert_usage(
+        projectConfig.projectFiles.pagesDir || projectConfig.webpackBrowserConfigModifier && projectConfig.webpackServerConfigModifier,
+        "No `pages/` directory found nor is `webpackBrowserConfig` and `webpackServerConfig` defined in `reframe.config.js`."
+    );
+    */
+}
