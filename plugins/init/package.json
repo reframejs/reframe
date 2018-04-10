@@ -1,6 +1,6 @@
 {
     "name": "@reframe/init",
-    "version": "0.0.1-rc.13",
+    "version": "0.0.1-rc.14",
     "dependencies": {
         "cross-spawn": "^6.0.4",
         "fs-extra": "^5.0.0",

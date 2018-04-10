@@ -1,11 +1,11 @@
 {
   "name": "@reframe/utils",
-  "version": "0.0.1-rc.13",
+  "version": "0.0.1-rc.14",
   "dependencies": {
     "@brillout/find": "latest",
     "@brillout/get-user-dir": "latest",
-    "@reframe/cli-plugins": "0.0.1-rc.13",
-    "@reframe/default-kit": "0.0.1-rc.13",
+    "@reframe/cli-plugins": "0.0.1-rc.14",
+    "@reframe/default-kit": "0.0.1-rc.14",
     "callsites": "^2.0.0",
     "find-up": "^2.1.0",
     "reassert": "latest"
