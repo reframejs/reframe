@@ -8,6 +8,8 @@ const pathModule = path_module;
 const fs = require('fs');
 const forceRequire = require('./utils/forceRequire');
 const getUserDir = require('@brillout/get-user-dir');
+const getDefaultBrowserConfig = require('./getDefaultBrowserConfig');
+const getDefaultNodejsConfig = require('./getDefaultNodejsConfig');
 
 //const get_parent_dirname = require('@brillout/get-parent-dirname'); // TODO remove from package.json
 const mime = require('mime'); // TODO remove from package.json
@@ -16,6 +18,8 @@ const mime = require('mime'); // TODO remove from package.json
 const GENERATED_DIR = 'generated'+path_module.sep;
 const BROWSER_DIST_DIR = 'browser'+path_module.sep;
 const SERVER_DIST_DIR = 'server'+path_module.sep;
+
+const webpackUtils = {getRule, setRule, addBabelPreset};
 
 module.exports = WebpackSSR;
 
@@ -44,7 +48,8 @@ function BuildInstance() {
 
         const nodejsEntries = getServerEntries.call(this);
         const nodejsOutputPath = pathModule.resolve(this.outputDir, SERVER_DIST_DIR);
-        const nodejsConfig = this.getWebpackNodejsConfig({entries: nodejsEntries, outputPath: nodejsOutputPath});
+        const defaultNodejsConfig = getDefaultNodejsConfig();
+        const nodejsConfig = this.getWebpackNodejsConfig({config: defaultNodejsConfig, entries: nodejsEntries, outputPath: nodejsOutputPath, ...webpackUtils});
         assert_config({config: nodejsConfig, webpackEntries: nodejsEntries, outputPath: nodejsOutputPath, getterName: 'getWebpackNodejsConfig'});
         addContext(nodejsConfig);
         await buildForNodejs(nodejsConfig);
@@ -64,7 +69,8 @@ function BuildInstance() {
 
         const browserEntries = generateBrowserEntries.call(this, {fileWriter});
         const browserOutputPath = pathModule.resolve(this.outputDir, BROWSER_DIST_DIR);
-        const browserConfig = this.getWebpackBrowserConfig({entries: browserEntries, outputPath: browserOutputPath});
+        const defaultBrowserConfig = getDefaultBrowserConfig();
+        const browserConfig = this.getWebpackBrowserConfig({config: defaultBrowserConfig, entries: browserEntries, outputPath: browserOutputPath, webpackUtils});
         assert_config({config: browserConfig, webpackEntries: browserEntries, outputPath: browserOutputPath, getterName: 'getWebpackBrowserConfig'});
         assert_browserConfig({browserConfig, browserEntries, browserOutputPath});
         addContext(browserConfig);
@@ -788,4 +794,226 @@ function is_production() {
 function addContext(webpackConfig) {
     webpackConfig.context = webpackConfig.context || getUserDir();
     assert_internal(webpackConfig.context);
+}
+
+function getRule(config, filenameExtension, {canBeMissing=false}={}) {
+    const rules = getAllRules(config);
+
+    const dummyFileName = 'dummy.'+filenameExtension;
+
+    const rulesFound = (
+        rules
+        .filter(rule => {
+            if( ! rule.test ) {
+                return false;
+            }
+            const testNormalized = normalizeCondition(rule.test);
+            return testNormalized(dummyFileName);
+        })
+    );
+
+    assert_usage(
+        rulesFound.length===0 && !canBeMissing,
+        "Can't find any rule that matches the file extension `"+filenameExtension+"`.",
+        "E.g. no rule matches `"+dummyFileName+"`."
+    );
+    assert_usage(
+        rulesFound.length>1,
+        "More than one rule matches the file extension `"+filenameExtension+"`.",
+        "E.g. more than one rule matches `"+dummyFileName+"`."
+    );
+
+    return rulesFound[0];
+}
+function setRule(config, ext, ruleNew) {
+    const ruleOld = getRule(config, ext, {canBeMissing: true});
+    const rules = getAllRules(config);
+    if( ! ruleOld ) {
+        rules.push(ruleNew);
+    }
+    const ruleIndex = rules.indexOf(ruleOld);
+    assert_internal(ruleIndex>=0);
+    rules[ruleIndex] = ruleNew;
+}
+
+function modifyBabelConfig(config, action) {
+    const rules = getAllRules(config);
+
+    const rulesFound = rules.filter(isBabelRule);
+
+    assert_usage(
+        rulesFound.length>0,
+        "No rule that uses babel-loader found."
+    );
+
+    rulesFound
+    .forEach(rule => {
+        action(rule);
+    })
+}
+
+function addBabelPreset(config, babelPreset) {
+    modifyBabelConfig(
+        config,
+        rule => {
+            rule.options = rule.options || {};
+            rule.options.presets = rule.options.presets || [];
+            rule.options.presets.push(babelPreset);
+        }
+    );
+}
+
+function addBabelPlugin(config, babelPlugin) {
+    modifyBabelConfig(
+        config,
+        rule => {
+            rule.options = rule.options || {};
+            rule.options.plugins = rule.options.plugins || [];
+            rule.options.plugins.push(babelPlugin);
+        }
+    );
+}
+
+function isBabelRule(rule) {
+    const loaders = getLoaders(rule);
+    return (
+        loaders
+        .some(loader => {
+            assert_internal(loader);
+            assert_internal(loader.constructor===String);
+            return loader.includes('babel-loader');
+        })
+    );
+}
+
+function getLoaders(rule) {
+    if (typeof rule === "string") {
+        return [rule];
+    }
+    assert_usage(
+        Array.isArray(rule.use),
+        "Unexpected rule format: `rule.use` should be an array.",
+        "Rule in question:",
+        rule
+    );
+    return (
+        rule.use
+        .filter(Boolean)
+        .map(useSpec => {
+            if( useSpec.constructor === String ) {
+                return useSpec;
+            }
+            if( useSpec.loader && useSpec.loader.constructor===String ) {
+                return useSpec.loader;
+            }
+            assert_usage(
+                false,
+                "Unexpected rule.use[i] format: `rule.use[i]` should either be a string or have a `rule.use[i].loader` string.",
+                "Use in question:",
+                useSpec
+            );
+        })
+    );
+}
+
+function getAllRules(config, {canBeMissing}={}) {
+    assert_usage(
+        config,
+        'Config is missing'
+    );
+    config.module = config.module || {};
+    if( ! config.module.rules ) {
+        assert_usage(
+            canBeMissing,
+            'There are no rules at all.',
+            'In other words `config.module.rules` is falsy.'
+        );
+        config.module.rules = config.module.rules || [];
+    }
+    const {rules} = config.module;
+    assert_usage(
+        Array.isArray(rules),
+        "`config.module.rules` should be an array but it is a `"+rules.constructor+"`."
+    );
+    return rules;
+}
+
+function orMatcher(items) {
+	return function(str) {
+		for (let i = 0; i < items.length; i++) {
+			if (items[i](str)) return true;
+		}
+		return false;
+	};
+}
+
+function notMatcher(matcher) {
+	return function(str) {
+		return !matcher(str);
+	};
+}
+
+function andMatcher(items) {
+	return function(str) {
+		for (let i = 0; i < items.length; i++) {
+			if (!items[i](str)) return false;
+		}
+		return true;
+	};
+}
+
+function normalizeCondition(condition) {
+    if (!condition) throw new Error("Expected condition but got falsy value");
+    if (typeof condition === "string") {
+        return str => str.indexOf(condition) === 0;
+    }
+    if (typeof condition === "function") {
+        return condition;
+    }
+    if (condition instanceof RegExp) {
+        return condition.test.bind(condition);
+    }
+    if (Array.isArray(condition)) {
+        const items = condition.map(c => normalizeCondition(c));
+        return orMatcher(items);
+    }
+    if (typeof condition !== "object")
+        throw Error(
+            "Unexcepted " +
+                typeof condition +
+                " when condition was expected (" +
+                condition +
+                ")"
+        );
+
+    const matchers = [];
+    Object.keys(condition).forEach(key => {
+        const value = condition[key];
+        switch (key) {
+            case "or":
+            case "include":
+            case "test":
+                if (value) matchers.push(RuleSet.normalizeCondition(value));
+                break;
+            case "and":
+                if (value) {
+                    const items = value.map(c => RuleSet.normalizeCondition(c));
+                    matchers.push(andMatcher(items));
+                }
+                break;
+            case "not":
+            case "exclude":
+                if (value) {
+                    const matcher = RuleSet.normalizeCondition(value);
+                    matchers.push(notMatcher(matcher));
+                }
+                break;
+            default:
+                throw new Error("Unexcepted property " + key + " in condition");
+        }
+    });
+    if (matchers.length === 0)
+        throw new Error("Excepted condition but got " + condition);
+    if (matchers.length === 1) return matchers[0];
+    return andMatcher(matchers);
 }

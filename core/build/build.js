@@ -41,7 +41,7 @@ function getWebpackBrowserConfig({config, setRule, getRule, setBabelConfig, entr
     return config;
 }
 
-function getWebpackNodejsConfig({config, setRule, setBabelConfig, entries, outputPath}) {
+function getWebpackNodejsConfig({config, setRule, getRule, setBabelConfig, entries, outputPath, addBabelPreset}) {
     config = get_webpack_server_config({entries, outputPath});
     addJsxSupport({config, setRule, getRule, addBabelPreset});
     config = projectConfig.webpackServerConfigModifier(config);
@@ -49,8 +49,11 @@ function getWebpackNodejsConfig({config, setRule, setBabelConfig, entries, outpu
 }
 
 function addJsxSupport({config, addBabelPreset, getRule, setRule}) {
-    addBabelPreset(require.resolve('babel-preset-react'));
-    setRule('jsx', getRule('js'));
+    addBabelPreset(config, require.resolve('babel-preset-react'));
+
+    const jsRule = getRule(config, 'js');
+    setRule(config, 'jsx', jsRule);
+
     config.resolve = config.resolve || {};
     config.resolve.extensions = ['.jsx', '.js', '.json'];
 }
