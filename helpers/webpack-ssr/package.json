@@ -1,11 +1,10 @@
 {
-  "name": "webpack-ssr",
+  "name": "@brillout/webpack-utils",
   "version": "0.0.1-rc.12",
   "dependencies": {
-    "@brillout/get-user-dir": "latest"
   },
+  "repository": "github:reframejs/reframe",
   "publishConfig": {
     "access": "public"
-  },
-  "repository": "github:reframejs/reframe"
+  }
 }

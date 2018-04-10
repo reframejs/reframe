@@ -71,6 +71,7 @@ const defaultKit = require('@reframe/default-kit');
 const cliPlugins = require('@reframe/cli-plugins');
 const {get_r_objects, get_repage_plugins} = require('./process_common');
 const get_project_files = require('./get_project_files');
+const webpackUtils = require('@brillout/webpack-utils');
 
 module.exports = {processReframeConfig};
 
@@ -95,8 +96,6 @@ function get_webpack_config_modifiers(_processed, r_objects) {
 
     function assemble_modifiers(modifier_name) {
         // TODO add webpack config modification utilities
-        const utils = {};
-
         let supra_modifier = config => config;
 
         // We assemble all `r_objects`'s config modifiers into one `supra_modifier`
@@ -110,7 +109,7 @@ function get_webpack_config_modifiers(_processed, r_objects) {
             const previous_modifier = supra_modifier;
             supra_modifier = (
                 config =>
-                    modifier({...utils, config: previous_modifier(config)})
+                    modifier({...webpackUtils, config: previous_modifier(config)})
             );
         });
 
