@@ -1,6 +1,6 @@
 const assert = require('reassert');
 const assert_usage = assert;
-const {add_extract_text_plugin} = require('@rebuild/config/CssConfig');
+const {getExtractTextPlugin} = require('@rebuild/config/CssConfig');
 module.exports = postcss;
 
 function postcss({loaderOptions}={}) {
@@ -32,23 +32,21 @@ function add_postcss_rule(config, options={}) {
         "Can't find CSS rule"
     );
 
-    const {extract_plugin, extract_loader} = (
-        add_extract_text_plugin({
-            config,
-            loaders: [
-                require.resolve('css-loader'),
-                {
-                    loader: require.resolve('postcss-loader'),
-                    options,
-                }
-            ],
-        })
-    );
+    const {extractPlugin, extractLoader} = getExtractTextPlugin({config});
 
-    config.plugins.push(extract_plugin);
+    if( ! config.plugins.includes(extractPlugin) ) {
+        config.plugins.push(extractPlugin);
+    }
 
     config.module.rules[cssRuleIndex] = {
         test: /\.css$/,
-        use: extract_loader,
+        use: [
+            extractLoader,
+            require.resolve('css-loader'),
+            {
+                loader: require.resolve('postcss-loader'),
+                options,
+            },
+        ],
     };
 }
