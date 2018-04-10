@@ -1,4 +1,4 @@
-const Build = require('webpack-ssr');
+const Build = require('webpack-ssr/Build');
 const watchDir = require('webpack-ssr/watchDir');
 const getProjectConfig = require('@reframe/utils/getProjectConfig');
 const assert_internal = require('reassert/internal');
