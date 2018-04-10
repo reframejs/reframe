@@ -3,6 +3,7 @@ const assert = require('reassert');
 const assert_internal = assert;
 const assert_usage = assert;
 const find_up = require('find-up');
+const getUserDir = require('@brillout/get-user-dir');
 
 module.exports = ts;
 
@@ -59,15 +60,18 @@ function get_tsconfig_path(config, loaderOptions, forkCheckerOptions) {
     if( forkCheckerOptions.tsconfig ) {
         return forkCheckerOptions.tsconfig;
     }
-    const cwd = config.context;
+    const userDir = config.context || getUserDir();
+    const algorithmDesc = 'The "user directory" is determined by the `context` option of the webpack config and if missing then by using `@brillout/get-user-dir`';
     assert_usage(
-        cwd,
-        "Cannot find `tsconfig.json` because the webpack config is missing the `context` option."
+        userDir,
+        'Cannot find `tsconfig.json` because couldn\'t find the "user directory".',
+        algorithmDesc
     );
-    const tsconfig_path = find_up.sync('tsconfig.json', {cwd});
+    const tsconfig_path = find_up.sync('tsconfig.json', {cwd: userDir});
     assert_usage(
         tsconfig_path,
-        "Cannot find `tsconfig.json` by looking into every directory from the webpack config's context "+cwd+" to the root."
+        'Cannot find `tsconfig.json` by looking into every directory from the "user directory" '+userDir+' to the root `/`.',
+        algorithmDesc
     );
     return tsconfig_path;
 }

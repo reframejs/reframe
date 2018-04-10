@@ -2,7 +2,7 @@ const assert = require('reassert/hard');
 const assert_usage = assert;
 const assert_todo = assert;
 const assert_internal = assert;
-const path_module = require('path');
+const pathModule = require('path');
 const webpack = require('webpack');
 const get_caller = require('parent-module');
 const CssConfig = require('./CssConfig');
@@ -11,14 +11,14 @@ module.exports = {StandardConfig, StandardNodeConfig};
 
 function BaseConfig({
     entry: entry_points,
-    context: user_path = path_module.dirname(parent_module()),
-    outputPath: dist_root_path = path_module.join(user_path, './dist'),
+    context,
+    outputPath,
     is_node_target,
 }) {
     return [
         config_entry({entry_points}),
-        config_output({dist_root_path, is_node_target}),
-        config_resolve({user_path}),
+        config_output({outputPath, is_node_target}),
+        config_resolve({context}),
         config_base(),
         config_env,
      // config_always_write,
@@ -186,8 +186,9 @@ function config_entry({entry_points}) {
     }
 }
 
-function config_output({dist_root_path, is_node_target}) {
-    assert_internal(dist_root_path.startsWith('/'));
+function config_output({outputPath, is_node_target}) {
+    assert_usage(outputPath);
+    assert_usage(pathModule.isAbsolute(outputPath));
 
     const filename = (
         is_node_target ? (
@@ -200,7 +201,7 @@ function config_output({dist_root_path, is_node_target}) {
     return () => ({
         output: {
             publicPath: '/',
-            path: dist_root_path,
+            path: outputPath,
             filename,
             chunkFilename: filename,
         },
@@ -248,18 +249,16 @@ function config_index_html() {
 }
 */
 
-function config_resolve({user_path}) {
-    assert(user_path);
-
+function config_resolve({context}) {
     return () => {
-        const config_part = {
+        let config_part = {
             /*
             resolveLoader: {modules: [
              // __dirname+'/',
-                path_module.join(__dirname, "../node_modules"),
+                pathModule.join(__dirname, "../node_modules"),
             ]},
             */
-            context: user_path,
+            context,
         };
         const extra_paths = (process.env['NODE_PATH']||'').split(':').filter(Boolean);
         if( extra_paths.length > 0 ) {
