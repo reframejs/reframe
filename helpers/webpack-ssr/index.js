@@ -70,9 +70,8 @@ function BuildInstance() {
         const browserEntries = generateBrowserEntries.call(this, {fileWriter});
         const browserOutputPath = pathModule.resolve(this.outputDir, BROWSER_DIST_DIR);
         const defaultBrowserConfig = getDefaultBrowserConfig();
-        const browserConfig = this.getWebpackBrowserConfig({config: defaultBrowserConfig, entries: browserEntries, outputPath: browserOutputPath, webpackUtils});
+        const browserConfig = this.getWebpackBrowserConfig({config: defaultBrowserConfig, entries: browserEntries, outputPath: browserOutputPath, ...webpackUtils});
         assert_config({config: browserConfig, webpackEntries: browserEntries, outputPath: browserOutputPath, getterName: 'getWebpackBrowserConfig'});
-        assert_browserConfig({browserConfig, browserEntries, browserOutputPath});
         addContext(browserConfig);
         await buildForBrowser(browserConfig);
         if( there_is_a_newer_run() ) return;
@@ -808,17 +807,20 @@ function getRule(config, filenameExtension, {canBeMissing=false}={}) {
                 return false;
             }
             const testNormalized = normalizeCondition(rule.test);
-            return testNormalized(dummyFileName);
+            const isMatch = testNormalized(dummyFileName);
+            return isMatch;
         })
     );
 
     assert_usage(
-        rulesFound.length===0 && !canBeMissing,
+        rulesFound.length>=0 || canBeMissing,
+        rules,
         "Can't find any rule that matches the file extension `"+filenameExtension+"`.",
-        "E.g. no rule matches `"+dummyFileName+"`."
+        "E.g. no rule matches `"+dummyFileName+"`.",
+        "The rules are printed above."
     );
     assert_usage(
-        rulesFound.length>1,
+        rulesFound.length<=1,
         "More than one rule matches the file extension `"+filenameExtension+"`.",
         "E.g. more than one rule matches `"+dummyFileName+"`."
     );
@@ -830,16 +832,21 @@ function setRule(config, ext, ruleNew) {
     const rules = getAllRules(config);
     if( ! ruleOld ) {
         rules.push(ruleNew);
+        return;
     }
     const ruleIndex = rules.indexOf(ruleOld);
-    assert_internal(ruleIndex>=0);
+    assert_internal(ruleIndex>=0, rules, ruleOld);
     rules[ruleIndex] = ruleNew;
 }
 
 function modifyBabelConfig(config, action) {
     const rules = getAllRules(config);
 
-    const rulesFound = rules.filter(isBabelRule);
+    rules.forEach(rule => {
+        normlizeLoaders(rule);
+    });
+
+    const rulesFound = rules.filter(rule => rule.use.some(isBabelLoader));
 
     assert_usage(
         rulesFound.length>0,
@@ -848,17 +855,30 @@ function modifyBabelConfig(config, action) {
 
     rulesFound
     .forEach(rule => {
-        action(rule);
+        let babelLoaderFound;
+        rule.use.forEach(loader => {
+            if( isBabelLoader(loader) ) {
+                assert_usage(
+                    !babelLoaderFound,
+                    rule,
+                    'More than one babel loader found but we expect only one.',
+                    'Rule in question is printed above.'
+                );
+                babelLoaderFound = true;
+                action(loader);
+            }
+        })
     })
 }
 
 function addBabelPreset(config, babelPreset) {
     modifyBabelConfig(
         config,
-        rule => {
-            rule.options = rule.options || {};
-            rule.options.presets = rule.options.presets || [];
-            rule.options.presets.push(babelPreset);
+        loader => {
+            assert_internal(isBabelLoader(loader));
+            loader.options = loader.options || {};
+            loader.options.presets = loader.options.presets || [];
+            loader.options.presets.push(babelPreset);
         }
     );
 }
@@ -866,51 +886,50 @@ function addBabelPreset(config, babelPreset) {
 function addBabelPlugin(config, babelPlugin) {
     modifyBabelConfig(
         config,
-        rule => {
-            rule.options = rule.options || {};
-            rule.options.plugins = rule.options.plugins || [];
-            rule.options.plugins.push(babelPlugin);
+        loader => {
+            assert_internal(isBabelLoader(loader));
+            loader.options = loader.options || {};
+            loader.options.plugins = loader.options.plugins || [];
+            loader.options.plugins.push(babelPlugin);
         }
     );
 }
 
-function isBabelRule(rule) {
-    const loaders = getLoaders(rule);
-    return (
-        loaders
-        .some(loader => {
-            assert_internal(loader);
-            assert_internal(loader.constructor===String);
-            return loader.includes('babel-loader');
-        })
-    );
+function isBabelLoader(loader) {
+    assert_internal(loader.loader.constructor===String);
+    return loader.loader.includes('babel-loader');
 }
 
-function getLoaders(rule) {
-    if (typeof rule === "string") {
-        return [rule];
+function normlizeLoaders(rule) {
+    if( ! rule.use ) {
+        rule.use = [];
+        return;
+    }
+    if (typeof rule.use === "string") {
+        rule.use = [{loader: rule}]
+        return;
     }
     assert_usage(
-        Array.isArray(rule.use),
-        "Unexpected rule format: `rule.use` should be an array.",
+        Array.isArray(rule.use) || rule.use instanceof Object,
+        "Unexpected rule format: `rule.use` should be an array or object.",
         "Rule in question:",
         rule
     );
-    return (
-        rule.use
+    rule.use = (
+        (Array.isArray(rule.use) ? rule.use : [rule.use])
         .filter(Boolean)
-        .map(useSpec => {
-            if( useSpec.constructor === String ) {
-                return useSpec;
+        .map(loader => {
+            if( loader.constructor === String ) {
+                return {loader};
             }
-            if( useSpec.loader && useSpec.loader.constructor===String ) {
-                return useSpec.loader;
+            if( loader.loader && loader.loader.constructor===String ) {
+                return loader;
             }
             assert_usage(
                 false,
                 "Unexpected rule.use[i] format: `rule.use[i]` should either be a string or have a `rule.use[i].loader` string.",
-                "Use in question:",
-                useSpec
+                "Loader in question:",
+                loader
             );
         })
     );
