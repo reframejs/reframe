@@ -806,29 +806,35 @@ function getRule(config, filenameExtension, {canBeMissing=false}={}) {
             if( ! rule.test ) {
                 return false;
             }
-            const testNormalized = normalizeCondition(rule.test);
-            const isMatch = testNormalized(dummyFileName);
-            return isMatch;
+            return runRuleTest(rule.test, dummyFileName);
         })
     );
 
     assert_usage(
         rulesFound.length>=0 || canBeMissing,
         rules,
-        "Can't find any rule that matches the file extension `"+filenameExtension+"`.",
+        "Can't find any rule that matches the filename extension `"+filenameExtension+"`.",
         "E.g. no rule matches `"+dummyFileName+"`.",
         "The rules are printed above."
     );
     assert_usage(
         rulesFound.length<=1,
-        "More than one rule matches the file extension `"+filenameExtension+"`.",
+        "More than one rule matches the filename extension `"+filenameExtension+"`.",
         "E.g. more than one rule matches `"+dummyFileName+"`."
     );
 
     return rulesFound[0];
 }
-function setRule(config, ext, ruleNew) {
-    const ruleOld = getRule(config, ext, {canBeMissing: true});
+function setRule(config, filenameExtension, ruleNew) {
+    const dummyFileName = 'dummy.'+filenameExtension;
+    assert_usage(
+        runRuleTest(ruleNew.test, dummyFileName),
+        "The new rule to be set doesn't match the filename extension `"+filenameExtension+"`.",
+        "The new rule's test is:",
+        ruleNew.test,
+        "But it doesn't match a file like `"+dummyFileName+"`."
+    );
+    const ruleOld = getRule(config, filenameExtension, {canBeMissing: true});
     const rules = getAllRules(config);
     if( ! ruleOld ) {
         rules.push(ruleNew);
@@ -893,6 +899,12 @@ function addBabelPlugin(config, babelPlugin) {
             loader.options.plugins.push(babelPlugin);
         }
     );
+}
+
+function runRuleTest(ruleTest, filename) {
+    const testNormalized = normalizeCondition(ruleTest);
+    const isMatch = testNormalized(filename);
+    return isMatch;
 }
 
 function isBabelLoader(loader) {

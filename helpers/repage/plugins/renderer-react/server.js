@@ -21,13 +21,16 @@ function renderHtmlApply ({page, renderHtmlContext, route}) {
     const initial_props = get_initial_props(route, renderHtmlContext);
 
     const views = get_views({page, initial_props});
-
     assert_usage(
         views.length<2,
         page,
         "The page printed above has more than one view. But multiple views only make sense in the browser."
     );
-
+    assert_usage(
+        views.length>0,
+        page,
+        "The page printed above is missing a view."
+    );
     const body_html = get_body_html(views);
 
     const html = HtmlCrust.renderToHtml(Object.assign({}, page, {body: body_html}));

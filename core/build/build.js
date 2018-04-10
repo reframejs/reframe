@@ -34,14 +34,14 @@ watchDir(
 
 module.exports = build();
 
-function getWebpackBrowserConfig({config, setRule, getRule, setBabelConfig, entries, outputPath, addBabelPreset}) {
+function getWebpackBrowserConfig({config, setRule, getRule, entries, outputPath, addBabelPreset}) {
     config = get_webpack_browser_config({entries, outputPath});
     addJsxSupport({config, setRule, getRule, addBabelPreset});
     config = projectConfig.webpackBrowserConfigModifier(config);
     return config;
 }
 
-function getWebpackNodejsConfig({config, setRule, getRule, setBabelConfig, entries, outputPath, addBabelPreset}) {
+function getWebpackNodejsConfig({config, setRule, getRule, entries, outputPath, addBabelPreset}) {
     config = get_webpack_server_config({entries, outputPath});
     addJsxSupport({config, setRule, getRule, addBabelPreset});
     config = projectConfig.webpackServerConfigModifier(config);
@@ -52,7 +52,8 @@ function addJsxSupport({config, addBabelPreset, getRule, setRule}) {
     addBabelPreset(config, require.resolve('babel-preset-react'));
 
     const jsRule = getRule(config, 'js');
-    setRule(config, 'jsx', jsRule);
+    const jsxRule = {...jsRule, test: /\.jsx$/};
+    setRule(config, 'jsx', jsxRule);
 
     config.resolve = config.resolve || {};
     config.resolve.extensions = ['.jsx', '.js', '.json'];
