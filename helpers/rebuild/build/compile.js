@@ -400,7 +400,7 @@ function get_webpack_compiler(webpack_config) {
 
     global.DEBUG_WATCH && print_changed_files(webpack_compiler);
 
-    catch_webpack_not_terminating(webpack_compiler, {timeout_minutes: 2});
+    catch_webpack_not_terminating(webpack_compiler, {timeout_seconds: 30});
 
     webpack_compiler.hooks.done.tap('weDontNeedToNameThis_apokminzbruunf', webpack_stats => {
         global.DEBUG_WATCH && console.log('WEBPACK-COMPILE-DONE');
@@ -422,18 +422,18 @@ function get_webpack_compiler(webpack_config) {
     return {webpack_compiler, first_compilation, first_successful_compilation, onCompileStart, onCompileEnd};
 }
 
-function catch_webpack_not_terminating(webpack_compiler, {timeout_minutes}) {
+function catch_webpack_not_terminating(webpack_compiler, {timeout_seconds}) {
     let is_compiling;
     webpack_compiler.hooks.compile.tap('weDontNeedToNameThis_pamffwblasa', () => {
         is_compiling = true;
         setTimeout(() => {
             assert_warning(
                 !is_compiling,
-                "Webpack compilation still not finished after 2 minutes.",
+                "Webpack compilation still not finished after "+timeout_seconds+" seconds.",
                 "It could mean that webpack ran into a bug and hang.",
-                "In that case you need to restart the building."
+                "You need to manually restart the building."
             );
-        }, timeout_minutes*60*1000)
+        }, timeout_seconds*1000)
     });
 
     webpack_compiler.hooks.done.tap('weDontNeedToNameThis_uihaowczb', () => {
