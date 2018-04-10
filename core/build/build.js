@@ -22,16 +22,8 @@ const build = new Build({
     getPageFiles: projectConfig.getPageConfigPaths,
     getPageBrowserEntries,
     getPageHTMLs,
-    getWebpackBrowserConfig: ({config, setRule, setBabelConfig, entries, outputPath}) => {
-        config = get_webpack_browser_config({entries, outputPath});
-        config = projectConfig.webpackBrowserConfigModifier(config);
-        return config;
-    },
-    getWebpackNodejsConfig: ({config, setRule, setBabelConfig, entries, outputPath}) => {
-        config = get_webpack_server_config({entries, outputPath});
-        config = projectConfig.webpackServerConfigModifier(config);
-        return config;
-    },
+    getWebpackBrowserConfig,
+    getWebpackNodejsConfig,
     log: projectConfig.log,
 });
 
@@ -41,6 +33,27 @@ watchDir(
 );
 
 module.exports = build();
+
+function getWebpackBrowserConfig({config, setRule, getRule, setBabelConfig, entries, outputPath, addBabelPreset}) {
+    config = get_webpack_browser_config({entries, outputPath});
+    addJsxSupport({config, setRule, getRule, addBabelPreset});
+    config = projectConfig.webpackBrowserConfigModifier(config);
+    return config;
+}
+
+function getWebpackNodejsConfig({config, setRule, setBabelConfig, entries, outputPath}) {
+    config = get_webpack_server_config({entries, outputPath});
+    addJsxSupport({config, setRule, getRule, addBabelPreset});
+    config = projectConfig.webpackServerConfigModifier(config);
+    return config;
+}
+
+function addJsxSupport({config, addBabelPreset, getRule, setRule}) {
+    addBabelPreset(require.resolve('babel-preset-react'));
+    setRule('jsx', getRule('js'));
+    config.resolve = config.resolve || {};
+    config.resolve.extensions = ['.jsx', '.js', '.json'];
+}
 
 function getPageBrowserEntries(pageModules) {
     return (
@@ -213,7 +226,7 @@ function get_webpack_browser_config({entries, outputPath}) {
             entry: entries,
             outputPath,
         }),
-        new ReactConfig(),
+     // new ReactConfig(),
     ]);
 
     return browser_config.assemble();
@@ -231,7 +244,7 @@ function get_webpack_server_config({entries, outputPath}) {
             entry: entries,
             outputPath,
         }),
-        new ReactConfig(),
+     // new ReactConfig(),
     ]);
 
     return server_config.assemble();

@@ -45,6 +45,7 @@ function BuildInstance() {
         const nodejsEntries = getServerEntries.call(this);
         const nodejsOutputPath = pathModule.resolve(this.outputDir, SERVER_DIST_DIR);
         const nodejsConfig = this.getWebpackNodejsConfig({entries: nodejsEntries, outputPath: nodejsOutputPath});
+        assert_config({config: nodejsConfig, webpackEntries: nodejsEntries, outputPath: nodejsOutputPath, getterName: 'getWebpackNodejsConfig'});
         addContext(nodejsConfig);
         await buildForNodejs(nodejsConfig);
         if( there_is_a_newer_run() ) return;
@@ -64,6 +65,8 @@ function BuildInstance() {
         const browserEntries = generateBrowserEntries.call(this, {fileWriter});
         const browserOutputPath = pathModule.resolve(this.outputDir, BROWSER_DIST_DIR);
         const browserConfig = this.getWebpackBrowserConfig({entries: browserEntries, outputPath: browserOutputPath});
+        assert_config({config: browserConfig, webpackEntries: browserEntries, outputPath: browserOutputPath, getterName: 'getWebpackBrowserConfig'});
+        assert_browserConfig({browserConfig, browserEntries, browserOutputPath});
         addContext(browserConfig);
         await buildForBrowser(browserConfig);
         if( there_is_a_newer_run() ) return;
@@ -75,6 +78,27 @@ function BuildInstance() {
     };
 
     return () => isoBuilder.build();
+}
+
+function assert_config({config, webpackEntries, outputPath, getterName}) {
+    assert_internal(webpackEntries.constructor===Object);
+
+    assert_usage(
+        config,
+        "`"+getterName+"` should return a webpack config but returns `"+config+"` instead."
+    );
+
+    Object.entries(webpackEntries)
+    .forEach(([pageName]) => {
+        assert_usage(
+            config.entry[pageName],
+            "The config returned by `"+getterName+"` is missing the `"+pageName+"` entry: `config.entry['"+pageName+"']=="+config.entry[pageName]+"`."
+        );
+    });
+    assert_usage(
+        config.output && config.output.path===outputPath,
+        "The config returned by `"+getterName+"` has its `output.path` set to `"+(config.output && config.output.path)+"` but it should be `"+outputPath+"` instead."
+    );
 }
 
 function get_pages({pagesDirPath}) {
