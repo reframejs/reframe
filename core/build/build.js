@@ -10,8 +10,6 @@ const projectConfig = getProjectConfig();
 const Repage = require('@repage/core');
 const {getStaticPages} = require('@repage/build');
 
-const {Config, StandardConfig, StandardNodeConfig, ReactConfig} = require('@rebuild/config');
-
 assert_usage(
     projectConfig.projectFiles.pagesDir || projectConfig.webpackBrowserConfigModifier && projectConfig.webpackServerConfigModifier,
     "No `pages/` directory found nor is `webpackBrowserConfig` and `webpackServerConfig` defined in `reframe.config.js`."
@@ -35,14 +33,12 @@ watchDir(
 module.exports = build();
 
 function getWebpackBrowserConfig({config, setRule, getRule, entries, outputPath, addBabelPreset}) {
-    config = get_webpack_browser_config({entries, outputPath});
     addJsxSupport({config, setRule, getRule, addBabelPreset});
     config = projectConfig.webpackBrowserConfigModifier(config);
     return config;
 }
 
 function getWebpackNodejsConfig({config, setRule, getRule, entries, outputPath, addBabelPreset}) {
-    config = get_webpack_server_config({entries, outputPath});
     addJsxSupport({config, setRule, getRule, addBabelPreset});
     config = projectConfig.webpackServerConfigModifier(config);
     return config;
@@ -216,40 +212,4 @@ function isModulePath(filePath) {
         return true;
     } catch(e) {}
     return false;
-}
-
-function get_webpack_browser_config({entries, outputPath}) {
-    if( !entries || Object.values(entries).length===0 ) {
-        return {};
-    }
-
-    const browser_config = new Config();
-
-    browser_config.add([
-        new StandardConfig({
-            entry: entries,
-            outputPath,
-        }),
-     // new ReactConfig(),
-    ]);
-
-    return browser_config.assemble();
-}
-
-function get_webpack_server_config({entries, outputPath}) {
-    if( !entries || Object.values(entries).length===0 ) {
-        return {};
-    }
-
-    const server_config = new Config();
-
-    server_config.add([
-        new StandardNodeConfig({
-            entry: entries,
-            outputPath,
-        }),
-     // new ReactConfig(),
-    ]);
-
-    return server_config.assemble();
 }

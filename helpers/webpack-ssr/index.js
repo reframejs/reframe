@@ -48,7 +48,7 @@ function BuildInstance() {
 
         const nodejsEntries = getServerEntries.call(this);
         const nodejsOutputPath = pathModule.resolve(this.outputDir, SERVER_DIST_DIR);
-        const defaultNodejsConfig = getDefaultNodejsConfig();
+        const defaultNodejsConfig = getDefaultNodejsConfig({entries: nodejsEntries, outputPath: nodejsOutputPath});
         const nodejsConfig = this.getWebpackNodejsConfig({config: defaultNodejsConfig, entries: nodejsEntries, outputPath: nodejsOutputPath, ...webpackUtils});
         assert_config({config: nodejsConfig, webpackEntries: nodejsEntries, outputPath: nodejsOutputPath, getterName: 'getWebpackNodejsConfig'});
         addContext(nodejsConfig);
@@ -69,7 +69,7 @@ function BuildInstance() {
 
         const browserEntries = generateBrowserEntries.call(this, {fileWriter});
         const browserOutputPath = pathModule.resolve(this.outputDir, BROWSER_DIST_DIR);
-        const defaultBrowserConfig = getDefaultBrowserConfig();
+        const defaultBrowserConfig = getDefaultBrowserConfig({entries: browserEntries, outputPath: browserOutputPath});
         const browserConfig = this.getWebpackBrowserConfig({config: defaultBrowserConfig, entries: browserEntries, outputPath: browserOutputPath, ...webpackUtils});
         assert_config({config: browserConfig, webpackEntries: browserEntries, outputPath: browserOutputPath, getterName: 'getWebpackBrowserConfig'});
         addContext(browserConfig);
