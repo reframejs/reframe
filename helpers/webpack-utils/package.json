@@ -1,11 +1,10 @@
 {
-  "name": "@brillout/get-user-dir",
+  "name": "@brillout/webpack-utils",
   "version": "0.0.1-rc.13",
-  "main": "./getUserDir.js",
   "dependencies": {
-    "callsites": "^2.0.0"
+    "reassert": "latest"
   },
-  "repository": "github:brillout/get-user-dir",
+  "repository": "github:reframejs/reframe",
   "publishConfig": {
     "access": "public"
   }
