@@ -1,11 +1,11 @@
 {
   "name": "@reframe/typescript",
-  "version": "0.0.1-rc.12",
+  "version": "0.0.1-rc.13",
   "scripts": {
     "docs": "mdocs"
   },
   "dependencies": {
-    "@brillout/get-user-dir": "^0.1.0",
+    "@brillout/get-user-dir": "0.0.1-rc.13",
     "find-up": "^2.1.0",
     "fork-ts-checker-webpack-plugin": "^0.4.0",
     "ts-loader": "^4.0.1",

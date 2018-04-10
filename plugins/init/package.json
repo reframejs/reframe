@@ -1,10 +1,10 @@
 {
     "name": "@reframe/init",
-    "version": "0.0.1-rc.12",
+    "version": "0.0.1-rc.13",
     "dependencies": {
-        "inquirer": "^5.1.0",
         "cross-spawn": "^6.0.4",
-        "fs-extra": "^5.0.0"
+        "fs-extra": "^5.0.0",
+        "inquirer": "^5.1.0"
     },
     "publishConfig": {
         "access": "public"

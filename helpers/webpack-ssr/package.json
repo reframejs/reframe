@@ -1,8 +1,6 @@
 {
   "name": "@brillout/webpack-utils",
-  "version": "0.0.1-rc.12",
-  "dependencies": {
-  },
+  "version": "0.0.1-rc.13",
   "repository": "github:reframejs/reframe",
   "publishConfig": {
     "access": "public"

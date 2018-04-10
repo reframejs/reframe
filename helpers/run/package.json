@@ -1,11 +1,11 @@
 {
   "name": "@reframe/run",
-  "version": "0.0.1-rc.12",
+  "version": "0.0.1-rc.13",
   "dependencies": {
     "@brillout/relative-to-homedir": "latest",
-    "@reframe/browser": "0.0.1-rc.12",
-    "@reframe/server": "0.0.1-rc.12",
-    "@reframe/utils": "0.0.1-rc.12",
+    "@reframe/browser": "0.0.1-rc.13",
+    "@reframe/server": "0.0.1-rc.13",
+    "@reframe/utils": "0.0.1-rc.13",
     "chalk": "^2.3.1",
     "commander": "^2.14.1",
     "reassert": "latest"
