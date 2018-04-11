@@ -2,7 +2,7 @@ const {Config, StandardNodeConfig} = require('@rebuild/config');
 
 module.exports = getDefaultNodejsConfig;
 
-function getDefaultNodejsConfig({entries, outputPath}) {
+function getDefaultNodejsConfig({entries, outputPath, filename}) {
     if( !entries || Object.values(entries).length===0 ) {
         return {};
     }
@@ -13,6 +13,7 @@ function getDefaultNodejsConfig({entries, outputPath}) {
         new StandardNodeConfig({
             entry: entries,
             outputPath,
+            filename,
         }),
     ]);
 

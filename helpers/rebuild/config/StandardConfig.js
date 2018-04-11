@@ -14,10 +14,11 @@ function BaseConfig({
     context,
     outputPath,
     is_node_target,
+    filename,
 }) {
     return [
         config_entry({entry_points}),
-        config_output({outputPath, is_node_target}),
+        config_output({outputPath, is_node_target, filename}),
         config_resolve({context}),
         config_base(),
         config_env,
@@ -186,17 +187,11 @@ function config_entry({entry_points}) {
     }
 }
 
-function config_output({outputPath, is_node_target}) {
+function config_output({outputPath, is_node_target, filename}) {
     assert_usage(outputPath);
     assert_usage(pathModule.isAbsolute(outputPath));
 
-    const filename = (
-        is_node_target ? (
-            '[name].js'
-        ) : (
-            '[name].hash_[chunkhash].js'
-        )
-    );
+    filename = filename || is_node_target && '[name].js' || '[name].hash_[chunkhash].js';
 
     return () => ({
         output: {

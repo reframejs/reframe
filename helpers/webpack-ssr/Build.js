@@ -9,10 +9,9 @@ const getDefaultBrowserConfig = require('./getDefaultBrowserConfig');
 const getDefaultNodejsConfig = require('./getDefaultNodejsConfig');
 const webpackUtils = require('@brillout/webpack-utils');
 
-// TODO rename source-code
-const GENERATED_DIR = 'generated'+pathModule.sep;
-const BROWSER_DIST_DIR = 'browser'+pathModule.sep;
-const SERVER_DIST_DIR = 'server'+pathModule.sep;
+const SOURCE_CODE_OUTPUT = 'source-code';
+const BROWSER_OUTPUT = 'browser';
+const NODEJS_OUTPUT = 'nodejs';
 
 
 module.exports = WebpackSSR;
@@ -64,8 +63,8 @@ function BuildInstance() {
 
 function getNodejsConfig() {
     const nodejsEntries = getServerEntries.call(this);
-    const nodejsOutputPath = pathModule.resolve(this.outputDir, SERVER_DIST_DIR);
-    const defaultNodejsConfig = getDefaultNodejsConfig({entries: nodejsEntries, outputPath: nodejsOutputPath});
+    const nodejsOutputPath = pathModule.resolve(this.outputDir, NODEJS_OUTPUT);
+    const defaultNodejsConfig = getDefaultNodejsConfig({entries: nodejsEntries, outputPath: nodejsOutputPath, filename: '[name]-nodejs.js'});
     const nodejsConfig = this.getWebpackNodejsConfig({config: defaultNodejsConfig, entries: nodejsEntries, outputPath: nodejsOutputPath, ...webpackUtils});
     assert_config({config: nodejsConfig, webpackEntries: nodejsEntries, outputPath: nodejsOutputPath, getterName: 'getWebpackNodejsConfig'});
     addContext(nodejsConfig);
@@ -74,7 +73,7 @@ function getNodejsConfig() {
 
 function getBrowserConfig({fileWriter}) {
     const browserEntries = generateBrowserEntries.call(this, {fileWriter});
-    const browserOutputPath = pathModule.resolve(this.outputDir, BROWSER_DIST_DIR);
+    const browserOutputPath = pathModule.resolve(this.outputDir, BROWSER_OUTPUT);
     const defaultBrowserConfig = getDefaultBrowserConfig({entries: browserEntries, outputPath: browserOutputPath});
     const browserConfig = this.getWebpackBrowserConfig({config: defaultBrowserConfig, entries: browserEntries, outputPath: browserOutputPath, ...webpackUtils});
     assert_config({config: browserConfig, webpackEntries: browserEntries, outputPath: browserOutputPath, getterName: 'getWebpackBrowserConfig'});
@@ -211,7 +210,7 @@ function generateBrowserEntries({fileWriter}) {
 
         const fileAbsolutePath = fileWriter.writeFile({
             fileContent: browserEntryString,
-            filePath: GENERATED_DIR+'browser_entries/'+pageName+'-browser.js',
+            filePath: pathModule.join(SOURCE_CODE_OUTPUT, 'browser-entries', pageName+'-browser.js'),
         });
 
         assert_internal(!browserEntries[pageName]);
@@ -247,12 +246,9 @@ async function writeHtmlFiles({fileWriter}) {
 
     function get_file_path(pathname) {
         assert_internal(pathname.startsWith('/'));
-        const file_path__relative = (pathname === '/' ? 'index' : pathname.slice(1))+'.html'
-        const file_path = (
-            (BROWSER_DIST_DIR+file_path__relative)
-            .replace(/\//g, pathModule.sep)
-        );
-        return file_path;
+        const filePath__relative = (pathname === '/' ? 'index' : pathname.slice(1))+'.html'
+        const filePath = pathModule.join(BROWSER_OUTPUT, filePath__relative)
+        return filePath;
     }
 
     function assert_input({pathname, html}) {
