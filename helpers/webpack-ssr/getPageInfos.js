@@ -31,10 +31,9 @@ function getPageInfos({outputDir}) {
 
 function readAssetMap({outputDir}) {
     const assetMapPath = pathModule.resolve(outputDir, 'assetMap.json');
-    return JSON.parse(fs__read(assetMapPath));
+    return JSON.parse(readFile(assetMapPath));
 }
 
-function fs__read(filepath) {
+function readFile(filepath) {
     return fs.readFileSync(filepath, 'utf8');
 }
-
