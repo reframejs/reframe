@@ -95,7 +95,9 @@ function getPageFiles() {
         const pageName = fileName.split('.')[0];
         assert_usage(
             !pageFiles[pageName],
-            pageName
+            "The page files `"+pageFiles[pageName]+"` and `"+fileName+"` have the same page name `"+pageName+".`,
+            "The page name is determined by `fileName.split('.')[0]`.",
+            "Rename one of the two page files."
         );
         pageFiles[pageName] = filePath;
     });
