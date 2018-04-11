@@ -2,7 +2,9 @@
     "name": "@reframe/start",
     "version": "0.0.1-rc.14",
     "dependencies": {
+        "@brillout/relative-to-homedir": "^0.0.1",
         "@reframe/utils": "0.0.1-rc.14",
+        "chalk": "^2.3.2",
         "reassert": "latest"
     },
     "publishConfig": {
