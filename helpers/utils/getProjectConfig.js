@@ -1,5 +1,4 @@
-const assert = require('reassert');
-const assert_internal = assert;
+const assert_internal = require('reassert/internal');
 const getUserDir = require('@brillout/get-user-dir');
 const find_reframe_config = require('@reframe/utils/find_reframe_config');
 const {processReframeConfig} = require('@reframe/utils/processReframeConfig/processReframeConfig');

@@ -3,6 +3,7 @@ const assert_usage = require('reassert/usage');
 const pathModule = require('path');
 
 const getProjectConfig = require('@reframe/utils/getProjectConfig');
+const assert_pageConfig = require('@reframe/utils/assert_pageConfig');
 
 
 module.exports = getPageBrowserEntries;
@@ -11,20 +12,22 @@ module.exports = getPageBrowserEntries;
 function getPageBrowserEntries(pageModules) {
     return (
         pageModules
-        .map(({pageExport, pageName, pageFile}) => {
-            const browserEntryString = getBrowserEntryString({pageExport, pageName, pageFile});
+        .map(({pageExport: pageConfig, pageName, pageFile}) => {
+            assert_pageConfig(pageConfig, pageFile);
+
+            const browserEntryString = getBrowserEntryString({pageConfig, pageName, pageFile});
 
             return {
                 pageName,
                 browserEntryString,
-                browserEntryOnlyCss: pageExport.domStatic,
+                browserEntryOnlyCss: pageConfig.domStatic,
             };
         })
     );
 }
 
-function getBrowserEntryString({pageExport, pageFile, pageName}) {
-    const browserEntrySpec = getBrowserEntrySpec({pageExport, pageFile, pageName});
+function getBrowserEntryString({pageConfig, pageFile, pageName}) {
+    const browserEntrySpec = getBrowserEntrySpec({pageConfig, pageFile, pageName});
 
     let browserEntryString = '';
 
@@ -72,7 +75,7 @@ function generateBrowserConfig() {
         ...(
             projectConfig.browserConfigs.map(({diskPath}) => {
                 assert_internal(pathModule.isAbsolute(diskPath), diskPath);
-                assert_internal(isModulePath(diskPath), diskPath);
+                assert_internal(isModule(diskPath), diskPath);
                 return "  require('"+diskPath+"')(),";
             })
         ),
@@ -89,8 +92,8 @@ function generateBrowserConfig() {
     return sourceCode;
 }
 
-function getBrowserEntrySpec({pageExport, pageFile, pageName}) {
-    const {browserEntry} = pageExport;
+function getBrowserEntrySpec({pageConfig, pageFile, pageName}) {
+    const {browserEntry} = pageConfig;
 
     const pathToEntry = (browserEntry||{}).pathToEntry || browserEntry;
 
@@ -119,13 +122,13 @@ function assert_browserEntryPath({browserEntryPath, pathToEntry, pageName, pageD
         errorIntro+'should be a relative path but it is an absolute path: `'+browserEntryPath+'`'
     );
     assert_usage(
-        isModulePath(browserEntryPath),
+        isModule(browserEntryPath),
         errorIntro+'is resolved to `'+browserEntryPath+'` but no file/module has been found there.',
         '`browserEntry` should be the relative path from `'+pageDir+'` to the browser entry file.'
     );
 }
 
-function isModulePath(filePath) {
+function isModule(filePath) {
     try {
         // `require.resolve` throws if `filePath` is not a file
         require.resolve(filePath);

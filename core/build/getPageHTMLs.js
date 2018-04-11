@@ -1,6 +1,7 @@
 const assert_internal = require('reassert/internal');
 
 const getProjectConfig = require('@reframe/utils/getProjectConfig');
+const assert_pageConfig = require('@reframe/utils/assert_pageConfig');
 
 const Repage = require('@repage/core');
 const {getStaticPages} = require('@repage/build');
@@ -12,7 +13,10 @@ module.exports = getPageHTMLs;
 async function getPageHTMLs(pageModules) {
     const projectConfig = getProjectConfig();
 
-    const pageConfigs = pageModules.map(({pageExport}) => pageExport);
+    const pageConfigs = pageModules.map(({pageExport, pageFile}) => {
+        assert_pageConfig(pageExport, pageFile);
+        return pageExport;
+    });
 
     return (
         (await get_static_pages_info())
