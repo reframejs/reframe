@@ -17,8 +17,8 @@ function getProjectConfig() {
 function computeProjectConfig() {
     const userDir = getUserDir();
 
-    let {reframeConfigPath} = find_reframe_config(userDir);
-    const reframeConfig = reframeConfigPath && require(reframeConfigPath) || {};
+    let {reframeConfigFile} = find_reframe_config(userDir);
+    const reframeConfig = reframeConfigFile && require(reframeConfigFile) || {};
 
     const projectConfig = {};
 

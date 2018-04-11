@@ -7,15 +7,15 @@ const find_up = require('find-up');
 module.exports = find_stuff;
 
 function find_stuff(cwd) {
-    let reframeConfigPath = find_reframe_config(cwd);
+    let reframeConfigFile = find_reframe_config(cwd);
 
     const pagesDir = find_pages_dir(cwd);
 
-    if( !reframeConfigPath && pagesDir ) {
-        reframeConfigPath = find_reframe_config(pagesDir);
+    if( !reframeConfigFile && pagesDir ) {
+        reframeConfigFile = find_reframe_config(pagesDir);
     }
 
-    return {reframeConfigPath, pagesDir};
+    return {reframeConfigFile, pagesDir};
 }
 
 function find_pages_dir(cwd) {
@@ -25,7 +25,7 @@ function find_pages_dir(cwd) {
 }
 
 function find_reframe_config(cwd) {
-    const reframeConfigPath = find_up.sync('reframe.config.js', {cwd});
-    assert_internal(reframeConfigPath===null || path_module.isAbsolute(reframeConfigPath));
-    return reframeConfigPath;
+    const reframeConfigFile = find_up.sync('reframe.config.js', {cwd});
+    assert_internal(reframeConfigFile===null || path_module.isAbsolute(reframeConfigFile));
+    return reframeConfigFile;
 }

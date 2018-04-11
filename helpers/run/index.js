@@ -13,8 +13,8 @@ const pkg = require('./package.json');
 const assert_internal = require('reassert/internal');
 
 const projectConfig = getProjectConfig();
-const {pagesDir: pagesDirPath, projectRootDir: appDirPath, reframeConfigPath} = projectConfig.projectFiles;
-assert_internal(pagesDirPath || reframeConfigPath);
+const {pagesDir: pagesDirPath, projectRootDir: appDirPath, reframeConfigFile} = projectConfig.projectFiles;
+assert_internal(pagesDirPath || reframeConfigFile);
 
 let noCommandFound = true;
 
@@ -31,7 +31,7 @@ if( noCommandFound ) {
 
 
 function start(prod, showHapiServerLog) {
-    log_found_file(reframeConfigPath, 'Reframe config');
+    log_found_file(reframeConfigFile, 'Reframe config');
     log_found_file(pagesDirPath, 'Pages directory');
 
     startHapiServer({pagesDirPath, appDirPath, showHapiServerLog});

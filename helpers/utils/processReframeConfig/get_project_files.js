@@ -39,23 +39,20 @@ function getProjectFiles__with_cache() {
 function getProjectFiles() {
     const userDir = getUserDir();
 
-    const {reframeConfigPath, pagesDir} = find_reframe_config(userDir);
+    const {reframeConfigFile, pagesDir} = find_reframe_config(userDir);
 
-    const projectRootDir = (reframeConfigPath || pagesDir) && pathModule.dirname(reframeConfigPath || pagesDir);
+    const projectRootDir = (reframeConfigFile || pagesDir) && pathModule.dirname(reframeConfigFile || pagesDir);
 
     const {output_path__browser, output_path__server, output_path__base} = get_dist_paths({projectRootDir});
 
     return {
-        // TODO rename to reframeConfigFile
-        reframeConfigPath,
-
+        reframeConfigFile,
         pagesDir,
         projectRootDir,
+        buildOutputDir: output_path__base,
 
         // TODO move this to @reframe/build
         staticAssetsDir: output_path__browser,
-
-        buildOutputDir: output_path__base,
     };
 }
 
