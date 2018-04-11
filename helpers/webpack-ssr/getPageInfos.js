@@ -9,7 +9,7 @@ function getPageInfos({outputDir}) {
     const assetMap = readAssetMap({outputDir});
 
     return (
-        Object.entries(assetMap)
+        Object.entries(assetMap.pageAssets)
         .map(([pageName, {pageFileTranspiled, styles, scripts}]) => {
             assert_internal(pageFileTranspiled);
             assert_internal(styles.length>=0);

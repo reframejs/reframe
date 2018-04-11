@@ -264,7 +264,10 @@ function writeAssetMap({browser_entry_points, fileWriter}) {
     assert_internal(pageBrowserEntries);
     assert_internal(pageNames);
 
-    const assetMap = {};
+    const assetMap = {
+        buildTime: new Date(),
+        pageAssets: {},
+    };
 
     addPageFileTranspiled({assetMap, pageModules});
 
@@ -283,14 +286,14 @@ function writeAssetMap({browser_entry_points, fileWriter}) {
 function addPageFileTranspiled({assetMap, pageModules}) {
     pageModules
     .forEach(({pageName, pageFileTranspiled}) => {
-        assert_internal(!assetMap[pageName]);
-        assetMap[pageName] = {
+        assert_internal(!assetMap.pageAssets[pageName]);
+        assetMap.pageAssets[pageName] = {
             pageFileTranspiled,
         };
     });
 }
 function assert_assertMap(assetMap) {
-    Object.entries(assetMap)
+    Object.entries(assetMap.pageAssets)
     .forEach(([pageName, pageAssets]) => {
         assert_internal(pageName && pageName!=='undefined');
         [
@@ -341,7 +344,7 @@ function add_entry_point_to_page_assets({assetMap, entry_point, removeIndex, pag
     assert_internal(pageName);
     assert_internal(!entry_point.entry_name.split('.').includes('noop'));
 
-    const pageAssets = assetMap[pageName] = assetMap[pageName] || {};
+    const pageAssets = assetMap.pageAssets[pageName] = assetMap.pageAssets[pageName] || {};
 
     const {scripts} = entry_point;
     assert_internal(scripts.length>=1, entry_point);
@@ -364,7 +367,7 @@ function add_entry_point_to_page_assets({assetMap, entry_point, removeIndex, pag
 function add_entry_point_styles_to_page_assets({assetMap, entry_point, pageName}) {
     assert_internal(pageName);
 
-    const pageAssets = assetMap[pageName] = assetMap[pageName] || {};
+    const pageAssets = assetMap.pageAssets[pageName] = assetMap.pageAssets[pageName] || {};
 
     const {styles} = entry_point;
     assert_internal(styles.length>=0, entry_point);
