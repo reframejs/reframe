@@ -1,18 +1,18 @@
 const Hapi = require('hapi');
-const getHapiPlugins = require('@reframe/server/getHapiPlugins');
+const getProjectConfig = require('@reframe/utils/getProjectConfig');
+const HapiPluginServerRendering = require('@reframe/server/HapiPluginServerRendering');
+const HapiPluginStaticAssets = require('@reframe/server/HapiPluginStaticAssets');
 const path = require('path');
 
 (async () => {
+    const projectConfig = getProjectConfig();
+    await projectConfig.build();
+
     const server = Hapi.Server({port: 3000});
 
-    const {HapiPluginReframe} = (
-        await getHapiPlugins({
-            pagesDirPath: path.resolve(__dirname, '../../basics/pages'),
-        })
-    );
-
     await server.register([
-        {plugin: HapiPluginReframe},
+        HapiPluginStaticAssets,
+        HapiPluginServerRendering,
     ]);
 
     server.route({

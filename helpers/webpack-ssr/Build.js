@@ -27,7 +27,7 @@ function WebpackSSR(opts) {
 function BuildInstance() {
     const isoBuilder = new IsoBuilder();
 
-    isoBuilder.logger = Logger({log_config_and_stats: this.log.verbose});
+    isoBuilder.logger = Logger({log_config_and_stats: (this.log||{}).verbose});
     assert_usage(this.outputDir);
     isoBuilder.outputDir = this.outputDir;
 
