@@ -2,6 +2,9 @@ const assert = require('reassert');
 const assert_internal = assert;
 const log = require('reassert/log');
 const build = require('@reframe/build');
+/* TODO
+const getProjectConfig = require('@reframe/utils/getProjectConfig');
+*/
 
 const Repage = require('@repage/core');
 const {getPageHtml} = require('@repage/server');
