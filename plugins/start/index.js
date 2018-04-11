@@ -26,8 +26,6 @@ function startCommands() {
 async function action() {
     const getProjectConfig = require('@reframe/utils/getProjectConfig');
     const relative_to_homedir = require('@brillout/relative-to-homedir');
-    const assert_internal = require('reassert/internal');
-    const assert_usage = require('reassert/usage');
     const chalk = require('chalk');
 
     await runStart.apply(null, arguments);
@@ -48,34 +46,9 @@ async function action() {
             verbose: !!log,
         };
 
-        /*
-        const build = require(resolvePackagePath('@reframe/build'));
-        await build({log});
-        */
-        await require(resolvePackagePath('@reframe/build', projectConfig.projectFiles.projectRootDir));
+        await projectConfig.build();
 
-        const server = require(resolvePackagePath('@reframe/server', projectConfig.projectFiles.projectRootDir));
-        server({log});
-    }
-
-    function resolvePackagePath(packageName, projectRootDir) {
-        assert_internal(projectRootDir);
-
-        let packagePath;
-        try {
-            packagePath = require.resolve(packageName, {paths: [projectRootDir]});
-        } catch(err) {
-            if( err.code!=='MODULE_NOT_FOUND' ) throw err;
-            assert_usage(
-                false,
-                "Package `"+packageName+"` is missing.",
-                "You need to install it: `npm install "+packageName+"`.",
-                "Project in question: `"+projectRootDir+"`.",
-            );
-        }
-
-        assert_internal(packagePath);
-        return packagePath;
+        projectConfig.server();
     }
 
     function log_found_file(file_path, description) {

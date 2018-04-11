@@ -27,6 +27,8 @@ function get_project_files(_processed/*, r_objects*/) {
     _processed.getPageConfigPaths = getPageConfigPaths;
     _processed.getPageConfigs = getPageConfigs;
     _processed.assertProjectFound = assertProjectFound;
+    _processed.build = build;
+    _processed.server = server;
 }
 
 function getProjectFiles__with_cache() {
@@ -56,11 +58,11 @@ function getProjectFiles() {
     };
 }
 
-
 function get_dist_paths({projectRootDir}) {
     if( ! projectRootDir ) {
         return {};
     }
+    // TODO remove
     const output_path__base = pathModule.resolve(projectRootDir, './dist');
     const output_path__browser = pathModule.resolve(output_path__base, './browser');
     const output_path__server = pathModule.resolve(output_path__base, './server');
@@ -160,14 +162,12 @@ function get_page_files({pagesDir}) {
         return {file_name, entry_name, page_name};
     }
 }
-
-/*
-let time = 0;
-setInterval(() => {
-    console.log(time);
-}, 1000);
-*/
-
+function resolveModule(filePath) {
+    try {
+        return require.resolve(filePath);
+    } catch(e) {}
+    return null;
+}
 function fs__ls(dirpath) {
     const beg = new Date();
     assert_internal(pathModule.isAbsolute(dirpath));
@@ -182,6 +182,12 @@ function fs__ls(dirpath) {
  // time+=new Date() - beg;
     return files;
 }
+/*
+let time = 0;
+setInterval(() => {
+    console.log(time);
+}, 1000);
+*/
 
 function assertProjectFound() {
     // TODO
@@ -193,9 +199,37 @@ function assertProjectFound() {
     */
 }
 
-function resolveModule(filePath) {
-    try {
-        return require.resolve(filePath);
-    } catch(e) {}
-    return null;
+function build() {
+    const {projectRootDir} = getProjectFiles__with_cache();
+    assert_internal(projectRootDir);
+    return require(resolvePackagePath('@reframe/build', projectRootDir));
+
 }
+
+function server() {
+    const {projectRootDir} = getProjectFiles__with_cache();
+    assert_internal(projectRootDir);
+    const server = require(resolvePackagePath('@reframe/server', projectRootDir));
+    return server();
+}
+
+function resolvePackagePath(packageName, projectRootDir) {
+    assert_internal(projectRootDir);
+
+    let packagePath;
+    try {
+        packagePath = require.resolve(packageName, {paths: [projectRootDir]});
+    } catch(err) {
+        if( err.code!=='MODULE_NOT_FOUND' ) throw err;
+        assert_usage(
+            false,
+            "Package `"+packageName+"` is missing.",
+            "You need to install it: `npm install "+packageName+"`.",
+            "Project in question: `"+projectRootDir+"`.",
+        );
+    }
+
+    assert_internal(packagePath);
+    return packagePath;
+}
+
