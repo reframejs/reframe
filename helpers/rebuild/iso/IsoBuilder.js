@@ -67,7 +67,7 @@ function create_file_writer(isoBuilder) {
 }
 
 async function buildAll({isoBuilder, latestRun, buildCacheNodejs, buildCacheBrowser}) {
-    global.DEBUG_WATCH && console.log('START BUILDER');
+    global.DEBUG_WATCH && console.log('START-BUILDER');
 
     assert_isoBuilder(isoBuilder);
 
@@ -136,7 +136,7 @@ async function buildAll({isoBuilder, latestRun, buildCacheNodejs, buildCacheBrow
             compilation_info: [isoBuilder.__compilationState.nodejs, isoBuilder.__compilationState.browser],
         });
     }
-    DEBUG_WATCH && console.log("END BUILDER");
+    DEBUG_WATCH && console.log("END-BUILDER");
 }
 
 function onCompilationStateChange({isoBuilder, compilationState, run, prop}) {
@@ -286,6 +286,8 @@ async function build_iso({
             resolveTimeout();
             return ret;
         } else {
+            console.log(build_cache.webpackEntries);
+            console.log(webpackEntries);
             global.DEBUG_WATCH && console.log('STOP-BUILD '+compilationName);
             const resolveTimeout = gen_await_timeout({name: 'Stop Build '+compilationName});
             await build_cache.stop_build();

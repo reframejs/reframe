@@ -40,6 +40,7 @@ function compile(
     if( webpack_config_modifier ) {
         webpack_config = webpack_config_modifier(webpack_config);
     }
+    console.log('l', webpack_config.entry, webpack_config_modifier);
 
     const resolveTimeout = gen_await_timeout({name: 'Compilation Build '+compilationName});
 
