@@ -1,6 +1,6 @@
-const assert = require('reassert');
-const assert_internal = assert;
-const assert_usage = assert;
+const assert_internal = require('reassert/internal');
+const assert_usage = require('reassert/usage');
+const assert_warning = require('reassert/warning');
 const mkdirp = require('mkdirp');
 const serve = require('@rebuild/serve');
 const build = require('@rebuild/build');
@@ -180,6 +180,7 @@ function build_browser({webpackConfig, isoBuilder, buildCacheBrowser, there_is_a
                 });
             },
             onBuild,
+            compilationName: 'browserCompilation',
         })
     );
 
@@ -195,7 +196,7 @@ function build_browser({webpackConfig, isoBuilder, buildCacheBrowser, there_is_a
         isoBuilder,
         build_cache: buildCacheBrowser,
         build_function,
-        compilationName: 'browserCompilation',
+        compilationName,
     });
 }
 
@@ -216,6 +217,7 @@ function build_nodejs({webpackConfig, isoBuilder, buildCacheNodejs, there_is_a_n
                 });
             },
             onBuild,
+            compilationName: 'nodejsCompilation',
         })
     );
 
@@ -224,7 +226,7 @@ function build_nodejs({webpackConfig, isoBuilder, buildCacheNodejs, there_is_a_n
         isoBuilder,
         build_cache: buildCacheNodejs,
         build_function,
-        compilationName: 'nodejsCompilation',
+        compilationName,
     });
 }
 
@@ -249,9 +251,14 @@ async function build_iso({
 
     if( build_cache.webpackEntries ) {
         if( deep_equal(webpackEntries, build_cache.webpackEntries) ) {
-            return await build_cache.wait_build();
+            const resolveTimeout = gen_await_timeout({name: 'Wait Build '+compilationName});
+            const ret = await build_cache.wait_build();
+            resolveTimeout();
+            return ret
         } else {
+            const resolveTimeout = gen_await_timeout({name: 'Stop Build '+compilationName});
             await build_cache.stop_build();
+            resolveTimeout();
             remove_output_path(webpackOutputPath);
         }
     }
@@ -268,9 +275,10 @@ async function build_iso({
     assert_internal(webpackConfig);
     const {first_build_promise, wait_build, stop_build} = (
         build_function({
-            onBuild: build_info__repage => {
-                const {isFirstBuild} = build_info__repage;
+            onBuild: buildInfo => {
+                const {isFirstBuild, compilationName} = buildInfo;
                 assert_internal([true, false].includes(isFirstBuild));
+                assert_internal(compilationName);
                 if( ! isFirstBuild ) {
                     if( global.DEBUG_WATCH ) {
                         console.log('REBUILD-REASON: webpack-watch for `'+compilationName+'`');
@@ -284,7 +292,10 @@ async function build_iso({
     assert_internal(stop_build && wait_build);
     Object.assign(build_cache, {stop_build, wait_build, webpackEntries});
 
-    return await first_build_promise;
+    const resolveTimeout = gen_await_timeout({name: 'First Build '+compilationName});
+    const ret = await first_build_promise;
+    resolveTimeout();
+    return ret;
 }
 
 function remove_output_path(webpackOutputPath) {
@@ -589,4 +600,11 @@ function is_abs(path) {
 
 function is_production() {
    return process.env.NODE_ENV === 'production';
+}
+
+function gen_await_timeout({timeoutSeconds=30, name}={}) {
+    const timeout = setTimeout(() => {
+        assert_warning(false, "Promise \""+name+"\" still not resolved after "+timeoutSeconds+" seconds");
+    }, timeoutSeconds*1000)
+    return () => clearTimeout(timeoutSeconds);
 }

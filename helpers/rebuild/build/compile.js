@@ -31,6 +31,7 @@ function compile(
         webpack_config_modifier,
         context,
         onCompilationStateChange = ()=>{},
+        compilationName,
     }
 ) {
     assert_internal(webpack_config.constructor===Object);
@@ -41,9 +42,10 @@ function compile(
     }
 
     const {stop_build, wait_build, first_setup_promise} = (
-        run_all({
+        run({
             webpack_config,
             compiler_handler,
+            compilationName,
             on_compilation_start: ({is_first_start, previous_was_success}) => {
                 if( ! is_first_start ) {
                     onCompilationStateChange({
@@ -72,7 +74,7 @@ function compile(
                     ...compilation_info,
                 });
                 if( onBuild && is_success ) {
-                    onBuild({compilationInfo: compilation_info, isFirstBuild: is_first_success});
+                    onBuild({compilationInfo: compilation_info, isFirstBuild: is_first_success, compilationName});
                 }
             },
         })
@@ -93,11 +95,12 @@ function compile(
     };
 }
 
-function run_all({
+function run({
     webpack_config,
     compiler_handler,
     on_compilation_start,
     on_compilation_end,
+    compilationName,
 }) {
     let compiler__is_running;
     let compiler__info;
@@ -116,6 +119,7 @@ function run_all({
 
     const compiler_tools = setup_compiler_handler({
         webpack_config,
+        compilationName,
         compiler_handler,
         on_compiler_start: () => {
             assert_internal(!compiler__is_running);
@@ -187,13 +191,14 @@ function setup_compiler_handler({
     compiler_handler,
     on_compiler_start,
     on_compiler_end,
+    compilationName,
 }) {
     assert_internal(webpack_config.constructor===Object, webpack_config);
     assert_internal(webpack_config.entry, webpack_config);
     assert_internal(compiler_handler);
 
     const {webpack_compiler, first_compilation, first_successful_compilation, onCompileStart, onCompileEnd} = (
-        get_webpack_compiler(deep_copy(webpack_config))
+        get_webpack_compiler(deep_copy(webpack_config), compilationName)
     );
     assert_internal(webpack_compiler);
 
@@ -202,7 +207,7 @@ function setup_compiler_handler({
     const compilation_timeout = setTimeout(() => {
         assert_warning(
             false,
-            'Compilation not finished after '+TIMEOUT_SECONDS+' seconds'
+            'Compilation not finished after '+TIMEOUT_SECONDS+' seconds for '+compilationName
         );
     },TIMEOUT_SECONDS*1000);
 
@@ -234,6 +239,7 @@ function setup_compiler_handler({
     assert_internal((watching===null || watching) && server_start_promise);
 
     const stop_build = async () => {
+        global.DEBUG_WATCH && console.log('WEBPACK-ABORT-START '+compilationName);
         //*
         if( watching ) {
             const {promise, callback} = gen_promise_callback();
@@ -241,7 +247,8 @@ function setup_compiler_handler({
             await promise;
         }
         //*/
-        call_on_compilation_end(true);
+        global.DEBUG_WATCH && console.log('WEBPACK-ABORT-END '+compilationName);
+        call_on_compilation_end({is_abort: true});
      // await wait_build();
     };
 
@@ -282,7 +289,7 @@ function setup_compiler_handler({
         }
     }
 
-    function call_on_compilation_end(is_abort) {
+    function call_on_compilation_end({is_abort}={}) {
      // assert_internal(!compilation_ended);
         if( compilation_ended ) {
             return;
@@ -338,7 +345,7 @@ function handle_logging({onCompileStart, onCompileEnd, webpack_stats: stats__ini
 }
 */
 
-function get_webpack_compiler(webpack_config) {
+function get_webpack_compiler(webpack_config, compilationName) {
     let resolve_first_compilation;
     const first_compilation = (
         new Promise(resolve => {
@@ -364,16 +371,16 @@ function get_webpack_compiler(webpack_config) {
     // - https://github.com/webpack/webpack-dev-server/issues/847
     // - https://github.com/webpack/webpack-dev-server/blob/master/lib/Server.js
     webpack_compiler.hooks.compile.tap('weDontNeedToNameThis_aueipvuwivxp', () => {
-        global.DEBUG_WATCH && console.log('WEBPACK-COMPILE-START');
+        global.DEBUG_WATCH && console.log('WEBPACK-COMPILE-START '+compilationName);
         onCompileStartListeners.forEach(fn => fn());
     });
 
     global.DEBUG_WATCH && print_changed_files(webpack_compiler);
 
-    catch_webpack_not_terminating(webpack_compiler, {timeout_seconds: 30});
+    catch_webpack_not_terminating(webpack_compiler, {timeout_seconds: 30, compilationName});
 
     webpack_compiler.hooks.done.tap('weDontNeedToNameThis_apokminzbruunf', webpack_stats => {
-        global.DEBUG_WATCH && console.log('WEBPACK-COMPILE-DONE');
+        global.DEBUG_WATCH && console.log('WEBPACK-COMPILE-DONE '+compilationName);
 
         resolve_first_compilation(webpack_stats);
 
@@ -392,7 +399,7 @@ function get_webpack_compiler(webpack_config) {
     return {webpack_compiler, first_compilation, first_successful_compilation, onCompileStart, onCompileEnd};
 }
 
-function catch_webpack_not_terminating(webpack_compiler, {timeout_seconds}) {
+function catch_webpack_not_terminating(webpack_compiler, {timeout_seconds, compilationName}) {
     let is_compiling;
     webpack_compiler.hooks.compile.tap('weDontNeedToNameThis_pamffwblasa', () => {
         is_compiling = true;
@@ -400,6 +407,7 @@ function catch_webpack_not_terminating(webpack_compiler, {timeout_seconds}) {
             assert_warning(
                 !is_compiling,
                 "Webpack compilation still not finished after "+timeout_seconds+" seconds.",
+                "Compilation name: "+compilationName,
                 "It likely means that webpack ran into a bug and hang.",
                 "You need to manually restart the building."
             );

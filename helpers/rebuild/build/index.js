@@ -2,9 +2,9 @@ const compile = require('./compile');
 
 module.exports = build;
 
-function build(arg, {watch=false, ...args}={}) {
+function build(webpack_config, {watch=false, ...args}={}) {
     const compiler_handler = get_compiler_handler({watch});
-    return compile(arg, {compiler_handler, doNotCreateServer: true, ...args});
+    return compile(webpack_config, {compiler_handler, doNotCreateServer: true, ...args});
 }
 
 function get_compiler_handler({watch=false}) {

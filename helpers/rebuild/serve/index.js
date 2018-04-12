@@ -6,7 +6,7 @@ let {webpack_config_modifier, get_compiler_handler} = require('./utils/custom_se
 module.exports = serve;
 
 function serve(
-    arg,
+    webpack_config,
     {
         doNotAutoReload = false,
         doNotCreateServer = false,
@@ -20,7 +20,7 @@ function serve(
 
     const compiler_handler = get_compiler_handler({doNotCreateServer, doNotFireReloadEvents});
 
-    return compile(arg, {
+    return compile(webpack_config, {
         compiler_handler,
         webpack_config_modifier,
         doNotCreateServer,
