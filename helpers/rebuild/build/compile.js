@@ -11,7 +11,6 @@ const HtmlCrust = require('@brillout/html-crust');
 const mkdirp = require('mkdirp');
 const deep_copy = require('./utils/deep_copy');
 const log_title = require('./utils/log_title');
-const {Config, StandardConfig} = require('@rebuild/config');
 //const webpack_mild_compile = require('webpack-mild-compile');
 //const readline = require('readline');
 //const {Logger} = require('./utils/Logger');
@@ -23,27 +22,28 @@ global.DEBUG_WATCH = true;
 module.exports = compile;
 
 function compile(
-    arg,
+    webpack_config,
     {
      // logger = Logger(),
         doNotGenerateIndexHtml,
         onBuild,
         compiler_handler,
-        compiler_handler__secondary,
         webpack_config_modifier,
         context,
         onCompilationStateChange = ()=>{},
-        ...StandardConfig__args
     }
 ) {
-    const webpack_config = get_webpack_config(arg, {webpack_config_modifier, context, ...StandardConfig__args});
-    assert_internal(webpack_config.constructor===Array);
+    assert_internal(webpack_config.constructor===Object);
+
+        // TODO remove
+    if( webpack_config_modifier ) {
+        webpack_config = webpack_config_modifier(webpack_config);
+    }
 
     const {stop_build, wait_build, first_setup_promise} = (
         run_all({
             webpack_config,
             compiler_handler,
-            compiler_handler__secondary,
             on_compilation_start: ({is_first_start, previous_was_success}) => {
                 if( ! is_first_start ) {
                     onCompilationStateChange({
@@ -55,13 +55,13 @@ function compile(
                 if( ! doNotGenerateIndexHtml ) {
                     await build_index_html({compilation_info});
                 }
-                assert_usage(compilation_info.length===1);
+                assert_usage(compilation_info.constructor===Object);
                 assert_internal([true, false].includes(is_success));
                 onCompilationStateChange({
                     is_compiling: false,
                     is_failure: !is_abort && !is_success,
                     is_abort,
-                    ...compilation_info[0],
+                    ...compilation_info,
                 });
                 if( onBuild && is_success ) {
                     onBuild({compilationInfo: compilation_info, isFirstBuild: is_first_success});
@@ -85,52 +85,14 @@ function compile(
     };
 }
 
-function get_webpack_config(
-    arg,
-    {
-        context=path_module.dirname(module.parent.parent.filename),
-        webpack_config_modifier,
-        ...StandardConfig__args
-    }
-) {
-    assert_usage(arg);
-    assert_usage([String, Array, Object].includes(arg.constructor), arg);
-
-    let webpack_configs = (() => {
-        if( arg.constructor === Object ) {
-            return [arg];
-        }
-        if( arg.constructor === Array && arg.every(conf => conf && conf.constructor===Object) ) {
-            return arg;
-        }
-        const entry = arg;
-        assert_usage(entry.constructor===String || entry.constructor===Array && entry.every(entry_ => entry_.constructor===String), arg)
-        const config = new Config();
-        config.add([
-            StandardConfig({
-                entry,
-                context,
-                ...StandardConfig__args,
-            }),
-        ]);
-        return [config.assemble()];
-    })();
-    assert_internal(webpack_configs.constructor===Array);
-
-    webpack_config = webpack_config_modifier(webpack_config);
-
-    return webpack_config;
-}
-
 function run_all({
     webpack_config,
     compiler_handler,
-    compiler_handler__secondary,
     on_compilation_start,
     on_compilation_end,
 }) {
-    const compiler__is_running = webpack_config.map(() => false);
-    const compiler__info = webpack_config.map(() => null);
+    let compiler__is_running;
+    let compiler__info;
 
     let resolve_promise;
     const first_compilation_promise = new Promise(resolve => resolve_promise = resolve);
@@ -143,73 +105,59 @@ function run_all({
     let stop_build;
     let wait_build;
     let server_start_promise;
-    webpack_config.forEach((webpack_conf, i) => {
-        const compiler_tools = setup_compiler_handler({
-            webpack_config: webpack_conf,
-            compiler_handler: (
-                i===0 ? (
-                    compiler_handler
-                ) : (
-                    compiler_handler__secondary || compiler_handler
-                )
-            ),
-            on_compiler_start: () => {
-                const a_compiler_is_running = compiler__is_running.includes(true);
-                compiler__is_running[i] = true;
-                if( a_compiler_is_running ) {
-                    return;
-                }
-                on_compilation_start({
-                    previous_was_success,
-                    is_first_start,
-                });
-                is_first_start = false;
-            },
-            on_compiler_end: compiler_info => {
-                assert_internal(compiler_info.webpack_stats);
-                assert_internal(compiler_info.is_success.constructor===Boolean);
-                assert_internal(compiler_info.output);
 
-                compiler__is_running[i] = false;
-                compiler__info[i] = compiler_info;
+    const compiler_tools = setup_compiler_handler({
+        webpack_config,
+        compiler_handler,
+        on_compiler_start: () => {
+            assert_internal(!compiler__is_running);
+            compiler__is_running = true;
+            on_compilation_start({
+                previous_was_success,
+                is_first_start,
+            });
+            is_first_start = false;
+        },
+        on_compiler_end: compiler_info => {
+            assert_internal(compiler_info.webpack_stats);
+            assert_internal(compiler_info.is_success.constructor===Boolean);
+            assert_internal(compiler_info.output);
 
-                if( compiler__is_running.includes(true) ) {
-                    return;
-                }
-                assert_internal(!compiler__info.includes(null));
+            assert_internal(compiler__is_running);
+            compiler__info = compiler_info;
+            compiler__is_running = false;
 
-                const is_success = compiler__info.every(({is_success}) => is_success===true);
 
-                const is_first_success = is_success && no_first_success;
-                if( is_success ) {
-                    no_first_success = false;
-                }
+            const is_success = compiler__info.is_success;
 
-                const compilation_info = get_compilation_info();
+            const is_first_success = is_success && no_first_success;
+            if( is_success ) {
+                no_first_success = false;
+            }
 
-                const compilation_args = {
-                    compilation_info,
-                    is_success,
-                    is_abort,
-                    previous_was_success,
-                    is_first_result,
-                    is_first_success,
-                };
+            const compilation_args = {
+                compilation_info: {
+                    webpack_config,
+                    ...compiler__info,
+                },
+                is_success,
+                previous_was_success,
+                is_first_result,
+                is_first_success,
+            };
 
-                previous_was_success = is_success;
-                is_first_result = false;
+            previous_was_success = is_success;
+            is_first_result = false;
 
-                if( is_first_success ) {
-                    resolve_promise(compilation_args);
-                }
-                on_compilation_end(compilation_args);
-            },
-        });
-        assert_usage(webpack_config.length===1);
-        wait_build = compiler_tools.wait_build;
-        stop_build = compiler_tools.stop_build;
-        server_start_promise = compiler_tools.server_start_promise;
+            if( is_first_success ) {
+                resolve_promise(compilation_args);
+            }
+            on_compilation_end(compilation_args);
+        },
     });
+    wait_build = compiler_tools.wait_build;
+    stop_build = compiler_tools.stop_build;
+    server_start_promise = compiler_tools.server_start_promise;
 
     return {
         wait_build,
@@ -219,22 +167,6 @@ function run_all({
             return await first_compilation_promise;
         })(),
     };
-
-    function get_compilation_info() {
-        return (
-            webpack_config
-            .map((webpack_conf, i) => {
-                assert_internal(compiler__info[i]);
-                assert_internal(compiler__info[i].output);
-                assert_internal(compiler__info[i].webpack_stats);
-                assert_internal(compiler__info[i].is_success.constructor===Boolean);
-                return {
-                    webpack_config: webpack_conf,
-                    ...compiler__info[i],
-                };
-            })
-        );
-    }
 }
 
 function setup_compiler_handler({
@@ -484,7 +416,8 @@ function log_config(config) {
 }
 
 async function build_index_html({compilation_info}) {
-    const compiler_info = compilation_info[0]||{};
+    const compiler_info = compilation_info;
+    assert_internal(compilation_info.constructor===Object);
     const {output} = compiler_info;
     assert_internal(output, compilation_info);
     const html = await get_generic_html({dist_info: output});

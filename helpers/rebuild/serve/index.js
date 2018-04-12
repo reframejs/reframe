@@ -24,11 +24,11 @@ function serve(
         compiler_handler,
         webpack_config_modifier,
         doNotCreateServer,
-        compiler_handler__secondary,
         ...args
     });
 }
 
+// TODO remove
 function compiler_handler__secondary({webpack_compiler, webpack_config, webpack_compiler_error_handler}) {
     let watching;
     if( is_production() ) {

@@ -2,9 +2,7 @@ const assert = require('reassert');
 const assert_internal = assert;
 const log = require('reassert/log');
 const build = require('@reframe/build');
-/* TODO
 const getProjectConfig = require('@reframe/utils/getProjectConfig');
-*/
 
 const Repage = require('@repage/core');
 const {getPageHtml} = require('@repage/server');
@@ -18,7 +16,8 @@ const express = require('express');
 startExpressServer();
 
 async function startExpressServer() {
-    const pagesDirPath = path.resolve(__dirname, '../../basics/pages');
+    projectConfig.projectFiles.pagesDir = path.resolve(__dirname, '../../basics/pages');
+
     let pages;
     const onBuild = args => {pages = args.pages};
     const {browserDistPath} = (
