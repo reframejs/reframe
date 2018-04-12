@@ -51,7 +51,7 @@ function compile(
                     });
                 }
             },
-            on_compilation_end: async ({compilation_info, is_first_result, is_first_success, is_success, previous_was_success}) => {
+            on_compilation_end: async ({compilation_info, is_first_result, is_first_success, is_success, is_abort, previous_was_success}) => {
                 if( ! doNotGenerateIndexHtml ) {
                     await build_index_html({compilation_info});
                 }
@@ -59,7 +59,8 @@ function compile(
                 assert_internal([true, false].includes(is_success));
                 onCompilationStateChange({
                     is_compiling: false,
-                    is_failure: !is_success,
+                    is_failure: !is_abort && !is_success,
+                    is_abort,
                     ...compilation_info[0],
                 });
                 if( onBuild && is_success ) {
@@ -116,11 +117,9 @@ function get_webpack_config(
     })();
     assert_internal(webpack_configs.constructor===Array);
 
-    if( webpack_config_modifier ) {
-        webpack_configs = webpack_configs.map(webpack_config_modifier);
-    }
+    webpack_config = webpack_config_modifier(webpack_config);
 
-    return webpack_configs;
+    return webpack_config;
 }
 
 function run_all({
@@ -191,6 +190,7 @@ function run_all({
                 const compilation_args = {
                     compilation_info,
                     is_success,
+                    is_abort,
                     previous_was_success,
                     is_first_result,
                     is_first_success,
