@@ -41,6 +41,8 @@ function compile(
         webpack_config = webpack_config_modifier(webpack_config);
     }
 
+    const resolveTimeout = gen_await_timeout({name: 'Compilation Build '+compilationName});
+
     const {stop_build, wait_build, first_setup_promise} = (
         run({
             webpack_config,
@@ -54,6 +56,7 @@ function compile(
                 }
             },
             on_compilation_end: async ({compilation_info, is_first_result, no_previous_success, is_success, is_abort, previous_was_success}) => {
+                resolveTimeout();
                 if( is_abort ) {
                     /*
                     onCompilationStateChange({
@@ -106,7 +109,6 @@ function run({
     compilationName,
 }) {
     let compiler__is_running;
-    let compiler__info;
 
     let resolve_promise;
     const first_compilation_promise = new Promise(resolve => resolve_promise = resolve);
@@ -134,6 +136,9 @@ function run({
             is_first_start = false;
         },
         on_compiler_end: compilation_info => {
+            assert_internal(compiler__is_running);
+            compiler__is_running = false;
+
             if( compilation_info.is_abort ) {
                 on_compilation_end({is_abort: true, no_previous_success});
                 return;
@@ -143,17 +148,12 @@ function run({
             assert_internal(compilation_info.is_success.constructor===Boolean);
             assert_internal(compilation_info.output);
 
-            assert_internal(compiler__is_running);
-            compiler__info = compilation_info;
-            compiler__is_running = false;
-
-
-            const is_success = compiler__info.is_success;
+            const is_success = compilation_info.is_success;
 
             const compilation_args = {
                 compilation_info: {
                     webpack_config,
-                    ...compiler__info,
+                    ...compilation_info,
                 },
                 is_success,
                 previous_was_success,
@@ -226,6 +226,7 @@ function setup_compiler_handler({
     };
     let compilation_info;
     onCompileStart.addListener(() => {
+        compilation_ended = false;
         compilation_info = null;
         compilation_promise = new Promise(resolve => compilation_promise__resolve=resolve);
         on_compiler_start();
@@ -244,8 +245,8 @@ function setup_compiler_handler({
         global.DEBUG_WATCH && console.log('WEBPACK-ABORT-START '+compilationName);
         //*
         if( watching ) {
-            const {promise, callback} = gen_promise_callback();
-            watching.close(callback);
+            const {promise, resolvePromise} = gen_promise();
+            watching.close(resolvePromise);
             await promise;
         }
         //*/
@@ -292,7 +293,9 @@ function setup_compiler_handler({
     }
 
     function call_on_compilation_end({is_abort}={}) {
-     // assert_internal(!compilation_ended);
+        /*
+        assert_internal(!compilation_ended);
+        */
         if( compilation_ended ) {
             return;
         }
@@ -780,9 +783,17 @@ function fs__file_exists(path) {
     }
 }
 
-function gen_promise_callback() {
+function gen_promise() {
     let promise_resolver;
     const promise = new Promise(resolve => promise_resolver=resolve);
     assert_internal(promise_resolver);
-    return {promise, callback: promise_resolver};
+    return {promise, resolvePromise: promise_resolver};
+}
+
+function gen_await_timeout({timeoutSeconds=30, name}={}) {
+    if( ! DEBUG_WATCH ) return;
+    const timeout = setTimeout(() => {
+        assert_warning(false, "Promise \""+name+"\" still not resolved after "+timeoutSeconds+" seconds");
+    }, timeoutSeconds*1000)
+    return () => clearTimeout(timeout);
 }

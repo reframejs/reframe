@@ -67,9 +67,7 @@ function create_file_writer(isoBuilder) {
 }
 
 async function buildAll({isoBuilder, latestRun, buildCacheNodejs, buildCacheBrowser}) {
-    if( global.DEBUG_WATCH ) {
-        console.log('START BUILDER');
-    }
+    global.DEBUG_WATCH && console.log('START BUILDER');
 
     assert_isoBuilder(isoBuilder);
 
@@ -111,7 +109,9 @@ async function buildAll({isoBuilder, latestRun, buildCacheNodejs, buildCacheBrow
         if( ! currentPromise ) {
             break;
         }
+        const resolveTimeout = gen_await_timeout({name: 'Builder Promise'});
         const buildInfo = await currentPromise.then();
+        resolveTimeout();
         if( buildInfo && buildInfo.is_abort ) {
             assert_internal(run.isObsolete());
             break;
@@ -136,6 +136,7 @@ async function buildAll({isoBuilder, latestRun, buildCacheNodejs, buildCacheBrow
             compilation_info: [isoBuilder.__compilationState.nodejs, isoBuilder.__compilationState.browser],
         });
     }
+    DEBUG_WATCH && console.log("END BUILDER");
 }
 
 function onCompilationStateChange({isoBuilder, compilationState, run, prop}) {
@@ -310,9 +311,7 @@ async function build_iso({
                 assert_internal([true, false].includes(isFirstBuild));
                 assert_internal(compilationName);
                 if( ! isFirstBuild ) {
-                    if( global.DEBUG_WATCH ) {
-                        console.log('REBUILD-REASON: webpack-watch for `'+compilationName+'`');
-                    }
+                    global.DEBUG_WATCH && console.log('REBUILD-REASON: webpack-watch for `'+compilationName+'`');
                     isoBuilder.build();
                 }
             },
@@ -510,19 +509,7 @@ function FileSystemHandler() {
             return;
         }
 
-        if( global.DEBUG_WATCH ) {
-            console.log('FILE-CHANGED: '+path);
-            /*
-            if( fs__path_exists(path) ) {
-                console.log(
-                    "Changes:",
-                    fs__read(path),
-                    '',
-                    content,
-                );
-            }
-            */
-        }
+        global.DEBUG_WATCH && console.log('FILE-CHANGED: '+path);
 
         fs__write_file(path, content);
 
@@ -540,9 +527,7 @@ function FileSystemHandler() {
     function removePreviouslyWrittenFiles(session_object) {
         session_object.written_files__previously.forEach(path => {
             if( ! session_object.written_files__current.includes(path) ) {
-                if( global.DEBUG_WATCH ) {
-                    console.log('FILE-REMOVED: '+path);
-                }
+                global.DEBUG_WATCH && console.log('FILE-REMOVED: '+path);
                 fs__remove(path);
             }
         });
@@ -634,6 +619,7 @@ function isProduction() {
 }
 
 function gen_await_timeout({timeoutSeconds=30, name}={}) {
+    if( ! DEBUG_WATCH ) return;
     const timeout = setTimeout(() => {
         assert_warning(false, "Promise \""+name+"\" still not resolved after "+timeoutSeconds+" seconds");
     }, timeoutSeconds*1000)
