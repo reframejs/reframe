@@ -5,7 +5,9 @@ const find = require('@brillout/find');
 const getUserDir = require('@brillout/get-user-dir');
 const find_reframe_config = require('@reframe/utils/find_reframe_config');
 const fs = require('fs');
-const getPageInfos = require('webpack-ssr/getPageInfos');
+
+// TODO use projectConfig plugin mod instead
+const getAssetInfos = require('webpack-ssr/getAssetInfos');
 
 module.exports = get_project_files;
 
@@ -87,20 +89,21 @@ function getPageConfigPaths() {
 function getPageConfigs() {
     const {buildOutputDir} = getProjectFiles__with_cache();
 
-    const pageInfos = getPageInfos({outputDir: buildOutputDir});
+    const assetInfos = getAssetInfos({outputDir: buildOutputDir});
 
     const pageConfigs = (
-        pageInfos
-        .map(({pageExport, pageAssets}) => {
+        assetInfos
+        .pageAssets
+        .map(({pageExport, styles, scripts}) => {
             const pageConfig = pageExport;
 
             pageConfig.scripts = make_paths_array_unique([
-                ...(pageAssets.scripts||[]),
+                ...(scripts||[]),
                 ...(pageConfig.scripts||[]),
             ]);
 
             pageConfig.styles = make_paths_array_unique([
-                ...(pageAssets.styles||[]),
+                ...(styles||[]),
                 ...(pageConfig.styles||[])
             ]);
 

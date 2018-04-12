@@ -266,36 +266,37 @@ function writeAssetMap({browser_entry_points, fileWriter}) {
     assert_internal(pageBrowserEntries);
     assert_internal(pageNames);
 
-    const assetMap = {
+    const assetInfos = {
         buildTime: new Date(),
+        staticAssetsDir: pathModule.resolve(this.outputDir, BROWSER_OUTPUT),
         pageAssets: {},
     };
 
-    addPageFileTranspiled({assetMap, pageModules});
+    addPageFileTranspiled({assetInfos, pageModules});
 
-    add_browser_entry_points({assetMap, pageBrowserEntries, browser_entry_points});
+    add_browser_entry_points({assetInfos, pageBrowserEntries, browser_entry_points});
 
-    add_autoreload_client({assetMap, pageNames, browser_entry_points});
+    add_autoreload_client({assetInfos, pageNames, browser_entry_points});
 
-    assert_assertMap(assetMap);
+    assert_assertMap(assetInfos);
 
     fileWriter.writeFile({
-        fileContent: JSON.stringify(assetMap, null, 2),
-        filePath: 'assetMap.json',
+        fileContent: JSON.stringify(assetInfos, null, 2),
+        filePath: 'assetInfos.json',
         noSession: true,
     });
 }
-function addPageFileTranspiled({assetMap, pageModules}) {
+function addPageFileTranspiled({assetInfos, pageModules}) {
     pageModules
     .forEach(({pageName, pageFileTranspiled}) => {
-        assert_internal(!assetMap.pageAssets[pageName]);
-        assetMap.pageAssets[pageName] = {
+        assert_internal(!assetInfos.pageAssets[pageName]);
+        assetInfos.pageAssets[pageName] = {
             pageFileTranspiled,
         };
     });
 }
-function assert_assertMap(assetMap) {
-    Object.entries(assetMap.pageAssets)
+function assert_assertMap(assetInfos) {
+    Object.entries(assetInfos.pageAssets)
     .forEach(([pageName, pageAssets]) => {
         assert_internal(pageName && pageName!=='undefined');
         [
@@ -303,11 +304,11 @@ function assert_assertMap(assetMap) {
             ...(pageAssets.styles||[])
         ]
         .forEach(pathname => {
-            assert_internal(pathname && pathname.constructor===String && pathname.startsWith('/'), assetMap);
+            assert_internal(pathname && pathname.constructor===String && pathname.startsWith('/'), assetInfos);
         });
     });
 }
-function add_autoreload_client({assetMap, pageNames, browser_entry_points}) {
+function add_autoreload_client({assetInfos, pageNames, browser_entry_points}) {
     if( isProduction() ) {
         return;
     }
@@ -318,13 +319,13 @@ function add_autoreload_client({assetMap, pageNames, browser_entry_points}) {
     pageNames
     .forEach(pageName => {
         assert_internal(pageName);
-        add_entry_point_to_page_assets({entry_point: entry_point__autoreload, assetMap, pageName});
+        add_entry_point_to_page_assets({entry_point: entry_point__autoreload, assetInfos, pageName});
     });
 }
 function isProduction() {
    return process.env.NODE_ENV === 'production';
 }
-function add_browser_entry_points({assetMap, pageBrowserEntries, browser_entry_points}) {
+function add_browser_entry_points({assetInfos, pageBrowserEntries, browser_entry_points}) {
     Object.values(browser_entry_points)
     .forEach(entry_point => {
         assert_internal(entry_point.entry_name);
@@ -334,19 +335,19 @@ function add_browser_entry_points({assetMap, pageBrowserEntries, browser_entry_p
             assert_internal(pageName);
             if( pageName===entry_point.entry_name ) {
                 if( browserEntryOnlyCss ) {
-                    add_entry_point_styles_to_page_assets({assetMap, entry_point, pageName});
+                    add_entry_point_styles_to_page_assets({assetInfos, entry_point, pageName});
                 } else {
-                    add_entry_point_to_page_assets({assetMap, entry_point, pageName});
+                    add_entry_point_to_page_assets({assetInfos, entry_point, pageName});
                 }
             }
         });
     });
 }
-function add_entry_point_to_page_assets({assetMap, entry_point, removeIndex, pageName}) {
+function add_entry_point_to_page_assets({assetInfos, entry_point, removeIndex, pageName}) {
     assert_internal(pageName);
     assert_internal(!entry_point.entry_name.split('.').includes('noop'));
 
-    const pageAssets = assetMap.pageAssets[pageName] = assetMap.pageAssets[pageName] || {};
+    const pageAssets = assetInfos.pageAssets[pageName] = assetInfos.pageAssets[pageName] || {};
 
     const {scripts} = entry_point;
     assert_internal(scripts.length>=1, entry_point);
@@ -364,12 +365,12 @@ function add_entry_point_to_page_assets({assetMap, entry_point, removeIndex, pag
         ]);
     }
 
-    add_entry_point_styles_to_page_assets({assetMap, entry_point, pageName});
+    add_entry_point_styles_to_page_assets({assetInfos, entry_point, pageName});
 }
-function add_entry_point_styles_to_page_assets({assetMap, entry_point, pageName}) {
+function add_entry_point_styles_to_page_assets({assetInfos, entry_point, pageName}) {
     assert_internal(pageName);
 
-    const pageAssets = assetMap.pageAssets[pageName] = assetMap.pageAssets[pageName] || {};
+    const pageAssets = assetInfos.pageAssets[pageName] = assetInfos.pageAssets[pageName] || {};
 
     const {styles} = entry_point;
     assert_internal(styles.length>=0, entry_point);
