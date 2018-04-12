@@ -10,13 +10,10 @@ const {getStaticPages} = require('@repage/build');
 module.exports = getPageHTMLs;
 
 
-async function getPageHTMLs(pageModules) {
+async function getPageHTMLs() {
     const projectConfig = getProjectConfig();
 
-    const pageConfigs = pageModules.map(({pageExport, pageFile}) => {
-        assert_pageConfig(pageExport, pageFile);
-        return pageExport;
-    });
+    const pageConfigs = projectConfig.getPageConfigs();
 
     return (
         (await get_static_pages_info())

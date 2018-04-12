@@ -282,11 +282,13 @@ function setup_compiler_handler({
     assert_internal((watching===null || watching) && server_start_promise);
 
     const stop_build = async () => {
+        //*
         if( watching ) {
             const {promise, promise_resolver} = gen_promise_with_resolver();
             watching.close(promise_resolver);
             await promise;
         }
+        //*/
         await wait_build();
     };
 
@@ -430,7 +432,7 @@ function catch_webpack_not_terminating(webpack_compiler, {timeout_seconds}) {
             assert_warning(
                 !is_compiling,
                 "Webpack compilation still not finished after "+timeout_seconds+" seconds.",
-                "It could mean that webpack ran into a bug and hang.",
+                "It likely means that webpack ran into a bug and hang.",
                 "You need to manually restart the building."
             );
         }, timeout_seconds*1000)

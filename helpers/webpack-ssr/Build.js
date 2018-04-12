@@ -42,7 +42,8 @@ function BuildInstance() {
 
         const {buildState} = isoBuilder;
 
-        this.pageModules = loadPageModules.call(this, {server_entry_points: buildState.server.output.entry_points});
+        assert_buildState(buildState);
+        this.pageModules = loadPageModules.call(this, {nodejs_entry_points: buildState.nodejs.entry_points});
 
         this.pageBrowserEntries = getPageBrowserEntries.call(this);
 
@@ -52,7 +53,8 @@ function BuildInstance() {
         await buildForBrowser(browserConfig);
         if( there_is_a_newer_run() ) return;
 
-        writeAssetMap.call(this, {browser_entry_points: buildState.browser.output.entry_points, fileWriter});
+        assert_buildState(buildState);
+        writeAssetMap.call(this, {browser_entry_points: buildState.browser.entry_points, fileWriter});
 
         await writeHtmlFiles.call(this, {fileWriter});
         if( there_is_a_newer_run() ) return;
@@ -62,7 +64,7 @@ function BuildInstance() {
 }
 
 function getNodejsConfig() {
-    const nodejsEntries = getServerEntries.call(this);
+    const nodejsEntries = getNodejsEntries.call(this);
     const nodejsOutputPath = pathModule.resolve(this.outputDir, NODEJS_OUTPUT);
     const defaultNodejsConfig = getDefaultNodejsConfig({entries: nodejsEntries, outputPath: nodejsOutputPath, filename: '[name]-nodejs.js'});
     const nodejsConfig = this.getWebpackNodejsConfig({config: defaultNodejsConfig, entries: nodejsEntries, outputPath: nodejsOutputPath, ...webpackUtils});
@@ -122,7 +124,7 @@ function getPageBrowserEntries() {
     return pageBrowserEntries;
 }
 
-function getServerEntries() {
+function getNodejsEntries() {
     const {serverEntryFile} = this;
 
     const server_entries = {};
@@ -168,12 +170,12 @@ function assert_config({config, webpackEntries, outputPath, getterName}) {
     );
 }
 
-function loadPageModules({server_entry_points}) {
+function loadPageModules({nodejs_entry_points}) {
     const pageModules = (
         this.pageNames
         .map(pageName => {
             const entryName = pageName;
-            const entry_point = server_entry_points[entryName];
+            const entry_point = nodejs_entry_points[entryName];
             assert_internal(entry_point);
             const pageFileTranspiled = get_script_dist_path(entry_point);
             const pageExport = forceRequire(pageFileTranspiled);
@@ -228,7 +230,7 @@ async function writeHtmlFiles({fileWriter}) {
     const {pageModules} = this;
     assert_internal(pageModules);
 
-    const htmlStrings = await this.getPageHTMLs(pageModules);
+    const htmlStrings = await this.getPageHTMLs();
     assert_usage(htmlStrings && htmlStrings.constructor===Array);
 
     fileWriter.startWriteSession('html_files');
@@ -269,6 +271,7 @@ function writeAssetMap({browser_entry_points, fileWriter}) {
     const assetInfos = {
         buildTime: new Date(),
         staticAssetsDir: pathModule.resolve(this.outputDir, BROWSER_OUTPUT),
+        env: process.env.NODE_ENV || 'dev',
         pageAssets: {},
     };
 
@@ -395,4 +398,14 @@ function make_paths_array_unique(paths) {
         paths
     );
     return [...new Set(paths)];
+}
+
+function assert_buildState(buildState) {
+    assert_internal(buildState, buildState);
+    assert_internal(buildState.nodejs === null || [true, false].includes(buildState.nodejs.isCompiling), buildState);
+    assert_internal(buildState.browser === null || [true, false].includes(buildState.browser.isCompiling), buildState);
+    assert_internal(!buildState.nodejs.isCompiling, buildState, "IsoBuilder shouldn't yield while compiling `nodejs`");
+    assert_internal(buildState.nodejs.entry_points, buildState);
+ // assert_internal(buildState.browser === null || !buildState.browser.isCompiling, buildState, "IsoBuilder shouldn't yield while compiling `browser`");
+ // assert_internal(buildState.browser === null || buildState.browser.entry_points, buildState);
 }

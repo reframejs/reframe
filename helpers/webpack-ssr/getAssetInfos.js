@@ -3,10 +3,16 @@ const forceRequire = require('./utils/forceRequire');
 const fs = require('fs');
 const pathModule = require('path');
 
+let cache;
+
 module.exports = getAssetInfos;
 
 function getAssetInfos({outputDir}) {
     const assetInfos = readAssetMap({outputDir});
+
+    if( cache && cache.buildTime === assetInfos.buildTime ) {
+        return cache;
+    }
 
     assetInfos.pageAssets = (
         Object.entries(assetInfos.pageAssets)
@@ -21,6 +27,8 @@ function getAssetInfos({outputDir}) {
             return {...assets, pageName, pageExport};
         })
     );
+
+    cache = assetInfos;
 
     return assetInfos;
 }

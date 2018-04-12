@@ -24,19 +24,24 @@ function IsoBuilder() {
 
     this.buildState = {
         browser: null,
-        server: null,
+        nodejs: null,
+    };
+
+    this.__compilationState = {
+        browser: null,
+        nodejs: null,
     };
 
     const latest_run = {
         run_number:0,
     };
-    const buildCacheServer = {};
+    const buildCacheNodejs = {};
     const buildCacheBrowser = {};
     this.build = () => (
         buildAll({
             isoBuilder: this,
             latest_run,
-            buildCacheServer,
+            buildCacheNodejs,
             buildCacheBrowser,
         })
     );
@@ -61,7 +66,7 @@ function create_file_writer(isoBuilder) {
     };
 }
 
-async function buildAll({isoBuilder, latest_run, buildCacheServer, buildCacheBrowser}) {
+async function buildAll({isoBuilder, latest_run, buildCacheNodejs, buildCacheBrowser}) {
     if( global.DEBUG_WATCH ) {
         console.log('START BUILDER');
     }
@@ -86,7 +91,7 @@ async function buildAll({isoBuilder, latest_run, buildCacheServer, buildCacheBro
 
     const buildForNodejs = (
         webpackConfig =>
-            build_server({isoBuilder, buildCacheServer, webpackConfig, there_is_a_newer_run})
+            build_nodejs({isoBuilder, buildCacheNodejs, webpackConfig, there_is_a_newer_run})
     );
     const buildForBrowser = (
         webpackConfig =>
@@ -105,34 +110,38 @@ async function buildAll({isoBuilder, latest_run, buildCacheServer, buildCacheBro
         isoBuilder.logger.onBuildStateChange({
             is_compiling: false,
             is_failure: false,
-            compilation_info: [isoBuilder.buildState.server, isoBuilder.buildState.browser],
+            compilation_info: [isoBuilder.__compilationState.nodejs, isoBuilder.__compilationState.browser],
         });
     }
 
     return build_info;
 }
 
-function onCompilationStateChange({isoBuilder, compilationState, there_is_a_newer_run, action}) {
+function onCompilationStateChange({isoBuilder, compilationState, there_is_a_newer_run, prop}) {
     if( there_is_a_newer_run() ) {
         return;
     }
     assert_compilationState(compilationState);
-    action();
+    isoBuilder.__compilationState[prop] = compilationState;
+    isoBuilder.buildState[prop] = {
+        isCompiling: compilationState.is_compiling,
+        entry_points: (compilationState.output||{}).entry_points,
+    };
     logCompilationStateChange(isoBuilder);
 }
 
 function logCompilationStateChange(isoBuilder) {
-    const build_state_browser = isoBuilder.buildState.browser;
-    const build_state_server = isoBuilder.buildState.server;
+    const build_state_browser = isoBuilder.__compilationState.browser;
+    const build_state_nodejs = isoBuilder.__compilationState.nodejs;
 
-    const is_failure = (build_state_browser||{}).is_failure===true || (build_state_server||{}).is_failure===true;
-    const is_compiling = (build_state_browser||{}).is_compiling || (build_state_server||{}).is_compiling;
+    const is_failure = (build_state_browser||{}).is_failure===true || (build_state_nodejs||{}).is_failure===true;
+    const is_compiling = (build_state_browser||{}).is_compiling || (build_state_nodejs||{}).is_compiling;
 
     if( is_failure && ! is_compiling ) {
         isoBuilder.logger.onBuildStateChange({
             is_compiling: false,
             is_failure: true,
-            compilation_info: [build_state_browser, build_state_server],
+            compilation_info: [build_state_browser, build_state_nodejs],
         });
     }
 
@@ -167,7 +176,7 @@ function build_browser({webpackConfig, isoBuilder, buildCacheBrowser, there_is_a
                     isoBuilder,
                     compilationState,
                     there_is_a_newer_run,
-                    action: () => isoBuilder.buildState.browser = compilationState,
+                    prop: 'browser',
                 });
             },
             onBuild,
@@ -190,7 +199,7 @@ function build_browser({webpackConfig, isoBuilder, buildCacheBrowser, there_is_a
     });
 }
 
-function build_server({webpackConfig, isoBuilder, buildCacheServer, there_is_a_newer_run}) {
+function build_nodejs({webpackConfig, isoBuilder, buildCacheNodejs, there_is_a_newer_run}) {
     assert_isoBuilder(isoBuilder);
 
     const build_function = ({onBuild}) => (
@@ -203,7 +212,7 @@ function build_server({webpackConfig, isoBuilder, buildCacheServer, there_is_a_n
                     isoBuilder,
                     compilationState,
                     there_is_a_newer_run,
-                    action: () => isoBuilder.buildState.server = compilationState,
+                    prop: 'nodejs',
                 });
             },
             onBuild,
@@ -213,9 +222,9 @@ function build_server({webpackConfig, isoBuilder, buildCacheServer, there_is_a_n
     return build_iso({
         webpackConfig,
         isoBuilder,
-        build_cache: buildCacheServer,
+        build_cache: buildCacheNodejs,
         build_function,
-        compilationName: 'serverCompilation',
+        compilationName: 'nodejsCompilation',
     });
 }
 

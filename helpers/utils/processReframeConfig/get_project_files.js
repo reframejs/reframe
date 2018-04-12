@@ -88,7 +88,7 @@ function getPageConfigs() {
     const pageConfigs = (
         assetInfos
         .pageAssets
-        .map(({pageExport, styles, scripts}) => {
+        .map(({pageName, pageExport, styles, scripts}) => {
             const pageConfig = pageExport;
 
             pageConfig.scripts = make_paths_array_unique([
