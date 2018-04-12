@@ -35,12 +35,7 @@ function compile(
     }
 ) {
     assert_internal(webpack_config.constructor===Object);
-
-        // TODO remove
-    if( webpack_config_modifier ) {
-        webpack_config = webpack_config_modifier(webpack_config);
-    }
-    console.log('l', webpack_config.entry, webpack_config_modifier);
+    assert_internal(!webpack_config_modifier);
 
     const resolveTimeout = gen_await_timeout({name: 'Compilation Build '+compilationName});
 
@@ -383,7 +378,9 @@ function get_webpack_compiler(webpack_config, compilationName) {
 
     global.DEBUG_WATCH && print_changed_files(webpack_compiler);
 
+    /*
     catch_webpack_not_terminating(webpack_compiler, {timeout_seconds: 30, compilationName});
+    */
 
     webpack_compiler.hooks.done.tap('weDontNeedToNameThis_apokminzbruunf', webpack_stats => {
         global.DEBUG_WATCH && console.log('WEBPACK-COMPILE-DONE '+compilationName);
@@ -405,6 +402,7 @@ function get_webpack_compiler(webpack_config, compilationName) {
     return {webpack_compiler, first_compilation, first_successful_compilation, onCompileStart, onCompileEnd};
 }
 
+/* Doesn't work when doing `watching.close()`
 function catch_webpack_not_terminating(webpack_compiler, {timeout_seconds, compilationName}) {
     let is_compiling;
     webpack_compiler.hooks.compile.tap('weDontNeedToNameThis_pamffwblasa', () => {
@@ -424,6 +422,7 @@ function catch_webpack_not_terminating(webpack_compiler, {timeout_seconds, compi
         is_compiling = false;
     });
 }
+*/
 
 function print_changed_files(webpack_compiler) {
     const mem = {

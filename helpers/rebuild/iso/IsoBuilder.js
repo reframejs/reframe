@@ -7,7 +7,6 @@ const build = require('@rebuild/build');
 const {Logger} = require('@rebuild/build/utils/Logger');
 const reloadBrowser = require('@rebuild/serve/utils/autoreload/reloadBrowser');
 const autoreloadClientPath = require.resolve('@rebuild/serve/utils/autoreload/client');
-//const get_parent_dirname = require('@brillout/get-parent-dirname'); TODO remove form package.josn
 const path_module = require('path');
 const fs = require('fs');
 const touch = require('touch');
@@ -194,6 +193,7 @@ function build_browser({webpackConfig, isoBuilder, buildCacheBrowser, run}) {
             doNotCreateServer: true,
             doNotGenerateIndexHtml: true,
             doNotFireReloadEvents: true,
+            doNotIncludeAutoreloadClient: true,
             logger: null,
             onCompilationStateChange: compilationState => {
                 onCompilationStateChange({
@@ -286,8 +286,6 @@ async function build_iso({
             resolveTimeout();
             return ret;
         } else {
-            console.log(build_cache.webpackEntries);
-            console.log(webpackEntries);
             global.DEBUG_WATCH && console.log('STOP-BUILD '+compilationName);
             const resolveTimeout = gen_await_timeout({name: 'Stop Build '+compilationName});
             await build_cache.stop_build();
@@ -295,15 +293,6 @@ async function build_iso({
             remove_output_path(webpackOutputPath);
         }
     }
-
-    /*
-    get_webpack_config({
-        webpack_ouput_path,
-        webpack_config_modifier,
-        webpackEntries,
-        outputDir,
-    });
-    */
 
     assert_internal(webpackConfig);
     const {first_build_promise, wait_build, stop_build} = (
@@ -338,30 +327,6 @@ function assert_isoBuilder(isoBuilder) {
     assert_usage(isoBuilder.outputDir);
     assert_usage(isoBuilder.builder);
 }
-
-/*
-function get_webpack_config({
-    webpack_config_modifier,
-    webpack_ouput_path,
-    webpack_entries,
-    webpack_get_config,
-    outputDir,
-}) {
-
-    let webpack_build = {};
-    webpack_build.entries = webpack_entries;
-    webpack_build.outputPath = webpack_ouput_path;
-    webpack_build.config = webpack_get_config(webpack_build);
-    add_context_to_config(outputDir, webpack_build.config);
-    if( webpack_config_modifier ) {
-        webpack_build.config = webpack_config_modifier(webpack_build);
-        assert_usage(webpack_build.config);
-    }
-    add_context_to_config(outputDir, webpack_build.config);
-
-    return webpack_build.config;
-}
-*/
 
 function moveAndStampOutputDir({outputDir}) {
     const stamp_path = path__resolve(outputDir, 'build-stamp');
@@ -565,18 +530,10 @@ function fs__remove(path) {
     if( fs__file_exists(path) ) {
         fs.unlinkSync(path);
     }
-    /*
-    try {
-        fs.unlinkSync(path);
-    } catch(e) {}
-    */
 }
 
 function fs__ls(dirpath) {
     assert_internal(is_abs(dirpath));
-    /*
-    const files = dir.files(dirpath, {sync: true, recursive: false});
-    */
     const files = (
         fs.readdirSync(dirpath)
         .map(filename => path__resolve(dirpath, filename))
@@ -587,17 +544,6 @@ function fs__ls(dirpath) {
     });
     return files;
 }
-
-/*
-function add_context_to_config(outputDir, config) {
-    assert_internal(config.constructor===Object);
-    if( ! config.context || outputDir ) {
-        config.context = outputDir && path_module.dirname(outputDir) || get_parent_dirname();
-    }
-    assert_internal(config.context);
-    assert_internal(config.context.startsWith('/'));
-}
-*/
 
 function path__resolve(path1, path2, ...paths) {
     assert_internal(path1 && is_abs(path1), path1);

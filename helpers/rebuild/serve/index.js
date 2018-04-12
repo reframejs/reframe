@@ -8,38 +8,25 @@ module.exports = serve;
 function serve(
     webpack_config,
     {
-        doNotAutoReload = false,
-        doNotCreateServer = false,
+        doNotIncludeAutoreloadClient = false,
         doNotFireReloadEvents = false,
+        doNotCreateServer = false,
         ...args
     }={}
 ) {
-    if( doNotAutoReload || is_production() ) {
-        webpack_config_modifier = null;
+    if( doNotIncludeAutoreloadClient || isProduction() ) {
+        webpack_config = webpack_config_modifier(webpack_config);
     }
 
     const compiler_handler = get_compiler_handler({doNotCreateServer, doNotFireReloadEvents});
 
     return compile(webpack_config, {
         compiler_handler,
-        webpack_config_modifier,
         doNotCreateServer,
         ...args
     });
 }
 
-// TODO remove
-function compiler_handler__secondary({webpack_compiler, webpack_config, webpack_compiler_error_handler}) {
-    let watching;
-    if( is_production() ) {
-        webpack_compiler.run(webpack_compiler_error_handler);
-        watching = null;
-    } else {
-        watching = webpack_compiler.watch(webpack_config.watchOptions, webpack_compiler_error_handler);
-    }
-    return {watching};
-}
-
-function is_production() {
+function isProduction() {
    return process.env.NODE_ENV === 'production';
 }

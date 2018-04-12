@@ -20,15 +20,15 @@ function webpack_config_modifier(webpack_config) {
     const port = 8082;
 
     {
-        const autoreaload_script = require.resolve('../utils/autoreload/client');
+        const autoreloadClient = require.resolve('../utils/autoreload/client');
         if( webpack_config.entry.constructor === String ) {
             webpack_config.entry = [webpack_config.entry];
         }
         if( webpack_config.entry.constructor === Array ) {
-            add_entry(webpack_config.entry, autoreaload_script);
+            add_entry(webpack_config.entry, autoreloadClient);
         } else {
             Object.values(webpack_config.entry).forEach(ep => {
-                add_entry(ep, autoreaload_script);
+                add_entry(ep, autoreloadClient);
             });
         }
     }
