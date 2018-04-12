@@ -247,8 +247,6 @@ function setup_compiler_handler({
     assert_internal(webpack_config.entry, webpack_config);
     assert_internal(compiler_handler);
 
- // webpack_config = debug_config(webpack_config);
-
     const {webpack_compiler, first_compilation, first_successful_compilation, onCompileStart, onCompileEnd} = (
         get_webpack_compiler(deep_copy(webpack_config))
     );
@@ -799,102 +797,6 @@ function fs__file_exists(path) {
     catch(e) {
         return false;
     }
-}
-
-function debug_config(config) {
-    // Bisection debugging
-    /* doesn't work
-    config = {
-        entry: {
-            main: ['/home/romu/code/stem/docs/frontend/src/index.js'],
-        },
-        entry: config.entry,
-        output: {
-            publicPath: config.output.publicPath,
-            path: '/home/romu/code/stem/docs/frontend/dist/',
-            filename: 'bundi_[name].js',
-            libraryTarget: 'umd',
-        },
-        output: config.output,
-        devServer: {
-            port: config.devServer.port,
-            publicPath: config.devServer.publicPath,
-        },
-        devServer: config.devServer,
-        plugins: config.plugins,
-        module: config.module,
-        resolve: config.resolve,
-        resolveLoader: config.resolveLoader,
-    };
-
-    config = {
-        entry: config.entry,
-        output: config.output,
-        devServer: {
-            port: config.devServer.port,
-            publicPath: config.devServer.publicPath,
-        },
-        plugins: config.plugins,
-        devServer: config.devServer,
-        plugins: config.plugins,
-        module: config.module,
-        resolve: config.resolve,
-        resolveLoader: config.resolveLoader,
-    };
-
-    */
-
-    // works
-    config.output.filename = '[name]-bundi.js';
-
-    /* works
-    config.output.filename = 'bundle.js';
-
-    config.output = {
-        publicPath: '/',
-        path: '/home/romu/code/stem/src/plugins/stem-build-frontend/test/frontend/dist',
-        filename: 'bundle.js',
-        libraryTarget: 'umd',
-    };
-
-    config = {
-        entry: config.entry,
-        output: {
-            publicPath: '/',
-            path: '/home/romu/code/stem/src/plugins/stem-build-frontend/test/frontend/dist',
-            filename: 'bundle.js',
-            libraryTarget: 'umd',
-        },
-        devServer: {
-            port: config.devServer.port,
-            publicPath: config.devServer.publicPath,
-        },
-        plugins: config.plugins,
-        devServer: config.devServer,
-        plugins: config.plugins,
-        module: config.module,
-        resolve: config.resolve,
-        resolveLoader: config.resolveLoader,
-    };
-
-    config = {
-        entry: '/home/romu/code/stem/src/plugins/stem-build-frontend/test/frontend/src/index.js',
-        entry: config.entry,
-        output: {
-            publicPath: '/',
-            path: '/home/romu/code/stem/src/plugins/stem-build-frontend/test/frontend/dist',
-            filename: 'bundle.js',
-            libraryTarget: 'umd',
-        },
-        devServer: {
-            port: config.devServer.port,
-            publicPath: config.devServer.publicPath,
-        },
-        plugins: config.plugins,
-    };
-    */
-
-    return config;
 }
 
 function gen_promise_with_resolver() {
