@@ -52,6 +52,15 @@ function compile(
                 }
             },
             on_compilation_end: async ({compilation_info, is_first_result, is_first_success, is_success, is_abort, previous_was_success}) => {
+                if( is_abort ) {
+                    /*
+                    onCompilationStateChange({
+                        is_compiling: false,
+                        is_abort: true,
+                    });
+                    */
+                    return;
+                }
                 if( ! doNotGenerateIndexHtml ) {
                     await build_index_html({compilation_info});
                 }
@@ -59,8 +68,7 @@ function compile(
                 assert_internal([true, false].includes(is_success));
                 onCompilationStateChange({
                     is_compiling: false,
-                    is_failure: !is_abort && !is_success,
-                    is_abort,
+                    is_failure: !is_success,
                     ...compilation_info,
                 });
                 if( onBuild && is_success ) {
@@ -118,13 +126,18 @@ function run_all({
             });
             is_first_start = false;
         },
-        on_compiler_end: compiler_info => {
-            assert_internal(compiler_info.webpack_stats);
-            assert_internal(compiler_info.is_success.constructor===Boolean);
-            assert_internal(compiler_info.output);
+        on_compiler_end: compilation_info => {
+            if( compilation_info.is_abort ) {
+                on_compilation_end({is_abort: true});
+                return;
+            }
+
+            assert_internal(compilation_info.webpack_stats);
+            assert_internal(compilation_info.is_success.constructor===Boolean);
+            assert_internal(compilation_info.output);
 
             assert_internal(compiler__is_running);
-            compiler__info = compiler_info;
+            compiler__info = compilation_info;
             compiler__is_running = false;
 
 
@@ -184,6 +197,15 @@ function setup_compiler_handler({
     );
     assert_internal(webpack_compiler);
 
+    let compilation_ended;
+    const TIMEOUT_SECONDS = 30;
+    const compilation_timeout = setTimeout(() => {
+        assert_warning(
+            false,
+            'Compilation not finished after '+TIMEOUT_SECONDS+' seconds'
+        );
+    },TIMEOUT_SECONDS*1000);
+
     let compilation_promise__resolve;
     let compilation_promise = new Promise(resolve => compilation_promise__resolve=resolve);
     const wait_build = async () => {
@@ -192,18 +214,18 @@ function setup_compiler_handler({
         if( compilation_promise !== compilation_promise__awaited_for ) {
             await wait_build();
         }
-        assert_internal(compiler_info);
-        return compiler_info;
+        assert_internal(compilation_info);
+        return compilation_info;
     };
-    let compiler_info;
+    let compilation_info;
     onCompileStart.addListener(() => {
-        compiler_info = null;
+        compilation_info = null;
         compilation_promise = new Promise(resolve => compilation_promise__resolve=resolve);
         on_compiler_start();
     });
     onCompileEnd.addListener(async ({webpack_stats, is_success}) => {
-        compiler_info = await get_compiler_info({webpack_stats, is_success});
-        on_compiler_end(compiler_info);
+        compilation_info = await get_compilation_info({webpack_stats, is_success});
+        call_on_compilation_end();
         compilation_promise__resolve();
     });
 
@@ -214,12 +236,13 @@ function setup_compiler_handler({
     const stop_build = async () => {
         //*
         if( watching ) {
-            const {promise, promise_resolver} = gen_promise_with_resolver();
-            watching.close(promise_resolver);
+            const {promise, callback} = gen_promise_callback();
+            watching.close(callback);
             await promise;
         }
         //*/
-        await wait_build();
+        call_on_compilation_end(true);
+     // await wait_build();
     };
 
     return {stop_build, wait_build, server_start_promise};
@@ -234,7 +257,7 @@ function setup_compiler_handler({
     return;
     */
 
-    async function get_compiler_info({webpack_stats, is_success}) {
+    async function get_compilation_info({webpack_stats, is_success}) {
         const dist_info = (
             get_dist_info({
                 config: webpack_config,
@@ -256,6 +279,21 @@ function setup_compiler_handler({
             if (err.details) {
                 print_err(err.details);
             }
+        }
+    }
+
+    function call_on_compilation_end(is_abort) {
+     // assert_internal(!compilation_ended);
+        if( compilation_ended ) {
+            return;
+        }
+        clearTimeout(compilation_timeout);
+        compilation_ended = true;
+        if( is_abort ) {
+            on_compiler_end({is_abort: true});
+        } else {
+            assert_internal(compilation_info);
+            on_compiler_end(compilation_info);
         }
     }
 }
@@ -732,9 +770,9 @@ function fs__file_exists(path) {
     }
 }
 
-function gen_promise_with_resolver() {
+function gen_promise_callback() {
     let promise_resolver;
     const promise = new Promise(resolve => promise_resolver=resolve);
     assert_internal(promise_resolver);
-    return {promise, promise_resolver};
+    return {promise, callback: promise_resolver};
 }
