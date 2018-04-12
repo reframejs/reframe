@@ -82,10 +82,9 @@ async function buildAll({isoBuilder, latestRun, buildCacheNodejs, buildCacheBrow
     }
 
     const run = {
-        runNumber: ++latestRun.runNumber,
+        runNumber: latestRun.runNumber+1,
         isObsolete: () => run.runNumber!==latestRun.runNumber,
     };
-    Object.assign(latestRun, run);
 
     const buildForNodejs = (
         webpackConfig =>
@@ -100,6 +99,9 @@ async function buildAll({isoBuilder, latestRun, buildCacheNodejs, buildCacheBrow
 
     const {promise: overallPromise, resolvePromise: resolveOverallPromise} = gen_promise();
     run.overallPromise = overallPromise;
+
+    latestRun.runNumber = run.runNumber;
+    latestRun.overallPromise = run.overallPromise;
 
     while( true ) {
         const yield = generator.next();
