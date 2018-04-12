@@ -43,7 +43,7 @@ function BuildInstance() {
 
         const {buildState} = isoBuilder;
 
-        assert_buildState(buildState);
+        assert_buildState(buildState, {nodejs: true});
         that.pageModules = loadPageModules.call(that, {nodejs_entry_points: buildState.nodejs.entry_points});
 
         that.pageBrowserEntries = getPageBrowserEntries.call(that);
@@ -53,7 +53,7 @@ function BuildInstance() {
         const browserConfig = getBrowserConfig.call(that, {fileWriter});
         yield buildForBrowser(browserConfig);
 
-        assert_buildState(buildState);
+        assert_buildState(buildState, {browser: true});
         writeAssetMap.call(that, {browser_entry_points: buildState.browser.entry_points, fileWriter});
 
         yield writeHtmlFiles.call(that, {fileWriter});
@@ -399,12 +399,16 @@ function make_paths_array_unique(paths) {
     return [...new Set(paths)];
 }
 
-function assert_buildState(buildState) {
+function assert_buildState(buildState, {browser, nodejs}) {
     assert_internal(buildState, buildState);
+    assert_internal(!nodejs || buildState.nodejs && !buildState.nodejs.isCompiling && buildState.nodejs.entry_points, buildState);
+    assert_internal(!browser || buildState.browser && !buildState.browser.isCompiling && buildState.browser.entry_points, buildState);
+    /*
     assert_internal(buildState.nodejs === null || [true, false].includes(buildState.nodejs.isCompiling), buildState);
     assert_internal(buildState.browser === null || [true, false].includes(buildState.browser.isCompiling), buildState);
- // assert_internal(!buildState.nodejs.isCompiling, buildState, "IsoBuilder shouldn't yield while compiling `nodejs`");
- // assert_internal(buildState.nodejs.entry_points, buildState);
- // assert_internal(buildState.browser === null || !buildState.browser.isCompiling, buildState, "IsoBuilder shouldn't yield while compiling `browser`");
- // assert_internal(buildState.browser === null || buildState.browser.entry_points, buildState);
+    assert_internal(!buildState.nodejs.isCompiling, buildState, "IsoBuilder shouldn't yield while compiling `nodejs`");
+    assert_internal(buildState.nodejs.entry_points, buildState);
+    assert_internal(buildState.browser === null || !buildState.browser.isCompiling, buildState, "IsoBuilder shouldn't yield while compiling `browser`");
+    assert_internal(buildState.browser === null || buildState.browser.entry_points, buildState);
+    */
 }

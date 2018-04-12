@@ -138,13 +138,15 @@ async function buildAll({isoBuilder, latestRun, buildCacheNodejs, buildCacheBrow
     DEBUG_WATCH && console.log("END-BUILDER");
 }
 
-function onCompilationStateChange({isoBuilder, compilationState, run, prop}) {
-    if( run.isObsolete() ) {
+function onCompilationStateChange({isoBuilder, compilationState, run, buildStateProp}) {
+    const skip = run.isObsolete();
+    console.log(compilationState, buildStateProp, skip);
+    if( skip ) {
         return;
     }
     assert_compilationState(compilationState);
-    isoBuilder.__compilationState[prop] = compilationState;
-    isoBuilder.buildState[prop] = {
+    isoBuilder.__compilationState[buildStateProp] = compilationState;
+    isoBuilder.buildState[buildStateProp] = {
         isCompiling: compilationState.is_compiling,
         entry_points: (compilationState.output||{}).entry_points,
     };
@@ -187,6 +189,7 @@ function build_browser({webpackConfig, isoBuilder, buildCacheBrowser, run}) {
     assert_isoBuilder(isoBuilder);
 
     const compilationName = 'browserCompilation';
+    const buildStateProp = 'browser';
 
     const build_function = ({onBuild}) => (
         serve(webpackConfig, {
@@ -200,7 +203,7 @@ function build_browser({webpackConfig, isoBuilder, buildCacheBrowser, run}) {
                     isoBuilder,
                     compilationState,
                     run,
-                    prop: 'browser',
+                    buildStateProp,
                 });
             },
             onBuild,
@@ -221,6 +224,7 @@ function build_browser({webpackConfig, isoBuilder, buildCacheBrowser, run}) {
         build_cache: buildCacheBrowser,
         build_function,
         compilationName,
+        buildStateProp,
         run,
     });
 }
@@ -229,6 +233,7 @@ function build_nodejs({webpackConfig, isoBuilder, buildCacheNodejs, run}) {
     assert_isoBuilder(isoBuilder);
 
     const compilationName = 'nodejsCompilation';
+    const buildStateProp = 'nodejs';
 
     const build_function = ({onBuild}) => (
         build(webpackConfig, {
@@ -240,7 +245,7 @@ function build_nodejs({webpackConfig, isoBuilder, buildCacheNodejs, run}) {
                     isoBuilder,
                     compilationState,
                     run,
-                    prop: 'nodejs',
+                    buildStateProp,
                 });
             },
             onBuild,
@@ -254,6 +259,7 @@ function build_nodejs({webpackConfig, isoBuilder, buildCacheNodejs, run}) {
         build_cache: buildCacheNodejs,
         build_function,
         compilationName,
+        buildStateProp,
         run,
     });
 }
@@ -272,51 +278,63 @@ async function build_iso({
     build_cache,
     build_function,
     compilationName,
+    buildStateProp,
     run,
 }) {
-    const {entry: webpackEntries, output: {path: webpackOutputPath}={}} = webpackConfig;
-    assert_usage(webpackEntries, webpackConfig);
-    assert_usage(webpackOutputPath, webpackConfig);
+    const ret = await (async () => {
+        const {entry: webpackEntries, output: {path: webpackOutputPath}={}} = webpackConfig;
+        assert_usage(webpackEntries, webpackConfig);
+        assert_usage(webpackOutputPath, webpackConfig);
 
-    if( build_cache.webpackEntries ) {
-        if( deep_equal(webpackEntries, build_cache.webpackEntries) ) {
-            global.DEBUG_WATCH && console.log('WAIT-BUILD '+compilationName);
-            const resolveTimeout = gen_await_timeout({name: 'Wait Build '+compilationName});
-            const ret = await build_cache.wait_build();
-            resolveTimeout();
-            return ret;
-        } else {
-            global.DEBUG_WATCH && console.log('STOP-BUILD '+compilationName);
-            const resolveTimeout = gen_await_timeout({name: 'Stop Build '+compilationName});
-            await build_cache.stop_build();
-            resolveTimeout();
-            remove_output_path(webpackOutputPath);
+        if( build_cache.webpackEntries ) {
+            if( deep_equal(webpackEntries, build_cache.webpackEntries) ) {
+                global.DEBUG_WATCH && console.log('WAIT-BUILD '+compilationName);
+                const resolveTimeout = gen_await_timeout({name: 'Wait Build '+compilationName});
+                const ret = await build_cache.wait_build();
+                resolveTimeout();
+                return ret;
+            } else {
+                console.log(build_cache.webpackEntries);
+                console.log(webpackEntries);
+                global.DEBUG_WATCH && console.log('STOP-BUILD '+compilationName);
+                const resolveTimeout = gen_await_timeout({name: 'Stop Build '+compilationName});
+                await build_cache.stop_build();
+                resolveTimeout();
+                remove_output_path(webpackOutputPath);
+            }
         }
-    }
 
-    assert_internal(webpackConfig);
-    const {first_build_promise, wait_build, stop_build} = (
-        build_function({
-            onBuild: buildInfo => {
-                const {isFirstBuild, compilationName} = buildInfo;
-                assert_internal([true, false].includes(isFirstBuild));
-                assert_internal(compilationName);
-                if( ! isFirstBuild ) {
-                    global.DEBUG_WATCH && console.log('REBUILD-REASON: webpack-watch for `'+compilationName+'`');
-                    isoBuilder.build();
-                }
-            },
-        })
-    );
+        assert_internal(webpackConfig);
+        const {first_build_promise, wait_build, stop_build} = (
+            build_function({
+                onBuild: buildInfo => {
+                    const {isFirstBuild, compilationName} = buildInfo;
+                    assert_internal([true, false].includes(isFirstBuild));
+                    assert_internal(compilationName);
+                    if( ! isFirstBuild ) {
+                        global.DEBUG_WATCH && console.log('REBUILD-REASON: webpack-watch for `'+compilationName+'`');
+                        isoBuilder.build();
+                    }
+                },
+            })
+        );
 
-    assert_internal(stop_build && wait_build);
-    Object.assign(build_cache, {stop_build, wait_build, webpackEntries});
+        assert_internal(stop_build && wait_build);
+        Object.assign(build_cache, {stop_build, wait_build, webpackEntries});
 
-    const resolveTimeout = gen_await_timeout({name: 'First Build '+compilationName});
-    const buildInfo = await first_build_promise;
-    resolveTimeout();
-    assert_internal(buildInfo.is_abort || buildInfo.compilationInfo, Object.keys(buildInfo));
-    return buildInfo;
+        const resolveTimeout = gen_await_timeout({name: 'First Build '+compilationName});
+        const buildInfo = await first_build_promise;
+        resolveTimeout();
+        assert_internal(buildInfo.is_abort || buildInfo.compilationInfo, Object.keys(buildInfo));
+        return buildInfo;
+    })();
+
+    const bState = isoBuilder.buildState[buildStateProp];
+    assert_internal(bState, bState, buildStateProp);
+    assert_internal(!bState.isCompiling, bState, buildStateProp);
+    assert_internal(bState.entry_points, bState, buildStateProp);
+
+    return ret;
 }
 
 function remove_output_path(webpackOutputPath) {

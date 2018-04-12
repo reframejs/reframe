@@ -160,10 +160,11 @@ function run({
             previous_was_success = is_success;
             is_first_result = false;
 
+            on_compilation_end(compilation_args);
+
             if( no_previous_success ) {
                 resolve_promise(compilation_args);
             }
-            on_compilation_end(compilation_args);
 
             if( is_success ) {
                 no_previous_success = false;

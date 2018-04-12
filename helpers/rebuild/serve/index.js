@@ -14,7 +14,7 @@ function serve(
         ...args
     }={}
 ) {
-    if( doNotIncludeAutoreloadClient || isProduction() ) {
+    if( !doNotIncludeAutoreloadClient && !isProduction() ) {
         webpack_config = webpack_config_modifier(webpack_config);
     }
 
