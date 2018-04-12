@@ -53,13 +53,16 @@ function compile(
                     });
                 }
             },
-            on_compilation_end: async ({compilation_info, is_first_result, is_first_success, is_success, is_abort, previous_was_success}) => {
+            on_compilation_end: async ({compilation_info, is_first_result, no_previous_success, is_success, is_abort, previous_was_success}) => {
                 if( is_abort ) {
                     /*
                     onCompilationStateChange({
                         is_compiling: false,
                         is_abort: true,
                     });
+                    if( no_previous_success ) {
+                        onBuild({is_abort: true});
+                    }
                     */
                     return;
                 }
@@ -74,7 +77,7 @@ function compile(
                     ...compilation_info,
                 });
                 if( onBuild && is_success ) {
-                    onBuild({compilationInfo: compilation_info, isFirstBuild: is_first_success, compilationName});
+                    onBuild({compilationInfo: compilation_info, isFirstBuild: no_previous_success, compilationName});
                 }
             },
         })
@@ -110,7 +113,7 @@ function run({
 
     let is_first_start = true;
     let is_first_result = true;
-    let no_first_success = true;
+    let no_previous_success = true;
     let previous_was_success = null;
 
     let stop_build;
@@ -132,7 +135,7 @@ function run({
         },
         on_compiler_end: compilation_info => {
             if( compilation_info.is_abort ) {
-                on_compilation_end({is_abort: true});
+                on_compilation_end({is_abort: true, no_previous_success});
                 return;
             }
 
@@ -147,11 +150,6 @@ function run({
 
             const is_success = compiler__info.is_success;
 
-            const is_first_success = is_success && no_first_success;
-            if( is_success ) {
-                no_first_success = false;
-            }
-
             const compilation_args = {
                 compilation_info: {
                     webpack_config,
@@ -160,16 +158,20 @@ function run({
                 is_success,
                 previous_was_success,
                 is_first_result,
-                is_first_success,
+                no_previous_success,
             };
 
             previous_was_success = is_success;
             is_first_result = false;
 
-            if( is_first_success ) {
+            if( no_previous_success ) {
                 resolve_promise(compilation_args);
             }
             on_compilation_end(compilation_args);
+
+            if( is_success ) {
+                no_previous_success = false;
+            }
         },
     });
     wait_build = compiler_tools.wait_build;

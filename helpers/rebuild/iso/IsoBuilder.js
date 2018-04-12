@@ -32,15 +32,15 @@ function IsoBuilder() {
         nodejs: null,
     };
 
-    const latest_run = {
-        run_number:0,
+    const latestRun = {
+        runNumber: 0,
     };
     const buildCacheNodejs = {};
     const buildCacheBrowser = {};
     this.build = () => (
         buildAll({
             isoBuilder: this,
-            latest_run,
+            latestRun,
             buildCacheNodejs,
             buildCacheBrowser,
         })
@@ -66,7 +66,7 @@ function create_file_writer(isoBuilder) {
     };
 }
 
-async function buildAll({isoBuilder, latest_run, buildCacheNodejs, buildCacheBrowser}) {
+async function buildAll({isoBuilder, latestRun, buildCacheNodejs, buildCacheBrowser}) {
     if( global.DEBUG_WATCH ) {
         console.log('START BUILDER');
     }
@@ -80,30 +80,53 @@ async function buildAll({isoBuilder, latest_run, buildCacheNodejs, buildCacheBro
 
     const {outputDir} = isoBuilder;
 
-    if( latest_run.run_number === 0 ) {
+    if( latestRun.runNumber === 0 ) {
         moveAndStampOutputDir({outputDir});
     }
 
-    const run_number = ++latest_run.run_number;
-
-    const there_is_a_newer_run = () => latest_run.run_number>run_number;
-
+    const run = {
+        runNumber: ++latestRun.runNumber,
+        isObsolete: () => run.runNumber!==latestRun.runNumber,
+    };
+    Object.assign(latestRun, run);
 
     const buildForNodejs = (
         webpackConfig =>
-            build_nodejs({isoBuilder, buildCacheNodejs, webpackConfig, there_is_a_newer_run})
+            build_nodejs({isoBuilder, buildCacheNodejs, webpackConfig, run})
     );
     const buildForBrowser = (
         webpackConfig =>
-            build_browser({isoBuilder, buildCacheBrowser, webpackConfig, there_is_a_newer_run})
+            build_browser({isoBuilder, buildCacheBrowser, webpackConfig, run})
     );
 
-    latest_run.promise = isoBuilder.builder({there_is_a_newer_run, buildForNodejs, buildForBrowser});
+    const generator = isoBuilder.builder({buildForNodejs, buildForBrowser});
 
-    const build_info = await wait_on_latest_run(latest_run);
+    const {promise: overallPromise, resolvePromise: resolveOverallPromise} = gen_promise();
+    run.overallPromise = overallPromise;
 
-    if( run_number===latest_run.run_number ) {
-        if( ! is_production() ) {
+    while( true ) {
+        const yield = generator.next();
+        assert_usage(yield.value && yield.value.then || yield.done && !yield.value);
+        const currentPromise = yield.value;
+        if( ! currentPromise ) {
+            break;
+        }
+        const buildInfo = await currentPromise.then();
+        if( buildInfo && buildInfo.is_abort ) {
+            assert_internal(run.isObsolete());
+            break;
+        }
+        if( run.isObsolete() ) {
+            break;
+        }
+    }
+
+    resolveOverallPromise();
+
+    await waitOnLatestRun(latestRun);
+
+    if( run.runNumber===latestRun.runNumber ) {
+        if( ! isProduction() ) {
             reloadBrowser();
          // console.log('browser reloaded');
         }
@@ -113,12 +136,10 @@ async function buildAll({isoBuilder, latest_run, buildCacheNodejs, buildCacheBro
             compilation_info: [isoBuilder.__compilationState.nodejs, isoBuilder.__compilationState.browser],
         });
     }
-
-    return build_info;
 }
 
-function onCompilationStateChange({isoBuilder, compilationState, there_is_a_newer_run, prop}) {
-    if( there_is_a_newer_run() ) {
+function onCompilationStateChange({isoBuilder, compilationState, run, prop}) {
+    if( run.isObsolete() ) {
         return;
     }
     assert_compilationState(compilationState);
@@ -152,18 +173,20 @@ function logCompilationStateChange(isoBuilder) {
     }
 }
 
-async function wait_on_latest_run(latest_run) {
-    const {run_number} = latest_run;
-    const result = await latest_run.promise;
-    if( latest_run.run_number === run_number ) {
+async function waitOnLatestRun(latestRun) {
+    const {runNumber} = latestRun;
+    const result = await latestRun.overallPromise;
+    if( latestRun.runNumber === runNumber ) {
         return result;
     } else {
-        return wait_on_latest_run(latest_run);
+        return waitOnLatestRun(latestRun);
     }
 }
 
-function build_browser({webpackConfig, isoBuilder, buildCacheBrowser, there_is_a_newer_run}) {
+function build_browser({webpackConfig, isoBuilder, buildCacheBrowser, run}) {
     assert_isoBuilder(isoBuilder);
+
+    const compilationName = 'browserCompilation';
 
     const build_function = ({onBuild}) => (
         serve(webpackConfig, {
@@ -175,18 +198,18 @@ function build_browser({webpackConfig, isoBuilder, buildCacheBrowser, there_is_a
                 onCompilationStateChange({
                     isoBuilder,
                     compilationState,
-                    there_is_a_newer_run,
+                    run,
                     prop: 'browser',
                 });
             },
             onBuild,
-            compilationName: 'browserCompilation',
+            compilationName,
         })
     );
 
     const webpackEntries = webpackConfig.entry;
     assert_usage(webpackEntries && webpackEntries.constructor===Object, webpackConfig);
-    if( ! is_production() ) {
+    if( ! isProduction() ) {
         assert_usage(!webpackEntries['autoreload_client']);
         webpackEntries['autoreload_client'] = [autoreloadClientPath];
     }
@@ -197,11 +220,14 @@ function build_browser({webpackConfig, isoBuilder, buildCacheBrowser, there_is_a
         build_cache: buildCacheBrowser,
         build_function,
         compilationName,
+        run,
     });
 }
 
-function build_nodejs({webpackConfig, isoBuilder, buildCacheNodejs, there_is_a_newer_run}) {
+function build_nodejs({webpackConfig, isoBuilder, buildCacheNodejs, run}) {
     assert_isoBuilder(isoBuilder);
+
+    const compilationName = 'nodejsCompilation';
 
     const build_function = ({onBuild}) => (
         build(webpackConfig, {
@@ -212,12 +238,12 @@ function build_nodejs({webpackConfig, isoBuilder, buildCacheNodejs, there_is_a_n
                 onCompilationStateChange({
                     isoBuilder,
                     compilationState,
-                    there_is_a_newer_run,
+                    run,
                     prop: 'nodejs',
                 });
             },
             onBuild,
-            compilationName: 'nodejsCompilation',
+            compilationName,
         })
     );
 
@@ -227,6 +253,7 @@ function build_nodejs({webpackConfig, isoBuilder, buildCacheNodejs, there_is_a_n
         build_cache: buildCacheNodejs,
         build_function,
         compilationName,
+        run,
     });
 }
 
@@ -244,6 +271,7 @@ async function build_iso({
     build_cache,
     build_function,
     compilationName,
+    run,
 }) {
     const {entry: webpackEntries, output: {path: webpackOutputPath}={}} = webpackConfig;
     assert_usage(webpackEntries, webpackConfig);
@@ -251,11 +279,13 @@ async function build_iso({
 
     if( build_cache.webpackEntries ) {
         if( deep_equal(webpackEntries, build_cache.webpackEntries) ) {
+            global.DEBUG_WATCH && console.log('WAIT-BUILD '+compilationName);
             const resolveTimeout = gen_await_timeout({name: 'Wait Build '+compilationName});
             const ret = await build_cache.wait_build();
             resolveTimeout();
-            return ret
+            return ret;
         } else {
+            global.DEBUG_WATCH && console.log('STOP-BUILD '+compilationName);
             const resolveTimeout = gen_await_timeout({name: 'Stop Build '+compilationName});
             await build_cache.stop_build();
             resolveTimeout();
@@ -293,9 +323,10 @@ async function build_iso({
     Object.assign(build_cache, {stop_build, wait_build, webpackEntries});
 
     const resolveTimeout = gen_await_timeout({name: 'First Build '+compilationName});
-    const ret = await first_build_promise;
+    const buildInfo = await first_build_promise;
     resolveTimeout();
-    return ret;
+    assert_internal(buildInfo.is_abort || buildInfo.compilationInfo, Object.keys(buildInfo));
+    return buildInfo;
 }
 
 function remove_output_path(webpackOutputPath) {
@@ -598,7 +629,7 @@ function is_abs(path) {
     return path_module.isAbsolute(path);
 }
 
-function is_production() {
+function isProduction() {
    return process.env.NODE_ENV === 'production';
 }
 
@@ -606,5 +637,12 @@ function gen_await_timeout({timeoutSeconds=30, name}={}) {
     const timeout = setTimeout(() => {
         assert_warning(false, "Promise \""+name+"\" still not resolved after "+timeoutSeconds+" seconds");
     }, timeoutSeconds*1000)
-    return () => clearTimeout(timeoutSeconds);
+    return () => clearTimeout(timeout);
+}
+
+function gen_promise() {
+    let promise_resolver;
+    const promise = new Promise(resolve => promise_resolver=resolve);
+    assert_internal(promise_resolver);
+    return {promise, resolvePromise: promise_resolver};
 }

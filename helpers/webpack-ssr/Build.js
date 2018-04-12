@@ -31,34 +31,33 @@ function BuildInstance() {
     assert_usage(this.outputDir);
     isoBuilder.outputDir = this.outputDir;
 
-    isoBuilder.builder = async ({there_is_a_newer_run, buildForNodejs, buildForBrowser}) => {
-        this.pageFiles = getPageFiles.call(this);
+    const that = this;
 
-        this.pageNames = Object.keys(this.pageFiles);
+    isoBuilder.builder = (function* ({buildForNodejs, buildForBrowser}) {
+        that.pageFiles = getPageFiles.call(that);
 
-        const nodejsConfig = getNodejsConfig.call(this);
-        await buildForNodejs(nodejsConfig);
-        if( there_is_a_newer_run() ) return;
+        that.pageNames = Object.keys(that.pageFiles);
+
+        const nodejsConfig = getNodejsConfig.call(that);
+        yield buildForNodejs(nodejsConfig);
 
         const {buildState} = isoBuilder;
 
         assert_buildState(buildState);
-        this.pageModules = loadPageModules.call(this, {nodejs_entry_points: buildState.nodejs.entry_points});
+        that.pageModules = loadPageModules.call(that, {nodejs_entry_points: buildState.nodejs.entry_points});
 
-        this.pageBrowserEntries = getPageBrowserEntries.call(this);
+        that.pageBrowserEntries = getPageBrowserEntries.call(that);
 
         const {fileWriter} = isoBuilder;
 
-        const browserConfig = getBrowserConfig.call(this, {fileWriter});
-        await buildForBrowser(browserConfig);
-        if( there_is_a_newer_run() ) return;
+        const browserConfig = getBrowserConfig.call(that, {fileWriter});
+        yield buildForBrowser(browserConfig);
 
         assert_buildState(buildState);
-        writeAssetMap.call(this, {browser_entry_points: buildState.browser.entry_points, fileWriter});
+        writeAssetMap.call(that, {browser_entry_points: buildState.browser.entry_points, fileWriter});
 
-        await writeHtmlFiles.call(this, {fileWriter});
-        if( there_is_a_newer_run() ) return;
-    };
+        yield writeHtmlFiles.call(that, {fileWriter});
+    }).bind(this);
 
     return () => isoBuilder.build();
 }
