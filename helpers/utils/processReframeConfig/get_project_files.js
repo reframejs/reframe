@@ -47,33 +47,27 @@ function getProjectFiles() {
 
     const projectRootDir = (reframeConfigFile || pagesDir) && pathModule.dirname(reframeConfigFile || pagesDir);
 
-    const {output_path__browser, output_path__server, output_path__base} = get_dist_paths({projectRootDir});
+    const buildOutputDir = pathModule.resolve(projectRootDir, './dist');
 
-    return {
+    const projectFiles = {
         reframeConfigFile,
         pagesDir,
         projectRootDir,
-        buildOutputDir: output_path__base,
-
-        // TODO move this to @reframe/build
-        staticAssetsDir: output_path__browser,
+        buildOutputDir,
     };
-}
 
-function get_dist_paths({projectRootDir}) {
-    if( ! projectRootDir ) {
-        return {};
-    }
-    // TODO remove
-    const output_path__base = pathModule.resolve(projectRootDir, './dist');
-    const output_path__browser = pathModule.resolve(output_path__base, './browser');
-    const output_path__server = pathModule.resolve(output_path__base, './server');
+    Object.defineProperty(
+        projectFiles,
+        'staticAssetsDir',
+        {
+            get: () => {
+                const assetInfos = getAssetInfos({outputDir: buildOutputDir});
+                return assetInfos.staticAssetsDir;
+            },
+        }
+    );
 
-    return {
-        output_path__base,
-        output_path__browser,
-        output_path__server,
-    };
+    return projectFiles;
 }
 
 function getPageConfigPaths() {
