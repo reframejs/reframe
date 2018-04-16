@@ -77,7 +77,8 @@ function getNodejsConfig() {
 }
 
 function getBrowserConfig({fileWriter}) {
-    const browserEntries = generateBrowserEntries.call(this, {fileWriter});
+    const generatedEntries = generateBrowserEntries.call(this, {fileWriter});
+    const browserEntries = getBrowserEntries(generatedEntries);
     const browserOutputPath = pathModule.resolve(this.outputDir, BROWSER_OUTPUT);
     const defaultBrowserConfig = getDefaultBrowserConfig({entries: browserEntries, outputPath: browserOutputPath});
     const browserConfig = this.getWebpackBrowserConfig({config: defaultBrowserConfig, entries: browserEntries, outputPath: browserOutputPath, ...webpackUtils});
@@ -202,10 +203,20 @@ function get_script_dist_path(entry_point) {
     return script_dist_path;
 }
 
+function getBrowserEntries(generatedEntries) {
+    const browserEntries = {...generatedEntries};
+
+    if( ! isProduction() ) {
+        assert_usage(!browserEntries[AUTORELOAD_ENTRY_NAME]);
+        browserEntries[AUTORELOAD_ENTRY_NAME] = [autoreloadClientPath];
+    }
+
+    return browserEntries;
+}
 function generateBrowserEntries({fileWriter}) {
     const {pageBrowserEntries} = this;
 
-    const browserEntries = {};
+    const generatedEntries = {};
 
     fileWriter.startWriteSession('BROWSER_SOURCE_CODE');
 
@@ -221,18 +232,13 @@ function generateBrowserEntries({fileWriter}) {
             filePath: pathModule.join(SOURCE_CODE_OUTPUT, 'browser-entries', pageName+'-browser.js'),
         });
 
-        assert_internal(!browserEntries[pageName]);
-        browserEntries[pageName] = fileAbsolutePath;
+        assert_internal(!generatedEntries[pageName]);
+        generatedEntries[pageName] = fileAbsolutePath;
     });
 
     fileWriter.endWriteSession();
 
-    if( ! isProduction() ) {
-        assert_usage(!browserEntries[AUTORELOAD_ENTRY_NAME]);
-        browserEntries[AUTORELOAD_ENTRY_NAME] = [autoreloadClientPath];
-    }
-
-    return browserEntries;
+    return generatedEntries;
 }
 
 async function writeHtmlFiles({fileWriter}) {
