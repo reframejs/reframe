@@ -2,6 +2,8 @@ const assert_internal = require('reassert/internal');
 const assert_usage = require('reassert/usage');
 const {IsoBuilder} = require('@rebuild/iso');
 const {Logger} = require('@rebuild/build/utils/Logger');
+const reloadBrowser = require('@rebuild/serve/utils/autoreload/reloadBrowser');
+const autoreloadClientPath = require.resolve('@rebuild/serve/utils/autoreload/client');
 const pathModule = require('path');
 const forceRequire = require('./utils/forceRequire');
 const getUserDir = require('@brillout/get-user-dir');
@@ -12,6 +14,8 @@ const webpackUtils = require('@brillout/webpack-utils');
 const SOURCE_CODE_OUTPUT = 'source-code';
 const BROWSER_OUTPUT = 'browser';
 const NODEJS_OUTPUT = 'nodejs';
+
+const AUTORELOAD_ENTRY_NAME = 'autoreload-client';
 
 
 module.exports = WebpackSSR;
@@ -53,6 +57,10 @@ function BuildInstance() {
         writeAssetMap.call(that, {browser_entry_points: browserEntryPoints, fileWriter});
 
         yield writeHtmlFiles.call(that, {fileWriter});
+
+        if( ! isProduction() ) {
+            reloadBrowser();
+        }
     }).bind(this);
 
     return () => isoBuilder.build();
@@ -124,17 +132,18 @@ function getNodejsEntries() {
 
     const server_entries = {};
 
-    if( serverEntryFile ) {
-        assert_usage(pathModule.isAbsolute(serverEntryFile));
-        server_entries.server = [serverEntryFile];
-    }
-
     const {pageFiles} = this;
     Object.entries(pageFiles)
     .forEach(([pageName, pageFile]) => {
         assert_internal(!server_entries[pageName]);
         server_entries[pageName] = [pageFile];
     });
+
+    if( serverEntryFile ) {
+        assert_usage(pathModule.isAbsolute(serverEntryFile));
+        assert_usage(!server_entries.server);
+        server_entries.server = [serverEntryFile];
+    }
 
     return server_entries;
 }
@@ -217,6 +226,11 @@ function generateBrowserEntries({fileWriter}) {
     });
 
     fileWriter.endWriteSession();
+
+    if( ! isProduction() ) {
+        assert_usage(!browserEntries[AUTORELOAD_ENTRY_NAME]);
+        browserEntries[AUTORELOAD_ENTRY_NAME] = [autoreloadClientPath];
+    }
 
     return browserEntries;
 }
@@ -310,7 +324,7 @@ function add_autoreload_client({assetInfos, pageNames, browser_entry_points}) {
     if( isProduction() ) {
         return;
     }
-    const entry_point__autoreload = Object.values(browser_entry_points).find(({entry_name}) => entry_name==='autoreload_client');
+    const entry_point__autoreload = Object.values(browser_entry_points).find(({entry_name}) => entry_name===AUTORELOAD_ENTRY_NAME);
     if( ! entry_point__autoreload ) {
         return;
     }

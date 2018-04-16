@@ -5,8 +5,6 @@ const mkdirp = require('mkdirp');
 const serve = require('@rebuild/serve');
 const build = require('@rebuild/build');
 const {Logger} = require('@rebuild/build/utils/Logger');
-const reloadBrowser = require('@rebuild/serve/utils/autoreload/reloadBrowser');
-const autoreloadClientPath = require.resolve('@rebuild/serve/utils/autoreload/client');
 const path_module = require('path');
 const fs = require('fs');
 const touch = require('touch');
@@ -159,12 +157,6 @@ function IsoBuilder() {
         ),
         onStateChange,
     });
-    /* TODO move to webpack ssr
-    if( ! isProduction() ) {
-        assert_usage(!webpackEntries['autoreload_client']);
-        webpackEntries['autoreload_client'] = [autoreloadClientPath];
-    }
-    */
 
     this.nodejsBuild = new BuildManager({
         buildName: 'nodejsBuild',
@@ -308,10 +300,6 @@ async function buildAll({isoBuilder, latestRun, buildCacheNodejs, buildCacheBrow
     await waitOnLatestRun(latestRun);
 
     if( run.runNumber===latestRun.runNumber ) {
-        if( ! isProduction() ) {
-            reloadBrowser();
-         // console.log('browser reloaded');
-        }
         isoBuilder.logger.onBuildStateChange({
             is_compiling: false,
             is_failure: false,
