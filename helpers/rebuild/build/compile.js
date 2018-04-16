@@ -71,6 +71,7 @@ function compile(
                 assert_usage(compilation_info.constructor===Object);
                 assert_internal([true, false].includes(is_success));
                 onCompilationStateChange({
+                    is_first_build: no_previous_success,
                     is_compiling: false,
                     is_failure: !is_success,
                     ...compilation_info,
@@ -92,7 +93,7 @@ function compile(
                 await build_index_html({compilation_info});
             }
 
-            return {...compilation_info};
+            return {is_compiling: false, ...compilation_info};
         })(),
     };
 }
@@ -219,7 +220,7 @@ function setup_compiler_handler({
             await wait_build();
         }
         assert_internal(compilation_info);
-        return compilation_info;
+        return {is_compiling: false, ...compilation_info};
     };
     let compilation_info;
     onCompileStart.addListener(() => {

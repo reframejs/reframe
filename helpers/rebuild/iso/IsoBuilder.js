@@ -41,7 +41,7 @@ function BuildManager({buildName, buildFunction, onStateChange}) {
             if( deep_equal(__current.webpackConfig, webpackConfig) ) {
                 global.DEBUG_WATCH && console.log('CACHED-BUILD '+buildName);
                 const resolveTimeout = gen_timeout({desc: 'Cached Build '+buildName});
-                const compilationInfo = await __current.wait_build;
+                const compilationInfo = await __current.wait_build();
                 resolveTimeout();
                 return getEntryPoints(compilationInfo);
             } else {
@@ -138,7 +138,7 @@ function IsoBuilder() {
 
     const onStateChange = compilationInfo => {
         logCompilationStateChange(this);
-        if( ! compilationInfo.is_compiling && ! compilationInfo.is_failure ) {
+        if( ! compilationInfo.is_compiling && ! compilationInfo.is_failure && ! compilationInfo.is_first_build ) {
             global.DEBUG_WATCH && console.log('REBUILD-REASON: webpack-watch for `'+'TODO'+'`');
             this.build();
         }
