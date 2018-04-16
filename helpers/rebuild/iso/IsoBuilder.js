@@ -26,34 +26,57 @@ function BuildManager({buildName, buildFunction, onStateChange}) {
 
     const _buildState = this._buildState = {};
     const __compilationInfo = this.__compilationInfo = {};
-    const __cache = {};
+    let __cache;
 
-    function runBuild({webpackConfig, runIsOutdated}) {
+    return this;
+
+    async function runBuild({webpackConfig, runIsOutdated}) {
+        assert_usage(webpackConfig);
+
         if( runIsOutdated() ) {
-            return;
+            return Promise.resolve({abortBuilder: true});
         }
 
-        if( __cache.webpackConfig, webpackConfig ) {
-            // TODO;
-            return;
+        assert_internal(__cache !== null);
+        if( __cache ) {
+            if( deep_equal(__cache.webpackConfig, webpackConfig) ) {
+                global.DEBUG_WATCH && console.log('CACHED-BUILD '+buildName);
+                const resolveTimeout = gen_timeout({desc: 'Cached Build '+buildName});
+                const ret = await __cache.promise;
+                resolveTimeout();
+                return ret;
+            } else {
+                global.DEBUG_WATCH && console.log('STOP-BUILD '+buildName);
+                const resolveTimeout = gen_timeout({desc: 'Stop Build '+buildName});
+                await __cache.stop_build();
+                resolveTimeout();
+                remove_output_path(webpackOutputPath);
+                __cache = null;
+            }
         }
-        const {promise, resolvePromise} = gen_promise();
-        buildFunction({
+
+        __cache = null;
+
+        const {stop_build} = buildFunction({
             webpackConfig,
             onCompilationStateChange: compilationInfo => {
                 assert_compilationState(compilationInfo);
+                assert_internal(build_function_called);
 
-                if( runIsOutdated() ) {
-                    return;
+                if( __cache.cache_id === cache_id ) {
+                    copy(__compilationInfo, compilationInfo);
+
+                    assert_internal([true, false].includes(compilationInfo.is_compiling));
+                    copy(_buildState, {
+                        isCompiling: compilationInfo.is_compiling,
+                        entry_points: (compilationInfo.output||{}).entry_points,
+                    });
                 }
 
-                copy(__compilationInfo, compilationInfo);
-
-                assert_internal([true, false].includes(compilationInfo.is_compiling));
-                copy(_buildState, {
-                    isCompiling: compilationInfo.is_compiling,
-                    entry_points: (compilationInfo.output||{}).entry_points,
-                });
+                if( runIsOutdated() ) {
+                    resolvePromise({abortBuilder: true});
+                    return;
+                }
 
                 onStateChange();
 
@@ -63,7 +86,22 @@ function BuildManager({buildName, buildFunction, onStateChange}) {
                 }
             },
         });
+        assert_internal(stop_build);
+
+        let build_function_called = true;
+
+        const {promise, resolvePromise} = gen_promise();
+
+        const cache_id = new Symbol();
+        __cache = {
+            promise,
+            webpackConfig,
+            stop_build,
+            cache_id,
+        };
+
         return promise;
+
     }
 }
 
@@ -215,15 +253,13 @@ async function buildAll({isoBuilder, latestRun, buildCacheNodejs, buildCacheBrow
             build_browser({isoBuilder, buildCacheBrowser, webpackConfig, run})
     );
     */
-    const runIsOutdated = () => run.runNumber!==latestRun.runNumber;
-
     const buildForNodejs = (
         webpackConfig =>
-            isoBuild.browserBuild.runBuild({webpackConfig, runIsOutdated})
+            isoBuild.browserBuild.runBuild({webpackConfig, runIsOutdated: run.isObsolete})
     );
     const buildForBrowser = (
         webpackConfig =>
-            isoBuild.nodejsBuild.runBuild({webpackConfig, runIsOutdated})
+            isoBuild.nodejsBuild.runBuild({webpackConfig, runIsOutdated: run.isObsolete})
     );
 
     const generator = isoBuilder.builder({buildForNodejs, buildForBrowser});
@@ -244,7 +280,6 @@ async function buildAll({isoBuilder, latestRun, buildCacheNodejs, buildCacheBrow
         const resolveTimeout = gen_timeout({desc: 'Builder Promise'});
         const buildInfo = await currentPromise.then();
         resolveTimeout();
-        // TODO abortBuilder
         if( buildInfo && buildInfo.abortBuilder ) {
             assert_internal(run.isObsolete());
             break;
