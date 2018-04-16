@@ -24,7 +24,7 @@ function BuildManager({buildName, buildFunction, onStateChange}) {
 
     this.runBuild = runBuild;
 
-    this.__compilationInfo = {};
+    const __compilationInfo = this.__compilationInfo = {};
     let __current;
 
     return this;
@@ -64,7 +64,7 @@ function BuildManager({buildName, buildFunction, onStateChange}) {
 
         let build_function_called = true;
 
-        const cache_id = new Symbol();
+        const cache_id = Symbol();
         __current = {
             webpackConfig,
             stop_build,
@@ -94,8 +94,8 @@ function BuildManager({buildName, buildFunction, onStateChange}) {
                 return;
             }
 
-            copy(this.__compilationInfo, compilationInfo);
-            onStateChange();
+            copy(__compilationInfo, compilationInfo);
+            onStateChange(compilationInfo);
         }
     }
 }
@@ -137,10 +137,10 @@ function IsoBuilder() {
     */
 
     const onStateChange = compilationInfo => {
-        logCompilationStateChange.call(isoBuilder);
+        logCompilationStateChange(this);
         if( ! compilationInfo.is_compiling && ! compilationInfo.is_failure ) {
             global.DEBUG_WATCH && console.log('REBUILD-REASON: webpack-watch for `'+'TODO'+'`');
-            isoBuilder.build();
+            this.build();
         }
     };
 
@@ -166,7 +166,7 @@ function IsoBuilder() {
     }
     */
 
-    const nodejsBuild = new BuildManager({
+    this.nodejsBuild = new BuildManager({
         buildName: 'nodejsBuild',
         buildFunction: ({webpackConfig, onCompilationStateChange}) => (
             build(webpackConfig, {
@@ -182,8 +182,8 @@ function IsoBuilder() {
 
     // TODO make private
     this.__compilationState = {
-        browser: browserBuid.__compilationInfo,
-        nodejs: nodejsBuild.__compilationInfo,
+        browser: this.browserBuild.__compilationInfo,
+        nodejs: this.nodejsBuild.__compilationInfo,
     };
 
     this.build = () => (
@@ -268,11 +268,11 @@ async function buildAll({isoBuilder, latestRun, buildCacheNodejs, buildCacheBrow
     */
     const buildForNodejs = (
         webpackConfig =>
-            isoBuild.browserBuild.runBuild({webpackConfig, runIsOutdated: run.isObsolete})
+            isoBuilder.browserBuild.runBuild({webpackConfig, runIsOutdated: run.isObsolete})
     );
     const buildForBrowser = (
         webpackConfig =>
-            isoBuild.nodejsBuild.runBuild({webpackConfig, runIsOutdated: run.isObsolete})
+            isoBuilder.nodejsBuild.runBuild({webpackConfig, runIsOutdated: run.isObsolete})
     );
 
     const generator = isoBuilder.builder({buildForNodejs, buildForBrowser});
