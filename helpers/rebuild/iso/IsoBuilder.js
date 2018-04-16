@@ -24,7 +24,6 @@ function BuildManager({buildName, buildFunction, onStateChange}) {
 
     this.runBuild = runBuild;
 
-    const _buildState = this._buildState = {};
     const __compilationInfo = this.__compilationInfo = {};
     let __cache;
 
@@ -42,9 +41,10 @@ function BuildManager({buildName, buildFunction, onStateChange}) {
             if( deep_equal(__cache.webpackConfig, webpackConfig) ) {
                 global.DEBUG_WATCH && console.log('CACHED-BUILD '+buildName);
                 const resolveTimeout = gen_timeout({desc: 'Cached Build '+buildName});
-                const ret = await __cache.promise;
+                const compilationInfo = await __cache.wait_build;
                 resolveTimeout();
-                return ret;
+                assert_internal(compilationInfo.is_compiling===false);
+                return onCompilationStateChange(compilationInfo);
             } else {
                 global.DEBUG_WATCH && console.log('STOP-BUILD '+buildName);
                 const resolveTimeout = gen_timeout({desc: 'Stop Build '+buildName});
@@ -57,51 +57,47 @@ function BuildManager({buildName, buildFunction, onStateChange}) {
 
         __cache = null;
 
-        const {stop_build} = buildFunction({
-            webpackConfig,
-            onCompilationStateChange: compilationInfo => {
-                assert_compilationState(compilationInfo);
-                assert_internal(build_function_called);
-
-                if( __cache.cache_id === cache_id ) {
-                    copy(__compilationInfo, compilationInfo);
-
-                    assert_internal([true, false].includes(compilationInfo.is_compiling));
-                    copy(_buildState, {
-                        isCompiling: compilationInfo.is_compiling,
-                        entry_points: (compilationInfo.output||{}).entry_points,
-                    });
-                }
-
-                if( runIsOutdated() ) {
-                    resolvePromise({abortBuilder: true});
-                    return;
-                }
-
-                onStateChange();
-
-                assert_internal(compilationInfo.is_compiling || [true, false].includes(compilationInfo.is_failure));
-                if( ! compilationInfo.is_compiling && ! compilationInfo.is_failure ) {
-                    resolvePromise();
-                }
-            },
-        });
+        const {stop_build, wait_build} = buildFunction({webpackConfig, onCompilationStateChange});
         assert_internal(stop_build);
+        assert_internal(wait_build);
 
         let build_function_called = true;
 
-        const {promise, resolvePromise} = gen_promise();
-
         const cache_id = new Symbol();
         __cache = {
-            promise,
             webpackConfig,
             stop_build,
+            wait_build,
             cache_id,
         };
 
+        const {promise, resolvePromise} = gen_promise();
         return promise;
 
+        function onCompilationStateChange(compilationInfo) {
+            assert_compilationState(compilationInfo);
+            assert_internal([true, false].includes(compilationInfo.is_compiling));
+            assert_internal(compilationInfo.is_compiling || [true, false].includes(compilationInfo.is_failure));
+            assert_internal(build_function_called);
+
+            if( __cache.cache_id === cache_id ) {
+                copy(__compilationInfo, compilationInfo);
+                onStateChange();
+            }
+
+            if( runIsOutdated() ) {
+                resolvePromise({abortBuilder: true});
+                return;
+            }
+
+            assert_internal(__cache.cache_id === cache_id);
+
+            if( ! compilationInfo.is_compiling && ! compilationInfo.is_failure ) {
+                const {entry_points} = compilationInfo.output;
+                assert_internal(entry_points);
+                resolvePromise(entry_points);
+            }
+        }
     }
 }
 
@@ -164,11 +160,22 @@ function IsoBuilder() {
     */
 
     const nodejsBuild = new BuildManager({
+        buildName: 'nodejsBuild',
+        buildFunction: ({webpackConfig, onCompilationStateChange}) => (
+            build(webpackConfig, {
+                watch: true,
+                doNotGenerateIndexHtml: true,
+                logger: null,
+                onCompilationStateChange,
+                compilationName: 'nodejsCompilation',
+            })
+        ),
+        onStateChange: logCompilationStateChange.bind(isoBuilder),
     });
 
     this.buildState.browser = browserBuid._buildState;
     this.buildState.nodejs = nodejsBuid._buildState;
-    this.buildState.__compilationState = {
+    this.__compilationState = {
         browser: browserBuid.__compilationInfo,
         nodejs: nodejsBuild.__compilationInfo,
     };
@@ -270,17 +277,18 @@ async function buildAll({isoBuilder, latestRun, buildCacheNodejs, buildCacheBrow
     latestRun.runNumber = run.runNumber;
     latestRun.overallPromise = run.overallPromise;
 
+    let resolvedValue;
     while( true ) {
-        const yield = generator.next();
+        const yield = generator.next(resolvedValue);
         assert_usage(yield.value && yield.value.then || yield.done && !yield.value);
         const currentPromise = yield.value;
         if( ! currentPromise ) {
             break;
         }
         const resolveTimeout = gen_timeout({desc: 'Builder Promise'});
-        const buildInfo = await currentPromise.then();
+        resolvedValue = await currentPromise.then();
         resolveTimeout();
-        if( buildInfo && buildInfo.abortBuilder ) {
+        if( resolvedValue && resolvedValue.abortBuilder ) {
             assert_internal(run.isObsolete());
             break;
         }
@@ -467,7 +475,6 @@ async function build_iso({
                 const resolveTimeout = gen_timeout({desc: 'Wait Build '+compilationName});
                 const ret = await build_cache.wait_build();
                 resolveTimeout();
-                assert_buildState({isoBuilder, buildStateProp});
                 return ret;
             } else {
                 console.log(build_cache.webpackEntries);
@@ -511,12 +518,14 @@ async function build_iso({
     return ret;
 }
 
+/*
 function assert_buildState({isoBuilder, buildStateProp}) {
     const bState = isoBuilder.buildState[buildStateProp];
     assert_internal(bState, bState, buildStateProp);
     assert_internal(!bState.isCompiling, bState, buildStateProp);
     assert_internal(bState.entry_points, bState, buildStateProp);
 }
+*/
 
 function remove_output_path(webpackOutputPath) {
     fs__remove(webpackOutputPath);
