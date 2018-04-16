@@ -110,7 +110,7 @@ async function buildAll({isoBuilder, latestRun, buildCacheNodejs, buildCacheBrow
         if( ! currentPromise ) {
             break;
         }
-        const resolveTimeout = gen_await_timeout({name: 'Builder Promise'});
+        const resolveTimeout = gen_timeout({desc: 'Builder Promise'});
         const buildInfo = await currentPromise.then();
         resolveTimeout();
         if( buildInfo && buildInfo.is_abort ) {
@@ -291,7 +291,7 @@ async function build_iso({
         if( build_cache.webpackEntries ) {
             if( deep_equal(webpackEntries, build_cache.webpackEntries) ) {
                 global.DEBUG_WATCH && console.log('WAIT-BUILD '+compilationName);
-                const resolveTimeout = gen_await_timeout({name: 'Wait Build '+compilationName});
+                const resolveTimeout = gen_timeout({desc: 'Wait Build '+compilationName});
                 const ret = await build_cache.wait_build();
                 resolveTimeout();
                 return ret;
@@ -299,7 +299,7 @@ async function build_iso({
                 console.log(build_cache.webpackEntries);
                 console.log(webpackEntries);
                 global.DEBUG_WATCH && console.log('STOP-BUILD '+compilationName);
-                const resolveTimeout = gen_await_timeout({name: 'Stop Build '+compilationName});
+                const resolveTimeout = gen_timeout({desc: 'Stop Build '+compilationName});
                 await build_cache.stop_build();
                 resolveTimeout();
                 remove_output_path(webpackOutputPath);
@@ -324,7 +324,7 @@ async function build_iso({
         assert_internal(stop_build && wait_build);
         Object.assign(build_cache, {stop_build, wait_build, webpackEntries});
 
-        const resolveTimeout = gen_await_timeout({name: 'First Build '+compilationName});
+        const resolveTimeout = gen_timeout({desc: 'First Build '+compilationName});
         const buildInfo = await first_build_promise;
         resolveTimeout();
         assert_internal(buildInfo.is_abort || buildInfo.compilationInfo, Object.keys(buildInfo));
@@ -586,10 +586,10 @@ function isProduction() {
    return process.env.NODE_ENV === 'production';
 }
 
-function gen_await_timeout({timeoutSeconds=30, name}={}) {
+function gen_timeout({timeoutSeconds=30, desc}={}) {
     if( ! DEBUG_WATCH ) return;
     const timeout = setTimeout(() => {
-        assert_warning(false, "Promise \""+name+"\" still not resolved after "+timeoutSeconds+" seconds");
+        assert_warning(false, "Promise \""+desc+"\" still not resolved after "+timeoutSeconds+" seconds");
     }, timeoutSeconds*1000)
     return () => clearTimeout(timeout);
 }
