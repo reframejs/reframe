@@ -113,7 +113,8 @@ async function buildAll({isoBuilder, latestRun, buildCacheNodejs, buildCacheBrow
         const resolveTimeout = gen_timeout({desc: 'Builder Promise'});
         const buildInfo = await currentPromise.then();
         resolveTimeout();
-        if( buildInfo && buildInfo.is_abort ) {
+        // TODO abortBuilder
+        if( buildInfo && buildInfo.abortBuilder ) {
             assert_internal(run.isObsolete());
             break;
         }
@@ -294,6 +295,7 @@ async function build_iso({
                 const resolveTimeout = gen_timeout({desc: 'Wait Build '+compilationName});
                 const ret = await build_cache.wait_build();
                 resolveTimeout();
+                assert_buildState({isoBuilder, buildStateProp});
                 return ret;
             } else {
                 console.log(build_cache.webpackEntries);
@@ -328,15 +330,20 @@ async function build_iso({
         const buildInfo = await first_build_promise;
         resolveTimeout();
         assert_internal(buildInfo.is_abort || buildInfo.compilationInfo, Object.keys(buildInfo));
+        assert_buildState({isoBuilder, buildStateProp});
         return buildInfo;
     })();
 
+    assert_buildState({isoBuilder, buildStateProp});
+
+    return ret;
+}
+
+function assert_buildState({isoBuilder, buildStateProp}) {
     const bState = isoBuilder.buildState[buildStateProp];
     assert_internal(bState, bState, buildStateProp);
     assert_internal(!bState.isCompiling, bState, buildStateProp);
     assert_internal(bState.entry_points, bState, buildStateProp);
-
-    return ret;
 }
 
 function remove_output_path(webpackOutputPath) {
