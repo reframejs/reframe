@@ -92,7 +92,7 @@ function compile(
                 await build_index_html({compilation_info});
             }
 
-            return {compilationInfo: compilation_info, isFirstBuild: true};
+            return {...compilation_info};
         })(),
     };
 }

@@ -24,8 +24,8 @@ function BuildManager({buildName, buildFunction, onStateChange}) {
 
     this.runBuild = runBuild;
 
-    const __compilationInfo = this.__compilationInfo = {};
-    let __cache;
+    this.__compilationInfo = {};
+    let __current;
 
     return this;
 
@@ -36,43 +36,53 @@ function BuildManager({buildName, buildFunction, onStateChange}) {
             return Promise.resolve({abortBuilder: true});
         }
 
-        assert_internal(__cache !== null);
-        if( __cache ) {
-            if( deep_equal(__cache.webpackConfig, webpackConfig) ) {
+        assert_internal(__current !== null);
+        if( __current ) {
+            if( deep_equal(__current.webpackConfig, webpackConfig) ) {
                 global.DEBUG_WATCH && console.log('CACHED-BUILD '+buildName);
                 const resolveTimeout = gen_timeout({desc: 'Cached Build '+buildName});
-                const compilationInfo = await __cache.wait_build;
+                const compilationInfo = await __current.wait_build;
                 resolveTimeout();
-                assert_internal(compilationInfo.is_compiling===false);
-                return onCompilationStateChange(compilationInfo);
+                return getEntryPoints(compilationInfo);
             } else {
                 global.DEBUG_WATCH && console.log('STOP-BUILD '+buildName);
                 const resolveTimeout = gen_timeout({desc: 'Stop Build '+buildName});
-                await __cache.stop_build();
+                await __current.stop_build();
                 resolveTimeout();
+                const {output: {path: webpackOutputPath}={}} = webpackConfig;
+                assert_usage(webpackOutputPath, webpackConfig);
                 remove_output_path(webpackOutputPath);
-                __cache = null;
             }
         }
 
-        __cache = null;
+        __current = null;
 
-        const {stop_build, wait_build} = buildFunction({webpackConfig, onCompilationStateChange});
+        const {stop_build, wait_build, first_build_promise} = buildFunction({webpackConfig, onCompilationStateChange});
         assert_internal(stop_build);
         assert_internal(wait_build);
+        assert_internal(first_build_promise);
 
         let build_function_called = true;
 
         const cache_id = new Symbol();
-        __cache = {
+        __current = {
             webpackConfig,
             stop_build,
             wait_build,
             cache_id,
         };
 
-        const {promise, resolvePromise} = gen_promise();
-        return promise;
+        const compilationInfo = await first_build_promise;
+
+        return getEntryPoints(compilationInfo);
+
+        function getEntryPoints(compilationInfo) {
+            assert_internal(compilationInfo.is_compiling===false);
+            assert_compilationState(compilationInfo);
+            const {entry_points} = compilationInfo.output;
+            assert_internal(entry_points);
+            return entry_points;
+        }
 
         function onCompilationStateChange(compilationInfo) {
             assert_compilationState(compilationInfo);
@@ -80,23 +90,12 @@ function BuildManager({buildName, buildFunction, onStateChange}) {
             assert_internal(compilationInfo.is_compiling || [true, false].includes(compilationInfo.is_failure));
             assert_internal(build_function_called);
 
-            if( __cache.cache_id === cache_id ) {
-                copy(__compilationInfo, compilationInfo);
-                onStateChange();
-            }
-
-            if( runIsOutdated() ) {
-                resolvePromise({abortBuilder: true});
+            if( __current.cache_id !== cache_id ) {
                 return;
             }
 
-            assert_internal(__cache.cache_id === cache_id);
-
-            if( ! compilationInfo.is_compiling && ! compilationInfo.is_failure ) {
-                const {entry_points} = compilationInfo.output;
-                assert_internal(entry_points);
-                resolvePromise(entry_points);
-            }
+            copy(this.__compilationInfo, compilationInfo);
+            onStateChange();
         }
     }
 }
@@ -137,6 +136,14 @@ function IsoBuilder() {
     );
     */
 
+    const onStateChange = compilationInfo => {
+        logCompilationStateChange.call(isoBuilder);
+        if( ! compilationInfo.is_compiling && ! compilationInfo.is_failure ) {
+            global.DEBUG_WATCH && console.log('REBUILD-REASON: webpack-watch for `'+'TODO'+'`');
+            isoBuilder.build();
+        }
+    };
+
     this.browserBuild = new BuildManager({
         buildName: 'browserBuild',
         buildFunction: ({webpackConfig, onCompilationStateChange}) => (
@@ -150,7 +157,7 @@ function IsoBuilder() {
                 compilationName: 'browserCompilation',
             })
         ),
-        onStateChange: logCompilationStateChange.bind(isoBuilder),
+        onStateChange,
     });
     /* TODO move to webpack ssr
     if( ! isProduction() ) {
@@ -170,11 +177,10 @@ function IsoBuilder() {
                 compilationName: 'nodejsCompilation',
             })
         ),
-        onStateChange: logCompilationStateChange.bind(isoBuilder),
+        onStateChange,
     });
 
-    this.buildState.browser = browserBuid._buildState;
-    this.buildState.nodejs = nodejsBuid._buildState;
+    // TODO make private
     this.__compilationState = {
         browser: browserBuid.__compilationInfo,
         nodejs: nodejsBuild.__compilationInfo,
