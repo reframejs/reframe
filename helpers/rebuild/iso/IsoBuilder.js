@@ -18,9 +18,68 @@ global.DEBUG_WATCH = true;
 
 module.exports = {IsoBuilder};
 
+
+
+function BuildManager({buildName, buildFunction, onStateChange}) {
+
+    this.runBuild = runBuild;
+
+    const _buildState = this._buildState = {};
+    const __compilationInfo = this.__compilationInfo = {};
+    const __cache = {};
+
+    function runBuild({webpackConfig, runIsOutdated}) {
+        if( runIsOutdated() ) {
+            return;
+        }
+
+        if( __cache.webpackConfig, webpackConfig ) {
+            // TODO;
+            return;
+        }
+        const {promise, resolvePromise} = gen_promise();
+        buildFunction({
+            webpackConfig,
+            onCompilationStateChange: compilationInfo => {
+                assert_compilationState(compilationInfo);
+
+                if( runIsOutdated() ) {
+                    return;
+                }
+
+                copy(__compilationInfo, compilationInfo);
+
+                assert_internal([true, false].includes(compilationInfo.is_compiling));
+                copy(_buildState, {
+                    isCompiling: compilationInfo.is_compiling,
+                    entry_points: (compilationInfo.output||{}).entry_points,
+                });
+
+                onStateChange();
+
+                assert_internal(compilationInfo.is_compiling || [true, false].includes(compilationInfo.is_failure));
+                if( ! compilationInfo.is_compiling && ! compilationInfo.is_failure ) {
+                    resolvePromise();
+                }
+            },
+        });
+        return promise;
+    }
+}
+
+function copy(target, source) {
+    for(var i in target) delete[i];
+    Object.assign(target, source);
+}
+
 function IsoBuilder() {
     this.fileWriter = create_file_writer(this);
 
+    const latestRun = {
+        runNumber: 0,
+    };
+
+    /*
     this.buildState = {
         browser: null,
         nodejs: null,
@@ -31,11 +90,9 @@ function IsoBuilder() {
         nodejs: null,
     };
 
-    const latestRun = {
-        runNumber: 0,
-    };
     const buildCacheNodejs = {};
     const buildCacheBrowser = {};
+
     this.build = () => (
         buildAll({
             isoBuilder: this,
@@ -44,8 +101,70 @@ function IsoBuilder() {
             buildCacheBrowser,
         })
     );
+    */
+
+    this.browserBuild = new BuildManager({
+        buildName: 'browserBuild',
+        buildFunction: ({webpackConfig, onCompilationStateChange}) => (
+            serve(webpackConfig, {
+                doNotCreateServer: true,
+                doNotGenerateIndexHtml: true,
+                doNotFireReloadEvents: true,
+                doNotIncludeAutoreloadClient: true,
+                logger: null,
+                onCompilationStateChange,
+                compilationName: 'browserCompilation',
+            })
+        ),
+        onStateChange: logCompilationStateChange.bind(isoBuilder),
+    });
+    /* TODO move to webpack ssr
+    if( ! isProduction() ) {
+        assert_usage(!webpackEntries['autoreload_client']);
+        webpackEntries['autoreload_client'] = [autoreloadClientPath];
+    }
+    */
+
+    const nodejsBuild = new BuildManager({
+    });
+
+    this.buildState.browser = browserBuid._buildState;
+    this.buildState.nodejs = nodejsBuid._buildState;
+    this.buildState.__compilationState = {
+        browser: browserBuid.__compilationInfo,
+        nodejs: nodejsBuild.__compilationInfo,
+    };
+
+    this.build = () => (
+        buildAll({
+            isoBuilder: this,
+            latestRun,
+        })
+    );
+
 }
 
+function logCompilationStateChange(isoBuilder) {
+    const build_state_browser = isoBuilder.__compilationState.browser;
+    const build_state_nodejs = isoBuilder.__compilationState.nodejs;
+
+    const is_failure = (build_state_browser||{}).is_failure===true || (build_state_nodejs||{}).is_failure===true;
+    const is_compiling = (build_state_browser||{}).is_compiling || (build_state_nodejs||{}).is_compiling;
+
+    if( is_failure && ! is_compiling ) {
+        isoBuilder.logger.onBuildStateChange({
+            is_compiling: false,
+            is_failure: true,
+            compilation_info: [build_state_browser, build_state_nodejs],
+        });
+    }
+
+    if( is_compiling && ! isoBuilder.logger.build_state.is_compiling ) {
+        isoBuilder.logger.onBuildStateChange({
+            is_compiling: true,
+        });
+    }
+}
 
 function create_file_writer(isoBuilder) {
     const fs_handler = new FileSystemHandler();
@@ -86,6 +205,7 @@ async function buildAll({isoBuilder, latestRun, buildCacheNodejs, buildCacheBrow
         isObsolete: () => run.runNumber!==latestRun.runNumber,
     };
 
+    /*
     const buildForNodejs = (
         webpackConfig =>
             build_nodejs({isoBuilder, buildCacheNodejs, webpackConfig, run})
@@ -93,6 +213,17 @@ async function buildAll({isoBuilder, latestRun, buildCacheNodejs, buildCacheBrow
     const buildForBrowser = (
         webpackConfig =>
             build_browser({isoBuilder, buildCacheBrowser, webpackConfig, run})
+    );
+    */
+    const runIsOutdated = () => run.runNumber!==latestRun.runNumber;
+
+    const buildForNodejs = (
+        webpackConfig =>
+            isoBuild.browserBuild.runBuild({webpackConfig, runIsOutdated})
+    );
+    const buildForBrowser = (
+        webpackConfig =>
+            isoBuild.nodejsBuild.runBuild({webpackConfig, runIsOutdated})
     );
 
     const generator = isoBuilder.builder({buildForNodejs, buildForBrowser});
@@ -141,6 +272,7 @@ async function buildAll({isoBuilder, latestRun, buildCacheNodejs, buildCacheBrow
     DEBUG_WATCH && console.log("END-BUILDER");
 }
 
+/*
 function onCompilationStateChange({isoBuilder, compilationState, run, buildStateProp}) {
     const skip = run.isObsolete();
     console.log(compilationState, buildStateProp, skip);
@@ -155,7 +287,9 @@ function onCompilationStateChange({isoBuilder, compilationState, run, buildState
     };
     logCompilationStateChange(isoBuilder);
 }
+*/
 
+/*
 function logCompilationStateChange(isoBuilder) {
     const build_state_browser = isoBuilder.__compilationState.browser;
     const build_state_nodejs = isoBuilder.__compilationState.nodejs;
@@ -177,6 +311,7 @@ function logCompilationStateChange(isoBuilder) {
         });
     }
 }
+*/
 
 async function waitOnLatestRun(latestRun) {
     const {runNumber} = latestRun;
@@ -188,6 +323,7 @@ async function waitOnLatestRun(latestRun) {
     }
 }
 
+/*
 function build_browser({webpackConfig, isoBuilder, buildCacheBrowser, run}) {
     assert_isoBuilder(isoBuilder);
 
@@ -231,6 +367,7 @@ function build_browser({webpackConfig, isoBuilder, buildCacheBrowser, run}) {
         run,
     });
 }
+*/
 
 function build_nodejs({webpackConfig, isoBuilder, buildCacheNodejs, run}) {
     assert_isoBuilder(isoBuilder);
