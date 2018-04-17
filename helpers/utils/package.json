@@ -8,8 +8,7 @@
     "@reframe/cli-plugins": "0.0.1-rc.14",
     "@reframe/default-kit": "0.0.1-rc.14",
     "find-up": "^2.1.0",
-    "reassert": "latest",
-    "webpack-ssr": "^0.0.1-alpha.0"
+    "reassert": "latest"
   },
   "publishConfig": {
     "access": "public"

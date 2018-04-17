@@ -6,9 +6,6 @@ const getUserDir = require('@brillout/get-user-dir');
 const find_reframe_config = require('../find_reframe_config');
 const fs = require('fs');
 
-// TODO use projectConfig plugin mod instead
-const getAssetInfos = require('webpack-ssr/getAssetInfos');
-
 module.exports = get_project_files;
 
 let projectFiles__cache;
@@ -27,9 +24,7 @@ function get_project_files(_processed/*, r_objects*/) {
     );
 
     _processed.getPageConfigPaths = getPageConfigPaths;
-    _processed.getPageConfigs = getPageConfigs;
     _processed.assertProjectFound = assertProjectFound;
- // _processed.build = build;
     _processed.server = server;
 }
 
@@ -49,25 +44,12 @@ function getProjectFiles() {
 
     const buildOutputDir = pathModule.resolve(projectRootDir, './dist');
 
-    const projectFiles = {
+    return {
         reframeConfigFile,
         pagesDir,
         projectRootDir,
         buildOutputDir,
     };
-
-    Object.defineProperty(
-        projectFiles,
-        'staticAssetsDir',
-        {
-            get: () => {
-                const assetInfos = getAssetInfos({outputDir: buildOutputDir});
-                return assetInfos.staticAssetsDir;
-            },
-        }
-    );
-
-    return projectFiles;
 }
 
 function getPageConfigPaths() {
@@ -78,46 +60,6 @@ function getPageConfigPaths() {
         .filter(({is_base}) => is_base)
         .map(({file_path}) => file_path)
     )
-}
-
-function getPageConfigs() {
-    const {buildOutputDir} = getProjectFiles__with_cache();
-
-    const assetInfos = getAssetInfos({outputDir: buildOutputDir});
-
-    const pageConfigs = (
-        assetInfos
-        .pageAssets
-        .map(({pageName, pageExport, styles, scripts}) => {
-            const pageConfig = pageExport;
-
-            pageConfig.scripts = make_paths_array_unique([
-                ...(scripts||[]),
-                ...(pageConfig.scripts||[]),
-            ]);
-
-            pageConfig.styles = make_paths_array_unique([
-                ...(styles||[]),
-                ...(pageConfig.styles||[])
-            ]);
-
-            return pageConfig;
-        })
-    );
-
-    return pageConfigs;
-}
-function make_paths_array_unique(paths) {
-    assert_internal(
-        paths.every(
-            path => (
-                path && path.constructor===Object ||
-                path && path.constructor===String && path.startsWith('/')
-            )
-        ),
-        paths
-    );
-    return [...new Set(paths)];
 }
 
 function get_page_files({pagesDir}) {
@@ -195,14 +137,6 @@ function assertProjectFound() {
     );
     */
 }
-
-/*
-function build() {
-    const {projectRootDir} = getProjectFiles__with_cache();
-    assert_internal(projectRootDir);
-    return require(resolvePackagePath('@reframe/build', projectRootDir));
-}
-*/
 
 function server() {
     const {projectRootDir} = getProjectFiles__with_cache();
