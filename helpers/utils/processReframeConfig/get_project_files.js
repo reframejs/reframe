@@ -29,7 +29,7 @@ function get_project_files(_processed/*, r_objects*/) {
     _processed.getPageConfigPaths = getPageConfigPaths;
     _processed.getPageConfigs = getPageConfigs;
     _processed.assertProjectFound = assertProjectFound;
-    _processed.build = build;
+ // _processed.build = build;
     _processed.server = server;
 }
 
@@ -196,12 +196,13 @@ function assertProjectFound() {
     */
 }
 
+/*
 function build() {
     const {projectRootDir} = getProjectFiles__with_cache();
     assert_internal(projectRootDir);
     return require(resolvePackagePath('@reframe/build', projectRootDir));
-
 }
+*/
 
 function server() {
     const {projectRootDir} = getProjectFiles__with_cache();

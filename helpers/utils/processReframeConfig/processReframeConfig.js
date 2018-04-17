@@ -62,10 +62,9 @@
 */
 
 
-const assert = require('reassert');
-const assert_internal = assert;
-const assert_usage = assert;
-const assert_plugin = assert;
+const assert_internal = require('reassert/internal');
+const assert_usage = require('reassert/usage');
+const assert_plugin = assert_usage;
 const path_module = require('path');
 const defaultKit = require('@reframe/default-kit');
 const cliPlugins = require('@reframe/cli-plugins');
@@ -84,6 +83,7 @@ function processReframeConfig(reframeConfig) {
     get_repage_plugins(_processed, r_objects, false);
     get_project_files(_processed, r_objects);
     get_cli_commands(_processed, r_objects);
+    get_build_functions(_processed, r_objects);
     reframeConfig._processed = _processed;
 }
 
@@ -163,4 +163,29 @@ function get_cli_commands(_processed, r_objects) {
 
 function add_cli_plugins(config, r_objects) {
     return cliPlugins();
+}
+
+function get_build_functions(_processed, r_objects) {
+    const build = _processed.build = {};
+
+    r_objects
+    .forEach(r_object => {
+        if (r_object.build) {
+            ['executeBuild', 'getPageConfigs', 'getStaticAssetsDir']
+            .forEach(buildFunctionName => {
+                const modulePath = r_object.build[buildFunctionName];
+                assert_plugin(modulePath);
+                require.resolve(modulePath);
+                build[buildFunctionName] = resolver(modulePath);
+            });
+        }
+    });
+
+    function resolver(modulePath) {
+        return function () {
+            const module = require(modulePath);
+            assert_plugin(module instanceof Function, modulePath);
+            return module.apply(this, arguments);
+        };
+    }
 }

@@ -1,7 +1,6 @@
 {
   "name": "@reframe/build",
   "version": "0.0.1-rc.14",
-  "main": "./build",
   "dependencies": {
     "@reframe/browser": "0.0.1-rc.14",
     "@reframe/utils": "0.0.1-rc.14",

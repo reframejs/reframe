@@ -44,7 +44,7 @@ function create_repage_object() {
     const {repage_plugins} = projectConfig;
     assert_internal(repage_plugins.constructor===Array);
 
-    const pageConfigs = projectConfig.getPageConfigs();
+    const pageConfigs = projectConfig.build.getPageConfigs();
     assert_internal(repage_plugins.constructor===Array);
 
     const repage_object = new Repage();

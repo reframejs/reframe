@@ -47,7 +47,7 @@ function startCommands() {
 async function runStart() {
     const projectConfig = init.apply(null, arguments);
 
-    await projectConfig.build();
+    await projectConfig.build.executeBuild();
 
     await projectConfig.server();
 }
@@ -55,7 +55,7 @@ async function runStart() {
 async function build() {
     const projectConfig = init.apply(null, arguments);
 
-    await projectConfig.build();
+    await projectConfig.build.executeBuild();
 }
 
 async function runStartServer() {
