@@ -76,14 +76,14 @@ function BuildManager({buildName, buildFunction, onStateChange}) {
 
         function getEntryPoints(compilationInfo) {
             assert_internal(compilationInfo.is_compiling===false);
-            assert_compilationState(compilationInfo);
+            assert_compilationInfo(compilationInfo);
             const {entry_points} = compilationInfo.output;
             assert_internal(entry_points);
             return entry_points;
         }
 
         function onCompilationStateChange(compilationInfo) {
-            assert_compilationState(compilationInfo);
+            assert_compilationInfo(compilationInfo);
             assert_internal([true, false].includes(compilationInfo.is_compiling));
             assert_internal(compilationInfo.is_compiling || [true, false].includes(compilationInfo.is_failure));
             assert_internal(build_function_called);
@@ -135,14 +135,9 @@ function IsoBuilder() {
     */
 
     const onStateChange = compilationInfo => {
-        logCompilationStateChange(this);
-        if( ! compilationInfo.is_compiling && ! compilationInfo.is_failure && ! compilationInfo.is_first_build ) {
-            global.DEBUG_WATCH && console.log('REBUILD-REASON: webpack-watch for `'+'TODO'+'`');
-            this.build();
-        }
     };
 
-    this.browserBuild = new BuildManager({
+    const browserBuild = new BuildManager({
         buildName: 'browserBuild',
         buildFunction: ({webpackConfig, onCompilationStateChange}) => (
             serve(webpackConfig, {
@@ -158,7 +153,7 @@ function IsoBuilder() {
         onStateChange,
     });
 
-    this.nodejsBuild = new BuildManager({
+    const nodejsBuild = new BuildManager({
         buildName: 'nodejsBuild',
         buildFunction: ({webpackConfig, onCompilationStateChange}) => (
             build(webpackConfig, {
@@ -174,36 +169,55 @@ function IsoBuilder() {
 
     // TODO make private
     this.__compilationState = {
-        browser: this.browserBuild.__compilationInfo,
-        nodejs: this.nodejsBuild.__compilationInfo,
+        browser: browserBuild.__compilationInfo,
+        nodejs: nodejsBuild.__compilationInfo,
     };
 
     this.build = () => (
         buildAll({
             isoBuilder: this,
             latestRun,
+            nodejsBuild,
+            browserBuild,
         })
     );
 
+    return this;
+
+    function onStateChange(compilationInfo) {
+        assert_compilationInfo(compilationInfo);
+
+        {
+            const logger = this.logger;
+            const browserCompilationInfo = browserBuild.compilationInfo;
+            const nodejsCompilationInfo = browserBuild.compilationInfo;
+            logCompilationStateChange({logger, browserCompilationInfo, nodejsCompilationInfo});
+        }
+
+        if( ! compilationInfo.is_compiling && ! compilationInfo.is_failure && ! compilationInfo.is_first_build ) {
+            global.DEBUG_WATCH && console.log('REBUILD-REASON: webpack-watch for `'+'TODO'+'`');
+            build();
+        }
+    }
 }
 
-function logCompilationStateChange(isoBuilder) {
-    const build_state_browser = isoBuilder.__compilationState.browser;
-    const build_state_nodejs = isoBuilder.__compilationState.nodejs;
+function logCompilationStateChange({browserCompilationInfo, nodejsCompilationInfo, logger}) {
+    assert_compilationInfo(browserCompilationInfo);
+    assert_compilationInfo(nodejsCompilationInfo);
 
-    const is_failure = (build_state_browser||{}).is_failure===true || (build_state_nodejs||{}).is_failure===true;
-    const is_compiling = (build_state_browser||{}).is_compiling || (build_state_nodejs||{}).is_compiling;
+    const is_failure = (browserCompilationInfo||{}).is_failure===true || (nodejsCompilationInfo||{}).is_failure===true;
+    const is_compiling = (browserCompilationInfo||{}).is_compiling || (nodejsCompilationInfo||{}).is_compiling;
 
     if( is_failure && ! is_compiling ) {
-        isoBuilder.logger.onBuildStateChange({
+        logger.onBuildStateChange({
             is_compiling: false,
             is_failure: true,
-            compilation_info: [build_state_browser, build_state_nodejs],
+            compilation_info: [browserCompilationInfo, nodejsCompilationInfo],
         });
     }
 
-    if( is_compiling && ! isoBuilder.logger.build_state.is_compiling ) {
-        isoBuilder.logger.onBuildStateChange({
+    if( is_compiling && ! logger.build_state.is_compiling ) {
+        logger.onBuildStateChange({
             is_compiling: true,
         });
     }
@@ -227,7 +241,7 @@ function create_file_writer(isoBuilder) {
     };
 }
 
-async function buildAll({isoBuilder, latestRun, buildCacheNodejs, buildCacheBrowser}) {
+async function buildAll({isoBuilder, latestRun, browserBuild, nodejsBuild}) {
     global.DEBUG_WATCH && console.log('START-BUILDER');
 
     assert_isoBuilder(isoBuilder);
@@ -248,23 +262,13 @@ async function buildAll({isoBuilder, latestRun, buildCacheNodejs, buildCacheBrow
         isObsolete: () => run.runNumber!==latestRun.runNumber,
     };
 
-    /*
     const buildForNodejs = (
         webpackConfig =>
-            build_nodejs({isoBuilder, buildCacheNodejs, webpackConfig, run})
+            browserBuild.runBuild({webpackConfig, runIsOutdated: run.isObsolete})
     );
     const buildForBrowser = (
         webpackConfig =>
-            build_browser({isoBuilder, buildCacheBrowser, webpackConfig, run})
-    );
-    */
-    const buildForNodejs = (
-        webpackConfig =>
-            isoBuilder.browserBuild.runBuild({webpackConfig, runIsOutdated: run.isObsolete})
-    );
-    const buildForBrowser = (
-        webpackConfig =>
-            isoBuilder.nodejsBuild.runBuild({webpackConfig, runIsOutdated: run.isObsolete})
+            nodejsBuild.runBuild({webpackConfig, runIsOutdated: run.isObsolete})
     );
 
     const generator = isoBuilder.builder({buildForNodejs, buildForBrowser});
@@ -316,7 +320,7 @@ function onCompilationStateChange({isoBuilder, compilationState, run, buildState
     if( skip ) {
         return;
     }
-    assert_compilationState(compilationState);
+    assert_compilationInfo(compilationState);
     isoBuilder.__compilationState[buildStateProp] = compilationState;
     isoBuilder.buildState[buildStateProp] = {
         isCompiling: compilationState.is_compiling,
@@ -404,7 +408,6 @@ function build_browser({webpackConfig, isoBuilder, buildCacheBrowser, run}) {
         run,
     });
 }
-*/
 
 function build_nodejs({webpackConfig, isoBuilder, buildCacheNodejs, run}) {
     assert_isoBuilder(isoBuilder);
@@ -440,15 +443,19 @@ function build_nodejs({webpackConfig, isoBuilder, buildCacheNodejs, run}) {
         run,
     });
 }
+*/
 
-function assert_compilationState(compilationState) {
+function assert_compilationInfo(compilationState) {
     assert_internal([true, false].includes(compilationState.is_compiling));
     if( compilationState.is_compiling ) {
         return;
     }
+    assert_internal([true, false].includes(compilationState.is_failure));
     assert_internal(compilationState.output, compilationState);
     assert_internal(compilationState.output.dist_root_directory);
+    assert_internal(compilationState.output.entry_points);
 }
+/*
 async function build_iso({
     webpackConfig,
     isoBuilder,
@@ -511,6 +518,7 @@ async function build_iso({
 
     return ret;
 }
+*/
 
 /*
 function assert_buildState({isoBuilder, buildStateProp}) {
