@@ -25,6 +25,12 @@
     path-is-inside "^1.0.2"
     reassert "^1.1.0"
 
+"@brillout/get-user-dir@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@brillout/get-user-dir/-/get-user-dir-0.1.2.tgz#c3c91b1575d3c3f4fe90f834841a653afbc5fc98"
+  dependencies:
+    callsites "^2.0.0"
+
 "@brillout/get-user-dir@latest":
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/@brillout/get-user-dir/-/get-user-dir-0.1.0.tgz#d201f4d110fcfec1800ab72c82aa47eb26ad2abc"
@@ -1315,7 +1321,7 @@ chokidar@^1.7.0:
   optionalDependencies:
     fsevents "^1.0.0"
 
-chokidar@^2.0.2:
+chokidar@^2.0.2, chokidar@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-2.0.3.tgz#dcbd4f6cbb2a55b4799ba8a840ac527e5f4b1176"
   dependencies:
@@ -5474,6 +5480,10 @@ reassert@^1.0.3, reassert@^1.0.4, reassert@^1.1.0, reassert@latest:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/reassert/-/reassert-1.1.6.tgz#f085174b19e360f5827b351224f04c1fe311da3f"
 
+reassert@^1.1.7:
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/reassert/-/reassert-1.1.7.tgz#10cb3d9a6ad4de8cce6762791fa10a450e5a7851"
+
 redent@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/redent/-/redent-1.0.0.tgz#cf916ab1fd5f1f16dfb20822dd6ec7f730c2afde"
@@ -5986,6 +5996,12 @@ source-map-support@^0.4.15:
   dependencies:
     source-map "^0.5.6"
 
+source-map-support@^0.5.4:
+  version "0.5.4"
+  resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.5.4.tgz#54456efa89caa9270af7cd624cc2f123e51fbae8"
+  dependencies:
+    source-map "^0.6.0"
+
 source-map-url@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/source-map-url/-/source-map-url-0.4.0.tgz#3e935d7ddd73631b97659956d55128e87b5084a3"
@@ -6000,7 +6016,7 @@ source-map@^0.4.4:
   dependencies:
     amdefine ">=0.0.4"
 
-source-map@^0.6.1, source-map@~0.6.1:
+source-map@^0.6.0, source-map@^0.6.1, source-map@~0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.6.1.tgz#74722af32e9614e9c287a8d0bbde48b5e2f1a263"
 

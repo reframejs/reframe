@@ -2,7 +2,7 @@
   "name": "@brillout/webpack-utils",
   "version": "0.0.1-rc.14",
   "dependencies": {
-    "reassert": "latest"
+    "reassert": "^1.1.7"
   },
   "repository": "github:reframejs/reframe",
   "publishConfig": {
