@@ -31,7 +31,6 @@ function BuildManager({buildName, buildFunction, onStateChange}) {
     async function runBuild({webpackConfig, runIsOutdated}) {
         assert_usage(webpackConfig);
 
-        // TODO remove
         if( runIsOutdated() ) {
             return Promise.resolve({abortBuilder: true});
         }
@@ -263,16 +262,16 @@ async function buildAll({isoBuilder, latestRun, browserBuild, nodejsBuild}) {
 
     const run = {
         runNumber: latestRun.runNumber+1,
-        isObsolete: () => run.runNumber!==latestRun.runNumber,
+        isOutdated: () => run.runNumber!==latestRun.runNumber,
     };
 
     const buildForNodejs = (
         webpackConfig =>
-            nodejsBuild.runBuild({webpackConfig, runIsOutdated: run.isObsolete})
+            nodejsBuild.runBuild({webpackConfig, runIsOutdated: run.isOutdated})
     );
     const buildForBrowser = (
         webpackConfig =>
-            browserBuild.runBuild({webpackConfig, runIsOutdated: run.isObsolete})
+            browserBuild.runBuild({webpackConfig, runIsOutdated: run.isOutdated})
     );
 
     const generator = isoBuilder.builder({buildForNodejs, buildForBrowser});
@@ -284,26 +283,29 @@ async function buildAll({isoBuilder, latestRun, browserBuild, nodejsBuild}) {
     latestRun.overallPromise = run.overallPromise;
 
     let resolvedValue;
+    let isAborted = true;
     while( true ) {
         const yield = generator.next(resolvedValue);
-        assert_usage(yield.value && yield.value.then || yield.done && !yield.value);
-        const currentPromise = yield.value;
-        if( ! currentPromise ) {
+        if( yield.done ) {
+            assert_internal(!yield.value);
+            isAborted = false;
             break;
         }
+        const currentPromise = yield.value;
+        assert_usage(currentPromise && currentPromise.then);
         const resolveTimeout = gen_timeout({desc: 'Builder Promise'});
         resolvedValue = await currentPromise.then();
         resolveTimeout();
         if( resolvedValue && resolvedValue.abortBuilder ) {
-            assert_internal(run.isObsolete());
+            assert_internal(run.isOutdated());
             break;
         }
-        if( run.isObsolete() ) {
+        if( run.isOutdated() ) {
             break;
         }
     }
 
-    resolveOverallPromise();
+    resolveOverallPromise({isAborted});
 
     await waitOnLatestRun(latestRun);
 
@@ -319,7 +321,7 @@ async function buildAll({isoBuilder, latestRun, browserBuild, nodejsBuild}) {
 
 /*
 function onCompilationStateChange({isoBuilder, compilationState, run, buildStateProp}) {
-    const skip = run.isObsolete();
+    const skip = run.isOutdated();
     console.log(compilationState, buildStateProp, skip);
     if( skip ) {
         return;
@@ -360,12 +362,11 @@ function logCompilationStateChange(isoBuilder) {
 
 async function waitOnLatestRun(latestRun) {
     const {runNumber} = latestRun;
-    const result = await latestRun.overallPromise;
-    if( latestRun.runNumber === runNumber ) {
-        return result;
-    } else {
+    const {isAborted} = await latestRun.overallPromise;
+    if( latestRun.runNumber !== runNumber ) {
         return waitOnLatestRun(latestRun);
     }
+    assert_internal(isAborted===false);
 }
 
 /*
