@@ -1,5 +1,8 @@
 const assert_internal = require('reassert/internal');
 const assert_usage = require('reassert/usage');
+const mkdirp = require('mkdirp');
+const pathModule = require('path');
+const fs = require('fs');
 
 module.exports = handleOutputDir;
 
@@ -8,6 +11,7 @@ function handleOutputDir({outputDir}) {
 }
 
 function moveAndStampOutputDir({outputDir}) {
+    assert_usage(outputDir && pathModule.isAbsolute(outputDir), outputDir);
     const stamp_path = path__resolve(outputDir, 'build-stamp');
 
     handle_existing_output_dir();
@@ -109,24 +113,24 @@ function fs__read(filepath) {
     return fs.readFileSync(filepath, 'utf8');
 }
 function fs__write_file(path, content) {
-    assert_internal(is_abs(path));
+    assert_internal(pathModule.isAbsolute(path));
     mkdirp.sync(pathModule.dirname(path));
     fs.writeFileSync(path, content);
 }
 function fs__rename(path_old, path_new) {
-    assert_internal(is_abs(path_old));
-    assert_internal(is_abs(path_new));
+    assert_internal(pathModule.isAbsolute(path_old));
+    assert_internal(pathModule.isAbsolute(path_new));
     mkdirp.sync(pathModule.dirname(path_new));
     fs.renameSync(path_old, path_new);
 }
 function fs__ls(dirpath) {
-    assert_internal(is_abs(dirpath));
+    assert_internal(pathModule.isAbsolute(dirpath));
     const files = (
         fs.readdirSync(dirpath)
         .map(filename => path__resolve(dirpath, filename))
     );
     files.forEach(filepath => {
-        assert_internal(is_abs(filepath), dirpath, files);
+        assert_internal(pathModule.isAbsolute(filepath), dirpath, files);
         assert_internal(pathModule.relative(dirpath, filepath).split(pathModule.sep).length===1, dirpath, files);
     });
     return files;
@@ -139,4 +143,9 @@ function fs__path_exists(path) {
     catch(e) {
         return false;
     }
+}
+function path__resolve(path1, path2, ...paths) {
+    assert_internal(path1 && pathModule.isAbsolute(path1), path1);
+    assert_internal(path2 && path2.constructor===String, path2);
+    return pathModule.resolve(path1, path2, ...paths);
 }

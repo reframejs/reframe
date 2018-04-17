@@ -149,7 +149,7 @@ function config_entry({entry_points}) {
     }
     for(const bundle_name in bundles) {
         const bundle = bundles[bundle_name];
-        assert_usage(bundle && [String, Array].includes(bundle.constructor), bundle);
+        assert_usage(bundle && [String, Array].includes(bundle.constructor), bundles, bundle, bundle_name);
         if( bundle.constructor === String ) {
             bundles[bundle_name] = [bundle];
         }

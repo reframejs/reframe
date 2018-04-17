@@ -1,25 +1,17 @@
 const assert_internal = require('reassert/internal');
 const assert_usage = require('reassert/usage');
+const touch = require('touch');
+const pathModule = require('path');
+const mkdirp = require('mkdirp');
+const fs = require('fs');
 
-function create_file_writer(isoBuilder) {
-    const fs_handler = new FileSystemHandler();
-    return {
-        startWriteSession: fs_handler.startWriteSession,
-        endWriteSession: fs_handler.endWriteSession,
-        writeFile: ({filePath, fileContent, noSession}) => {
-            assert_usage(fileContent);
-            assert_usage(filePath);
-            assert_usage(!is_abs(filePath));
-            assert_isoBuilder(isoBuilder);
-            const {outputDir} = isoBuilder;
-            const file_path = path__resolve(outputDir, filePath);
-            fs_handler.writeFile(file_path, fileContent, noSession);
-            return file_path;
-        },
-    };
-}
 
-function FileSystemHandler() {
+module.exports = FileSets;
+
+
+function FileSets({pathBase}={}) {
+    assert_usage(!pathBase || pathModule.isAbsolute(pathBase));
+
     const written_files = [];
 
     const sessions = {};
@@ -28,11 +20,11 @@ function FileSystemHandler() {
 
     return {
         writeFile,
-        startWriteSession,
-        endWriteSession,
+        startFileSet,
+        endFileSet,
     };
 
-    function startWriteSession(session_name) {
+    function startFileSet(session_name) {
         assert_usage(current_session===null);
         current_session = session_name;
         const session_object = sessions[current_session] = sessions[current_session] || {};
@@ -40,80 +32,90 @@ function FileSystemHandler() {
         session_object.written_files__current = [];
         session_object.is_first_session = session_object.is_first_session===undefined ? true : false;
     }
-    function endWriteSession() {
+    function endFileSet() {
         assert_usage(current_session);
         const session_object = sessions[current_session];
         removePreviouslyWrittenFiles(session_object);
         current_session = null;
     }
 
-    function writeFile(path, content, noSession) {
-        assert_usage(noSession || current_session);
-        assert_usage(is_abs(path));
+    function writeFile({filePath, fileContent, noFileSet}) {
+        assert_usage(noFileSet || current_session);
+        if( pathBase ) {
+            filePath = path__resolve(pathBase, filePath);
+        }
+        assert_usage(pathModule.isAbsolute(filePath));
 
         let session_object;
-        if( ! noSession ) {
+        if( ! noFileSet ) {
             session_object = sessions[current_session];
-            session_object.written_files__current.push(path);
+            session_object.written_files__current.push(filePath);
         }
 
-        const no_changes = fs__path_exists(path) && fs__read(path)===content;
+        const no_changes = fs__path_exists(filePath) && fs__read(filePath)===fileContent;
         if( no_changes ) {
-            return;
+            return filePath;
         }
 
-        global.DEBUG_WATCH && console.log('FILE-CHANGED: '+path);
+        global.DEBUG_WATCH && console.log('FILE-CHANGED: '+filePath);
 
-        fs__write_file(path, content);
+        fs__write_file(filePath, fileContent);
 
-        if( ! noSession && session_object.is_first_session ) {
+        if( ! noFileSet && session_object.is_first_session ) {
             // Webpack bug fix
             //  - https://github.com/yessky/webpack-mild-compile
             //  - https://github.com/webpack/watchpack/issues/25
             //  - alternative solution: `require('webpack-mild-compile')`
             const twelve_minutes = 1000*60*12;
             const time = new Date() - twelve_minutes;
-            touch.sync(path, {time});
+            touch.sync(filePath, {time});
         }
+
+        return filePath;
     }
 
     function removePreviouslyWrittenFiles(session_object) {
-        session_object.written_files__previously.forEach(path => {
-            if( ! session_object.written_files__current.includes(path) ) {
-                global.DEBUG_WATCH && console.log('FILE-REMOVED: '+path);
-                fs__remove(path);
+        session_object.written_files__previously.forEach(filePath => {
+            if( ! session_object.written_files__current.includes(filePath) ) {
+                global.DEBUG_WATCH && console.log('FILE-REMOVED: '+filePath);
+                fs__remove(filePath);
             }
         });
     }
 }
 
-function fs__read(filepath) {
-    return fs.readFileSync(filepath, 'utf8');
+function fs__read(filePath) {
+    return fs.readFileSync(filePath, 'utf8');
 }
-function fs__write_file(path, content) {
-    assert_internal(is_abs(path));
-    mkdirp.sync(pathModule.dirname(path));
-    fs.writeFileSync(path, content);
+function fs__write_file(filePath, fileContent) {
+    assert_internal(pathModule.isAbsolute(filePath));
+    mkdirp.sync(pathModule.dirname(filePath));
+    fs.writeFileSync(filePath, fileContent);
 }
-function fs__remove(path) {
-    if( fs__file_exists(path) ) {
-        fs.unlinkSync(path);
+function fs__remove(filePath) {
+    if( fs__file_exists(filePath) ) {
+        fs.unlinkSync(filePath);
     }
 }
-function fs__file_exists(path) {
+function fs__file_exists(filePath) {
     try {
-        return fs.statSync(path).isFile();
+        return fs.statSync(filePath).isFile();
     }
     catch(e) {
         return false;
     }
 }
-function fs__path_exists(path) {
+function fs__path_exists(filePath) {
     try {
-        fs.statSync(path);
+        fs.statSync(filePath);
         return true;
     }
     catch(e) {
         return false;
     }
+}
+function path__resolve(path1, path2, ...paths) {
+    assert_internal(path1 && pathModule.isAbsolute(path1), path1);
+    assert_internal(path2 && path2.constructor===String, path2);
+    return pathModule.resolve(path1, path2, ...paths);
 }

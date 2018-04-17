@@ -1,21 +1,19 @@
 const assert_internal = require('reassert/internal');
 const assert_usage = require('reassert/usage');
 const assert_warning = require('reassert/warning');
-const mkdirp = require('mkdirp');
+const deepEqual = require('deep-equal');
+const fs = require('fs');
+
 const serve = require('@rebuild/serve');
 const build = require('@rebuild/build');
 const {Logger} = require('@rebuild/build/utils/Logger');
-const pathModule = require('path');
-const fs = require('fs');
-const touch = require('touch');
-const deepEqual = require('deep-equal');
 
 //*
 global.DEBUG_WATCH = true;
 //*/
 
-module.exports = {IsoBuilder};
 
+module.exports = {IsoBuilder};
 
 
 function IsoBuilder() {

@@ -5,7 +5,6 @@
     "@brillout/fetch": "^0.0.2",
     "@reframe/browser": "0.0.1-rc.14",
     "@reframe/build": "0.0.1-rc.14",
-    "@reframe/run": "0.0.1-rc.14",
     "@reframe/server": "0.0.1-rc.14",
     "@repage/browser": "0.0.1-rc.14",
     "@repage/core": "0.0.1-rc.14",

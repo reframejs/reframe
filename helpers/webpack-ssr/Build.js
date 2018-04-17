@@ -11,6 +11,7 @@ const getDefaultBrowserConfig = require('./getDefaultBrowserConfig');
 const getDefaultNodejsConfig = require('./getDefaultNodejsConfig');
 const webpackUtils = require('@brillout/webpack-utils');
 const handleOutputDir = require('./handleOutputDir');
+const FileSets = require('@brillout/file-sets');
 
 const SOURCE_CODE_OUTPUT = 'source-code';
 const BROWSER_OUTPUT = 'browser';
@@ -37,7 +38,8 @@ function BuildInstance() {
     const {outputDir} = this;
     assert_usage(outputDir);
     isoBuilder.outputDir = outputDir;
-    handleOutputDir(outputDir);
+    handleOutputDir({outputDir});
+    const fileSets = new FileSets({pathBase: outputDir});
 
     const that = this;
 
@@ -53,14 +55,12 @@ function BuildInstance() {
 
         that.pageBrowserEntries = getPageBrowserEntries.call(that);
 
-        const {fileWriter} = isoBuilder;
-
-        const browserConfig = getBrowserConfig.call(that, {fileWriter});
+        const browserConfig = getBrowserConfig.call(that, {fileSets});
         const browserEntryPoints = yield buildForBrowser(browserConfig);
 
-        writeAssetMap.call(that, {browser_entry_points: browserEntryPoints, fileWriter});
+        writeAssetMap.call(that, {browser_entry_points: browserEntryPoints, fileSets});
 
-        yield writeHtmlFiles.call(that, {fileWriter});
+        yield writeHtmlFiles.call(that, {fileSets});
 
         if( ! isProduction() ) {
             reloadBrowser();
@@ -80,8 +80,8 @@ function getNodejsConfig() {
     return nodejsConfig;
 }
 
-function getBrowserConfig({fileWriter}) {
-    const generatedEntries = generateBrowserEntries.call(this, {fileWriter});
+function getBrowserConfig({fileSets}) {
+    const generatedEntries = generateBrowserEntries.call(this, {fileSets});
     const browserEntries = getBrowserEntries(generatedEntries);
     const browserOutputPath = pathModule.resolve(this.outputDir, BROWSER_OUTPUT);
     const defaultBrowserConfig = getDefaultBrowserConfig({entries: browserEntries, outputPath: browserOutputPath});
@@ -217,12 +217,12 @@ function getBrowserEntries(generatedEntries) {
 
     return browserEntries;
 }
-function generateBrowserEntries({fileWriter}) {
+function generateBrowserEntries({fileSets}) {
     const {pageBrowserEntries} = this;
 
     const generatedEntries = {};
 
-    fileWriter.startWriteSession('BROWSER_SOURCE_CODE');
+    fileSets.startFileSet('BROWSER_SOURCE_CODE');
 
     Object.values(pageBrowserEntries)
     .forEach(pageBrowserEntry => {
@@ -231,39 +231,40 @@ function generateBrowserEntries({fileWriter}) {
 
         assert_usage(browserEntryString && browserEntryString.constructor===String);
 
-        const fileAbsolutePath = fileWriter.writeFile({
+        const fileAbsolutePath = fileSets.writeFile({
             fileContent: browserEntryString,
             filePath: pathModule.join(SOURCE_CODE_OUTPUT, 'browser-entries', pageName+'-browser.js'),
         });
+        assert_internal(fileAbsolutePath);
 
         assert_internal(!generatedEntries[pageName]);
         generatedEntries[pageName] = fileAbsolutePath;
     });
 
-    fileWriter.endWriteSession();
+    fileSets.endFileSet();
 
     return generatedEntries;
 }
 
-async function writeHtmlFiles({fileWriter}) {
+async function writeHtmlFiles({fileSets}) {
     const {pageModules} = this;
     assert_internal(pageModules);
 
     const htmlStrings = await this.getPageHTMLs();
     assert_usage(htmlStrings && htmlStrings.constructor===Array);
 
-    fileWriter.startWriteSession('html_files');
+    fileSets.startFileSet('html_files');
 
     htmlStrings
     .forEach(({pathname, html}) => {
         assert_input({pathname, html});
-        fileWriter.writeFile({
+        fileSets.writeFile({
             fileContent: html,
             filePath: get_file_path(pathname),
         });
     });
 
-    fileWriter.endWriteSession();
+    fileSets.endFileSet();
 
     return;
 
@@ -282,7 +283,7 @@ async function writeHtmlFiles({fileWriter}) {
     }
 }
 
-function writeAssetMap({browser_entry_points, fileWriter}) {
+function writeAssetMap({browser_entry_points, fileSets}) {
     const {pageBrowserEntries, pageNames, pageModules} = this;
     assert_internal(pageBrowserEntries);
     assert_internal(pageNames);
@@ -302,10 +303,10 @@ function writeAssetMap({browser_entry_points, fileWriter}) {
 
     assert_assertMap(assetInfos);
 
-    fileWriter.writeFile({
+    fileSets.writeFile({
         fileContent: JSON.stringify(assetInfos, null, 2),
         filePath: 'assetInfos.json',
-        noSession: true,
+        noFileSet: true,
     });
 }
 function addPageFileTranspiled({assetInfos, pageModules}) {
