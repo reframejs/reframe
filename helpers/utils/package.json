@@ -4,11 +4,12 @@
   "dependencies": {
     "@brillout/find": "latest",
     "@brillout/get-user-dir": "latest",
+    "@brillout/webpack-utils": "^0.0.1-rc.13",
     "@reframe/cli-plugins": "0.0.1-rc.14",
     "@reframe/default-kit": "0.0.1-rc.14",
-    "callsites": "^2.0.0",
     "find-up": "^2.1.0",
-    "reassert": "latest"
+    "reassert": "latest",
+    "webpack-ssr": "^0.0.1-alpha.0"
   },
   "publishConfig": {
     "access": "public"

@@ -3,7 +3,7 @@ const assert_usage = require('reassert/usage');
 const pathModule = require('path');
 const find = require('@brillout/find');
 const getUserDir = require('@brillout/get-user-dir');
-const find_reframe_config = require('@reframe/utils/find_reframe_config');
+const find_reframe_config = require('../find_reframe_config');
 const fs = require('fs');
 
 // TODO use projectConfig plugin mod instead

@@ -2,14 +2,8 @@
   "name": "@reframe/browser",
   "version": "0.0.1-rc.14",
   "dependencies": {
-    "@reframe/utils": "0.0.1-rc.14",
     "@repage/browser": "0.0.1-rc.14",
-    "@repage/core": "0.0.1-rc.14",
-    "@repage/navigator": "0.0.1-rc.14",
-    "@repage/renderer": "0.0.1-rc.14",
-    "@repage/renderer-react": "0.0.1-rc.14",
-    "@repage/router-crossroads": "0.0.1-rc.14",
-    "reassert": "latest"
+    "@repage/core": "0.0.1-rc.14"
   },
   "publishConfig": {
     "access": "public"

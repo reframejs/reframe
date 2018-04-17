@@ -3,22 +3,11 @@
   "version": "0.0.1-rc.14",
   "main": "./build",
   "dependencies": {
-    "@rebuild/build": "0.0.1-rc.14",
-    "@rebuild/config": "0.0.1-rc.14",
-    "@rebuild/iso": "0.0.1-rc.14",
-    "@rebuild/serve": "0.0.1-rc.14",
     "@reframe/browser": "0.0.1-rc.14",
     "@reframe/utils": "0.0.1-rc.14",
     "@repage/build": "0.0.1-rc.14",
     "@repage/core": "0.0.1-rc.14",
-    "@repage/renderer": "0.0.1-rc.14",
-    "@repage/renderer-react": "0.0.1-rc.14",
-    "@repage/router-crossroads": "0.0.1-rc.14",
-    "chokidar": "^2.0.2",
-    "mime": "^2.2.0",
-    "mkdirp": "^0.5.1",
-    "node-dir": "^0.1.17",
-    "reassert": "latest",
+    "reassert": "^1.1.7",
     "webpack-ssr": "0.0.1-rc.14"
   },
   "publishConfig": {

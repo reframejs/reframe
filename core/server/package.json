@@ -2,13 +2,12 @@
   "name": "@reframe/server",
   "version": "0.0.1-rc.14",
   "dependencies": {
-    "@reframe/build": "0.0.1-rc.14",
+    "@rebuild/build": "^0.0.1-rc.7",
     "@reframe/utils": "0.0.1-rc.14",
     "@repage/core": "0.0.1-rc.14",
-    "@repage/renderer": "0.0.1-rc.14",
-    "@repage/renderer-react": "0.0.1-rc.14",
-    "@repage/router-crossroads": "0.0.1-rc.14",
     "@repage/server": "0.0.1-rc.14",
+    "chalk": "^2.4.0",
+    "hapi": "^17.3.1",
     "reassert": "latest"
   },
   "publishConfig": {
