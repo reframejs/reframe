@@ -25,6 +25,8 @@
         "helpers/webpack-ssr",
         "helpers/webpack-utils",
 
+        "helpers/file-sets",
+
         "helpers/repage/core/core",
         "helpers/repage/core/build",
         "helpers/repage/core/browser",

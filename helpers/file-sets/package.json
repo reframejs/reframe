@@ -1,0 +1,11 @@
+{
+  "name": "@brillout/file-sets",
+  "version": "0.0.1-rc.14",
+  "dependencies": {
+    "reassert": "latest"
+  },
+  "repository": "https://github.com/reframejs/reframe/tree/master/helpers/file-sets",
+  "publishConfig": {
+    "access": "public"
+  }
+}

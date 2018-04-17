@@ -10,6 +10,7 @@ const getUserDir = require('@brillout/get-user-dir');
 const getDefaultBrowserConfig = require('./getDefaultBrowserConfig');
 const getDefaultNodejsConfig = require('./getDefaultNodejsConfig');
 const webpackUtils = require('@brillout/webpack-utils');
+const handleOutputDir = require('./handleOutputDir');
 
 const SOURCE_CODE_OUTPUT = 'source-code';
 const BROWSER_OUTPUT = 'browser';
@@ -32,8 +33,11 @@ function BuildInstance() {
     const isoBuilder = new IsoBuilder();
 
     isoBuilder.logger = Logger({log_config_and_stats: (this.log||{}).verbose});
-    assert_usage(this.outputDir);
-    isoBuilder.outputDir = this.outputDir;
+
+    const {outputDir} = this;
+    assert_usage(outputDir);
+    isoBuilder.outputDir = outputDir;
+    handleOutputDir(outputDir);
 
     const that = this;
 

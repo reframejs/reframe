@@ -18,95 +18,7 @@ module.exports = {IsoBuilder};
 
 
 
-function BuildManager({buildName, buildFunction, onStateChange}) {
-
-    this.runBuild = runBuild;
-
-    this.__compilationInfo = null;
-
-    let __current;
-
-    return this;
-
-    async function runBuild({webpackConfig, runIsOutdated}) {
-        assert_usage(webpackConfig);
-
-        if( runIsOutdated() ) {
-            return Promise.resolve({abortBuilder: true});
-        }
-
-        assert_internal(__current !== null);
-        if( __current ) {
-            if( deepEqual(__current.webpackConfig, webpackConfig) ) {
-                global.DEBUG_WATCH && console.log('CACHED-BUILD '+buildName);
-                const resolveTimeout = gen_timeout({desc: 'Cached Build '+buildName});
-                const compilationInfo = await __current.wait_build();
-                resolveTimeout();
-                return getEntryPoints(compilationInfo);
-            } else {
-                global.DEBUG_WATCH && console.log('STOP-BUILD '+buildName);
-                const resolveTimeout = gen_timeout({desc: 'Stop Build '+buildName});
-                await __current.stop_build();
-                resolveTimeout();
-                const {output: {path: webpackOutputPath}={}} = webpackConfig;
-                assert_usage(webpackOutputPath, webpackConfig);
-                remove_output_path(webpackOutputPath);
-            }
-        }
-
-        __current = null;
-
-        const {stop_build, wait_build, first_build_promise} = (
-            buildFunction({
-                webpackConfig,
-                onCompilationStateChange: onCompilationStateChange.bind(this),
-            })
-        );
-        assert_internal(first_build_promise);
-        assert_internal(wait_build);
-        assert_internal(stop_build);
-
-        let build_function_called = true;
-
-        const cache_id = Symbol();
-        __current = {
-            webpackConfig,
-            stop_build,
-            wait_build,
-            cache_id,
-        };
-
-        const compilationInfo = await first_build_promise;
-
-        return getEntryPoints(compilationInfo);
-
-        function getEntryPoints(compilationInfo) {
-            assert_internal(compilationInfo.is_compiling===false);
-            assert_compilationInfo(compilationInfo);
-            const {entry_points} = compilationInfo.output;
-            assert_internal(entry_points);
-            return entry_points;
-        }
-
-        function onCompilationStateChange(compilationInfo) {
-            assert_compilationInfo(compilationInfo);
-            assert_internal([true, false].includes(compilationInfo.is_compiling));
-            assert_internal(compilationInfo.is_compiling || [true, false].includes(compilationInfo.is_failure));
-            assert_internal(build_function_called);
-
-            if( __current.cache_id !== cache_id ) {
-                return;
-            }
-
-            this.__compilationInfo = compilationInfo;
-            onStateChange(compilationInfo);
-        }
-    }
-}
-
 function IsoBuilder() {
-    this.fileWriter = create_file_writer(this);
-
     const latestRun = {
         runNumber: 0,
     };
@@ -175,61 +87,99 @@ function IsoBuilder() {
     }
 }
 
-function logCompilationStateChange({browserCompilationInfo, nodejsCompilationInfo, logger}) {
-    assert_compilationInfo(browserCompilationInfo);
-    assert_compilationInfo(nodejsCompilationInfo);
+function BuildManager({buildName, buildFunction, onStateChange}) {
 
-    const is_failure = (browserCompilationInfo||{}).is_failure===true || (nodejsCompilationInfo||{}).is_failure===true;
-    const is_compiling = (browserCompilationInfo||{}).is_compiling || (nodejsCompilationInfo||{}).is_compiling;
+    this.runBuild = runBuild;
 
-    if( is_failure && ! is_compiling ) {
-        logger.onBuildStateChange({
-            is_compiling: false,
-            is_failure: true,
-            compilation_info: [browserCompilationInfo, nodejsCompilationInfo],
-        });
+    this.__compilationInfo = null;
+
+    let __current;
+
+    return this;
+
+    async function runBuild({webpackConfig, runIsOutdated}) {
+        assert_usage(webpackConfig);
+
+        if( runIsOutdated() ) {
+            return Promise.resolve({abortBuilder: true});
+        }
+
+        assert_internal(__current !== null);
+        if( __current ) {
+            if( deepEqual(__current.webpackConfig, webpackConfig) ) {
+                global.DEBUG_WATCH && console.log('CACHED-BUILD '+buildName);
+                const resolveTimeout = gen_timeout({desc: 'Cached Build '+buildName});
+                const compilationInfo = await __current.wait_build();
+                resolveTimeout();
+                return getEntryPoints(compilationInfo);
+            } else {
+                global.DEBUG_WATCH && console.log('STOP-BUILD '+buildName);
+                const resolveTimeout = gen_timeout({desc: 'Stop Build '+buildName});
+                await __current.stop_build();
+                resolveTimeout();
+                const {output: {path: webpackOutputPath}={}} = webpackConfig;
+                assert_usage(webpackOutputPath, webpackConfig);
+                fs__remove(webpackOutputPath);
+            }
+        }
+
+        __current = null;
+
+        const {stop_build, wait_build, first_build_promise} = (
+            buildFunction({
+                webpackConfig,
+                onCompilationStateChange: onCompilationStateChange.bind(this),
+            })
+        );
+        assert_internal(first_build_promise);
+        assert_internal(wait_build);
+        assert_internal(stop_build);
+
+        let build_function_called = true;
+
+        const cache_id = Symbol();
+        __current = {
+            webpackConfig,
+            stop_build,
+            wait_build,
+            cache_id,
+        };
+
+        const compilationInfo = await first_build_promise;
+
+        return getEntryPoints(compilationInfo);
+
+        function getEntryPoints(compilationInfo) {
+            assert_internal(compilationInfo.is_compiling===false);
+            assert_compilationInfo(compilationInfo);
+            const {entry_points} = compilationInfo.output;
+            assert_internal(entry_points);
+            return entry_points;
+        }
+
+        function onCompilationStateChange(compilationInfo) {
+            assert_compilationInfo(compilationInfo);
+            assert_internal([true, false].includes(compilationInfo.is_compiling));
+            assert_internal(compilationInfo.is_compiling || [true, false].includes(compilationInfo.is_failure));
+            assert_internal(build_function_called);
+
+            if( __current.cache_id !== cache_id ) {
+                return;
+            }
+
+            this.__compilationInfo = compilationInfo;
+            onStateChange(compilationInfo);
+        }
     }
-
-    if( is_compiling && ! logger.build_state.is_compiling ) {
-        logger.onBuildStateChange({
-            is_compiling: true,
-        });
-    }
-}
-
-function create_file_writer(isoBuilder) {
-    const fs_handler = new FileSystemHandler();
-    return {
-        startWriteSession: fs_handler.startWriteSession,
-        endWriteSession: fs_handler.endWriteSession,
-        writeFile: ({filePath, fileContent, noSession}) => {
-            assert_usage(fileContent);
-            assert_usage(filePath);
-            assert_usage(!is_abs(filePath));
-            assert_isoBuilder(isoBuilder);
-            const {outputDir} = isoBuilder;
-            const file_path = path__resolve(outputDir, filePath);
-            fs_handler.writeFile(file_path, fileContent, noSession);
-            return file_path;
-        },
-    };
 }
 
 async function buildAll({isoBuilder, latestRun, browserBuild, nodejsBuild}) {
     global.DEBUG_WATCH && console.log('START-BUILDER');
 
-    assert_isoBuilder(isoBuilder);
-
     isoBuilder.logger = isoBuilder.logger || Logger();
     isoBuilder.logger.onBuildStateChange({
         is_compiling: true,
     });
-
-    const {outputDir} = isoBuilder;
-
-    if( latestRun.runNumber === 0 ) {
-        moveAndStampOutputDir({outputDir});
-    }
 
     const run = {
         runNumber: latestRun.runNumber+1,
@@ -245,6 +195,7 @@ async function buildAll({isoBuilder, latestRun, browserBuild, nodejsBuild}) {
             browserBuild.runBuild({webpackConfig, runIsOutdated: run.isOutdated})
     );
 
+    assert_usage(isoBuilder.builder);
     const generator = isoBuilder.builder({buildForNodejs, buildForBrowser});
 
     const {promise: overallPromise, resolvePromise: resolveOverallPromise} = gen_promise();
@@ -299,6 +250,28 @@ async function waitOnLatestRun(latestRun) {
     assert_internal(isAborted===false);
 }
 
+function logCompilationStateChange({browserCompilationInfo, nodejsCompilationInfo, logger}) {
+    assert_compilationInfo(browserCompilationInfo);
+    assert_compilationInfo(nodejsCompilationInfo);
+
+    const is_failure = (browserCompilationInfo||{}).is_failure===true || (nodejsCompilationInfo||{}).is_failure===true;
+    const is_compiling = (browserCompilationInfo||{}).is_compiling || (nodejsCompilationInfo||{}).is_compiling;
+
+    if( is_failure && ! is_compiling ) {
+        logger.onBuildStateChange({
+            is_compiling: false,
+            is_failure: true,
+            compilation_info: [browserCompilationInfo, nodejsCompilationInfo],
+        });
+    }
+
+    if( is_compiling && ! logger.build_state.is_compiling ) {
+        logger.onBuildStateChange({
+            is_compiling: true,
+        });
+    }
+}
+
 function assert_compilationInfo(compilationState) {
     if( compilationState === null ) {
         return;
@@ -313,202 +286,12 @@ function assert_compilationInfo(compilationState) {
     assert_internal(compilationState.output.entry_points);
 }
 
-function remove_output_path(webpackOutputPath) {
-    fs__remove(webpackOutputPath);
-}
 
-function assert_isoBuilder(isoBuilder) {
-    assert_usage(isoBuilder.outputDir);
-    assert_usage(isoBuilder.builder);
-}
-
-function moveAndStampOutputDir({outputDir}) {
-    const stamp_path = path__resolve(outputDir, 'build-stamp');
-
-    handle_existing_output_dir();
-    assert_emtpy_output_dir();
-    create_output_dir();
-
-    return;
-
-    function create_output_dir() {
-        mkdirp.sync(pathModule.dirname(outputDir));
-        const timestamp = get_timestamp();
-        assert_internal(timestamp);
-        const stamp_content = get_timestamp()+'\n';
-        fs__write_file(stamp_path, stamp_content);
-    }
-
-    function get_timestamp() {
-        const now = new Date();
-
-        const date = (
-            [
-                now.getFullYear(),
-                now.getMonth()+1,
-                now.getDate(),
-            ]
-            .map(pad)
-            .join('-')
-        );
-
-        const time = (
-            [
-                now.getHours(),
-                now.getMinutes(),
-                now.getSeconds(),
-            ]
-            .map(pad)
-            .join('-')
-        );
-
-        return date+'_'+time;
-
-        function pad(n) {
-            return (
-                n>9 ? n : ('0'+n)
-            );
-        }
-    }
-
-    function handle_existing_output_dir() {
-        if( ! fs__path_exists(outputDir) ) {
-            return;
-        }
-        assert_usage(
-            fs__path_exists(stamp_path),
-            "Reframe's stamp `"+stamp_path+"` not found.",
-            "It is therefore assumed that `"+outputDir+"` has not been created by Reframe.",
-            "Remove `"+outputDir+"`, so that Reframe can safely write distribution files."
-        );
-        move_old_output_dir();
-    }
-
-    function assert_emtpy_output_dir() {
-        if( ! fs__path_exists(outputDir) ) {
-            return;
-        }
-        const files = fs__ls(outputDir);
-        assert_internal(files.length<=1, files);
-        assert_internal(files.length===1, files);
-        assert_internal(files[0].endsWith('previous'), files);
-    }
-
-    function move_old_output_dir() {
-        const stamp_content = fs__path_exists(stamp_path) && fs__read(stamp_path).trim();
-        assert_internal(
-            stamp_content,
-            'Reframe stamp is missing at `'+stamp_path+'`.',
-            'Remove `'+outputDir+'` and retry.',
-        );
-        assert_internal(stamp_content && !/\s/.test(stamp_content), stamp_content);
-        const graveyard_path = path__resolve(outputDir, 'previous', stamp_content);
-        move_all_files(outputDir, graveyard_path);
-    }
-
-    function move_all_files(path_old, path_new) {
-        const files = fs__ls(path_old);
-        files
-        .filter(filepath => !path_new.startsWith(filepath))
-        .forEach(filepath => {
-            const filepath__relative = pathModule.relative(path_old, filepath);
-            assert_internal(filepath__relative.split(pathModule.sep).length===1, path_old, filepath);
-            const filepath__new = path__resolve(path_new, filepath__relative);
-            fs__rename(filepath, filepath__new);
-        });
+function fs__remove(path) {
+    if( fs__file_exists(path) ) {
+        fs.unlinkSync(path);
     }
 }
-
-function fs__read(filepath) {
-    return fs.readFileSync(filepath, 'utf8');
-}
-
-
-
-function FileSystemHandler() {
-    const written_files = [];
-
-    const sessions = {};
-
-    let current_session = null;
-
-    return {
-        writeFile,
-        startWriteSession,
-        endWriteSession,
-    };
-
-    function startWriteSession(session_name) {
-        assert_usage(current_session===null);
-        current_session = session_name;
-        const session_object = sessions[current_session] = sessions[current_session] || {};
-        session_object.written_files__previously = session_object.written_files__current || [];
-        session_object.written_files__current = [];
-        session_object.is_first_session = session_object.is_first_session===undefined ? true : false;
-    }
-    function endWriteSession() {
-        assert_usage(current_session);
-        const session_object = sessions[current_session];
-        removePreviouslyWrittenFiles(session_object);
-        current_session = null;
-    }
-
-    function writeFile(path, content, noSession) {
-        assert_usage(noSession || current_session);
-        assert_usage(is_abs(path));
-
-        let session_object;
-        if( ! noSession ) {
-            session_object = sessions[current_session];
-            session_object.written_files__current.push(path);
-        }
-
-        const no_changes = fs__path_exists(path) && fs__read(path)===content;
-        if( no_changes ) {
-            return;
-        }
-
-        global.DEBUG_WATCH && console.log('FILE-CHANGED: '+path);
-
-        fs__write_file(path, content);
-
-        if( ! noSession && session_object.is_first_session ) {
-            // Webpack bug fix
-            //  - https://github.com/yessky/webpack-mild-compile
-            //  - https://github.com/webpack/watchpack/issues/25
-            //  - alternative solution: `require('webpack-mild-compile')`
-            const twelve_minutes = 1000*60*12;
-            const time = new Date() - twelve_minutes;
-            touch.sync(path, {time});
-        }
-    }
-
-    function removePreviouslyWrittenFiles(session_object) {
-        session_object.written_files__previously.forEach(path => {
-            if( ! session_object.written_files__current.includes(path) ) {
-                global.DEBUG_WATCH && console.log('FILE-REMOVED: '+path);
-                fs__remove(path);
-            }
-        });
-    }
-}
-
-function fs__write_file(path, content) {
-    assert_internal(is_abs(path));
-    mkdirp.sync(pathModule.dirname(path));
-    fs.writeFileSync(path, content);
-}
-
-function fs__path_exists(path) {
-    try {
-        fs.statSync(path);
-        return true;
-    }
-    catch(e) {
-        return false;
-    }
-}
-
 function fs__file_exists(path) {
     try {
         return fs.statSync(path).isFile();
@@ -517,43 +300,6 @@ function fs__file_exists(path) {
         return false;
     }
 }
-
-function fs__remove(path) {
-    if( fs__file_exists(path) ) {
-        fs.unlinkSync(path);
-    }
-}
-
-function fs__ls(dirpath) {
-    assert_internal(is_abs(dirpath));
-    const files = (
-        fs.readdirSync(dirpath)
-        .map(filename => path__resolve(dirpath, filename))
-    );
-    files.forEach(filepath => {
-        assert_internal(is_abs(filepath), dirpath, files);
-        assert_internal(pathModule.relative(dirpath, filepath).split(pathModule.sep).length===1, dirpath, files);
-    });
-    return files;
-}
-
-function path__resolve(path1, path2, ...paths) {
-    assert_internal(path1 && is_abs(path1), path1);
-    assert_internal(path2);
-    return pathModule.resolve(path1, path2, ...paths);
-}
-
-function fs__rename(path_old, path_new) {
-    assert_internal(is_abs(path_old));
-    assert_internal(is_abs(path_new));
-    mkdirp.sync(pathModule.dirname(path_new));
-    fs.renameSync(path_old, path_new);
-}
-
-function is_abs(path) {
-    return pathModule.isAbsolute(path);
-}
-
 function gen_timeout({timeoutSeconds=30, desc}={}) {
     if( ! DEBUG_WATCH ) return;
     const timeout = setTimeout(() => {
@@ -561,7 +307,6 @@ function gen_timeout({timeoutSeconds=30, desc}={}) {
     }, timeoutSeconds*1000)
     return () => clearTimeout(timeout);
 }
-
 function gen_promise() {
     let promise_resolver;
     const promise = new Promise(resolve => promise_resolver=resolve);
