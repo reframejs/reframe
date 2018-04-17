@@ -1,1 +1,0 @@
-../../basics/pages/AboutPage.js
