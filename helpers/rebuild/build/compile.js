@@ -3,6 +3,7 @@ const assert_warning = require('reassert/warning');
 const assert_usage = require('reassert/usage');
 const assert_internal = require('reassert/internal');
 const assert = assert_internal;
+const assert_tmp = assert_internal;
 const log = require('reassert/log');
 const webpack = require('webpack');
 const path_module = require('path');
@@ -35,7 +36,8 @@ function compile(
     }
 ) {
     assert_internal(webpack_config.constructor===Object);
-    assert_internal(!webpack_config_modifier);
+    assert_tmp(!webpack_config_modifier);
+    assert_tmp(!onBuild);
 
     const resolveTimeout = gen_await_timeout({name: 'Compilation Build '+compilationName});
 
@@ -46,9 +48,11 @@ function compile(
             compilationName,
             on_compilation_start: ({is_first_start, previous_was_success}) => {
                 if( ! is_first_start ) {
-                    onCompilationStateChange({
+                    const compilationInfo = {
                         is_compiling: true,
-                    });
+                    };
+                    assert_compilationInfo(compilationInfo);
+                    onCompilationStateChange(compilationInfo);
                 }
             },
             on_compilation_end: async ({compilation_info, is_first_result, no_previous_success, is_success, is_abort, previous_was_success}) => {
@@ -70,18 +74,24 @@ function compile(
                 }
                 assert_usage(compilation_info.constructor===Object);
                 assert_internal([true, false].includes(is_success));
-                onCompilationStateChange({
+                const compilationInfo = {
                     is_first_build: no_previous_success,
                     is_compiling: false,
                     is_failure: !is_success,
                     ...compilation_info,
-                });
+                };
+                assert_compilationInfo(compilationInfo);
+                onCompilationStateChange(compilationInfo);
+                /*
                 if( onBuild && is_success ) {
                     onBuild({compilationInfo: compilation_info, isFirstBuild: no_previous_success, compilationName});
                 }
+                */
             },
         })
     );
+    assert_internal(stop_build);
+    assert_internal(wait_build);
 
     return {
         stop_build,
@@ -93,7 +103,9 @@ function compile(
                 await build_index_html({compilation_info});
             }
 
-            return {is_compiling: false, ...compilation_info};
+            const compilationInfo = {is_compiling: false, is_failure: false, ...compilation_info};
+            assert_compilationInfo(compilationInfo);
+            return compilationInfo;
         })(),
     };
 }
@@ -220,7 +232,9 @@ function setup_compiler_handler({
             await wait_build();
         }
         assert_internal(compilation_info);
-        return {is_compiling: false, ...compilation_info};
+        const compilationInfo = {is_compiling: false, is_failure: !compilation_info.is_success, ...compilation_info};
+        assert_compilationInfo(compilationInfo);
+        return compilationInfo;
     };
     let compilation_info;
     onCompileStart.addListener(() => {
@@ -798,4 +812,18 @@ function gen_await_timeout({timeoutSeconds=30, name}={}) {
         assert_warning(false, "Promise \""+name+"\" still not resolved after "+timeoutSeconds+" seconds");
     }, timeoutSeconds*1000)
     return () => clearTimeout(timeout);
+}
+
+function assert_compilationInfo(compilationInfo) {
+    if( compilationInfo === null ) {
+        return;
+    }
+    assert_internal([true, false].includes(compilationInfo.is_compiling));
+    if( compilationInfo.is_compiling ) {
+        return;
+    }
+    assert_internal([true, false].includes(compilationInfo.is_failure));
+    assert_internal(compilationInfo.output, compilationInfo);
+    assert_internal(compilationInfo.output.dist_root_directory);
+    assert_internal(compilationInfo.output.entry_points);
 }

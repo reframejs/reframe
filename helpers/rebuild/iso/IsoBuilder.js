@@ -22,7 +22,8 @@ function BuildManager({buildName, buildFunction, onStateChange}) {
 
     this.runBuild = runBuild;
 
-    const __compilationInfo = this.__compilationInfo = {};
+    this.__compilationInfo = null;
+
     let __current;
 
     return this;
@@ -30,6 +31,7 @@ function BuildManager({buildName, buildFunction, onStateChange}) {
     async function runBuild({webpackConfig, runIsOutdated}) {
         assert_usage(webpackConfig);
 
+        // TODO remove
         if( runIsOutdated() ) {
             return Promise.resolve({abortBuilder: true});
         }
@@ -55,10 +57,15 @@ function BuildManager({buildName, buildFunction, onStateChange}) {
 
         __current = null;
 
-        const {stop_build, wait_build, first_build_promise} = buildFunction({webpackConfig, onCompilationStateChange});
-        assert_internal(stop_build);
-        assert_internal(wait_build);
+        const {stop_build, wait_build, first_build_promise} = (
+            buildFunction({
+                webpackConfig,
+                onCompilationStateChange: onCompilationStateChange.bind(this),
+            })
+        );
         assert_internal(first_build_promise);
+        assert_internal(wait_build);
+        assert_internal(stop_build);
 
         let build_function_called = true;
 
@@ -92,7 +99,7 @@ function BuildManager({buildName, buildFunction, onStateChange}) {
                 return;
             }
 
-            copy(__compilationInfo, compilationInfo);
+            this.__compilationInfo = compilationInfo;
             onStateChange(compilationInfo);
         }
     }
@@ -134,9 +141,6 @@ function IsoBuilder() {
     );
     */
 
-    const onStateChange = compilationInfo => {
-    };
-
     const browserBuild = new BuildManager({
         buildName: 'browserBuild',
         buildFunction: ({webpackConfig, onCompilationStateChange}) => (
@@ -167,36 +171,36 @@ function IsoBuilder() {
         onStateChange,
     });
 
-    // TODO make private
-    this.__compilationState = {
-        browser: browserBuild.__compilationInfo,
-        nodejs: nodejsBuild.__compilationInfo,
-    };
+    const isoBuilder = this;
 
-    this.build = () => (
-        buildAll({
-            isoBuilder: this,
-            latestRun,
-            nodejsBuild,
-            browserBuild,
-        })
-    );
+    this.build = runBuild;
 
     return this;
+
+    function runBuild() {
+        return (
+            buildAll({
+                isoBuilder,
+                latestRun,
+                nodejsBuild,
+                browserBuild,
+            })
+        );
+    }
 
     function onStateChange(compilationInfo) {
         assert_compilationInfo(compilationInfo);
 
         {
-            const logger = this.logger;
-            const browserCompilationInfo = browserBuild.compilationInfo;
-            const nodejsCompilationInfo = browserBuild.compilationInfo;
+            const logger = isoBuilder.logger;
+            const browserCompilationInfo = browserBuild.__compilationInfo;
+            const nodejsCompilationInfo = nodejsBuild.__compilationInfo;
             logCompilationStateChange({logger, browserCompilationInfo, nodejsCompilationInfo});
         }
 
         if( ! compilationInfo.is_compiling && ! compilationInfo.is_failure && ! compilationInfo.is_first_build ) {
             global.DEBUG_WATCH && console.log('REBUILD-REASON: webpack-watch for `'+'TODO'+'`');
-            build();
+            runBuild();
         }
     }
 }
@@ -264,11 +268,11 @@ async function buildAll({isoBuilder, latestRun, browserBuild, nodejsBuild}) {
 
     const buildForNodejs = (
         webpackConfig =>
-            browserBuild.runBuild({webpackConfig, runIsOutdated: run.isObsolete})
+            nodejsBuild.runBuild({webpackConfig, runIsOutdated: run.isObsolete})
     );
     const buildForBrowser = (
         webpackConfig =>
-            nodejsBuild.runBuild({webpackConfig, runIsOutdated: run.isObsolete})
+            browserBuild.runBuild({webpackConfig, runIsOutdated: run.isObsolete})
     );
 
     const generator = isoBuilder.builder({buildForNodejs, buildForBrowser});
@@ -307,7 +311,7 @@ async function buildAll({isoBuilder, latestRun, browserBuild, nodejsBuild}) {
         isoBuilder.logger.onBuildStateChange({
             is_compiling: false,
             is_failure: false,
-            compilation_info: [isoBuilder.__compilationState.nodejs, isoBuilder.__compilationState.browser],
+            compilation_info: [nodejsBuild.__compilationInfo, browserBuild.__compilationInfo],
         });
     }
     DEBUG_WATCH && console.log("END-BUILDER");
@@ -446,6 +450,9 @@ function build_nodejs({webpackConfig, isoBuilder, buildCacheNodejs, run}) {
 */
 
 function assert_compilationInfo(compilationState) {
+    if( compilationState === null ) {
+        return;
+    }
     assert_internal([true, false].includes(compilationState.is_compiling));
     if( compilationState.is_compiling ) {
         return;
