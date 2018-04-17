@@ -5,10 +5,10 @@ const mkdirp = require('mkdirp');
 const serve = require('@rebuild/serve');
 const build = require('@rebuild/build');
 const {Logger} = require('@rebuild/build/utils/Logger');
-const path_module = require('path');
+const pathModule = require('path');
 const fs = require('fs');
 const touch = require('touch');
-const deep_equal = require('deep-equal');
+const deepEqual = require('deep-equal');
 
 //*
 global.DEBUG_WATCH = true;
@@ -37,7 +37,7 @@ function BuildManager({buildName, buildFunction, onStateChange}) {
 
         assert_internal(__current !== null);
         if( __current ) {
-            if( deep_equal(__current.webpackConfig, webpackConfig) ) {
+            if( deepEqual(__current.webpackConfig, webpackConfig) ) {
                 global.DEBUG_WATCH && console.log('CACHED-BUILD '+buildName);
                 const resolveTimeout = gen_timeout({desc: 'Cached Build '+buildName});
                 const compilationInfo = await __current.wait_build();
@@ -104,41 +104,12 @@ function BuildManager({buildName, buildFunction, onStateChange}) {
     }
 }
 
-function copy(target, source) {
-    for(var i in target) delete[i];
-    Object.assign(target, source);
-}
-
 function IsoBuilder() {
     this.fileWriter = create_file_writer(this);
 
     const latestRun = {
         runNumber: 0,
     };
-
-    /*
-    this.buildState = {
-        browser: null,
-        nodejs: null,
-    };
-
-    this.__compilationState = {
-        browser: null,
-        nodejs: null,
-    };
-
-    const buildCacheNodejs = {};
-    const buildCacheBrowser = {};
-
-    this.build = () => (
-        buildAll({
-            isoBuilder: this,
-            latestRun,
-            buildCacheNodejs,
-            buildCacheBrowser,
-        })
-    );
-    */
 
     const browserBuild = new BuildManager({
         buildName: 'browserBuild',
@@ -319,47 +290,6 @@ async function buildAll({isoBuilder, latestRun, browserBuild, nodejsBuild}) {
     DEBUG_WATCH && console.log("END-BUILDER");
 }
 
-/*
-function onCompilationStateChange({isoBuilder, compilationState, run, buildStateProp}) {
-    const skip = run.isOutdated();
-    console.log(compilationState, buildStateProp, skip);
-    if( skip ) {
-        return;
-    }
-    assert_compilationInfo(compilationState);
-    isoBuilder.__compilationState[buildStateProp] = compilationState;
-    isoBuilder.buildState[buildStateProp] = {
-        isCompiling: compilationState.is_compiling,
-        entry_points: (compilationState.output||{}).entry_points,
-    };
-    logCompilationStateChange(isoBuilder);
-}
-*/
-
-/*
-function logCompilationStateChange(isoBuilder) {
-    const build_state_browser = isoBuilder.__compilationState.browser;
-    const build_state_nodejs = isoBuilder.__compilationState.nodejs;
-
-    const is_failure = (build_state_browser||{}).is_failure===true || (build_state_nodejs||{}).is_failure===true;
-    const is_compiling = (build_state_browser||{}).is_compiling || (build_state_nodejs||{}).is_compiling;
-
-    if( is_failure && ! is_compiling ) {
-        isoBuilder.logger.onBuildStateChange({
-            is_compiling: false,
-            is_failure: true,
-            compilation_info: [build_state_browser, build_state_nodejs],
-        });
-    }
-
-    if( is_compiling && ! isoBuilder.logger.build_state.is_compiling ) {
-        isoBuilder.logger.onBuildStateChange({
-            is_compiling: true,
-        });
-    }
-}
-*/
-
 async function waitOnLatestRun(latestRun) {
     const {runNumber} = latestRun;
     const {isAborted} = await latestRun.overallPromise;
@@ -368,87 +298,6 @@ async function waitOnLatestRun(latestRun) {
     }
     assert_internal(isAborted===false);
 }
-
-/*
-function build_browser({webpackConfig, isoBuilder, buildCacheBrowser, run}) {
-    assert_isoBuilder(isoBuilder);
-
-    const compilationName = 'browserCompilation';
-    const buildStateProp = 'browser';
-
-    const build_function = ({onBuild}) => (
-        serve(webpackConfig, {
-            doNotCreateServer: true,
-            doNotGenerateIndexHtml: true,
-            doNotFireReloadEvents: true,
-            doNotIncludeAutoreloadClient: true,
-            logger: null,
-            onCompilationStateChange: compilationState => {
-                onCompilationStateChange({
-                    isoBuilder,
-                    compilationState,
-                    run,
-                    buildStateProp,
-                });
-            },
-            onBuild,
-            compilationName,
-        })
-    );
-
-    const webpackEntries = webpackConfig.entry;
-    assert_usage(webpackEntries && webpackEntries.constructor===Object, webpackConfig);
-    if( ! isProduction() ) {
-        assert_usage(!webpackEntries['autoreload_client']);
-        webpackEntries['autoreload_client'] = [autoreloadClientPath];
-    }
-
-    return build_iso({
-        webpackConfig,
-        isoBuilder,
-        build_cache: buildCacheBrowser,
-        build_function,
-        compilationName,
-        buildStateProp,
-        run,
-    });
-}
-
-function build_nodejs({webpackConfig, isoBuilder, buildCacheNodejs, run}) {
-    assert_isoBuilder(isoBuilder);
-
-    const compilationName = 'nodejsCompilation';
-    const buildStateProp = 'nodejs';
-
-    const build_function = ({onBuild}) => (
-        build(webpackConfig, {
-            watch: true,
-            doNotGenerateIndexHtml: true,
-            logger: null,
-            onCompilationStateChange: compilationState => {
-                onCompilationStateChange({
-                    isoBuilder,
-                    compilationState,
-                    run,
-                    buildStateProp,
-                });
-            },
-            onBuild,
-            compilationName,
-        })
-    );
-
-    return build_iso({
-        webpackConfig,
-        isoBuilder,
-        build_cache: buildCacheNodejs,
-        build_function,
-        compilationName,
-        buildStateProp,
-        run,
-    });
-}
-*/
 
 function assert_compilationInfo(compilationState) {
     if( compilationState === null ) {
@@ -463,79 +312,6 @@ function assert_compilationInfo(compilationState) {
     assert_internal(compilationState.output.dist_root_directory);
     assert_internal(compilationState.output.entry_points);
 }
-/*
-async function build_iso({
-    webpackConfig,
-    isoBuilder,
-    build_cache,
-    build_function,
-    compilationName,
-    buildStateProp,
-    run,
-}) {
-    const ret = await (async () => {
-        const {entry: webpackEntries, output: {path: webpackOutputPath}={}} = webpackConfig;
-        assert_usage(webpackEntries, webpackConfig);
-        assert_usage(webpackOutputPath, webpackConfig);
-
-        if( build_cache.webpackEntries ) {
-            if( deep_equal(webpackEntries, build_cache.webpackEntries) ) {
-                global.DEBUG_WATCH && console.log('WAIT-BUILD '+compilationName);
-                const resolveTimeout = gen_timeout({desc: 'Wait Build '+compilationName});
-                const ret = await build_cache.wait_build();
-                resolveTimeout();
-                return ret;
-            } else {
-                console.log(build_cache.webpackEntries);
-                console.log(webpackEntries);
-                global.DEBUG_WATCH && console.log('STOP-BUILD '+compilationName);
-                const resolveTimeout = gen_timeout({desc: 'Stop Build '+compilationName});
-                await build_cache.stop_build();
-                resolveTimeout();
-                remove_output_path(webpackOutputPath);
-            }
-        }
-
-        assert_internal(webpackConfig);
-        const {first_build_promise, wait_build, stop_build} = (
-            build_function({
-                onBuild: buildInfo => {
-                    const {isFirstBuild, compilationName} = buildInfo;
-                    assert_internal([true, false].includes(isFirstBuild));
-                    assert_internal(compilationName);
-                    if( ! isFirstBuild ) {
-                        global.DEBUG_WATCH && console.log('REBUILD-REASON: webpack-watch for `'+compilationName+'`');
-                        isoBuilder.build();
-                    }
-                },
-            })
-        );
-
-        assert_internal(stop_build && wait_build);
-        Object.assign(build_cache, {stop_build, wait_build, webpackEntries});
-
-        const resolveTimeout = gen_timeout({desc: 'First Build '+compilationName});
-        const buildInfo = await first_build_promise;
-        resolveTimeout();
-        assert_internal(buildInfo.is_abort || buildInfo.compilationInfo, Object.keys(buildInfo));
-        assert_buildState({isoBuilder, buildStateProp});
-        return buildInfo;
-    })();
-
-    assert_buildState({isoBuilder, buildStateProp});
-
-    return ret;
-}
-*/
-
-/*
-function assert_buildState({isoBuilder, buildStateProp}) {
-    const bState = isoBuilder.buildState[buildStateProp];
-    assert_internal(bState, bState, buildStateProp);
-    assert_internal(!bState.isCompiling, bState, buildStateProp);
-    assert_internal(bState.entry_points, bState, buildStateProp);
-}
-*/
 
 function remove_output_path(webpackOutputPath) {
     fs__remove(webpackOutputPath);
@@ -556,7 +332,7 @@ function moveAndStampOutputDir({outputDir}) {
     return;
 
     function create_output_dir() {
-        mkdirp.sync(path_module.dirname(outputDir));
+        mkdirp.sync(pathModule.dirname(outputDir));
         const timestamp = get_timestamp();
         assert_internal(timestamp);
         const stamp_content = get_timestamp()+'\n';
@@ -635,8 +411,8 @@ function moveAndStampOutputDir({outputDir}) {
         files
         .filter(filepath => !path_new.startsWith(filepath))
         .forEach(filepath => {
-            const filepath__relative = path_module.relative(path_old, filepath);
-            assert_internal(filepath__relative.split(path_module.sep).length===1, path_old, filepath);
+            const filepath__relative = pathModule.relative(path_old, filepath);
+            assert_internal(filepath__relative.split(pathModule.sep).length===1, path_old, filepath);
             const filepath__new = path__resolve(path_new, filepath__relative);
             fs__rename(filepath, filepath__new);
         });
@@ -646,8 +422,6 @@ function moveAndStampOutputDir({outputDir}) {
 function fs__read(filepath) {
     return fs.readFileSync(filepath, 'utf8');
 }
-
-
 
 
 
@@ -720,8 +494,8 @@ function FileSystemHandler() {
 }
 
 function fs__write_file(path, content) {
-    assert_internal(path.startsWith('/'));
-    mkdirp.sync(path_module.dirname(path));
+    assert_internal(is_abs(path));
+    mkdirp.sync(pathModule.dirname(path));
     fs.writeFileSync(path, content);
 }
 
@@ -758,7 +532,7 @@ function fs__ls(dirpath) {
     );
     files.forEach(filepath => {
         assert_internal(is_abs(filepath), dirpath, files);
-        assert_internal(path_module.relative(dirpath, filepath).split(path_module.sep).length===1, dirpath, files);
+        assert_internal(pathModule.relative(dirpath, filepath).split(pathModule.sep).length===1, dirpath, files);
     });
     return files;
 }
@@ -766,22 +540,18 @@ function fs__ls(dirpath) {
 function path__resolve(path1, path2, ...paths) {
     assert_internal(path1 && is_abs(path1), path1);
     assert_internal(path2);
-    return path_module.resolve(path1, path2, ...paths);
+    return pathModule.resolve(path1, path2, ...paths);
 }
 
 function fs__rename(path_old, path_new) {
     assert_internal(is_abs(path_old));
     assert_internal(is_abs(path_new));
-    mkdirp.sync(path_module.dirname(path_new));
+    mkdirp.sync(pathModule.dirname(path_new));
     fs.renameSync(path_old, path_new);
 }
 
 function is_abs(path) {
-    return path_module.isAbsolute(path);
-}
-
-function isProduction() {
-   return process.env.NODE_ENV === 'production';
+    return pathModule.isAbsolute(path);
 }
 
 function gen_timeout({timeoutSeconds=30, desc}={}) {
