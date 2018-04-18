@@ -2,6 +2,8 @@
     "name": "@reframe/eject",
     "version": "0.0.1-rc.14",
     "dependencies": {
+        "builtins": "^2.0.0",
+        "detective": "^5.1.0"
     },
     "publishConfig": {
         "access": "public"
