@@ -79,9 +79,9 @@ function init({production, log}) {
 
     const projectConfig = getProjectConfig();
 
-    log_found_file(projectConfig.projectFiles.reframeConfigFile, 'Reframe config');
-    log_found_file(projectConfig.projectFiles.pagesDir, 'Pages directory');
     log_found_plugins(projectConfig);
+    log_found_file(projectConfig.projectFiles.reframeConfigFile, '`reframe.config.js` file');
+    log_found_file(projectConfig.projectFiles.pagesDir, '`pages/` directory');
 
     projectConfig.log = {
         verbose: !!log,
@@ -91,7 +91,7 @@ function init({production, log}) {
 
     function log_found_file(file_path, description) {
         if( file_path ) {
-            console.log(green_checkmark()+' '+description+' found at '+relative_to_homedir(file_path));
+            console.log(green_checkmark()+' Found '+description+': '+relative_to_homedir(file_path));
         }
     }
 
@@ -99,7 +99,7 @@ function init({production, log}) {
         if( projectConfig._packageJsonPlugins.length===0 ) {
             return;
         }
-        console.log(green_checkmark()+' Found plugins: '+arrayToStr(projectConfig._packageJsonPlugins)+'.');
+        console.log(green_checkmark()+' Found plugins: '+arrayToStr(projectConfig._packageJsonPlugins));
     }
 
     function green_checkmark() {

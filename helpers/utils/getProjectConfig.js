@@ -73,7 +73,7 @@ function findPlugins({packageJsonFile}) {
             try {
                 depPackageJson = require(depPackageName+'/package.json');
             } catch(e) {}
-            return depPackageName && depPackageName.reframePlugin;
+            return depPackageJson && depPackageJson.reframePlugin;
         })
     );
     const foundPlugins = (
