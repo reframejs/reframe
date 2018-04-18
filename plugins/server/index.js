@@ -9,7 +9,7 @@ function serverPlugin() {
                 name: 'server',
                 description: 'Eject server',
                 configFileMove: {
-                    serverEntryFile: 'PROJECT_ROOT/server',
+                    serverEntryFile: 'PROJECT_ROOT/server.js',
                 },
                 /*
                 reframeConfig: {
