@@ -66,8 +66,6 @@ const assert_internal = require('reassert/internal');
 const assert_usage = require('reassert/usage');
 const assert_plugin = assert_usage;
 const path_module = require('path');
-const defaultKit = require('@reframe/default-kit');
-const cliPlugins = require('@reframe/cli-plugins');
 const {get_r_objects, get_repage_plugins} = require('./process_common');
 const get_project_files = require('./get_project_files');
 const webpackUtils = require('@brillout/webpack-utils');
@@ -77,7 +75,7 @@ module.exports = {processReframeConfig};
 function processReframeConfig(reframeConfig) {
     assert_usage(reframeConfig.constructor===Object);
     const _processed = {};
-    const r_objects = get_r_objects(reframeConfig, get_default_plugin(reframeConfig), add_cli_plugins());
+    const r_objects = get_r_objects(reframeConfig);
     get_webpack_config_modifiers(_processed, r_objects);
     get_browser_config_paths(_processed, r_objects);
     get_repage_plugins(_processed, r_objects, false);
@@ -117,23 +115,6 @@ function get_webpack_config_modifiers(_processed, r_objects) {
     }
 }
 
-// By default, Reframe uses the `@reframe/default-kit`
-function get_default_plugin(reframeConfig) {
-    /*
-    assert_internal(_processed.repage_plugins.constructor===Array);
-    for(r_object in _processed.r_objects) {
-        if( r_objects.skipDefaultKit ) {
-            return;
-        }
-    }
-    /*/
-    if( reframeConfig.skipDefaultKit ) {
-        return;
-    }
-    //*/
-    return defaultKit();
-}
-
 // Here we collect all paths of browser-side reframe config files
 //  - We define browser-side config objects as paths (instead of loaded module) because the browser-side code is bundled separately from the sever-side code
 function get_browser_config_paths(_processed, r_objects) {
@@ -159,10 +140,6 @@ function get_cli_commands(_processed, r_objects) {
             });
         }
     });
-}
-
-function add_cli_plugins(config, r_objects) {
-    return cliPlugins();
 }
 
 function get_build_functions(_processed, r_objects) {

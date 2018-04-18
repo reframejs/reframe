@@ -1,20 +1,12 @@
-const assert = require('reassert');
-const assert_internal = assert;
-const assert_usage = assert;
-const assert_plugin = assert;
+const assert_internal = require('reassert/internal');
+const assert_usage = require('reassert/usage');
 
 module.exports = {get_r_objects, get_repage_plugins};
 
-function get_r_objects(reframe_config, extra_plugin, cli_plugins) {
+function get_r_objects(reframe_config) {
     reframe_config.name = reframe_config.name || 'user_reframe_config';
     const cycleCatcher = new WeakMap();
-    return [
-        /* TODO remove
-        ...(extra_plugin ? retrieve_r_objects(extra_plugin, cycleCatcher) : []),
-        ...(cli_plugins ? retrieve_r_objects(cli_plugins, cycleCatcher) : []),
-        //*/
-        ...retrieve_r_objects(reframe_config, cycleCatcher),
-    ];
+    return retrieve_r_objects(reframe_config, cycleCatcher);
 }
 function retrieve_r_objects(r_object, cycleCatcher) {
     assert_usage(r_object && r_object.constructor===Object, r_object);
