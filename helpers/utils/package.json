@@ -4,7 +4,7 @@
   "dependencies": {
     "@brillout/find": "latest",
     "@brillout/get-user-dir": "latest",
-    "@brillout/webpack-utils": "^0.0.1-rc.13",
+    "@brillout/webpack-utils": "^0.0.1-rc.14",
     "@reframe/cli-plugins": "0.0.1-rc.14",
     "@reframe/default-kit": "0.0.1-rc.14",
     "find-up": "^2.1.0",
