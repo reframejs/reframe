@@ -95,8 +95,11 @@ function init({production, log}) {
         }
     }
 
-    function log_found_file() {
-        console.log(green_checkmark()+' '+description+' found at '+relative_to_homedir(file_path));
+    function log_found_plugins(projectConfig) {
+        if( projectConfig._packageJsonPlugins.length===0 ) {
+            return;
+        }
+        console.log(green_checkmark()+' Found plugins: '+arrayToStr(projectConfig._packageJsonPlugins)+'.');
     }
 
     function green_checkmark() {
@@ -112,11 +115,23 @@ function assert_server(projectConfig) {
 }
 function assert_config(bool, projectConfig, path, name) {
     const assert_usage = require('reassert/usage');
+    const assert_internal = require('reassert/usage');
+    assert_internal(projectConfig._packageJsonPlugins);
+    assert_internal(projectConfig._packageJsonFile);
     assert_usage(
         bool,
         "Can't find "+name+".",
         "More precisely: The project config is missing a `projectConfig."+path+"`.",
         "Either add a "+name+" plugin or define `projectConfig."+path+"` yourself in your `reframe.config.js`.",
-        "Plugins to your as `dependency` in your `package.json`.
+        (
+            projectConfig._packageJsonPlugins.length === 0 ? (
+                "No Reframe plugins found in the `dependencies` field of `"+projectConfig._packageJsonFile+"`."
+            ) : (
+                "Plugins found: "+arrayToStr(projectConfig._packageJsonPlugins)+"."
+            )
+        )
     );
+}
+function arrayToStr(arr) {
+    return arr.map(s => "`"+s+"`").join(", ");
 }

@@ -26,7 +26,7 @@ function computeProjectConfig({projectNotRequired=false}={}) {
         "No `pages/` directory found nor is `webpackBrowserConfig` and `webpackServerConfig` defined in `reframe.config.js`."
     );
 
-    const foundPlugins = findPlugins({packageJsonFile});
+    const {foundPlugins, foundPluginNames} = findPlugins({packageJsonFile});
     reframeConfig.plugins = [
         ...(reframeConfig.plugins||[]),
         ...foundPlugins,
@@ -57,14 +57,16 @@ function computeProjectConfig({projectNotRequired=false}={}) {
 
         projectConfig.addPlugin = addPlugin;
 
-        projectConfig._packageJsonPlugin = foundPlugins;
+        projectConfig._packageJsonPlugins = foundPluginNames;
+
+        projectConfig._packageJsonFile = packageJsonFile;
     }
 }
 
 function findPlugins({packageJsonFile}) {
     assert_internal(pathModule.isAbsolute(packageJsonFile));
     const packageJson = require(packageJsonFile);
-    const foundPlugins = (
+    const foundPluginNames = (
         (Object.keys(packageJson.dependencies||{}))
         .filter(depPackageName => {
             let depPackageJson;
@@ -73,9 +75,12 @@ function findPlugins({packageJsonFile}) {
             } catch(e) {}
             return depPackageName && depPackageName.reframePlugin;
         })
+    );
+    const foundPlugins = (
+        foundPluginNames
         .map(depPackageName => {
             return require(depPackageName)();
         })
     );
-    return foundPlugins;
+    return {foundPlugins, foundPluginNames};
 }
