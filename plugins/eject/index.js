@@ -67,7 +67,6 @@ async function runEject(ejectableName) {
 
             newFilePath = newFilePath.replace(/PROJECT_ROOT/g, projectRootDir);
 
-            newFilePath = newFilePath.replace('PROJECT_ROOT', projectRootDir);
             console.log(fileContent, deps, newFilePath, packageJsonFile);
         });
         return;
