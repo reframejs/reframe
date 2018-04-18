@@ -1,0 +1,10 @@
+{
+    "name": "@reframe/eject",
+    "version": "0.0.1-rc.14",
+    "dependencies": {
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "repository": "github:reframejs/reframe"
+}
