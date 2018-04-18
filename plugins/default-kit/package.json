@@ -1,6 +1,7 @@
 {
   "name": "@reframe/default-kit",
   "version": "0.0.1-rc.14",
+  "reframePlugin": true,
   "scripts": {
     "docs": "mdocs"
   },

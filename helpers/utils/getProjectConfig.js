@@ -39,7 +39,6 @@ function computeProjectConfig({projectNotRequired=false}={}) {
     return projectConfig;
 
     function addPlugin(plugin) {
-        reframeConfig.plugins = reframeConfig.plugins || [];
         reframeConfig.plugins.push(plugin);
         setProjectConfig();
     }
@@ -57,13 +56,15 @@ function computeProjectConfig({projectNotRequired=false}={}) {
         }
 
         projectConfig.addPlugin = addPlugin;
+
+        projectConfig._packageJsonPlugin = foundPlugins;
     }
 }
 
 function findPlugins({packageJsonFile}) {
     assert_internal(pathModule.isAbsolute(packageJsonFile));
     const packageJson = require(packageJsonFile);
-    return (
+    const foundPlugins = (
         (Object.keys(packageJson.dependencies||{}))
         .filter(depPackageName => {
             let depPackageJson;
@@ -75,5 +76,6 @@ function findPlugins({packageJsonFile}) {
         .map(depPackageName => {
             return require(depPackageName)();
         })
-    )
+    );
+    return foundPlugins;
 }

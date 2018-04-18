@@ -9,7 +9,7 @@ function get_r_objects(reframe_config, extra_plugin, cli_plugins) {
     reframe_config.name = reframe_config.name || 'user_reframe_config';
     const cycleCatcher = new WeakMap();
     return [
-        //* TODO remove
+        /* TODO remove
         ...(extra_plugin ? retrieve_r_objects(extra_plugin, cycleCatcher) : []),
         ...(cli_plugins ? retrieve_r_objects(cli_plugins, cycleCatcher) : []),
         //*/

@@ -47,20 +47,24 @@ function startCommands() {
 async function runStart() {
     const projectConfig = init.apply(null, arguments);
 
+    assert_build(projectConfig);
     await projectConfig.build.executeBuild();
 
+    assert_server(projectConfig);
     await projectConfig.server();
 }
 
 async function build() {
     const projectConfig = init.apply(null, arguments);
 
+    assert_build(projectConfig);
     await projectConfig.build.executeBuild();
 }
 
 async function runStartServer() {
     const projectConfig = init.apply(null, arguments);
 
+    assert_server(projectConfig);
     await projectConfig.server();
 }
 
@@ -77,6 +81,7 @@ function init({production, log}) {
 
     log_found_file(projectConfig.projectFiles.reframeConfigFile, 'Reframe config');
     log_found_file(projectConfig.projectFiles.pagesDir, 'Pages directory');
+    log_found_plugins(projectConfig);
 
     projectConfig.log = {
         verbose: !!log,
@@ -90,7 +95,28 @@ function init({production, log}) {
         }
     }
 
+    function log_found_file() {
+        console.log(green_checkmark()+' '+description+' found at '+relative_to_homedir(file_path));
+    }
+
     function green_checkmark() {
         return chalk.green('\u2714');
     }
+}
+
+function assert_build(projectConfig) {
+    assert_config(projectConfig.build.executeBuild, projectConfig, 'build.executeBuild', 'build');
+}
+function assert_server(projectConfig) {
+    assert_config(projectConfig.server, projectConfig, 'server', 'server');
+}
+function assert_config(bool, projectConfig, path, name) {
+    const assert_usage = require('reassert/usage');
+    assert_usage(
+        bool,
+        "Can't find "+name+".",
+        "More precisely: The project config is missing a `projectConfig."+path+"`.",
+        "Either add a "+name+" plugin or define `projectConfig."+path+"` yourself in your `reframe.config.js`.",
+        "Plugins to your as `dependency` in your `package.json`.
+    );
 }
