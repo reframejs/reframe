@@ -34,7 +34,7 @@ function getProjectFiles__with_cache() {
 function getProjectFiles() {
     const {reframeConfigFile, pagesDir, projectRootDir, packageJsonFile} = findProjectFiles({projectNotRequired: true});
 
-    const buildOutputDir = pathModule.resolve(projectRootDir, './dist');
+    const buildOutputDir = projectRootDir && pathModule.resolve(projectRootDir, './dist');
 
     return {
         reframeConfigFile,

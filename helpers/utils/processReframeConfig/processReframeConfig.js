@@ -145,6 +145,7 @@ function get_cli_commands(_processed, r_objects) {
 function get_transparent_fields(_processed, r_objects) {
     _processed.build = {};
     r_objects
+    .reverse()
     .forEach(r_object => {
         if (r_object.build) {
             ['executeBuild', 'getPageConfigs', 'getStaticAssetsDir']

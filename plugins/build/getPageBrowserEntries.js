@@ -68,7 +68,7 @@ function generateBrowserConfig() {
 
     const sourceCode = [
         "(() => {",
-        "const {processReframeBrowserConfig} = require('@reframe/utils/processReframeConfig/processReframeBrowserConfig');",
+        "const {processReframeBrowserConfig} = require('"+require.resolve('@reframe/utils/processReframeConfig/processReframeBrowserConfig')+"');",
         "const browserConfigObject = {};",
         "",
         "browserConfigObject.plugins = [",

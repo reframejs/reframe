@@ -22,7 +22,7 @@ function computeProjectConfig({projectNotRequired=false}={}) {
 
     // TODO move this to build plugin
     assert_usage(
-        pagesDir || reframeConfig.webpackBrowserConfigModifier && reframeConfig.webpackServerConfigModifier,
+        projectNotRequired || pagesDir || reframeConfig.webpackBrowserConfigModifier && reframeConfig.webpackServerConfigModifier,
         "No `pages/` directory found nor is `webpackBrowserConfig` and `webpackServerConfig` defined in `reframe.config.js`."
     );
 
@@ -64,6 +64,9 @@ function computeProjectConfig({projectNotRequired=false}={}) {
 }
 
 function findPlugins({packageJsonFile}) {
+    if( !packageJsonFile ) {
+        return {foundPlugins: [], foundPluginNames: []};
+    }
     assert_internal(pathModule.isAbsolute(packageJsonFile));
     const packageJson = require(packageJsonFile);
     const foundPluginNames = (

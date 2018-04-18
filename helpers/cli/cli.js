@@ -10,7 +10,7 @@ const getUserDir = require('@brillout/get-user-dir');
 getUserDir.userDir = process.cwd();
 
 const getProjectConfig = require('@reframe/utils/getProjectConfig');
-const projectConfig = getProjectConfig();
+const projectConfig = getProjectConfig({projectNotRequired: true});
 
 const {projectRootDir} = projectConfig.projectFiles;
 
