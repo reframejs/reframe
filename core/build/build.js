@@ -7,7 +7,6 @@ const getPageBrowserEntries = require('./getPageBrowserEntries');
 const getPageHTMLs = require('./getPageHTMLs');
 
 const projectConfig = getProjectConfig();
-projectConfig.assertProjectFound();
 const outputDir = projectConfig.projectFiles.buildOutputDir;
 const getPageFiles = () => projectConfig.getPageConfigPaths();
 const getWebpackBrowserConfig = ({config}) => projectConfig.webpackBrowserConfigModifier(config);

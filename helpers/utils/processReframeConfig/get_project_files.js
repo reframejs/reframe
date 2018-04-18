@@ -1,10 +1,8 @@
 const assert_internal = require('reassert/internal');
 const assert_usage = require('reassert/usage');
 const pathModule = require('path');
-const find = require('@brillout/find');
-const getUserDir = require('@brillout/get-user-dir');
-const find_reframe_config = require('../find_reframe_config');
 const fs = require('fs');
+const findProjectFiles = require('../findProjectFiles');
 
 module.exports = get_project_files;
 
@@ -24,7 +22,6 @@ function get_project_files(_processed/*, r_objects*/) {
     );
 
     _processed.getPageConfigPaths = getPageConfigPaths;
-    _processed.assertProjectFound = assertProjectFound;
     _processed.server = server;
 }
 
@@ -36,16 +33,13 @@ function getProjectFiles__with_cache() {
 }
 
 function getProjectFiles() {
-    const userDir = getUserDir();
-
-    const {reframeConfigFile, pagesDir} = find_reframe_config(userDir);
-
-    const projectRootDir = (reframeConfigFile || pagesDir) && pathModule.dirname(reframeConfigFile || pagesDir);
+    const {reframeConfigFile, pagesDir, projectRootDir, packageJsonFile} = findProjectFiles({projectNotRequired: true});
 
     const buildOutputDir = pathModule.resolve(projectRootDir, './dist');
 
     return {
         reframeConfigFile,
+        packageJsonFile,
         pagesDir,
         projectRootDir,
         buildOutputDir,
@@ -127,16 +121,6 @@ setInterval(() => {
     console.log(time);
 }, 1000);
 */
-
-function assertProjectFound() {
-    // TODO
-    /*
-    assert_usage(
-        projectConfig.projectFiles.pagesDir || projectConfig.webpackBrowserConfigModifier && projectConfig.webpackServerConfigModifier,
-        "No `pages/` directory found nor is `webpackBrowserConfig` and `webpackServerConfig` defined in `reframe.config.js`."
-    );
-    */
-}
 
 function server() {
     const {projectRootDir} = getProjectFiles__with_cache();

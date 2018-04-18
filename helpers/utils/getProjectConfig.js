@@ -1,24 +1,36 @@
 const assert_internal = require('reassert/internal');
+const assert_usage = require('reassert/usage');
 const getUserDir = require('@brillout/get-user-dir');
-const find_reframe_config = require('./find_reframe_config');
+const findProjectFiles = require('./findProjectFiles');
+const pathModule = require('path');
 const {processReframeConfig} = require('./processReframeConfig/processReframeConfig');
 
 module.exports = getProjectConfig;
 
 let projectConfig__cache;
 
-function getProjectConfig() {
+function getProjectConfig(...args) {
     if( ! projectConfig__cache ) {
-        projectConfig__cache = computeProjectConfig();
+        projectConfig__cache = computeProjectConfig(...args);
     }
     return projectConfig__cache;
 }
 
-function computeProjectConfig() {
-    const userDir = getUserDir();
-
-    let {reframeConfigFile} = find_reframe_config(userDir);
+function computeProjectConfig({projectNotRequired=false}={}) {
+    let {reframeConfigFile, pagesDir, packageJsonFile} = findProjectFiles({projectNotRequired});
     const reframeConfig = reframeConfigFile && require(reframeConfigFile) || {};
+
+    // TODO move this to build plugin
+    assert_usage(
+        pagesDir || reframeConfig.webpackBrowserConfigModifier && reframeConfig.webpackServerConfigModifier,
+        "No `pages/` directory found nor is `webpackBrowserConfig` and `webpackServerConfig` defined in `reframe.config.js`."
+    );
+
+    const foundPlugins = findPlugins({packageJsonFile});
+    reframeConfig.plugins = [
+        ...(reframeConfig.plugins||[]),
+        ...foundPlugins,
+    ];
 
     const projectConfig = {};
 
@@ -46,4 +58,22 @@ function computeProjectConfig() {
 
         projectConfig.addPlugin = addPlugin;
     }
+}
+
+function findPlugins({packageJsonFile}) {
+    assert_internal(pathModule.isAbsolute(packageJsonFile));
+    const packageJson = require(packageJsonFile);
+    return (
+        (Object.keys(packageJson.dependencies||{}))
+        .filter(depPackageName => {
+            let depPackageJson;
+            try {
+                depPackageJson = require(depPackageName+'/package.json');
+            } catch(e) {}
+            return depPackageName && depPackageName.reframePlugin;
+        })
+        .map(depPackageName => {
+            return require(depPackageName)();
+        })
+    )
 }
