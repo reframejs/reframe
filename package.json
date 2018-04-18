@@ -2,9 +2,11 @@
     "private": true,
     "workspaces": [
         "core/browser",
-        "core/build",
         "core/server",
 
+        "plugins/build",
+        "plugins/server",
+        "plugins/browser",
         "plugins/cli-plugins",
         "plugins/crossroads",
         "plugins/default-kit",

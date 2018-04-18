@@ -158,6 +158,16 @@ function get_build_functions(_processed, r_objects) {
         }
     });
 
+    r_objects
+    .forEach(r_object => {
+        if (r_object.server) {
+            const modulePath = r_object.server;
+            assert_plugin(modulePath);
+            require.resolve(modulePath);
+            _processed.server = resolver(modulePath);
+        }
+    });
+
     function resolver(modulePath) {
         return function () {
             const module = require(modulePath);

@@ -8,8 +8,7 @@ function jsonPkgTemplate(projectName) {
 `{
     "name": "${projectName}",
     "dependencies": {
-        "@reframe/build": "^${version}",
-        "@reframe/server": "^${version}",
+        "@reframe/default-kit": "^${version}",
         "react": "^16.2.0"
     },
     "private": true

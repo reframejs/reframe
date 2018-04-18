@@ -22,7 +22,6 @@ function get_project_files(_processed/*, r_objects*/) {
     );
 
     _processed.getPageConfigPaths = getPageConfigPaths;
-    _processed.server = server;
 }
 
 function getProjectFiles__with_cache() {
@@ -122,6 +121,7 @@ setInterval(() => {
 }, 1000);
 */
 
+/*
 function server() {
     const {projectRootDir} = getProjectFiles__with_cache();
     assert_internal(projectRootDir);
@@ -148,4 +148,4 @@ function resolvePackagePath(packageName, projectRootDir) {
     assert_internal(packagePath);
     return packagePath;
 }
-
+*/

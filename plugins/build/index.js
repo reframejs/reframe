@@ -8,6 +8,11 @@ function buildPlugin() {
             executeBuild: packageName+'/executeBuild',
             getPageConfigs: packageName+'/getPageConfigs',
             getStaticAssetsDir: packageName+'/getStaticAssetsDir',
+            /* TODO
+            executeBuild: require.resolve(packageName+'/executeBuild'),
+            getPageConfigs: require.resolve(packageName+'/getPageConfigs'),
+            getStaticAssetsDir: require.resolve(packageName+'/getStaticAssetsDir'),
+            */
         },
     };
 }

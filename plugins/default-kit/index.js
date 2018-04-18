@@ -3,6 +3,7 @@ const reactPlugin = require('@reframe/react');
 const pathToRegexp = require('@reframe/path-to-regexp');
 const RepageRenderer = require('@repage/renderer');
 const buildPlugin = require('@reframe/build');
+const serverPlugin = require('@reframe/server');
 
 module.exports = defaultKit;
 
@@ -17,6 +18,7 @@ function defaultKit() {
          // crossroadsPlugin(),
             pathToRegexp(),
             buildPlugin(),
+            serverPlugin(),
         ],
         repagePlugins: [
             RepageRenderer,
