@@ -51,7 +51,7 @@ async function runStart() {
     await require(projectConfig.build.executeBuild);
 
     assert_server(projectConfig);
-    await require(projectConfig.server);
+    await require(projectConfig.serverEntryFile);
 }
 
 async function build() {
@@ -65,7 +65,7 @@ async function runStartServer() {
     const projectConfig = init.apply(null, arguments);
 
     assert_server(projectConfig);
-    await projectConfig.server();
+    await require(projectConfig.serverEntryFile);
 }
 
 function init({production, log}) {
@@ -111,7 +111,7 @@ function assert_build(projectConfig) {
     assert_config(projectConfig.build.executeBuild, projectConfig, 'build.executeBuild', 'build');
 }
 function assert_server(projectConfig) {
-    assert_config(projectConfig.server, projectConfig, 'server', 'server');
+    assert_config(projectConfig.serverEntryFile, projectConfig, 'serverEntryFile', 'server');
 }
 function assert_config(bool, projectConfig, path, name) {
     const assert_usage = require('reassert/usage');

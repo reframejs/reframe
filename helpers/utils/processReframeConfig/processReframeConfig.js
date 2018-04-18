@@ -154,8 +154,11 @@ function get_transparent_fields(_processed, r_objects) {
                 }
             });
         }
-        if (r_object.server) {
-            _processed.server = r_object.server;
+        if (r_object.serverEntryFile) {
+            _processed.serverEntryFile = r_object.serverEntryFile;
+        }
+        if (r_object.browserEntryFile) {
+            _processed.browserEntryFile = r_object.browserEntryFile;
         }
     });
 }

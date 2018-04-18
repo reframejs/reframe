@@ -1,9 +1,6 @@
 {
     "private": true,
     "workspaces": [
-        "core/browser",
-        "core/server",
-
         "plugins/build",
         "plugins/server",
         "plugins/browser",

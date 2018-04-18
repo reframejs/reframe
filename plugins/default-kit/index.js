@@ -4,6 +4,7 @@ const pathToRegexp = require('@reframe/path-to-regexp');
 const RepageRenderer = require('@repage/renderer');
 const buildPlugin = require('@reframe/build');
 const serverPlugin = require('@reframe/server');
+const browserPlugin = require('@reframe/browser');
 
 module.exports = defaultKit;
 
@@ -19,6 +20,7 @@ function defaultKit() {
             pathToRegexp(),
             buildPlugin(),
             serverPlugin(),
+            browserPlugin(),
         ],
         repagePlugins: [
             RepageRenderer,

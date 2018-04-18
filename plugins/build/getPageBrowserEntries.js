@@ -93,6 +93,8 @@ function generateBrowserConfig() {
 }
 
 function getBrowserEntrySpec({pageConfig, pageFile, pageName}) {
+    const projectConfig = getProjectConfig();
+
     const {browserEntry} = pageConfig;
 
     const pathToEntry = (browserEntry||{}).pathToEntry || browserEntry;
@@ -103,7 +105,9 @@ function getBrowserEntrySpec({pageConfig, pageFile, pageName}) {
         browserEntryPath = pathModule.resolve(pageDir, pathToEntry);
         assert_browserEntryPath({browserEntryPath, pathToEntry, pageName, pageDir});
     } else {
-        browserEntryPath = require.resolve('@reframe/browser');
+        assert_usage(projectConfig.browserEntryFile);
+        assert_usage(pathModule.isAbsolute(projectConfig.browserEntryFile));
+        browserEntryPath = projectConfig.browserEntryFile;
     }
 
     const browserEntrySpec = {
