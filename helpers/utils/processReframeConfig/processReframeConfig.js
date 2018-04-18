@@ -82,6 +82,7 @@ function processReframeConfig(reframeConfig) {
     get_project_files(_processed, r_objects);
     get_cli_commands(_processed, r_objects);
     get_transparent_fields(_processed, r_objects);
+    get_ejectables(_processed, r_objects);
     reframeConfig._processed = _processed;
 }
 
@@ -160,6 +161,17 @@ function get_transparent_fields(_processed, r_objects) {
         }
         if (r_object.browserEntryFile) {
             _processed.browserEntryFile = r_object.browserEntryFile;
+        }
+    });
+}
+
+function get_ejectables(_processed, r_objects) {
+    const ejectables = _processed.ejectables = [];
+    r_objects
+    .reverse()
+    .forEach(r_object => {
+        if( r_object.ejectables ) {
+            ejectables.push(...r_object.ejectables);
         }
     });
 }

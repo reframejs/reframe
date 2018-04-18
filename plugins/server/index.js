@@ -7,6 +7,7 @@ function serverPlugin() {
         ejectables: [
             {
                 name: 'server',
+                description: 'Eject server',
                 configFileMove: {
                     serverEntryFile: 'PROJECT_ROOT/server',
                 },

@@ -44,6 +44,10 @@ projectConfig
         noCommand = false;
         cmdSpec.action.apply(this, arguments);
     });
+
+    if( cmdSpec.onHelp ) {
+        cmd.on('--help', cmdSpec.onHelp);
+    }
 });
 
 program
