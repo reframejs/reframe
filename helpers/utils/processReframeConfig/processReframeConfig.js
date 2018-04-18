@@ -166,12 +166,17 @@ function get_transparent_fields(_processed, r_objects) {
 }
 
 function get_ejectables(_processed, r_objects) {
-    const ejectables = _processed.ejectables = [];
+    const ejectables = _processed.ejectables = {};
     r_objects
     .reverse()
     .forEach(r_object => {
         if( r_object.ejectables ) {
-            ejectables.push(...r_object.ejectables);
+            r_object.ejectables.forEach(ejectable => {
+                const {name} = ejectable;
+                assert_plugin(name);
+                assert_plugin(!ejectables[name]);
+                ejectables[name] = ejectable;
+            });
         }
     });
 }

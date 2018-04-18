@@ -6,7 +6,7 @@ function ejectCommand() {
         cliCommands: [
             {
                 name: 'eject <ejectable>',
-                description: 'Eject an "ejactable". See the list of ejectables by running `reframe eject -h`.',
+                description: 'Eject an "ejectable". Run `reframe eject -h` for the list of ejectables.',
                 action: runEject,
                 onHelp,
             },
@@ -15,18 +15,18 @@ function ejectCommand() {
 }
 
 async function runEject(ejectableName) {
-    console.log(ejectableName);
+    const ejectables = getEjectables();
+
+    if( ! ejectables[ejectableName] ) {
+        console.log('No ejectable `'+ejectableName+'` found.');
+        printEjectables(ejectables);
+    }
 }
 
 function onHelp() {
     const ejectables = getEjectables();
-
     console.log();
-    console.log('  Ejectables:');
-    ejectables.forEach(ejectable => {
-        const {name, description} = ejectable;
-        console.log("    `"+name+"` "+description);
-    });
+    printEjectables(ejectables);
 }
 
 function getEjectables() {
@@ -34,4 +34,13 @@ function getEjectables() {
     const projectConfig = getProjectConfig();
 
     return projectConfig.ejectables;
+}
+
+function printEjectables(ejectables) {
+    console.log('  Ejectables:');
+    Object.values(ejectables)
+    .forEach(ejectable => {
+        const {name, description} = ejectable;
+        console.log("    `"+name+"` "+description);
+    });
 }
