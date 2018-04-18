@@ -48,17 +48,17 @@ async function runStart() {
     const projectConfig = init.apply(null, arguments);
 
     assert_build(projectConfig);
-    await projectConfig.build.executeBuild();
+    await require(projectConfig.build.executeBuild);
 
     assert_server(projectConfig);
-    await projectConfig.server();
+    await require(projectConfig.server);
 }
 
 async function build() {
     const projectConfig = init.apply(null, arguments);
 
     assert_build(projectConfig);
-    await projectConfig.build.executeBuild();
+    await require(projectConfig.build.executeBuild);
 }
 
 async function runStartServer() {

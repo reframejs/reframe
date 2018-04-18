@@ -1,9 +1,8 @@
 module.exports = serverPlugin;
 
 function serverPlugin() {
-    const packageName = require('./package.json').name;
     return {
-        name: packageName,
-        server: packageName+'/startServer',
+        name: require('./package.json').name,
+        server: require.resolve('./startServer'),
     };
 }

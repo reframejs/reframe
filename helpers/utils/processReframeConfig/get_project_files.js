@@ -111,41 +111,5 @@ function fs__ls(dirpath) {
         assert_internal(pathModule.isAbsolute(filepath), dirpath, files);
         assert_internal(pathModule.relative(dirpath, filepath).split(pathModule.sep).length===1, dirpath, files);
     });
- // time+=new Date() - beg;
     return files;
 }
-/*
-let time = 0;
-setInterval(() => {
-    console.log(time);
-}, 1000);
-*/
-
-/*
-function server() {
-    const {projectRootDir} = getProjectFiles__with_cache();
-    assert_internal(projectRootDir);
-    const server = require(resolvePackagePath('@reframe/server', projectRootDir));
-    return server();
-}
-
-function resolvePackagePath(packageName, projectRootDir) {
-    assert_internal(projectRootDir);
-
-    let packagePath;
-    try {
-        packagePath = require.resolve(packageName, {paths: [projectRootDir]});
-    } catch(err) {
-        if( err.code!=='MODULE_NOT_FOUND' ) throw err;
-        assert_usage(
-            false,
-            "Package `"+packageName+"` is missing.",
-            "You need to install it: `npm install "+packageName+"`.",
-            "Project in question: `"+projectRootDir+"`.",
-        );
-    }
-
-    assert_internal(packagePath);
-    return packagePath;
-}
-*/

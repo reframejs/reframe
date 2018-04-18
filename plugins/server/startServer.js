@@ -3,7 +3,7 @@ const HapiPluginServerRendering = require('./HapiPluginServerRendering');
 const HapiPluginStaticAssets = require('./HapiPluginStaticAssets');
 const chalk = require('chalk');
 
-module.exports = startServer;
+module.exports = startServer();
 
 async function startServer() {
     const server = Hapi.Server({
