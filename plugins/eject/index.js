@@ -65,7 +65,8 @@ async function runEject(ejectableName) {
                 deps[pkgName] = true;
             });
 
-            newFilePath = newFilePath.replace(/PROJECT_ROOT/g, projectRootDir);
+            newFilePath = newFilePath.replace('PROJECT_ROOT', projectRootDir);
+            assert_usage(pathModule.isAbsolute(newFilePath));
 
             console.log(fileContent, deps, newFilePath, packageJsonFile);
         });
