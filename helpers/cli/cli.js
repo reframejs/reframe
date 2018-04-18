@@ -14,12 +14,7 @@ const projectConfig = getProjectConfig({projectNotRequired: true});
 
 const {projectRootDir} = projectConfig.projectFiles;
 
-if( projectRootDir ) {
-    const startCommands = require('@reframe/start');
-    projectConfig.addPlugin(
-        startCommands()
-    );
-} else {
+if( ! projectRootDir ) {
     const initCommands = require('@reframe/init');
     projectConfig.addPlugin(
         initCommands()

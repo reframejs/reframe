@@ -5,6 +5,7 @@ const RepageRenderer = require('@repage/renderer');
 const buildPlugin = require('@reframe/build');
 const serverPlugin = require('@reframe/server');
 const browserPlugin = require('@reframe/browser');
+const startCommands = require('@reframe/start');
 
 module.exports = defaultKit;
 
@@ -21,6 +22,7 @@ function defaultKit() {
             buildPlugin(),
             serverPlugin(),
             browserPlugin(),
+            startCommands(),
         ],
         repagePlugins: [
             RepageRenderer,
