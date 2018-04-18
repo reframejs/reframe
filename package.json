@@ -17,7 +17,8 @@
         "plugins/typescript",
 
         "docs",
-        "examples",
+        "examples/basics",
+        "examples/custom",
 
         "helpers/utils",
         "helpers/cli",

@@ -1,10 +1,9 @@
 {
-  "name": "__reframe_examples",
+  "name": "__reframe_examples__custom",
   "private": true,
   "dependencies": {
     "@brillout/fetch": "^0.0.2",
     "@reframe/browser": "0.0.1-rc.14",
-    "@reframe/build": "0.0.1-rc.14",
     "@reframe/server": "0.0.1-rc.14",
     "@repage/browser": "0.0.1-rc.14",
     "@repage/core": "0.0.1-rc.14",
