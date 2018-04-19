@@ -79,8 +79,10 @@ async function runEject(ejectableName) {
         assert_internal(ejectablePackageName);
 
         Object.entries(configFileMove)
-        .forEach(([configProp, filePathNew]) => {
-            const filePathOld = projectConfig[configProp];
+        .forEach(([configPath, filePathNew]) => {
+            checkConfigPath({reframeConfigFile, configPath});
+
+            const filePathOld = getPath(projectConfig, configPath);
             assert_plugin(filePathOld);
 
             const fileContentOld = fs__read(filePathOld);
@@ -92,32 +94,47 @@ async function runEject(ejectableName) {
             filePathNew = filePathNew.replace('PROJECT_ROOT', projectRootDir);
             assert_usage(pathModule.isAbsolute(filePathNew));
 
-            actions.push(handleConfigChange({configProp, filePathNew, reframeConfigFile, projectRootDir}));
+            actions.push(handleConfigChange({configPath, filePathNew, reframeConfigFile, projectRootDir}));
 
             actions.push(writeFile(filePathNew, fileContentNew));
         });
     }
-    function handleConfigChange({configProp, filePathNew, reframeConfigFile, projectRootDir}) {
+    function handleConfigChange({configPath, filePathNew, reframeConfigFile, projectRootDir}) {
         const configContentOld = reframeConfigFile ? fs__read(reframeConfigFile) : null;
 
-        checkConfigProp({reframeConfigFile, configProp});
+        const filePath = reframeConfigFile || pathModule.resolve(projectRootDir, './reframe.config.js');
+
+        const filePathNew__relative = './'+pathModule.relative(pathModule.dirname(filePath), filePathNew);
 
         let configContentNew = [
-            configContentOld,
-            "module.exports['"+configProp+"'] = '"+filePathNew+"';",
+            ...(configContentOld ? [configContentOld] : ['module.exports = {};']),
+            (() => {
+                const props = getProps(configPath);
+                let line = "module.exports";
+                props
+                .map(prop => {
+                    line += "['"+prop+"']";
+                })
+                line += " = require.resolve('"+filePathNew__relative+"');";
+                return line;
+            })(),
         ].join("\n");
-
-        const filePath = reframeConfigFile;
 
         return () => {
             fs__write(filePath, configContentNew + os.EOL);
             console.log(greenCheckmark()+' Modified '+relativeToHomedir(filePath));
         };
     }
-    function checkConfigProp({reframeConfigFile, configProp}) {
+    function checkConfigPath({reframeConfigFile, configPath}) {
         if( ! reframeConfigFile ) {
             return;
         }
+        const reframeConfig = require(reframeConfigFile);
+        assert_usage(
+            !getPath(reframeConfig, configPath),
+            "The config at `"+reframeConfigFile+"` already defines a `"+configPath+"`",
+            "Remove `"+configPath+"` before ejecting."
+        );
     }
 
     function handleDeps({fileContentOld, ejectablePackageName}) {
@@ -200,6 +217,43 @@ async function runEject(ejectableName) {
             console.log('Installing dependencies:');
             await runNpmInstall({cwd: projectRootDir, packages: depsWithVersion});
         }
+    }
+
+    function getPath(obj, pathString) {
+        return setGetPath(obj, pathString);
+    }
+    function setPath(obj, pathString, newVal) {
+        return setGetPath(obj, pathString, newVal);
+    }
+    function setGetPath(obj, pathString, newVal) {
+        assert_internal(obj instanceof Object, obj, pathString);
+
+        const isGetter = newVal === undefined;
+        let nestedObj = obj;
+
+        const props = getProps(pathString);
+        for(const i in props.slice(0, -1)) {
+            if( ! nestedObj[prop] ) {
+                if( isGetter ) {
+                    return undefined;
+                }
+                nestedObj[prop] = {};
+            }
+            assert_internal(nestedObj[prop] instanceof Object, obj, nestedObj, pathString, prop);
+            nestedObj = nestedObj[prop];
+        }
+
+        const lastProp = props.slice(-1)[0];
+        const lastObj = nestedObj;
+
+        if( isGetter ) {
+            return lastObj[lastProp];
+        }
+
+        lastObj[lastProp] = newVal;
+    }
+    function getProps(pathString) {
+        return pathString.split('.');
     }
 
     function writeFile(filePath, fileContent) {
