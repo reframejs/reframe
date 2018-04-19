@@ -1,27 +1,23 @@
 module.exports = serverPlugin;
 
 function serverPlugin() {
+    const packageName = require('./package.json').name;
     return {
-        name: require('./package.json').name,
+        name: packageName,
         serverEntryFile: require.resolve('./startServer'),
         ejectables: [
             {
                 name: 'server',
                 description: 'Eject server',
-                configFileMove: {
-                    serverEntryFile: 'PROJECT_ROOT/server.js',
+                configMove: {
+                    configPath: 'serverEntryFile',
+                    newConfigValue: 'PROJECT_ROOT/server.js',
                 },
-                /*
-                reframeConfig: {
-                    serverEntryFile: 'PROJECT_ROOT/server',
-                },
-                fileCopies: [
-                    {
-                        from: require.resolve('./startServer'),
-                        to: 'PROJECT_ROOT/server',
-                    },
-                ],
-                */
+            },
+            {
+                name: 'ssr',
+                description: 'Eject Server-Side Rendering',
+                dependencyMove: packageName+'/HapiPluginServerRendering',
             },
         ],
     };

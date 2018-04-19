@@ -62,7 +62,11 @@ async function runEject(ejectableName) {
         const actions = [];
         const deps = {};
 
-        moveConfigFile({actions, deps, ejectableSpec, projectConfig});
+        if( ejectableSpec.configMove ) {
+            moveConfig({actions, deps, ejectableSpec, projectConfig});
+        }
+
+        assert_plugin(actions.length>0);
 
         await updateDependencies({deps, ejectableSpec, projectConfig});
 
@@ -72,39 +76,39 @@ async function runEject(ejectableName) {
         console.log(greenCheckmark()+' Eject done. Run `git show HEAD` to see all ejected code.');
     }
 
-    function moveConfigFile({actions, deps, ejectableSpec, projectConfig}) {
+    function moveConfig({actions, deps, ejectableSpec, projectConfig}) {
         const {projectRootDir, reframeConfigFile} = projectConfig.projectFiles;
 
-        const {configFileMove, packageName: ejectablePackageName} = ejectableSpec;
-        assert_internal(ejectablePackageName);
+        const {configMove: {configPath}, packageName: ejectablePackageName} = ejectableSpec;
+        let {newConfigValue} = ejectableSpec.configMove;
+        assert_internal(ejectablePackageName, ejectableSpec);
+        assert_plugin(configPath, ejectableSpec);
+        assert_plugin(newConfigValue, ejectableSpec);
 
-        Object.entries(configFileMove)
-        .forEach(([configPath, filePathNew]) => {
-            checkConfigPath({reframeConfigFile, configPath});
+        checkConfigPath({reframeConfigFile, configPath});
 
-            const filePathOld = getPath(projectConfig, configPath);
-            assert_plugin(filePathOld);
+        const filePathOld = getPath(projectConfig, configPath);
+        assert_plugin(filePathOld);
 
-            const fileContentOld = fs__read(filePathOld);
+        const fileContentOld = fs__read(filePathOld);
 
-            const {fileDeps, fileContentNew} = handleDeps({fileContentOld, ejectablePackageName});
+        const {fileDeps, fileContentNew} = handleDeps({fileContentOld, ejectablePackageName});
 
-            Object.assign(deps, fileDeps);
+        Object.assign(deps, fileDeps);
 
-            filePathNew = filePathNew.replace('PROJECT_ROOT', projectRootDir);
-            assert_usage(pathModule.isAbsolute(filePathNew));
+        newConfigValue = newConfigValue.replace('PROJECT_ROOT', projectRootDir);
+        assert_usage(pathModule.isAbsolute(newConfigValue));
 
-            actions.push(handleConfigChange({configPath, filePathNew, reframeConfigFile, projectRootDir}));
+        actions.push(handleConfigChange({configPath, newConfigValue, reframeConfigFile, projectRootDir}));
 
-            actions.push(writeFile(filePathNew, fileContentNew));
-        });
+        actions.push(writeFile(newConfigValue, fileContentNew));
     }
-    function handleConfigChange({configPath, filePathNew, reframeConfigFile, projectRootDir}) {
+    function handleConfigChange({configPath, newConfigValue, reframeConfigFile, projectRootDir}) {
         const configContentOld = reframeConfigFile ? fs__read(reframeConfigFile) : null;
 
         const filePath = reframeConfigFile || pathModule.resolve(projectRootDir, './reframe.config.js');
 
-        const filePathNew__relative = './'+pathModule.relative(pathModule.dirname(filePath), filePathNew);
+        const filePathNew__relative = './'+pathModule.relative(pathModule.dirname(filePath), newConfigValue);
 
         let configContentNew = [
             ...(configContentOld ? [configContentOld] : ['module.exports = {};']),
@@ -246,6 +250,7 @@ async function runEject(ejectableName) {
         lastObj[lastProp] = newVal;
     }
     function getProps(pathString) {
+        assert_internal(pathString);
         return pathString.split('.');
     }
 
