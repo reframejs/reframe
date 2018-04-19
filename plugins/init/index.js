@@ -48,7 +48,19 @@ async function scaffoldApp(projectName) {
     const gitignoreTemplate = await fs.readFile(path.resolve(__dirname, './templates/gitignore'), 'utf8');
     await fs.outputFile(path.resolve(currentDir, '.gitignore'), gitignoreTemplate);
 
+    await npmInstall(currentDir);
+
+    await gitInit(currentDir);
+}
+
+async function npmInstall(cwd) {
     const runNpmInstall = require('@reframe/utils/runNpmInstall');
-    const exitCode = await runNpmInstall({cwd: currentDir});
-    console.log(`process completed with code: ${exitCode}`);
+    const exitCode = await runNpmInstall({cwd});
+    console.log('process completed');
+}
+
+async function gitInit(cwd) {
+    const git = require('@reframe/utils/git');
+    await git.init({cwd});
+    await git.commit({cwd, message: 'boostrap Reframe app'});
 }
