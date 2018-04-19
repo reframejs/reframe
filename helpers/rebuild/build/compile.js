@@ -39,7 +39,7 @@ function compile(
     assert_tmp(!webpack_config_modifier);
     assert_tmp(!onBuild);
 
-    const resolveTimeout = gen_await_timeout({name: 'Compilation Build '+compilationName});
+    const resolveTimeout = gen_timeout({name: 'Compilation Build '+compilationName});
 
     const {stop_build, wait_build, first_setup_promise} = (
         run({
@@ -806,8 +806,8 @@ function gen_promise() {
     return {promise, resolvePromise: promise_resolver};
 }
 
-function gen_await_timeout({timeoutSeconds=30, name}={}) {
-    if( ! DEBUG_WATCH ) return;
+function gen_timeout({timeoutSeconds=30, name}={}) {
+    if( ! global.DEBUG_WATCH ) return () => {};
     const timeout = setTimeout(() => {
         assert_warning(false, "Promise \""+name+"\" still not resolved after "+timeoutSeconds+" seconds");
     }, timeoutSeconds*1000)

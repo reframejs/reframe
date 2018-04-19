@@ -128,7 +128,7 @@ function Logger({log_progress=true, log_config_and_stats=false, /*doNotCreateSer
                 this.symbols.success_symbol+' ',
                 'Code built',
                 [
-                    output_directory__base && ' at '+relative_to_homedir(output_directory__base),
+                    output_directory__base && ' '+relative_to_homedir(output_directory__base)+'/',
                  // output.served_at && !doNotCreateServer && ' served at '+output.served_at,
                 ]
                 .filter(Boolean).join(' and'),

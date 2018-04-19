@@ -20,7 +20,7 @@ async function startServer() {
 
     server.start();
 
-    console.log(chalk.green('\u2714')+' Server running at '+server.info.uri);
+    console.log(chalk.green('\u2714')+' Server running '+server.info.uri);
 
     return server;
 }

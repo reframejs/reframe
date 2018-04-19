@@ -8,7 +8,7 @@ const serve = require('@rebuild/serve');
 const build = require('@rebuild/build');
 const {Logger} = require('@rebuild/build/utils/Logger');
 
-//*
+/*
 global.DEBUG_WATCH = true;
 //*/
 
@@ -236,7 +236,7 @@ async function buildAll({isoBuilder, latestRun, browserBuild, nodejsBuild}) {
             compilation_info: [nodejsBuild.__compilationInfo, browserBuild.__compilationInfo],
         });
     }
-    DEBUG_WATCH && console.log("END-BUILDER");
+    global.DEBUG_WATCH && console.log("END-BUILDER");
 }
 
 async function waitOnLatestRun(latestRun) {
@@ -299,7 +299,7 @@ function fs__file_exists(path) {
     }
 }
 function gen_timeout({timeoutSeconds=30, desc}={}) {
-    if( ! DEBUG_WATCH ) return;
+    if( ! global.DEBUG_WATCH ) return () => {};
     const timeout = setTimeout(() => {
         assert_warning(false, "Promise \""+desc+"\" still not resolved after "+timeoutSeconds+" seconds");
     }, timeoutSeconds*1000)
