@@ -29,6 +29,8 @@ async function runEject(ejectableName) {
     const assert_internal = require('reassert/internal');
     const getProjectConfig = require('@reframe/utils/getProjectConfig');
     const runNpmInstall = require('@reframe/utils/runNpmInstall');
+    const relativeToHomedir = require('@brillout/relative-to-homedir');
+    const chalk = require('chalk');
     const pathModule = require('path');
     const fs = require('fs');
     const mkdirp = require('mkdirp');
@@ -50,6 +52,8 @@ async function runEject(ejectableName) {
             assert_internal(projectRootDir);
 
             const deps = {};
+
+            const actions = [];
 
             Object.entries(configFileMove)
             .forEach(([configProp, newFilePath]) => {
@@ -77,11 +81,12 @@ async function runEject(ejectableName) {
 
                 newFilePath = newFilePath.replace('PROJECT_ROOT', projectRootDir);
                 assert_usage(pathModule.isAbsolute(newFilePath));
-                // TODO write only everything else succeded
-                writeFile(newFilePath, fileContent);
+                actions.push(writeFile(newFilePath, fileContent));
             });
 
             await updateDependencies({deps, ejectablePackageName, projectPackageJsonFile, projectRootDir});
+
+            actions.forEach(action => action());
 
             return;
         }
@@ -103,7 +108,13 @@ async function runEject(ejectableName) {
             "A file already exists at `"+filePath+"`.",
             "(Re-)move the file and try again."
         );
-        fs__write(filePath, fileContent);
+        return () => {
+            fs__write(filePath, fileContent);
+            console.log(greenCheckmark()+' Ejected file '+relativeToHomedir(filePath));
+        };
+    }
+    function greenCheckmark() {
+        return chalk.green('\u2714');
     }
     function fs__write(filePath, fileContent) {
         assert_internal(pathModule.isAbsolute(filePath));
