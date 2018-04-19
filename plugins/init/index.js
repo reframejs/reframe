@@ -43,10 +43,10 @@ async function scaffoldApp(projectName) {
     await fs.outputFile(path.resolve(pagePath, pageFileName), pageTemplate);
 
     // add files to projectName root directory
-    let pkgFileName = 'package.json';
-    let configName = 'reframe.config.js';
-    await fs.outputFile(path.resolve(currentDir, pkgFileName), pkgTemplate);
-    await fs.outputFile(path.resolve(currentDir, configName), configTemplate);
+    await fs.outputFile(path.resolve(currentDir, 'package.json'), pkgTemplate);
+    await fs.outputFile(path.resolve(currentDir, 'reframe.config.js'), configTemplate);
+    const gitignoreTemplate = await fs.readFile(path.resolve(__dirname, './templates/gitignore'), 'utf8');
+    await fs.outputFile(path.resolve(currentDir, '.gitignore'), gitignoreTemplate);
 
     install(currentDir);
 }
