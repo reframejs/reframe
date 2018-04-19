@@ -393,14 +393,3 @@ See the Customization Manual for further information.
 
 We can as well add arbitrary script tags to the page's HTML (external scripts, async scripts, etc.).
 See the "Custom Head" section.
-
-
-
-## Related External Docs
-
-The following packages are used by Reframe.
- - [Repage](https://github.com/reframejs/reframe/tree/master/helpers/repage) - Low-level and unopinionted page management library.
- - [@brillout/html-crust](https://github.com/brillout/html-crust) - HTML outer part handler. (`<head>`, `<!DOCTYPE html>`, `<script>`, etc.)
- - [@brillout/find](https://github.com/brillout/find) - Package to find files. The Reframe CLI uses it to find the `pages/` directory.
- - [Rebuild](https://github.com/reframejs/reframe/tree/master/helpers/rebuild) - High-level asset bundling tool build on top of the low-level tool webpack.
-
