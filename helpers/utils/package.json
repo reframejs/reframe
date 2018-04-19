@@ -1,10 +1,10 @@
 {
   "name": "@reframe/utils",
-  "version": "0.0.1-rc.14",
+  "version": "0.0.1-rc.15",
   "dependencies": {
     "@brillout/find": "latest",
     "@brillout/get-user-dir": "latest",
-    "@brillout/webpack-utils": "^0.0.1-rc.14",
+    "@brillout/webpack-utils": "0.0.1-rc.15",
     "cross-spawn": "^6.0.4",
     "find-up": "^2.1.0",
     "git-state": "^4.0.0",

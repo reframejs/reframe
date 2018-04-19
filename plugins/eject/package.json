@@ -1,9 +1,9 @@
 {
     "name": "@reframe/eject",
-    "version": "0.0.1-rc.14",
+    "version": "0.0.1-rc.15",
     "dependencies": {
         "@brillout/relative-to-homedir": "^0.0.1",
-        "@reframe/utils": "^0.0.1-rc.14",
+        "@reframe/utils": "0.0.1-rc.15",
         "builtins": "^2.0.0",
         "chalk": "^2.4.0",
         "detective": "^5.1.0",

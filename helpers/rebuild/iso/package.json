@@ -1,9 +1,9 @@
 {
   "name": "@rebuild/iso",
-  "version": "0.0.1-rc.14",
+  "version": "0.0.1-rc.15",
   "dependencies": {
-    "@rebuild/build": "0.0.1-rc.14",
-    "@rebuild/serve": "0.0.1-rc.14",
+    "@rebuild/build": "0.0.1-rc.15",
+    "@rebuild/serve": "0.0.1-rc.15",
     "touch": "^3.1.0"
   },
   "publishConfig": {

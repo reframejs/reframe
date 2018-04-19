@@ -1,6 +1,6 @@
 {
   "name": "@reframe/typescript",
-  "version": "0.0.1-rc.14",
+  "version": "0.0.1-rc.15",
   "scripts": {
     "docs": "mdocs"
   },
