@@ -3,7 +3,7 @@ const assert_internal = require('reassert/internal');
 const assert_not_implemented = assert_internal;
 const find_up_module = require('find-up');
 const path_module = require('path');
-const searchProjectFiles = require('./searchProjectFiles');
+const find_down = require('./searchProjectFiles');
 
 
 module.exports = find;
@@ -38,7 +38,7 @@ function find_file({filename, input, no_dir, only_dir, anchor_files, can_be_miss
 
     const paths_found__up = ! project_root && find_up(filename, {cwd, no_dir, only_dir});
 
-    const paths_found__down = project_root && searchProjectFiles(filename, {cwd: project_root, no_dir, only_dir});
+    const paths_found__down = project_root && find_down(filename, {cwd: project_root, no_dir, only_dir});
 
     const paths_found = [
         ...(

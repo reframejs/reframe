@@ -81,7 +81,51 @@ async function runEject(ejectableName) {
     }
 
     function moveDependency({actions, deps, ejectableSpec, projectConfig}) {
-        const {dependencyMove} = ejectableSpec;
+        const searchProjectFiles = require('@reframe/utils/searchProjectFiles');
+
+        const {projectRootDir} = projectConfig.projectFiles;
+
+        const {dependencyMove: modulePathOld} = ejectableSpec;
+
+        const allProjectFiles = [
+            ...searchProjectFiles('*.js', {cwd: projectRootDir, no_dir: true}),
+            ...searchProjectFiles('*.jsx', {cwd: projectRootDir, no_dir: true}),
+        ];
+
+        deps[modulePathOld] = true;
+
+        const replaceActions = (
+            allProjectFiles
+            .map(projectFile => {
+                const fileContentOld = fs__read(projectFile);
+                if( ! fileContentOld.includes(modulePathOld) ) {
+                    return null;
+                }
+
+                const fileContentNew = (
+                    fileContentOld
+                    .split(modulePathOld)
+                    .join(modulePathNew)
+                );
+
+                const action = () => fs__write(projectFile, fileContentNew);
+
+                return action;
+            })
+            .filter(Boolean)
+        );
+
+        assert_usage(
+            replaceActions.length>0,
+            "Project files:",
+            JSON.stringify(allProjectFiles, null, 2),
+            "No project file found including the string `"+file+"`.",
+            "Searched in all project files which are printed above.",
+        );
+
+        actions.push(...replaceActions);
+    }
+    function replaceInFile(path, stringOld, stringNew) {
     }
 
     function moveConfig({actions, deps, ejectableSpec, projectConfig}) {
