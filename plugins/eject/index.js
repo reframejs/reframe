@@ -36,14 +36,16 @@ async function runEject(ejectableName) {
     return;
 
     function run() {
-        const {configFileMove, packageName} = ejectableSpec;
-        const ejectablePackage = require(pathModule.join(packageName, './package.json'));
-        assert_internal(packageName);
+        const {configFileMove, packageName: ejectablePackageName} = ejectableSpec;
+        assert_internal(ejectablePackageName);
+
         if( configFileMove ) {
             const projectConfig = getProjectConfig();
 
-            const {projectRootDir, packageJsonFile} = projectConfig.projectFiles;
+            const {projectRootDir, packageJsonFile: projectPackageJsonFile} = projectConfig.projectFiles;
             assert_internal(projectRootDir);
+
+            const deps = {};
 
             Object.entries(configFileMove)
             .forEach(([configProp, newFilePath]) => {
@@ -52,13 +54,12 @@ async function runEject(ejectableName) {
 
                 let fileContent = fs__read(oldPath);
 
-                const deps = {};
                 detective(fileContent)
                 .map(requireString => {
                     if( ! requireString.startsWith('.') ) {
                         return requireString;
                     }
-                    const requireString__new = pathModule.join(packageName, requireString);
+                    const requireString__new = pathModule.join(ejectablePackageName, requireString);
                     fileContent = fileContent.replace(requireString, requireString__new);
                     return requireString__new;
                 })
@@ -73,11 +74,10 @@ async function runEject(ejectableName) {
                 newFilePath = newFilePath.replace('PROJECT_ROOT', projectRootDir);
                 assert_usage(pathModule.isAbsolute(newFilePath));
                 fs__write(newFilePath, fileContent);
-
-                writePackageJson({packageJsonFile, ejectablePackage});
-
-             // console.log(fileContent, deps, newFilePath, packageJsonFile);
             });
+
+            writePackageJson({deps, ejectablePackageName, projectPackageJsonFile});
+
             return;
         }
 
@@ -106,26 +106,30 @@ async function runEject(ejectableName) {
         }
         return parts[0];
     }
-    function writePackageJson({packageJsonFile, ejectablePackage}) {
-        const packageJson = require(packageJsonFile);
+    function writePackageJson({deps, ejectablePackageName, projectPackageJsonFile}) {
+        const ejectablePackageJson = require(pathModule.join(ejectablePackageName, './package.json'));
+        const projectPackageJson = require(projectPackageJsonFile);
+
         let packageJsonChanges = false;
         Object.keys(deps)
         .forEach(depName => {
-            if( ! packageJson.dependencies[depName] ) {
+            if( ! projectPackageJson.dependencies[depName] ) {
+                assert_internal(ejectablePackageName.name);
                 const version = (
-                    depName === ejectablePackage.name ? (
-                        ejectablePackage.version
+                    depName === ejectablePackageJson.name ? (
+                        ejectablePackageJson.version
                     ) : (
-                        ejectablePackage.dependencies[depName]
+                        ejectablePackageJson.dependencies[depName]
                     )
                 );
                 assert_internal(version);
-                packageJson.dependencies[depName] = version;
+                projectPackageJson.dependencies[depName] = version;
                 packageJsonChanges = true;
             }
         });
+
         if( packageJsonChanges ) {
-            fs__write(packageJsonFile, packageJson);
+            fs__write(projectPackageJsonFile, projectPackageJson);
         }
     }
 }
