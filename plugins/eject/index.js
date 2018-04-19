@@ -111,49 +111,6 @@ async function runEject(ejectableName) {
         );
     }
 
-    function fs__read(filePath) {
-        return fs.readFileSync(filePath, 'utf8');
-    }
-
-    function writeFile(filePath, fileContent) {
-        assert_usage(
-            !fs__path_exists(filePath),
-            "A file already exists at `"+filePath+"`.",
-            "(Re-)move the file and try again."
-        );
-        return () => {
-            fs__write(filePath, fileContent);
-            console.log(greenCheckmark()+' Ejected file '+relativeToHomedir(filePath));
-        };
-    }
-    function greenCheckmark() {
-        return chalk.green('\u2714');
-    }
-    function fs__write(filePath, fileContent) {
-        assert_internal(pathModule.isAbsolute(filePath));
-        mkdirp.sync(pathModule.dirname(filePath));
-        fs.writeFileSync(filePath, fileContent);
-    }
-    function fs__path_exists(filePath) {
-        assert_internal(filePath);
-        try {
-            fs.statSync(filePath);
-            return true;
-        }
-        catch(e) {
-            return false;
-        }
-    }
-
-    function getPackageName(requireString) {
-        const parts = requireString.split(pathModule.sep);
-        if( parts[0].startsWith('@') && pathModule.sep==='/' ) {
-            assert_internal(parts[1]);
-            return parts[0]+'/'+parts[1];
-        }
-        return parts[0];
-    }
-
     async function updateDependencies({deps, ejectablePackageName, projectPackageJsonFile, projectRootDir}) {
         const ejectablePackageJson = require(pathModule.join(ejectablePackageName, './package.json'));
         const projectPackageJson = require(projectPackageJsonFile);
@@ -197,6 +154,50 @@ async function runEject(ejectableName) {
             console.log('Installing dependencies:');
             await runNpmInstall({cwd: projectRootDir, packages: depsWithVersion});
         }
+    }
+
+    function getPackageName(requireString) {
+        const parts = requireString.split(pathModule.sep);
+        if( parts[0].startsWith('@') && pathModule.sep==='/' ) {
+            assert_internal(parts[1]);
+            return parts[0]+'/'+parts[1];
+        }
+        return parts[0];
+    }
+
+    function writeFile(filePath, fileContent) {
+        assert_usage(
+            !fs__path_exists(filePath),
+            "A file already exists at `"+filePath+"`.",
+            "(Re-)move the file and try again."
+        );
+        return () => {
+            fs__write(filePath, fileContent);
+            console.log(greenCheckmark()+' Ejected file '+relativeToHomedir(filePath));
+        };
+    }
+    function fs__write(filePath, fileContent) {
+        assert_internal(pathModule.isAbsolute(filePath));
+        mkdirp.sync(pathModule.dirname(filePath));
+        fs.writeFileSync(filePath, fileContent);
+    }
+    function fs__path_exists(filePath) {
+        assert_internal(filePath);
+        try {
+            fs.statSync(filePath);
+            return true;
+        }
+        catch(e) {
+            return false;
+        }
+    }
+
+    function fs__read(filePath) {
+        return fs.readFileSync(filePath, 'utf8');
+    }
+
+    function greenCheckmark() {
+        return chalk.green('\u2714');
     }
 }
 
