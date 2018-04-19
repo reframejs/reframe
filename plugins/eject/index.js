@@ -55,7 +55,7 @@ async function runEject(ejectableName) {
         );
         assert_usage(
             !(await git.hasDirtyOrUntrackedFiles({cwd: projectRootDir})),
-            "The project's repository has untracked and/or dirty files.",
+            "The project's repository has untracked/dirty files.",
             "Commit them before ejecting."
         );
 
@@ -72,7 +72,7 @@ async function runEject(ejectableName) {
         console.log(greenCheckmark()+' Eject done. Run `git show HEAD` to see all ejected code.');
     }
 
-    async function moveConfigFile({actions, deps, ejectableSpec, projectConfig}) {
+    function moveConfigFile({actions, deps, ejectableSpec, projectConfig}) {
         const {projectRootDir, reframeConfigFile} = projectConfig.projectFiles;
 
         const {configFileMove, packageName: ejectablePackageName} = ejectableSpec;
@@ -132,7 +132,7 @@ async function runEject(ejectableName) {
         const reframeConfig = require(reframeConfigFile);
         assert_usage(
             !getPath(reframeConfig, configPath),
-            "The config at `"+reframeConfigFile+"` already defines a `"+configPath+"`",
+            "The config at `"+reframeConfigFile+"` already defines a `"+configPath+"`.",
             "Remove `"+configPath+"` before ejecting."
         );
     }
@@ -200,13 +200,6 @@ async function runEject(ejectableName) {
                 );
                 assert_internal(version);
 
-                // TODO
-                /*
-                console.log(depName);
-                if( depName.startsWith('@reframe') || depName==='webpack-ssr' ) {
-                    return depName+'@0.0.1-rc.14';
-                }
-                */
                 return depName+'@'+version;
             })
             .filter(Boolean)
