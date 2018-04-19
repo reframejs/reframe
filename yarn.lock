@@ -14,17 +14,6 @@
   dependencies:
     node-fetch "^1.7.3"
 
-"@brillout/find@latest":
-  version "0.2.8"
-  resolved "https://registry.yarnpkg.com/@brillout/find/-/find-0.2.8.tgz#d3d950b3994346b87c4dab36b9e728ed81a13693"
-  dependencies:
-    find-up "^2.1.0"
-    glob "^7.1.2"
-    glob-gitignore "^1.0.6"
-    ignore "^3.3.7"
-    path-is-inside "^1.0.2"
-    reassert "^1.1.0"
-
 "@brillout/get-user-dir@^0.1.2", "@brillout/get-user-dir@latest":
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/@brillout/get-user-dir/-/get-user-dir-0.1.2.tgz#c3c91b1575d3c3f4fe90f834841a653afbc5fc98"
@@ -4580,10 +4569,6 @@ path-is-absolute@^1.0.0, path-is-absolute@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/path-is-absolute/-/path-is-absolute-1.0.1.tgz#174b9268735534ffbc7ace6bf53a5a9e1b5c5f5f"
 
-path-is-inside@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/path-is-inside/-/path-is-inside-1.0.2.tgz#365417dede44430d1c11af61027facf074bdfc53"
-
 path-key@^2.0.0, path-key@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/path-key/-/path-key-2.0.1.tgz#411cadb574c5a140d3a4b1910d40d80cc9f40b40"
@@ -5492,7 +5477,7 @@ readdirp@^2.0.0:
     readable-stream "^2.0.2"
     set-immediate-shim "^1.0.1"
 
-reassert@^1.0.3, reassert@^1.0.4, reassert@^1.1.0, reassert@^1.1.7, reassert@latest:
+reassert@^1.0.3, reassert@^1.0.4, reassert@^1.1.7, reassert@latest:
   version "1.1.7"
   resolved "https://registry.yarnpkg.com/reassert/-/reassert-1.1.7.tgz#10cb3d9a6ad4de8cce6762791fa10a450e5a7851"
 

@@ -2,7 +2,7 @@ const assert_internal = require('reassert/internal');
 const assert_usage = require('reassert/usage');
 const pathModule = require('path');
 const find_up = require('find-up');
-const find = require('@brillout/find');
+const find = require('./find');
 const getUserDir = require('@brillout/get-user-dir');
 
 module.exports = findProjectFiles;
