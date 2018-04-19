@@ -66,6 +66,10 @@ async function runEject(ejectableName) {
             moveConfig({actions, deps, ejectableSpec, projectConfig});
         }
 
+        if( ejectableSpec.dependencyMove ) {
+            moveDependency({actions, deps, ejectableSpec, projectConfig});
+        }
+
         assert_plugin(actions.length>0);
 
         await updateDependencies({deps, ejectableSpec, projectConfig});
@@ -74,6 +78,10 @@ async function runEject(ejectableName) {
 
         await git.commit({cwd: projectRootDir, message: "eject "+ejectableSpec.name});
         console.log(greenCheckmark()+' Eject done. Run `git show HEAD` to see all ejected code.');
+    }
+
+    function moveDependency({actions, deps, ejectableSpec, projectConfig}) {
+        const {dependencyMove} = ejectableSpec;
     }
 
     function moveConfig({actions, deps, ejectableSpec, projectConfig}) {
