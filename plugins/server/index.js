@@ -17,7 +17,10 @@ function serverPlugin() {
             {
                 name: 'ssr',
                 description: 'Eject Server-Side Rendering',
-                dependencyMove: packageName+'/HapiPluginServerRendering',
+                dependencyMove: {
+                    oldPath: packageName+'/HapiPluginServerRendering',
+                    newPath: 'PROJECT_ROOT/server/HapiPluginServerRendering.js',
+                },
             },
         ],
     };

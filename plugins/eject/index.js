@@ -85,27 +85,38 @@ async function runEject(ejectableName) {
 
         const {projectRootDir} = projectConfig.projectFiles;
 
-        const {dependencyMove: modulePathOld} = ejectableSpec;
+        const {dependencyMove: {oldPath}} = ejectableSpec;
+        let {dependencyMove: {newPath}} = ejectableSpec;
+        newPath = apply_PROJECT_ROOT(newPath, projectRootDir);
 
         const allProjectFiles = [
             ...searchProjectFiles('*.js', {cwd: projectRootDir, no_dir: true}),
             ...searchProjectFiles('*.jsx', {cwd: projectRootDir, no_dir: true}),
         ];
 
-        deps[modulePathOld] = true;
+        const dependencyFileContent = fs__read(require.resolve(oldPath, {paths: [projectRootDir]}));
+
+        const copyDependencyAction = writeFile(newPath, dependencyFileContent);
+
+        deps[oldPath] = true;
+
+        detective(dependencyFileContent)
+        .forEach(() => {})
 
         const replaceActions = (
             allProjectFiles
             .map(projectFile => {
                 const fileContentOld = fs__read(projectFile);
-                if( ! fileContentOld.includes(modulePathOld) ) {
+                if( ! fileContentOld.includes(oldPath) ) {
                     return null;
                 }
 
+                const relPath = getRelativePath(projectFile, newPath);
+
                 const fileContentNew = (
                     fileContentOld
-                    .split(modulePathOld)
-                    .join(modulePathNew)
+                    .split(oldPath)
+                    .join(relPath)
                 );
 
                 const action = () => fs__write(projectFile, fileContentNew);
@@ -123,7 +134,7 @@ async function runEject(ejectableName) {
             "Searched in all project files which are printed above.",
         );
 
-        actions.push(...replaceActions);
+        actions.push(copyDependencyAction, ...replaceActions);
     }
     function replaceInFile(path, stringOld, stringNew) {
     }
@@ -148,8 +159,7 @@ async function runEject(ejectableName) {
 
         Object.assign(deps, fileDeps);
 
-        newConfigValue = newConfigValue.replace('PROJECT_ROOT', projectRootDir);
-        assert_usage(pathModule.isAbsolute(newConfigValue));
+        newConfigValue = apply_PROJECT_ROOT(newConfigValue, projectRootDir)
 
         actions.push(handleConfigChange({configPath, newConfigValue, reframeConfigFile, projectRootDir}));
 
@@ -158,9 +168,9 @@ async function runEject(ejectableName) {
     function handleConfigChange({configPath, newConfigValue, reframeConfigFile, projectRootDir}) {
         const configContentOld = reframeConfigFile ? fs__read(reframeConfigFile) : null;
 
-        const filePath = reframeConfigFile || pathModule.resolve(projectRootDir, './reframe.config.js');
+        reframeConfigFile = reframeConfigFile || pathModule.resolve(projectRootDir, './reframe.config.js');
 
-        const filePathNew__relative = './'+pathModule.relative(pathModule.dirname(filePath), newConfigValue);
+        const filePathNew__relative = getRelativePath(reframeConfigFile, newConfigValue);
 
         let configContentNew = [
             ...(configContentOld ? [configContentOld] : ['module.exports = {};']),
@@ -177,8 +187,8 @@ async function runEject(ejectableName) {
         ].join("\n");
 
         return () => {
-            fs__write(filePath, configContentNew + os.EOL);
-            console.log(greenCheckmark()+' Modified '+relativeToHomedir(filePath));
+            fs__write(reframeConfigFile, configContentNew + os.EOL);
+            console.log(greenCheckmark()+' Modified '+relativeToHomedir(reframeConfigFile));
         };
     }
     function checkConfigPath({reframeConfigFile, configPath}) {
@@ -223,6 +233,19 @@ async function runEject(ejectableName) {
             return parts[0]+'/'+parts[1];
         }
         return parts[0];
+    }
+
+    function apply_PROJECT_ROOT(fileOldPath, projectRootDir) {
+        const fileNewPath = fileOldPath.replace('PROJECT_ROOT', projectRootDir);
+        assert_usage(pathModule.isAbsolute(fileNewPath));
+        return fileNewPath;
+    }
+    function getRelativePath(dependerFile, dependeeFile) {
+        let pathRelative = pathModule.relative(pathModule.dirname(dependerFile), dependeeFile);
+        if( ! pathModule.startsWith('.') ) {
+            pathRelative = './'+pathRelative;
+        }
+        return pathRelative;
     }
 
     async function updateDependencies({deps, ejectableSpec, projectConfig}) {
