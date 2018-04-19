@@ -48,26 +48,7 @@ async function scaffoldApp(projectName) {
     const gitignoreTemplate = await fs.readFile(path.resolve(__dirname, './templates/gitignore'), 'utf8');
     await fs.outputFile(path.resolve(currentDir, '.gitignore'), gitignoreTemplate);
 
-    install(currentDir);
-}
-
-function install(directory) {
-    const spawn = require('cross-spawn');
-
-    const child = spawn(
-        'npm',
-        [
-            'install',
-            '--save',
-            '--loglevel',
-            'error',
-            // We let the user decide whether to user `yarn.lock` or `package-lock.json`
-            '--no-package-lock',
-        ],
-        { stdio: 'inherit', cwd: directory }
-    );
-
-    child.on('close', code => {
-        console.log(`process completed with code: ${code}`);
-    });
+    const runNpmInstall = require('@reframe/utils/runNpmInstall');
+    const exitCode = await runNpmInstall({cwd: currentDir});
+    console.log(`process completed with code: ${exitCode}`);
 }

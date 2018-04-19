@@ -28,17 +28,18 @@ async function runEject(ejectableName) {
     const assert_usage = require('reassert/usage');
     const assert_internal = require('reassert/internal');
     const getProjectConfig = require('@reframe/utils/getProjectConfig');
+    const runNpmInstall = require('@reframe/utils/runNpmInstall');
     const pathModule = require('path');
     const fs = require('fs');
     const mkdirp = require('mkdirp');
     const os = require('os');
     const assert_plugin = assert_usage;
 
-    run();
+    await run();
 
     return;
 
-    function run() {
+    async function run() {
         const {configFileMove, packageName: ejectablePackageName} = ejectableSpec;
         assert_internal(ejectablePackageName);
 
@@ -76,10 +77,11 @@ async function runEject(ejectableName) {
 
                 newFilePath = newFilePath.replace('PROJECT_ROOT', projectRootDir);
                 assert_usage(pathModule.isAbsolute(newFilePath));
-                fs__write(newFilePath, fileContent);
+                // TODO write only everything else succeded
+                writeFile(newFilePath, fileContent);
             });
 
-            writePackageJson({deps, ejectablePackageName, projectPackageJsonFile});
+            await updateDependencies({deps, ejectablePackageName, projectPackageJsonFile, projectRootDir});
 
             return;
         }
@@ -95,10 +97,27 @@ async function runEject(ejectableName) {
         return fs.readFileSync(filePath, 'utf8');
     }
 
+    function writeFile(filePath, fileContent) {
+        assert_usage(
+            !fs__path_exists(),
+            "A file already exists at `"+filePath+"`.",
+            "(Re-)move the file and try again."
+        );
+        fs__write(filePath, fileContent);
+    }
     function fs__write(filePath, fileContent) {
         assert_internal(pathModule.isAbsolute(filePath));
         mkdirp.sync(pathModule.dirname(filePath));
         fs.writeFileSync(filePath, fileContent);
+    }
+    function fs__path_exists(filePath) {
+        try {
+            fs.statSync(filePath);
+            return true;
+        }
+        catch(e) {
+            return false;
+        }
     }
 
     function getPackageName(requireString) {
@@ -109,14 +128,23 @@ async function runEject(ejectableName) {
         }
         return parts[0];
     }
-    function writePackageJson({deps, ejectablePackageName, projectPackageJsonFile}) {
+
+    async function updateDependencies({deps, ejectablePackageName, projectPackageJsonFile, projectRootDir}) {
         const ejectablePackageJson = require(pathModule.join(ejectablePackageName, './package.json'));
         const projectPackageJson = require(projectPackageJsonFile);
 
-        let packageJsonChanges = false;
-        Object.keys(deps)
-        .forEach(depName => {
-            if( ! projectPackageJson.dependencies[depName] ) {
+        let hasNewDeps = false;
+        const depsWithVersion = (
+            Object.keys(deps)
+            .map(depName => {
+                assert_internal(depName);
+
+                if( projectPackageJson.dependencies[depName] ) {
+                    return null;
+                }
+
+                hasNewDeps = true;
+
                 assert_internal(ejectablePackageJson.name);
                 const version = (
                     depName === ejectablePackageJson.name ? (
@@ -126,13 +154,25 @@ async function runEject(ejectableName) {
                     )
                 );
                 assert_internal(version);
-                projectPackageJson.dependencies[depName] = version;
-                packageJsonChanges = true;
-            }
-        });
 
-        if( packageJsonChanges ) {
-            fs__write(projectPackageJsonFile, JSON.stringify(projectPackageJson, null, 2) + os.EOL);
+                // TODO
+                /*
+                console.log(depName);
+                if( depName.startsWith('@reframe') || depName==='webpack-ssr' ) {
+                    return depName+'@0.0.1-rc.14';
+                }
+                */
+                return depName+'@'+version;
+            })
+            .filter(Boolean)
+        )
+
+        if( hasNewDeps ) {
+            console.log('');
+            console.log('Installing dependencies:');
+            await runNpmInstall({cwd: projectRootDir, packages: depsWithVersion});
+            console.log('');
+            console.log('Eject done.');
         }
     }
 }

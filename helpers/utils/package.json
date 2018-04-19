@@ -5,6 +5,7 @@
     "@brillout/find": "latest",
     "@brillout/get-user-dir": "latest",
     "@brillout/webpack-utils": "^0.0.1-rc.14",
+    "cross-spawn": "^6.0.4",
     "find-up": "^2.1.0",
     "reassert": "latest"
   },
