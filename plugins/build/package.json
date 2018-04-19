@@ -1,16 +1,17 @@
 {
-  "name": "@reframe/build",
-  "version": "0.0.1-rc.14",
-  "dependencies": {
-    "@reframe/browser": "0.0.1-rc.14",
-    "@reframe/utils": "0.0.1-rc.14",
-    "@repage/build": "0.0.1-rc.14",
-    "@repage/core": "0.0.1-rc.14",
-    "reassert": "^1.1.7",
-    "webpack-ssr": "0.0.1-rc.14"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "repository": "github:reframejs/reframe"
+   "name": "@reframe/build",
+   "version": "0.0.1-rc.14",
+   "dependencies": {
+      "@reframe/browser": "0.0.1-rc.14",
+      "@reframe/utils": "0.0.1-rc.14",
+      "@repage/build": "0.0.1-rc.14",
+      "@repage/core": "0.0.1-rc.14",
+      "chalk": "^2.4.0",
+      "reassert": "^1.1.7",
+      "webpack-ssr": "0.0.1-rc.14"
+   },
+   "publishConfig": {
+      "access": "public"
+   },
+   "repository": "github:reframejs/reframe"
 }
