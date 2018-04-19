@@ -2,7 +2,7 @@
   "name": "@reframe/server",
   "version": "0.0.1-rc.14",
   "dependencies": {
-    "@rebuild/build": "^0.0.1-rc.7",
+    "@rebuild/build": "^0.0.1-rc.14",
     "@reframe/utils": "0.0.1-rc.14",
     "@repage/core": "0.0.1-rc.14",
     "@repage/server": "0.0.1-rc.14",
