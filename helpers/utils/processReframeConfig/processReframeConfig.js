@@ -175,9 +175,13 @@ function get_ejectables(_processed, r_objects) {
                 const {name} = ejectable;
                 assert_plugin(name);
                 assert_plugin(!ejectables[name]);
-                ejectable.packageName = r_object.name;
-                assert_internal(ejectable.packageName);
-                ejectables[name] = ejectable;
+
+                const ejectableSpec = {...ejectable};
+
+                assert_internal(r_object.name);
+                ejectableSpec.packageName = r_object.name;
+
+                ejectables[name] = ejectableSpec;
             });
         }
     });

@@ -15,20 +15,13 @@ function ejectCommand() {
 }
 
 async function runEject(ejectableName) {
-    const ejectables = getEjectables();
-
-    const ejectableSpec = ejectables[ejectableName];
-    if( ! ejectableSpec ) {
-        console.log('No ejectable `'+ejectableName+'` found.');
-        printEjectables(ejectables);
-    }
-
     const detective = require('detective');
     const builtins = require('builtins')();
     const assert_usage = require('reassert/usage');
     const assert_internal = require('reassert/internal');
     const getProjectConfig = require('@reframe/utils/getProjectConfig');
     const runNpmInstall = require('@reframe/utils/runNpmInstall');
+    const git = require('@reframe/utils/git');
     const relativeToHomedir = require('@brillout/relative-to-homedir');
     const chalk = require('chalk');
     const pathModule = require('path');
@@ -42,19 +35,37 @@ async function runEject(ejectableName) {
     return;
 
     async function run() {
+        const ejectables = getEjectables();
+
+        const ejectableSpec = ejectables[ejectableName];
+        if( ! ejectableSpec ) {
+            console.log('No ejectable `'+ejectableName+'` found.');
+            printEjectables(ejectables);
+            return;
+        }
+
+        const projectConfig = getProjectConfig();
+
+        const {projectRootDir, packageJsonFile: projectPackageJsonFile} = projectConfig.projectFiles;
+
+        assert_usage(
+            await git.isRepository({cwd: projectRootDir}),
+            "The project is not checked into a Git repository.",
+            "Initialize a Git repository before ejecting."
+        );
+        assert_usage(
+            !(await git.hasDirtyOrUntrackedFiles({cwd: projectRootDir})),
+            "The project's repository has untracked and/or dirty files.",
+            "Commit them before ejecting."
+        );
+
+        const actions = [];
+        const deps = {};
+
         const {configFileMove, packageName: ejectablePackageName} = ejectableSpec;
         assert_internal(ejectablePackageName);
 
         if( configFileMove ) {
-            const projectConfig = getProjectConfig();
-
-            const {projectRootDir, packageJsonFile: projectPackageJsonFile} = projectConfig.projectFiles;
-            assert_internal(projectRootDir);
-
-            const deps = {};
-
-            const actions = [];
-
             Object.entries(configFileMove)
             .forEach(([configProp, newFilePath]) => {
                 const oldPath = projectConfig[configProp];
@@ -84,10 +95,12 @@ async function runEject(ejectableName) {
                 actions.push(writeFile(newFilePath, fileContent));
             });
 
-            await updateDependencies({deps, ejectablePackageName, projectPackageJsonFile, projectRootDir});
+         // await updateDependencies({deps, ejectablePackageName, projectPackageJsonFile, projectRootDir});
 
             actions.forEach(action => action());
 
+            await git.commit({cwd: projectRootDir, message: "eject "+ejectableSpec.name});
+            console.log(greenCheckmark()+' Eject done. Run `git show HEAD` to see all ejected code.');
             return;
         }
 
@@ -104,7 +117,7 @@ async function runEject(ejectableName) {
 
     function writeFile(filePath, fileContent) {
         assert_usage(
-            !fs__path_exists(),
+            !fs__path_exists(filePath),
             "A file already exists at `"+filePath+"`.",
             "(Re-)move the file and try again."
         );
@@ -122,6 +135,7 @@ async function runEject(ejectableName) {
         fs.writeFileSync(filePath, fileContent);
     }
     function fs__path_exists(filePath) {
+        assert_internal(filePath);
         try {
             fs.statSync(filePath);
             return true;
@@ -182,8 +196,6 @@ async function runEject(ejectableName) {
             console.log('');
             console.log('Installing dependencies:');
             await runNpmInstall({cwd: projectRootDir, packages: depsWithVersion});
-            console.log('');
-            console.log('Eject done.');
         }
     }
 }
