@@ -31,6 +31,7 @@ async function runEject(ejectableName) {
     const pathModule = require('path');
     const fs = require('fs');
     const mkdirp = require('mkdir');
+    const os = require('os');
     const assert_plugin = assert_usage;
 
     return;
@@ -129,7 +130,7 @@ async function runEject(ejectableName) {
         });
 
         if( packageJsonChanges ) {
-            fs__write(projectPackageJsonFile, projectPackageJson);
+            fs__write(projectPackageJsonFile, JSON.stringify(projectPackageJson, null, 2) + os.EOL);
         }
     }
 }
