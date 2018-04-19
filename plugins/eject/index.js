@@ -79,33 +79,52 @@ async function runEject(ejectableName) {
         assert_internal(ejectablePackageName);
 
         Object.entries(configFileMove)
-        .forEach(([configProp, newFilePath]) => {
-            const oldPath = projectConfig[configProp];
-            assert_plugin(oldPath);
+        .forEach(([configProp, filePathNew]) => {
+            const filePathOld = projectConfig[configProp];
+            assert_plugin(filePathOld);
 
-            let fileContent = fs__read(oldPath);
+            const fileContentOld = fs__read(filePathOld);
 
-            detective(fileContent)
-            .map(requireString => {
-                if( ! requireString.startsWith('.') ) {
-                    return requireString;
-                }
-                const requireString__new = pathModule.join(ejectablePackageName, requireString);
-                fileContent = fileContent.replace(requireString, requireString__new);
-                return requireString__new;
-            })
-            .forEach(requireString => {
-                const pkgName = getPackageName(requireString);
-                if( builtins.includes(pkgName) ) {
-                    return;
-                }
-                deps[pkgName] = true;
-            });
+            const {fileDeps, fileContentNew} = handleDeps({fileContentOld, ejectablePackageName});
 
-            newFilePath = newFilePath.replace('PROJECT_ROOT', projectRootDir);
-            assert_usage(pathModule.isAbsolute(newFilePath));
-            actions.push(writeFile(newFilePath, fileContent));
+            Object.assign(deps, fileDeps);
+
+            filePathNew = filePathNew.replace('PROJECT_ROOT', projectRootDir);
+            assert_usage(pathModule.isAbsolute(filePathNew));
+
+            actions.push(writeFile(filePathNew, fileContentNew));
         });
+    }
+    function handleDeps({fileContentOld, ejectablePackageName}) {
+        let fileContentNew = fileContentOld;
+        const fileDeps = {};
+
+        detective(fileContentOld)
+        .map(requireString => {
+            if( ! requireString.startsWith('.') ) {
+                return requireString;
+            }
+            const requireString__new = pathModule.join(ejectablePackageName, requireString);
+            fileContentNew = fileContentNew.replace(requireString, requireString__new);
+            return requireString__new;
+        })
+        .forEach(requireString => {
+            const pkgName = getPackageName(requireString);
+            if( builtins.includes(pkgName) ) {
+                return;
+            }
+            fileDeps[pkgName] = true;
+        });
+
+        return {fileDeps, fileContentNew};
+    }
+    function getPackageName(requireString) {
+        const parts = requireString.split(pathModule.sep);
+        if( parts[0].startsWith('@') && pathModule.sep==='/' ) {
+            assert_internal(parts[1]);
+            return parts[0]+'/'+parts[1];
+        }
+        return parts[0];
     }
 
     async function updateDependencies({deps, ejectableSpec, projectConfig}) {
@@ -156,15 +175,6 @@ async function runEject(ejectableName) {
             console.log('Installing dependencies:');
             await runNpmInstall({cwd: projectRootDir, packages: depsWithVersion});
         }
-    }
-
-    function getPackageName(requireString) {
-        const parts = requireString.split(pathModule.sep);
-        if( parts[0].startsWith('@') && pathModule.sep==='/' ) {
-            assert_internal(parts[1]);
-            return parts[0]+'/'+parts[1];
-        }
-        return parts[0];
     }
 
     function writeFile(filePath, fileContent) {
