@@ -64,7 +64,7 @@ async function runEject(ejectableName) {
 
         moveConfigFile({actions, deps, ejectableSpec, projectConfig});
 
-     // await updateDependencies({deps, ejectableSpec, projectConfig});
+        await updateDependencies({deps, ejectableSpec, projectConfig});
 
         actions.forEach(action => action());
 
