@@ -26,8 +26,8 @@ async function runEject(ejectableName) {
     const chalk = require('chalk');
     const pathModule = require('path');
     const fs = require('fs');
-    const mkdirp = require('mkdirp');
     const os = require('os');
+    const mkdirp = require('mkdirp');
     const assert_plugin = assert_usage;
 
     await run();
@@ -73,7 +73,7 @@ async function runEject(ejectableName) {
     }
 
     async function moveConfigFile({actions, deps, ejectableSpec, projectConfig}) {
-        const {projectRootDir} = projectConfig.projectFiles;
+        const {projectRootDir, reframeConfigFile} = projectConfig.projectFiles;
 
         const {configFileMove, packageName: ejectablePackageName} = ejectableSpec;
         assert_internal(ejectablePackageName);
@@ -92,9 +92,34 @@ async function runEject(ejectableName) {
             filePathNew = filePathNew.replace('PROJECT_ROOT', projectRootDir);
             assert_usage(pathModule.isAbsolute(filePathNew));
 
+            actions.push(handleConfigChange({configProp, filePathNew, reframeConfigFile, projectRootDir}));
+
             actions.push(writeFile(filePathNew, fileContentNew));
         });
     }
+    function handleConfigChange({configProp, filePathNew, reframeConfigFile, projectRootDir}) {
+        const configContentOld = reframeConfigFile ? fs__read(reframeConfigFile) : null;
+
+        checkConfigProp({reframeConfigFile, configProp});
+
+        let configContentNew = [
+            configContentOld,
+            "module.exports['"+configProp+"'] = '"+filePathNew+"';",
+        ].join("\n");
+
+        const filePath = reframeConfigFile;
+
+        return () => {
+            fs__write(filePath, configContentNew + os.EOL);
+            console.log(greenCheckmark()+' Modified '+relativeToHomedir(filePath));
+        };
+    }
+    function checkConfigProp({reframeConfigFile, configProp}) {
+        if( ! reframeConfigFile ) {
+            return;
+        }
+    }
+
     function handleDeps({fileContentOld, ejectablePackageName}) {
         let fileContentNew = fileContentOld;
         const fileDeps = {};
@@ -185,7 +210,7 @@ async function runEject(ejectableName) {
         );
         return () => {
             fs__write(filePath, fileContent);
-            console.log(greenCheckmark()+' Ejected file '+relativeToHomedir(filePath));
+            console.log(greenCheckmark()+' New file '+relativeToHomedir(filePath));
         };
     }
     function fs__write(filePath, fileContent) {
