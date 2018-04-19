@@ -30,9 +30,11 @@ async function runEject(ejectableName) {
     const getProjectConfig = require('@reframe/utils/getProjectConfig');
     const pathModule = require('path');
     const fs = require('fs');
-    const mkdirp = require('mkdir');
+    const mkdirp = require('mkdirp');
     const os = require('os');
     const assert_plugin = assert_usage;
+
+    run();
 
     return;
 
@@ -115,7 +117,7 @@ async function runEject(ejectableName) {
         Object.keys(deps)
         .forEach(depName => {
             if( ! projectPackageJson.dependencies[depName] ) {
-                assert_internal(ejectablePackageName.name);
+                assert_internal(ejectablePackageJson.name);
                 const version = (
                     depName === ejectablePackageJson.name ? (
                         ejectablePackageJson.version
