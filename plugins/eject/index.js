@@ -62,56 +62,58 @@ async function runEject(ejectableName) {
         const actions = [];
         const deps = {};
 
+        moveConfigFile({actions, deps, ejectableSpec, projectConfig});
+
+     // await updateDependencies({deps, ejectableSpec, projectConfig});
+
+        actions.forEach(action => action());
+
+        await git.commit({cwd: projectRootDir, message: "eject "+ejectableSpec.name});
+        console.log(greenCheckmark()+' Eject done. Run `git show HEAD` to see all ejected code.');
+    }
+
+    async function moveConfigFile({actions, deps, ejectableSpec, projectConfig}) {
+        const {projectRootDir} = projectConfig.projectFiles;
+
         const {configFileMove, packageName: ejectablePackageName} = ejectableSpec;
         assert_internal(ejectablePackageName);
 
-        if( configFileMove ) {
-            Object.entries(configFileMove)
-            .forEach(([configProp, newFilePath]) => {
-                const oldPath = projectConfig[configProp];
-                assert_plugin(oldPath);
+        Object.entries(configFileMove)
+        .forEach(([configProp, newFilePath]) => {
+            const oldPath = projectConfig[configProp];
+            assert_plugin(oldPath);
 
-                let fileContent = fs__read(oldPath);
+            let fileContent = fs__read(oldPath);
 
-                detective(fileContent)
-                .map(requireString => {
-                    if( ! requireString.startsWith('.') ) {
-                        return requireString;
-                    }
-                    const requireString__new = pathModule.join(ejectablePackageName, requireString);
-                    fileContent = fileContent.replace(requireString, requireString__new);
-                    return requireString__new;
-                })
-                .forEach(requireString => {
-                    const pkgName = getPackageName(requireString);
-                    if( builtins.includes(pkgName) ) {
-                        return;
-                    }
-                    deps[pkgName] = true;
-                });
-
-                newFilePath = newFilePath.replace('PROJECT_ROOT', projectRootDir);
-                assert_usage(pathModule.isAbsolute(newFilePath));
-                actions.push(writeFile(newFilePath, fileContent));
+            detective(fileContent)
+            .map(requireString => {
+                if( ! requireString.startsWith('.') ) {
+                    return requireString;
+                }
+                const requireString__new = pathModule.join(ejectablePackageName, requireString);
+                fileContent = fileContent.replace(requireString, requireString__new);
+                return requireString__new;
+            })
+            .forEach(requireString => {
+                const pkgName = getPackageName(requireString);
+                if( builtins.includes(pkgName) ) {
+                    return;
+                }
+                deps[pkgName] = true;
             });
 
-         // await updateDependencies({deps, ejectablePackageName, projectPackageJsonFile, projectRootDir});
-
-            actions.forEach(action => action());
-
-            await git.commit({cwd: projectRootDir, message: "eject "+ejectableSpec.name});
-            console.log(greenCheckmark()+' Eject done. Run `git show HEAD` to see all ejected code.');
-            return;
-        }
-
-        assert_plugin(
-            false,
-            ejectableSpec,
-            "Wrong ejectable spec"
-        );
+            newFilePath = newFilePath.replace('PROJECT_ROOT', projectRootDir);
+            assert_usage(pathModule.isAbsolute(newFilePath));
+            actions.push(writeFile(newFilePath, fileContent));
+        });
     }
 
-    async function updateDependencies({deps, ejectablePackageName, projectPackageJsonFile, projectRootDir}) {
+    async function updateDependencies({deps, ejectableSpec, projectConfig}) {
+        const {projectRootDir, packageJsonFile: projectPackageJsonFile} = projectConfig.projectFiles;
+
+        const {packageName: ejectablePackageName} = ejectableSpec;
+        assert_internal(ejectablePackageName);
+
         const ejectablePackageJson = require(pathModule.join(ejectablePackageName, './package.json'));
         const projectPackageJson = require(projectPackageJsonFile);
 
