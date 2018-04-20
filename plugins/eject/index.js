@@ -167,44 +167,49 @@ async function runEject(ejectableName) {
         actions.push(handleConfigChange({configPath, newConfigValue, reframeConfigFile, projectRootDir}));
     }
     function handleConfigChange({configPath, newConfigValue, reframeConfigFile, projectRootDir}) {
-        const configContentOld = reframeConfigFile ? fs__read(reframeConfigFile) : null;
+        const filePath = reframeConfigFile || pathModule.resolve(projectRootDir, './reframe.config.js');
 
-        reframeConfigFile = reframeConfigFile || pathModule.resolve(projectRootDir, './reframe.config.js');
+        const filePathNew__relative = getRelativePath(filePath, newConfigValue);
 
-        const filePathNew__relative = getRelativePath(reframeConfigFile, newConfigValue);
+        const props = getProps(configPath);
 
-        let configContentNew = [
-            ...(configContentOld ? [configContentOld] : ['module.exports = {};']),
-            ...(() => {
-                const props = getProps(configPath);
-                return (
-                    props
-                    .map((lastProp, i) => {
-                        let object_prop = "module.exports";
-                        props
-                        .slice(0, i+1)
-                        .forEach(prop => {
-                            object_prop += "['"+prop+"']";
-                        })
-                        const line = (
-                            object_prop +
-                            " = " + (
-                                (i===props.length-1) ? (
-                                    "require.resolve('"+filePathNew__relative+"')"
-                                ) : (
-                                    object_prop+" || {}"
-                                )
-                            ) +
-                            ";"
-                        );
-                        return line;
-                    })
+        let configContentAppend = (
+            props
+            .map((lastProp, i) => {
+                let object_prop = "module.exports";
+                props
+                .slice(0, i+1)
+                .forEach(prop => {
+                    object_prop += "['"+prop+"']";
+                })
+                const line = (
+                    object_prop +
+                    " = " + (
+                        (i===props.length-1) ? (
+                            "require.resolve('"+filePathNew__relative+"')"
+                        ) : (
+                            object_prop+" || {}"
+                        )
+                    ) +
+                    ";"
                 );
-            })(),
-        ].join("\n");
+                return line;
+            })
+        );
 
         return () => {
-            fs__write(reframeConfigFile, configContentNew + os.EOL);
+            const configContentOld = reframeConfigFile ? fs__read(reframeConfigFile) : null;
+            console.log(configContentOld);
+
+            const configContentNew = [
+                ...(configContentOld ? [configContentOld] : ['module.exports = {};']),
+                ...configContentAppend,
+            ].join("\n");
+
+            console.log(configContentNew);
+
+            fs__write(filePath, configContentNew + os.EOL);
+
             console.log(greenCheckmark()+' Modified '+relativeToHomedir(reframeConfigFile));
         };
     }
