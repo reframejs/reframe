@@ -8,8 +8,6 @@ loading_spinner.start();
 
 const getUserDir = require('@brillout/get-user-dir');
 getUserDir.userDir = process.cwd();
-console.log(require.resolve('@brillout/get-user-dir'));
-console.log(getUserDir.userDir);
 
 const getProjectConfig = require('@reframe/utils/getProjectConfig');
 const projectConfig = getProjectConfig({projectNotRequired: true, pluginRequired: true});
