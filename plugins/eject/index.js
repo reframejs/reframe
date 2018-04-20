@@ -6,7 +6,7 @@ function ejectCommand() {
         cliCommands: [
             {
                 name: 'eject [ejectable]',
-                description: 'Eject an "ejectable". Run `reframe eject -h` for the list of ejectables.',
+                description: 'Eject an "ejectable". Run `reframe eject` for the list of ejectables.',
                 action: runEject,
                 onHelp,
             },
