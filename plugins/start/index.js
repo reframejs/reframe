@@ -125,7 +125,6 @@ function assert_config(bool, projectConfig, path, name) {
         "More precisely: The project config is missing a `projectConfig."+path+"`.",
         "Either add a "+name+" plugin or define `projectConfig."+path+"` yourself in your `reframe.config.js`.",
         (
-            // TODO move/copy this into @reframe/cli
             projectConfig._packageJsonPlugins.length === 0 ? (
                 "No Reframe plugins found in the `dependencies` field of `"+projectConfig._packageJsonFile+"`."
             ) : (

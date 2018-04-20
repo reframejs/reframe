@@ -1,6 +1,5 @@
 const assert_internal = require('reassert/internal');
 const assert_usage = require('reassert/usage');
-const getUserDir = require('@brillout/get-user-dir');
 const findProjectFiles = require('./findProjectFiles');
 const pathModule = require('path');
 const {processReframeConfig} = require('./processReframeConfig/processReframeConfig');
@@ -16,7 +15,7 @@ function getProjectConfig(...args) {
     return projectConfig__cache;
 }
 
-function computeProjectConfig({projectNotRequired=false}={}) {
+function computeProjectConfig({projectNotRequired=false, pluginRequired=false}={}) {
     let {reframeConfigFile, pagesDir, packageJsonFile} = findProjectFiles({projectNotRequired});
     const reframeConfig = reframeConfigFile && require(reframeConfigFile) || {};
 
@@ -27,6 +26,13 @@ function computeProjectConfig({projectNotRequired=false}={}) {
     );
 
     const {foundPlugins, foundPluginNames} = findPlugins({packageJsonFile});
+
+    assert_usage(
+        !pluginRequired || !packageJsonFile || foundPluginNames.length>0,
+        "No Reframe plugins found in the `dependencies` field of `"+packageJsonFile+"`.",
+        "At least one Reframe plugin is required."
+    );
+
     reframeConfig.plugins = [
         ...(reframeConfig.plugins||[]),
         ...foundPlugins,
