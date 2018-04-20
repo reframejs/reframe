@@ -70,10 +70,7 @@ async function runEject(ejectableName) {
 
         let configChanges = ejectableSpec.configChanges||[];
         assert_plugin(configChanges.forEach, configChanges);
-        configChanges
-        .forEach(configChange =>
-            changeConfig({configChange, actions, deps, ejectablePackageName, projectConfig})
-        )
+        changeConfig({configChanges, actions, deps, ejectablePackageName, projectConfig})
 
         let fileCopies = ejectableSpec.fileCopies||[];
         assert_plugin(fileCopies.forEach, fileCopies);
@@ -152,28 +149,51 @@ async function runEject(ejectableName) {
         actions.push(copyDependencyAction, ...replaceActions);
     }
 
-    function changeConfig({configChange, actions, deps, ejectablePackageName, projectConfig}) {
+    function changeConfig({configChanges, actions, deps, ejectablePackageName, projectConfig}) {
+
         const {projectRootDir, reframeConfigFile} = projectConfig.projectFiles;
 
-        const {configPath} = configChange;
-        let {newConfigValue} = configChange;
-        assert_plugin(configPath, configChange);
-        assert_plugin(newConfigValue, configChange);
+        const reframeConfigPath = reframeConfigFile || pathModule.resolve(projectRootDir, './reframe.config.js');
 
-        checkConfigPath({reframeConfigFile, configPath});
+        let reframeConfigContent = (
+            reframeConfigFile ? (
+                fs__read(reframeConfigFile)
+            ) : (
+                'module.exports = {};'
+            )
+        );
 
-        newConfigValue = apply_PROJECT_ROOT(newConfigValue, projectRootDir)
+        configChanges
+        .forEach(configChange => {
+            const {configPath} = configChange;
+            let {newConfigValue} = configChange;
+            assert_plugin(configPath, configChange);
+            assert_plugin(newConfigValue, configChange);
+            newConfigValue = apply_PROJECT_ROOT(newConfigValue, projectRootDir)
 
-        actions.push(handleConfigChange({configPath, newConfigValue, reframeConfigFile, projectRootDir}));
+            checkConfigPath({reframeConfigFile, configPath});
+            reframeConfigContent += '\n\n' + applyConfigChange({configPath, newConfigValue, reframeConfigPath});
+        });
+
+        const action = () => {
+            fs__write(reframeConfigPath, reframeConfigContent + os.EOL);
+            console.log(greenCheckmark()+' Modified '+relativeToHomedir(reframeConfigFile));
+        };
+
+        actions.push(action);
     }
-    function handleConfigChange({configPath, newConfigValue, reframeConfigFile, projectRootDir}) {
-        const filePath = reframeConfigFile || pathModule.resolve(projectRootDir, './reframe.config.js');
-
-        const filePathNew__relative = getRelativePath(filePath, newConfigValue);
+    function applyConfigChange({configPath, newConfigValue, reframeConfigPath}) {
+        const newValue = (
+            pathModule.isAbsolute(newConfigValue) ? (
+                "require.resolve('"+getRelativePath(reframeConfigPath, newConfigValue)+"')"
+            ) : (
+                newConfigValue
+            )
+        );
 
         const props = getProps(configPath);
 
-        let configContentAppend = (
+        const configContentAppend = (
             props
             .map((lastProp, i) => {
                 let object_prop = "module.exports";
@@ -186,7 +206,7 @@ async function runEject(ejectableName) {
                     object_prop +
                     " = " + (
                         (i===props.length-1) ? (
-                            "require.resolve('"+filePathNew__relative+"')"
+                            newValue
                         ) : (
                             object_prop+" || {}"
                         )
@@ -195,23 +215,10 @@ async function runEject(ejectableName) {
                 );
                 return line;
             })
+            .join('\n')
         );
 
-        return () => {
-            const configContentOld = reframeConfigFile ? fs__read(reframeConfigFile) : null;
-            console.log(configContentOld);
-
-            const configContentNew = [
-                ...(configContentOld ? [configContentOld] : ['module.exports = {};']),
-                ...configContentAppend,
-            ].join("\n");
-
-            console.log(configContentNew);
-
-            fs__write(filePath, configContentNew + os.EOL);
-
-            console.log(greenCheckmark()+' Modified '+relativeToHomedir(reframeConfigFile));
-        };
+        return configContentAppend;
     }
     function checkConfigPath({reframeConfigFile, configPath}) {
         if( ! reframeConfigFile ) {
