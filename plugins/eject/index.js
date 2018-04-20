@@ -310,6 +310,7 @@ async function runEject(ejectableName) {
 
         const props = getProps(pathString);
         for(const i in props.slice(0, -1)) {
+            const prop = props[i];
             if( ! nestedObj[prop] ) {
                 if( isGetter ) {
                     return undefined;

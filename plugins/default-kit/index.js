@@ -2,8 +2,8 @@ const reactPlugin = require('@reframe/react');
 //const crossroadsPlugin = require('@reframe/crossroads');
 const pathToRegexp = require('@reframe/path-to-regexp');
 const RepageRenderer = require('@repage/renderer');
-const buildPlugin = require('@reframe/build');
 const serverPlugin = require('@reframe/server');
+const buildPlugin = require('@reframe/build');
 const browserPlugin = require('@reframe/browser');
 const startCommands = require('@reframe/start');
 const ejectCommand = require('@reframe/eject');
@@ -20,8 +20,8 @@ function defaultKit() {
             reactPlugin(),
          // crossroadsPlugin(),
             pathToRegexp(),
-            buildPlugin(),
             serverPlugin(),
+            buildPlugin(),
             browserPlugin(),
             startCommands(),
             ejectCommand(),
