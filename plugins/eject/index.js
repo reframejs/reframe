@@ -5,7 +5,7 @@ function ejectCommand() {
         name: require('./package.json'),
         cliCommands: [
             {
-                name: 'eject <ejectable>',
+                name: 'eject [ejectable]',
                 description: 'Eject an "ejectable". Run `reframe eject -h` for the list of ejectables.',
                 action: runEject,
                 onHelp,
@@ -15,6 +15,10 @@ function ejectCommand() {
 }
 
 async function runEject(ejectableName) {
+    if( !ejectableName ) {
+        printEjectables();
+        return;
+    }
     const detective = require('detective');
     const builtins = require('builtins')();
     const assert_usage = require('reassert/usage');
@@ -368,9 +372,8 @@ async function runEject(ejectableName) {
 }
 
 function onHelp() {
-    const ejectables = getEjectables();
     console.log();
-    printEjectables(ejectables);
+    printEjectables();
 }
 
 function getEjectables() {
@@ -380,8 +383,9 @@ function getEjectables() {
     return projectConfig.ejectables;
 }
 
-function printEjectables(ejectables) {
-    console.log('  Ejectables:');
+function printEjectables() {
+    const ejectables = getEjectables();
+    console.log('  List of ejectables:');
     Object.values(ejectables)
     .forEach(ejectable => {
         const {name, description} = ejectable;

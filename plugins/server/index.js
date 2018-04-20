@@ -6,13 +6,17 @@ function serverPlugin() {
     const serverEntryFile = require.resolve('./startServer');
     const serverEntryFile_ejectedPath = 'PROJECT_ROOT/server/index.js';
 
+    const serverEjectName = 'server';
+    const ssrEjectName = 'server-ssr';
+    const assetsEjectName = 'server-assets';
+
     return {
         name: packageName,
         serverEntryFile,
         ejectables: [
             {
-                name: 'server',
-                description: 'Eject server',
+                name: serverEjectName,
+                description: 'Eject hapi server code',
                 configChanges: [
                     {
                         configPath: 'serverEntryFile',
@@ -28,13 +32,24 @@ function serverPlugin() {
                 ],
             },
             {
-                name: 'ssr',
-                description: 'Eject Server-Side Rendering',
+                name: ssrEjectName,
+                description: 'Eject Server-Side Rendering plugin code',
                 fileCopies: [
                     {
                         oldPath: packageName+'/HapiPluginServerRendering',
                         newPath: 'PROJECT_ROOT/server/HapiPluginServerRendering.js',
-                        noDependerMessage: 'Run `eject server` before running `eject ssr`.',
+                        noDependerMessage: 'Run `eject '+serverEjectName+'` before running `eject '+ssrEjectName+'`.',
+                    },
+                ],
+            },
+            {
+                name: assetsEjectName,
+                description: 'Eject static assets servering plugin code',
+                fileCopies: [
+                    {
+                        oldPath: packageName+'/HapiPluginStaticAssets',
+                        newPath: 'PROJECT_ROOT/server/HapiPluginStaticAssets.js',
+                        noDependerMessage: 'Run `eject '+serverEjectName+'` before running `eject '+assetsEjectName+'`.',
                     },
                 ],
             },
