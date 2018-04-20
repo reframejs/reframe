@@ -174,7 +174,7 @@ function get_ejectables(_processed, r_objects) {
             r_object.ejectables.forEach(ejectable => {
                 const {name} = ejectable;
                 assert_plugin(name);
-                assert_plugin(!ejectables[name], r_objects);
+                assert_plugin(!ejectables[name], r_objects, ejectables, name);
 
                 const ejectableSpec = {...ejectable};
 
