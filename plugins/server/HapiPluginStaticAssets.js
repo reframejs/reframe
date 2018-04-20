@@ -11,7 +11,7 @@ module.exports = HapiPluginStaticAssets;
 
 async function register(server) {
     const projectConfig = getProjectConfig();
-    const staticAssetsDir = require(projectConfig.build.getStaticAssetsDir)();
+    const {staticAssetsDir} = require(projectConfig.build.getBuildInfo)();
     await server.register([
         {plugin: HapiPluginStaticAssets__create(staticAssetsDir)},
     ]);

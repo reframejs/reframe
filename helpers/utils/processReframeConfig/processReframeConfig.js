@@ -149,7 +149,7 @@ function get_transparent_fields(_processed, r_objects) {
     .reverse()
     .forEach(r_object => {
         if (r_object.build) {
-            ['executeBuild', 'getPageConfigs', 'getStaticAssetsDir']
+            ['executeBuild', 'getBuildInfo']
             .forEach(buildFunctionName => {
                 if( r_object.build[buildFunctionName] ) {
                     _processed.build[buildFunctionName] = r_object.build[buildFunctionName];

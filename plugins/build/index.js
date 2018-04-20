@@ -3,8 +3,11 @@ module.exports = buildPlugin;
 function buildPlugin() {
     const packageName = require('./package.json').name;
 
-    const serverEntryFile = require.resolve('./startServer');
-    const serverEntryFile_ejectedPath = 'PROJECT_ROOT/server/index.js';
+    const executeBuild = require.resolve('./executeBuild');
+    const executeBuild_ejectedPath = 'PROJECT_ROOT/build/index.js';
+
+    const getBuildInfo = require.resolve('./getBuildInfo');
+    const getBuildInfo_ejectedPath = 'PROJECT_ROOT/build/getBuildInfo.js';
 
     const buildEjectName = 'build';
     const staticRenderingEjectName = 'build-static-rendering';
@@ -13,25 +16,33 @@ function buildPlugin() {
     return {
         name: packageName,
         build: {
-            executeBuild: require.resolve('./executeBuild'),
-            getPageConfigs: require.resolve('./getPageConfigs'),
-            getStaticAssetsDir: require.resolve('./getStaticAssetsDir'),
+            executeBuild,
+            getBuildInfo,
         },
         ejectables: [
             {
-                name: BuildEjectName,
+                name: buildEjectName,
                 description: 'Eject build code',
                 configChanges: [
                     {
-                        configPath: 'serverEntryFile',
-                        newConfigValue: serverEntryFile_ejectedPath,
+                        configPath: 'build.executeBuild',
+                        newConfigValue: executeBuild_ejectedPath,
+                    },
+                    {
+                        configPath: 'build.getBuildInfo',
+                        newConfigValue: getBuildInfo_ejectedPath,
                     },
                 ],
                 fileCopies: [
                     {
                         noDependerRequired: true,
-                        oldPath: serverEntryFile,
-                        newPath: serverEntryFile_ejectedPath,
+                        oldPath: executeBuild,
+                        newPath: executeBuild_ejectedPath,
+                    },
+                    {
+                        noDependerRequired: true,
+                        oldPath: getBuildInfo,
+                        newPath: getBuildInfo_ejectedPath,
                     },
                 ],
             },

@@ -13,7 +13,7 @@ module.exports = getPageHTMLs;
 async function getPageHTMLs() {
     const projectConfig = getProjectConfig();
 
-    const pageConfigs = require(projectConfig.build.getPageConfigs)();
+    const {pageConfigs} = require(projectConfig.build.getBuildInfo)();
 
     return (
         (await get_static_pages_info())
