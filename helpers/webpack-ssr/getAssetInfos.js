@@ -1,4 +1,5 @@
 const assert_internal = require('reassert/internal');
+const assert_usage = require('reassert/usage');
 const forceRequire = require('./utils/forceRequire');
 const fs = require('fs');
 const pathModule = require('path');
@@ -35,9 +36,20 @@ function getAssetInfos({outputDir}) {
 
 function readAssetMap({outputDir}) {
     const assetMapPath = pathModule.resolve(outputDir, 'assetInfos.json');
-    return JSON.parse(readFile(assetMapPath));
+    const assetMapContent = readFile(assetMapPath);
+    assert_usage(
+        assetMapContent!==null,
+        "The asset information file `"+assetMapPath+"` is missing.",
+        "The build needs to have been run previously.",
+        "(The build generates `"+assetMapPath+"`.)"
+    );
+    return JSON.parse(assetMapContent);
 }
 
 function readFile(filepath) {
-    return fs.readFileSync(filepath, 'utf8');
+    try {
+        return fs.readFileSync(filepath, 'utf8');
+    } catch(e) {
+        return null;
+    }
 }

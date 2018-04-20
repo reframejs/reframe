@@ -135,5 +135,5 @@ function assert_config(bool, projectConfig, path, name) {
     );
 }
 function arrayToStr(arr) {
-    return arr.map(s => "`"+s+"`").join(", ");
+    return arr/*.map(s => "`"+s+"`")*/.join(", ");
 }

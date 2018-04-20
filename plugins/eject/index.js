@@ -289,7 +289,6 @@ async function runEject(ejectableName) {
                 ejectablePackageJson.dependencies[depName]
             )
         );
-        console.log(depName, ejectablePackageJson.name, version);
         assert_internal(version, depName, ejectablePackageJson);
         return version;
     }
