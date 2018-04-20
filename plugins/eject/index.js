@@ -16,7 +16,7 @@ function ejectCommand() {
 
 async function runEject(ejectableName) {
     if( !ejectableName ) {
-        printEjectables();
+        printEjectables(0);
         return;
     }
     const detective = require('detective');
@@ -40,11 +40,10 @@ async function runEject(ejectableName) {
 
     async function run() {
         const ejectables = getEjectables();
-
         const ejectableSpec = ejectables[ejectableName];
         if( ! ejectableSpec ) {
             console.log('No ejectable `'+ejectableName+'` found.');
-            printEjectables(ejectables);
+            printEjectables(0);
             return;
         }
 
@@ -383,12 +382,13 @@ function getEjectables() {
     return projectConfig.ejectables;
 }
 
-function printEjectables() {
+function printEjectables(tabbing=2) {
     const ejectables = getEjectables();
-    console.log('  List of ejectables:');
+    const tab = new Array(tabbing).fill(' ').join('');
+    console.log(tab+'List of ejectables:');
     Object.values(ejectables)
     .forEach(ejectable => {
         const {name, description} = ejectable;
-        console.log("    `"+name+"` "+description);
+        console.log(tab+"  `reframe eject "+name+"` - "+description);
     });
 }
