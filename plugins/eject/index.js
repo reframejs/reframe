@@ -101,7 +101,8 @@ async function runEject(ejectableName) {
         deps[oldPath] = true;
 
         detective(dependencyFileContent)
-        .forEach(() => {})
+        .forEach(() => {
+        })
 
         const replaceActions = (
             allProjectFiles
@@ -263,21 +264,13 @@ async function runEject(ejectableName) {
             .map(depName => {
                 assert_internal(depName);
 
+                const version = getPackageVersion({ejectablePackageJson, depName});
+
                 if( projectPackageJson.dependencies[depName] ) {
                     return null;
                 }
 
                 hasNewDeps = true;
-
-                assert_internal(ejectablePackageJson.name);
-                const version = (
-                    depName === ejectablePackageJson.name ? (
-                        ejectablePackageJson.version
-                    ) : (
-                        ejectablePackageJson.dependencies[depName]
-                    )
-                );
-                assert_internal(version);
 
                 return depName+'@'+version;
             })
@@ -289,6 +282,17 @@ async function runEject(ejectableName) {
             console.log('Installing dependencies:');
             await runNpmInstall({cwd: projectRootDir, packages: depsWithVersion});
         }
+    }
+    function getPackageVersion({ejectablePackageJson, depName}) {
+        assert_internal(ejectablePackageJson.name, ejectablePackageJson);
+        const version = (
+            depName === ejectablePackageJson.name ? (
+                ejectablePackageJson.version
+            ) : (
+                ejectablePackageJson.dependencies[depName]
+            )
+        );
+        assert_internal(version, depName, ejectablePackageJson);
     }
 
     function getPath(obj, pathString) {
