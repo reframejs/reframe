@@ -59,16 +59,25 @@ async function runEject(ejectableName) {
             "Commit them before ejecting."
         );
 
+        const {packageName: ejectablePackageName} = ejectableSpec;
+        assert_internal(ejectablePackageName, ejectableSpec);
+
         const actions = [];
         const deps = {};
 
-        if( ejectableSpec.configMove ) {
-            moveConfig({actions, deps, ejectableSpec, projectConfig});
-        }
+        let configChanges = ejectableSpec.configChanges||[];
+        assert_plugin(configChanges.forEach, configChanges);
+        configChanges
+        .forEach(configChange =>
+            changeConfig({configChange, actions, deps, ejectablePackageName, projectConfig})
+        )
 
-        if( ejectableSpec.dependencyMove ) {
-            moveDependency({actions, deps, ejectableSpec, projectConfig});
-        }
+        let fileCopies = ejectableSpec.fileCopies||[];
+        assert_plugin(fileCopies.forEach, fileCopies);
+        fileCopies
+        .forEach(fileCopy =>
+            copyFile({fileCopy, actions, deps, ejectablePackageName, projectConfig})
+        )
 
         assert_plugin(actions.length>0);
 
@@ -80,21 +89,19 @@ async function runEject(ejectableName) {
         console.log(greenCheckmark()+' Eject done. Run `git show HEAD` to see all ejected code.');
     }
 
-    function moveDependency({actions, deps, ejectableSpec, projectConfig}) {
+    function copyFile({fileCopy, actions, deps, ejectablePackageName, projectConfig}) {
         const searchProjectFiles = require('@reframe/utils/searchProjectFiles');
 
         const {projectRootDir} = projectConfig.projectFiles;
 
-        const {dependencyMove: {oldPath}} = ejectableSpec;
-        let {dependencyMove: {newPath}} = ejectableSpec;
+        const {oldPath, noDependerRequired, noDependerMessage} = fileCopy;
+        let {newPath} = fileCopy;
         newPath = apply_PROJECT_ROOT(newPath, projectRootDir);
 
         const allProjectFiles = [
             ...searchProjectFiles('*.js', {cwd: projectRootDir, no_dir: true}),
             ...searchProjectFiles('*.jsx', {cwd: projectRootDir, no_dir: true}),
         ];
-
-        const {packageName: ejectablePackageName} = ejectableSpec;
 
         const fileContentOld = fs__read(require.resolve(oldPath, {paths: [projectRootDir]}));
 
@@ -131,43 +138,30 @@ async function runEject(ejectableName) {
         );
 
         assert_usage(
-            replaceActions.length>0,
+            noDependerRequired || replaceActions.length>0,
             "Project files:",
             JSON.stringify(allProjectFiles, null, 2),
-            "No project file found that includes the string `"+oldPath+"`.",
+            "No project file found that requires `"+oldPath+"`.",
             "Searched in all project files which are printed above.",
+            ...(noDependerMessage ? [noDependerMessage] : [])
         );
 
         actions.push(copyDependencyAction, ...replaceActions);
     }
-    function replaceInFile(path, stringOld, stringNew) {
-    }
 
-    function moveConfig({actions, deps, ejectableSpec, projectConfig}) {
+    function changeConfig({configChange, actions, deps, ejectablePackageName, projectConfig}) {
         const {projectRootDir, reframeConfigFile} = projectConfig.projectFiles;
 
-        const {configMove: {configPath}, packageName: ejectablePackageName} = ejectableSpec;
-        let {newConfigValue} = ejectableSpec.configMove;
-        assert_internal(ejectablePackageName, ejectableSpec);
-        assert_plugin(configPath, ejectableSpec);
-        assert_plugin(newConfigValue, ejectableSpec);
+        const {configPath} = configChange;
+        let {newConfigValue} = configChange;
+        assert_plugin(configPath, configChange);
+        assert_plugin(newConfigValue, configChange);
 
         checkConfigPath({reframeConfigFile, configPath});
-
-        const filePathOld = getPath(projectConfig, configPath);
-        assert_plugin(filePathOld);
-
-        const fileContentOld = fs__read(filePathOld);
-
-        const {fileDeps, fileContentNew} = handleDeps({fileContentOld, ejectablePackageName});
-
-        Object.assign(deps, fileDeps);
 
         newConfigValue = apply_PROJECT_ROOT(newConfigValue, projectRootDir)
 
         actions.push(handleConfigChange({configPath, newConfigValue, reframeConfigFile, projectRootDir}));
-
-        actions.push(writeFile(newConfigValue, fileContentNew));
     }
     function handleConfigChange({configPath, newConfigValue, reframeConfigFile, projectRootDir}) {
         const configContentOld = reframeConfigFile ? fs__read(reframeConfigFile) : null;
@@ -290,11 +284,12 @@ async function runEject(ejectableName) {
         assert_internal(ejectablePackageJson.name, ejectablePackageJson);
         const version = (
             depName === ejectablePackageJson.name ? (
-                ejectablePackageJson.version
+                '^'+ejectablePackageJson.version
             ) : (
                 ejectablePackageJson.dependencies[depName]
             )
         );
+        console.log(depName, ejectablePackageJson.name, version);
         assert_internal(version, depName, ejectablePackageJson);
         return version;
     }
@@ -340,7 +335,7 @@ async function runEject(ejectableName) {
     function writeFile(filePath, fileContent) {
         assert_usage(
             !fs__path_exists(filePath),
-            "A file already exists at `"+filePath+"`.",
+            "There is a file at `"+filePath+"`.",
             "(Re-)move the file and try again."
         );
         return () => {

@@ -1,4 +1,3 @@
-//const assert_internal = require('reassert/internal');
 const simple_git = require('simple-git/promise');
 const git_state = require('git-state');
 
