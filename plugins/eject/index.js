@@ -94,15 +94,15 @@ async function runEject(ejectableName) {
             ...searchProjectFiles('*.jsx', {cwd: projectRootDir, no_dir: true}),
         ];
 
-        const dependencyFileContent = fs__read(require.resolve(oldPath, {paths: [projectRootDir]}));
+        const {packageName: ejectablePackageName} = ejectableSpec;
 
-        const copyDependencyAction = writeFile(newPath, dependencyFileContent);
+        const fileContentOld = fs__read(require.resolve(oldPath, {paths: [projectRootDir]}));
 
-        deps[oldPath] = true;
+        const {fileDeps, fileContentNew} = handleDeps({fileContentOld, ejectablePackageName});
 
-        detective(dependencyFileContent)
-        .forEach(() => {
-        })
+        Object.assign(deps, fileDeps);
+
+        const copyDependencyAction = writeFile(newPath, fileContentNew);
 
         const replaceActions = (
             allProjectFiles
@@ -120,7 +120,10 @@ async function runEject(ejectableName) {
                     .join(relPath)
                 );
 
-                const action = () => fs__write(projectFile, fileContentNew);
+                const action = () => {
+                    fs__write(projectFile, fileContentNew);
+                    console.log(greenCheckmark()+' Modified '+relativeToHomedir(projectFile));
+                };
 
                 return action;
             })
@@ -131,7 +134,7 @@ async function runEject(ejectableName) {
             replaceActions.length>0,
             "Project files:",
             JSON.stringify(allProjectFiles, null, 2),
-            "No project file found including the string `"+file+"`.",
+            "No project file found that includes the string `"+oldPath+"`.",
             "Searched in all project files which are printed above.",
         );
 
@@ -243,7 +246,7 @@ async function runEject(ejectableName) {
     }
     function getRelativePath(dependerFile, dependeeFile) {
         let pathRelative = pathModule.relative(pathModule.dirname(dependerFile), dependeeFile);
-        if( ! pathModule.startsWith('.') ) {
+        if( ! pathRelative.startsWith('.') ) {
             pathRelative = './'+pathRelative;
         }
         return pathRelative;
@@ -293,6 +296,7 @@ async function runEject(ejectableName) {
             )
         );
         assert_internal(version, depName, ejectablePackageJson);
+        return version;
     }
 
     function getPath(obj, pathString) {
