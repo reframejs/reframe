@@ -11,6 +11,7 @@ function findProjectFiles({projectNotRequired}) {
     assert_internal([true, false].includes(projectNotRequired));
 
     const userDir = getUserDir();
+ // console.log(require.resolve('@brillout/get-user-dir'));
     assert_internal(userDir);
 
     const packageJsonFile = find_up.sync('package.json', {cwd: userDir});

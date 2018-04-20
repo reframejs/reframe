@@ -175,15 +175,31 @@ async function runEject(ejectableName) {
 
         let configContentNew = [
             ...(configContentOld ? [configContentOld] : ['module.exports = {};']),
-            (() => {
+            ...(() => {
                 const props = getProps(configPath);
-                let line = "module.exports";
-                props
-                .map(prop => {
-                    line += "['"+prop+"']";
-                })
-                line += " = require.resolve('"+filePathNew__relative+"');";
-                return line;
+                return (
+                    props
+                    .map((lastProp, i) => {
+                        let object_prop = "module.exports";
+                        props
+                        .slice(0, i+1)
+                        .forEach(prop => {
+                            object_prop += "['"+prop+"']";
+                        })
+                        const line = (
+                            object_prop +
+                            " = " + (
+                                (i===props.length-1) ? (
+                                    "require.resolve('"+filePathNew__relative+"')"
+                                ) : (
+                                    object_prop+" || {}"
+                                )
+                            ) +
+                            ";"
+                        );
+                        return line;
+                    })
+                );
             })(),
         ].join("\n");
 
@@ -279,7 +295,7 @@ async function runEject(ejectableName) {
 
         if( hasNewDeps ) {
             console.log('');
-            console.log('Installing dependencies:');
+            console.log('Installing new dependencies '+depsWithVersion.join(',')+':');
             await runNpmInstall({cwd: projectRootDir, packages: depsWithVersion});
         }
     }
