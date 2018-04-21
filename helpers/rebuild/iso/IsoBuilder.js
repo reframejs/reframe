@@ -21,6 +21,8 @@ function IsoBuilder() {
         runNumber: 0,
     };
 
+    const isoBuilder = this;
+
     const browserBuild = new BuildManager({
         buildName: 'browserBuild',
         buildFunction: ({webpackConfig, onCompilationStateChange}) => (
@@ -29,7 +31,7 @@ function IsoBuilder() {
                 doNotGenerateIndexHtml: true,
                 doNotFireReloadEvents: true,
                 doNotIncludeAutoreloadClient: true,
-                doNotWatch: true,
+                doNotWatchBuildFiles: isoBuilder.doNotWatchBuildFiles,
                 logger: null,
                 onCompilationStateChange,
                 compilationName: 'browserCompilation',
@@ -42,7 +44,7 @@ function IsoBuilder() {
         buildName: 'nodejsBuild',
         buildFunction: ({webpackConfig, onCompilationStateChange}) => (
             build(webpackConfig, {
-             // watch: true,
+                watch: !isoBuilder.doNotWatchBuildFiles,
                 doNotGenerateIndexHtml: true,
                 logger: null,
                 onCompilationStateChange,
@@ -51,8 +53,6 @@ function IsoBuilder() {
         ),
         onStateChange,
     });
-
-    const isoBuilder = this;
 
     this.build = runBuild;
 

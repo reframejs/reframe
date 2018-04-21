@@ -34,6 +34,7 @@ function BuildInstance() {
     const isoBuilder = new IsoBuilder();
 
     isoBuilder.logger = Logger({log_config_and_stats: (this.log||{}).verbose});
+    isoBuilder.doNotWatchBuildFiles = this.doNotWatchBuildFiles;
 
     const {outputDir} = this;
     assert_usage(outputDir);

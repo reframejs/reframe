@@ -11,7 +11,7 @@ const outputDir = projectConfig.projectFiles.buildOutputDir;
 const getPageFiles = () => projectConfig.getPageConfigPaths();
 const getWebpackBrowserConfig = ({config}) => projectConfig.webpackBrowserConfigModifier(config);
 const getWebpackNodejsConfig = ({config}) => projectConfig.webpackServerConfigModifier(config);
-const {log} = projectConfig;
+const {log, doNotWatchBuildFiles} = projectConfig;
 const {pagesDir} = projectConfig.projectFiles;
 
 const build = new Build({
@@ -22,15 +22,17 @@ const build = new Build({
     getWebpackBrowserConfig,
     getWebpackNodejsConfig,
     log,
+    doNotWatchBuildFiles,
 });
 
 watchDir(pagesDir, () => {build()});
 
-module.exports = build().then(() => {console.log('fini')
+module.exports = build();
 /*
+.then(() => {console.log('fini')
 console.log(process._getActiveHandles());
 console.log(process._getActiveRequests());
  var wtf = require('wtfnode');
 wtf.dump();
+})
 */
-});

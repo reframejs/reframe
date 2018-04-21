@@ -25,16 +25,20 @@ function startCommands() {
             },
             {
                 name: 'build',
-                description: 'Build only (Transpile page configs and build browser assets)',
+                description: 'Build',
                 options: [
                     {...optProd, description: 'Build for production'},
                     optLog,
+                    {
+                        name: "-d, --dev",
+                        description: "Build for development",
+                    },
                 ],
                 action: build,
             },
             {
                 name: 'start-server',
-                description: 'Start server only',
+                description: 'Start server',
                 options: [
                     optProd,
                 ],
@@ -44,8 +48,8 @@ function startCommands() {
     };
 }
 
-async function runStart() {
-    const projectConfig = init.apply(null, arguments);
+async function runStart(opts) {
+    const projectConfig = init(opts);
 
     assert_build(projectConfig);
     await require(projectConfig.build.executeBuild);
@@ -54,25 +58,26 @@ async function runStart() {
     await require(projectConfig.serverEntryFile);
 }
 
-async function build() {
-    const projectConfig = init.apply(null, arguments);
+async function build(opts) {
+    const projectConfig = init({...opts, doNotWatchBuildFiles: true});
 
     assert_build(projectConfig);
     await require(projectConfig.build.executeBuild);
 }
 
-async function runStartServer() {
-    const projectConfig = init.apply(null, arguments);
+async function runStartServer(opts) {
+    const projectConfig = init(opts);
 
     assert_server(projectConfig);
     await require(projectConfig.serverEntryFile);
 }
 
-function init({production, log}) {
+function init({production, dev, log, doNotWatchBuildFiles}) {
     const getProjectConfig = require('@reframe/utils/getProjectConfig');
     const relative_to_homedir = require('@brillout/relative-to-homedir');
     const chalk = require('chalk');
 
+    console.log(production, dev);
     if( production ) {
         process.env['NODE_ENV'] = 'production';
     }
@@ -83,9 +88,15 @@ function init({production, log}) {
     log_found_file(projectConfig.projectFiles.reframeConfigFile, 'config');
     log_found_file(projectConfig.projectFiles.pagesDir, 'pages');
 
-    projectConfig.log = {
-        verbose: !!log,
-    };
+    Object.assign(
+        projectConfig,
+        {
+            log: {
+                verbose: !!log,
+            },
+            doNotWatchBuildFiles,
+        }
+    );
 
     return projectConfig;
 

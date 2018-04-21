@@ -50,7 +50,7 @@ function add_entry(entry_array, entry) {
     entry_array.unshift(entry);
 }
 
-function get_compiler_handler({doNotCreateServer, doNotFireReloadEvents, doNotWatch}) {
+function get_compiler_handler({doNotCreateServer, doNotFireReloadEvents, doNotWatchBuildFiles}) {
 
     return compiler_handler;
 
@@ -58,13 +58,12 @@ function get_compiler_handler({doNotCreateServer, doNotFireReloadEvents, doNotWa
         assert_internal(webpack_compiler_error_handler);
 
         let watching;
-        if( doNotWatch ) {
+        if( doNotWatchBuildFiles ) {
             webpack_compiler.run(webpack_compiler_error_handler);
             watching = null;
         } else {
             watching = webpack_compiler.watch(webpack_config.watchOptions, webpack_compiler_error_handler);
         }
-        console.log(doNotWatch, watching);
 
         const dirPath = webpack_config.output.path;
         assert_internal(dirPath);
@@ -78,10 +77,8 @@ function get_compiler_handler({doNotCreateServer, doNotFireReloadEvents, doNotWa
         assert_internal(port, webpack_config, devServer);
         */
 
-        if( false ) {
-        if( ! doNotFireReloadEvents ) {
+        if( ! doNotWatchBuildFiles && ! doNotFireReloadEvents ) {
             watchDir(dirPath);
-        }
         }
 
         const HapiPluginStaticAssets = HapiPluginStaticAssets__create(dirPath);
