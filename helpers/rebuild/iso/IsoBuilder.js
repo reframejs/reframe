@@ -69,7 +69,7 @@ function IsoBuilder() {
         );
     }
 
-    function onStateChange(compilationInfo) {
+    function onStateChange(compilationInfo, buildName) {
         assert_compilationInfo(compilationInfo);
 
         {
@@ -80,7 +80,7 @@ function IsoBuilder() {
         }
 
         if( ! compilationInfo.is_compiling && ! compilationInfo.is_failure && ! compilationInfo.is_first_build ) {
-            global.DEBUG_WATCH && console.log('REBUILD-REASON: webpack-watch for `'+'TODO'+'`');
+            global.DEBUG_WATCH && console.log('REBUILD-REASON: webpack-watch for `'+buildName+'`');
             runBuild();
         }
     }
@@ -169,7 +169,7 @@ function BuildManager({buildName, buildFunction, onStateChange}) {
             }
 
             this.__compilationInfo = compilationInfo;
-            onStateChange(compilationInfo);
+            onStateChange(compilationInfo, buildName);
         }
     }
 }
