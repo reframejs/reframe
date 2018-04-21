@@ -42,6 +42,8 @@ function BuildInstance() {
     handleOutputDir({outputDir});
     const fileSets = new FileSets({pathBase: outputDir});
 
+    const autoReloadEnabled = process.env.NODE_ENV !== 'production' && ! this.doNotWatchBuildFiles;
+
     const that = this;
 
     isoBuilder.builder = (function* ({buildForNodejs, buildForBrowser}) {
@@ -56,14 +58,14 @@ function BuildInstance() {
 
         that.pageBrowserEntries = getPageBrowserEntries.call(that);
 
-        const browserConfig = getBrowserConfig.call(that, {fileSets});
+        const browserConfig = getBrowserConfig.call(that, {fileSets, autoReloadEnabled});
         const browserEntryPoints = yield buildForBrowser(browserConfig);
 
-        writeAssetMap.call(that, {browser_entry_points: browserEntryPoints, fileSets});
+        writeAssetMap.call(that, {browser_entry_points: browserEntryPoints, fileSets, autoReloadEnabled});
 
         yield writeHtmlFiles.call(that, {fileSets});
 
-        if( ! isProduction() ) {
+        if( autoReloadEnabled ) {
             reloadBrowser();
         }
     }).bind(this);
@@ -81,9 +83,9 @@ function getNodejsConfig() {
     return nodejsConfig;
 }
 
-function getBrowserConfig({fileSets}) {
+function getBrowserConfig({fileSets, autoReloadEnabled}) {
     const generatedEntries = generateBrowserEntries.call(this, {fileSets});
-    const browserEntries = getBrowserEntries(generatedEntries);
+    const browserEntries = getBrowserEntries({generatedEntries, autoReloadEnabled});
     const browserOutputPath = pathModule.resolve(this.outputDir, BROWSER_OUTPUT);
     const defaultBrowserConfig = getDefaultBrowserConfig({entries: browserEntries, outputPath: browserOutputPath});
     const browserConfig = this.getWebpackBrowserConfig({config: defaultBrowserConfig, entries: browserEntries, outputPath: browserOutputPath, ...webpackUtils});
@@ -208,10 +210,10 @@ function get_script_dist_path(entry_point) {
     return script_dist_path;
 }
 
-function getBrowserEntries(generatedEntries) {
+function getBrowserEntries({generatedEntries, autoReloadEnabled}) {
     const browserEntries = {...generatedEntries};
 
-    if( ! isProduction() ) {
+    if( autoReloadEnabled ) {
         assert_usage(!browserEntries[AUTORELOAD_ENTRY_NAME]);
         browserEntries[AUTORELOAD_ENTRY_NAME] = [autoreloadClientPath];
     }
@@ -284,7 +286,7 @@ async function writeHtmlFiles({fileSets}) {
     }
 }
 
-function writeAssetMap({browser_entry_points, fileSets}) {
+function writeAssetMap({browser_entry_points, fileSets, autoReloadEnabled}) {
     const {pageBrowserEntries, pageNames, pageModules} = this;
     assert_internal(pageBrowserEntries);
     assert_internal(pageNames);
@@ -300,7 +302,9 @@ function writeAssetMap({browser_entry_points, fileSets}) {
 
     add_browser_entry_points({assetInfos, pageBrowserEntries, browser_entry_points});
 
-    add_autoreload_client({assetInfos, pageNames, browser_entry_points});
+    if( autoReloadEnabled ) {
+        add_autoreload_client({assetInfos, pageNames, browser_entry_points});
+    }
 
     assert_assertMap(assetInfos);
 
@@ -333,9 +337,6 @@ function assert_assertMap(assetInfos) {
     });
 }
 function add_autoreload_client({assetInfos, pageNames, browser_entry_points}) {
-    if( isProduction() ) {
-        return;
-    }
     const entry_point__autoreload = Object.values(browser_entry_points).find(({entry_name}) => entry_name===AUTORELOAD_ENTRY_NAME);
     if( ! entry_point__autoreload ) {
         return;
@@ -345,9 +346,6 @@ function add_autoreload_client({assetInfos, pageNames, browser_entry_points}) {
         assert_internal(pageName);
         add_entry_point_to_page_assets({entry_point: entry_point__autoreload, assetInfos, pageName});
     });
-}
-function isProduction() {
-   return process.env.NODE_ENV === 'production';
 }
 function add_browser_entry_points({assetInfos, pageBrowserEntries, browser_entry_points}) {
     Object.values(browser_entry_points)

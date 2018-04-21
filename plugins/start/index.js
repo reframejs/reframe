@@ -1,10 +1,6 @@
 module.exports = startCommands;
 
 function startCommands() {
-    const optProd = {
-        name: "-p, --production",
-        description: "Start for production",
-    };
 
     const optLog = {
         name: "-l, --log",
@@ -16,31 +12,32 @@ function startCommands() {
         cliCommands: [
             {
                 name: 'start',
-                description: 'Build and start server',
+                description: 'Build and start server for development.',
                 options: [
-                    optProd,
                     optLog,
                 ],
                 action: runStart,
             },
             {
                 name: 'build',
-                description: 'Build',
+                description: 'Build for production.',
                 options: [
-                    {...optProd, description: 'Build for production'},
                     optLog,
                     {
                         name: "-d, --dev",
-                        description: "Build for development",
+                        description: "Build for development.",
                     },
                 ],
                 action: build,
             },
             {
-                name: 'start-server',
-                description: 'Start server',
+                name: 'server',
+                description: 'Start server for production.',
                 options: [
-                    optProd,
+                    {
+                        name: "-d, --dev",
+                        description: "Start for development",
+                    },
                 ],
                 action: runStartServer,
             },
@@ -49,7 +46,7 @@ function startCommands() {
 }
 
 async function runStart(opts) {
-    const projectConfig = init(opts);
+    const projectConfig = init({dev: true, ...opts});
 
     assert_build(projectConfig);
     await require(projectConfig.build.executeBuild);
@@ -72,13 +69,12 @@ async function runStartServer(opts) {
     await require(projectConfig.serverEntryFile);
 }
 
-function init({production, dev, log, doNotWatchBuildFiles}) {
+function init({dev, log, doNotWatchBuildFiles}) {
     const getProjectConfig = require('@reframe/utils/getProjectConfig');
     const relative_to_homedir = require('@brillout/relative-to-homedir');
     const chalk = require('chalk');
 
-    console.log(production, dev);
-    if( production ) {
+    if( ! dev ) {
         process.env['NODE_ENV'] = 'production';
     }
 

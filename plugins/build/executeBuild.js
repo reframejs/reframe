@@ -25,14 +25,17 @@ const build = new Build({
     doNotWatchBuildFiles,
 });
 
-watchDir(pagesDir, () => {build()});
+//watchDir(pagesDir, () => {build()});
 
 module.exports = build();
 /*
-.then(() => {console.log('fini')
-console.log(process._getActiveHandles());
-console.log(process._getActiveRequests());
- var wtf = require('wtfnode');
-wtf.dump();
+     var wtf = require('wtfnode');
+.then(() => {
+setTimeout(() => {
+    console.log('fini');
+    console.log(process._getActiveHandles());
+    console.log(process._getActiveRequests());
+    wtf.dump();
+}, 3000)
 })
-*/
+//*/
