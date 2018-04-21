@@ -38,7 +38,7 @@ function serverPlugin() {
                     {
                         oldPath: packageName+'/HapiPluginServerRendering',
                         newPath: 'PROJECT_ROOT/server/HapiPluginServerRendering.js',
-                        noDependerMessage: 'Run `eject '+serverEjectName+'` before running `eject '+ssrEjectName+'`.',
+                        noDependerMessage: 'Did you run `eject '+serverEjectName+'` before running `eject '+ssrEjectName+'`?',
                     },
                 ],
             },
@@ -49,7 +49,7 @@ function serverPlugin() {
                     {
                         oldPath: packageName+'/HapiPluginStaticAssets',
                         newPath: 'PROJECT_ROOT/server/HapiPluginStaticAssets.js',
-                        noDependerMessage: 'Run `eject '+serverEjectName+'` before running `eject '+assetsEjectName+'`.',
+                        noDependerMessage: 'Did you run `eject '+serverEjectName+'` before running `eject '+assetsEjectName+'`?',
                     },
                 ],
             },

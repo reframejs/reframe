@@ -366,7 +366,7 @@ async function runEject(ejectableName) {
     function writeFile(filePath, fileContent) {
         assert_usage(
             !fs__path_exists(filePath),
-            "There is a file at `"+filePath+"`.",
+            "Trying to write a new file at `"+filePath+"` but there is already a file there.",
             "(Re-)move the file and try again."
         );
         return () => {

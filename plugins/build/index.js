@@ -53,7 +53,7 @@ function buildPlugin() {
                     {
                         oldPath: packageName+'/getPageHTMLs',
                         newPath: 'PROJECT_ROOT/build/getPageHTMLs.js',
-                        noDependerMessage: 'Run `eject '+buildEjectName+'` before running `eject '+staticRenderingEjectName+'`.',
+                        noDependerMessage: 'Did you run `eject '+buildEjectName+'` before running `eject '+staticRenderingEjectName+'`?',
                     },
                 ],
             },
@@ -64,7 +64,7 @@ function buildPlugin() {
                     {
                         oldPath: packageName+'/getPageBrowserEntries',
                         newPath: 'PROJECT_ROOT/build/getPageBrowserEntries.js',
-                        noDependerMessage: 'Run `eject '+buildEjectName+'` before running `eject '+browserEntriesEjectName+'`.',
+                        noDependerMessage: 'Did you run `eject '+buildEjectName+'` before running `eject '+browserEntriesEjectName+'`?',
                     },
                 ],
             },
