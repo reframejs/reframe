@@ -124,13 +124,13 @@ function BuildManager({buildName, buildFunction, onStateChange}) {
 
         __current = null;
 
-        const {stop_build, wait_build, first_build_promise} = (
+        const {stop_build, wait_build, first_successful_build} = (
             buildFunction({
                 webpackConfig,
                 onCompilationStateChange: onCompilationStateChange.bind(this),
             })
         );
-        assert_internal(first_build_promise);
+        assert_internal(first_successful_build);
         assert_internal(wait_build);
         assert_internal(stop_build);
 
@@ -144,13 +144,14 @@ function BuildManager({buildName, buildFunction, onStateChange}) {
             cache_id,
         };
 
-        const compilationInfo = await first_build_promise;
+        const compilationInfo = await first_successful_build;
 
         return getEntryPoints(compilationInfo);
 
         function getEntryPoints(compilationInfo) {
-            assert_internal(compilationInfo.is_compiling===false);
             assert_compilationInfo(compilationInfo);
+            assert_internal(compilationInfo.is_compiling===false);
+            assert_internal(compilationInfo.is_failure===false);
             const {entry_points} = compilationInfo.output;
             assert_internal(entry_points);
             return entry_points;

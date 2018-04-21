@@ -53,6 +53,7 @@ function BuildInstance() {
 
         const nodejsConfig = getNodejsConfig.call(that);
         const nodejsEntryPoints = yield buildForNodejs(nodejsConfig);
+        assert_internal(Object.values(nodejsEntryPoints).length>0, nodejsEntryPoints);
 
         that.pageModules = loadPageModules.call(that, {nodejsEntryPoints});
 
@@ -60,6 +61,7 @@ function BuildInstance() {
 
         const browserConfig = getBrowserConfig.call(that, {fileSets, autoReloadEnabled});
         const browserEntryPoints = yield buildForBrowser(browserConfig);
+        assert_internal(Object.values(browserEntryPoints).length>0, browserEntryPoints);
 
         writeAssetMap.call(that, {browserEntryPoints, fileSets, autoReloadEnabled});
 

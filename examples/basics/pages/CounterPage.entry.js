@@ -1,5 +1,5 @@
 import hydratePage from '@reframe/browser/hydratePage';
-import CounterPage from './CounterPage.js';
+import CounterPage from './CounterPage.config.js';
 
 console.log("before hydration");
 

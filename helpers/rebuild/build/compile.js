@@ -41,7 +41,7 @@ function compile(
 
     const resolveTimeout = gen_timeout({name: 'Compilation Build '+compilationName});
 
-    const {stop_build, wait_build, first_setup_promise} = (
+    const {stop_build, wait_build, first_success_promise} = (
         run({
             webpack_config,
             compiler_handler,
@@ -96,8 +96,9 @@ function compile(
     return {
         stop_build,
         wait_build,
-        first_build_promise: (async () => {
-            const {compilation_info} = await first_setup_promise;
+        first_successful_build: (async () => {
+            const {compilation_info} = await first_success_promise;
+            assert_internal(compilation_info.is_success===true);
 
             if( ! doNotGenerateIndexHtml ) {
                 await build_index_html({compilation_info});
@@ -120,7 +121,7 @@ function run({
     let compiler__is_running;
 
     let resolve_promise;
-    const first_compilation_promise = new Promise(resolve => resolve_promise = resolve);
+    const fist_successful_compilation = new Promise(resolve => resolve_promise = resolve);
 
     let is_first_start = true;
     let is_first_result = true;
@@ -175,11 +176,8 @@ function run({
 
             on_compilation_end(compilation_args);
 
-            if( no_previous_success ) {
+            if( is_success && no_previous_success ) {
                 resolve_promise(compilation_args);
-            }
-
-            if( is_success ) {
                 no_previous_success = false;
             }
         },
@@ -191,9 +189,9 @@ function run({
     return {
         wait_build,
         stop_build,
-        first_setup_promise: (async () => {
+        first_success_promise: (async () => {
             await server_start_promise;
-            return await first_compilation_promise;
+            return await fist_successful_compilation;
         })(),
     };
 }
