@@ -54,14 +54,14 @@ function BuildInstance() {
         const nodejsConfig = getNodejsConfig.call(that);
         const nodejsEntryPoints = yield buildForNodejs(nodejsConfig);
 
-        that.pageModules = loadPageModules.call(that, {nodejs_entry_points: nodejsEntryPoints});
+        that.pageModules = loadPageModules.call(that, {nodejsEntryPoints});
 
         that.pageBrowserEntries = getPageBrowserEntries.call(that);
 
         const browserConfig = getBrowserConfig.call(that, {fileSets, autoReloadEnabled});
         const browserEntryPoints = yield buildForBrowser(browserConfig);
 
-        writeAssetMap.call(that, {browser_entry_points: browserEntryPoints, fileSets, autoReloadEnabled});
+        writeAssetMap.call(that, {browserEntryPoints, fileSets, autoReloadEnabled});
 
         yield writeHtmlFiles.call(that, {fileSets});
 
@@ -182,12 +182,12 @@ function assert_config({config, webpackEntries, outputPath, getterName}) {
     );
 }
 
-function loadPageModules({nodejs_entry_points}) {
+function loadPageModules({nodejsEntryPoints}) {
     const pageModules = (
         this.pageNames
         .map(pageName => {
             const entryName = pageName;
-            const entry_point = nodejs_entry_points[entryName];
+            const entry_point = nodejsEntryPoints[entryName];
             assert_internal(entry_point);
             const pageFileTranspiled = get_script_dist_path(entry_point);
             const pageExport = forceRequire(pageFileTranspiled);
@@ -286,7 +286,7 @@ async function writeHtmlFiles({fileSets}) {
     }
 }
 
-function writeAssetMap({browser_entry_points, fileSets, autoReloadEnabled}) {
+function writeAssetMap({browserEntryPoints, fileSets, autoReloadEnabled}) {
     const {pageBrowserEntries, pageNames, pageModules} = this;
     assert_internal(pageBrowserEntries);
     assert_internal(pageNames);
@@ -300,10 +300,10 @@ function writeAssetMap({browser_entry_points, fileSets, autoReloadEnabled}) {
 
     addPageFileTranspiled({assetInfos, pageModules});
 
-    add_browser_entry_points({assetInfos, pageBrowserEntries, browser_entry_points});
+    add_browser_entry_points({assetInfos, pageBrowserEntries, browserEntryPoints});
 
     if( autoReloadEnabled ) {
-        add_autoreload_client({assetInfos, pageNames, browser_entry_points});
+        add_autoreload_client({assetInfos, pageNames, browserEntryPoints});
     }
 
     assert_assertMap(assetInfos);
@@ -336,8 +336,8 @@ function assert_assertMap(assetInfos) {
         });
     });
 }
-function add_autoreload_client({assetInfos, pageNames, browser_entry_points}) {
-    const entry_point__autoreload = Object.values(browser_entry_points).find(({entry_name}) => entry_name===AUTORELOAD_ENTRY_NAME);
+function add_autoreload_client({assetInfos, pageNames, browserEntryPoints}) {
+    const entry_point__autoreload = Object.values(browserEntryPoints).find(({entry_name}) => entry_name===AUTORELOAD_ENTRY_NAME);
     if( ! entry_point__autoreload ) {
         return;
     }
@@ -347,8 +347,8 @@ function add_autoreload_client({assetInfos, pageNames, browser_entry_points}) {
         add_entry_point_to_page_assets({entry_point: entry_point__autoreload, assetInfos, pageName});
     });
 }
-function add_browser_entry_points({assetInfos, pageBrowserEntries, browser_entry_points}) {
-    Object.values(browser_entry_points)
+function add_browser_entry_points({assetInfos, pageBrowserEntries, browserEntryPoints}) {
+    Object.values(browserEntryPoints)
     .forEach(entry_point => {
         assert_internal(entry_point.entry_name);
         Object.values(pageBrowserEntries)
