@@ -37,7 +37,7 @@ function IsoBuilder() {
                 compilationName: 'browserCompilation',
             })
         ),
-        onStateChange,
+        onCompileStateChange,
     });
 
     const nodejsBuild = new BuildManager({
@@ -51,7 +51,7 @@ function IsoBuilder() {
                 compilationName: 'nodejsCompilation',
             })
         ),
-        onStateChange,
+        onCompileStateChange,
     });
 
     this.build = runBuild;
@@ -69,7 +69,7 @@ function IsoBuilder() {
         );
     }
 
-    function onStateChange(compilationInfo, buildName) {
+    function onCompileStateChange(compilationInfo, buildName) {
         assert_compilationInfo(compilationInfo);
 
         {
@@ -86,7 +86,7 @@ function IsoBuilder() {
     }
 }
 
-function BuildManager({buildName, buildFunction, onStateChange}) {
+function BuildManager({buildName, buildFunction, onCompileStateChange}) {
 
     this.runBuild = runBuild;
 
@@ -169,7 +169,10 @@ function BuildManager({buildName, buildFunction, onStateChange}) {
             }
 
             this.__compilationInfo = compilationInfo;
-            onStateChange(compilationInfo, buildName);
+
+            if( ! runIsOutdated() ) {
+                onCompileStateChange(compilationInfo, buildName);
+            }
         }
     }
 }
