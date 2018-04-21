@@ -8,7 +8,7 @@ const serve = require('@rebuild/serve');
 const build = require('@rebuild/build');
 const {Logger} = require('@rebuild/build/utils/Logger');
 
-/*
+//*
 global.DEBUG_WATCH = true;
 //*/
 
@@ -151,6 +151,7 @@ function BuildManager({buildName, buildFunction, onStateChange}) {
         function getEntryPoints(compilationInfo) {
             assert_compilationInfo(compilationInfo);
             assert_internal(compilationInfo.is_compiling===false);
+            assert_internal(!compilationInfo.is_failure);
             assert_internal(compilationInfo.is_failure===false);
             const {entry_points} = compilationInfo.output;
             assert_internal(entry_points);

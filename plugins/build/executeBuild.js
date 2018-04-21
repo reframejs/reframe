@@ -25,7 +25,7 @@ const build = new Build({
     doNotWatchBuildFiles,
 });
 
-//watchDir(pagesDir, () => {build()});
+watchDir(pagesDir, () => {build()});
 
 module.exports = build();
 /*

@@ -221,16 +221,21 @@ function setup_compiler_handler({
         );
     },TIMEOUT_SECONDS*1000);
 
-    let compilation_promise__resolve;
-    let compilation_promise = new Promise(resolve => compilation_promise__resolve=resolve);
+    let success_compilation_promise__resolve;
+    let success_compilation_promise;
+    const reset_compilation_promise = () => {success_compilation_promise = new Promise(resolve => success_compilation_promise__resolve=resolve)};
     const wait_build = async () => {
-        const compilation_promise__awaited_for = compilation_promise;
-        await compilation_promise__awaited_for;
-        if( compilation_promise !== compilation_promise__awaited_for ) {
+        const promise__awaited_for = success_compilation_promise;
+        await promise__awaited_for;
+        if( success_compilation_promise !== promise__awaited_for ) {
+            await wait_build();
+        }
+        if( ! compilation_info.is_success ) {
+            reset_compilation_promise();
             await wait_build();
         }
         assert_internal(compilation_info);
-        const compilationInfo = {is_compiling: false, is_failure: !compilation_info.is_success, ...compilation_info};
+        const compilationInfo = {is_compiling: false, is_failure: false, ...compilation_info};
         assert_compilationInfo(compilationInfo);
         return compilationInfo;
     };
@@ -238,13 +243,13 @@ function setup_compiler_handler({
     onCompileStart.addListener(() => {
         compilation_ended = false;
         compilation_info = null;
-        compilation_promise = new Promise(resolve => compilation_promise__resolve=resolve);
+        reset_compilation_promise();
         on_compiler_start();
     });
     onCompileEnd.addListener(async ({webpack_stats, is_success}) => {
         compilation_info = await get_compilation_info({webpack_stats, is_success});
         call_on_compilation_end();
-        compilation_promise__resolve();
+        success_compilation_promise__resolve();
     });
 
     webpack_config = deep_copy(webpack_config);
