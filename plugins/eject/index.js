@@ -86,7 +86,8 @@ async function runEject(ejectableName) {
         actions.forEach(action => action());
 
         await git.commit({cwd: projectRootDir, message: "eject "+ejectableSpec.name});
-        console.log(greenCheckmark()+' Eject done. Run `git show HEAD` to see all ejected code.');
+        console.log(greenCheckmark()+' Eject done.');
+        console.log('  Run `git show HEAD` to see all ejected code.');
     }
 
     function copyFile({fileCopy, actions, deps, ejectablePackageName, projectConfig}) {
@@ -151,6 +152,10 @@ async function runEject(ejectableName) {
 
     function changeConfig({configChanges, actions, deps, ejectablePackageName, projectConfig}) {
 
+        if( configChanges.length===0 ) {
+            return;
+        }
+
         const {projectRootDir, reframeConfigFile} = projectConfig.projectFiles;
 
         const reframeConfigPath = reframeConfigFile || pathModule.resolve(projectRootDir, './reframe.config.js');
@@ -159,7 +164,7 @@ async function runEject(ejectableName) {
             reframeConfigFile ? (
                 fs__read(reframeConfigFile)
             ) : (
-                'module.exports = {};'
+                'module.exports = {};\n'
             )
         );
 
@@ -172,11 +177,15 @@ async function runEject(ejectableName) {
             newConfigValue = apply_PROJECT_ROOT(newConfigValue, projectRootDir)
 
             checkConfigPath({reframeConfigFile, configPath});
-            reframeConfigContent += '\n\n' + applyConfigChange({configPath, newConfigValue, reframeConfigPath});
+            const newConfigContent = applyConfigChange({configPath, newConfigValue, reframeConfigPath});
+            assert_internal(newConfigContent);
+            reframeConfigContent += '\n' + newConfigContent + '\n';
         });
 
+        reframeConfigContent = reframeConfigContent.replace(/\s?$/, os.EOL);
+
         const action = () => {
-            fs__write(reframeConfigPath, reframeConfigContent + os.EOL);
+            fs__write(reframeConfigPath, reframeConfigContent);
             console.log(greenCheckmark()+' Modified '+relativeToHomedir(reframeConfigFile));
         };
 
@@ -306,8 +315,7 @@ async function runEject(ejectableName) {
         )
 
         if( hasNewDeps ) {
-            console.log('');
-            console.log('Installing new dependencies '+depsWithVersion.join(',')+':');
+            console.log('Installing new dependencies '+depsWithVersion.join(', ')+'.');
             await runNpmInstall({cwd: projectRootDir, packages: depsWithVersion});
         }
     }

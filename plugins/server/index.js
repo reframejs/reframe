@@ -16,7 +16,7 @@ function serverPlugin() {
         ejectables: [
             {
                 name: serverEjectName,
-                description: 'Eject hapi server code',
+                description: 'Eject hapi server code.',
                 configChanges: [
                     {
                         configPath: 'serverEntryFile',
@@ -33,23 +33,29 @@ function serverPlugin() {
             },
             {
                 name: ssrEjectName,
-                description: 'Eject Server-Side Rendering plugin code',
+                description: 'Eject hapi plugin code for server-side rendering.',
                 fileCopies: [
                     {
                         oldPath: packageName+'/HapiPluginServerRendering',
                         newPath: 'PROJECT_ROOT/server/HapiPluginServerRendering.js',
-                        noDependerMessage: 'Did you run `eject '+serverEjectName+'` before running `eject '+ssrEjectName+'`?',
+                        noDependerMessage: (
+                            'Did you run `eject '+serverEjectName+'` before running `eject '+ssrEjectName+'`?\n'+
+                            'Did you run `eject '+ssrEjectName+'` already?'
+                        ),
                     },
                 ],
             },
             {
                 name: assetsEjectName,
-                description: 'Eject static assets servering plugin code',
+                description: 'Eject hapi plugin for serving static assets.',
                 fileCopies: [
                     {
                         oldPath: packageName+'/HapiPluginStaticAssets',
                         newPath: 'PROJECT_ROOT/server/HapiPluginStaticAssets.js',
-                        noDependerMessage: 'Did you run `eject '+serverEjectName+'` before running `eject '+assetsEjectName+'`?',
+                        noDependerMessage: (
+                            'Did you run `eject '+serverEjectName+'` before running `eject '+assetsEjectName+'`?\n'+
+                            'Did you run `eject '+assetsEjectName+'` already?'
+                        ),
                     },
                 ],
             },

@@ -29,6 +29,7 @@ function IsoBuilder() {
                 doNotGenerateIndexHtml: true,
                 doNotFireReloadEvents: true,
                 doNotIncludeAutoreloadClient: true,
+                doNotWatch: true,
                 logger: null,
                 onCompilationStateChange,
                 compilationName: 'browserCompilation',
@@ -41,7 +42,7 @@ function IsoBuilder() {
         buildName: 'nodejsBuild',
         buildFunction: ({webpackConfig, onCompilationStateChange}) => (
             build(webpackConfig, {
-                watch: true,
+             // watch: true,
                 doNotGenerateIndexHtml: true,
                 logger: null,
                 onCompilationStateChange,

@@ -22,7 +22,7 @@ function buildPlugin() {
         ejectables: [
             {
                 name: buildEjectName,
-                description: 'Eject build code',
+                description: 'Eject build code.',
                 configChanges: [
                     {
                         configPath: 'build.executeBuild',
@@ -48,23 +48,29 @@ function buildPlugin() {
             },
             {
                 name: staticRenderingEjectName,
-                description: 'Eject Static Rendering code',
+                description: 'Eject code that renders static HTMLs.',
                 fileCopies: [
                     {
                         oldPath: packageName+'/getPageHTMLs',
                         newPath: 'PROJECT_ROOT/build/getPageHTMLs.js',
-                        noDependerMessage: 'Did you run `eject '+buildEjectName+'` before running `eject '+staticRenderingEjectName+'`?',
+                        noDependerMessage: (
+                            'Did you run `eject '+buildEjectName+'` before running `eject '+staticRenderingEjectName+'`?\n'+
+                            'Did you run `eject '+staticRenderingEjectName+'` already?'
+                        ),
                     },
                 ],
             },
             {
                 name: browserEntriesEjectName,
-                description: 'Eject code that generates browser entries',
+                description: 'Eject code that generates the browser entry of each page.',
                 fileCopies: [
                     {
                         oldPath: packageName+'/getPageBrowserEntries',
                         newPath: 'PROJECT_ROOT/build/getPageBrowserEntries.js',
-                        noDependerMessage: 'Did you run `eject '+buildEjectName+'` before running `eject '+browserEntriesEjectName+'`?',
+                        noDependerMessage: (
+                            'Did you run `eject '+buildEjectName+'` before running `eject '+browserEntriesEjectName+'`?\n'+
+                            'Did you run `eject '+browserEntriesEjectName+'` already?'
+                        ),
                     },
                 ],
             },

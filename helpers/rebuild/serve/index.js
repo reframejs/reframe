@@ -11,6 +11,7 @@ function serve(
         doNotIncludeAutoreloadClient = false,
         doNotFireReloadEvents = false,
         doNotCreateServer = false,
+        doNotWatch = isProduction(),
         ...args
     }={}
 ) {
@@ -18,7 +19,7 @@ function serve(
         webpack_config = webpack_config_modifier(webpack_config);
     }
 
-    const compiler_handler = get_compiler_handler({doNotCreateServer, doNotFireReloadEvents});
+    const compiler_handler = get_compiler_handler({doNotCreateServer, doNotFireReloadEvents, doNotWatch});
 
     return compile(webpack_config, {
         compiler_handler,

@@ -26,4 +26,11 @@ const build = new Build({
 
 watchDir(pagesDir, () => {build()});
 
-module.exports = build();
+module.exports = build().then(() => {console.log('fini')
+/*
+console.log(process._getActiveHandles());
+console.log(process._getActiveRequests());
+ var wtf = require('wtfnode');
+wtf.dump();
+*/
+});
