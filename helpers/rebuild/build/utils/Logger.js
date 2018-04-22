@@ -15,7 +15,7 @@ function Logger({log_progress=true, log_config_and_stats=false, /*doNotCreateSer
     let current_spinner;
 
     Object.assign(this, {
-        onBuildStateChange: new BuildStateManager(this),
+        onNewBuildState: new BuildStateManager(this),
 
         symbols: {
             success_symbol: log_symbols.success,
@@ -249,9 +249,9 @@ function BuildStateManager(logger) {
         has_finished_compiled_before: false,
     };
 
-    return onBuildStateChange;
+    return onNewBuildState;
 
-    function onBuildStateChange(new_state) {
+    function onNewBuildState(new_state) {
         const {is_compiling, is_failure, compilation_info} = logger.build_state = new_state;
 
         assert_internal(is_compiling || [true, false].includes(is_failure));
@@ -310,7 +310,7 @@ function assert_compilation_info({compilation_info, is_compiling, is_failure}) {
         if( is_failure && comp_info === null ) {
             return;
         }
-        assert_internal(comp_info, comp_info);
+        assert_internal(comp_info, {comp_info, is_compiling, is_failure});
         assert_internal(comp_info.output, comp_info);
         assert_internal(comp_info.output.dist_root_directory, comp_info);
     });
