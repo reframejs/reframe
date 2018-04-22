@@ -3,7 +3,7 @@ Let's create a React app with Reframe.
 1. We create a `pages/` directory:
 
 ~~~shell
-mkdir -p ~/tmp/reframe-playground/pages
+$ mkdir -p ~/tmp/reframe-playground/pages
 ~~~
 
 2. We create a new JavaScript file at `~/tmp/reframe-playground/pages/HelloPage.js` that exports a page config:
@@ -26,25 +26,12 @@ export default HelloPage;
 3. We install React and the Reframe CLI:
 
 ~~~shell
-npm install -g @reframe/cli
-~~~
-~~~shell
-cd ~/tmp/reframe-playground/
-~~~
-~~~shell
-npm install react
+$ npm install -g @reframe/cli
+$ cd ~/tmp/reframe-playground/
+$ npm install react
 ~~~
 
 4. Finally, we run the CLI:
-
-~~~shell
-cd ~/tmp/reframe-playground/
-~~~
-~~~shell
-reframe
-~~~
-
-which prints
 
 ~~~shell
 $ reframe
