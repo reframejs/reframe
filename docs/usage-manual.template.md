@@ -121,7 +121,7 @@ In addition, static assets can be referenced in CSS files by using the CSS `url`
 The following shows code using CSS and static assets as described above.
 
 ~~~js
-!INLINE ../examples/basics/pages/GlitterPage.js
+!INLINE ../examples/basics/pages/GlitterPage.config.js
 ~~~
 
 ~~~js
@@ -214,10 +214,10 @@ See [Advanced Routing](#advanced-routing) for alternative ways of navigating.
 An example of basic page navigation:
 
 ~~~js
-!INLINE ../examples/basics/pages/page-a.js
+!INLINE ../examples/basics/pages/page-a.config.js
 ~~~
 ~~~js
-!INLINE ../examples/basics/pages/page-b.js
+!INLINE ../examples/basics/pages/page-b.config.js
 ~~~
 
 
