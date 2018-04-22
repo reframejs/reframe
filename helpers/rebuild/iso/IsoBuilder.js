@@ -73,11 +73,10 @@ function IsoBuilder() {
         );
     }
 
-    function onBuildFail(buildName) {
+    function onBuildFail() {
         const {logger} = isoBuilder;
         const {__compilationInfo: browserCompilationInfo} = browserBuild;
         const {__compilationInfo: nodejsCompilationInfo} = nodejsBuild;
-        global.DEBUG_WATCH && console.log('BUILD-FAIL `'+buildName+'`');
         log_state_fail({logger, browserCompilationInfo, nodejsCompilationInfo});
     }
 
@@ -159,10 +158,11 @@ function BuildManager({buildName, buildFunction, onBuildStateChange, onSuccessfu
 
                         build_manager.__compilationInfo = compilationInfo;
 
-                        if( ! compilationInfo.is_compiling && compilationInfo.is_failure ) {
+                        if( ! compilationInfo.is_compiling && compilationInfo.is_failure && !runIsOutdated() ) {
+                            global.DEBUG_WATCH && console.log('WEBPACK-COMPILER-FAIL `'+__current.cache_id.toString());
                             onBuildFail(buildName);
                         }
-                        if( ! compilationInfo.is_compiling && ! compilationInfo.is_failure && ! compilationInfo.is_first_build ) {
+                        if( !compilationInfo.is_compiling && !compilationInfo.is_failure && !compilationInfo.is_first_build ) {
                             onSuccessfullWatchChange(buildName);
                         }
                     },
