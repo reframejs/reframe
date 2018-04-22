@@ -359,7 +359,7 @@ In addition, static assets can be referenced in CSS files by using the CSS `url`
 The following shows code using CSS and static assets as described above.
 
 ~~~js
-// /examples/basics/pages/GlitterPage.js
+// /examples/basics/pages/GlitterPage.config.js
 
 const {GlitterComponent} = require('../views/GlitterComponent');
 
@@ -589,7 +589,7 @@ See [Advanced Routing](#advanced-routing) for alternative ways of navigating.
 An example of basic page navigation:
 
 ~~~js
-// /examples/basics/pages/page-a.js
+// /examples/basics/pages/page-a.config.js
 
 import React from 'react';
 
@@ -602,7 +602,7 @@ const pageA = {
 export default pageA;
 ~~~
 ~~~js
-// /examples/basics/pages/page-b.js
+// /examples/basics/pages/page-b.config.js
 
 import React from 'react';
 
@@ -652,20 +652,20 @@ Instead of using the CLI, Reframe can be used as hapi plugin(s), as shown in the
 // /examples/custom/server/hapi-server.js
 
 const Hapi = require('hapi');
-const getHapiPlugins = require('@reframe/server/getHapiPlugins');
+const getProjectConfig = require('@reframe/utils/getProjectConfig');
+const HapiPluginServerRendering = require('@reframe/server/HapiPluginServerRendering');
+const HapiPluginStaticAssets = require('@reframe/server/HapiPluginStaticAssets');
 const path = require('path');
 
 (async () => {
+    const projectConfig = getProjectConfig();
+    await projectConfig.build();
+
     const server = Hapi.Server({port: 3000});
 
-    const {HapiPluginReframe} = (
-        await getHapiPlugins({
-            pagesDirPath: path.resolve(__dirname, '../../basics/pages'),
-        })
-    );
-
     await server.register([
-        {plugin: HapiPluginReframe},
+        HapiPluginStaticAssets,
+        HapiPluginServerRendering,
     ]);
 
     server.route({
@@ -826,17 +826,6 @@ See the Customization Manual for further information.
 
 We can as well add arbitrary script tags to the page's HTML (external scripts, async scripts, etc.).
 See the "Custom Head" section.
-
-
-
-## Related External Docs
-
-The following packages are used by Reframe.
- - [Repage](https://github.com/reframejs/reframe/tree/master/helpers/repage) - Low-level and unopinionted page management library.
- - [@brillout/html-crust](https://github.com/brillout/html-crust) - HTML outer part handler. (`<head>`, `<!DOCTYPE html>`, `<script>`, etc.)
- - [@brillout/find](https://github.com/brillout/find) - Package to find files. The Reframe CLI uses it to find the `pages/` directory.
- - [Rebuild](https://github.com/reframejs/reframe/tree/master/helpers/rebuild) - High-level asset bundling tool build on top of the low-level tool webpack.
-
 
 <!---
 
