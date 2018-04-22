@@ -38,6 +38,7 @@ function IsoBuilder() {
             })
         ),
         onBuildStateChange,
+        onBuildFail,
         onSuccessfullWatchChange,
     });
 
@@ -53,6 +54,7 @@ function IsoBuilder() {
             })
         ),
         onBuildStateChange,
+        onBuildFail,
         onSuccessfullWatchChange,
     });
 
@@ -71,12 +73,22 @@ function IsoBuilder() {
         );
     }
 
+    function onBuildFail(buildName) {
+        const {logger} = isoBuilder;
+        const {__compilationInfo: browserCompilationInfo} = browserBuild;
+        const {__compilationInfo: nodejsCompilationInfo} = nodejsBuild;
+        global.DEBUG_WATCH && console.log('BUILD-FAIL `'+buildName+'`');
+        log_state_fail({logger, browserCompilationInfo, nodejsCompilationInfo});
+    }
+
     function onBuildStateChange(buildName) {
+        /*
         const {logger} = isoBuilder;
         const {__compilationInfo: browserCompilationInfo} = browserBuild;
         const {__compilationInfo: nodejsCompilationInfo} = nodejsBuild;
         global.DEBUG_WATCH && console.log('BUILD-STATE-CHANGE `'+buildName+'`');
         logCompilationStateChange({logger, browserCompilationInfo, nodejsCompilationInfo});
+        */
     }
 
     function onSuccessfullWatchChange(buildName) {
@@ -85,7 +97,7 @@ function IsoBuilder() {
     }
 }
 
-function BuildManager({buildName, buildFunction, onBuildStateChange, onSuccessfullWatchChange}) {
+function BuildManager({buildName, buildFunction, onBuildStateChange, onSuccessfullWatchChange, onBuildFail}) {
 
     this.runBuild = runBuild;
 
@@ -115,13 +127,13 @@ function BuildManager({buildName, buildFunction, onBuildStateChange, onSuccessfu
             assert_internal(__current !== null);
             if( __current ) {
                 if( deepEqual(__current.webpackConfig, webpackConfig) ) {
-                    global.DEBUG_WATCH && console.log('CACHED-BUILD '+buildName);
-                    const resolveTimeout = gen_timeout({desc: 'Cached Build '+buildName});
+                    global.DEBUG_WATCH && console.log('WEBPACK-COMPILER-REUSE '+__current.cache_id.toString());
+                    const resolveTimeout = gen_timeout({desc: 'Wait Cached Build '+buildName});
                     const compilationInfo = await __current.wait_build();
                     resolveTimeout();
                     return compilationInfo;
                 } else {
-                    global.DEBUG_WATCH && console.log('STOP-BUILD '+buildName);
+                    global.DEBUG_WATCH && console.log('WEPACK-COMPILER-STOP '+__current.cache_id.toString());
                     const resolveTimeout = gen_timeout({desc: 'Stop Build '+buildName});
                     await __current.stop_build();
                     resolveTimeout();
@@ -138,10 +150,21 @@ function BuildManager({buildName, buildFunction, onBuildStateChange, onSuccessfu
                     webpackConfig,
                     onCompilationStateChange: compilationInfo => {
                         assert_internal(build_function_called);
+                        assert_compilationInfo(compilationInfo);
+                        assert_internal(compilationInfo!==null);
+
                         if( __current.cache_id !== cache_id ) {
                             return;
                         }
-                        onCompilationStateChange(compilationInfo);
+
+                        build_manager.__compilationInfo = compilationInfo;
+
+                        if( ! compilationInfo.is_compiling && compilationInfo.is_failure ) {
+                            onBuildFail(buildName);
+                        }
+                        if( ! compilationInfo.is_compiling && ! compilationInfo.is_failure && ! compilationInfo.is_first_build ) {
+                            onSuccessfullWatchChange(buildName);
+                        }
                     },
                 })
             );
@@ -151,13 +174,15 @@ function BuildManager({buildName, buildFunction, onBuildStateChange, onSuccessfu
 
             let build_function_called = true;
 
-            const cache_id = Symbol();
+            const cache_id = Symbol(buildName+'-'+Math.random().toString().slice(2, 10));
             __current = {
                 webpackConfig,
                 stop_build,
                 wait_build,
                 cache_id,
             };
+
+            global.DEBUG_WATCH && console.log('WEBPACK-COMPILER-NEW '+cache_id.toString());
 
             const compilationInfo = await first_successful_build;
 
@@ -173,28 +198,15 @@ function BuildManager({buildName, buildFunction, onBuildStateChange, onSuccessfu
             assert_internal(entry_points);
             return entry_points;
         }
-
-        function onCompilationStateChange(compilationInfo) {
-            assert_compilationInfo(compilationInfo);
-            assert_internal([true, false].includes(compilationInfo.is_compiling));
-            assert_internal(compilationInfo.is_compiling || [true, false].includes(compilationInfo.is_failure));
-
-            build_manager.__compilationInfo = compilationInfo;
-
-            if( ! compilationInfo.is_compiling && ! compilationInfo.is_failure && ! compilationInfo.is_first_build ) {
-                onSuccessfullWatchChange(buildName);
-            }
-        }
     }
 }
 
 async function buildAll({isoBuilder, latestRun, browserBuild, nodejsBuild}) {
     global.DEBUG_WATCH && console.log('START-OVERALL-BUILDER');
 
-    isoBuilder.logger = isoBuilder.logger || Logger();
-    isoBuilder.logger.onNewBuildState({
-        is_compiling: true,
-    });
+    const logger = isoBuilder.logger = isoBuilder.logger || Logger();
+
+    log_state_start({logger});
 
     const run = {
         runNumber: latestRun.runNumber+1,
@@ -246,25 +258,29 @@ async function buildAll({isoBuilder, latestRun, browserBuild, nodejsBuild}) {
 
     await waitOnLatestRun(latestRun);
 
-    if( run.runNumber===latestRun.runNumber ) {
-        isoBuilder.logger.onNewBuildState({
-            is_compiling: false,
-            is_failure: false,
-            compilation_info: [nodejsBuild.__compilationInfo, browserBuild.__compilationInfo],
-        });
+    const isOutdated = run.isOutdated();
+    if( ! isOutdated ) {
+        log_state_end({logger, nodejsBuild, browserBuild});
     }
-    global.DEBUG_WATCH && console.log("END-OVERALL-BUILDER");
+    global.DEBUG_WATCH && console.log("END-OVERALL-BUILDER "+(isOutdated?"[OUTDATED]":"[LATEST]"));
 }
-
-async function waitOnLatestRun(latestRun) {
-    const {runNumber} = latestRun;
-    const {isAborted} = await latestRun.overallPromise;
-    if( latestRun.runNumber !== runNumber ) {
-        return waitOnLatestRun(latestRun);
-    }
-    assert_internal(isAborted===false);
+function log_state_end({logger, nodejsBuild, browserBuild}) {
+    const {__compilationInfo: nodejsCompilationInfo} = nodejsBuild;
+    const {__compilationInfo: browserCompilationInfo} = browserBuild;
+    assert_internal(nodejsCompilationInfo);
+    assert_internal(browserCompilationInfo);
+    logger.onNewBuildState({
+        is_compiling: false,
+        is_failure: false,
+        compilation_info: [nodejsCompilationInfo, browserCompilationInfo],
+    });
 }
-
+function log_state_start({logger}){
+    logger.onNewBuildState({
+        is_compiling: true,
+    });
+}
+/*
 function logCompilationStateChange({browserCompilationInfo, nodejsCompilationInfo, logger}) {
     assert_compilationInfo(browserCompilationInfo);
     assert_compilationInfo(nodejsCompilationInfo);
@@ -285,6 +301,35 @@ function logCompilationStateChange({browserCompilationInfo, nodejsCompilationInf
             is_compiling: true,
         });
     }
+}
+*/
+function log_state_fail({logger, browserCompilationInfo, nodejsCompilationInfo}) {
+    assert_compilationInfo(browserCompilationInfo);
+    assert_compilationInfo(nodejsCompilationInfo);
+    const is_failure = (browserCompilationInfo||{}).is_failure || (nodejsCompilationInfo||{}).is_failure;
+    assert_internal(is_failure===true);
+
+    const is_compiling = (browserCompilationInfo||{}).is_compiling || (nodejsCompilationInfo||{}).is_compiling;
+
+    if( is_compiling ) {
+        return;
+    }
+
+    logger.onNewBuildState({
+        is_compiling: false,
+        is_failure: true,
+        compilation_info: [browserCompilationInfo, nodejsCompilationInfo],
+    });
+}
+
+
+async function waitOnLatestRun(latestRun) {
+    const {runNumber} = latestRun;
+    const {isAborted} = await latestRun.overallPromise;
+    if( latestRun.runNumber !== runNumber ) {
+        return waitOnLatestRun(latestRun);
+    }
+    assert_internal(isAborted===false);
 }
 
 function assert_compilationInfo(compilationState) {
