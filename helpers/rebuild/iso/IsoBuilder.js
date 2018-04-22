@@ -71,10 +71,11 @@ function IsoBuilder() {
         );
     }
 
-    function onBuildStateChange() {
+    function onBuildStateChange(buildName) {
         const {logger} = isoBuilder;
         const {__compilationInfo: browserCompilationInfo} = browserBuild;
         const {__compilationInfo: nodejsCompilationInfo} = nodejsBuild;
+        global.DEBUG_WATCH && console.log('BUILD-STATE-CHANGE `'+buildName+'`');
         logCompilationStateChange({logger, browserCompilationInfo, nodejsCompilationInfo});
     }
 
@@ -106,7 +107,7 @@ function BuildManager({buildName, buildFunction, onBuildStateChange, onSuccessfu
 
         const entryPoints = getEntryPoints(compilationInfo);
 
-        onBuildStateChange();
+        onBuildStateChange(buildName);
 
         return entryPoints;
 
@@ -188,7 +189,7 @@ function BuildManager({buildName, buildFunction, onBuildStateChange, onSuccessfu
 }
 
 async function buildAll({isoBuilder, latestRun, browserBuild, nodejsBuild}) {
-    global.DEBUG_WATCH && console.log('START-BUILDER');
+    global.DEBUG_WATCH && console.log('START-OVERALL-BUILDER');
 
     isoBuilder.logger = isoBuilder.logger || Logger();
     isoBuilder.logger.onNewBuildState({
@@ -252,7 +253,7 @@ async function buildAll({isoBuilder, latestRun, browserBuild, nodejsBuild}) {
             compilation_info: [nodejsBuild.__compilationInfo, browserBuild.__compilationInfo],
         });
     }
-    global.DEBUG_WATCH && console.log("END-BUILDER");
+    global.DEBUG_WATCH && console.log("END-OVERALL-BUILDER");
 }
 
 async function waitOnLatestRun(latestRun) {
@@ -268,7 +269,7 @@ function logCompilationStateChange({browserCompilationInfo, nodejsCompilationInf
     assert_compilationInfo(browserCompilationInfo);
     assert_compilationInfo(nodejsCompilationInfo);
 
-    const is_failure = (browserCompilationInfo||{}).is_failure===true || (nodejsCompilationInfo||{}).is_failure===true;
+    const is_failure = (browserCompilationInfo||{}).is_failure || (nodejsCompilationInfo||{}).is_failure;
     const is_compiling = (browserCompilationInfo||{}).is_compiling || (nodejsCompilationInfo||{}).is_compiling;
 
     if( is_failure && ! is_compiling ) {
