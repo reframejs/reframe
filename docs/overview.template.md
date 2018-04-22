@@ -52,7 +52,7 @@ You can create a React web app with **no build configuration** and **no server c
 Let's create a web app by defining a page config `HelloPage`:
 
 ~~~jsx
-// ~/tmp/reframe-playground/pages/HelloPage.html.js
+// ~/tmp/reframe-playground/pages/HelloPage.js
 
 !INLINE ../examples/basics/pages/HelloPage.js --hide-source-path
 ~~~
@@ -65,8 +65,8 @@ The `reframe` CLI does the rest:
 
 Reframe did the following:
  - Reframe searched for a `pages/` directory and found one at `~/tmp/reframe-playground/pages`.
- - Reframe read the `pages/` directory and found our page config at `~/tmp/reframe-playground/pages/HelloPage.html.js`.
- - Reframe used webpack to transpile `HelloPage.html.js`.
+ - Reframe read the `pages/` directory and found our page config at `~/tmp/reframe-playground/pages/HelloPage.js`.
+ - Reframe used webpack to transpile `HelloPage.js`.
  - Reframe started a Node.js/hapi server that serves all static assets and renders our page's HTML.
 
 With Reframe you can create:
