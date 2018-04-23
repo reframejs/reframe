@@ -5,16 +5,11 @@ function initCommands() {
         name: require('./package.json').name,
         cliCommands: [
             {
-                name: 'init',
-                description: 'creates new project',
+                name: 'init <project-name>',
+                description: 'Create a new Reframe app.',
                 options: [],
-                action: async options => {
-                    const inquirer = require('inquirer');
-                    const {questions} = require('./questions');
-
-                    inquirer.prompt(questions).then(({projectName, useRedux, plugins}) => {
-                        scaffoldApp(projectName);
-                    });
+                action: async projectName => {
+                    scaffoldApp(projectName);
                 },
             }
         ],

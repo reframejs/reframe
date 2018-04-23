@@ -1,8 +1,0 @@
-{
-    "name": "@reframe/cli-plugins",
-    "version": "0.0.1-rc.15",
-    "publishConfig": {
-        "access": "public"
-    },
-    "repository": "github:reframejs/reframe"
-}

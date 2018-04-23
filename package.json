@@ -5,7 +5,6 @@
         "plugins/server",
         "plugins/browser",
         "plugins/eject",
-        "plugins/cli-plugins",
         "plugins/crossroads",
         "plugins/default-kit",
         "plugins/init",
