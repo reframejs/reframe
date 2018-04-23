@@ -75,8 +75,8 @@ function IsoBuilder() {
 
     function onBuildFail() {
         const {logger} = isoBuilder;
-        const {__compilationInfo: browserCompilationInfo} = browserBuild;
-        const {__compilationInfo: nodejsCompilationInfo} = nodejsBuild;
+        const browserCompilationInfo = browserBuild.getCompilationInfo();
+        const nodejsCompilationInfo = nodejsBuild.getCompilationInfo();
         log_state_fail({logger, browserCompilationInfo, nodejsCompilationInfo});
     }
 
@@ -97,13 +97,12 @@ function IsoBuilder() {
 }
 
 function BuildManager({buildName, buildFunction, onBuildStateChange, onSuccessfullWatchChange, onBuildFail}) {
+    const _compiler = new WebpackCompilerWithCache();
 
-    this.runBuild = runBuild;
-
-    let build_manager = this;
-    build_manager.__compilationInfo = null;
-
-    let lastWebpackCompiler;
+    const that = Object.assign(this, {
+        runBuild,
+        getCompilationInfo: () => null,
+    });
 
     return this;
 
@@ -111,97 +110,66 @@ function BuildManager({buildName, buildFunction, onBuildStateChange, onSuccessfu
         assert_usage(webpackConfig);
         assert_internal(runIsOutdated);
 
-        if( runIsOutdated() ) return Promise.resolve({abortBuilder: true});
+        if( runIsOutdated() ) return abortRun();
 
-        const webpackCompiler = lastWebpackCompiler = await getWebpackCompiler();
-        if( runIsOutdated() ) return Promise.resolve({abortBuilder: true});
+        await _compiler.updateCompiler({
+            webpackConfig,
+            getWebpackCompiler: buildFunction,
+            compilationStateChangeListener,
+        });
+        if( runIsOutdated() ) return abortRun();
 
-        const {wait_successfull_compilation, wait_compilation} = webpackCompiler;
+        that.getCompilationInfo = () => {
+            if( runIsOutdated() ) {
+                return null;
+            }
+            return _compiler.getInfo();
+        };
 
-        await wait_compilation();
-        if( runIsOutdated() ) return Promise.resolve({abortBuilder: true});
+        await _compiler.waitCompilation();
+        if( runIsOutdated() ) return abortRun();
 
-        if( build_manager.__compilationInfo.is_failure ) {
-            global.DEBUG_WATCH && console.log('WEBPACK-COMPILER-FAIL FIRST-COMPILE-FAILURE '+webpackCompiler.compilerId.toString());
+
+        if( _compiler.getInfo().is_failure ) {
+            global.DEBUG_WATCH && console.log('WEBPACK-COMPILER-FAIL FIRST-COMPILE-FAILURE '+_compiler.getCompilerId());
             onBuildFail();
         }
 
-        await wait_successfull_compilation();
-        if( runIsOutdated() ) return Promise.resolve({abortBuilder: true});
+        await _compiler.waitSuccessfullCompilation();
+        if( runIsOutdated() ) return abortRun();
 
-        const entryPoints = getEntryPoints(build_manager.__compilationInfo);
-
-        onBuildStateChange(buildName);
+        const entryPoints = getEntryPoints(_compiler.getInfo());
 
         return entryPoints;
 
-        async function getWebpackCompiler() {
-            if( lastWebpackCompiler ) {
-                if( deepEqual(lastWebpackCompiler.webpack_config, webpackConfig) ) {
-                    global.DEBUG_WATCH && console.log('WEBPACK-COMPILER-REUSE '+lastWebpackCompiler.compilerId.toString());
-                    return lastWebpackCompiler;
-                } else {
-                    global.DEBUG_WATCH && console.log('WEPACK-COMPILER-STOP '+lastWebpackCompiler.compilerId.toString());
-                    const resolveTimeout = gen_timeout({desc: 'Stop Build '+buildName});
-                    await lastWebpackCompiler.stop_compilation();
-                    resolveTimeout();
-                    const {output: {path: webpackOutputPath}={}} = lastWebpackCompiler.webpack_config;
-                    assert_internal(webpackOutputPath);
-                    fs__remove(webpackOutputPath);
-                }
+        function compilationStateChangeListener(compilationInfo) {
+            if( runIsOutdated() ) {
+                return;
             }
 
-            const webpackCompiler = (
-                buildFunction({
-                    webpackConfig,
-                    onCompilationStateChange: compilationInfo => {
-                        assert_internal(build_function_called);
-                        assert_compilationInfo(compilationInfo);
-                        assert_internal(compilationInfo!==null);
+            const {is_compiling, is_failure, is_first_compilation} = compilationInfo;
 
-                        const {is_compiling, is_failure, is_first_compilation} = compilationInfo;
-                        const is_outdated = runIsOutdated();
-                        const compilerId = webpackCompiler.compilerId.toString();
-                        const compilerId__last = lastWebpackCompiler.compilerId.toString();
+            if( !is_compiling && !is_first_compilation ) {
+                if( is_failure ) {
+                    global.DEBUG_WATCH && console.log('WEBPACK-COMPILER-FAIL WATCH-FAILURE '+_compiler.getCompilerId());
+                    onBuildFail(buildName);
+                } else {
+                    onSuccessfullWatchChange(buildName);
+                }
+            }
+            /*
+            if( ! compilationInfo.is_compiling && compilationInfo.is_failure && !runIsOutdated() && !compilationInfo.is_first_compilation ) {
+                onBuildFail(buildName);
+            }
+            if( !compilationInfo.is_compiling && !compilationInfo.is_failure && !compilationInfo.is_first_compilation ) {
+                onSuccessfullWatchChange(buildName);
+            }
+            */
+        }
 
-                        global.DEBUG_WATCH && console.log('COMPILATION-STATE-CHANGE '+JSON.stringify({is_compiling, is_failure, is_first_compilation, is_outdated, compilerId, compilerId__last}));
-
-                        if( compilerId !== compilerId__last ) {
-                            return;
-                        }
-
-                        build_manager.__compilationInfo = compilationInfo;
-
-                        if( !is_compiling && !is_outdated && !is_first_compilation ) {
-                            if( is_failure ) {
-                                global.DEBUG_WATCH && console.log('WEBPACK-COMPILER-FAIL WATCH-FAILURE '+webpackCompiler.compilerId.toString());
-                                onBuildFail(buildName);
-                            } else {
-                                onSuccessfullWatchChange(buildName);
-                            }
-                        }
-                        /*
-                        if( ! compilationInfo.is_compiling && compilationInfo.is_failure && !runIsOutdated() && !compilationInfo.is_first_compilation ) {
-                            onBuildFail(buildName);
-                        }
-                        if( !compilationInfo.is_compiling && !compilationInfo.is_failure && !compilationInfo.is_first_compilation ) {
-                            onSuccessfullWatchChange(buildName);
-                        }
-                        */
-                    },
-                })
-            );
-            assert_internal(webpackCompiler.stop_compilation);
-            assert_internal(webpackCompiler.wait_compilation);
-            assert_internal(webpackCompiler.wait_successfull_compilation);
-            assert_internal(webpackCompiler.webpack_config);
-            assert_internal(webpackCompiler.compilerId);
-
-            let build_function_called = true;
-
-            global.DEBUG_WATCH && console.log('WEBPACK-COMPILER-NEW '+webpackCompiler.compilerId.toString());
-
-            return webpackCompiler;
+        function abortRun() {
+            that.getCompilationInfo = () => null;
+            return Promise.resolve({abortBuilder: true});
         }
 
         function getEntryPoints(compilationInfo) {
@@ -213,6 +181,100 @@ function BuildManager({buildName, buildFunction, onBuildStateChange, onSuccessfu
             assert_internal(entry_points);
             return entry_points;
         }
+    }
+}
+
+function WebpackCompilerWithCache() {
+    let _compilation_info = null;
+
+    let webpackCompiler_last;
+    let getWebpackCompiler_last;
+
+    let stateChangeListener;
+
+    Object.assign(this, {
+        getInfo,
+        updateCompiler,
+        getCompilerId,
+        waitCompilation,
+        waitSuccessfullCompilation,
+    });
+
+    return this;
+
+    async function updateCompiler({webpackConfig, getWebpackCompiler, compilationStateChangeListener}) {
+        webpackCompiler_last = await getCompiler({webpackConfig, getWebpackCompiler});
+        getWebpackCompiler_last = getWebpackCompiler;
+        stateChangeListener = compilationStateChangeListener;
+    }
+
+    function getInfo() {
+        assert_compilationInfo(_compilation_info);
+        return _compilation_info;
+    }
+    function waitCompilation() {
+        return webpackCompiler_last.wait_compilation();
+    }
+    function waitSuccessfullCompilation() {
+        return webpackCompiler_last.wait_successfull_compilation();
+    }
+    function getCompilerId() {
+        return webpackCompiler_last.compilerId.toString();
+     // return webpackCompiler_last ? webpackCompiler_last.compilerId.toString() : null;
+    }
+
+    async function getCompiler({webpackConfig, getWebpackCompiler}) {
+        if( webpackCompiler_last ) {
+            if( deepEqual(webpackCompiler_last.webpack_config, webpackConfig) && getWebpackCompiler===getWebpackCompiler_last ) {
+                global.DEBUG_WATCH && console.log('WEBPACK-COMPILER-REUSE '+getCompilerId());
+                return webpackCompiler_last;
+            } else {
+                global.DEBUG_WATCH && console.log('WEPACK-COMPILER-STOP '+getCompilerId());
+                const resolveTimeout = gen_timeout({desc: 'Stop Compiler '+getCompilerId()});
+                await webpackCompiler_last.stop_compilation();
+                resolveTimeout();
+                const {output: {path: webpackOutputPath}={}} = webpackCompiler_last.webpack_config;
+                assert_internal(webpackOutputPath);
+                fs__remove(webpackOutputPath);
+            }
+        }
+
+        const webpackCompiler = (
+            getWebpackCompiler({
+                webpackConfig,
+                onCompilationStateChange: compilationInfo => {
+                    assert_internal(build_function_called);
+                    assert_compilationInfo(compilationInfo);
+                    assert_internal(compilationInfo!==null);
+
+                    const compilerId = webpackCompiler.compilerId.toString();
+                    const compilerId__last = getCompilerId();
+
+                    const {is_compiling, is_failure, is_first_compilation} = compilationInfo;
+
+                    global.DEBUG_WATCH && console.log('COMPILATION-STATE-CHANGE '+JSON.stringify({is_compiling, is_failure, is_first_compilation, compilerId, compilerId__last}));
+
+                    if( compilerId !== compilerId__last ) {
+                        return;
+                    }
+
+                    _compilation_info = compilationInfo;
+
+                    stateChangeListener(compilationInfo);
+                },
+            })
+        );
+        assert_internal(webpackCompiler.stop_compilation);
+        assert_internal(webpackCompiler.wait_compilation);
+        assert_internal(webpackCompiler.wait_successfull_compilation);
+        assert_internal(webpackCompiler.webpack_config);
+        assert_internal(webpackCompiler.compilerId);
+
+        let build_function_called = true;
+
+        global.DEBUG_WATCH && console.log('WEBPACK-COMPILER-NEW '+webpackCompiler.compilerId.toString());
+
+        return webpackCompiler;
     }
 }
 
@@ -280,8 +342,8 @@ async function buildAll({isoBuilder, latestRun, browserBuild, nodejsBuild}) {
     global.DEBUG_WATCH && console.log("END-OVERALL-BUILDER "+(isOutdated?"[OUTDATED]":"[LATEST]"));
 }
 function log_state_end({logger, nodejsBuild, browserBuild}) {
-    const {__compilationInfo: nodejsCompilationInfo} = nodejsBuild;
-    const {__compilationInfo: browserCompilationInfo} = browserBuild;
+    const nodejsCompilationInfo = nodejsBuild.getCompilationInfo();
+    const browserCompilationInfo = browserBuild.getCompilationInfo();
     assert_internal(nodejsCompilationInfo);
     assert_internal(browserCompilationInfo);
     logger.onNewBuildState({
