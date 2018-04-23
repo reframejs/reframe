@@ -9,8 +9,7 @@
     "@reframe/init": "0.0.1-rc.15",
     "@reframe/utils": "0.0.1-rc.15",
     "commander": "^2.14.1",
-    "ora": "^2.0.0",
-    "reassert": "latest"
+    "ora": "^2.0.0"
   },
   "publishConfig": {
     "access": "public"
