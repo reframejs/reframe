@@ -143,10 +143,10 @@ function BuildManager({buildName, buildFunction, onBuildStateChange, onSuccessfu
                 } else {
                     global.DEBUG_WATCH && console.log('WEPACK-COMPILER-STOP '+lastWebpackCompiler.compilerId.toString());
                     const resolveTimeout = gen_timeout({desc: 'Stop Build '+buildName});
-                    await lastWebpackCompiler.stop_build();
+                    await lastWebpackCompiler.stop_compilation();
                     resolveTimeout();
-                    const {output: {path: webpackOutputPath}={}} = lastWebpackCompiler;
-                    assert_internal(webpackOutputPath, lastWebpackCompiler);
+                    const {output: {path: webpackOutputPath}={}} = lastWebpackCompiler.webpack_config;
+                    assert_internal(webpackOutputPath);
                     fs__remove(webpackOutputPath);
                 }
             }
@@ -340,18 +340,18 @@ async function waitOnLatestRun(latestRun) {
     assert_internal(isAborted===false);
 }
 
-function assert_compilationInfo(compilationState) {
-    if( compilationState === null ) {
+function assert_compilationInfo(compilationInfo) {
+    if( compilationInfo === null ) {
         return;
     }
-    assert_internal([true, false].includes(compilationState.is_compiling));
-    if( compilationState.is_compiling ) {
+    assert_internal([true, false].includes(compilationInfo.is_compiling));
+    if( compilationInfo.is_compiling ) {
         return;
     }
-    assert_internal([true, false].includes(compilationState.is_failure));
-    assert_internal(compilationState.output, compilationState);
-    assert_internal(compilationState.output.dist_root_directory);
-    assert_internal(compilationState.output.entry_points);
+    assert_internal([true, false].includes(compilationInfo.is_failure));
+    assert_internal(compilationInfo.output, compilationInfo);
+    assert_internal(compilationInfo.output.dist_root_directory);
+    assert_internal(compilationInfo.output.entry_points);
 }
 
 
