@@ -28,7 +28,7 @@ function startCommands() {
                         description: "Build for development.",
                     },
                 ],
-                action: build,
+                action: runBuild,
             },
             {
                 name: 'server',
@@ -39,7 +39,7 @@ function startCommands() {
                         description: "Start for development",
                     },
                 ],
-                action: runStartServer,
+                action: runServer,
             },
         ],
     };
@@ -55,14 +55,18 @@ async function runStart(opts) {
     await require(projectConfig.serverEntryFile);
 }
 
-async function build(opts) {
+async function runBuild(opts) {
     const projectConfig = init({...opts, doNotWatchBuildFiles: true});
 
     assert_build(projectConfig);
     await require(projectConfig.build.executeBuild);
+
+    const {colorCmd} = require('@reframe/utils/cliTheme');
+
+    console.log('\n', ' Run '+colorCmd('reframe server')+' to start the server.', '\n');
 }
 
-async function runStartServer(opts) {
+async function runServer(opts) {
     const projectConfig = init(opts);
 
     assert_server(projectConfig);
