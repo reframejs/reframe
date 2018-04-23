@@ -91,7 +91,7 @@ async function runEject(ejectableName) {
     }
 
     function copyFile({fileCopy, actions, deps, ejectablePackageName, projectConfig}) {
-        const searchProjectFiles = require('@reframe/utils/searchProjectFiles');
+        const findPackageFiles = require('@brillout/find-package-files');
 
         const {projectRootDir} = projectConfig.projectFiles;
 
@@ -100,8 +100,8 @@ async function runEject(ejectableName) {
         newPath = apply_PROJECT_ROOT(newPath, projectRootDir);
 
         const allProjectFiles = [
-            ...searchProjectFiles('*.js', {cwd: projectRootDir, no_dir: true}),
-            ...searchProjectFiles('*.jsx', {cwd: projectRootDir, no_dir: true}),
+            ...findPackageFiles('*.js', {cwd: projectRootDir, no_dir: true}),
+            ...findPackageFiles('*.jsx', {cwd: projectRootDir, no_dir: true}),
         ];
 
         const fileContentOld = fs__read(require.resolve(oldPath, {paths: [projectRootDir]}));

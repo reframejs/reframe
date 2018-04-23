@@ -2,14 +2,13 @@
   "name": "@reframe/utils",
   "version": "0.0.1-rc.15",
   "dependencies": {
+    "@brillout/find-package-files": "^0.1.0",
     "@brillout/get-user-dir": "^0.1.2",
     "@brillout/webpack-utils": "0.0.1-rc.15",
     "chalk": "^2.4.0",
     "cross-spawn": "^6.0.4",
     "find-up": "^2.1.0",
     "git-state": "^4.0.0",
-    "glob-gitignore": "^1.0.6",
-    "ignore": "^3.3.7",
     "reassert": "^1.1.8",
     "simple-git": "^1.92.0"
   },

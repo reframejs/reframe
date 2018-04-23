@@ -2,6 +2,7 @@
     "name": "@reframe/eject",
     "version": "0.0.1-rc.15",
     "dependencies": {
+        "@brillout/find-package-files": "^0.1.0",
         "@brillout/relative-to-homedir": "^0.0.1",
         "@reframe/utils": "0.0.1-rc.15",
         "builtins": "^2.0.0",

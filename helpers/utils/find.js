@@ -3,7 +3,7 @@ const assert_internal = require('reassert/internal');
 const assert_not_implemented = assert_internal;
 const find_up_module = require('find-up');
 const path_module = require('path');
-const find_down = require('./searchProjectFiles');
+const find_down = require('@brillout/find-package-files');
 
 
 module.exports = find;

@@ -1,5 +1,12 @@
 {
     "private": true,
+    "scripts": {
+      "deps": "check-deps"
+    },
+    "devDependencies": {
+        "@brillout/check-deps": "^0.1.0",
+        "lerna": "^2.9.0"
+    },
     "workspaces": [
         "plugins/build",
         "plugins/server",
@@ -14,41 +21,30 @@
         "plugins/react-router",
         "plugins/start",
         "plugins/typescript",
-
         "docs",
         "examples/basics",
         "examples/custom",
-
         "helpers/utils",
         "helpers/cli",
-
         "helpers/webpack-ssr",
         "helpers/webpack-utils",
-
         "helpers/file-sets",
-
         "helpers/repage/core/core",
         "helpers/repage/core/build",
         "helpers/repage/core/browser",
         "helpers/repage/core/server",
-
         "helpers/repage/plugins/navigator",
         "helpers/repage/plugins/renderer",
         "helpers/repage/plugins/renderer-react",
         "helpers/repage/plugins/router-crossroads",
         "helpers/repage/plugins/router-path-to-regexp",
         "helpers/repage/plugins/router-static",
-
         "helpers/repage/docs",
         "helpers/repage/example",
-
         "helpers/rebuild/config",
         "helpers/rebuild/build",
         "helpers/rebuild/iso",
         "helpers/rebuild/example",
         "helpers/rebuild/serve"
-    ],
-    "devDependencies": {
-        "lerna": "^2.9.0"
-    }
+    ]
 }
