@@ -39,7 +39,6 @@ function getBrowserEntryString({pageConfig, pageFile, pageName}) {
                 "window.__REFRAME__BROWSER_CONFIG = "+browserConfig+";",
                 "", "",
             ]
-            ]
             .join('\n')
         );
     }
@@ -51,7 +50,6 @@ function getBrowserEntryString({pageConfig, pageFile, pageName}) {
                 "pageConfig = (pageConfig||{}).__esModule===true ? pageConfig.default : pageConfig;",
                 "window.__REFRAME__PAGE_CONFIG = pageConfig;",
                 "", "",
-            ]
             ]
             .join('\n')
         );

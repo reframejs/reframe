@@ -2,6 +2,8 @@
     "name": "@reframe/init",
     "version": "0.0.1-rc.15",
     "dependencies": {
+        "@brillout/relative-to-homedir": "^0.0.1",
+        "chalk": "^2.4.0",
         "fs-extra": "^5.0.0"
     },
     "publishConfig": {

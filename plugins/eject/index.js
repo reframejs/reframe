@@ -398,13 +398,9 @@ async function runEject(ejectableName) {
         }
     }
 
-    function fs__read(filePath) {
-        return fs.readFileSync(filePath, 'utf8');
-    }
+    function fs__read(filePath) { return fs.readFileSync(filePath, 'utf8'); }
 
-    function greenCheckmark() {
-        return chalk.green('\u2714');
-    }
+    function greenCheckmark() { return chalk.green('\u2714'); }
 }
 
 function onHelp() {
