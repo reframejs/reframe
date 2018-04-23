@@ -8,7 +8,7 @@
     "@rebuild/config": "0.0.1-rc.15",
     "css-loader": "^0.28.11",
     "postcss-loader": "^2.1.3",
-    "reassert": "latest"
+    "reassert": "^1.1.8"
   },
   "publishConfig": {
     "access": "public"

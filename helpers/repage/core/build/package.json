@@ -4,7 +4,7 @@
   "main": "./build",
   "dependencies": {
     "@atto/parse-uri": "0.0.1",
-    "reassert": "latest"
+    "reassert": "^1.1.8"
   },
   "publishConfig": {
     "access": "public"

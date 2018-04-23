@@ -6,6 +6,6 @@
     "@rebuild/build": "0.0.1-rc.15",
     "@rebuild/config": "0.0.1-rc.15",
     "@rebuild/serve": "0.0.1-rc.15",
-    "reassert": "latest"
+    "reassert": "^1.1.8"
   }
 }

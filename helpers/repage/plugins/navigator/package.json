@@ -5,7 +5,7 @@
   "main": "./server.js",
   "dependencies": {
     "history": "2.x.x",
-    "reassert": "latest"
+    "reassert": "^1.1.8"
   },
   "publishConfig": {
     "access": "public"

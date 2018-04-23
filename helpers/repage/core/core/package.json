@@ -3,7 +3,7 @@
   "version": "0.0.1-rc.15",
   "main": "./core",
   "dependencies": {
-    "reassert": "latest"
+    "reassert": "^1.1.8"
   },
   "publishConfig": {
     "access": "public"

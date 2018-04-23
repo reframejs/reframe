@@ -6,7 +6,7 @@
     "chokidar": "^1.7.0",
     "hapi": "17.x.x",
     "parent-module": "^0.1.0",
-    "reassert": "latest",
+    "reassert": "^1.1.8",
     "ws": "^5.1.0"
   },
   "publishConfig": {
