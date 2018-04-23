@@ -3,7 +3,7 @@ const assert_warning = require('reassert/warning');
 const assert_usage = require('reassert/usage');
 const assert_internal = require('reassert/internal');
 const assert = assert_internal;
-const assert_tmp = assert_internal;
+const assert_todo = assert_internal;
 const log = require('reassert/log');
 const webpack = require('webpack');
 const path_module = require('path');
@@ -35,9 +35,10 @@ function compile(
         compilationName,
     }
 ) {
+    assert_internal(compilationName);
     assert_internal(webpack_config.constructor===Object);
-    assert_tmp(!webpack_config_modifier);
-    assert_tmp(!onBuild);
+    assert_todo(!webpack_config_modifier);
+    assert_todo(!onBuild);
 
     const resolveTimeout = gen_timeout({name: 'Compilation Build '+compilationName});
 
@@ -93,9 +94,12 @@ function compile(
     assert_internal(stop_build);
     assert_internal(wait_build);
 
+    const compilerId = Symbol(compilationName+'-'+Math.random().toString().slice(2, 10));
+
     return {
         stop_build,
         wait_build,
+        compilerId,
         first_successful_build: (async () => {
             const {compilation_info} = await first_success_promise;
             assert_internal(compilation_info.is_success===true);

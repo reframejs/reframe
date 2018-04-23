@@ -103,48 +103,55 @@ function BuildManager({buildName, buildFunction, onBuildStateChange, onSuccessfu
     let build_manager = this;
     build_manager.__compilationInfo = null;
 
-    let __current;
+    let lastWebpackCompiler;
 
     return this;
 
     async function runBuild({webpackConfig, runIsOutdated}) {
         assert_usage(webpackConfig);
+        assert_internal(runIsOutdated);
 
         if( runIsOutdated() ) return Promise.resolve({abortBuilder: true});
 
-        const compilationInfo = await doIt();
-
+        const webpackCompiler = lastWebpackCompiler = await getWebpackCompiler();
         if( runIsOutdated() ) return Promise.resolve({abortBuilder: true});
 
-        const entryPoints = getEntryPoints(compilationInfo);
+        const {wait_successfull_compilation, wait_compilation} = webpackCompiler;
+
+        await wait_compilation();
+        if( runIsOutdated() ) return Promise.resolve({abortBuilder: true});
+
+        if( build_manager.__compilationInfo.is_failure ) {
+            global.DEBUG_WATCH && console.log('WEBPACK-COMPILER-FAIL FIRST-COMPILE-FAILURE '+webpackCompiler.compilerId.toString());
+            onBuildFail();
+        }
+
+        await wait_successfull_compilation();
+        if( runIsOutdated() ) return Promise.resolve({abortBuilder: true});
+
+        const entryPoints = getEntryPoints(build_manager.__compilationInfo);
 
         onBuildStateChange(buildName);
 
         return entryPoints;
 
-        async function doIt() {
-            assert_internal(__current !== null);
-            if( __current ) {
-                if( deepEqual(__current.webpackConfig, webpackConfig) ) {
-                    global.DEBUG_WATCH && console.log('WEBPACK-COMPILER-REUSE '+__current.cache_id.toString());
-                    const resolveTimeout = gen_timeout({desc: 'Wait Cached Build '+buildName});
-                    const compilationInfo = await __current.wait_build();
-                    resolveTimeout();
-                    return compilationInfo;
+        async function getWebpackCompiler() {
+            if( lastWebpackCompiler ) {
+                if( deepEqual(lastWebpackCompiler.webpackConfig, webpackConfig) ) {
+                    global.DEBUG_WATCH && console.log('WEBPACK-COMPILER-REUSE '+lastWebpackCompiler.compilerId.toString());
+                    return lastWebpackCompiler;
                 } else {
-                    global.DEBUG_WATCH && console.log('WEPACK-COMPILER-STOP '+__current.cache_id.toString());
+                    global.DEBUG_WATCH && console.log('WEPACK-COMPILER-STOP '+lastWebpackCompiler.compilerId.toString());
                     const resolveTimeout = gen_timeout({desc: 'Stop Build '+buildName});
-                    await __current.stop_build();
+                    await lastWebpackCompiler.stop_build();
                     resolveTimeout();
-                    const {output: {path: webpackOutputPath}={}} = webpackConfig;
-                    assert_usage(webpackOutputPath, webpackConfig);
+                    const {output: {path: webpackOutputPath}={}} = lastWebpackCompiler;
+                    assert_internal(webpackOutputPath, lastWebpackCompiler);
                     fs__remove(webpackOutputPath);
                 }
             }
 
-            __current = null;
-
-            const {stop_build, wait_build, first_successful_build} = (
+            const webpackCompiler = (
                 buildFunction({
                     webpackConfig,
                     onCompilationStateChange: compilationInfo => {
@@ -152,41 +159,42 @@ function BuildManager({buildName, buildFunction, onBuildStateChange, onSuccessfu
                         assert_compilationInfo(compilationInfo);
                         assert_internal(compilationInfo!==null);
 
-                        if( __current.cache_id !== cache_id ) {
+                        if( webpackCompiler.compilerId !== currentWebpackCompiler.compilerId ) {
                             return;
                         }
 
                         build_manager.__compilationInfo = compilationInfo;
 
-                        if( ! compilationInfo.is_compiling && compilationInfo.is_failure && !runIsOutdated() ) {
-                            global.DEBUG_WATCH && console.log('WEBPACK-COMPILER-FAIL `'+__current.cache_id.toString());
+                        if( !compilationInfo.is_compiling && !runIsOutdated() && !compilationInfo.is_first_build ) {
+                            if( compilationInfo.is_failure ) {
+                                global.DEBUG_WATCH && console.log('WEBPACK-COMPILER-FAIL WATCH-FAILURE '+webpackCompiler.compilerId.toString());
+                                onBuildFail(buildName);
+                            } else {
+                                onSuccessfullWatchChange(buildName);
+                            }
+                        }
+                        /*
+                        if( ! compilationInfo.is_compiling && compilationInfo.is_failure && !runIsOutdated() && !compilationInfo.is_first_build ) {
                             onBuildFail(buildName);
                         }
                         if( !compilationInfo.is_compiling && !compilationInfo.is_failure && !compilationInfo.is_first_build ) {
                             onSuccessfullWatchChange(buildName);
                         }
+                        */
                     },
                 })
             );
-            assert_internal(first_successful_build);
-            assert_internal(wait_build);
-            assert_internal(stop_build);
+            assert_internal(webpackCompiler.first_successful_build);
+            assert_internal(webpackCompiler.wait_build);
+            assert_internal(webpackCompiler.stop_build);
+            assert_internal(webpackCompiler.webpackConfig);
+            assert_internal(webpackCompiler.compilerId);
 
             let build_function_called = true;
 
-            const cache_id = Symbol(buildName+'-'+Math.random().toString().slice(2, 10));
-            __current = {
-                webpackConfig,
-                stop_build,
-                wait_build,
-                cache_id,
-            };
+            global.DEBUG_WATCH && console.log('WEBPACK-COMPILER-NEW '+compilerId.toString());
 
-            global.DEBUG_WATCH && console.log('WEBPACK-COMPILER-NEW '+cache_id.toString());
-
-            const compilationInfo = await first_successful_build;
-
-            return compilationInfo;
+            return webpackCompiler;
         }
 
         function getEntryPoints(compilationInfo) {
