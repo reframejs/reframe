@@ -5,12 +5,18 @@ function initCommands() {
         name: require('./package.json').name,
         cliCommands: [
             {
-                name: 'init <project-name>',
+                name: 'init [project-directory]',
                 description: 'Create a new Reframe app.',
                 options: [],
                 action: async projectName => {
+                    if( ! projectName ) {
+                        showUsageInfo();
+                        showUsageExample();
+                        return;
+                    }
                     scaffoldApp(projectName);
                 },
+                showUsageExample,
             }
         ],
     };
@@ -19,28 +25,23 @@ function initCommands() {
 async function scaffoldApp(projectName) {
     const path = require('path');
     const fs = require('fs-extra');
-    const chalk = require('chalk');
     const relativeToHomedir = require('@brillout/relative-to-homedir');
+    const {colorDir, colorCmd, colorPkg, colorUrl, symbolSuccess} = require('@reframe/utils/cliTheme');
 
     const projectRootDir = path.resolve(process.cwd(), projectName);
 
     const {homeViewTemplate, homePageTemplate} = require('./templates/homeTemplate');
     const {jsonPkgTemplate, reframeConfigTemplate} = require('./templates/coreFilesTemplate');
 
-    const colorDir = chalk.green;
-    const colorCmd = chalk.blue;
-    const colorPkg = chalk.blue;
-    const colorUrl = chalk.blue;
-
     const projectRootDir__pretty = colorDir(relativeToHomedir(projectRootDir))
 
     console.log(
-```
+`
 Creating a new Reframe app in ${projectRootDir__pretty}.
 
-Installing packages. This might take a couple of minutes.
-Installing ${colorPkg('react')}, and ${colorPkg('@reframe/default-kit')}...
-```
+Installing ${colorPkg('react')} and ${colorPkg('@reframe/default-kit')}.
+This might take a couple of minutes.
+`
     );
 
     const viewTemplate = homeViewTemplate();
@@ -69,8 +70,8 @@ Installing ${colorPkg('react')}, and ${colorPkg('@reframe/default-kit')}...
     await gitInit(projectRootDir);
 
     console.log(
-```
-${greenCheckmark()} Reframe app created in ${projectRootDir__pretty}.
+`
+${symbolSuccess} Reframe app created in ${projectRootDir__pretty}.
 
 Inside that directory, you can run commands such as
 
@@ -78,23 +79,22 @@ Inside that directory, you can run commands such as
     Build and start server for development.
 
   ${colorCmd('reframe')}
-    Display all available commands.
+    Display all commands.
 
   ${colorCmd('reframe eject')}
     Display all ejectables.
 
   ${colorCmd('reframe eject server')}
-    Ejects ~40 LOC to allow you to control the Node.JS/hapi server.
+    Ejects ~40 LOC giving you control over the Node.JS/hapi server.
 
 Run ${colorCmd('cd '+projectName+' && reframe start')} and go to ${colorUrl('http://localhost:3000')} to explore your new app.
-```
+`
     );
 }
 
 async function npmInstall(cwd) {
     const runNpmInstall = require('@reframe/utils/runNpmInstall');
     const exitCode = await runNpmInstall({cwd});
-    console.log('process completed');
 }
 
 async function gitInit(cwd) {
@@ -103,4 +103,23 @@ async function gitInit(cwd) {
     await git.commit({cwd, message: 'boostrap Reframe app'});
 }
 
-function greenCheckmark() { return chalk.green('\u2714'); }
+function showUsageExample() {
+    const {colorCmd} = require('@reframe/utils/cliTheme');
+
+    console.log(
+`
+  For example:
+    ${colorCmd('reframe init my-app')}
+`
+    );
+}
+
+function showUsageInfo() {
+    const {colorCmd} = require('@reframe/utils/cliTheme');
+
+    console.log(
+`
+  Please specify the project directory:
+    ${'reframe init '+colorCmd('<project-directory>')}`
+    );
+}

@@ -4,7 +4,6 @@
     "dependencies": {
         "@brillout/relative-to-homedir": "^0.0.1",
         "@reframe/utils": "0.0.1-rc.15",
-        "chalk": "^2.3.2",
         "reassert": "latest"
     },
     "publishConfig": {

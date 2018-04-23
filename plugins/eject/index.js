@@ -24,10 +24,10 @@ async function runEject(ejectableName) {
     const assert_usage = require('reassert/usage');
     const assert_internal = require('reassert/internal');
     const getProjectConfig = require('@reframe/utils/getProjectConfig');
+    const {symbolSuccess} = require('@reframe/utils/cliTheme');
     const runNpmInstall = require('@reframe/utils/runNpmInstall');
     const git = require('@reframe/utils/git');
     const relativeToHomedir = require('@brillout/relative-to-homedir');
-    const chalk = require('chalk');
     const pathModule = require('path');
     const fs = require('fs');
     const os = require('os');
@@ -86,7 +86,7 @@ async function runEject(ejectableName) {
         actions.forEach(action => action());
 
         await git.commit({cwd: projectRootDir, message: "eject "+ejectableSpec.name});
-        console.log(greenCheckmark()+' Eject done.');
+        console.log(symbolSuccess+' Eject done.');
         console.log('  Run `git show HEAD` to see all ejected code.');
     }
 
@@ -130,7 +130,7 @@ async function runEject(ejectableName) {
 
                 const action = () => {
                     fs__write(projectFile, fileContentNew);
-                    console.log(greenCheckmark()+' Modified '+relativeToHomedir(projectFile));
+                    console.log(symbolSuccess+' Modified '+relativeToHomedir(projectFile));
                 };
 
                 return action;
@@ -186,7 +186,7 @@ async function runEject(ejectableName) {
 
         const action = () => {
             fs__write(reframeConfigPath, reframeConfigContent);
-            console.log(greenCheckmark()+' Modified '+relativeToHomedir(reframeConfigFile));
+            console.log(symbolSuccess+' Modified '+relativeToHomedir(reframeConfigFile));
         };
 
         actions.push(action);
@@ -379,7 +379,7 @@ async function runEject(ejectableName) {
         );
         return () => {
             fs__write(filePath, fileContent);
-            console.log(greenCheckmark()+' New file '+relativeToHomedir(filePath));
+            console.log(symbolSuccess+' New file '+relativeToHomedir(filePath));
         };
     }
     function fs__write(filePath, fileContent) {
@@ -399,8 +399,6 @@ async function runEject(ejectableName) {
     }
 
     function fs__read(filePath) { return fs.readFileSync(filePath, 'utf8'); }
-
-    function greenCheckmark() { return chalk.green('\u2714'); }
 }
 
 function onHelp() {

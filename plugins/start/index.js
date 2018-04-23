@@ -72,7 +72,7 @@ async function runStartServer(opts) {
 function init({dev, log, doNotWatchBuildFiles}) {
     const getProjectConfig = require('@reframe/utils/getProjectConfig');
     const relative_to_homedir = require('@brillout/relative-to-homedir');
-    const chalk = require('chalk');
+    const {symbolSuccess} = require('@reframe/utils/cliTheme');
 
     if( ! dev ) {
         process.env['NODE_ENV'] = 'production';
@@ -98,7 +98,7 @@ function init({dev, log, doNotWatchBuildFiles}) {
 
     function log_found_file(file_path, description) {
         if( file_path ) {
-            console.log(green_checkmark()+' Found '+description+' '+relative_to_homedir(file_path));
+            console.log(symbolSuccess+' Found '+description+' '+relative_to_homedir(file_path));
         }
     }
 
@@ -107,11 +107,7 @@ function init({dev, log, doNotWatchBuildFiles}) {
         if( _packageJsonPlugins.length===0 ) {
             return;
         }
-        console.log(green_checkmark()+' Found plugin'+(_packageJsonPlugins.length===1?'':'s')+' '+arrayToStr(_packageJsonPlugins));
-    }
-
-    function green_checkmark() {
-        return chalk.green('\u2714');
+        console.log(symbolSuccess+' Found plugin'+(_packageJsonPlugins.length===1?'':'s')+' '+arrayToStr(_packageJsonPlugins));
     }
 }
 

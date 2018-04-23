@@ -4,6 +4,7 @@
   "dependencies": {
     "@brillout/get-user-dir": "latest",
     "@brillout/webpack-utils": "0.0.1-rc.15",
+    "chalk": "^2.4.0",
     "cross-spawn": "^6.0.4",
     "find-up": "^2.1.0",
     "git-state": "^4.0.0",
