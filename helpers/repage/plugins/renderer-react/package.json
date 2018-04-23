@@ -6,7 +6,8 @@
   "dependencies": {
     "@brillout/html-crust": "latest",
     "react": "^16.1.1",
-    "react-dom": "^16.1.1"
+    "react-dom": "^16.1.1",
+    "reassert": "^1.1.8"
   },
   "publishConfig": {
     "access": "public"

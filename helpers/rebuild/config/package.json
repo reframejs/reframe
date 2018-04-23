@@ -2,7 +2,6 @@
   "name": "@rebuild/config",
   "version": "0.0.1-rc.15",
   "dependencies": {
-    "babel-core": "^6.26.0",
     "babel-loader": "*",
     "babel-plugin-dynamic-import-node": "^1.2.0",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
@@ -13,7 +12,6 @@
     "babel-preset-react": "^6.24.1",
     "css-loader": "*",
     "file-loader": "*",
-    "html-webpack-plugin": "*",
     "ignore-loader": "*",
     "json-loader": "^0.5.7",
     "loader-utils": "*",
@@ -23,8 +21,7 @@
     "reassert": "latest",
     "style-loader": "*",
     "uglifyjs-webpack-plugin": "*",
-    "webpack": "*",
-    "write-file-webpack-plugin": "*"
+    "webpack": "*"
   },
   "publishConfig": {
     "access": "public"

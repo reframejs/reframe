@@ -6,5 +6,8 @@
   "publishConfig": {
     "access": "public"
   },
-  "repository": "github:reframejs/reframe"
+  "repository": "github:reframejs/reframe",
+  "dependencies": {
+    "reassert": "^1.1.8"
+  }
 }

@@ -2,7 +2,6 @@
    "name": "@reframe/build",
    "version": "0.0.1-rc.15",
    "dependencies": {
-      "@reframe/browser": "0.0.1-rc.15",
       "@reframe/utils": "0.0.1-rc.15",
       "@repage/build": "0.0.1-rc.15",
       "@repage/core": "0.0.1-rc.15",

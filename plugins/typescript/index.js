@@ -1,7 +1,6 @@
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const assert = require('reassert');
-const assert_internal = assert;
-const assert_usage = assert;
+const assert_internal = require('reassert/internal');
+const assert_usage = require('reassert/usage');
 const find_up = require('find-up');
 const getUserDir = require('@brillout/get-user-dir');
 

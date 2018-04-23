@@ -4,7 +4,8 @@
   "browser": "./browser.js",
   "main": "./server.js",
   "dependencies": {
-    "react-router": "4.2.0"
+    "react-router": "4.2.0",
+    "reassert": "^1.1.8"
   },
   "publishConfig": {
     "access": "public"

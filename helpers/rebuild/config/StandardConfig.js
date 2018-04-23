@@ -428,14 +428,14 @@ function config_es_latest({is_node_target}) {
                             [require.resolve('babel-preset-env'), babel_preset_env_opts]
                         ],
                         plugins: [
-                            "babel-plugin-transform-object-rest-spread",
-                            "babel-plugin-transform-strict-mode",
+                            require.resolve("babel-plugin-transform-object-rest-spread"),
+                            require.resolve("babel-plugin-transform-strict-mode"),
                             is_node_target ? (
-                                "babel-plugin-dynamic-import-node"
+                                require.resolve("babel-plugin-dynamic-import-node")
                             ) : (
-                                "babel-plugin-syntax-dynamic-import"
+                                require.resolve("babel-plugin-syntax-dynamic-import")
                             ),
-                        ].map(require.resolve),
+                        ],
                     },
                 },
                 exclude: [

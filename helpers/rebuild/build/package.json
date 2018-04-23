@@ -4,17 +4,16 @@
   "dependencies": {
     "@brillout/html-crust": "latest",
     "@brillout/relative-to-homedir": "latest",
-    "@rebuild/config": "0.0.1-rc.15",
     "bluebird": "^3.5.1",
     "chalk": "^2.3.0",
     "commondir": "^1.0.1",
+    "inert": "^5.1.0",
     "lodash": "^4.17.4",
     "log-symbols": "^2.2.0",
     "mkdirp": "^0.5.1",
     "ora": "^1.3.0",
     "reassert": "latest",
-    "webpack": "*",
-    "webpack-mild-compile": "^1.0.0"
+    "webpack": "*"
   },
   "publishConfig": {
     "access": "public"
