@@ -159,14 +159,21 @@ function BuildManager({buildName, buildFunction, onBuildStateChange, onSuccessfu
                         assert_compilationInfo(compilationInfo);
                         assert_internal(compilationInfo!==null);
 
-                        if( webpackCompiler.compilerId !== lastWebpackCompiler.compilerId ) {
+                        const {is_compiling, is_failure, is_first_compilation} = compilationInfo;
+                        const is_outdated = runIsOutdated();
+                        const compilerId = webpackCompiler.compilerId.toString();
+                        const compilerId__last = lastWebpackCompiler.compilerId.toString();
+
+                        global.DEBUG_WATCH && console.log('COMPILATION-STATE-CHANGE '+JSON.stringify({is_compiling, is_failure, is_first_compilation, is_outdated, compilerId, compilerId__last}));
+
+                        if( compilerId !== compilerId__last ) {
                             return;
                         }
 
                         build_manager.__compilationInfo = compilationInfo;
 
-                        if( !compilationInfo.is_compiling && !runIsOutdated() && !compilationInfo.is_first_build ) {
-                            if( compilationInfo.is_failure ) {
+                        if( !is_compiling && !is_outdated && !is_first_compilation ) {
+                            if( is_failure ) {
                                 global.DEBUG_WATCH && console.log('WEBPACK-COMPILER-FAIL WATCH-FAILURE '+webpackCompiler.compilerId.toString());
                                 onBuildFail(buildName);
                             } else {
@@ -174,10 +181,10 @@ function BuildManager({buildName, buildFunction, onBuildStateChange, onSuccessfu
                             }
                         }
                         /*
-                        if( ! compilationInfo.is_compiling && compilationInfo.is_failure && !runIsOutdated() && !compilationInfo.is_first_build ) {
+                        if( ! compilationInfo.is_compiling && compilationInfo.is_failure && !runIsOutdated() && !compilationInfo.is_first_compilation ) {
                             onBuildFail(buildName);
                         }
-                        if( !compilationInfo.is_compiling && !compilationInfo.is_failure && !compilationInfo.is_first_build ) {
+                        if( !compilationInfo.is_compiling && !compilationInfo.is_failure && !compilationInfo.is_first_compilation ) {
                             onSuccessfullWatchChange(buildName);
                         }
                         */

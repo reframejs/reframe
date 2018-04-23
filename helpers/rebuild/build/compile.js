@@ -79,7 +79,7 @@ function compile(
                 assert_usage(compilation_info.constructor===Object);
                 assert_internal([true, false].includes(is_success));
                 const compilationInfo = {
-                    is_first_build: no_previous_success,
+                    is_first_compilation: no_previous_success,
                     is_compiling: false,
                     is_failure: !is_success,
                     ...compilation_info,
