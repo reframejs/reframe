@@ -115,8 +115,6 @@ function BuildManager({buildName, buildFunction, onBuildStateChange, onSuccessfu
 
         if( runIsOutdated() ) return abortRun();
 
-        await sleep({seconds: 0.2});
-
         await _compiler.updateCompiler({
             webpackConfig,
             getWebpackCompiler: buildFunction,
@@ -210,6 +208,12 @@ function WebpackCompilerWithCache() {
     return this;
 
     async function updateCompiler({webpackConfig, getWebpackCompiler, compilationStateChangeListener}) {
+        /*
+        if( webpackCompiler_last ) {
+            await sleep({seconds: 0.2});
+        }
+        */
+
         webpackCompiler_last = await getCompiler({webpackConfig, getWebpackCompiler});
         getWebpackCompiler_last = getWebpackCompiler;
         stateChangeListener = compilationStateChangeListener;
