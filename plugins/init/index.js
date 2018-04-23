@@ -85,7 +85,7 @@ Inside that directory, you can run commands such as
     Display all ejectables.
 
   ${colorCmd('reframe eject server')}
-    Ejects ~40 LOC giving you control over the Node.JS/hapi server.
+    Ejects ~30 LOC giving you control over the Node.JS/hapi server.
 
 Run ${colorCmd('cd '+projectName+' && reframe start')} and go to ${colorUrl('http://localhost:3000')} to explore your new app.
 `
