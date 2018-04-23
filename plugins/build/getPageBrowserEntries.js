@@ -37,7 +37,8 @@ function getBrowserEntryString({pageConfig, pageFile, pageName}) {
         browserEntryString += (
             [
                 "window.__REFRAME__BROWSER_CONFIG = "+browserConfig+";",
-                "",
+                "", "",
+            ]
             ]
             .join('\n')
         );
@@ -49,7 +50,8 @@ function getBrowserEntryString({pageConfig, pageFile, pageName}) {
                 "let pageConfig = require('"+pageFile+"');",
                 "pageConfig = (pageConfig||{}).__esModule===true ? pageConfig.default : pageConfig;",
                 "window.__REFRAME__PAGE_CONFIG = pageConfig;",
-                "",
+                "", "",
+            ]
             ]
             .join('\n')
         );
@@ -68,24 +70,24 @@ function generateBrowserConfig() {
 
     const sourceCode = [
         "(() => {",
-        "const {processReframeBrowserConfig} = require('"+require.resolve('@reframe/utils/processReframeConfig/processReframeBrowserConfig')+"');",
-        "const browserConfigObject = {};",
+        "  const {processReframeBrowserConfig} = require('"+require.resolve('@reframe/utils/processReframeConfig/processReframeBrowserConfig')+"');",
+        "  const browserConfigObject = {};",
         "",
-        "browserConfigObject.plugins = [",
+        "  browserConfigObject.plugins = [",
         ...(
             projectConfig.browserConfigs.map(({diskPath}) => {
                 assert_internal(pathModule.isAbsolute(diskPath), diskPath);
                 assert_internal(isModule(diskPath), diskPath);
-                return "  require('"+diskPath+"')(),";
+                return "    require('"+diskPath+"')(),";
             })
         ),
-        "];",
+        "  ];",
         "",
-        "processReframeBrowserConfig(browserConfigObject);",
+        "  processReframeBrowserConfig(browserConfigObject);",
         "",
-        "const browserConfig = browserConfigObject._processed;",
+        "  const browserConfig = browserConfigObject._processed;",
         "",
-        "return browserConfig;",
+        "  return browserConfig;",
         "})()",
     ].join('\n')
 

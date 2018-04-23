@@ -115,6 +115,8 @@ function BuildManager({buildName, buildFunction, onBuildStateChange, onSuccessfu
 
         if( runIsOutdated() ) return abortRun();
 
+        await sleep({seconds: 0.2});
+
         await _compiler.updateCompiler({
             webpackConfig,
             getWebpackCompiler: buildFunction,
@@ -454,4 +456,9 @@ function gen_promise() {
     const promise = new Promise(resolve => promise_resolver=resolve);
     assert_internal(promise_resolver);
     return {promise, resolvePromise: promise_resolver};
+}
+function sleep({seconds}) {
+    const {promise, resolvePromise} = gen_promise();
+    setTimeout(resolvePromise, seconds*1000);
+    return promise;
 }
