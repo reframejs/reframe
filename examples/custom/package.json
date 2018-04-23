@@ -33,5 +33,6 @@
     "style-loader": "^0.19.1",
     "sugarss": "^1.0.1"
   },
+  "skipCheckDeps": true,
   "version": "0.0.1-rc.15"
 }

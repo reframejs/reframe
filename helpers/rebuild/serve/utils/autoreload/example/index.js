@@ -1,2 +1,0 @@
-const autoreload = require('../');
-autoreload('./');

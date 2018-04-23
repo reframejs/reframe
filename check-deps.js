@@ -3,6 +3,7 @@ process.on('unhandledRejection', err => {throw err});
 const fs = require('fs-extra');
 const dependencyCheck = require('dependency-check');
 const pathModule = require('path');
+const findPackageFiles = require('./helpers/utils/searchProjectFiles');
 
 if( isCli() ) {
     checkDeps();
@@ -11,13 +12,17 @@ if( isCli() ) {
 }
 
 async function checkDeps(monorepoRootDir=process.cwd()) {
-    const monorepoPackage = JSON.parse(await fs.readFile(pathModule.resolve(monorepoRootDir, './package.json')));
+    const monorepoPackage = await getPackageJson(monorepoRootDir);
     const {workspaces} = monorepoPackage;
 
     let errors = [];
 
     for(const pkgPath of workspaces) {
         const pkgRootDir = pathModule.join(monorepoRootDir, pkgPath);
+        const pkg = await getPackageJson(pkgRootDir);
+        if( pkg.skipCheckDeps ) {
+            continue;
+        }
         try {
             errors.push(...await checkPackage(pkgRootDir));
         } catch(err) {
@@ -36,7 +41,15 @@ async function checkDeps(monorepoRootDir=process.cwd()) {
 async function checkPackage(pkgRootDir) {
     const pkgPath = pathModule.resolve(pkgRootDir, './package.json');
 
-    const data = await dependencyCheck({path: pkgPath});
+    const jsFiles = (
+        [
+            ...findPackageFiles('*.js', {cwd: pkgRootDir}),
+            ...findPackageFiles('*.jsx', {cwd: pkgRootDir}),
+        ]
+        .map(filePath => pathModule.relative(pkgRootDir, filePath))
+    );
+
+    const data = await dependencyCheck({path: pkgPath, entries: jsFiles});
 
     const pkg = data.package;
     const deps = data.used;
@@ -61,3 +74,7 @@ async function checkPackage(pkgRootDir) {
 }
 
 function isCli() { return require.main === module; }
+
+async function getPackageJson(packageRootDir) {
+    return JSON.parse(await fs.readFile(pathModule.resolve(packageRootDir, './package.json')));
+}
