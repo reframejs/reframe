@@ -1,6 +1,6 @@
 {
   "name": "@rebuild/build",
-  "version": "0.0.1-rc.15",
+  "version": "0.0.1-rc.16",
   "dependencies": {
     "@brillout/html-crust": "^0.1.0",
     "@brillout/relative-to-homedir": "^0.1.0",

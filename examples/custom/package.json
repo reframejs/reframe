@@ -3,15 +3,15 @@
   "private": true,
   "dependencies": {
     "@brillout/fetch": "^0.0.2",
-    "@reframe/browser": "0.0.1-rc.15",
-    "@reframe/server": "0.0.1-rc.15",
-    "@repage/browser": "0.0.1-rc.15",
-    "@repage/core": "0.0.1-rc.15",
-    "@repage/navigator": "0.0.1-rc.15",
-    "@repage/renderer": "0.0.1-rc.15",
-    "@repage/renderer-react": "0.0.1-rc.15",
-    "@repage/router-path-to-regexp": "0.0.1-rc.15",
-    "@repage/server": "0.0.1-rc.15",
+    "@reframe/browser": "0.0.1-rc.16",
+    "@reframe/server": "0.0.1-rc.16",
+    "@repage/browser": "0.0.1-rc.16",
+    "@repage/core": "0.0.1-rc.16",
+    "@repage/navigator": "0.0.1-rc.16",
+    "@repage/renderer": "0.0.1-rc.16",
+    "@repage/renderer-react": "0.0.1-rc.16",
+    "@repage/router-path-to-regexp": "0.0.1-rc.16",
+    "@repage/server": "0.0.1-rc.16",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
@@ -34,5 +34,5 @@
     "sugarss": "^1.0.1"
   },
   "skipCheckDeps": true,
-  "version": "0.0.1-rc.15"
+  "version": "0.0.1-rc.16"
 }

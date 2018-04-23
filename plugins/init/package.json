@@ -1,9 +1,9 @@
 {
     "name": "@reframe/init",
-    "version": "0.0.1-rc.15",
+    "version": "0.0.1-rc.16",
     "dependencies": {
         "@brillout/relative-to-homedir": "^0.0.1",
-        "@reframe/utils": "0.0.1-rc.15",
+        "@reframe/utils": "0.0.1-rc.16",
         "fs-extra": "^5.0.0"
     },
     "publishConfig": {

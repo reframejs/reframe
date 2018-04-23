@@ -1,10 +1,10 @@
 {
     "name": "@reframe/eject",
-    "version": "0.0.1-rc.15",
+    "version": "0.0.1-rc.16",
     "dependencies": {
         "@brillout/find-package-files": "^0.1.0",
         "@brillout/relative-to-homedir": "^0.0.1",
-        "@reframe/utils": "0.0.1-rc.15",
+        "@reframe/utils": "0.0.1-rc.16",
         "builtins": "^2.0.0",
         "detective": "^5.1.0",
         "mkdirp": "^0.5.1",

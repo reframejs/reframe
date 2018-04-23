@@ -1,9 +1,9 @@
 {
   "name": "@reframe/browser",
-  "version": "0.0.1-rc.15",
+  "version": "0.0.1-rc.16",
   "dependencies": {
-    "@repage/browser": "0.0.1-rc.15",
-    "@repage/core": "0.0.1-rc.15"
+    "@repage/browser": "0.0.1-rc.16",
+    "@repage/core": "0.0.1-rc.16"
   },
   "publishConfig": {
     "access": "public"
