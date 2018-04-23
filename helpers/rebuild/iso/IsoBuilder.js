@@ -137,7 +137,7 @@ function BuildManager({buildName, buildFunction, onBuildStateChange, onSuccessfu
 
         async function getWebpackCompiler() {
             if( lastWebpackCompiler ) {
-                if( deepEqual(lastWebpackCompiler.webpackConfig, webpackConfig) ) {
+                if( deepEqual(lastWebpackCompiler.webpack_config, webpackConfig) ) {
                     global.DEBUG_WATCH && console.log('WEBPACK-COMPILER-REUSE '+lastWebpackCompiler.compilerId.toString());
                     return lastWebpackCompiler;
                 } else {
@@ -159,7 +159,7 @@ function BuildManager({buildName, buildFunction, onBuildStateChange, onSuccessfu
                         assert_compilationInfo(compilationInfo);
                         assert_internal(compilationInfo!==null);
 
-                        if( webpackCompiler.compilerId !== currentWebpackCompiler.compilerId ) {
+                        if( webpackCompiler.compilerId !== lastWebpackCompiler.compilerId ) {
                             return;
                         }
 
@@ -184,15 +184,15 @@ function BuildManager({buildName, buildFunction, onBuildStateChange, onSuccessfu
                     },
                 })
             );
-            assert_internal(webpackCompiler.first_successful_build);
-            assert_internal(webpackCompiler.wait_build);
-            assert_internal(webpackCompiler.stop_build);
-            assert_internal(webpackCompiler.webpackConfig);
+            assert_internal(webpackCompiler.stop_compilation);
+            assert_internal(webpackCompiler.wait_compilation);
+            assert_internal(webpackCompiler.wait_successfull_compilation);
+            assert_internal(webpackCompiler.webpack_config);
             assert_internal(webpackCompiler.compilerId);
 
             let build_function_called = true;
 
-            global.DEBUG_WATCH && console.log('WEBPACK-COMPILER-NEW '+compilerId.toString());
+            global.DEBUG_WATCH && console.log('WEBPACK-COMPILER-NEW '+webpackCompiler.compilerId.toString());
 
             return webpackCompiler;
         }

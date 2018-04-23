@@ -3,7 +3,7 @@ const assert_warning = require('reassert/warning');
 const assert_usage = require('reassert/usage');
 const assert_internal = require('reassert/internal');
 const assert = assert_internal;
-const assert_todo = assert_internal;
+const assert_tmp = assert_internal;
 const log = require('reassert/log');
 const webpack = require('webpack');
 const path_module = require('path');
@@ -37,12 +37,13 @@ function compile(
 ) {
     assert_internal(compilationName);
     assert_internal(webpack_config.constructor===Object);
-    assert_todo(!webpack_config_modifier);
-    assert_todo(!onBuild);
+    assert_tmp(!webpack_config_modifier);
+    assert_tmp(!onBuild);
+    assert_tmp(doNotGenerateIndexHtml);
 
     const resolveTimeout = gen_timeout({name: 'Compilation Build '+compilationName});
 
-    const {stop_build, wait_build, first_success_promise} = (
+    const {stop_compilation, wait_compilation, wait_successfull_compilation, first_success_promise} = (
         run({
             webpack_config,
             compiler_handler,
@@ -70,9 +71,11 @@ function compile(
                     */
                     return;
                 }
+                /*
                 if( ! doNotGenerateIndexHtml ) {
                     await build_index_html({compilation_info});
                 }
+                */
                 assert_usage(compilation_info.constructor===Object);
                 assert_internal([true, false].includes(is_success));
                 const compilationInfo = {
@@ -91,15 +94,19 @@ function compile(
             },
         })
     );
-    assert_internal(stop_build);
-    assert_internal(wait_build);
+    assert_internal(stop_compilation);
+    assert_internal(wait_compilation);
+    assert_internal(wait_successfull_compilation);
 
     const compilerId = Symbol(compilationName+'-'+Math.random().toString().slice(2, 10));
 
     return {
-        stop_build,
-        wait_build,
+        webpack_config,
+        stop_compilation,
+        wait_compilation,
+        wait_successfull_compilation,
         compilerId,
+        /*
         first_successful_build: (async () => {
             const {compilation_info} = await first_success_promise;
             assert_internal(compilation_info.is_success===true);
@@ -112,6 +119,7 @@ function compile(
             assert_compilationInfo(compilationInfo);
             return compilationInfo;
         })(),
+        */
     };
 }
 
@@ -132,11 +140,7 @@ function run({
     let no_previous_success = true;
     let previous_was_success = null;
 
-    let stop_build;
-    let wait_build;
-    let server_start_promise;
-
-    const compiler_tools = setup_compiler_handler({
+    return setup_compiler_handler({
         webpack_config,
         compilationName,
         compiler_handler,
@@ -153,10 +157,12 @@ function run({
             assert_internal(compiler__is_running);
             compiler__is_running = false;
 
+            /*
             if( compilation_info.is_abort ) {
                 on_compilation_end({is_abort: true, no_previous_success});
                 return;
             }
+            */
 
             assert_internal(compilation_info.webpack_stats);
             assert_internal(compilation_info.is_success.constructor===Boolean);
@@ -186,18 +192,27 @@ function run({
             }
         },
     });
-    wait_build = compiler_tools.wait_build;
-    stop_build = compiler_tools.stop_build;
+
+    /*
+    let stop_compilation;
+    let wait_successfull_compilation;
+    let server_start_promise;
+
+    wait_successfull_compilation = compiler_tools.wait_successfull_compilation;
+    stop_compilation = compiler_tools.stop_compilation;
     server_start_promise = compiler_tools.server_start_promise;
 
     return {
-        wait_build,
-        stop_build,
+        wait_compilation,
+        wait_successfull_compilation,
+        stop_compilation,
         first_success_promise: (async () => {
-            await server_start_promise;
+            assert_tmp(server_start_promise);
+         // await server_start_promise;
             return await fist_successful_compilation;
         })(),
     };
+    */
 }
 
 function setup_compiler_handler({
@@ -216,51 +231,74 @@ function setup_compiler_handler({
     );
     assert_internal(webpack_compiler);
 
-    let compilation_ended;
+    let compilation_info;
+
+    let compiling = false;
+
     const TIMEOUT_SECONDS = 30;
     const compilation_timeout = setTimeout(() => {
         assert_warning(
             false,
-            'Compilation not finished after '+TIMEOUT_SECONDS+' seconds for '+compilationName
+            'First compilation not finished after '+TIMEOUT_SECONDS+' seconds for '+compilationName
         );
     },TIMEOUT_SECONDS*1000);
 
-    let success_compilation_promise__resolve;
-    let success_compilation_promise;
-    const reset_compilation_promise = () => {success_compilation_promise = new Promise(resolve => success_compilation_promise__resolve=resolve)};
-    const wait_build = async () => {
-        const promise__awaited_for = success_compilation_promise;
-        await promise__awaited_for;
-        if( success_compilation_promise !== promise__awaited_for ) {
-            await wait_build();
+    let compilation_promise__resolve;
+    let compilation_promise;
+    let successfull_compilation_promise__resolve;
+    let successfull_compilation_promise;
+    let isFirstCompilation;
+    const reset_compilation_promise = () => {
+        if( isFirstCompilation ) {
+            isFirstCompilation = false;
+            return;
         }
-        if( ! compilation_info.is_success ) {
-            reset_compilation_promise();
-            await wait_build();
-        }
-        assert_internal(compilation_info);
-        const compilationInfo = {is_compiling: false, is_failure: false, ...compilation_info};
-        assert_compilationInfo(compilationInfo);
-        return compilationInfo;
+        compilation_promise = new Promise(resolve => compilation_promise__resolve=resolve);
+        successfull_compilation_promise = new Promise(resolve => successfull_compilation_promise__resolve=resolve);
     };
-    let compilation_info;
+
+    reset_compilation_promise();
+    isFirstCompilation = true;
+
+    const wait_successfull_compilation = () => successfull_compilation_promise;
+    const wait_compilation = () => compilation_promise;
+
     onCompileStart.addListener(() => {
-        compilation_ended = false;
+        assert_internal(compiling===false);
+        compiling = true;
+
         compilation_info = null;
+
         reset_compilation_promise();
+
         on_compiler_start();
     });
-    onCompileEnd.addListener(async ({webpack_stats, is_success}) => {
-        compilation_info = await get_compilation_info({webpack_stats, is_success});
-        call_on_compilation_end();
-        success_compilation_promise__resolve();
+    onCompileEnd.addListener(({webpack_stats, is_success}) => {
+        assert_internal(compiling===true);
+        compiling = false;
+        clearTimeout(compilation_timeout);
+
+        compilation_info = get_compilation_info({webpack_stats, is_success});
+        assert_internal(compilation_info);
+
+        on_compiler_end(compilation_info);
+
+        const compilationInfo = {is_compiling: false, is_failure: !is_success, ...compilation_info};
+        assert_compilationInfo(compilationInfo);
+
+        compilation_promise__resolve(compilationInfo);
+        if( is_success ) {
+            successfull_compilation_promise__resolve(compilationInfo);
+        }
     });
 
     webpack_config = deep_copy(webpack_config);
     const {watching, server_start_promise, ...compiler_handler_return} = compiler_handler({webpack_compiler, webpack_config, webpack_compiler_error_handler});
-    assert_internal((watching===null || watching) && server_start_promise);
+    assert_internal((watching===null || watching));
+    assert_tmp(server_start_promise===undefined);
 
-    const stop_build = async () => {
+    const stop_compilation = async () => {
+        clearTimeout(compilation_timeout);
         global.DEBUG_WATCH && console.log('WEBPACK-ABORT-START '+compilationName);
         //*
         if( watching ) {
@@ -270,11 +308,10 @@ function setup_compiler_handler({
         }
         //*/
         global.DEBUG_WATCH && console.log('WEBPACK-ABORT-END '+compilationName);
-        call_on_compilation_end({is_abort: true});
-     // await wait_build();
+     // on_compiler_end({is_abort: true});
     };
 
-    return {stop_build, wait_build, server_start_promise};
+    return {stop_compilation, wait_compilation, wait_successfull_compilation, server_start_promise};
 
     /*
     let webpack_stats = await first_compilation;
@@ -286,7 +323,7 @@ function setup_compiler_handler({
     return;
     */
 
-    async function get_compilation_info({webpack_stats, is_success}) {
+    function get_compilation_info({webpack_stats, is_success}) {
         const dist_info = (
             get_dist_info({
                 config: webpack_config,
@@ -295,9 +332,11 @@ function setup_compiler_handler({
         );
         assert_internal(dist_info);
 
+        /*
         const htmlBuilder = get_html_builder({dist_info});
+        */
 
-        return {webpack_stats, is_success, output: dist_info, htmlBuilder, ...compiler_handler_return};
+        return {webpack_stats, is_success, output: dist_info, /*htmlBuilder,*/ ...compiler_handler_return};
     }
 
     function webpack_compiler_error_handler(err/*, webpack_stats*/) {
@@ -308,23 +347,6 @@ function setup_compiler_handler({
             if (err.details) {
                 print_err(err.details);
             }
-        }
-    }
-
-    function call_on_compilation_end({is_abort}={}) {
-        /*
-        assert_internal(!compilation_ended);
-        */
-        if( compilation_ended ) {
-            return;
-        }
-        clearTimeout(compilation_timeout);
-        compilation_ended = true;
-        if( is_abort ) {
-            on_compiler_end({is_abort: true});
-        } else {
-            assert_internal(compilation_info);
-            on_compiler_end(compilation_info);
         }
     }
 }
@@ -489,6 +511,7 @@ function log_config(config) {
     log(config);
 }
 
+/*
 async function build_index_html({compilation_info}) {
     const compiler_info = compilation_info;
     assert_internal(compilation_info.constructor===Object);
@@ -555,6 +578,7 @@ function get_index_assets({dist_info}) {
     const {styles, scripts}  = dist_info.entry_points[index_bundle_name];
     return {styles, scripts};
 }
+*/
 
 function get_dist_info(args) {
     const {config, webpack_stats} = args;

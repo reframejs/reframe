@@ -1,5 +1,5 @@
-const assert = require('reassert');
-const assert_internal = assert;
+const assert_internal = require('reassert/internal');
+const assert_tmp = assert_internal;
 const watchDir = require('../utils/autoreload/watchDir');
 const {start_a_server} = require('../utils/serve_static_dir');
 const {HapiPluginStaticAssets__create} = require('@rebuild/build/utils/HapiPluginStaticAssets');
@@ -51,6 +51,7 @@ function add_entry(entry_array, entry) {
 }
 
 function get_compiler_handler({doNotCreateServer, doNotFireReloadEvents, doNotWatchBuildFiles}) {
+    assert_tmp(doNotCreateServer);
 
     return compiler_handler;
 
@@ -86,11 +87,13 @@ function get_compiler_handler({doNotCreateServer, doNotFireReloadEvents, doNotWa
         return {
             HapiPluginStaticAssets,
             watching,
+            /*
             server_start_promise: (async () => {
                 if( ! doNotCreateServer ) {
                     await start_a_server({port, HapiPluginStaticAssets});
                 }
             })(),
+            */
         };
 
     }
