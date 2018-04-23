@@ -4,6 +4,7 @@ const assert_warning = require('reassert/warning');
 const deepEqual = require('deep-equal');
 const fs = require('fs');
 
+const chalk = require('chalk');
 const serve = require('@rebuild/serve');
 const build = require('@rebuild/build');
 const {Logger} = require('@rebuild/build/utils/Logger');
@@ -110,6 +111,8 @@ function BuildManager({buildName, buildFunction, onBuildStateChange, onSuccessfu
         assert_usage(webpackConfig);
         assert_internal(runIsOutdated);
 
+        global.DEBUG_WATCH && console.log(chalk.bold.cyan('RUN-START ')+buildName);
+
         if( runIsOutdated() ) return abortRun();
 
         await _compiler.updateCompiler({
@@ -131,15 +134,16 @@ function BuildManager({buildName, buildFunction, onBuildStateChange, onSuccessfu
 
 
         if( _compiler.getInfo().is_failure ) {
-            global.DEBUG_WATCH && console.log('WEBPACK-COMPILER-FAIL FIRST-COMPILE-FAILURE '+_compiler.getCompilerId());
+            global.DEBUG_WATCH && console.log(chalk.bold.red('RUN-FAIL first-failure ')+_compiler.getCompilerId());
             onBuildFail();
         }
 
         await _compiler.waitSuccessfullCompilation();
         if( runIsOutdated() ) return abortRun();
 
-        const entryPoints = getEntryPoints(_compiler.getInfo());
+        global.DEBUG_WATCH && console.log(chalk.bold.blue('RUN-END ')+buildName+' '+_compiler.getCompilerId());
 
+        const entryPoints = getEntryPoints(_compiler.getInfo());
         return entryPoints;
 
         function compilationStateChangeListener(compilationInfo) {
@@ -151,7 +155,7 @@ function BuildManager({buildName, buildFunction, onBuildStateChange, onSuccessfu
 
             if( !is_compiling && !is_first_compilation ) {
                 if( is_failure ) {
-                    global.DEBUG_WATCH && console.log('WEBPACK-COMPILER-FAIL WATCH-FAILURE '+_compiler.getCompilerId());
+                    global.DEBUG_WATCH && console.log(chalk.bold.red('RUN-FAIL watch-failure ')+_compiler.getCompilerId());
                     onBuildFail(buildName);
                 } else {
                     onSuccessfullWatchChange(buildName);
@@ -168,6 +172,7 @@ function BuildManager({buildName, buildFunction, onBuildStateChange, onSuccessfu
         }
 
         function abortRun() {
+            global.DEBUG_WATCH && console.log(chalk.bold.magenta('RUN-ABORT ')+buildName);
             that.getCompilationInfo = () => null;
             return Promise.resolve({abortBuilder: true});
         }
@@ -279,7 +284,7 @@ function WebpackCompilerWithCache() {
 }
 
 async function buildAll({isoBuilder, latestRun, browserBuild, nodejsBuild}) {
-    global.DEBUG_WATCH && console.log('START-OVERALL-BUILDER');
+    global.DEBUG_WATCH && console.log(chalk.bold('START-OVERALL-BUILDER'));
 
     const logger = isoBuilder.logger = isoBuilder.logger || Logger();
 
@@ -339,7 +344,7 @@ async function buildAll({isoBuilder, latestRun, browserBuild, nodejsBuild}) {
     if( ! isOutdated ) {
         log_state_end({logger, nodejsBuild, browserBuild});
     }
-    global.DEBUG_WATCH && console.log("END-OVERALL-BUILDER "+(isOutdated?"[OUTDATED]":"[LATEST]"));
+    global.DEBUG_WATCH && console.log(chalk.bold("END-OVERALL-BUILDER "+(isOutdated?"[OUTDATED]":"[LATEST]")));
 }
 function log_state_end({logger, nodejsBuild, browserBuild}) {
     const nodejsCompilationInfo = nodejsBuild.getCompilationInfo();
