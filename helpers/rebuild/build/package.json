@@ -2,8 +2,8 @@
   "name": "@rebuild/build",
   "version": "0.0.1-rc.15",
   "dependencies": {
-    "@brillout/html-crust": "latest",
-    "@brillout/relative-to-homedir": "latest",
+    "@brillout/html-crust": "^0.1.0",
+    "@brillout/relative-to-homedir": "^0.1.0",
     "bluebird": "^3.5.1",
     "chalk": "^2.3.0",
     "commondir": "^1.0.1",

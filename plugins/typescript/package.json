@@ -5,7 +5,7 @@
     "docs": "mdocs"
   },
   "dependencies": {
-    "@brillout/get-user-dir": "latest",
+    "@brillout/get-user-dir": "^0.1.2",
     "find-up": "^2.1.0",
     "fork-ts-checker-webpack-plugin": "^0.4.0",
     "reassert": "^1.1.8",
@@ -16,6 +16,6 @@
   },
   "repository": "github:reframejs/reframe",
   "devDependencies": {
-    "@brillout/mdocs": "latest"
+    "@brillout/mdocs": "^0.1.11"
   }
 }

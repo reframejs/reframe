@@ -12,6 +12,6 @@
   },
   "repository": "github:reframejs/reframe",
   "devDependencies": {
-    "@brillout/mdocs": "latest"
+    "@brillout/mdocs": "^0.1.11"
   }
 }

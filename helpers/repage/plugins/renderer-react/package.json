@@ -4,7 +4,7 @@
   "browser": "./browser.js",
   "main": "./server.js",
   "dependencies": {
-    "@brillout/html-crust": "latest",
+    "@brillout/html-crust": "^0.1.0",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
     "reassert": "^1.1.8"

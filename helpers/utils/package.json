@@ -2,7 +2,7 @@
   "name": "@reframe/utils",
   "version": "0.0.1-rc.15",
   "dependencies": {
-    "@brillout/get-user-dir": "latest",
+    "@brillout/get-user-dir": "^0.1.2",
     "@brillout/webpack-utils": "0.0.1-rc.15",
     "chalk": "^2.4.0",
     "cross-spawn": "^6.0.4",
