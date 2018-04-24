@@ -189,20 +189,20 @@ For example:
 // /examples/custom/server/hapi-server.js
 
 const Hapi = require('hapi');
-const getHapiPlugins = require('@reframe/server/getHapiPlugins');
+const getProjectConfig = require('@reframe/utils/getProjectConfig');
+const HapiPluginServerRendering = require('@reframe/server/HapiPluginServerRendering');
+const HapiPluginStaticAssets = require('@reframe/server/HapiPluginStaticAssets');
 const path = require('path');
 
 (async () => {
+    const projectConfig = getProjectConfig();
+    await projectConfig.build();
+
     const server = Hapi.Server({port: 3000});
 
-    const {HapiPluginReframe} = (
-        await getHapiPlugins({
-            pagesDirPath: path.resolve(__dirname, '../../basics/pages'),
-        })
-    );
-
     await server.register([
-        {plugin: HapiPluginReframe},
+        HapiPluginStaticAssets,
+        HapiPluginServerRendering,
     ]);
 
     server.route({
@@ -233,6 +233,7 @@ const assert = require('reassert');
 const assert_internal = assert;
 const log = require('reassert/log');
 const build = require('@reframe/build');
+const getProjectConfig = require('@reframe/utils/getProjectConfig');
 
 const Repage = require('@repage/core');
 const {getPageHtml} = require('@repage/server');
@@ -246,7 +247,8 @@ const express = require('express');
 startExpressServer();
 
 async function startExpressServer() {
-    const pagesDirPath = path.resolve(__dirname, '../../basics/pages');
+    projectConfig.projectFiles.pagesDir = path.resolve(__dirname, '../../basics/pages');
+
     let pages;
     const onBuild = args => {pages = args.pages};
     const {browserDistPath} = (
@@ -387,6 +389,7 @@ Multiple pages can share common browser code by using the `diskPath` property in
 
 import React from 'react';
 import PageCommon from './PageCommon.mixin';
+import TimeComponent from '../../../basics/views/TimeComponent';
 
 export default {
     route: '/terms',
@@ -396,6 +399,8 @@ export default {
             <div>
                 The long beginning of some ToS...
             </div>
+            <br/>
+            Current Time: <TimeComponent/>
         </div>
     ),
     ...PageCommon,
@@ -406,6 +411,7 @@ export default {
 
 import React from 'react';
 import PageCommon from './PageCommon.mixin';
+import TimeComponent from '../../../basics/views/TimeComponent';
 
 export default {
     route: '/privacy',
@@ -415,6 +421,8 @@ export default {
             <div>
                 Some text about privacy policy...
             </div>
+            <br/>
+            Current Time: <TimeComponent/>
         </div>
     ),
     ...PageCommon,
@@ -425,15 +433,12 @@ export default {
 
 const PageCommon = {
     title: 'My Web App',
-    description: 'This Web App helps you with ...',
-    htmlStatic: true,
+    description: 'This Web App helps you with everything',
+    browserEntry: './PageCommon.entry.js',
     scripts: [
         {
             async: true,
             src: 'https://www.google-analytics.com/analytics.js',
-        },
-        {
-            diskPath: './PageCommon.entry.js',
         },
     ],
 };
@@ -443,10 +448,17 @@ export default PageCommon;
 ~~~js
 // /examples/custom/browser/pages/PageCommon.entry.js
 
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-XXXXX-Y', 'auto');
-ga('send', 'pageview');
-console.log('pageview tracking sent');
+import hydratePage from '@reframe/browser/hydratePage';
+
+(async () => {
+    await hydratePage(__REFRAME__PAGE_CONFIG, __REFRAME__BROWSER_CONFIG);
+
+    // We send the tracking only after the hydration is done
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', 'UA-XXXXX-Y', 'auto');
+    ga('send', 'pageview');
+    console.log('pageview tracking sent');
+})();
 ~~~
 
 ### Full Customization
@@ -467,21 +479,56 @@ But we can go further by not using `@reframe/browser/hydratePage` and re-writing
 Let's look at the code of `@reframe/browser/hydratePage`
 
 ~~~js
-// /core/browser/hydratePage.js
+// /helpers/repage/core/browser/hydratePage.js
 
-const Repage = require('@repage/core');
-const {hydratePage: repage_hydratePage} = require('@repage/browser');
+const assert = require('reassert');
+const assert_usage = assert;
+const assert_internal = assert;
+const parseUri = require('@atto/parse-uri');
 
 module.exports = hydratePage;
 
-async function hydratePage(page, browserConfig) {
-    const repage = new Repage();
+function hydratePage(repage, page_object) {
+    assert_usage(
+        repage && repage.isRepageObject && page_object,
+        "Wrong arguments"
+    );
 
-    repage.addPlugins([
-        ...browserConfig.repage_plugins,
-    ]);
+    const navigation_handler = get_navigation_handler(repage);
+    const uri = navigation_handler.getCurrentRoute();
+    const url = parseUri(uri);
+    const page = repage.getPageHandler(page_object);
+    assert_usage(
+        page.renderToDom,
+        page
+    );
+    page.renderToDom({page, url});
+}
 
-    return await repage_hydratePage(repage, page);
+function get_navigation_handler(repage) {
+    assert_repage(repage);
+
+    const navigation_handler = {};
+
+    repage.plugins.forEach(plugin => {
+        if( plugin.navigationHandler ) {
+            Object.assign(navigation_handler, plugin.navigationHandler);
+        }
+    });
+
+    return navigation_handler;
+}
+
+function assert_repage(repage) {
+    repage.plugins.forEach(plugin => {
+        assert_usage(
+            plugin.isAllowedInBrowser===true,
+            plugin,
+            'Trying to add a plugin that is not allowed in the browser.',
+            'I.e. the above printed object specifying the plugin is not having its property `isAllowedInBrowser` set to `true`.',
+            'Make sure to load the browser side of the plugin.'
+        );
+    });
 }
 ~~~
 
@@ -496,10 +543,14 @@ It is fully under our control.
 // /examples/custom/browser/pages/custom-hydration.js
 
 import React from 'react';
-import {TimeComponent} from '../../../views/TimeComponent';
+import TimeComponent from '../../../basics/views/TimeComponent';
 
 export default {
     route: '/custom-hydration',
+    browserEntry: {
+        pathToEntry: './custom-hydration.entry.js',
+        doNotIncludePageConfig: true,
+    },
     view: () => (
         <div>
             <div>
@@ -513,7 +564,6 @@ export default {
             </div>
         </div>
     ),
-    htmlStatic: true,
 };
 ~~~
 ~~~js
@@ -522,7 +572,7 @@ export default {
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import {TimeComponent} from '../../../views/TimeComponent';
+import TimeComponent from '../../../basics/views/TimeComponent';
 
 ReactDOM.hydrate(<TimeComponent/>, document.getElementById('time-hook'));
 ~~~
@@ -662,6 +712,11 @@ The following is an example of a custom build step using [Rollup](https://github
 import Hapi from 'hapi';
 import buildAll from './build-all.mjs';
 import getHapiPlugins from '@reframe/server/getHapiPlugins';
+/* TODO
+import getProjectConfig from '@reframe/utils/getProjectConfig';
+import HapiPluginServerRendering from '@reframe/server/HapiPluginServerRendering';
+import HapiPluginStaticAssets from '@reframe/server/HapiPluginStaticAssets';
+*/
 
 process.on('unhandledRejection', err => {throw err});
 
