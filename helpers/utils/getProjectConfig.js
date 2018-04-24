@@ -73,23 +73,52 @@ function findPlugins({packageJsonFile}) {
     if( !packageJsonFile ) {
         return {foundPlugins: [], foundPluginNames: []};
     }
-    assert_internal(pathModule.isAbsolute(packageJsonFile));
-    const packageJson = require(packageJsonFile);
+
     const foundPluginNames = (
-        (Object.keys(packageJson.dependencies||{}))
-        .filter(depPackageName => {
-            let depPackageJson;
-            try {
-                depPackageJson = require(depPackageName+'/package.json');
-            } catch(e) {}
-            return depPackageJson && depPackageJson.reframePlugin;
-        })
+        getDependencies({packageJsonFile})
+        .filter(depPackageName =>
+            isReframePlugin({depPackageName, packageJsonFile})
+        )
     );
-    const foundPlugins = (
-        foundPluginNames
-        .map(depPackageName => {
-            return require(depPackageName)();
-        })
-    );
+
+    const foundPlugins = foundPluginNames.map(loadReframePlugin);
+
     return {foundPlugins, foundPluginNames};
+}
+function getDependencies({packageJsonFile}) {
+    assert_internal(pathModule.isAbsolute(packageJsonFile));
+    let packageJson;
+    try {
+        packageJson = require(packageJsonFile);
+    } catch (err) {
+        assert_usage(
+            false,
+            "Couldn't load your app's `package.json` at `"+packageJsonFile+"`.",
+            "Is your `package.json` well formated?",
+            "The original error is printed above."
+        );
+    }
+    return (Object.keys(packageJson.dependencies||{}));
+}
+function loadReframePlugin(depPackageName) {
+    return require(depPackageName)();
+}
+function isReframePlugin({packageJsonFile, depPackageName}) {
+    const nodeModulesDir = pathModule.dirname(packageJsonFile);
+    const depPackageJson = getDepPackageJson({depPackageName, nodeModulesDir});
+    return depPackageJson && depPackageJson.reframePlugin;
+}
+function getDepPackageJson({nodeModulesDir, depPackageName}) {
+    const filePath = pathModule.join(depPackageName, './package.json');
+    let depPackageJsonFile;
+    try {
+        depPackageJsonFile = require.resolve(filePath, {paths: [nodeModulesDir]});
+    } catch(e) {
+        return null;
+    }
+    try {
+        return require(depPackageJsonFile);
+    } catch(e) {
+        return null;
+    }
 }
