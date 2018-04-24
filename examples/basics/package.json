@@ -2,7 +2,7 @@
   "name": "__reframe_examples_basic",
   "private": true,
   "dependencies": {
-    "@reframe/react-kit": "0.0.1-rc.19"
+    "@reframe/react-kit": "0.0.1-rc.20"
   },
   "checkDeps": {
     "skip": true
