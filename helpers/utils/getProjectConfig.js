@@ -80,14 +80,21 @@ function findPlugins({packageJsonFile}) {
         return {foundPlugins: [], foundPluginNames: []};
     }
 
+    const nodeModulesParentDir = pathModule.dirname(packageJsonFile);
+
     const foundPluginNames = (
         getDependencies({packageJsonFile})
         .filter(depPackageName =>
-            isReframePlugin({depPackageName, packageJsonFile})
+            isReframePlugin({depPackageName, packageJsonFile, nodeModulesParentDir})
         )
     );
 
-    const foundPlugins = foundPluginNames.map(loadReframePlugin);
+    const foundPlugins = (
+        foundPluginNames
+        .map(depPackageName =>
+            loadReframePlugin({depPackageName, nodeModulesParentDir})
+        )
+    );
 
     return {foundPlugins, foundPluginNames};
 }
@@ -106,11 +113,11 @@ function getDependencies({packageJsonFile}) {
     }
     return (Object.keys(packageJson.dependencies||{}));
 }
-function loadReframePlugin(depPackageName) {
-    return require(depPackageName)();
+function loadReframePlugin({depPackageName, nodeModulesParentDir}) {
+    const packageEntry = require.resolve(depPackageName, {paths: [nodeModulesParentDir]});
+    return require(packageEntry)();
 }
-function isReframePlugin({packageJsonFile, depPackageName}) {
-    const nodeModulesParentDir = pathModule.dirname(packageJsonFile);
+function isReframePlugin({packageJsonFile, depPackageName, nodeModulesParentDir}) {
     const depPackageJson = getDepPackageJson({depPackageName, nodeModulesParentDir});
     return depPackageJson && depPackageJson.reframePlugin;
 }
