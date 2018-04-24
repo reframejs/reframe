@@ -1,11 +1,11 @@
 {
   "name": "@reframe/react",
-  "version": "0.0.1-rc.20",
+  "version": "0.0.1-rc.21",
   "scripts": {
     "docs": "mdocs"
   },
   "dependencies": {
-    "@repage/renderer-react": "0.0.1-rc.20"
+    "@repage/renderer-react": "0.0.1-rc.21"
   },
   "publishConfig": {
     "access": "public"

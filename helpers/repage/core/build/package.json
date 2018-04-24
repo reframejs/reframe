@@ -1,6 +1,6 @@
 {
   "name": "@repage/build",
-  "version": "0.0.1-rc.20",
+  "version": "0.0.1-rc.21",
   "main": "./build",
   "dependencies": {
     "@atto/parse-uri": "0.0.1",

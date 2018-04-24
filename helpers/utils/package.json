@@ -1,11 +1,11 @@
 {
   "name": "@reframe/utils",
-  "version": "0.0.1-rc.20",
+  "version": "0.0.1-rc.21",
   "dependencies": {
     "@brillout/find-package-files": "^0.1.0",
     "@brillout/get-user-dir": "^0.1.2",
     "@brillout/relative-to-homedir": "^0.1.0",
-    "@brillout/webpack-utils": "0.0.1-rc.20",
+    "@brillout/webpack-utils": "0.0.1-rc.21",
     "chalk": "^2.4.0",
     "cross-spawn": "^6.0.4",
     "find-up": "^2.1.0",

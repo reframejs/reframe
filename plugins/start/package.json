@@ -1,8 +1,8 @@
 {
     "name": "@reframe/start",
-    "version": "0.0.1-rc.20",
+    "version": "0.0.1-rc.21",
     "dependencies": {
-        "@reframe/utils": "0.0.1-rc.20",
+        "@reframe/utils": "0.0.1-rc.21",
         "reassert": "^1.1.8"
     },
     "publishConfig": {

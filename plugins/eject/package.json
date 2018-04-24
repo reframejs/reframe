@@ -1,9 +1,9 @@
 {
     "name": "@reframe/eject",
-    "version": "0.0.1-rc.20",
+    "version": "0.0.1-rc.21",
     "dependencies": {
         "@brillout/find-package-files": "^0.1.0",
-        "@reframe/utils": "0.0.1-rc.20",
+        "@reframe/utils": "0.0.1-rc.21",
         "builtins": "^2.0.0",
         "detective": "^5.1.0",
         "mkdirp": "^0.5.1",
