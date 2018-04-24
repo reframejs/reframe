@@ -11,6 +11,7 @@ function get_r_objects(reframe_config) {
 function retrieve_r_objects(r_object, cycleCatcher) {
     assert_usage(r_object && r_object.constructor===Object, r_object);
     assert_usage(r_object.name, r_object, 'The plugin printed above is missing a name.');
+    assert_usage(r_object.name.constructor===String, r_object, 'The `name` of the plugin printed above should be a string.');
     if( cycleCatcher.has(r_object) ) {
         return;
     }

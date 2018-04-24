@@ -2,7 +2,7 @@ module.exports = ejectCommand;
 
 function ejectCommand() {
     return {
-        name: require('./package.json'),
+        name: require('./package.json').name,
         cliCommands: [
             {
                 name: 'eject [ejectable]',

@@ -8,7 +8,7 @@ function startCommands() {
     };
 
     return {
-        name: require('./package.json'),
+        name: require('./package.json').name,
         cliCommands: [
             {
                 name: 'start',
