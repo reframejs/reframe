@@ -66,11 +66,12 @@ function computeProjectConfig({projectNotRequired=false, pluginRequired=false}={
             Object.defineProperty(projectConfig, prop, descriptors[prop]);
         }
 
-        projectConfig.addPlugin = addPlugin;
-
-        projectConfig._packageJsonPlugins = foundPluginNames;
-
-        projectConfig._packageJsonFile = packageJsonFile;
+        Object.assign(projectConfig, {
+            addPlugin,
+            _packageJsonPlugins: foundPluginNames,
+            _packageJsonFile: packageJsonFile,
+            _plugins: reframeConfig.plugins,
+        });
     }
 }
 

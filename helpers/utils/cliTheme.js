@@ -4,6 +4,7 @@ const pathModule = require('path');
 
 const cliColors = {
     colorDir: chalk.green,
+    colorFile: chalk.green,
     colorCmd: chalk.cyan,
     colorPkg: chalk.cyan,
     colorUrl: chalk.cyan,

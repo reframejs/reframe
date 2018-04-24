@@ -21,13 +21,18 @@ if( ! projectRootDir ) {
     );
 } else {
     const assert_usage = require('reassert');
-    const {colorErr, colorDir, colorPkg, strDir} = require('@reframe/utils/cliTheme');
-    const {_packageJsonPlugins} = projectConfig;
+    const {colorErr, colorDir, colorFile, colorPkg, strDir, strFile} = require('@reframe/utils/cliTheme');
+    const {_plugins, cli_commands, projectFiles: {reframeConfigFile}} = projectConfig;
     assert_usage(
-        projectConfig.cli_commands.length>0,
+        cli_commands.length>0,
         colorErr("No commands found."),
         "Project found at "+colorDir(strDir(projectRootDir))+".",
-        "Loaded plugins: "+projectConfig._packageJsonPlugins.map(colorPkg).join(', ')+'.',
+        reframeConfigFile ? (
+            "Reframe config found at "+colorFile(strFile(reframeConfigFile))+"."
+        ) : (
+            "No Reframe config file found."
+        ),
+        "Loaded plugins: "+_plugins.map(plugin => colorPkg(plugin.name)).join(', ')+'.',
         "None of the loaded plugins are adding commands."
     );
 }
