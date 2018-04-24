@@ -98,7 +98,25 @@ async function npmInstall(cwd) {
 
 async function gitInit(cwd) {
     const git = require('@reframe/utils/git');
+
+    if( ! await git.gitIsInstalled() ) {
+        console.log(
+`
+Git repository not initialized as Git is not installed.`
+        );
+        return;
+    }
+
     await git.init({cwd});
+
+    if( ! await git.gitIsConfigured({cwd}) ) {
+        console.log(
+`
+Initial code not commited as your Git user name and/or email is not configured.`
+        );
+        return;
+    }
+
     await git.commit({cwd, message: 'boostrap Reframe app'});
 }
 
