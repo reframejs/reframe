@@ -124,14 +124,14 @@ function get_webpack_config_modifiers(_processed, r_objects) {
 // Here we collect all paths of browser-side reframe config files
 //  - We define browser-side config objects as paths (instead of loaded module) because the browser-side code is bundled separately from the sever-side code
 function get_browser_config_paths(_processed, r_objects) {
-    const browserConfigs = _processed.browserConfigs = [];
+    const browserConfigFiles = _processed.browserConfigFiles = [];
     r_objects.forEach(r_object => {
-        const {reframeBrowserConfig} = r_object;
-        if( ! reframeBrowserConfig ) {
+        const {browserConfigFile} = r_object;
+        if( ! browserConfigFile ) {
             return;
         }
-        assert_usage(reframeBrowserConfig.diskPath && path_module.isAbsolute(reframeBrowserConfig.diskPath));
-        browserConfigs.push(reframeBrowserConfig);
+        assert_usage(browserConfigFile.diskPath && path_module.isAbsolute(browserConfigFile.diskPath));
+        browserConfigFiles.push(browserConfigFile);
     });
 }
 

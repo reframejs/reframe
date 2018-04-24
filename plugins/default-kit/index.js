@@ -13,7 +13,7 @@ module.exports = defaultKit;
 function defaultKit() {
     return {
         name: require('./package.json').name,
-        reframeBrowserConfig: {
+        browserConfigFile: {
             diskPath: require.resolve('./browser.js'),
         },
         plugins: [

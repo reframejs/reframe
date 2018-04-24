@@ -5,7 +5,7 @@ module.exports = pathToRegexp;
 function pathToRegexp() {
     return {
         name: require('./package.json').name,
-        reframeBrowserConfig: {
+        browserConfigFile: {
             diskPath: require.resolve('./browser.js'),
         },
         repagePlugins: [

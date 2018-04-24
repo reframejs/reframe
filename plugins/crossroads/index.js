@@ -5,7 +5,7 @@ module.exports = crossroads;
 function crossroads() {
     return {
         name: require('./package.json').name,
-        reframeBrowserConfig: {
+        browserConfigFile: {
             diskPath: require.resolve('./browser.js'),
         },
         repagePlugins: [

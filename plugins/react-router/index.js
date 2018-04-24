@@ -6,7 +6,7 @@ module.exports = react_router;
 function react_router() {
     return {
         name: require('./package.json').name,
-        reframeBrowserConfig: {
+        browserConfigFile: {
             diskPath: require.resolve('./browser.js'),
         },
         pageMixin: {
