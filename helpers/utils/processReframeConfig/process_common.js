@@ -5,17 +5,25 @@ module.exports = {get_r_objects, get_repage_plugins};
 
 function get_r_objects(reframe_config) {
     reframe_config.name = reframe_config.name || 'user_reframe_config';
+
     const cycleCatcher = new WeakMap();
-    return retrieve_r_objects(reframe_config, cycleCatcher);
+
+    const r_objects = retrieve_r_objects(reframe_config, cycleCatcher);
+
+    assert_dupes(r_objects, reframe_config);
+
+    return r_objects;
 }
 function retrieve_r_objects(r_object, cycleCatcher) {
     assert_usage(r_object && r_object.constructor===Object, r_object);
     assert_usage(r_object.name, r_object, 'The plugin printed above is missing a name.');
     assert_usage(r_object.name.constructor===String, r_object, 'The `name` of the plugin printed above should be a string.');
+
     if( cycleCatcher.has(r_object) ) {
         return;
     }
     cycleCatcher.set(r_object, true);
+
     const r_objects = [
         r_object,
     ];
@@ -23,7 +31,31 @@ function retrieve_r_objects(r_object, cycleCatcher) {
     .forEach(_r_object => {
         r_objects.push(...retrieve_r_objects(_r_object, cycleCatcher));
     });
+
     return r_objects;
+}
+function assert_dupes(r_objects, reframe_config) {
+    const dupes = {};
+    r_objects.forEach(r_object => {
+        assert_internal(r_object.name.constructor===String);
+        dupes[r_object.name] = (dupes[r_object.name]||0)+1;
+    });
+    const dupeErrors = [];
+    Object.entries(dupes)
+    .forEach(([pluginName, dupeNumber]) => {
+        if( dupes[pluginName]!==1 ) {
+            dupeErrors.push("Plugin `"+r_object.name+"` added "+dupeNumber+" times.");
+        }
+    });
+    assert_usage(
+        dupeErrors.length===0,
+        "Reframe config:",
+        reframe_config,
+        "",
+        dupeErrors.join('\n'),
+        "",
+        "A plugin should be added only one time."
+    );
 }
 
 function get_repage_plugins(_processed, r_objects, isBrowserConfig) {
