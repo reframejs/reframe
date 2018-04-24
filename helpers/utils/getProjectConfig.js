@@ -16,7 +16,10 @@ function getProjectConfig(...args) {
 }
 
 function computeProjectConfig({projectNotRequired=false, pluginRequired=false}={}) {
-    let {reframeConfigFile, pagesDir, packageJsonFile} = findProjectFiles({projectNotRequired});
+    let {reframeConfigFile, pagesDir, packageJsonFile, projectRootDir} = findProjectFiles({projectNotRequired});
+
+    const projectFound = !!packageJsonFile;
+
     const reframeConfig = reframeConfigFile && require(reframeConfigFile) || {};
 
     // TODO move this to build plugin
@@ -27,16 +30,18 @@ function computeProjectConfig({projectNotRequired=false, pluginRequired=false}={
 
     const {foundPlugins, foundPluginNames} = findPlugins({packageJsonFile});
 
-    assert_usage(
-        !pluginRequired || !packageJsonFile || foundPluginNames.length>0,
-        "No Reframe plugins found in the `dependencies` field of `"+packageJsonFile+"`.",
-        "At least one Reframe plugin is required."
-    );
-
     reframeConfig.plugins = [
         ...(reframeConfig.plugins||[]),
         ...foundPlugins,
     ];
+
+    if( projectFound && pluginRequired ) {
+        assert_plugin_found({
+            plugins: reframeConfig.plugins,
+            projectRootDir,
+            packageJsonFile,
+        });
+    }
 
     const projectConfig = {};
 
@@ -104,15 +109,15 @@ function loadReframePlugin(depPackageName) {
     return require(depPackageName)();
 }
 function isReframePlugin({packageJsonFile, depPackageName}) {
-    const nodeModulesDir = pathModule.dirname(packageJsonFile);
-    const depPackageJson = getDepPackageJson({depPackageName, nodeModulesDir});
+    const nodeModulesParentDir = pathModule.dirname(packageJsonFile);
+    const depPackageJson = getDepPackageJson({depPackageName, nodeModulesParentDir});
     return depPackageJson && depPackageJson.reframePlugin;
 }
-function getDepPackageJson({nodeModulesDir, depPackageName}) {
+function getDepPackageJson({nodeModulesParentDir, depPackageName}) {
     const filePath = pathModule.join(depPackageName, './package.json');
     let depPackageJsonFile;
     try {
-        depPackageJsonFile = require.resolve(filePath, {paths: [nodeModulesDir]});
+        depPackageJsonFile = require.resolve(filePath, {paths: [nodeModulesParentDir]});
     } catch(e) {
         return null;
     }
@@ -121,4 +126,17 @@ function getDepPackageJson({nodeModulesDir, depPackageName}) {
     } catch(e) {
         return null;
     }
+}
+
+function assert_plugin_found({plugins, projectRootDir, packageJsonFile}) {
+    assert_internal(projectRootDir);
+    assert_internal(packageJsonFile);
+    const nodeModulesDir = pathModule.resolve(pathModule.dirname(packageJsonFile), "./node_modules");
+    assert_usage(
+        plugins.length>0,
+        "Project found at `"+projectRootDir+"` but no Reframe plugin found.",
+        "You need to add a plugin either by adding it to your `reframe.config.js` or by adding it as a dependency in your `package.json`.",
+        "Note that, if the plugin is listed in the `dependencies` field of your `"+packageJsonFile+"`, then it also needs to be installed. In other words, does it exist in `"+nodeModulesDir+"`?",
+    );
+
 }
