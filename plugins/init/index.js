@@ -25,15 +25,14 @@ function initCommands() {
 async function scaffoldApp(projectName) {
     const path = require('path');
     const fs = require('fs-extra');
-    const relativeToHomedir = require('@brillout/relative-to-homedir');
-    const {colorDir, colorCmd, colorPkg, colorUrl, symbolSuccess} = require('@reframe/utils/cliTheme');
+    const {colorDir, colorCmd, colorPkg, colorUrl, symbolSuccess, strDir} = require('@reframe/utils/cliTheme');
 
     const projectRootDir = path.resolve(process.cwd(), projectName);
 
     const {homeViewTemplate, homePageTemplate} = require('./templates/homeTemplate');
     const {jsonPkgTemplate, reframeConfigTemplate} = require('./templates/coreFilesTemplate');
 
-    const projectRootDir__pretty = colorDir(relativeToHomedir(projectRootDir))
+    const projectRootDir__pretty = colorDir(strDir(projectRootDir))
 
     console.log(
 `

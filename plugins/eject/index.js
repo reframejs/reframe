@@ -24,10 +24,9 @@ async function runEject(ejectableName) {
     const assert_usage = require('reassert/usage');
     const assert_internal = require('reassert/internal');
     const getProjectConfig = require('@reframe/utils/getProjectConfig');
-    const {symbolSuccess} = require('@reframe/utils/cliTheme');
+    const {symbolSuccess, strFile} = require('@reframe/utils/cliTheme');
     const runNpmInstall = require('@reframe/utils/runNpmInstall');
     const git = require('@reframe/utils/git');
-    const relativeToHomedir = require('@brillout/relative-to-homedir');
     const pathModule = require('path');
     const fs = require('fs');
     const os = require('os');
@@ -130,7 +129,7 @@ async function runEject(ejectableName) {
 
                 const action = () => {
                     fs__write(projectFile, fileContentNew);
-                    console.log(symbolSuccess+' Modified '+relativeToHomedir(projectFile));
+                    console.log(symbolSuccess+' Modified '+strFile(projectFile));
                 };
 
                 return action;
@@ -186,7 +185,7 @@ async function runEject(ejectableName) {
 
         const action = () => {
             fs__write(reframeConfigPath, reframeConfigContent);
-            console.log(symbolSuccess+' Modified '+relativeToHomedir(reframeConfigFile));
+            console.log(symbolSuccess+' Modified '+strFile(reframeConfigFile));
         };
 
         actions.push(action);
@@ -379,7 +378,7 @@ async function runEject(ejectableName) {
         );
         return () => {
             fs__write(filePath, fileContent);
-            console.log(symbolSuccess+' New file '+relativeToHomedir(filePath));
+            console.log(symbolSuccess+' New file '+strFile(filePath));
         };
     }
     function fs__write(filePath, fileContent) {

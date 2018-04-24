@@ -75,8 +75,7 @@ async function runServer(opts) {
 
 function init({dev, log, doNotWatchBuildFiles}) {
     const getProjectConfig = require('@reframe/utils/getProjectConfig');
-    const relative_to_homedir = require('@brillout/relative-to-homedir');
-    const {symbolSuccess} = require('@reframe/utils/cliTheme');
+    const {symbolSuccess, strFile} = require('@reframe/utils/cliTheme');
 
     if( ! dev ) {
         process.env['NODE_ENV'] = 'production';
@@ -102,7 +101,7 @@ function init({dev, log, doNotWatchBuildFiles}) {
 
     function log_found_file(file_path, description) {
         if( file_path ) {
-            console.log(symbolSuccess+' Found '+description+' '+relative_to_homedir(file_path));
+            console.log(symbolSuccess+' Found '+description+' '+strFile(file_path));
         }
     }
 

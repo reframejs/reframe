@@ -19,6 +19,17 @@ if( ! projectRootDir ) {
     projectConfig.addPlugin(
         initCommands()
     );
+} else {
+    const assert_usage = require('reassert');
+    const {colorErr, colorDir, colorPkg, strDir} = require('@reframe/utils/cliTheme');
+    const {_packageJsonPlugins} = projectConfig;
+    assert_usage(
+        projectConfig.cli_commands.length>0,
+        colorErr("No commands found."),
+        "Project found at "+colorDir(strDir(projectRootDir))+".",
+        "Loaded plugins: "+projectConfig._packageJsonPlugins.map(colorPkg).join(', ')+'.',
+        "None of the loaded plugins are adding commands."
+    );
 }
 
 const program = require('commander');
