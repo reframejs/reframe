@@ -4,6 +4,8 @@
   "dependencies": {
     "@reframe/default-kit": "0.0.1-rc.16"
   },
-  "skipCheckDeps": true,
+  "checkDeps": {
+    "skip": true
+  },
   "version": "0.0.1-rc.16"
 }
