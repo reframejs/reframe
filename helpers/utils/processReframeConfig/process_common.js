@@ -44,7 +44,7 @@ function assert_dupes(r_objects, reframe_config) {
     Object.entries(dupes)
     .forEach(([pluginName, dupeNumber]) => {
         if( dupes[pluginName]!==1 ) {
-            dupeErrors.push("Plugin `"+r_object.name+"` added "+dupeNumber+" times.");
+            dupeErrors.push("Plugin `"+pluginName+"` added "+dupeNumber+" times.");
         }
     });
     assert_usage(
