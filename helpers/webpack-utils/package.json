@@ -1,6 +1,6 @@
 {
   "name": "@brillout/webpack-utils",
-  "version": "0.0.1-rc.16",
+  "version": "0.0.1-rc.17",
   "dependencies": {
     "reassert": "^1.1.7"
   },

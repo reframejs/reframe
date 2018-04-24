@@ -1,11 +1,11 @@
 {
   "name": "@reframe/server",
-  "version": "0.0.1-rc.16",
+  "version": "0.0.1-rc.17",
   "dependencies": {
-    "@rebuild/build": "0.0.1-rc.16",
-    "@reframe/utils": "0.0.1-rc.16",
-    "@repage/core": "0.0.1-rc.16",
-    "@repage/server": "0.0.1-rc.16",
+    "@rebuild/build": "0.0.1-rc.17",
+    "@reframe/utils": "0.0.1-rc.17",
+    "@repage/core": "0.0.1-rc.17",
+    "@repage/server": "0.0.1-rc.17",
     "chalk": "^2.4.0",
     "hapi": "^17.3.1",
     "reassert": "^1.1.8"

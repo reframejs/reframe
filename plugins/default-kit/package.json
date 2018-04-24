@@ -1,20 +1,20 @@
 {
   "name": "@reframe/default-kit",
-  "version": "0.0.1-rc.16",
+  "version": "0.0.1-rc.17",
   "reframePlugin": true,
   "scripts": {
     "docs": "mdocs"
   },
   "dependencies": {
-    "@reframe/browser": "0.0.1-rc.16",
-    "@reframe/build": "0.0.1-rc.16",
-    "@reframe/eject": "0.0.1-rc.16",
-    "@reframe/path-to-regexp": "0.0.1-rc.16",
-    "@reframe/react": "0.0.1-rc.16",
-    "@reframe/server": "0.0.1-rc.16",
-    "@reframe/start": "0.0.1-rc.16",
-    "@repage/navigator": "0.0.1-rc.16",
-    "@repage/renderer": "0.0.1-rc.16"
+    "@reframe/browser": "0.0.1-rc.17",
+    "@reframe/build": "0.0.1-rc.17",
+    "@reframe/eject": "0.0.1-rc.17",
+    "@reframe/path-to-regexp": "0.0.1-rc.17",
+    "@reframe/react": "0.0.1-rc.17",
+    "@reframe/server": "0.0.1-rc.17",
+    "@reframe/start": "0.0.1-rc.17",
+    "@repage/navigator": "0.0.1-rc.17",
+    "@repage/renderer": "0.0.1-rc.17"
   },
   "publishConfig": {
     "access": "public"

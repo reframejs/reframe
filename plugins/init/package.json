@@ -1,8 +1,8 @@
 {
     "name": "@reframe/init",
-    "version": "0.0.1-rc.16",
+    "version": "0.0.1-rc.17",
     "dependencies": {
-        "@reframe/utils": "0.0.1-rc.16",
+        "@reframe/utils": "0.0.1-rc.17",
         "fs-extra": "^5.0.0"
     },
     "publishConfig": {

@@ -1,9 +1,9 @@
 {
   "name": "@rebuild/config",
-  "version": "0.0.1-rc.16",
+  "version": "0.0.1-rc.17",
   "dependencies": {
-    "babel-loader": "*",
     "babel-core": "*",
+    "babel-loader": "*",
     "babel-plugin-dynamic-import-node": "^1.2.0",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
@@ -25,7 +25,9 @@
     "webpack": "*"
   },
   "checkDeps": {
-    "skip": ["babel-core"]
+    "skip": [
+      "babel-core"
+    ]
   },
   "publishConfig": {
     "access": "public"
