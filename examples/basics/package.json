@@ -2,10 +2,10 @@
   "name": "__reframe_examples_basic",
   "private": true,
   "dependencies": {
-    "@reframe/default-kit": "0.0.1-rc.18"
+    "@reframe/default-kit": "0.0.1-rc.19"
   },
   "checkDeps": {
     "skip": true
   },
-  "version": "0.0.1-rc.18"
+  "version": "0.0.1-rc.19"
 }

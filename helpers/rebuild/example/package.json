@@ -1,11 +1,11 @@
 {
   "name": "__rebuild_example",
   "private": true,
-  "version": "0.0.1-rc.18",
+  "version": "0.0.1-rc.19",
   "dependencies": {
-    "@rebuild/build": "0.0.1-rc.18",
-    "@rebuild/config": "0.0.1-rc.18",
-    "@rebuild/serve": "0.0.1-rc.18",
+    "@rebuild/build": "0.0.1-rc.19",
+    "@rebuild/config": "0.0.1-rc.19",
+    "@rebuild/serve": "0.0.1-rc.19",
     "reassert": "^1.1.8"
   }
 }
