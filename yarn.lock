@@ -9,11 +9,12 @@
     reassert "^1.0.4"
 
 "@brillout/check-deps@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@brillout/check-deps/-/check-deps-0.1.0.tgz#7d58b765c2ff210701ff182c7338eb1dcae5aece"
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@brillout/check-deps/-/check-deps-0.1.1.tgz#45ccf7bcc6c634994130e2be23be3d611a029f33"
   dependencies:
+    "@brillout/find-package-files" "^0.1.0"
+    chalk "^2.4.0"
     dependency-check "^3.1.0"
-    fs-extra "^5.0.0"
     reassert "^1.1.8"
 
 "@brillout/fetch@^0.0.2":
@@ -334,7 +335,7 @@ babel-code-frame@^6.22.0, babel-code-frame@^6.26.0:
     esutils "^2.0.2"
     js-tokens "^3.0.2"
 
-babel-core@^6.26.0:
+babel-core@*, babel-core@^6.26.0:
   version "6.26.0"
   resolved "https://registry.yarnpkg.com/babel-core/-/babel-core-6.26.0.tgz#af32f78b31a6fcef119c87b0fd8d9753f03a0bb8"
   dependencies:
