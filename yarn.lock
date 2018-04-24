@@ -8,7 +8,7 @@
   dependencies:
     reassert "^1.0.4"
 
-"@brillout/check-deps@^0.1.0":
+"@brillout/check-deps@^0.1.1":
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/@brillout/check-deps/-/check-deps-0.1.1.tgz#45ccf7bcc6c634994130e2be23be3d611a029f33"
   dependencies:
