@@ -1,8 +1,8 @@
 {
   "name": "@rebuild/serve",
-  "version": "0.0.1-rc.17",
+  "version": "0.0.1-rc.18",
   "dependencies": {
-    "@rebuild/build": "0.0.1-rc.17",
+    "@rebuild/build": "0.0.1-rc.18",
     "chokidar": "^1.7.0",
     "hapi": "17.x.x",
     "parent-module": "^0.1.0",
