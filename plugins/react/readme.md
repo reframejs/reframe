@@ -8,7 +8,7 @@ Use Reframe with React.
 
 Add `@reframe/react` to your `reframe.config.js` and the `view` property of your page configs will be rendered with React.
 
-Note that `@reframe/react` is included in Reframe's default kit [`@reframe/default-kit`](/default-kit).
+Note that `@reframe/react` is included in Reframe's React-Kit [`@reframe/react-kit`](/react-kit).
 
 ~~~js
 // reframe.config.js

@@ -1,14 +1,13 @@
 module.exports = {jsonPkgTemplate, reframeConfigTemplate};
 
-function jsonPkgTemplate(projectName) {
+function jsonPkgTemplate() {
     const pkg = require('../package.json');
     const {version} = pkg;
 
     const template = (
 `{
-    "name": "${projectName}",
     "dependencies": {
-        "@reframe/default-kit": "^${version}",
+        "@reframe/react-kit": "^${version}",
         "react": "^16.2.0"
     },
     "private": true

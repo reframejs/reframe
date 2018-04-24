@@ -148,7 +148,7 @@ List of Reframe plugins. Make a PR to add yours.
  - [@reframe/path-to-regexp](/plugins/path-to-regexp) - Use Reframe with [`path-to-regexp`](https://github.com/pillarjs/path-to-regexp).
 
 ###### Kits
- - [@reframe/default-kit](/plugins/default-kit) - Reframe's default kit.
+ - [@reframe/react-kit](/plugins/react-kit) - Reframe's React-Kit.
 
 ###### View renderers
  - [@reframe/react](/plugins/react) - Use Reframe with React.

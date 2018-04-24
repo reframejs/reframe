@@ -13,7 +13,7 @@
         "plugins/browser",
         "plugins/eject",
         "plugins/crossroads",
-        "plugins/default-kit",
+        "plugins/react-kit",
         "plugins/init",
         "plugins/path-to-regexp",
         "plugins/postcss",

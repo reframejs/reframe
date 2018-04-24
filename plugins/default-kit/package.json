@@ -1,5 +1,5 @@
 {
-  "name": "@reframe/default-kit",
+  "name": "@reframe/react-kit",
   "version": "0.0.1-rc.19",
   "reframePlugin": true,
   "scripts": {

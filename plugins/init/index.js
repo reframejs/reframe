@@ -38,7 +38,7 @@ async function scaffoldApp(projectName) {
 `
 Creating a new Reframe app in ${projectRootDir__pretty}.
 
-Installing ${colorPkg('react')} and ${colorPkg('@reframe/default-kit')}.
+Installing ${colorPkg('react')} and ${colorPkg('@reframe/react-kit')}.
 This might take a couple of minutes.
 `
     );
