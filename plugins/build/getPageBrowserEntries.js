@@ -68,9 +68,9 @@ function generateBrowserConfig() {
 
     const sourceCode = [
         "(() => {",
-        "  const {processReframeBrowserConfig} = require('"+require.resolve('@reframe/utils/processReframeConfig/processReframeBrowserConfig')+"');",
-        "  const browserConfigObject = {};",
+        "  const processBrowserConfig = require('"+require.resolve('@reframe/utils/process-config/processBrowserConfig')+"');",
         "",
+        "  const browserConfigObject = {};",
         "  browserConfigObject.plugins = [",
         ...(
             projectConfig.browserConfigs.map(({diskPath}) => {
@@ -81,11 +81,7 @@ function generateBrowserConfig() {
         ),
         "  ];",
         "",
-        "  processReframeBrowserConfig(browserConfigObject);",
-        "",
-        "  const browserConfig = browserConfigObject._processed;",
-        "",
-        "  return browserConfig;",
+        "  return processBrowserConfig(browserConfigObject);",
         "})()",
     ].join('\n')
 

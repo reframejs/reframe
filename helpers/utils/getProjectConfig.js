@@ -2,7 +2,7 @@ const assert_internal = require('reassert/internal');
 const assert_usage = require('reassert/usage');
 const findProjectFiles = require('./findProjectFiles');
 const pathModule = require('path');
-const {processReframeConfig} = require('./processReframeConfig/processReframeConfig');
+const {processNodejsConfig} = require('./process-config/processNodejsConfig');
 
 module.exports = getProjectConfig;
 
@@ -20,24 +20,23 @@ function computeProjectConfig({projectNotRequired=false, pluginRequired=false}={
 
     const projectFound = !!packageJsonFile;
 
-    const reframeConfig = reframeConfigFile && require(reframeConfigFile) || {};
+    const reframeConfig = reframeConfigFile && require(reframeConfigFile) || null;
 
     // TODO move this to build plugin
     assert_usage(
-        projectNotRequired || pagesDir || reframeConfig.webpackBrowserConfigModifier && reframeConfig.webpackServerConfigModifier,
+        projectNotRequired || pagesDir || reframeConfig && reframeConfig.webpackBrowserConfigModifier && reframeConfig.webpackServerConfigModifier,
         "No `pages/` directory found nor is `webpackBrowserConfig` and `webpackServerConfig` defined in `reframe.config.js`."
     );
 
     const {foundPlugins, foundPluginNames} = findPlugins({packageJsonFile});
 
-    reframeConfig.plugins = [
-        ...(reframeConfig.plugins||[]),
-        ...foundPlugins,
+    const extraPlugins = [
+        ...foundPlugins
     ];
 
     if( projectFound && pluginRequired ) {
         assert_plugin_found({
-            plugins: reframeConfig.plugins,
+            loadedPlugins: getLoadedPlugins(),
             projectRootDir,
             packageJsonFile,
         });
@@ -50,7 +49,7 @@ function computeProjectConfig({projectNotRequired=false, pluginRequired=false}={
     return projectConfig;
 
     function addPlugin(plugin) {
-        reframeConfig.plugins.push(plugin);
+        extraPlugins.push(plugin);
         setProjectConfig();
     }
 
@@ -59,9 +58,9 @@ function computeProjectConfig({projectNotRequired=false, pluginRequired=false}={
             delete projectConfig[prop];
         }
 
-        processReframeConfig(reframeConfig);
-        assert_internal(reframeConfig._processed);
-        const descriptors = Object.getOwnPropertyDescriptors(reframeConfig._processed);
+        const processed = processNodejsConfig({reframeConfig, extraPlugins});
+        assert_internal(processed);
+        const descriptors = Object.getOwnPropertyDescriptors(processed);
         for(const prop in descriptors) {
             Object.defineProperty(projectConfig, prop, descriptors[prop]);
         }
@@ -70,8 +69,12 @@ function computeProjectConfig({projectNotRequired=false, pluginRequired=false}={
             addPlugin,
             _packageJsonPlugins: foundPluginNames,
             _packageJsonFile: packageJsonFile,
-            _plugins: reframeConfig.plugins,
+            _loadedPlugins: getLoadedPlugins(),
         });
+    }
+
+    function getLoadedPlugins() {
+        return [...((reframeConfig||{}).plugins||[]), ...extraPlugins];
     }
 }
 
@@ -136,12 +139,12 @@ function getDepPackageJson({nodeModulesParentDir, depPackageName}) {
     }
 }
 
-function assert_plugin_found({plugins, projectRootDir, packageJsonFile}) {
+function assert_plugin_found({loadedPlugins, projectRootDir, packageJsonFile}) {
     assert_internal(projectRootDir);
     assert_internal(packageJsonFile);
     const nodeModulesDir = pathModule.resolve(pathModule.dirname(packageJsonFile), "./node_modules");
     assert_usage(
-        plugins.length>0,
+        loadedPlugins.length>0,
         "Project found at `"+projectRootDir+"` but no Reframe plugin found.",
         "You need to add a plugin either by adding it to your `reframe.config.js` or by adding it as a dependency in your `package.json`.",
         "Note that, if the plugin is listed in the `dependencies` field of your `"+packageJsonFile+"`, then it also needs to be installed. In other words, does it exist in `"+nodeModulesDir+"`?",

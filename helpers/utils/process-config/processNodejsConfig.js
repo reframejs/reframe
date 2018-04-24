@@ -1,5 +1,5 @@
 /*
-    The function `processReframeConfig` is responsible for:
+    The function `processNodejsConfig` is responsible for:
      - processing the `reframe.config.js` file
      - processing plugins
 
@@ -54,10 +54,10 @@
             }
             ~~~js
 
-        - The main job of `processReframeConfig` is to flatten things
+        - The main job of `processNodejsConfig` is to flatten things
             - As seen in the previous note, things can be recursive, and
               therefore we need to flatten things.
-              E.g. several `webpackBrowserConfig` can be defined and `processReframeConfig`
+              E.g. several `webpackBrowserConfig` can be defined and `processNodejsConfig`
               combines these into a supra `_processed.webpackBrowserConfigModifier`.
 */
 
@@ -70,12 +70,16 @@ const {get_r_objects, get_repage_plugins} = require('./process_common');
 const get_project_files = require('./get_project_files');
 const webpackUtils = require('@brillout/webpack-utils');
 
-module.exports = {processReframeConfig};
+module.exports = {processNodejsConfig};
 
-function processReframeConfig(reframeConfig) {
-    assert_usage(reframeConfig.constructor===Object);
+function processNodejsConfig({reframeConfig, extraPlugins}) {
+    assert_internal(reframeConfig===null || reframeConfig.constructor===Object);
+    assert_internal(extraPlugins.constructor===Array);
+
     const _processed = {};
-    const r_objects = get_r_objects(reframeConfig);
+
+    const r_objects = get_r_objects(reframeConfig, extraPlugins);
+
     get_webpack_config_modifiers(_processed, r_objects);
     get_browser_config_paths(_processed, r_objects);
     get_repage_plugins(_processed, r_objects, false);
@@ -83,7 +87,8 @@ function processReframeConfig(reframeConfig) {
     get_cli_commands(_processed, r_objects);
     get_transparent_fields(_processed, r_objects);
     get_ejectables(_processed, r_objects);
-    reframeConfig._processed = _processed;
+
+    return _processed;
 }
 
 // Here we assemble several webpack config modifiers into one supra modifier

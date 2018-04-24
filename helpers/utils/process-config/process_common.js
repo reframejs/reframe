@@ -3,14 +3,25 @@ const assert_usage = require('reassert/usage');
 
 module.exports = {get_r_objects, get_repage_plugins};
 
-function get_r_objects(reframe_config) {
-    reframe_config.name = reframe_config.name || 'user_reframe_config';
+function get_r_objects(config_obj, extraPlugins) {
 
     const cycleCatcher = new WeakMap();
 
-    const r_objects = retrieve_r_objects(reframe_config, cycleCatcher);
+    const r_objects = [];
 
-    assert_dupes(r_objects, reframe_config);
+    if( config_obj ) {
+        config_obj.name = config_obj.name || '__root_config__';
+        r_objects.push(...retrieve_r_objects(config_obj, cycleCatcher));
+    }
+
+    if( extraPlugins ) {
+        extraPlugins
+        .forEach(_r_object => {
+            r_objects.push(...retrieve_r_objects(_r_object, cycleCatcher));
+        });
+    }
+
+    assert_dupes(r_objects, config_obj);
 
     return r_objects;
 }
@@ -34,7 +45,7 @@ function retrieve_r_objects(r_object, cycleCatcher) {
 
     return r_objects;
 }
-function assert_dupes(r_objects, reframe_config) {
+function assert_dupes(r_objects, reframe_config, extraPlugins) {
     const dupes = {};
     r_objects.forEach(r_object => {
         assert_internal(r_object.name.constructor===String);
@@ -49,8 +60,11 @@ function assert_dupes(r_objects, reframe_config) {
     });
     assert_usage(
         dupeErrors.length===0,
-        "Reframe config:",
-        reframe_config,
+        "Root Reframe config plugins:",
+        ((reframe_config||{}).plugins||[]).map(p => p.name),
+        "",
+        "Root extra plugins:",
+        (extraPlugins||[]).map(p => p.name),
         "",
         dupeErrors.join('\n'),
         "",
