@@ -1,6 +1,6 @@
 {
   "name": "@repage/renderer",
-  "version": "0.0.1-rc.19",
+  "version": "0.0.1-rc.20",
   "browser": "./browser.js",
   "main": "./server.js",
   "publishConfig": {

@@ -1,6 +1,6 @@
 {
   "name": "@repage/browser",
-  "version": "0.0.1-rc.19",
+  "version": "0.0.1-rc.20",
   "main": "./browser",
   "dependencies": {
     "@atto/parse-uri": "0.0.1",
