@@ -1,7 +1,7 @@
 const assert_usage = require('reassert/usage');
 const assert_internal = require('reassert/internal');
 
-const webpackUtils = {getRule, setRule, addBabelPreset, addBabelPlugin, modifyBabelConfig};
+const webpackUtils = {getRule, setRule, addBabelPreset, addBabelPlugin, modifyBabelConfig, getEntries};
 
 module.exports = webpackUtils;
 
@@ -180,30 +180,22 @@ function getAllRules(config, {canBeMissing}={}) {
     return rules;
 }
 
-function orMatcher(items) {
-	return function(str) {
-		for (let i = 0; i < items.length; i++) {
-			if (items[i](str)) return true;
-		}
-		return false;
-	};
+// Webpack's normalizing code at webpack/lib/EntryOptionPlugin.js
+function getEntries(config) {
+    assert_usage(config && config.entry);
+    if( config.entry.constructor===String ) {
+        return {main: [config.entry]};
+    }
+    if( config.entry.constructor===Array ) {
+        return {main: config.entry};
+    }
+    if( config.entry.constructor===Object ) {
+        return config.entry;
+    }
+    assert_usage(false);
 }
 
-function notMatcher(matcher) {
-	return function(str) {
-		return !matcher(str);
-	};
-}
-
-function andMatcher(items) {
-	return function(str) {
-		for (let i = 0; i < items.length; i++) {
-			if (!items[i](str)) return false;
-		}
-		return true;
-	};
-}
-
+// Copy of webpack/lib/RuleSet.js: normalizeCondition
 function normalizeCondition(condition) {
     if (!condition) throw new Error("Expected condition but got falsy value");
     if (typeof condition === "string") {
@@ -258,4 +250,25 @@ function normalizeCondition(condition) {
         throw new Error("Excepted condition but got " + condition);
     if (matchers.length === 1) return matchers[0];
     return andMatcher(matchers);
+}
+function orMatcher(items) {
+	return function(str) {
+		for (let i = 0; i < items.length; i++) {
+			if (items[i](str)) return true;
+		}
+		return false;
+	};
+}
+function notMatcher(matcher) {
+	return function(str) {
+		return !matcher(str);
+	};
+}
+function andMatcher(items) {
+	return function(str) {
+		for (let i = 0; i < items.length; i++) {
+			if (!items[i](str)) return false;
+		}
+		return true;
+	};
 }

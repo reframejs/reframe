@@ -28,14 +28,3 @@ const build = new Build({
 watchDir(pagesDir, () => {build()});
 
 module.exports = build();
-/*
-     var wtf = require('wtfnode');
-.then(() => {
-setTimeout(() => {
-    console.log('fini');
-    console.log(process._getActiveHandles());
-    console.log(process._getActiveRequests());
-    wtf.dump();
-}, 3000)
-})
-//*/

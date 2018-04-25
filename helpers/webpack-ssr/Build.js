@@ -81,6 +81,7 @@ function getNodejsConfig() {
     const defaultNodejsConfig = getDefaultNodejsConfig({entries: nodejsEntries, outputPath: nodejsOutputPath, filename: '[name]-nodejs.js'});
     const nodejsConfig = this.getWebpackNodejsConfig({config: defaultNodejsConfig, entries: nodejsEntries, outputPath: nodejsOutputPath, ...webpackUtils});
     assert_config({config: nodejsConfig, webpackEntries: nodejsEntries, outputPath: nodejsOutputPath, getterName: 'getWebpackNodejsConfig'});
+    assert_pages_found({nodejsConfig, pageFiles: this.pageFiles});
     addContext(nodejsConfig);
     return nodejsConfig;
 }
@@ -182,6 +183,19 @@ function assert_config({config, webpackEntries, outputPath, getterName}) {
     assert_usage(
         config.output && config.output.path===outputPath,
         "The config returned by `"+getterName+"` has its `output.path` set to `"+(config.output && config.output.path)+"` but it should be `"+outputPath+"` instead."
+    );
+}
+
+function assert_pages_found({nodejsConfig, pageFiles}) {
+    const entries = webpackUtils.getEntries(nodejsConfig);
+    const entryNames = Object.keys(entries);
+    assert_usage(
+        Object.keys(pageFiles).length>0 || entryNames.length>0,
+        "No pages found."
+    );
+    assert_usage(
+        entryNames.length>0,
+        "No pages found."
     );
 }
 

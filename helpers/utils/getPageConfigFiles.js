@@ -6,6 +6,10 @@ const findPackageFiles = require('@brillout/find-package-files');
 module.exports = getPageConfigFiles;
 
 function getPageConfigFiles({pagesDir}) {
+    if( ! pagesDir ) {
+        return [];
+    }
+
     const pageNames = {};
 
     const pageConfigFiles = (
