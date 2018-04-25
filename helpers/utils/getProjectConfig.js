@@ -30,7 +30,7 @@ function computeProjectConfig({projectNotRequired=false, pluginRequired=false}={
 
     if( projectFound && pluginRequired ) {
         assert_plugin_found({
-            loadedPlugins: getLoadedPlugins(),
+            rootPlugins: getRootPlugins(),
             projectRootDir,
             packageJsonFile,
         });
@@ -61,13 +61,12 @@ function computeProjectConfig({projectNotRequired=false, pluginRequired=false}={
 
         Object.assign(projectConfig, {
             addPlugin,
-            _packageJsonPlugins: foundPluginNames,
             _packageJsonFile: packageJsonFile,
-            _loadedPlugins: getLoadedPlugins(),
+            _rootPluginNames: getRootPlugins().map(plugin => plugin.name),
         });
     }
 
-    function getLoadedPlugins() {
+    function getRootPlugins() {
         return [...((reframeConfig||{}).plugins||[]), ...extraPlugins];
     }
 }
@@ -133,12 +132,12 @@ function getDepPackageJson({nodeModulesParentDir, depPackageName}) {
     }
 }
 
-function assert_plugin_found({loadedPlugins, projectRootDir, packageJsonFile}) {
+function assert_plugin_found({rootPlugins, projectRootDir, packageJsonFile}) {
     assert_internal(projectRootDir);
     assert_internal(packageJsonFile);
     const nodeModulesDir = pathModule.resolve(pathModule.dirname(packageJsonFile), "./node_modules");
     assert_usage(
-        loadedPlugins.length>0,
+        rootPlugins.length>0,
         "Project found at `"+projectRootDir+"` but no Reframe plugin found.",
         "You need to add a plugin either by adding it to your `reframe.config.js` or by adding it as a dependency in your `package.json`.",
         "Note that, if the plugin is listed in the `dependencies` field of your `"+packageJsonFile+"`, then it also needs to be installed. In other words, does it exist in `"+nodeModulesDir+"`?",

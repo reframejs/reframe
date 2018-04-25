@@ -22,7 +22,7 @@ if( ! projectRootDir ) {
 } else {
     const assert_usage = require('reassert');
     const {colorErr, colorDir, colorFile, colorPkg, strDir, strFile} = require('@reframe/utils/cliTheme');
-    const {_loadedPlugins, cli_commands, projectFiles: {reframeConfigFile}} = projectConfig;
+    const {_rootPluginNames, cli_commands, projectFiles: {reframeConfigFile}} = projectConfig;
     assert_usage(
         cli_commands.length>0,
         colorErr("No commands found."),
@@ -32,7 +32,7 @@ if( ! projectRootDir ) {
         ) : (
             "No Reframe config file found."
         ),
-        "Loaded plugins: "+_loadedPlugins.map(plugin => colorPkg(plugin.name)).join(', ')+'.',
+        "Loaded plugins: "+_rootPluginNames.map(pluginName => colorPkg(pluginName)).join(', ')+'.',
         "None of the loaded plugins are adding commands."
     );
 }

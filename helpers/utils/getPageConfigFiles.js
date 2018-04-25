@@ -10,25 +10,20 @@ function getPageConfigFiles({pagesDir}) {
         return [];
     }
 
-    const pageNames = {};
+    const pageConfigFiles = {};
 
-    const pageConfigFiles = (
-        findPackageFiles('*.config.*', {cwd: pagesDir, no_dir: true})
-        .map(pageConfigFile => {
-            const pageName = getPageName(pageConfigFile, pagesDir);
-            assert_usage(
-                !pageNames[pageName],
-                "The page configs `"+pageNames[pageName]+"` and `"+pageConfigFile+"` have the same page name `"+pageName+"`.",
-                "Rename one of the two page files."
-            );
-            assert_internal(pageConfigFile);
-            pageNames[pageName] = pageConfigFile;
-            return {
-                pageConfigFile,
-                pageName,
-            };
-        })
-    );
+    findPackageFiles('*.config.*', {cwd: pagesDir, no_dir: true})
+    .forEach(pageConfigFile => {
+        assert_internal(pageConfigFile);
+        const pageName = getPageName(pageConfigFile, pagesDir);
+        assert_usage(
+            !pageConfigFiles[pageName],
+            "The page configs `"+pageConfigFiles[pageName]+"` and `"+pageConfigFile+"` have the same page name `"+pageName+"`.",
+            "Rename one of the two page files."
+        );
+        assert_internal(pageName);
+        pageConfigFiles[pageName] = pageConfigFile;
+    });
 
     return pageConfigFiles;
 }

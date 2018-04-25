@@ -47,7 +47,7 @@ function BuildInstance() {
     const that = this;
 
     isoBuilder.builder = (function* ({buildForNodejs, buildForBrowser}) {
-        that.pageFiles = getPageFiles.call(that);
+        that.pageFiles = this.getPageFiles();
 
         that.pageNames = Object.keys(that.pageFiles);
 
@@ -95,30 +95,6 @@ function getBrowserConfig({fileSets, autoReloadEnabled}) {
     assert_config({config: browserConfig, webpackEntries: browserEntries, outputPath: browserOutputPath, getterName: 'getWebpackBrowserConfig'});
     addContext(browserConfig);
     return browserConfig;
-}
-
-function getPageFiles() {
-    const pageFiles = {};
-    const filePaths = this.getPageFiles();
-    assert_usage(filePaths instanceof Array, filePaths);
-    filePaths
-    .forEach(({pageConfigFile, pageName}) => {
-        assert_usage(
-            pageConfigFile && pageConfigFile.constructor===String && pathModule.isAbsolute(pageConfigFile),
-            pageConfigFile
-        );
-        assert_usage(
-            pageName && pageName.constructor===String,
-            pageName
-        );
-        assert_usage(
-            !pageFiles[pageName],
-            "The page files `"+pageFiles[pageName]+"` and `"+pageConfigFile+"` have the same page name `"+pageName+"`.",
-            "Rename one of the two page names."
-        );
-        pageFiles[pageName] = pageConfigFile;
-    });
-    return pageFiles;
 }
 
 function getPageBrowserEntries() {

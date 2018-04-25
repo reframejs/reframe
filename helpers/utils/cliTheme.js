@@ -11,9 +11,12 @@ const cliColors = {
     colorErr: chalk.bold.red,
     symbolSuccess: chalk.green('\u2714'),
     strDir: dirPath => {
+        dirPath = dirPath + (dirPath.endsWith(pathModule.sep) ? '' : pathModule.sep)
+        /*
         dirPath = dirPath + (
             pathModule.sep==='/' && !dirPath.endsWith('/') && '/' || ''
         );
+        */
         return cliColors.strFile(dirPath);
     },
     strFile: filePath => relativeToHomedir(filePath),
