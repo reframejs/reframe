@@ -1,5 +1,5 @@
 import hydratePage from '@reframe/browser/hydratePage';
-import TrackingPage from './TrackingPage.js';
+import TrackingPage from './TrackingPage.config.js';
 
 window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 ga('create', 'UA-XXXXX-Y', 'auto');

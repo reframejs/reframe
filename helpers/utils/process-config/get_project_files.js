@@ -65,6 +65,7 @@ function get_page_files({pagesDir}) {
 
             const file_name_parts = file_name.split('.');
 
+            const suffix_config = file_name_parts.includes('config');
             const suffix_dom = file_name_parts.includes('dom');
             const suffix_entry = file_name_parts.includes('entry');
             const suffix_mixin = file_name_parts.includes('mixin');
@@ -77,7 +78,7 @@ function get_page_files({pagesDir}) {
 
             return {
                 file_path,
-                is_base: number_of_suffixes===0,
+                is_base: number_of_suffixes===0 && suffix_config,
             };
         })
     );
