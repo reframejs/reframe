@@ -17,7 +17,7 @@
     dependency-check "^3.1.0"
     reassert "^1.1.8"
 
-"@brillout/fetch@^0.0.2":
+"@brillout/fetch@0.0.2", "@brillout/fetch@^0.0.2":
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/@brillout/fetch/-/fetch-0.0.2.tgz#7ca6a534c40bfb7d1013efdb1c11f00519bbca87"
   dependencies:
@@ -44,12 +44,12 @@
   dependencies:
     reassert "^1.0.3"
 
-"@brillout/mdocs@^0.1.11":
-  version "0.1.11"
-  resolved "https://registry.yarnpkg.com/@brillout/mdocs/-/mdocs-0.1.11.tgz#58097172499d7addfcba016def76cd2b01e75a33"
+"@brillout/mdocs@^0.1.11", "@brillout/mdocs@^0.1.12":
+  version "0.1.12"
+  resolved "https://registry.yarnpkg.com/@brillout/mdocs/-/mdocs-0.1.12.tgz#ea1b8d2c6c4ee8abed0e3164d8ed2f829b9d8303"
   dependencies:
     find-up "^2.1.0"
-    reassert latest
+    reassert "^1.1.8"
 
 "@brillout/relative-to-homedir@^0.1.0":
   version "0.1.0"
@@ -3364,8 +3364,8 @@ lcid@^1.0.0:
     invert-kv "^1.0.0"
 
 lerna@^2.9.0:
-  version "2.10.2"
-  resolved "https://registry.yarnpkg.com/lerna/-/lerna-2.10.2.tgz#3a0d54d398360fecc5918207c6d7ab68a5443d9f"
+  version "2.11.0"
+  resolved "https://registry.yarnpkg.com/lerna/-/lerna-2.11.0.tgz#89b5681e286d388dda5bbbdbbf6b84c8094eff65"
   dependencies:
     async "^1.5.0"
     chalk "^2.1.0"
@@ -3508,8 +3508,8 @@ lodash.uniq@^4.5.0:
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
 
 lodash@^4.17.4, lodash@^4.2.1, lodash@^4.3.0:
-  version "4.17.9"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.9.tgz#9c056579af0bdbb4322e23c836df13ef2b271cb7"
+  version "4.17.10"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
 
 log-symbols@^2.1.0, log-symbols@^2.2.0:
   version "2.2.0"
@@ -3627,8 +3627,8 @@ meow@^3.3.0:
     trim-newlines "^1.0.0"
 
 meow@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/meow/-/meow-4.0.0.tgz#fd5855dd008db5b92c552082db1c307cba20b29d"
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/meow/-/meow-4.0.1.tgz#d48598f6f4b1472f35bf6317a95945ace347f975"
   dependencies:
     camelcase-keys "^4.0.0"
     decamelize-keys "^1.0.0"
@@ -5122,7 +5122,7 @@ readdirp@^2.0.0:
     readable-stream "^2.0.2"
     set-immediate-shim "^1.0.1"
 
-reassert@^1.0.3, reassert@^1.0.4, reassert@^1.1.7, reassert@^1.1.8, reassert@latest:
+reassert@^1.0.3, reassert@^1.0.4, reassert@^1.1.7, reassert@^1.1.8:
   version "1.1.8"
   resolved "https://registry.yarnpkg.com/reassert/-/reassert-1.1.8.tgz#d0e70085d70af9c6d93c80425d6468b8bbb31246"
 
@@ -5592,9 +5592,10 @@ source-map-support@^0.4.15:
     source-map "^0.5.6"
 
 source-map-support@^0.5.4:
-  version "0.5.4"
-  resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.5.4.tgz#54456efa89caa9270af7cd624cc2f123e51fbae8"
+  version "0.5.5"
+  resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.5.5.tgz#0d4af9e00493e855402e8ec36ebed2d266fceb90"
   dependencies:
+    buffer-from "^1.0.0"
     source-map "^0.6.0"
 
 source-map-url@^0.4.0:
