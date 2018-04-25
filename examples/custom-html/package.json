@@ -1,0 +1,12 @@
+{
+  "name": "__reframe_examples_custom-html",
+  "private": true,
+  "version": "0.0.1-rc.21",
+  "dependencies": {
+    "@reframe/react-kit": "0.0.1-rc.21",
+    "react": "^16.3.2"
+  },
+  "checkDeps": {
+    "skip": true
+  }
+}

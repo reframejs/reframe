@@ -33,7 +33,7 @@ function getPageName(pageConfigFile, pagesDir) {
     const endPath = pathModule.relative(pagesDir, pageConfigFile);
     assert_internal(!endPath.startsWith(pathModule.sep), endPath, pageConfigFile);
     assert_internal(!endPath.startsWith('.'), endPath, pageConfigFile);
-    const pageName = endPath.split(pathModule.sep)[0].split('.')[0];
+    const pageName = endPath.split(pathModule.sep).slice(-1)[0].split('.')[0];
     assert_internal(pageName, endPath, pageConfigFile);
     return pageName;
 }

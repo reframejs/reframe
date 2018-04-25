@@ -1,5 +1,6 @@
 import React from 'react';
-import {CharacterNames, getCharacters} from '../views/GameOfThrones';
+import getCharacters from './data/getCharacters';
+import CharacterNames from './views/CharacterNames';
 
 class Characters extends React.Component {
     render() {

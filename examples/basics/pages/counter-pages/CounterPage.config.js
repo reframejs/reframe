@@ -1,4 +1,4 @@
-const {CounterComponent} = require('../views/CounterComponent');
+const {CounterComponent} = require('../../views/CounterComponent');
 
 const CounterPage = {
     route: '/counter',
