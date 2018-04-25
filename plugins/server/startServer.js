@@ -25,7 +25,7 @@ async function startServer() {
         HapiPluginServerRendering,
     ]);
 
-    server.start();
+    await server.start();
 
     console.log(chalk.green('\u2714')+' Server running '+server.info.uri);
 

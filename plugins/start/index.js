@@ -47,30 +47,31 @@ function startCommands() {
 
 async function runStart(opts) {
     const projectConfig = init({dev: true, ...opts});
-
-    assert_build(projectConfig);
-    await require(projectConfig.build.executeBuild);
-
-    assert_server(projectConfig);
-    await require(projectConfig.serverEntryFile);
+    await buildAssets(projectConfig);
+    await startServer(projectConfig);
 }
 
 async function runBuild(opts) {
     const projectConfig = init({...opts, doNotWatchBuildFiles: true});
-
-    assert_build(projectConfig);
-    await require(projectConfig.build.executeBuild);
-
-    const {colorCmd} = require('@reframe/utils/cliTheme');
-
-    console.log('\n', ' Run '+colorCmd('reframe server')+' to start the server.', '\n');
+    await buildAssets(projectConfig);
+    log_server_start_hint();
 }
 
 async function runServer(opts) {
     const projectConfig = init(opts);
+    await startServer(projectConfig);
+}
 
+async function buildAssets(projectConfig) {
+    assert_build(projectConfig);
+    log_found_page_configs(projectConfig);
+    await require(projectConfig.build.executeBuild);
+}
+
+async function startServer(projectConfig) {
     assert_server(projectConfig);
     await require(projectConfig.serverEntryFile);
+    log_routes(projectConfig);
 }
 
 function init({dev, log, doNotWatchBuildFiles}) {
@@ -86,7 +87,6 @@ function init({dev, log, doNotWatchBuildFiles}) {
 
     log_plugins();
     log_found_reframe_config();
-    log_found_page_configs();
 
     Object.assign(
         projectConfig,
@@ -99,46 +99,6 @@ function init({dev, log, doNotWatchBuildFiles}) {
     );
 
     return projectConfig;
-
-    function log_found_page_configs() {
-        const pageConfigFiles = projectConfig.getPageConfigFiles();
-
-        const numberOfPages = Object.keys(pageConfigFiles).length;
-        if( numberOfPages===0 ) {
-            return;
-        }
-
-        const basePath = getCommonRoot(Object.values(pageConfigFiles));
-
-        let pageConfigs__str = (
-            Object.entries(pageConfigFiles)
-            .map(([pageName, filePath]) => {
-                const filePath__parts = (
-                    pathModule.relative(basePath, filePath)
-                    .split(pathModule.sep)
-                );
-                filePath__parts[filePath__parts.length-1] = (
-                    filePath__parts[filePath__parts.length-1]
-                    .replace(pageName, colorPkg(pageName))
-                );
-                return (
-                    filePath__parts
-                    .join(pathModule.sep)
-                );
-            })
-            .join(', ')
-        );
-
-        if( numberOfPages>1 ) {
-            pageConfigs__str = '{'+pageConfigs__str+'}';
-        }
-
-        console.log([
-            symbolSuccess,
-            'Found page config'+(numberOfPages===1?'':'s'),
-            strDir(basePath)+pageConfigs__str,
-        ].join(' '));
-    }
 
     function getCommonRoot(filePaths) {
         const filePaths__parts = filePaths.map(getPathParts);
@@ -202,4 +162,57 @@ function assert_config(bool, projectConfig, path, name) {
             )
         )
     );
+}
+
+function log_found_page_configs(projectConfig) {
+    const pageConfigFiles = projectConfig.getPageConfigFiles();
+
+    const numberOfPages = Object.keys(pageConfigFiles).length;
+    if( numberOfPages===0 ) {
+        return;
+    }
+
+    const basePath = getCommonRoot(Object.values(pageConfigFiles));
+
+    let pageConfigs__str = (
+        Object.entries(pageConfigFiles)
+        .map(([pageName, filePath]) => {
+            const filePath__parts = (
+                pathModule.relative(basePath, filePath)
+                .split(pathModule.sep)
+            );
+            filePath__parts[filePath__parts.length-1] = (
+                filePath__parts[filePath__parts.length-1]
+                .replace(pageName, colorPkg(pageName))
+            );
+            return (
+                filePath__parts
+                .join(pathModule.sep)
+            );
+        })
+        .join(', ')
+    );
+
+    if( numberOfPages>1 ) {
+        pageConfigs__str = '{'+pageConfigs__str+'}';
+    }
+
+    console.log([
+        symbolSuccess,
+        'Found page config'+(numberOfPages===1?'':'s'),
+        strDir(basePath)+pageConfigs__str,
+    ].join(' '));
+}
+
+function log_routes(projectConfig) {
+    const {pageConfigs} = require(projectConfig.build.getBuildInfo)();
+    const {colorPkg} = require('@reframe/utils/cliTheme');
+
+    const routes = pageConfigs.map(({route}) => route).map(s => '  '+colorPkg(s)).join('\n');
+    console.log(routes);
+}
+
+function log_server_start_hint() {
+    const {colorCmd} = require('@reframe/utils/cliTheme');
+    console.log('\n', ' Run '+colorCmd('reframe server')+' to start the server.', '\n');
 }
