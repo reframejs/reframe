@@ -1,6 +1,6 @@
 import React from 'react';
-import TimeComponent from '../views/TimeComponent';
-import {CounterComponent} from '../views/CounterComponent';
+import TimeComponent from '../../basics/views/TimeComponent';
+import {CounterComponent} from '../../basics/views/CounterComponent';
 
 const PanelComponent = () => (
     <div>
@@ -21,4 +21,5 @@ const PanelComponent = () => (
 export default {
     route: '/panel',
     view: PanelComponent,
+    browserEntry: './PanelPage-entry.js',
 };

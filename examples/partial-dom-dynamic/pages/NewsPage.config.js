@@ -1,7 +1,7 @@
 import React from 'react';
 
-import TimeComponent from '../views/TimeComponent';
-import {LatestNewsComponent} from '../views/LatestNewsComponent';
+import TimeComponent from '../../basics/views/TimeComponent';
+import {LatestNewsComponent} from '../../basics/views/LatestNewsComponent';
 
 const NewsComponent = () => (
     <div>
@@ -17,7 +17,5 @@ export default {
     title: 'News Site',
     route: '/news',
     view: NewsComponent,
-    // `LatestNewsComponent` needs to be refreshed on every page load.
-    // We therefore declare the page as HTML-dynamic.
-    htmlStatic: false,
+    browserEntry: './NewsPage-entry.js',
 };

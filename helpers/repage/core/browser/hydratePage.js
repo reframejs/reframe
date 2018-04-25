@@ -27,11 +27,20 @@ function get_navigation_handler(repage) {
 
     const navigation_handler = {};
 
+    let navigationHandlerPluginFound = false;
+
     repage.plugins.forEach(plugin => {
         if( plugin.navigationHandler ) {
             Object.assign(navigation_handler, plugin.navigationHandler);
+            navigationHandlerPluginFound = true;
         }
     });
+
+    assert_usage(
+        navigationHandlerPluginFound,
+        repage.plugins,
+        "No plugin adding `navigationHandler` found."
+    );
 
     return navigation_handler;
 }

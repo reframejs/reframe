@@ -1,5 +1,5 @@
-import TimeComponent from '../views/TimeComponent';
-import {CounterComponent} from '../views/CounterComponent';
+import TimeComponent from '../../basics/views/TimeComponent';
+import {CounterComponent} from '../../basics/views/CounterComponent';
 
 export default {
     view: [

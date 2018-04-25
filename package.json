@@ -24,6 +24,7 @@
         "plugins/start",
         "plugins/typescript",
         "examples/basics",
+        "examples/partial-dom-dynamic",
         "examples/custom",
         "helpers/utils",
         "helpers/cli",

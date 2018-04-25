@@ -41,11 +41,6 @@ const LandingComponent = () => (
             <Link pathname={'/counter2'}/>
         </Section>
 
-        <Section title={'Partial DOM-dynamic'}>
-            <Link pathname={'/panel'}/>
-            <Link pathname={'/news'}/>
-        </Section>
-
         <Section title={'Async Data'}>
             <Link pathname={'/game-of-thrones'}/>
             <Link pathname={'/game-of-thrones-2'}/>
