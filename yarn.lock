@@ -17,7 +17,7 @@
     dependency-check "^3.1.0"
     reassert "^1.1.8"
 
-"@brillout/fetch@0.0.2", "@brillout/fetch@^0.0.2":
+"@brillout/fetch@^0.0.2":
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/@brillout/fetch/-/fetch-0.0.2.tgz#7ca6a534c40bfb7d1013efdb1c11f00519bbca87"
   dependencies:
@@ -32,23 +32,13 @@
     ignore "^3.3.7"
     reassert "^1.1.8"
 
-"@brillout/find@latest":
-  version "0.2.9"
-  resolved "https://registry.yarnpkg.com/@brillout/find/-/find-0.2.9.tgz#1a4bc5032d44e82b4c4cfaa078602765394342a0"
-  dependencies:
-    find-up "^2.1.0"
-    glob "^7.1.2"
-    glob-gitignore "^1.0.6"
-    ignore "^3.3.7"
-    reassert "^1.1.0"
-
 "@brillout/get-user-dir@^0.1.2":
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/@brillout/get-user-dir/-/get-user-dir-0.1.2.tgz#c3c91b1575d3c3f4fe90f834841a653afbc5fc98"
   dependencies:
     callsites "^2.0.0"
 
-"@brillout/html-crust@^0.1.0", "@brillout/html-crust@latest":
+"@brillout/html-crust@^0.1.0":
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/@brillout/html-crust/-/html-crust-0.1.0.tgz#527915cf468c915b13628bd51a16311f980751b6"
   dependencies:
@@ -64,86 +54,6 @@
 "@brillout/relative-to-homedir@^0.1.0":
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/@brillout/relative-to-homedir/-/relative-to-homedir-0.1.0.tgz#57e1d64423688787d29f3066ba374175574c1048"
-
-"@reframe/crossroads@0.0.1-rc.7":
-  version "0.0.1-rc.7"
-  resolved "https://registry.yarnpkg.com/@reframe/crossroads/-/crossroads-0.0.1-rc.7.tgz#d187fdf58b053aebbccdea13f76e8d33dc519b5d"
-  dependencies:
-    "@repage/router-crossroads" "0.0.1-rc.7"
-
-"@reframe/default-kit@0.0.1-rc.7":
-  version "0.0.1-rc.7"
-  resolved "https://registry.yarnpkg.com/@reframe/default-kit/-/default-kit-0.0.1-rc.7.tgz#f9e56a787d744411f1ebc87578fe714b6758d482"
-  dependencies:
-    "@reframe/crossroads" "0.0.1-rc.7"
-    "@reframe/path-to-regexp" "0.0.1-rc.7"
-    "@reframe/react" "0.0.1-rc.7"
-    "@repage/navigator" "0.0.1-rc.7"
-    "@repage/renderer" "0.0.1-rc.7"
-
-"@reframe/path-to-regexp@0.0.1-rc.7":
-  version "0.0.1-rc.7"
-  resolved "https://registry.yarnpkg.com/@reframe/path-to-regexp/-/path-to-regexp-0.0.1-rc.7.tgz#cd479d08735da955e6188532b12d0af977debf28"
-  dependencies:
-    "@repage/router-path-to-regexp" "0.0.1-rc.7"
-
-"@reframe/react@0.0.1-rc.7":
-  version "0.0.1-rc.7"
-  resolved "https://registry.yarnpkg.com/@reframe/react/-/react-0.0.1-rc.7.tgz#99c205010a5cfd96f2dcf858b2b2237da053276f"
-  dependencies:
-    "@repage/renderer-react" "0.0.1-rc.7"
-
-"@reframe/utils@0.0.1-rc.7":
-  version "0.0.1-rc.7"
-  resolved "https://registry.yarnpkg.com/@reframe/utils/-/utils-0.0.1-rc.7.tgz#1ed74aead6f5a1b4cf2cdf2ae4040e92bc77ba11"
-  dependencies:
-    "@brillout/find" latest
-    "@reframe/default-kit" "0.0.1-rc.7"
-    reassert latest
-
-"@repage/browser@0.0.1-rc.7":
-  version "0.0.1-rc.7"
-  resolved "https://registry.yarnpkg.com/@repage/browser/-/browser-0.0.1-rc.7.tgz#81b92a5d64415ba99aa2903b1f0029b5481c50bd"
-  dependencies:
-    "@atto/parse-uri" "0.0.1"
-    reassert "^1.0.0"
-
-"@repage/core@0.0.1-rc.7":
-  version "0.0.1-rc.7"
-  resolved "https://registry.yarnpkg.com/@repage/core/-/core-0.0.1-rc.7.tgz#bbc174a7c411acd746338b554ccdaab74cd7a5e2"
-  dependencies:
-    reassert "^1.0.0"
-
-"@repage/navigator@0.0.1-rc.7":
-  version "0.0.1-rc.7"
-  resolved "https://registry.yarnpkg.com/@repage/navigator/-/navigator-0.0.1-rc.7.tgz#de3c7ad119fe0df983cb95a329e93f1bd326598a"
-  dependencies:
-    history "2.x.x"
-    reassert "^1.0.0"
-
-"@repage/renderer-react@0.0.1-rc.7":
-  version "0.0.1-rc.7"
-  resolved "https://registry.yarnpkg.com/@repage/renderer-react/-/renderer-react-0.0.1-rc.7.tgz#d47138ce21fffad60f66f24127c03769c7562a0c"
-  dependencies:
-    "@brillout/html-crust" latest
-    react "^16.1.1"
-    react-dom "^16.1.1"
-
-"@repage/renderer@0.0.1-rc.7":
-  version "0.0.1-rc.7"
-  resolved "https://registry.yarnpkg.com/@repage/renderer/-/renderer-0.0.1-rc.7.tgz#2e2a527ac5368e83fe628c78c5a64d5533bdde28"
-
-"@repage/router-crossroads@0.0.1-rc.7":
-  version "0.0.1-rc.7"
-  resolved "https://registry.yarnpkg.com/@repage/router-crossroads/-/router-crossroads-0.0.1-rc.7.tgz#99f288a49615158980364aa485d0864f68962172"
-  dependencies:
-    crossroads "^0.12.2"
-
-"@repage/router-path-to-regexp@0.0.1-rc.7":
-  version "0.0.1-rc.7"
-  resolved "https://registry.yarnpkg.com/@repage/router-path-to-regexp/-/router-path-to-regexp-0.0.1-rc.7.tgz#c523d17fc4c5ab86380ebfc756d1b58db761f48c"
-  dependencies:
-    react-router "4.2.0"
 
 "@types/node@*":
   version "9.6.6"
@@ -5212,7 +5122,7 @@ readdirp@^2.0.0:
     readable-stream "^2.0.2"
     set-immediate-shim "^1.0.1"
 
-reassert@^1.0.0, reassert@^1.0.3, reassert@^1.0.4, reassert@^1.1.0, reassert@^1.1.7, reassert@^1.1.8, reassert@latest:
+reassert@^1.0.3, reassert@^1.0.4, reassert@^1.1.7, reassert@^1.1.8:
   version "1.1.8"
   resolved "https://registry.yarnpkg.com/reassert/-/reassert-1.1.8.tgz#d0e70085d70af9c6d93c80425d6468b8bbb31246"
 
