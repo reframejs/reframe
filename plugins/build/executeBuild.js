@@ -8,7 +8,7 @@ const getPageHTMLs = require('./getPageHTMLs');
 
 const projectConfig = getProjectConfig();
 const outputDir = projectConfig.projectFiles.buildOutputDir;
-const getPageFiles = () => projectConfig.getPageConfigPaths();
+const getPageFiles = () => projectConfig.getPageConfigFiles();
 const getWebpackBrowserConfig = ({config}) => projectConfig.webpackBrowserConfigModifier(config);
 const getWebpackNodejsConfig = ({config}) => projectConfig.webpackServerConfigModifier(config);
 const {log, doNotWatchBuildFiles} = projectConfig;

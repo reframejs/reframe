@@ -99,22 +99,23 @@ function getBrowserConfig({fileSets, autoReloadEnabled}) {
 function getPageFiles() {
     const pageFiles = {};
     const filePaths = this.getPageFiles();
-    assert_usage(filePaths instanceof Array);
+    assert_usage(filePaths instanceof Array, filePaths);
     filePaths
-    .forEach(filePath => {
+    .forEach(({pageConfigFile, pageName}) => {
         assert_usage(
-            filePath && filePath.constructor===String && pathModule.isAbsolute(filePath),
-            filePath
+            pageConfigFile && pageConfigFile.constructor===String && pathModule.isAbsolute(pageConfigFile),
+            pageConfigFile
         );
-        const fileName = pathModule.basename(filePath);
-        const pageName = fileName.split('.')[0];
+        assert_usage(
+            pageName && pageName.constructor===String,
+            pageName
+        );
         assert_usage(
             !pageFiles[pageName],
-            "The page files `"+pageFiles[pageName]+"` and `"+fileName+"` have the same page name `"+pageName+"`.",
-            "The page name is determined by `fileName.split('.')[0]`.",
-            "Rename one of the two page files."
+            "The page files `"+pageFiles[pageName]+"` and `"+pageConfigFile+"` have the same page name `"+pageName+"`.",
+            "Rename one of the two page names."
         );
-        pageFiles[pageName] = filePath;
+        pageFiles[pageName] = pageConfigFile;
     });
     return pageFiles;
 }
