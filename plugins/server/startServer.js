@@ -27,7 +27,7 @@ async function startServer() {
 
     await server.start();
 
-    console.log(chalk.green('\u2714')+' Server running '+server.info.uri);
+    console.log(chalk.green('\u2714')+' Server running');
 
     return server;
 }

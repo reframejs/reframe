@@ -69,8 +69,26 @@ async function buildAssets(projectConfig) {
 }
 
 async function startServer(projectConfig) {
+    const assert_usage = require('reassert/usage');
     assert_server(projectConfig);
-    const server = await require(projectConfig.serverEntryFile);
+    let server;
+    try {
+        server = await require(projectConfig.serverEntryFile);
+    } catch(err) {
+        const {colorErr} = require('@reframe/utils/cliTheme');
+        if( ((err||{}).message||'').includes('EADDRINUSE') ) {
+            console.error();
+            console.error(err.stack);
+            console.error();
+            console.error([
+                "The server is starting on an "+colorErr("address already in use")+".",
+                "Maybe you already started a server at this address?",
+            ].join('\n'));
+            console.error();
+            return;
+        }
+        throw err;
+    }
     log_server(server, projectConfig);
 }
 
@@ -221,7 +239,7 @@ function log_routes(projectConfig, server) {
         pageConfigs
         .sort(({route: route1}, {route: route2}) => route2 < route1)
         .map(({route, pageName}) =>
-            '    '+colorDim(serverUrl)+colorPkg(route)+' -> '+pageName
+            '    '+/*colorDim*/(serverUrl)+colorPkg(route)+' -> '+pageName
         )
         .join('\n')
     );
