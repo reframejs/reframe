@@ -5,12 +5,18 @@ const pathModule = require('path');
 const cliColors = {
     colorDir: chalk.green,
     colorFile: chalk.green,
+
+    colorEmp: chalk.cyan,
     colorCmd: chalk.cyan,
     colorPkg: chalk.cyan,
     colorUrl: chalk.cyan,
+
     colorErr: chalk.bold.red,
+
     colorDim: chalk.dim,
+
     symbolSuccess: chalk.green('\u2714'),
+
     strDir: dirPath => {
         dirPath = dirPath + (dirPath.endsWith(pathModule.sep) ? '' : pathModule.sep)
         /*

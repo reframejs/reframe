@@ -287,7 +287,7 @@ function writeAssetMap({browserEntryPoints, fileSets, autoReloadEnabled}) {
     const assetInfos = {
         buildTime: new Date(),
         staticAssetsDir: pathModule.resolve(this.outputDir, BROWSER_OUTPUT),
-        env: process.env.NODE_ENV || 'dev',
+        buildEnv: process.env.NODE_ENV || 'development',
         pageAssets: {},
     };
 

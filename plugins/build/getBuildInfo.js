@@ -8,14 +8,10 @@ function getBuildInfo() {
     const outputDir = projectConfig.projectFiles.buildOutputDir;
     const assetInfos = getAssetInfos({outputDir});
 
-    const staticAssetsDir = getStaticAssetsDir({assetInfos});
+    const {staticAssetsDir, buildEnv} = assetInfos;
     const pageConfigs = getPageConfigs({assetInfos});
 
-    return {staticAssetsDir, pageConfigs};
-}
-
-function getStaticAssetsDir({assetInfos}) {
-    return assetInfos.staticAssetsDir;
+    return {pageConfigs, staticAssetsDir, buildEnv};
 }
 
 function getPageConfigs({assetInfos}) {

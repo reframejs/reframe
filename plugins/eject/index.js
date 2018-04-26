@@ -1,6 +1,6 @@
-module.exports = ejectCommand;
+module.exports = ejectCommands;
 
-function ejectCommand() {
+function ejectCommands() {
     return {
         name: require('./package.json').name,
         cliCommands: [

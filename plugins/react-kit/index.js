@@ -1,16 +1,15 @@
 const reactPlugin = require('@reframe/react');
-//const crossroadsPlugin = require('@reframe/crossroads');
-const pathToRegexp = require('@reframe/path-to-regexp');
+const pathToRegexpPlugin = require('@reframe/path-to-regexp');
 const RepageRenderer = require('@repage/renderer');
 const serverPlugin = require('@reframe/server');
 const buildPlugin = require('@reframe/build');
 const browserPlugin = require('@reframe/browser');
 const startCommands = require('@reframe/start');
-const ejectCommand = require('@reframe/eject');
+const ejectCommands = require('@reframe/eject');
 
-module.exports = defaultKit;
+module.exports = reactKit;
 
-function defaultKit() {
+function reactKit() {
     return {
         name: require('./package.json').name,
         browserConfigFile: {
@@ -18,13 +17,12 @@ function defaultKit() {
         },
         plugins: [
             reactPlugin(),
-         // crossroadsPlugin(),
-            pathToRegexp(),
+            pathToRegexpPlugin(),
             serverPlugin(),
             buildPlugin(),
             browserPlugin(),
             startCommands(),
-            ejectCommand(),
+            ejectCommands(),
         ],
         repagePlugins: [
             RepageRenderer,

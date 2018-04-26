@@ -70,7 +70,8 @@ program
 .arguments('<arg>')
 .action((arg) => {
     noCommand = false;
-    console.error(`${arg} is not a valid command. Use -h or --help for valid commands.`);
+    console.error('`reframe '+arg+'` is not a valid command.');
+    console.error('Run `reframe -h` for a list of valid commands.');
 });
 
 loading_spinner.stop();

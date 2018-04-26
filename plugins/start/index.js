@@ -59,7 +59,7 @@ async function runBuild(opts) {
 
 async function runServer(opts) {
     const projectConfig = init(opts);
-    await startServer(projectConfig);
+    await startServer(projectConfig, true);
 }
 
 async function buildAssets(projectConfig) {
@@ -68,8 +68,13 @@ async function buildAssets(projectConfig) {
     await require(projectConfig.build.executeBuild);
 }
 
-async function startServer(projectConfig) {
+async function startServer(projectConfig, checkBuiltPages) {
     const assert_usage = require('reassert/usage');
+
+    if( checkBuiltPages ) {
+        check_and_log_built_pages_found(projectConfig);
+    }
+
     assert_server(projectConfig);
     let server;
     try {
@@ -90,6 +95,30 @@ async function startServer(projectConfig) {
         throw err;
     }
     log_server(server, projectConfig);
+}
+function check_and_log_built_pages_found(projectConfig) {
+    const assert_usage = require('reassert/usage');
+    const {colorErr, symbolSuccess, strDir, colorEmp} = require('@reframe/utils/cliTheme');
+
+    const {buildOutputDir} = projectConfig.projectFiles;
+
+    let buildInfo;
+    try {
+        buildInfo = require(projectConfig.build.getBuildInfo)();
+    } catch(err) {
+        if( ((err||{}).message||'').includes('The build needs to have been run previously') ) {
+            assert_usage(
+                false,
+                colorErr("Built pages not found")+" at `"+buildOutputDir+"`.",
+                "Did you run the build (e.g. `reframe build`) before starting the server?"
+            );
+            return;
+        }
+        throw err;
+    }
+
+    const {buildEnv} = buildInfo;
+    console.log(symbolSuccess+' Found built pages '+strDir(buildOutputDir)+' (Built for '+colorEmp(buildEnv)+')');
 }
 
 function init({dev, log, doNotWatchBuildFiles}) {
@@ -119,7 +148,7 @@ function init({dev, log, doNotWatchBuildFiles}) {
     return projectConfig;
 
     function log_found_reframe_config(file_path, description) {
-        log_found_file(projectConfig.projectFiles.reframeConfigFile, 'config');
+        log_found_file(projectConfig.projectFiles.reframeConfigFile, 'Reframe config');
     }
     function log_found_file(file_path, description) {
         if( file_path ) {
@@ -237,7 +266,7 @@ function log_routes(projectConfig, server) {
 
     const routes = (
         pageConfigs
-        .sort(({route: route1}, {route: route2}) => route2 < route1)
+        .sort(({route: route1}, {route: route2}) => (route2 > route1 && -1 || route2 < route1 && 1 || 0))
         .map(({route, pageName}) =>
             '    '+/*colorDim*/(serverUrl)+colorPkg(route)+' -> '+pageName
         )
