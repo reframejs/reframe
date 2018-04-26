@@ -33,7 +33,11 @@ function WebpackSSR(opts) {
 function BuildInstance() {
     const isoBuilder = new IsoBuilder();
 
-    isoBuilder.logger = Logger({log_config_and_stats: (this.log||{}).verbose});
+    isoBuilder.logger = Logger({
+        log_config_and_stats: (this.log||{}).verbose,
+        getBuildStartText: () => 'Building pages',
+        getBuildEndText: () => 'Pages built',
+    });
     isoBuilder.doNotWatchBuildFiles = this.doNotWatchBuildFiles;
 
     const {outputDir} = this;

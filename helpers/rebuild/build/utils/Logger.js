@@ -27,8 +27,10 @@ function Logger(opts) {
                 stop_spinner,
             },
 
-            on_first_compilation_start,
-            on_re_compilation_start,
+            getBuildStartText,
+            getBuildEndText,
+            getEnvText,
+            getRebuildText,
             on_first_compilation_result,
             on_compilation_fail,
             on_first_compilation_success,
@@ -38,14 +40,6 @@ function Logger(opts) {
     );
 
     return this;
-
-    function on_first_compilation_start() {
-        return 'Transpiling & Bundling '+get_env();
-    }
-
-    function on_re_compilation_start() {
-        return 'Re-building';
-    }
 
     function on_first_compilation_result({compilation_info, is_failure}) {
         if( log_config_and_stats ) {
@@ -116,14 +110,10 @@ function Logger(opts) {
             [
                 log_config_and_stats && '\n',
                 this.symbols.success_symbol+' ',
-                'Code built',
-                [
-                    output_directory__base && ' '+relative_to_homedir(output_directory__base)+'/',
-                 // output.served_at && !doNotCreateServer && ' served at '+output.served_at,
-                ]
-                .filter(Boolean).join(' and'),
-                get_env(),
-                '\n',
+                this.getBuildEndText(),
+                output_directory__base && ' '+relative_to_homedir(output_directory__base)+'/',
+                this.getEnvText(),
+                '\n'
             ]
             .filter(Boolean).join('')
         );
@@ -149,8 +139,18 @@ function Logger(opts) {
     }
 }
 
-function get_env() {
-    return '(for '+chalk.cyan(get_build_env())+')';
+function getBuildStartText() {
+    return 'Transpiling & Bundling';
+}
+function getBuildEndText() {
+    return 'Code built';
+}
+function getEnvText() {
+    return ' (for '+chalk.cyan(get_build_env())+')';
+}
+
+function getRebuildText() {
+    return 'Re-building';
 }
 
 function get_build_env() {
@@ -245,9 +245,9 @@ function BuildStateManager(logger) {
             let spinner_text;
             if( ! logging_state.has_logged_first_compilation_start ) {
                 logging_state.has_logged_first_compilation_start = true;
-                spinner_text = logger.on_first_compilation_start();
+                spinner_text = logger.getBuildStartText()+logger.getEnvText();
             } else {
-                spinner_text = logger.on_re_compilation_start();
+                spinner_text = logger.getRebuildText();
             }
             assert_tmp(spinner_text);
             spinner_text && logger.loading_spinner.start_spinner(spinner_text);
