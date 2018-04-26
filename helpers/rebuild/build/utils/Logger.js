@@ -1,6 +1,5 @@
-const assert = require('reassert');
-const assert_internal = assert;
-const assert_tmp = assert;
+const assert_internal = require('reassert/internal');
+const assert_tmp = assert_internal;
 const chalk = require('chalk');
 const log_symbols = require('log-symbols');
 const ora = require('ora');
@@ -11,43 +10,40 @@ const relative_to_homedir = require('@brillout/relative-to-homedir');
 
 module.exports = {Logger};
 
-function Logger({log_progress=true, log_config_and_stats=false, /*doNotCreateServer,*/}={}) {
+function Logger(opts) {
     let current_spinner;
 
-    Object.assign(this, {
-        onNewBuildState: new BuildStateManager(this),
+    Object.assign(
+        this, {
+            onNewBuildState: new BuildStateManager(this),
 
-        symbols: {
-            success_symbol: log_symbols.success,
-            failure_symbol: log_symbols.error,
+            symbols: {
+                success_symbol: log_symbols.success,
+                failure_symbol: log_symbols.error,
+            },
+
+            loading_spinner: {
+                start_spinner,
+                stop_spinner,
+            },
+
+            on_first_compilation_start,
+            on_re_compilation_start,
+            on_first_compilation_result,
+            on_compilation_fail,
+            on_first_compilation_success,
+            on_re_compilation_success,
         },
-
-        loading_spinner: {
-            start_spinner,
-            stop_spinner,
-        },
-
-        on_first_compilation_start,
-        on_re_compilation_start,
-        on_first_compilation_result,
-        on_compilation_fail,
-        on_first_compilation_success,
-        on_re_compilation_success,
-    });
+        opts
+    );
 
     return this;
 
     function on_first_compilation_start() {
-        if( ! log_progress ) {
-            return null;
-        }
-        return 'Transpiling & Bundling'+env_tag();
+        return 'Transpiling & Bundling '+get_env();
     }
 
     function on_re_compilation_start() {
-        if( ! log_progress ) {
-            return null;
-        }
         return 'Re-building';
     }
 
@@ -72,16 +68,10 @@ function Logger({log_progress=true, log_config_and_stats=false, /*doNotCreateSer
     }
 
     function on_first_compilation_success({compilation_info}) {
-        if( ! log_progress ) {
-            return;
-        }
         log_compilation_distribution.call(this, {compilation_info});
     }
 
     function on_re_compilation_success() {
-        if( ! log_progress ) {
-            return;
-        }
         console.log(this.symbols.success_symbol+' Re-built');
     }
 
@@ -132,7 +122,7 @@ function Logger({log_progress=true, log_config_and_stats=false, /*doNotCreateSer
                  // output.served_at && !doNotCreateServer && ' served at '+output.served_at,
                 ]
                 .filter(Boolean).join(' and'),
-                env_tag(),
+                get_env(),
                 '\n',
             ]
             .filter(Boolean).join('')
@@ -159,18 +149,12 @@ function Logger({log_progress=true, log_config_and_stats=false, /*doNotCreateSer
     }
 }
 
-function env_tag() {
-    return (
-        is_production() ? (
-            chalk.yellow(' [PROD]')
-        ) : (
-            chalk.blueBright(' [DEV]')
-        )
-    );
+function get_env() {
+    return '(for '+chalk.cyan(get_build_env())+')';
 }
 
-function is_production() {
-   return process.env.NODE_ENV === 'production';
+function get_build_env() {
+    return process.env.NODE_ENV || 'development';
 }
 
 function log_stats_errors({webpack_stats}) {
