@@ -21,9 +21,8 @@ function BaseConfig({
         config_output({outputPath, is_node_target, filename}),
         config_resolve({context}),
         config_base(),
-        config_env,
      // config_always_write,
-     // config_source_map,
+        config_source_map,
         config_es_latest({is_node_target}),
         //*
         config_file_fallback_loader({is_node_target}),
@@ -47,7 +46,6 @@ function StandardConfig(args) {
         /*/
         config_ignore_css,
         //*/
-        config_uglify,
         config_code_splitting,
     ];
 }
@@ -97,8 +95,11 @@ function config_code_splitting() {
     //*/
 }
 
-/*
+//*
 function config_source_map() {
+    if( ! is_production() ) {
+        return;
+    }
     return {
         devtool: 'source-map',
      // devtool: 'eval-source-map',
@@ -107,33 +108,6 @@ function config_source_map() {
     };
 }
 //*/
-
-function config_uglify() {
-    const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-    if( ! is_production() ) {
-        return {};
-    }
-    return {
-        plugins: [
-            new UglifyJSPlugin({
-                sourceMap: true,
-            }),
-        ],
-    }
-}
-
-function config_env() {
-    if( ! 'NODE_ENV' in process.env ) {
-        return {};
-    }
-    return {
-        plugins: [
-            new webpack.DefinePlugin({
-                'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-            })
-        ],
-    };
-}
 
 function config_entry({entry_points}) {
     assert_usage(entry_points);
