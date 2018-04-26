@@ -112,24 +112,22 @@
 
 <div><p align="center">
     <b>Easy</b>
+    &nbsp;
     -
+    &nbsp;
     Create apps with page configs.
-    &nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <b>Universal</b>
-    -
-    Create any type of app.
-    &nbsp;&nbsp;&nbsp;
-    <b>Escapable</b>
-    -
-    Easy & progressive escape.
+    &nbsp;-&nbsp;
+    Create static and dynamic apps.
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <b>Ejectable</b>&nbsp;-&nbsp;No lock-in.
 </p></div>
 
 <br/>
 
 [Overview](/../../)<br/>
-[Reframe Rationale](/docs/reframe-rationale.md)<br/>
 [Usage Manual](/docs/usage-manual.md)<br/>
-[Customization Manual](/docs/customization-manual.md)<br/>
 [**Plugins**](/docs/plugins.md)
 
 <br/>

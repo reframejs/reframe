@@ -122,13 +122,13 @@ function check_and_log_built_pages_found(projectConfig) {
 }
 
 function init({dev, log, doNotWatchBuildFiles}) {
-    const getProjectConfig = require('@reframe/utils/getProjectConfig');
-    const pathModule = require('path');
-    const {symbolSuccess, strFile, colorPkg} = require('@reframe/utils/cliTheme');
-
     if( ! dev ) {
         process.env['NODE_ENV'] = 'production';
     }
+
+    const getProjectConfig = require('@reframe/utils/getProjectConfig');
+    const pathModule = require('path');
+    const {symbolSuccess, strFile, colorPkg} = require('@reframe/utils/cliTheme');
 
     const projectConfig = getProjectConfig();
 

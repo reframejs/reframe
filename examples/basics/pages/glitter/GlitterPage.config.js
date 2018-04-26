@@ -1,4 +1,4 @@
-const {GlitterComponent} = require('../views/GlitterComponent');
+const {GlitterComponent} = require('./GlitterComponent');
 
 const GlitterPage = {
     route: '/glitter',

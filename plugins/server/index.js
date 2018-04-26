@@ -7,7 +7,7 @@ function serverPlugin() {
     const serverEntryFile_ejectedPath = 'PROJECT_ROOT/server/index.js';
 
     const serverEjectName = 'server';
-    const ssrEjectName = 'server-ssr';
+    const ssrEjectName = 'server-rendering';
     const assetsEjectName = 'server-assets';
 
     return {
@@ -16,7 +16,7 @@ function serverPlugin() {
         ejectables: [
             {
                 name: serverEjectName,
-                description: 'Eject hapi server code.',
+                description: 'Eject the hapi server code.',
                 configChanges: [
                     {
                         configPath: 'serverEntryFile',
@@ -33,7 +33,7 @@ function serverPlugin() {
             },
             {
                 name: ssrEjectName,
-                description: 'Eject hapi plugin code for server-side rendering.',
+                description: 'Eject the hapi plugin `HapiPluginServerRendering` responsible for server-side rendering.',
                 fileCopies: [
                     {
                         oldPath: packageName+'/HapiPluginServerRendering',
@@ -47,7 +47,7 @@ function serverPlugin() {
             },
             {
                 name: assetsEjectName,
-                description: 'Eject hapi plugin for serving static assets.',
+                description: 'Eject the hapi plugin `HapiPluginStaticAssets` responsible for serving static assets.',
                 fileCopies: [
                     {
                         oldPath: packageName+'/HapiPluginStaticAssets',

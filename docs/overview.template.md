@@ -12,7 +12,7 @@
 ##### Contents
 
  - [What is Reframe](#what-is-reframe)
- - [Why Reframe](#why-reframe)
+ - [Tech Specs](#tech-specs)
  - [Quick Start](#quick-start)
 
 
@@ -23,17 +23,11 @@ Reframe takes care of the rest:
 It automatically transpiles, bundles, routes, renders, and serves your pages.
 
 ~~~jsx
-// Page config `WelcomePage`
-
+// A page config example
 const WelcomePage = {
-  // Page's URL
-  route: '/',
-
-  // Page's React component
-  view: () => <div>Welcome to Reframe</div>,
-
-  // Page's <title>
-  title: 'Welcome'
+  route: '/', // Page's URL
+  view: () => <div>Welcome to Reframe</div>, // Page's React component
+  title: 'Welcome' // Page's <title>
 };
 
 export default WelcomePage;
@@ -42,104 +36,136 @@ export default WelcomePage;
 A *page config* is a plain JavaScript object that configures a page by assigning it
  - a React component (required),
  - a route (required), and
- - further (optional) page configurations (page's &lt;title&gt;, meta tags, whether the page's HTML should be rendered at build-time or at request-time, whether the page should be hydrated or not, etc.).
+ - further optional page configurations
 
 You can create a React web app with **no build configuration** and **no server configuration**.
-(But, if you need to, everything is configurable/customizable.)
 
 > All you need to create a web app is one React component and one page config per page.
+
+Yet, **everything is customizable/ejectable**.
+
+For example, the command `reframe eject server` ejects the server code:
+It will copy the server code from Reframe's codebase to your codebase.
+Giving you control over the server code allowing you to add API endpoints, change the server config, use a process manager, etc.
+
+There are several eject commands to eject server code, build code, and browser code.
+
+You can apply eject commands one by one and progressively as the need arises.
+
+If you run all eject commands then you effectively get rid of Reframe.
+
+> Rreframe doesn't lock you in: You can progressively and fully eject Reframe.
 
 Let's create a web app by defining a page config `HelloPage`:
 
 ~~~jsx
-// ~/tmp/reframe-playground/pages/HelloPage.js
+// ~/my-app/pages/HelloPage.config.js
 
-!INLINE ../examples/basics/pages/HelloPage.js --hide-source-path
+!INLINE ../examples/basics/pages/HelloPage.config.js --hide-source-path
 ~~~
 
-The `reframe` CLI does the rest:
+Reframe does the rest:
 
 <p align="center">
     <img src='https://github.com/reframejs/reframe/raw/master/docs/images/reframe_overview_screenshot.png?sanitize=true' width=1200 style="max-width:100%;"/>
 </p>
 
-Reframe did the following:
- - Reframe searched for a `pages/` directory and found one at `~/tmp/reframe-playground/pages`.
- - Reframe read the `pages/` directory and found our page config at `~/tmp/reframe-playground/pages/HelloPage.js`.
- - Reframe used webpack to transpile `HelloPage.js`.
- - Reframe started a Node.js/hapi server that serves all static assets and renders our page's HTML.
-
-With Reframe you can create:
+Page configs have two options `htmlStatic: true` and `domStatic: true`
+that allow you to create a wide variety of apps:
 
  - **Modern interactive apps** <sup><sub>:sparkles:</sub></sup>
    <br/>
-   Apps with a dynamic DOM where React is used to create interactive views.
+   Apps with a dynamic DOM.
    <br/>
-   By default **Server-Side Rendering** (**SSR**) is enabled.
-   (Pages are rendered to both the DOM and HTML.)
-   SSR gives full control over SEO and improves perceived load time.
+   You create React components to implement interactive views.
  - **Good ol' 1998 websites** <sup><sub>:floppy_disk:</sub></sup>
    <br/>
-   Apps with a static DOM and where React is only used to render HTML.
+   Apps with a static DOM.
    <br/>
-   Pages are rendered to HTML either statically at build-time or dynamically at request-time.
+   You create React components to generate HTML.
    <br/>
    No (or almost no) JavaScript is loaded in the browser.
- - **Serverless** interactive apps & static websites
    <br/>
-   Apps where all pages are rendered to HTML statically at build-time.
+   (Besides being used to create interative views in the browser, React can as well be used as a powerful HTML template engine on the server.)
+   <br/>
+   Opt-in by setting `domStatic: true` to all your page configs.
+ - **Serverless apps**
+   <br/>
+   Apps with static HTML.
+   <br/>
+   The HTML of all pages are rendered statically at build-time.
    <br/>
    The DOM can be static (static website) or dynamic (serverless interactive app).
    <br/>
    These apps don't need a Node.js server and can be deployed to a static host such as GitHub Pages or Netlify.
+   <br/>
+   Opt-in by setting `htmlStatic: true` to all your page configs.
  - **Hybrid apps**
    <br/>
-   Apps where some pages are DOM-static, some DOM-dynamic, some HTML-static, and some HTML-dynamic.
+   Apps with both static and dynamic HTML/DOM.
    <br/>
-   Allowing you to create apps with the motto "If possible, implement features with non-interative views".
-   (Non-interactive views are considerably easier to implement and also usually perform better.)
-
-Reframe generates a certain type of app depending on how you configure your pages.
-For example, if you add `htmlStatic: true` to a page config, then that page's HTML is rendered at build-time instead of request-time.
-Thus, creating a serverless app is simply a matter of setting `htmlStatic: true` to all page configs.
-
-
-### Why Reframe
-
- - **Easy**
+   Some pages are DOM-static, some DOM-dynamic, some HTML-static, and some HTML-dynamic.
    <br/>
-   Create web apps by simply defining page configs and React components.
-   Reframe takes care of the rest.
- - **Universal**
+   That way you can create couple of pages with interactive views while the rest of your app is non-interactive.
+   Non-interactive views are considerably easier to implement and usually perform better.
+   Hybrid apps allow the approach "Whenever possible, implement features with non-interative views".
    <br/>
-   Reframe is the only framework that supports every type of static and dynamic app.
-   Instead of learning one framework to create a static app and a second framework to create a dynamic app,
-   you can learn Reframe to be able to create both static and dynamic apps.
-   <br/>
-   [Reframe Rationale - Universal](/docs/reframe-rationale.md#universal) shows what different types of apps there are and how Reframe supports them all.
- - **Escapable**
-   <br/>
-   The vast majority of your code will be entirely independent of Reframe.
-   This means that, if you decide to get rid of Reframe, you will have to rewrite only few parts of your code.
-   <br/>
-   And Reframe is designed so that you can progressively replace Reframe code with code of your own.
-   That way, you can progressively get rid of Reframe to eventually take full control over your app.
-   <br/>
-   More at [Reframe Rationale - Escapable](/docs/reframe-rationale.md#escapable).
+   Opt-in by setting `htmlStatic: true` / `domStatic: true` to some of your page configs.
 
-Also,
-Reframe is based on **plugins** (React Router v4 plugin, TypeScript plugin, PostCSS plugin, ...),
-is **fully customizable** (fully customize the webpack config, the building, the server, the browser code, the routing, the rendering, ...), and is **performant** (code splitting, optimal HTTP caching, static rendering, server-side rendering, ...).
+> With Reframe you can create dynamics apps, static apps, and hybrid apps.
 
-The [Reframe Rationale](/docs/reframe-rationale.md) goes into detail.
+### Tech Specs
 
+- **Server-Side Rendering** (**SSR**) for SEO and improved speed
+  <br/>
+  By default all pages are rendered to HTML on the server
+  (and hydrated in the browser).
+  <br/>
+  Giving you full control over SEO and improving the user perceived load time.
+- **React Router**
+  <br/>
+  The page config's `route` string syntax is the same than in React Router v4.
+  <br/>
+  And by adding the [@reframe/react-router](/plugins/react-router) plugin
+  you can use React Router's components `<Route>`, `<Switch>`, etc.
+- **TypeScript**
+  <br/>
+  Add the [@reframe/typescript](/plugins/typescript) plugin and write your app in TypeScript.
+- **PostCSS**
+  <br/>
+  Add the [@reframe/postcss](/plugins/postcss) plugin to write modern CSS.
+- **Webpack**
+  <br/>
+  Reframe uses webpack to build the app's pages ([webpack.js.org](https://webpack.js.org/)).
+  Webpack is the state of the art tool to build browser assets.
+- **Hapi**
+  <br/>
+  Reframe uses hapi to create the server ([hapijs.com](https://hapijs.com/)).
+  Hapi is known for its robustness and scalability.
+- **Code-splitting** for improved speed
+  <br/>
+  Pages load two scripts:
+  One script that is shared and cached across all pages
+  (including React, polyfills, etc.)
+  and a second script that includes the React components of the page.
+  A KB-heavy page won't affect the KB-size of other pages.
+- **Static DOM** for improved speed
+  <br/>
+  When setting `domStatic: true` to a page config, the page is not hydrated.
+  (In other words, the page's view is not rendered to the DOM but only rendered to HTML.)
+  Not only is computational time saved by skiping rendering to the DOM but also load time is saved by skipping loading heavy JavaScript code.
+- **Optimal HTTP caching** for improved speed
+  <br/>
+  Every dynamic server response is cached with a ETag header,
+  and every static server response is indefinitely cached.
+  (Static assets are served under hashed URLs with the `Cache-Control` header set to `immutable` and `max-age`'s maximum value.)
+- **Static Rendering** for improved speed
+  <br/>
+  When setting `htmlStatic: true` to a page config, the page is rendered to HTML at build-time (instead of request-time).
+  The page's HTML is rendered only once and served statically for decreased load time.
 
 ### Quick Start
 
 !INLINE ./start.md --hide-source-path
 
-The "Basic Usage" section of the [Usage Manual](/docs/usage-manual.md) contains further information, including:
- - How to add CSS and static assets.
- - How to navigate between pages.
- - How to configure pages to (asynchronously) load data.
- - How to configure pages to be DOM-static and/or HTML-static.
+Read the source code of `my-app/` and check out the [Usage Manual](/docs/usage-manual.md) to familiarize yourself with Reframe's usage.
