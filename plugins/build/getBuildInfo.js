@@ -35,6 +35,8 @@ function getPageConfigs({assetInfos}) {
                 ...(pageConfig.styles||[])
             ]);
 
+            pageConfig.pageName = pageName;
+
             return pageConfig;
         })
     );

@@ -70,14 +70,14 @@ async function buildAssets(projectConfig) {
 
 async function startServer(projectConfig) {
     assert_server(projectConfig);
-    await require(projectConfig.serverEntryFile);
-    log_routes(projectConfig);
+    const server = await require(projectConfig.serverEntryFile);
+    log_server(server, projectConfig);
 }
 
 function init({dev, log, doNotWatchBuildFiles}) {
     const getProjectConfig = require('@reframe/utils/getProjectConfig');
     const pathModule = require('path');
-    const {symbolSuccess, strFile, strDir, colorPkg, colorFile} = require('@reframe/utils/cliTheme');
+    const {symbolSuccess, strFile, colorPkg} = require('@reframe/utils/cliTheme');
 
     if( ! dev ) {
         process.env['NODE_ENV'] = 'production';
@@ -100,28 +100,9 @@ function init({dev, log, doNotWatchBuildFiles}) {
 
     return projectConfig;
 
-    function getCommonRoot(filePaths) {
-        const filePaths__parts = filePaths.map(getPathParts);
-
-        let basePath = filePaths__parts[0];
-
-        for(let i=0; i<basePath.length; i++) {
-            if( filePaths__parts.every(filePath__parts => filePath__parts[i]===basePath[i]) ) {
-                continue;
-            }
-            basePath = basePath.slice(0, i);
-            break;
-        }
-
-        return basePath.join(pathModule.sep);
-
-        function getPathParts(filePath) { return pathModule.dirname(filePath).split(pathModule.sep); }
-    }
-
     function log_found_reframe_config(file_path, description) {
         log_found_file(projectConfig.projectFiles.reframeConfigFile, 'config');
     }
-
     function log_found_file(file_path, description) {
         if( file_path ) {
             console.log(symbolSuccess+' Found '+description+' '+strFile(file_path));
@@ -165,6 +146,8 @@ function assert_config(bool, projectConfig, path, name) {
 }
 
 function log_found_page_configs(projectConfig) {
+    const pathModule = require('path');
+    const {symbolSuccess, colorPkg, strDir} = require('@reframe/utils/cliTheme');
     const pageConfigFiles = projectConfig.getPageConfigFiles();
 
     const numberOfPages = Object.keys(pageConfigFiles).length;
@@ -203,12 +186,45 @@ function log_found_page_configs(projectConfig) {
         strDir(basePath)+pageConfigs__str,
     ].join(' '));
 }
+function getCommonRoot(filePaths) {
+    const pathModule = require('path');
+    const filePaths__parts = filePaths.map(getPathParts);
 
-function log_routes(projectConfig) {
+    let basePath = filePaths__parts[0];
+
+    for(let i=0; i<basePath.length; i++) {
+        if( filePaths__parts.every(filePath__parts => filePath__parts[i]===basePath[i]) ) {
+            continue;
+        }
+        basePath = basePath.slice(0, i);
+        break;
+    }
+
+    return basePath.join(pathModule.sep);
+
+    function getPathParts(filePath) { return pathModule.dirname(filePath).split(pathModule.sep); }
+}
+
+
+function log_server(server, projectConfig) {
+ // const {symbolSuccess} = require('@reframe/utils/cliTheme');
+ // console.log(symbolSuccess+' Server running '+server.info.uri);
+    log_routes(projectConfig, server);
+}
+function log_routes(projectConfig, server) {
     const {pageConfigs} = require(projectConfig.build.getBuildInfo)();
-    const {colorPkg} = require('@reframe/utils/cliTheme');
+    const {colorPkg, colorDim} = require('@reframe/utils/cliTheme');
 
-    const routes = pageConfigs.map(({route}) => route).map(s => '  '+colorPkg(s)).join('\n');
+    const serverUrl = server && server.info && server.info.uri || '';
+
+    const routes = (
+        pageConfigs
+        .sort(({route: route1}, {route: route2}) => route2 < route1)
+        .map(({route, pageName}) =>
+            '    '+colorDim(serverUrl)+colorPkg(route)+' -> '+pageName
+        )
+        .join('\n')
+    );
     console.log(routes);
 }
 
