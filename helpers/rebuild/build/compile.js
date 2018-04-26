@@ -12,9 +12,6 @@ const HtmlCrust = require('@brillout/html-crust');
 const mkdirp = require('mkdirp');
 const deep_copy = require('./utils/deep_copy');
 const log_title = require('./utils/log_title');
-//const webpack_mild_compile = require('webpack-mild-compile');
-//const readline = require('readline');
-//const {Logger} = require('./utils/Logger');
 
 /*
 global.DEBUG_WATCH = true;
@@ -25,8 +22,8 @@ module.exports = compile;
 function compile(
     webpack_config,
     {
-     // logger = Logger(),
         doNotGenerateIndexHtml,
+        logger,
         onBuild,
         compiler_handler,
         webpack_config_modifier,
@@ -38,6 +35,7 @@ function compile(
     assert_internal(compilationName);
     assert_internal(webpack_config.constructor===Object);
     assert_tmp(!webpack_config_modifier);
+    assert_tmp(!logger);
     assert_tmp(!onBuild);
     assert_tmp(doNotGenerateIndexHtml);
 
@@ -60,22 +58,8 @@ function compile(
             on_compilation_end: async ({compilation_info, is_first_result, no_previous_success, is_success, is_abort, previous_was_success}) => {
                 resolveTimeout();
                 if( is_abort ) {
-                    /*
-                    onCompilationStateChange({
-                        is_compiling: false,
-                        is_abort: true,
-                    });
-                    if( no_previous_success ) {
-                        onBuild({is_abort: true});
-                    }
-                    */
                     return;
                 }
-                /*
-                if( ! doNotGenerateIndexHtml ) {
-                    await build_index_html({compilation_info});
-                }
-                */
                 assert_usage(compilation_info.constructor===Object);
                 assert_internal([true, false].includes(is_success));
                 const compilationInfo = {
@@ -86,11 +70,6 @@ function compile(
                 };
                 assert_compilationInfo(compilationInfo);
                 onCompilationStateChange(compilationInfo);
-                /*
-                if( onBuild && is_success ) {
-                    onBuild({compilationInfo: compilation_info, isFirstBuild: no_previous_success, compilationName});
-                }
-                */
             },
         })
     );
@@ -106,20 +85,6 @@ function compile(
         wait_compilation,
         wait_successfull_compilation,
         compilerId,
-        /*
-        first_successful_build: (async () => {
-            const {compilation_info} = await first_success_promise;
-            assert_internal(compilation_info.is_success===true);
-
-            if( ! doNotGenerateIndexHtml ) {
-                await build_index_html({compilation_info});
-            }
-
-            const compilationInfo = {is_compiling: false, is_failure: false, ...compilation_info};
-            assert_compilationInfo(compilationInfo);
-            return compilationInfo;
-        })(),
-        */
     };
 }
 
@@ -157,13 +122,6 @@ function run({
             assert_internal(compiler__is_running);
             compiler__is_running = false;
 
-            /*
-            if( compilation_info.is_abort ) {
-                on_compilation_end({is_abort: true, no_previous_success});
-                return;
-            }
-            */
-
             assert_internal(compilation_info.webpack_stats);
             assert_internal(compilation_info.is_success.constructor===Boolean);
             assert_internal(compilation_info.output);
@@ -192,27 +150,6 @@ function run({
             }
         },
     });
-
-    /*
-    let stop_compilation;
-    let wait_successfull_compilation;
-    let server_start_promise;
-
-    wait_successfull_compilation = compiler_tools.wait_successfull_compilation;
-    stop_compilation = compiler_tools.stop_compilation;
-    server_start_promise = compiler_tools.server_start_promise;
-
-    return {
-        wait_compilation,
-        wait_successfull_compilation,
-        stop_compilation,
-        first_success_promise: (async () => {
-            assert_tmp(server_start_promise);
-         // await server_start_promise;
-            return await fist_successful_compilation;
-        })(),
-    };
-    */
 }
 
 function setup_compiler_handler({
@@ -313,16 +250,6 @@ function setup_compiler_handler({
 
     return {stop_compilation, wait_compilation, wait_successfull_compilation, server_start_promise};
 
-    /*
-    let webpack_stats = await first_compilation;
-
- // handle_logging({onCompileStart, onCompileEnd, webpack_stats, webpack_config, log_progress, log_config_and_stats});
-
-    webpack_stats = await first_successful_compilation;
-
-    return;
-    */
-
     function get_compilation_info({webpack_stats, is_success}) {
         const dist_info = (
             get_dist_info({
@@ -332,14 +259,10 @@ function setup_compiler_handler({
         );
         assert_internal(dist_info);
 
-        /*
-        const htmlBuilder = get_html_builder({dist_info});
-        */
-
-        return {webpack_stats, is_success, output: dist_info, /*htmlBuilder,*/ ...compiler_handler_return};
+        return {webpack_stats, is_success, output: dist_info, ...compiler_handler_return};
     }
 
-    function webpack_compiler_error_handler(err/*, webpack_stats*/) {
+    function webpack_compiler_error_handler(err) {
         if( err ){
             log_config(webpack_config);
             log('');
@@ -350,46 +273,6 @@ function setup_compiler_handler({
         }
     }
 }
-
-/*
-function handle_logging({onCompileStart, onCompileEnd, webpack_stats: stats__initial, webpack_config, log_progress, log_config_and_stats}) {
-        let is_erroneous = stats__initial.hasErrors();
-
-        if( is_erroneous || log_config_and_stats ) {
-            process.stdout.write('\n');
-            log_config(webpack_config);
-            process.stdout.write('\n');
-            log_webpack_stats(stats__initial);
-        }
-
-        onCompileStart.addListener(() => {
-            if( !log_progress && !is_erroneous ) {
-                return;
-            }
-            const msg = is_erroneous ? 'Retrying' : 'Re-building';
-            process.stdout.write(msg+'... ');
-        });
-
-        onCompileEnd.addListener(stats__new => {
-            const was_erroneous = is_erroneous;
-            is_erroneous = stats__new.hasErrors();
-            if( !log_progress && !is_erroneous ) {
-                return;
-            }
-            if( is_erroneous ) {
-                process.stdout.write('\n');
-                log_stats_errors({webpack_stats: stats__new}));
-                process.stdout.write('\n');
-                return;
-            }
-            const msg = was_erroneous ? 'Success' : 'Done';
-            if( ! is_erroneous ) {
-                const prefix = ''+green_checkmark()+' ';
-                print(prefix+msg);
-            }
-        });
-}
-*/
 
 function get_webpack_compiler(webpack_config, compilationName) {
     let resolve_first_compilation;
@@ -441,8 +324,6 @@ function get_webpack_compiler(webpack_config, compilationName) {
         }
         onCompileEndListeners.forEach(fn => fn({webpack_stats, is_success}));
     });
-
- // webpack_mild_compile(webpack_compiler);
 
     return {webpack_compiler, first_compilation, first_successful_compilation, onCompileStart, onCompileEnd};
 }
@@ -511,75 +392,6 @@ function log_config(config) {
     log(config);
 }
 
-/*
-async function build_index_html({compilation_info}) {
-    const compiler_info = compilation_info;
-    assert_internal(compilation_info.constructor===Object);
-    const {output} = compiler_info;
-    assert_internal(output, compilation_info);
-    const html = await get_generic_html({dist_info: output});
-    assert_internal(html.constructor===String);
-    return write_html_file({dist_info: output, pathname: '/', html});
-}
-
-async function get_generic_html({dist_info}) {
-    const {styles, scripts} = get_index_assets({dist_info});
-    assert(styles.constructor===Array);
-    assert(scripts.constructor===Array);
-
-    const html = await HtmlCrust.renderToHtml({styles, scripts});
-
-    return html;
-}
-
-function get_html_builder({dist_info}) {
-    return ({pathname, html}) => {
-        assert_usage(pathname.startsWith('/'));
-        assert_usage(html && html.constructor===String, html);
-        return write_html_file({dist_info, pathname, html});
-    };
-}
-
-async function write_html_file({dist_info, pathname='/', html}) {
-    assert(dist_info);
-    assert(pathname.startsWith('/'), pathname);
-    assert(html.constructor===String, html);
-
-    const filedir = dist_info.dist_root_directory;
-    assert(filedir, dist_info, filedir);
-    assert(filedir.startsWith('/'));
-
-    const filepath_rel = pathname === '/' ? '/index' : pathname;
-    const filepath = path_module.join(filedir, '.'+filepath_rel+'.html');
-
-    fs__write_file(filepath, html);
-
-    return filepath;
-}
-
-function get_index_assets({dist_info}) {
-    let index_bundle_name;
-    const bundle_names = Object.keys(dist_info.entry_points);
-    if( bundle_names.length === 1 ) {
-        index_bundle_name = bundle_names[0];
-    } else {
-        index_bundle_name = (
-            bundle_names.includes('/') && '/' ||
-            bundle_names.includes('index') && 'index' ||
-            bundle_names.includes('main') && 'main'
-        )
-    }
-    assert_usage(
-        index_bundle_name,
-        dist_info,
-        "Couldn't find assets for `index.html` from output/distribution information printed above.",
-    );
-
-    const {styles, scripts}  = dist_info.entry_points[index_bundle_name];
-    return {styles, scripts};
-}
-*/
-
 function get_dist_info(args) {
     const {config, webpack_stats} = args;
     assert_internal(webpack_stats, args);
@@ -636,10 +448,6 @@ function debug_webpack_stats(webpack_stats) {
 }
 
 function print() {
-    /*
-    readline.clearLine(process.stdout);
-    readline.cursorTo(process.stdout, 0);
-    */
     console.log.apply(console, arguments);
 }
 
@@ -649,11 +457,6 @@ function print_err() {
 
 function get_dist_root_directory({config}) {
     let dist_root_directory = config.output.path;
-    /*
-    if( ! fs__directory_exists(dist_root_directory) ) {
-        return null;
-    }
-    */
     if( ! dist_root_directory.endsWith('/') ) {
         dist_root_directory += '/';
     }
@@ -808,17 +611,7 @@ function get_asset_type(filename, ep) {
 function fs__write_file(file_path, file_content) {
     assert_internal(file_path.startsWith('/'));
     mkdirp.sync(path_module.dirname(file_path));
-    // Using `require('mz/fs').writeFile` breaks error stack trace
     fs.writeFileSync(file_path, file_content);
-}
-
-function fs__directory_exists(path) {
-    try {
-        return fs.statSync(path).isDirectory();
-    }
-    catch(e) {
-        return false;
-    }
 }
 
 function fs__file_exists(path) {
