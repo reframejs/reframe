@@ -19,13 +19,13 @@
 
 ###### Customization & Eject
 
- - [Custom/Eject Server](#custom-eject-server)
+ - [Custom/Eject Server](#customeject-server)
  - [Custom Webpack Config](#custom-webpack-config)
- - [Custom &lt;head&gt;<script>, ...](#TODO)
- - [Custom/Eject Browser Code](#custom-eject-browser-code)
- - [Custom/Advanced Routing](#custom-advanced-routing)
- - [Custom Error Pages (404, 5xx, ...)](#TODO)
- - [Custom/Eject Build](#custom-eject-build)
+ - [Custom <head>, <script>, ...](#custom-head-script-)
+ - [Custom/Eject Browser Code](#customeject-browser-code)
+ - [Custom/Advanced Routing](#customadvanced-routing)
+ - [Custom Error Pages (404, 5xx, ...)](#custom-error-pages-404-5xx-)
+ - [Custom/Eject Build](#customeject-build)
 
 
 ## Getting Started
@@ -225,7 +225,7 @@ Reframe embraces that recommandation by allowing you to write web apps where a m
 
 
 
-## Custom Server
+## Custom/Eject Server
 
 Running the command
 
@@ -262,9 +262,13 @@ to eject the `HapiPluginStaticAssets` plugin and to gain control over the server
 
 
 
+## Custom Webpack Config
+
+TODO
 
 
-## Custom &lt;head&gt;, &lt;script&gt;, ...
+
+## Custom <head>, <script>, ...
 
 Reframe handles the outer part of HTML (including `<head>`, `<!DOCTYPE html`>, `<script>`, etc.) with `@brillout/html-crust`.
 
@@ -276,27 +280,11 @@ We refer to [`@brillout/html-crust`'s documentation](https://github.com/brillout
 
 
 
-
-
-## Custom Error Pages (404, 5xx, ...)
+## Custom/Eject Browser Code
 
 TODO
 
-A 404 page can be implement by using a catch-all route:
 
-~~~js
-import React from 'react';
-
-export default {
-    route: '/:params*',
-    title: 'Not Found',
-    view: props => (
-        <div>
-            The page {props.route.url.pathname} does not seem to exist.
-        </div>
-    ),
-};
-~~~
 
 
 
@@ -373,3 +361,32 @@ It can, for example, be used with [Crossroads.js](https://github.com/millermedei
 
 We refer to the source code of the plugin [`@reframe/crossroads`](/plugins/crossroads) for further information about how to use Reframe with another routing library.
 
+
+
+
+
+## Custom Error Pages (404, 5xx, ...)
+
+TODO
+
+A 404 page can be implement by using a catch-all route:
+
+~~~js
+import React from 'react';
+
+export default {
+    route: '/:params*',
+    title: 'Not Found',
+    view: props => (
+        <div>
+            The page {props.route.url.pathname} does not seem to exist.
+        </div>
+    ),
+};
+~~~
+
+
+
+
+
+## Custom/Eject Build
