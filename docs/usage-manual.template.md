@@ -21,7 +21,7 @@
 
  - [Custom/Eject Server](#customeject-server)
  - [Custom Webpack Config](#custom-webpack-config)
- - [Custom <head>, <script>, ...](#custom-head-script-)
+ - [Custom &lt;head&gt;, &lt;script&gt;, ...](#custom-head-script-)
  - [Custom/Eject Browser Code](#customeject-browser-code)
  - [Custom/Advanced Routing](#customadvanced-routing)
  - [Custom Error Pages (404, 5xx, ...)](#custom-error-pages-404-5xx-)
@@ -268,7 +268,7 @@ TODO
 
 
 
-## Custom <head>, <script>, ...
+## Custom &lt;head&gt;, &lt;script&gt;, ...
 
 Reframe handles the outer part of HTML (including `<head>`, `<!DOCTYPE html`>, `<script>`, etc.) with `@brillout/html-crust`.
 
