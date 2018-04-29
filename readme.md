@@ -112,16 +112,20 @@
 
 <div><p align="center">
     <b>Easy</b>
-    &nbsp;
-    -
-    &nbsp;
+    &nbsp;-&nbsp;
     Create apps with page configs.
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;
+    &nbsp;&nbsp;
+    &nbsp;&nbsp;
     <b>Universal</b>
     &nbsp;-&nbsp;
     Create static and dynamic apps.
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <b>Ejectable</b>&nbsp;-&nbsp;No lock-in.
+    &nbsp;&nbsp;
+    &nbsp;&nbsp;
+    &nbsp;&nbsp;
+    <b>Ejectable</b>
+    &nbsp;-&nbsp;
+    No lock-in.
 </p></div>
 
 <br/>
