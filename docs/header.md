@@ -30,25 +30,25 @@
 [<p align="center"><img src="https://github.com/reframejs/reframe/raw/master/docs/images/logo-with-title.svg?sanitize=true" width=450 height=94 style="max-width:100%;" alt="Reframe"/></p>](https://github.com/reframejs/reframe)
 
 <div><p align="center">
-        Framework to create web apps with React.
+        Framework to create web apps with React
 </p></div>
 
 <div><p align="center">
     <b>Easy</b>
     &nbsp;-&nbsp;
-    Create apps with page configs.
+    Create apps with page configs
     &nbsp;&nbsp;
     &nbsp;&nbsp;
     &nbsp;&nbsp;
     <b>Universal</b>
     &nbsp;-&nbsp;
-    Create static and dynamic apps.
+    Create static and dynamic apps
     &nbsp;&nbsp;
     &nbsp;&nbsp;
     &nbsp;&nbsp;
     <b>Ejectable</b>
     &nbsp;-&nbsp;
-    No lock-in.
+    No lock-in
 </p></div>
 
 <br/>
