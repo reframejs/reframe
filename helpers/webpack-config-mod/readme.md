@@ -7,7 +7,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/helpers/webpack-utils/readme.template.md` instead.
+    Edit `/helpers/webpack-config-mod/readme.template.md` instead.
 
 
 
@@ -22,7 +22,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/helpers/webpack-utils/readme.template.md` instead.
+    Edit `/helpers/webpack-config-mod/readme.template.md` instead.
 
 
 
@@ -37,7 +37,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/helpers/webpack-utils/readme.template.md` instead.
+    Edit `/helpers/webpack-config-mod/readme.template.md` instead.
 
 
 
@@ -52,7 +52,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/helpers/webpack-utils/readme.template.md` instead.
+    Edit `/helpers/webpack-config-mod/readme.template.md` instead.
 
 
 
@@ -67,7 +67,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/helpers/webpack-utils/readme.template.md` instead.
+    Edit `/helpers/webpack-config-mod/readme.template.md` instead.
 
 
 
@@ -90,7 +90,7 @@ Utilities to modify a webpack config.
 ~~~js
 // /example.js
 
-const mod = require('@brillout/webpack-utils'); // npm install @brillout/webpack-config-mod
+const mod = require('@brillout/webpack-config-mod'); // npm install @brillout/webpack-config-mod
 
 const assert = require('reassert');
 const path = require('path');
@@ -170,7 +170,7 @@ console.log("Success");
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/helpers/webpack-utils/readme.template.md` instead.
+    Edit `/helpers/webpack-config-mod/readme.template.md` instead.
 
 
 
@@ -185,7 +185,7 @@ console.log("Success");
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/helpers/webpack-utils/readme.template.md` instead.
+    Edit `/helpers/webpack-config-mod/readme.template.md` instead.
 
 
 
@@ -200,7 +200,7 @@ console.log("Success");
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/helpers/webpack-utils/readme.template.md` instead.
+    Edit `/helpers/webpack-config-mod/readme.template.md` instead.
 
 
 
@@ -215,7 +215,7 @@ console.log("Success");
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/helpers/webpack-utils/readme.template.md` instead.
+    Edit `/helpers/webpack-config-mod/readme.template.md` instead.
 
 
 
@@ -230,7 +230,7 @@ console.log("Success");
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/helpers/webpack-utils/readme.template.md` instead.
+    Edit `/helpers/webpack-config-mod/readme.template.md` instead.
 
 
 
