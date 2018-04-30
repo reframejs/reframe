@@ -246,19 +246,19 @@ At this point you can:
  - Use another server framework such as Express
  - Use a process manager such as PM2
 
-By running the following command you can as well eject the `HapiPluginServerRendering` plugin to gain control over the Server Side Rendering (the dynamic generation of HTML of pages)
+The following command ejects the `HapiPluginServerRendering` plugin to gain control over the Server Side Rendering (the dynamic generation of the pages' HTML)
 
 ~~~shell
 $ reframe eject server-rendering
 ~~~
 
-And you can run the command
+And run
 
 ~~~shell
 $ reframe eject server-assets
 ~~~
 
-to eject the `HapiPluginStaticAssets` plugin and to gain control over the servering of static browser assets such as JavaScript, CSS, images, fonts, etc.
+to eject the `HapiPluginStaticAssets` plugin and to gain control over the serving of static browser assets. (JavaScript files, CSS files, images, fonts, etc.)
 
 
 
@@ -282,17 +282,11 @@ function webpackConfig({
     // For `webpackBrowserConfig` this is the list of (generated) browser entry files
     entries,
 
-    // The directory where the built assets are expected to be.
+    // The directory where the built assets are expected to be
     outputPath,
 
     // Webpack config modifiers provided by the package `@brillout/webpack-config-mod`:
-    setRule,
-    getRule,
-    getEntries,
-    addBabelPreset,
-    addBabelPlugin,
-    modifyBabelConfig,
-};
+    setRule, getRule, getEntries, addBabelPreset, addBabelPlugin, modifyBabelConfig
 }) {
     // Either
     //  - apply modifications to `config` (by using modifiers or manually), or
@@ -305,10 +299,11 @@ function webpackConfig({
 Docs of the `@brillout/webpack-config-mod` config modifiers at [/helpers/webpack-config-mod](/helpers/webpack-config-mod).
 
 Examples:
- - [/examples/custom-webpack](/examples/custom-webpack)
- - [Plugin `@reframe/postcss` source code](/plugins/postcss)
- - [Plugin `@reframe/react` source code](/plugins/react)
- - [Plugin `@reframe/typescript` source code](/plugins/typescript)
+ - Using a modifier [/examples/custom-webpack](/examples/custom-webpack)
+ - Entirely custom config [/examples/custom-webpack-full](/examples/custom-webpack-full)
+ - Source code of [`@reframe/postcss`](/plugins/postcss)
+ - Source code of [`@reframe/react`](/plugins/react)
+ - Source code of [`@reframe/typescript`](/plugins/typescript)
 
 
 
