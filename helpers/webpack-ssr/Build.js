@@ -53,13 +53,14 @@ function BuildInstance() {
     isoBuilder.builder = (function* ({buildForNodejs, buildForBrowser}) {
         that.pageFiles = this.getPageFiles();
 
-        that.pageNames = Object.keys(that.pageFiles);
-
         const nodejsConfig = getNodejsConfig.call(that);
         const nodejsEntryPoints = yield buildForNodejs(nodejsConfig);
         assert_internal(Object.values(nodejsEntryPoints).length>0, nodejsEntryPoints);
 
-        that.pageModules = loadPageModules.call(that, {nodejsEntryPoints});
+        const pageNames = getPageNames.call(that, {nodejsEntryPoints});
+        assert_internal(pageNames.length>0);
+
+        that.pageModules = loadPageModules.call(that, {nodejsEntryPoints, pageNames});
 
         that.pageBrowserEntries = getPageBrowserEntries.call(that);
 
@@ -67,7 +68,7 @@ function BuildInstance() {
         const browserEntryPoints = yield buildForBrowser(browserConfig);
         assert_internal(Object.values(browserEntryPoints).length>0, browserEntryPoints);
 
-        writeAssetMap.call(that, {browserEntryPoints, fileSets, autoReloadEnabled});
+        writeAssetMap.call(that, {browserEntryPoints, fileSets, autoReloadEnabled, pageNames});
 
         yield writeHtmlFiles.call(that, {fileSets});
 
@@ -103,7 +104,7 @@ function getBrowserConfig({fileSets, autoReloadEnabled}) {
 
 function getPageBrowserEntries() {
     const {pageModules} = this;
-    assert_internal(pageModules);
+    assert_internal(pageModules.length>0);
     const pageBrowserEntries__array = this.getPageBrowserEntries(pageModules);
     const pageBrowserEntries = {};
     pageBrowserEntries__array.forEach(pageBrowserEntry => {
@@ -140,6 +141,31 @@ function getNodejsEntries() {
     return server_entries;
 }
 
+function getPageNames({nodejsEntryPoints}) {
+    const entryNames = Object.keys(nodejsEntryPoints);
+    assert_internal(entryNames.length>0);
+
+    const pageNames__files = Object.keys(this.pageFiles);
+    pageNames__files.forEach(pageName => {
+        assert_internal(nodejsEntryPoints[pageName], entryNames, pageName);
+    });
+
+    const pageNames__config = [];
+    entryNames
+    .forEach(entryName => {
+        if( ! pageNames__files.includes(entryName) ) {
+            pageNames__config.push(entryName);
+        }
+    });
+
+    const pageNames = [
+        ...pageNames__files,
+        ...pageNames__config,
+    ];
+    assert_internal(pageNames.length>0);
+    return pageNames;
+}
+
 function addContext(webpackConfig) {
     webpackConfig.context = webpackConfig.context || getUserDir();
     assert_internal(webpackConfig.context);
@@ -153,6 +179,7 @@ function assert_config({config, webpackEntries, outputPath, getterName}) {
         "`"+getterName+"` should return a webpack config but returns `"+config+"` instead."
     );
 
+    /*
     Object.entries(webpackEntries)
     .forEach(([pageName]) => {
         assert_usage(
@@ -160,6 +187,7 @@ function assert_config({config, webpackEntries, outputPath, getterName}) {
             "The config returned by `"+getterName+"` is missing the `"+pageName+"` entry: `config.entry['"+pageName+"']=="+config.entry[pageName]+"`."
         );
     });
+    */
     assert_usage(
         config.output && config.output.path===outputPath,
         "The config returned by `"+getterName+"` has its `output.path` set to `"+(config.output && config.output.path)+"` but it should be `"+outputPath+"` instead."
@@ -179,17 +207,16 @@ function assert_pages_found({nodejsConfig, pageFiles}) {
     );
 }
 
-function loadPageModules({nodejsEntryPoints}) {
+function loadPageModules({nodejsEntryPoints, pageNames}) {
     const pageModules = (
-        this.pageNames
+        pageNames
         .map(pageName => {
             const entryName = pageName;
             const entry_point = nodejsEntryPoints[entryName];
             assert_internal(entry_point);
             const pageFileTranspiled = get_script_dist_path(entry_point);
             const pageExport = forceRequire(pageFileTranspiled);
-            const pageFile = this.pageFiles[pageName];
-            assert_internal(pageFile);
+            const pageFile = this.pageFiles[pageName] || null;
             return {pageName, pageExport, pageFile, pageFileTranspiled};
         })
     );
@@ -283,9 +310,9 @@ async function writeHtmlFiles({fileSets}) {
     }
 }
 
-function writeAssetMap({browserEntryPoints, fileSets, autoReloadEnabled}) {
-    const {pageBrowserEntries, pageNames, pageModules} = this;
-    assert_internal(pageBrowserEntries);
+function writeAssetMap({browserEntryPoints, fileSets, autoReloadEnabled, pageNames}) {
+    const {pageBrowserEntries, pageModules} = this;
+    assert_internal(Object.keys(pageBrowserEntries).length>0);
     assert_internal(pageNames);
 
     const assetInfos = {
@@ -304,6 +331,11 @@ function writeAssetMap({browserEntryPoints, fileSets, autoReloadEnabled}) {
     }
 
     assert_assertMap(assetInfos);
+
+    assert_internal(
+        Object.keys(assetInfos.pageAssets).length>0,
+        assetInfos
+    );
 
     fileSets.writeFile({
         fileContent: JSON.stringify(assetInfos, null, 2),
