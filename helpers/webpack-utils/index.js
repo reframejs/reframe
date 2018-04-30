@@ -1,5 +1,6 @@
 const assert_usage = require('reassert/usage');
 const assert_internal = require('reassert/internal');
+const escapeRegexp = require('lodash.escaperegexp');
 
 const webpackUtils = {getRule, setRule, addBabelPreset, addBabelPlugin, modifyBabelConfig, getEntries};
 
@@ -41,13 +42,18 @@ function getRule(config, filenameExtension, {canBeMissing=false}={}) {
 function setRule(config, filenameExtension, ruleNew) {
     assert_filenameExtension(filenameExtension);
 
+    ruleNew = {...ruleNew};
+    if( ! ruleNew.test ) {
+        ruleNew.test = new RegExp(escapeRegexp(filenameExtension)+'$');
+    }
+
     const dummyFileName = 'dummy'+filenameExtension;
     assert_usage(
         runRuleTest(ruleNew.test, dummyFileName),
         "The new rule to be set doesn't match the filename extension `"+filenameExtension+"`.",
         "The new rule's test is:",
         ruleNew.test,
-        "But it doesn't match a file like `"+dummyFileName+"`."
+        "But it doesn't match the file name `"+dummyFileName+"`."
     );
     const ruleOld = getRule(config, filenameExtension, {canBeMissing: true});
     const rules = getAllRules(config);
@@ -135,6 +141,25 @@ function isBabelLoader(loader) {
 }
 
 function normlizeLoaders(rule) {
+    assert_usage(
+        rule instanceof Object,
+        rule,
+        "Rule found that is not an object",
+        "Make sure all your rules are objects",
+        "The rule in question is printed above"
+    )
+    assert_usage(
+        !rule.loader || !rule.use,
+        rule,
+        "Conflicting format `rule.loader` and `rule.use`.",
+        "Choose either one but not both at the same time.",
+        "Rule in question is printed above."
+    );
+    if( rule.loader) {
+        rule.use = [{loader: rule.loader}];
+        delete rule.loader;
+        return;
+    }
     if( ! rule.use ) {
         rule.use = [];
         return;

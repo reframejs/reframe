@@ -2,10 +2,15 @@
   "name": "@brillout/webpack-utils",
   "version": "0.0.1-rc.21",
   "dependencies": {
+    "lodash.escaperegexp": "^4.1.2",
     "reassert": "^1.1.7"
   },
   "repository": "github:reframejs/reframe",
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "mdocs": "^1.0.0",
+    "reassert": "^1.1.8"
   }
 }
