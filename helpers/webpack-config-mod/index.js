@@ -2,9 +2,9 @@ const assert_usage = require('reassert/usage');
 const assert_internal = require('reassert/internal');
 const escapeRegexp = require('lodash.escaperegexp');
 
-const webpackUtils = {getRule, setRule, addBabelPreset, addBabelPlugin, modifyBabelConfig, getEntries};
+const webpackConfigMod = {setRule, getRule, getEntries, addBabelPreset, addBabelPlugin, modifyBabelConfig};
 
-module.exports = webpackUtils;
+module.exports = webpackConfigMod;
 
 function getRule(config, filenameExtension, {canBeMissing=false}={}) {
     assert_filenameExtension(filenameExtension);

@@ -264,7 +264,52 @@ to eject the `HapiPluginStaticAssets` plugin and to gain control over the server
 
 ## Custom Webpack Config
 
-TODO
+Save a `reframe.config.js` file at your app root directory and use the `webpackBrowserConfig` and `webpackServerConfig` Reframe configs.
+
+~~~js
+// reframe.config.js
+
+module.exports = {
+    webpackBrowserConfig: webpackConfig,
+    webpackServerConfig: webpackConfig,
+};
+
+function webpackConfig({
+    config,
+
+    // Webpack entries
+    // For `webpackServerConfig` this is the list of found page config paths
+    // For `webpackBrowserConfig` this is the list of (generated) browser entry files
+    entries,
+
+    // The directory where the built assets are expected to be.
+    outputPath,
+
+    // Webpack config modifiers provided by the package `@brillout/webpack-config-mod`:
+    setRule,
+    getRule,
+    getEntries,
+    addBabelPreset,
+    addBabelPlugin,
+    modifyBabelConfig,
+};
+}) {
+    // Either
+    //  - apply modifications to `config` (by using modifiers or manually), or
+    //  - return an entirely new config object (by using `entries` and `outputPath`)
+
+    return config;
+}
+~~~
+
+Docs of the `@brillout/webpack-config-mod` config modifiers at [/helpers/webpack-config-mod](/helpers/webpack-config-mod).
+
+Examples:
+ - [/examples/custom-webpack](/examples/custom-webpack)
+ - [Plugin `@reframe/postcss` source code](/plugins/postcss)
+ - [Plugin `@reframe/react` source code](/plugins/react)
+ - [Plugin `@reframe/typescript` source code](/plugins/typescript)
+
 
 
 
