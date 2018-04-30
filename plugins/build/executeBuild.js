@@ -10,7 +10,7 @@ const projectConfig = getProjectConfig();
 const outputDir = projectConfig.projectFiles.buildOutputDir;
 const getPageFiles = () => projectConfig.getPageConfigFiles();
 const getWebpackBrowserConfig = ({config}) => projectConfig.webpackBrowserConfigModifier(config);
-const getWebpackNodejsConfig = ({config}) => projectConfig.webpackServerConfigModifier(config);
+const getWebpackNodejsConfig = ({config}) => projectConfig.webpackNodejsConfigModifier(config);
 const {log, doNotWatchBuildFiles} = projectConfig;
 const {pagesDir} = projectConfig.projectFiles;
 

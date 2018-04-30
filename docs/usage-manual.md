@@ -640,21 +640,21 @@ to eject the `HapiPluginStaticAssets` plugin and to gain control over the server
 
 ## Custom Webpack Config
 
-Save a `reframe.config.js` file at your app root directory and use the `webpackBrowserConfig` and `webpackServerConfig` Reframe configs.
+Save a `reframe.config.js` file at your app root directory and use the `webpackBrowserConfig` and `webpackNodejsConfig` Reframe configs.
 
 ~~~js
 // reframe.config.js
 
 module.exports = {
     webpackBrowserConfig: webpackConfig,
-    webpackServerConfig: webpackConfig,
+    webpackNodejsConfig: webpackConfig,
 };
 
 function webpackConfig({
     config,
 
     // Webpack entries
-    // For `webpackServerConfig` this is the list of found page config paths
+    // For `webpackNodejsConfig` this is the list of found page config paths
     // For `webpackBrowserConfig` this is the list of (generated) browser entry files
     entries,
 

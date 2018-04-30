@@ -10,7 +10,7 @@ function ts({loaderOptions={transpileOnly: true}, dontUseForkChecker=false, fork
     return {
         name: require('./package.json').name,
         webpackBrowserConfig: webpackMod,
-        webpackServerConfig: webpackMod,
+        webpackNodejsConfig: webpackMod,
     };
     function webpackMod({config}) {
         add_typescript(config, {loaderOptions, dontUseForkChecker, forkCheckerOptions});

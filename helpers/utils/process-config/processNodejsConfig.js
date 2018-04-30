@@ -94,7 +94,7 @@ function processNodejsConfig({reframeConfig, extraPlugins}) {
 // Here we assemble several webpack config modifiers into one supra modifier
 function get_webpack_config_modifiers(_processed, r_objects) {
     _processed.webpackBrowserConfigModifier = assemble_modifiers('webpackBrowserConfig');
-    _processed.webpackServerConfigModifier = assemble_modifiers('webpackServerConfig');
+    _processed.webpackNodejsConfigModifier = assemble_modifiers('webpackNodejsConfig');
 
     return;
 

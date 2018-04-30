@@ -13,7 +13,7 @@ function react() {
             RepageRendererReact,
         ],
         webpackBrowserConfig: webpackMod,
-        webpackServerConfig: webpackMod,
+        webpackNodejsConfig: webpackMod,
     };
 
     function webpackMod({config, setRule, getRule, addBabelPreset}) {

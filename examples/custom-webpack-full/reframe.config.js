@@ -29,7 +29,7 @@ const webpackBrowserConfig = () => ({
     module: {rules},
 });
 
-const webpackServerConfig = () => ({
+const webpackNodejsConfig = () => ({
     entry: '../../../basics/pages/CounterPage.js',
     target: 'node',
     output: {
@@ -40,4 +40,4 @@ const webpackServerConfig = () => ({
     module: {rules},
 });
 
-module.exports = {webpackBrowserConfig, webpackServerConfig};
+module.exports = {webpackBrowserConfig, webpackNodejsConfig};
