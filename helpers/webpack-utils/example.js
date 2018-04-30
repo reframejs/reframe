@@ -1,8 +1,6 @@
 const mod = require('.'); // npm install @brillout/webpack-config-mod
 
-const deepEqual = require('deep-equal');
 const assert = require('reassert');
-const log = require('reassert/log');
 const path = require('path');
 
 const config = {

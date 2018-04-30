@@ -89,9 +89,7 @@ Utilities to modify a webpack config.
 
 const mod = require('@brillout/webpack-utils'); // npm install @brillout/webpack-config-mod
 
-const deepEqual = require('deep-equal');
 const assert = require('reassert');
-const log = require('reassert/log');
 const path = require('path');
 
 const config = {
