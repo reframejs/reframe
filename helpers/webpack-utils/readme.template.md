@@ -1,9 +1,12 @@
 Utilities to modify a webpack config.
 
-# `@brillout/webpack-config-mod`
+## `@brillout/webpack-config-mod`
+
+##### Contents
 
  - [Usage Example](#usage-example)
- - [API](#API)
+ - [API](#api)
+
 
 ### Usage Example
 
@@ -14,25 +17,25 @@ Utilities to modify a webpack config.
 ### API
 
  - `setRule(config, filenameExtension, newRule)`
- <br/>
- Add or modify the rule that matches file names ending with `filenameExtension`.
+   <br/>
+   Add or modify the rule that matches file names ending with `filenameExtension`.
 
  - `getRule(config, filenameExtension, {canBeMissing=false}={})`
- <br/>
- Get the rule that matches file names ending with `filenameExtension`.
+   <br/>
+   Get the rule that matches file names ending with `filenameExtension`.
 
  - `getEntries(config)`
- <br/>
- Get all the entries of `config`.
+   <br/>
+   Get all the entries of `config`.
 
  - `addBabelPlugin(config, babelPlugin)`
- <br/>
- Add a babel plugin to all `babel-loader` loaders' options object.
+   <br/>
+   Add a babel plugin to all `babel-loader` loaders' options object.
 
  - `addBabelPreset(config, babelPreset)`
- <br/>
- Add a babel preset to all `babel-loader` loaders' options object.
+   <br/>
+   Add a babel preset to all `babel-loader` loaders' options object.
 
  - `modifyBabelConfig(config, action)`
- <br/>
- Apply the `action` function to all `babel-loader` loaders' options object.
+   <br/>
+   Apply the `action` function to all `babel-loader` loaders' options object.
