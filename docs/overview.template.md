@@ -24,9 +24,10 @@ It automatically transpiles, bundles, routes, renders, and serves your pages.
 
 ~~~jsx
 // A page config example
+
 const WelcomePage = {
-  route: '/', // Page's URL
-  view: () => <div>Welcome to Reframe</div>, // Page's React component
+  route: '/',
+  view: () => <div>Welcome to Reframe</div>,
   title: 'Welcome' // Page's <title>
 };
 
@@ -34,29 +35,32 @@ export default WelcomePage;
 ~~~
 
 A *page config* is a plain JavaScript object that configures a page by assigning it
- - a React component (required),
- - a route (required), and
+ - a React component,
+ - a route, and
  - further optional page configurations
 
 You can create a React web app with **no build configuration** and **no server configuration**.
 
 > All you need to create a web app is one React component and one page config per page.
 
+<br/>
+
 Yet, **everything is customizable/ejectable**.
 
 For example, the command `reframe eject server` ejects the server code:
-It will copy the server code from Reframe's codebase to your codebase.
+The server code is copied from Reframe's codebase to your codebase.
 Giving you control over the server code allowing you to add API endpoints, change the server config, use a process manager, etc.
 
-There are several eject commands to eject server code, build code, and browser code.
-
-You can apply eject commands one by one and progressively as the need arises.
+There are several eject commands that you can apply one by one and progressively as the need arises.
 
 If you run all eject commands then you effectively get rid of Reframe.
 
 > Rreframe doesn't lock you in: You can progressively and fully eject Reframe.
 
-Let's create a web app by defining a page config `HelloPage`:
+<br/>
+
+In the following we create a web app
+by defining a page config `HelloPage`.
 
 ~~~jsx
 // ~/my-app/pages/HelloPage.config.js
@@ -70,8 +74,27 @@ Reframe does the rest:
     <img src='https://github.com/reframejs/reframe/raw/master/docs/images/reframe_overview_screenshot.png?sanitize=true' width=1200 style="max-width:100%;"/>
 </p>
 
+<br/>
+
 Page configs have two options `htmlStatic: true` and `domStatic: true`
 that allow you to create a wide variety of apps:
+
+ - `htmlStatic: true`
+   <br/>
+   Render the page's HTML at build-time (and not at request-time).
+   <br/>
+   Render the page's HTML once The user loads the page.
+   Every time the user requests a page, the page's HTML is rerendered. 
+   Your pages are rendered to HTML every time the user
+ - `domStatic: true`
+   <br/>
+   Only render 
+   Besides being rendered to HTML your pages are as well rendered to the DOM in the browser
+   Your pages are rendered in the browser allowing you to create interactive views:
+   Views that change depending on user actions.
+   By setting `domStatic: false` 
+
+Allowing you to create
 
  - **Modern interactive apps** <sup><sub>:sparkles:</sub></sup>
    <br/>
@@ -119,12 +142,12 @@ that allow you to create a wide variety of apps:
 - **Server-Side Rendering** (**SSR**) for SEO and improved speed
   <br/>
   By default all pages are rendered to HTML on the server
-  (and hydrated in the browser).
+  and hydrated in the browser.
   <br/>
   Giving you full control over SEO and improving the user perceived load time.
 - **React Router**
   <br/>
-  The page config's `route` string syntax is the same than in React Router v4.
+  The syntax of the page config's `route` string is the same than in React Router v4.
   <br/>
   And by adding the [@reframe/react-router](/plugins/react-router) plugin
   you can use React Router's components `<Route>`, `<Switch>`, etc.
@@ -136,33 +159,39 @@ that allow you to create a wide variety of apps:
   Add the [@reframe/postcss](/plugins/postcss) plugin to write modern CSS.
 - **Webpack**
   <br/>
-  Reframe uses webpack to build the app's pages ([webpack.js.org](https://webpack.js.org/)).
-  Webpack is the state of the art tool to build browser assets.
+  Reframe uses webpack to build the app's pages.
+  Webpack
+  ([webpack.js.org](https://webpack.js.org/))
+  is the state of the art to build browser assets.
 - **Hapi**
   <br/>
-  Reframe uses hapi to create the server ([hapijs.com](https://hapijs.com/)).
-  Hapi is known for its robustness and scalability.
+  Reframe uses hapi to create the server.
+  Hapi
+  ([hapijs.com](https://hapijs.com/))
+  is known for its robustness and scalability.
 - **Code-splitting** for improved speed
   <br/>
-  Pages load two scripts:
+  By default a page loads two scripts:
   One script that is shared and cached across all pages
-  (including React, polyfills, etc.)
+  (that includes React, polyfills, etc.)
   and a second script that includes the React components of the page.
-  A KB-heavy page won't affect the KB-size of other pages.
+  That way, a page only loads what it needs.
 - **Static DOM** for improved speed
   <br/>
   When setting `domStatic: true` to a page config, the page is not hydrated.
   (In other words, the page's view is not rendered to the DOM but only rendered to HTML.)
-  Not only is computational time saved by skiping rendering to the DOM but also load time is saved by skipping loading heavy JavaScript code.
+  Not only is computational time saved by skiping rendering to the DOM but also load time is saved by skipping loading JavaScript code.
 - **Optimal HTTP caching** for improved speed
   <br/>
-  Every dynamic server response is cached with a ETag header,
-  and every static server response is indefinitely cached.
-  (Static assets are served under hashed URLs with the `Cache-Control` header set to `immutable` and `max-age`'s maximum value.)
+  Every dynamic server response is cached with a ETag header.
+  And every static server response is indefinitely cached.
+  (A static asset is served under a URL that contains the assets' hash
+  and is served with the `Cache-Control` header set to `immutable` and `max-age`'s maximum value.)
 - **Static Rendering** for improved speed
   <br/>
   When setting `htmlStatic: true` to a page config, the page is rendered to HTML at build-time (instead of request-time).
-  The page's HTML is rendered only once and served statically for decreased load time.
+  The page's HTML is rendered only once, when Reframe is building the pages, and is served statically.
+  Decreasing load time.
 
 ### Quick Start
 

@@ -11,8 +11,7 @@ const HelloComponent = (
 );
 
 const HelloPage = {
-  // Parameterized route
-  route: '/hello/:name',
+  route: '/hello/:name', // Parameterized route
   view: HelloComponent,
   title: 'Hi there',
 };
