@@ -83,7 +83,6 @@ Page configs have two options `htmlStatic: true` and `domStatic: true`.
    Render the page to HTML at build-time (instead of request-time).
    <br/>
    By default a page is (re-)rendered to HTML every time the user loads the page.
-   <br/>
    By setting `htmlStatic: true` the page is rendered to HTML only once when Reframe is builing your app's pages.
  - `domStatic: true`
    <br/>
@@ -91,7 +90,6 @@ Page configs have two options `htmlStatic: true` and `domStatic: true`.
    <br/>
    By default a page is rendered twice: On the server to HTML and in the browser to the DOM.
    (React components can be rendered to HTML as well as to the DOM.)
-   <br/>
    By setting `domStatic: true` the page is only rendered to HTML.
 
 Allowing you to create
@@ -100,16 +98,15 @@ Allowing you to create
    <br/>
    Pages are rendered in the browser.
    <br/>
-   Pages are rendered in the browser to the DOM allowing you to create pages with interactive views.
+   The DOM is dynamic allowing you create interactive views, in other words views that update in the browser (without having to reload an entire new page).
    <br/>
    This is the default.
-
  - **Good ol' 1998 websites** <sup><sub>:floppy_disk:</sub></sup>
    <br/>
-   Pages are only rendered to HTML on the server.
+   Pages are rendered to HTML on the server.
    <br/>
    Pages are not rendered in the browser.
-   No (or almost no) JavaScript is loaded in the browser.
+   The browser doesn't load any (or almost no) JavaScript.
    <br/>
    Opt-in by setting `domStatic: true` to all your page configs.
  - **Serverless apps**
