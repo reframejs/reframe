@@ -76,7 +76,7 @@ Reframe does the rest:
 
 <br/>
 
-Page configs have two options `htmlStatic: true` and `domStatic: true`.
+Page configs have the options
 
  - `htmlStatic: true`
    <br/>
@@ -115,12 +115,12 @@ Allowing you to create
    <br/>
    All pages are rendered to HTML only when Reframe is building and are served statically.
    <br/>
-   These apps don't need a Node.js server and can be deployed to a static host such as GitHub Pages or Netlify.
+   Such app doen't need a Node.js server and can be deployed to a static host such as GitHub Pages or Netlify.
    <br/>
    Opt-in by setting `htmlStatic: true` to all your page configs.
  - **Hybrid apps**
    <br/>
-   Pages have different types.
+   Pages with different types.
    <br/>
    Some pages are DOM-static, some DOM-dynamic, some HTML-static, and some HTML-dynamic.
    <br/>
@@ -132,9 +132,9 @@ Allowing you to create
 
 > With Reframe you can create dynamics apps, static apps, and hybrid apps.
 
-Changing between one of these app types merely means to add/remove `htmlStatic: true`/`domStatic: true` to your page configs.
+Changing the type of your app is merely a matter of adding/removing `htmlStatic: true`/`domStatic: true` to your page configs.
 
-> With Reframe you can start writing your app and later decide the type of your app.
+> With Reframe you can start writing your app and only later decide the type of your app.
 
 <br/>
 

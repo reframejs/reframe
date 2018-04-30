@@ -116,11 +116,9 @@
     Create apps with page configs
     &nbsp;&nbsp;
     &nbsp;&nbsp;
-    &nbsp;&nbsp;
     <b>Universal</b>
     &nbsp;-&nbsp;
-    Create static and dynamic apps
-    &nbsp;&nbsp;
+    Create static, dynamic and hybrid apps
     &nbsp;&nbsp;
     &nbsp;&nbsp;
     <b>Ejectable</b>
