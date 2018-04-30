@@ -76,56 +76,54 @@ Reframe does the rest:
 
 <br/>
 
-Page configs have two options `htmlStatic: true` and `domStatic: true`
-that allow you to create a wide variety of apps:
+Page configs have two options `htmlStatic: true` and `domStatic: true`.
 
  - `htmlStatic: true`
    <br/>
-   Render the page's HTML at build-time (and not at request-time).
+   Render the page to HTML at build-time (instead of request-time).
    <br/>
-   Render the page's HTML once The user loads the page.
-   Every time the user requests a page, the page's HTML is rerendered. 
-   Your pages are rendered to HTML every time the user
+   By default a page is (re-)rendered to HTML every time the user loads the page.
+   <br/>
+   By setting `htmlStatic: true` the page is rendered to HTML only once when Reframe is builing your app's pages.
  - `domStatic: true`
    <br/>
-   Only render 
-   Besides being rendered to HTML your pages are as well rendered to the DOM in the browser
-   Your pages are rendered in the browser allowing you to create interactive views:
-   Views that change depending on user actions.
-   By setting `domStatic: false` 
+   Do not render the page in the browser.
+   <br/>
+   By default a page is rendered twice: On the server to HTML and in the browser to the DOM.
+   (React components can be rendered to HTML as well as to the DOM.)
+   <br/>
+   By setting `domStatic: true` the page is only rendered to HTML.
 
 Allowing you to create
 
  - **Modern interactive apps** <sup><sub>:sparkles:</sub></sup>
    <br/>
-   Apps with a dynamic DOM.
+   Pages are rendered in the browser.
    <br/>
-   You create React components to implement interactive views.
+   Pages are rendered in the browser to the DOM allowing you to create pages with interactive views.
+   <br/>
+   This is the default.
+
  - **Good ol' 1998 websites** <sup><sub>:floppy_disk:</sub></sup>
    <br/>
-   Apps with a static DOM.
+   Pages are only rendered to HTML on the server.
    <br/>
-   You create React components to generate HTML.
-   <br/>
+   Pages are not rendered in the browser.
    No (or almost no) JavaScript is loaded in the browser.
-   <br/>
-   (Besides being used to create interative views in the browser, React can as well be used as a powerful HTML template engine on the server.)
    <br/>
    Opt-in by setting `domStatic: true` to all your page configs.
  - **Serverless apps**
    <br/>
-   Apps with static HTML.
+   Pages are rendered to HTML at build-time.
    <br/>
-   The HTML of all pages are rendered statically at build-time.
-   <br/>
-   The DOM can be static (static website) or dynamic (serverless interactive app).
+   All pages are rendered to HTML only when Reframe is building and are served statically.
    <br/>
    These apps don't need a Node.js server and can be deployed to a static host such as GitHub Pages or Netlify.
    <br/>
    Opt-in by setting `htmlStatic: true` to all your page configs.
  - **Hybrid apps**
    <br/>
-   Apps with both static and dynamic HTML/DOM.
+   Pages have different types.
    <br/>
    Some pages are DOM-static, some DOM-dynamic, some HTML-static, and some HTML-dynamic.
    <br/>
@@ -136,6 +134,12 @@ Allowing you to create
    Opt-in by setting `htmlStatic: true` / `domStatic: true` to some of your page configs.
 
 > With Reframe you can create dynamics apps, static apps, and hybrid apps.
+
+Changing between one of these app types merely means to add/remove `htmlStatic: true`/`domStatic: true` to your page configs.
+
+> With Reframe you can start writing your app and later decide the type of your app.
+
+<br/>
 
 ### Tech Specs
 
@@ -192,6 +196,8 @@ Allowing you to create
   When setting `htmlStatic: true` to a page config, the page is rendered to HTML at build-time (instead of request-time).
   The page's HTML is rendered only once, when Reframe is building the pages, and is served statically.
   Decreasing load time.
+
+<br/>
 
 ### Quick Start
 
