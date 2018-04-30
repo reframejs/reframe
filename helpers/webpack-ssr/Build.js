@@ -9,7 +9,7 @@ const forceRequire = require('./utils/forceRequire');
 const getUserDir = require('@brillout/get-user-dir');
 const getDefaultBrowserConfig = require('./getDefaultBrowserConfig');
 const getDefaultNodejsConfig = require('./getDefaultNodejsConfig');
-const webpackUtils = require('@brillout/webpack-utils');
+const webpackConfigMod = require('@brillout/webpack-config-mod');
 const handleOutputDir = require('./handleOutputDir');
 const FileSets = require('@brillout/file-sets');
 
@@ -83,7 +83,7 @@ function getNodejsConfig() {
     const nodejsEntries = getNodejsEntries.call(this);
     const nodejsOutputPath = pathModule.resolve(this.outputDir, NODEJS_OUTPUT);
     const defaultNodejsConfig = getDefaultNodejsConfig({entries: nodejsEntries, outputPath: nodejsOutputPath, filename: '[name]-nodejs.js'});
-    const nodejsConfig = this.getWebpackNodejsConfig({config: defaultNodejsConfig, entries: nodejsEntries, outputPath: nodejsOutputPath, ...webpackUtils});
+    const nodejsConfig = this.getWebpackNodejsConfig({config: defaultNodejsConfig, entries: nodejsEntries, outputPath: nodejsOutputPath, ...webpackConfigMod});
     assert_config({config: nodejsConfig, webpackEntries: nodejsEntries, outputPath: nodejsOutputPath, getterName: 'getWebpackNodejsConfig'});
     assert_pages_found({nodejsConfig, pageFiles: this.pageFiles});
     addContext(nodejsConfig);
@@ -95,7 +95,7 @@ function getBrowserConfig({fileSets, autoReloadEnabled}) {
     const browserEntries = getBrowserEntries({generatedEntries, autoReloadEnabled});
     const browserOutputPath = pathModule.resolve(this.outputDir, BROWSER_OUTPUT);
     const defaultBrowserConfig = getDefaultBrowserConfig({entries: browserEntries, outputPath: browserOutputPath});
-    const browserConfig = this.getWebpackBrowserConfig({config: defaultBrowserConfig, entries: browserEntries, outputPath: browserOutputPath, ...webpackUtils});
+    const browserConfig = this.getWebpackBrowserConfig({config: defaultBrowserConfig, entries: browserEntries, outputPath: browserOutputPath, ...webpackConfigMod});
     assert_config({config: browserConfig, webpackEntries: browserEntries, outputPath: browserOutputPath, getterName: 'getWebpackBrowserConfig'});
     addContext(browserConfig);
     return browserConfig;
@@ -167,7 +167,7 @@ function assert_config({config, webpackEntries, outputPath, getterName}) {
 }
 
 function assert_pages_found({nodejsConfig, pageFiles}) {
-    const entries = webpackUtils.getEntries(nodejsConfig);
+    const entries = webpackConfigMod.getEntries(nodejsConfig);
     const entryNames = Object.keys(entries);
     assert_usage(
         Object.keys(pageFiles).length>0 || entryNames.length>0,

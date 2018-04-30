@@ -5,7 +5,7 @@
   "dependencies": {
     "@brillout/file-sets": "0.0.1-rc.21",
     "@brillout/get-user-dir": "^0.1.2",
-    "@brillout/webpack-utils": "0.0.1-rc.21",
+    "@brillout/webpack-config-mod": "0.0.1-rc.21",
     "@rebuild/build": "0.0.1-rc.21",
     "@rebuild/config": "0.0.1-rc.21",
     "@rebuild/iso": "0.0.1-rc.21",

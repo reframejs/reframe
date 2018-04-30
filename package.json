@@ -33,7 +33,7 @@
         "helpers/utils",
         "helpers/cli",
         "helpers/webpack-ssr",
-        "helpers/webpack-utils",
+        "helpers/webpack-config-mod",
         "helpers/file-sets",
         "helpers/repage/core/core",
         "helpers/repage/core/build",

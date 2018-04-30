@@ -1,5 +1,5 @@
 {
-  "name": "@brillout/webpack-utils",
+  "name": "@brillout/webpack-config-mod",
   "version": "0.0.1-rc.21",
   "scripts": {
     "docs": "mdocs"

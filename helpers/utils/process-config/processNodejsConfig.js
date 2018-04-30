@@ -68,7 +68,7 @@ const assert_plugin = assert_usage;
 const path_module = require('path');
 const {get_r_objects, get_repage_plugins} = require('./process_common');
 const get_project_files = require('./get_project_files');
-const webpackUtils = require('@brillout/webpack-utils');
+const webpackConfigMod = require('@brillout/webpack-config-mod');
 
 module.exports = {processNodejsConfig};
 
@@ -113,7 +113,7 @@ function get_webpack_config_modifiers(_processed, r_objects) {
             const previous_modifier = supra_modifier;
             supra_modifier = (
                 config =>
-                    modifier({...webpackUtils, config: previous_modifier(config)})
+                    modifier({...webpackConfigMod, config: previous_modifier(config)})
             );
         });
 
