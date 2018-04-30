@@ -2,7 +2,9 @@ module.exports = {
     webpackBrowserConfig,
 };
 
-function webpackBrowserConfig({config}) {
+function webpackBrowserConfig({
+    config,
+}) {
     const cssRule = {
         test: /\.css$/,
         use: [

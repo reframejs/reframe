@@ -1,0 +1,17 @@
+{
+  "name": "examples_custom-webpack",
+  "private": true,
+  "dependencies": {
+    "@reframe/react-kit": "0.0.1-rc.21",
+    "css-loader": "^0.28.9",
+    "postcss-cssnext": "^3.0.2",
+    "postcss-loader": "^2.0.10",
+    "react": "^16.1.1",
+    "style-loader": "^0.19.1",
+    "sugarss": "^1.0.1"
+  },
+  "checkDeps": {
+    "skip": true
+  },
+  "version": "0.0.1-rc.21"
+}

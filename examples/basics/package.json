@@ -1,5 +1,5 @@
 {
-  "name": "__reframe_examples_basic",
+  "name": "examples-basic",
   "private": true,
   "version": "0.0.1-rc.21",
   "dependencies": {

@@ -24,9 +24,12 @@
         "plugins/react-router",
         "plugins/start",
         "plugins/typescript",
+
         "examples/basics",
         "examples/partial-dom-dynamic",
         "examples/custom",
+        "examples/custom-webpack",
+
         "helpers/utils",
         "helpers/cli",
         "helpers/webpack-ssr",
