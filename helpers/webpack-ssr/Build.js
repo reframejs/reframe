@@ -179,7 +179,7 @@ function assert_config({config, webpackEntries, outputPath, getterName}) {
         "`"+getterName+"` should return a webpack config but returns `"+config+"` instead."
     );
 
-    /*
+    /* TODO
     Object.entries(webpackEntries)
     .forEach(([pageName]) => {
         assert_usage(

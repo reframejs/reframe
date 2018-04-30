@@ -4,6 +4,7 @@ const assert_internal = require('reassert/internal');
 module.exports = assert_pageConfig;
 
 function assert_pageConfig(pageConfig, pageConfigPath) {
+/* TODO
     assert_internal(pageConfigPath);
     assert_usage(
         pageConfig && pageConfig.constructor===Object,
@@ -15,4 +16,5 @@ function assert_pageConfig(pageConfig, pageConfigPath) {
         pageConfig,
         "The page config, printed above and defined at `"+pageConfigPath+"`, is missing the `route` property."
     );
+*/
 }
