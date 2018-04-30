@@ -4,30 +4,35 @@ module.exports = {
 
 function webpackBrowserConfig({
     config,
+    setRule,
+    // Utilities from `@brillout/webpack-utils` are included:
+    // - getRule
+    // - setRule
+    // - addBabelPreset
+    // - addBabelPlugin
+    // - modifyBabelConfig
+    // - getEntries
+    // `@brillout/webpack-utils` docs: https://github.com/reframejs/reframe/tree/master/helpers/webpack-utils
 }) {
-    const cssRule = {
-        test: /\.css$/,
-        use: [
-            'style-loader',
-            'css-loader',
-            {
-                loader: 'postcss-loader',
-                options: {
-                    plugins: [
-                        require('postcss-cssnext')(),
-                    ],
-                    parser: 'sugarss'
+    setRule(
+        config,
+        '.css', {
+            test: /\.css$/,
+            use: [
+                'style-loader',
+                'css-loader',
+                {
+                    loader: 'postcss-loader',
+                    options: {
+                        plugins: [
+                            require('postcss-cssnext')(),
+                        ],
+                        parser: 'sugarss'
+                    }
                 }
-            }
-        ]
-    };
-
-    const cssRuleIndex = (
-        config.module.rules
-        .findIndex(({test: testRegExp}) => testRegExp.test('dummy-name.css'))
+            ]
+        }
     );
-
-    config.module.rules[cssRuleIndex] = cssRule;
 
     return config;
 }

@@ -6,9 +6,11 @@ const webpackUtils = {getRule, setRule, addBabelPreset, addBabelPlugin, modifyBa
 module.exports = webpackUtils;
 
 function getRule(config, filenameExtension, {canBeMissing=false}={}) {
+    assert_filenameExtension(filenameExtension);
+
     const rules = getAllRules(config);
 
-    const dummyFileName = 'dummy.'+filenameExtension;
+    const dummyFileName = 'dummy'+filenameExtension;
 
     const rulesFound = (
         rules
@@ -37,7 +39,9 @@ function getRule(config, filenameExtension, {canBeMissing=false}={}) {
 }
 
 function setRule(config, filenameExtension, ruleNew) {
-    const dummyFileName = 'dummy.'+filenameExtension;
+    assert_filenameExtension(filenameExtension);
+
+    const dummyFileName = 'dummy'+filenameExtension;
     assert_usage(
         runRuleTest(ruleNew.test, dummyFileName),
         "The new rule to be set doesn't match the filename extension `"+filenameExtension+"`.",
@@ -54,6 +58,13 @@ function setRule(config, filenameExtension, ruleNew) {
     const ruleIndex = rules.indexOf(ruleOld);
     assert_internal(ruleIndex>=0, rules, ruleOld);
     rules[ruleIndex] = ruleNew;
+}
+
+function assert_filenameExtension(filenameExtension) {
+    assert_usage(
+        (filenameExtension||{}).startsWith && filenameExtension.startsWith('.'),
+        'The filename extension should be a string starting with `.` but we got: `'+filenameExtension+'`'
+    );
 }
 
 function modifyBabelConfig(config, action) {
