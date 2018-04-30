@@ -5,12 +5,12 @@ const rules = [
             loader: 'babel-loader',
             options: {
                 presets: [
-                    'babel-preset-react',
-                    'babel-preset-env',
-                ].map(require.resolve),
+                    require.resolve('babel-preset-react'),
+                    require.resolve('babel-preset-env'),
+                ],
                 plugins: [
-                    'babel-plugin-transform-object-rest-spread'
-                ].map(require.resolve),
+                    require.resolve('babel-plugin-transform-object-rest-spread')
+                ],
             }
         },
         exclude: [/node_modules/],
@@ -19,8 +19,8 @@ const rules = [
 
 const webpackBrowserConfig = () => ({
     entry: [
-        'babel-polyfill',
-        '../../../basics/pages/CounterPage.entry.js',
+        require.resolve('babel-polyfill'),
+        '../basics/pages/counter/CounterPage-entry.js',
     ],
     output: {
         publicPath: '/',
@@ -30,11 +30,11 @@ const webpackBrowserConfig = () => ({
 });
 
 const webpackNodejsConfig = () => ({
-    entry: '../../../basics/pages/CounterPage.js',
+    entry: '../basics/pages/counter/CounterPage.config.js',
     target: 'node',
     output: {
         publicPath: '/',
-        path: __dirname+'/dist/server',
+        path: __dirname+'/dist/nodejs',
         libraryTarget: 'commonjs2'
     },
     module: {rules},
