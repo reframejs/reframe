@@ -74,6 +74,14 @@ function assert_filenameExtension(filenameExtension) {
 }
 
 function modifyBabelConfig(config, action) {
+    const babelLoaders = getBabelLoaders(config);
+
+    babelLoaders.forEach(babelLoader => {
+        action(babelLoader);
+    });
+}
+
+function getBabelLoaders(config) {
     const rules = getAllRules(config);
 
     rules.forEach(rule => {
@@ -84,25 +92,35 @@ function modifyBabelConfig(config, action) {
 
     assert_usage(
         rulesFound.length>0,
-        "No rule that uses babel-loader found."
+        "No rule found that uses `babel-loader`."
     );
+
+    let babelLoaders = [];
 
     rulesFound
     .forEach(rule => {
-        let babelLoaderFound;
+        let babelLoader;
         rule.use.forEach(loader => {
             if( isBabelLoader(loader) ) {
                 assert_usage(
-                    !babelLoaderFound,
+                    !babelLoader,
+                    "Wrong rule:",
                     rule,
                     'More than one babel loader found but we expect only one.',
-                    'Rule in question is printed above.'
+                    'Wrong rule in question is printed above.'
                 );
-                babelLoaderFound = true;
-                action(loader);
+                babelLoader = loader;
             }
-        })
-    })
+        });
+        if( babelLoader ) {
+            babelLoaders.push(babelLoader);
+        }
+    });
+
+    assert_internal(babelLoaders.length>0);
+
+    return babelLoaders;
+
 }
 
 function addBabelPreset(config, babelPreset) {
@@ -143,17 +161,19 @@ function isBabelLoader(loader) {
 function normlizeLoaders(rule) {
     assert_usage(
         rule instanceof Object,
+        "Malformatted rule:",
         rule,
         "Rule found that is not an object",
         "Make sure all your rules are objects",
-        "The rule in question is printed above"
+        "Malformatted rule in question is printed above"
     )
     assert_usage(
         !rule.loader || !rule.use,
+        "Malformatted rule:",
         rule,
         "Conflicting format `rule.loader` and `rule.use`.",
         "Choose either one but not both at the same time.",
-        "Rule in question is printed above."
+        "Malformatted rule in question is printed above."
     );
     if( rule.loader) {
         rule.use = [{loader: rule.loader}];
@@ -169,9 +189,10 @@ function normlizeLoaders(rule) {
         return;
     }
     assert_usage(
+        "Malformatted rule:",
         Array.isArray(rule.use) || rule.use instanceof Object,
         "Unexpected rule format: `rule.use` should be an array or object.",
-        "Rule in question:",
+        "Malformatted rule in question:",
         rule
     );
     rule.use = (
@@ -186,9 +207,10 @@ function normlizeLoaders(rule) {
             }
             assert_usage(
                 false,
+                "Malformatted loader:",
+                loader,
                 "Unexpected rule.use[i] format: `rule.use[i]` should either be a string or have a `rule.use[i].loader` string.",
-                "Loader in question:",
-                loader
+                "Malformatted loader in question is printed above."
             );
         })
     );

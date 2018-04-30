@@ -1,13 +1,12 @@
-const webpackConfigMod = require('.'); // npm install @brillout/webpack-config-mod
+const mod = require('.'); // npm install @brillout/webpack-config-mod
 
 const deepEqual = require('deep-equal');
 const assert = require('reassert');
 const log = require('reassert/log');
 const path = require('path');
 
-
-const myWebpackConfig = {
-    entry: './path/to/my/entry/file.js',
+const config = {
+    entry: './path/to/entry-file.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'my-first-webpack.bundle.js'
@@ -17,36 +16,30 @@ const myWebpackConfig = {
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                /*
                 use: [
-                ],
-                */
-                loader: 'babel-loader',
-                options: {
-                    presets: ['babel-preset-env']
-                },
-            },
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            presets: ['babel-preset-env']
+                        }
+                    }
+                ]
+            }
         ]
     }
 };
 
-webpackConfigMod.setRule(myWebpackConfig, '.css', {use: ['style-loader', 'css-loader']});
+mod.setRule(config, '.css', {use: ['style-loader', 'css-loader']});
+mod.addBabelPreset(config, 'babel-preset-react');
+mod.addBabelPlugin(config, 'babel-plugin-transform-decorators');
 
-webpackConfigMod.addBabelPreset(myWebpackConfig, 'babel-preset-react');
-webpackConfigMod.addBabelPlugin(myWebpackConfig, 'babel-plugin-transform-decorators');
+const jsRule = mod.getRule(config, '.js');
+const babelLoader = jsRule.use.find(({loader}) => loader==='babel-loader');
+assert(babelLoader.options.presets.includes('babel-preset-env'));
+assert(babelLoader.options.presets.includes('babel-preset-react'));
+assert(babelLoader.options.plugins.includes('babel-plugin-transform-decorators'));
 
-const entries = webpackConfigMod.getEntries(myWebpackConfig);
-log(entries);
-
-/*
-assert(
-    myWebpackConfig.module.rules,
-    {
-        
-    },
-);
-*/
-
-log(myWebpackConfig);
+const entries = mod.getEntries(config);
+assert(entries['main'][0] === './path/to/entry-file.js');
 
 console.log("Success");
