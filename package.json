@@ -29,6 +29,7 @@
         "examples/partial-dom-dynamic",
         "examples/custom",
         "examples/custom-webpack",
+        "examples/custom-webpack-full",
 
         "helpers/utils",
         "helpers/cli",

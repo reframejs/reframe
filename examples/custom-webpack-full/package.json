@@ -11,5 +11,12 @@
     "babel-preset-react": "^6.24.1",
     "react": "^16.1.1"
   },
+  "checkDeps": {
+    "skip": [
+      "@reframe/react-kit",
+      "babel-core",
+      "react"
+    ]
+  },
   "version": "0.0.1-rc.21"
 }
