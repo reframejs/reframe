@@ -39,31 +39,31 @@ function getRule(config, filenameExtension, {canBeMissing=false}={}) {
     return rulesFound[0];
 }
 
-function setRule(config, filenameExtension, ruleNew) {
+function setRule(config, filenameExtension, newRule) {
     assert_filenameExtension(filenameExtension);
 
-    ruleNew = {...ruleNew};
-    if( ! ruleNew.test ) {
-        ruleNew.test = new RegExp(escapeRegexp(filenameExtension)+'$');
+    newRule = {...newRule};
+    if( ! newRule.test ) {
+        newRule.test = new RegExp(escapeRegexp(filenameExtension)+'$');
     }
 
     const dummyFileName = 'dummy'+filenameExtension;
     assert_usage(
-        runRuleTest(ruleNew.test, dummyFileName),
+        runRuleTest(newRule.test, dummyFileName),
         "The new rule to be set doesn't match the filename extension `"+filenameExtension+"`.",
         "The new rule's test is:",
-        ruleNew.test,
+        newRule.test,
         "But it doesn't match the file name `"+dummyFileName+"`."
     );
     const ruleOld = getRule(config, filenameExtension, {canBeMissing: true});
     const rules = getAllRules(config);
     if( ! ruleOld ) {
-        rules.push(ruleNew);
+        rules.push(newRule);
         return;
     }
     const ruleIndex = rules.indexOf(ruleOld);
     assert_internal(ruleIndex>=0, rules, ruleOld);
-    rules[ruleIndex] = ruleNew;
+    rules[ruleIndex] = newRule;
 }
 
 function assert_filenameExtension(filenameExtension) {
