@@ -22,11 +22,11 @@
  - [Custom/Eject Server](#customeject-server)
  - [Custom Webpack Config](#custom-webpack-config)
  - [Custom &lt;head&gt;, &lt;script&gt;, ...](#custom-head-script-)
+ - [Custom/Advanced Routing](#customadvanced-routing)
 <!--- TODO
+ - [Custom Error Pages (404, 5xx, ...)](#custom-error-pages-404-5xx-)
  - [Custom/Eject Browser Code](#customeject-browser-code)
 -->
- - [Custom/Advanced Routing](#customadvanced-routing)
- - [Custom Error Pages (404, 5xx, ...)](#custom-error-pages-404-5xx-)
 <!--- TODO
  - [Custom/Eject Build](#customeject-build)
 -->
@@ -435,6 +435,7 @@ We refer to the source code of the plugin [`@reframe/crossroads`](/plugins/cross
 
 
 
+<!--- TODO
 ## Custom Error Pages (404, 5xx, ...)
 
 TODO
@@ -454,6 +455,7 @@ export default {
     ),
 };
 ~~~
+-->
 
 
 
