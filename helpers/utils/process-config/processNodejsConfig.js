@@ -68,7 +68,6 @@ const assert_plugin = assert_usage;
 const path_module = require('path');
 const {get_r_objects, get_repage_plugins} = require('./process_common');
 const get_project_files = require('./get_project_files');
-const webpackConfigMod = require('@brillout/webpack-config-mod');
 
 module.exports = {processNodejsConfig};
 
@@ -100,7 +99,7 @@ function get_webpack_config_modifiers(_processed, r_objects) {
 
     function assemble_modifiers(modifier_name) {
         // TODO add webpack config modification utilities
-        let supra_modifier = config => config;
+        let supra_modifier = ({config}) => config;
 
         // We assemble all `r_objects`'s config modifiers into one `supra_modifier`
         r_objects
@@ -112,8 +111,8 @@ function get_webpack_config_modifiers(_processed, r_objects) {
             assert_plugin(r_object[modifier_name] instanceof Function);
             const previous_modifier = supra_modifier;
             supra_modifier = (
-                config =>
-                    modifier({...webpackConfigMod, config: previous_modifier(config)})
+                args =>
+                    modifier({...args, config: previous_modifier(args)})
             );
         });
 

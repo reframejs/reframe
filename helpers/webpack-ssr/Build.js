@@ -95,6 +95,7 @@ function getBrowserConfig({fileSets, autoReloadEnabled}) {
     const browserEntries = getBrowserEntries({generatedEntries, autoReloadEnabled});
     const browserOutputPath = pathModule.resolve(this.outputDir, BROWSER_OUTPUT);
     const defaultBrowserConfig = getDefaultBrowserConfig({entries: browserEntries, outputPath: browserOutputPath});
+    assert_internal(Object.keys(browserEntries).length>0);
     const browserConfig = this.getWebpackBrowserConfig({config: defaultBrowserConfig, entries: browserEntries, outputPath: browserOutputPath, ...webpackConfigMod});
     assert_config({config: browserConfig, webpackEntries: browserEntries, outputPath: browserOutputPath, getterName: 'getWebpackBrowserConfig'});
     addContext(browserConfig);

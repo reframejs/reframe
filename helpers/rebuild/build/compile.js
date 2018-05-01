@@ -159,8 +159,8 @@ function setup_compiler_handler({
     on_compiler_end,
     compilationName,
 }) {
-    assert_internal(webpack_config.constructor===Object, webpack_config);
-    assert_internal(webpack_config.entry, webpack_config);
+    assert_usage(webpack_config.constructor===Object, webpack_config);
+    assert_usage(webpack_config.entry, webpack_config, 'Missing `entry` in the config printed above.');
     assert_internal(compiler_handler);
 
     const {webpack_compiler, first_compilation, first_successful_compilation, onCompileStart, onCompileEnd} = (
