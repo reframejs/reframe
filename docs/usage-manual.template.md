@@ -168,13 +168,37 @@ An example of basic page navigation:
 
 ## Static Pages VS Dynamic Pages
 
-!INLINE ./universal-page-config.md --hide-source-path
+An cornerstone feature of the page config is that it allows you to configure a page to be "HTML-static" or "HTML-dynamic" and "DOM-static" or "DOM-dynamic":
+ - *HTML-static*
+   <br/>
+   The page is rendered to HTML at build-time.
+   <br/>
+   (In other words, the page is rendered to HTML only once, when Reframe is building your app's pages.)
+   <br/>
+   Add `htmlStatic: true` to the page config.
+ - *HTML-dynamic*
+   <br/>
+   The page is rendered to HTML at request-time.
+   <br/>
+   (In other words, the page is (re-)rendered to HTML every time the user requests the page.)
+   <br/>
+   Default setting.
+ - *DOM-static*
+   <br/>
+   The page is not hydrated.
+   <br/>
+   (In other words, the DOM doesn't have any React component attached to it and the DOM will not change.)
+   <br/>
+   Add `domStatic: true` to the page config.
+ - *DOM-dynamic*
+   <br/>
+   The page is hydrated.
+   <br/>
+   (In other words, React components are attached to the DOM and the page's DOM will eventually be updated by React.)
+   <br/>
+   Default setting.
 
-By default, a page is HTML-dynamic and DOM-dynamic.
-By setting A page is made HTML-static by setting `htmlStatic: true` in its page config,
-And by setting `domStatic: true`, the page is made DOM-static.
-
-For example:
+Let's consider the following example:
 
 ~~~js
 // /pages/TimePage.js
@@ -198,7 +222,7 @@ export default {
 The page will always display the same time, namely the time when the page's HTML was generated at build-time.
 That's because `htmlStatic: true` makes Reframe generate the HTML at build-time (instead of request-time).
 And that's also because `domStatic: true` makes Reframe not hydrate the page:
-`TimeComponent` is not attached to the DOM, nor is it loaded in the browser, and it is only used to generate the page's HTML.
+`TimeComponent` is not attached to the DOM but is only used to generate the page's HTML.
 
 Removing `htmlStatic: true` makes Reframe generate the HTML at request-time.
 The page then shows the current time whenever the page (re-)loads.
@@ -217,10 +241,10 @@ and the app can be deployed to a static website host
 such as [GitHub Pages](https://pages.github.com/) or [Netlify](https://www.netlify.com/).
 
 Also,
-keep in mind that interactive views are inherently more complex than static views.
-We recommended to implement app requirements with static views whenever possible,
-and to implement interactive views only when necessary.
-Reframe embraces that recommandation by allowing you to write web apps where a majority of the pages are DOM-static.
+keep in mind that DOM-dynamic views are inherently more complex than DOM-static views.
+We recommended to implement app requirements with DOM-static views whenever possible,
+and to implement DOM-dynamic views only when necessary.
+Reframe embraces that recommandation by allowing you to write an app where only few pages are DOM-dynamic while the rest of the app is DOM-static.
 
 
 
@@ -299,8 +323,8 @@ function webpackConfig({
 Docs of the `@brillout/webpack-config-mod` config modifiers at [/helpers/webpack-config-mod](/helpers/webpack-config-mod).
 
 Examples:
- - Using a modifier [/examples/custom-webpack](/examples/custom-webpack)
- - Entirely custom config [/examples/custom-webpack-full](/examples/custom-webpack-full)
+ - Using modifiers [/examples/custom-webpack](/examples/custom-webpack)
+ - Fully custom config [/examples/custom-webpack-full](/examples/custom-webpack-full)
  - Source code of [`@reframe/postcss`](/plugins/postcss)
  - Source code of [`@reframe/react`](/plugins/react)
  - Source code of [`@reframe/typescript`](/plugins/typescript)
