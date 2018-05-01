@@ -440,7 +440,7 @@ We refer to the source code of the plugin [`@reframe/crossroads`](/plugins/cross
 
 TODO
 
-A 404 page can be implement by using a catch-all route:
+A 404 page can be implemented by using a catch-all route:
 
 ~~~js
 import React from 'react';
