@@ -245,10 +245,23 @@ function getEntries(config) {
         return {main: [config.entry]};
     }
     if( config.entry.constructor===Array ) {
-        return {main: config.entry};
+        return {main: [...config.entry]};
     }
     if( config.entry.constructor===Object ) {
-        return config.entry;
+        const entries = {};
+        Object.entries(config.entry)
+        .forEach(([entryName, entryFiles]) => {
+            if( entryFiles && entryFiles.constructor===Array ) {
+                entries[entryName] = [...entryFiles];
+                return;
+            }
+            if( entryFiles && entryFiles.constructor===String ) {
+                entries[entryName] = [entryFiles];
+                return;
+            }
+            assert_usage(false, entryFiles, entryName);
+        });
+        return entries;
     }
     assert_usage(false);
 }
