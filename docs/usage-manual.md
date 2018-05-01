@@ -151,13 +151,11 @@
  - [Custom/Eject Server](#customeject-server)
  - [Custom Webpack Config](#custom-webpack-config)
  - [Custom &lt;head&gt;, &lt;script&gt;, ...](#custom-head-script-)
-<!--- TODO
- - [Custom/Eject Browser Code](#customeject-browser-code)
--->
  - [Custom/Advanced Routing](#customadvanced-routing)
- - [Custom Error Pages (404, 5xx, ...)](#custom-error-pages-404-5xx-)
-<!--- TODO
  - [Custom/Eject Build](#customeject-build)
+<!--- TODO
+ - [Custom Error Pages (404, 5xx, ...)](#custom-error-pages-404-5xx-)
+ - [Custom/Eject Browser Code](#customeject-browser-code)
 -->
 
 
@@ -296,6 +294,10 @@ We referer to the Customization Manual for further information.
 
 Also note that all types of static assets are supported.
 
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+
+
+
 
 
 ## Async Data
@@ -422,6 +424,11 @@ And the HTML returned by the server is:
 </html>
 ~~~
 
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+
+
+
+
 
 
 ## Links & Page Navigation
@@ -459,6 +466,7 @@ const pageB = {
 export default pageB;
 ~~~
 
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 
 
 
@@ -566,6 +574,7 @@ We recommended to implement app requirements with DOM-static views whenever poss
 and to implement DOM-dynamic views only when necessary.
 Reframe embraces that recommandation by allowing you to write an app where only few pages are DOM-dynamic while the rest of the app is DOM-static.
 
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 
 
 
@@ -580,6 +589,8 @@ $ reframe eject server
 will copy the following file to your codebase.
 
 ~~~js
+// /plugins/server/startServer.js
+
 const Hapi = require('hapi');
 const HapiPluginServerRendering = require('./HapiPluginServerRendering');
 const HapiPluginStaticAssets = require('./HapiPluginStaticAssets');
@@ -636,6 +647,9 @@ $ reframe eject server-assets
 
 to eject the `HapiPluginStaticAssets` plugin and to gain control over the serving of static browser assets. (JavaScript files, CSS files, images, fonts, etc.)
 
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+
+
 
 
 ## Custom Webpack Config
@@ -681,6 +695,8 @@ Examples:
  - Source code of [`@reframe/react`](/plugins/react)
  - Source code of [`@reframe/typescript`](/plugins/typescript)
 
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+
 
 
 
@@ -693,7 +709,7 @@ Thus, the page config has full control over the outer part of HTML including the
 
 We refer to [`@brillout/html-crust`'s documentation](https://github.com/brillout/html-crust) for further information.
 
-
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 
 
 <!--- TODO
@@ -779,15 +795,16 @@ It can, for example, be used with [Crossroads.js](https://github.com/millermedei
 
 We refer to the source code of the plugin [`@reframe/crossroads`](/plugins/crossroads) for further information about how to use Reframe with another routing library.
 
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 
 
 
-
+<!--- TODO
 ## Custom Error Pages (404, 5xx, ...)
 
 TODO
 
-A 404 page can be implement by using a catch-all route:
+A 404 page can be implemented by using a catch-all route:
 
 ~~~js
 import React from 'react';
@@ -802,16 +819,58 @@ export default {
     ),
 };
 ~~~
+-->
 
 
 
 
 
-<!--- TODO
 ## Custom/Eject Build
 
-TODO
--->
+Run `reframe eject build` to eject the overall build code.
+
+It will copy the following file to your codebase.
+
+~~~js
+// /plugins/build/executeBuild.js
+
+const getProjectConfig = require('@reframe/utils/getProjectConfig');
+
+const Build = require('webpack-ssr/Build');
+const watchDir = require('webpack-ssr/watchDir');
+
+const getPageBrowserEntries = require('./getPageBrowserEntries');
+const getPageHTMLs = require('./getPageHTMLs');
+
+const projectConfig = getProjectConfig();
+const outputDir = projectConfig.projectFiles.buildOutputDir;
+const getPageFiles = () => projectConfig.getPageConfigFiles();
+const getWebpackBrowserConfig = ({config, ...utils}) => projectConfig.webpackBrowserConfigModifier({config, ...utils});
+const getWebpackNodejsConfig = ({config, ...utils}) => projectConfig.webpackNodejsConfigModifier({config, ...utils});
+const {log, doNotWatchBuildFiles} = projectConfig;
+const {pagesDir} = projectConfig.projectFiles;
+
+const build = new Build({
+    outputDir,
+    getPageFiles,
+    getPageBrowserEntries,
+    getPageHTMLs,
+    getWebpackBrowserConfig,
+    getWebpackNodejsConfig,
+    log,
+    doNotWatchBuildFiles,
+});
+
+watchDir(pagesDir, () => {build()});
+
+module.exports = build();
+~~~
+
+Run `reframe eject build-static-rendering` to eject `getPageHTMLs()` to gain control over the HTML rendering of your HTML-static pages. (That is pages with `htmlStatic: true` in their page configs.)
+
+And run `reframe eject build-browser-entries` to eject `getPageBrowserEntries()` to gain control over the browser entry code of your pages.
+
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 
 <!---
 
