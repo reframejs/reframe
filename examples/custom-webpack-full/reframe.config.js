@@ -17,8 +17,11 @@ const rules = [
     }
 ];
 
-const webpackBrowserConfig = ({entries}) => ({
-    entry: entries,
+const webpackBrowserConfig = () => ({
+    entry: [
+        require.resolve('babel-polyfill'),
+        require.resolve('../basics/pages/counter/CounterPage-entry-2.js'),
+    ],
     output: {
         publicPath: '/',
         path: __dirname+'/dist/browser',
