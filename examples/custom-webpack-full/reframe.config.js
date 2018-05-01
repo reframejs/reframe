@@ -20,23 +20,25 @@ const rules = [
 const webpackBrowserConfig = () => ({
     entry: [
         require.resolve('babel-polyfill'),
-        '../basics/pages/counter/CounterPage-entry.js',
+        require.resolve('../basics/pages/counter/CounterPage-entry.js'),
     ],
     output: {
         publicPath: '/',
         path: __dirname+'/dist/browser',
     },
+    mode: 'development',
     module: {rules},
 });
 
 const webpackNodejsConfig = () => ({
-    entry: '../basics/pages/counter/CounterPage.config.js',
+    entry: require.resolve('../basics/pages/counter/CounterPage.config.js'),
     target: 'node',
     output: {
         publicPath: '/',
         path: __dirname+'/dist/nodejs',
         libraryTarget: 'commonjs2'
     },
+    mode: 'development',
     module: {rules},
 });
 

@@ -170,8 +170,9 @@ function getPageFiles({nodejsConfig, pageFiles__by_interface}) {
             entryFiles,
             "Cannot determine which one of the entry files printed above is the page file of `"+pageName+"`"
         );
-        assert_usage(pathModule.isAbsolute(entryFiles[0]));
-        pageFiles__by_config[pageName] = entryFiles[0];
+        const entryFile = entryFiles[0];
+        assert_usage(pathModule.isAbsolute(entryFile), entryFile);
+        pageFiles__by_config[pageName] = entryFile;
     });
 
     const pageFiles = {
