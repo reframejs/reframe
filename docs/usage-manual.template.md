@@ -23,12 +23,10 @@
  - [Custom Webpack Config](#custom-webpack-config)
  - [Custom &lt;head&gt;, &lt;script&gt;, ...](#custom-head-script-)
  - [Custom/Advanced Routing](#customadvanced-routing)
+ - [Custom/Eject Build](#customeject-build)
 <!--- TODO
  - [Custom Error Pages (404, 5xx, ...)](#custom-error-pages-404-5xx-)
  - [Custom/Eject Browser Code](#customeject-browser-code)
--->
-<!--- TODO
- - [Custom/Eject Build](#customeject-build)
 -->
 
 
@@ -84,6 +82,10 @@ and that the webpack config is fully customizable.
 We referer to the Customization Manual for further information.
 
 Also note that all types of static assets are supported.
+
+!INLINE ./help.md --hide-source-path
+
+
 
 
 
@@ -150,6 +152,11 @@ And the HTML returned by the server is:
 </html>
 ~~~
 
+!INLINE ./help.md --hide-source-path
+
+
+
+
 
 
 ## Links & Page Navigation
@@ -167,6 +174,7 @@ An example of basic page navigation:
 !INLINE ../examples/basics/pages/page-b.config.js
 ~~~
 
+!INLINE ./help.md --hide-source-path
 
 
 
@@ -250,6 +258,7 @@ We recommended to implement app requirements with DOM-static views whenever poss
 and to implement DOM-dynamic views only when necessary.
 Reframe embraces that recommandation by allowing you to write an app where only few pages are DOM-dynamic while the rest of the app is DOM-static.
 
+!INLINE ./help.md --hide-source-path
 
 
 
@@ -264,7 +273,7 @@ $ reframe eject server
 will copy the following file to your codebase.
 
 ~~~js
-!INLINE ../plugins/server/startServer.js --hide-source-path
+!INLINE ../plugins/server/startServer.js
 ~~~
 
 At this point you can:
@@ -287,6 +296,9 @@ $ reframe eject server-assets
 ~~~
 
 to eject the `HapiPluginStaticAssets` plugin and to gain control over the serving of static browser assets. (JavaScript files, CSS files, images, fonts, etc.)
+
+!INLINE ./help.md --hide-source-path
+
 
 
 
@@ -333,6 +345,8 @@ Examples:
  - Source code of [`@reframe/react`](/plugins/react)
  - Source code of [`@reframe/typescript`](/plugins/typescript)
 
+!INLINE ./help.md --hide-source-path
+
 
 
 
@@ -345,7 +359,7 @@ Thus, the page config has full control over the outer part of HTML including the
 
 We refer to [`@brillout/html-crust`'s documentation](https://github.com/brillout/html-crust) for further information.
 
-
+!INLINE ./help.md --hide-source-path
 
 
 <!--- TODO
@@ -431,7 +445,7 @@ It can, for example, be used with [Crossroads.js](https://github.com/millermedei
 
 We refer to the source code of the plugin [`@reframe/crossroads`](/plugins/crossroads) for further information about how to use Reframe with another routing library.
 
-
+!INLINE ./help.md --hide-source-path
 
 
 
@@ -461,8 +475,18 @@ export default {
 
 
 
-<!--- TODO
 ## Custom/Eject Build
 
-TODO
--->
+Run `reframe eject build` to eject the overall build code.
+
+It will copy the following file to your codebase.
+
+~~~js
+!INLINE ../plugins/build/executeBuild.js
+~~~
+
+Run `reframe eject build-static-rendering` to eject `getPageHTMLs()` to gain control over the HTML rendering of your HTML-static pages. (That is pages with `htmlStatic: true` in their page configs.)
+
+And run `reframe eject build-browser-entries` to eject `getPageBrowserEntries()` to gain control over the browser entry code of your pages.
+
+!INLINE ./help.md --hide-source-path
