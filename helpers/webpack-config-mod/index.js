@@ -2,7 +2,7 @@ const assert_usage = require('reassert/usage');
 const assert_internal = require('reassert/internal');
 const escapeRegexp = require('lodash.escaperegexp');
 
-const webpackConfigMod = {setRule, getRule, getEntries, addBabelPreset, addBabelPlugin, modifyBabelConfig};
+const webpackConfigMod = {setRule, getRule, getEntries, addBabelPreset, addBabelPlugin, modifyBabelOptions};
 
 module.exports = webpackConfigMod;
 
@@ -73,7 +73,7 @@ function assert_filenameExtension(filenameExtension) {
     );
 }
 
-function modifyBabelConfig(config, action) {
+function modifyBabelOptions(config, action) {
     const babelLoaders = getBabelLoaders(config);
 
     babelLoaders.forEach(babelLoader => {
@@ -124,7 +124,7 @@ function getBabelLoaders(config) {
 }
 
 function addBabelPreset(config, babelPreset) {
-    modifyBabelConfig(
+    modifyBabelOptions(
         config,
         loader => {
             assert_internal(isBabelLoader(loader));
@@ -136,7 +136,7 @@ function addBabelPreset(config, babelPreset) {
 }
 
 function addBabelPlugin(config, babelPlugin) {
-    modifyBabelConfig(
+    modifyBabelOptions(
         config,
         loader => {
             assert_internal(isBabelLoader(loader));

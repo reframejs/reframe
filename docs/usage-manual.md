@@ -662,7 +662,7 @@ function webpackConfig({
     outputPath,
 
     // Config modifiers provided by the package `@brillout/webpack-config-mod`
-    setRule, getRule, getEntries, addBabelPreset, addBabelPlugin, modifyBabelConfig
+    setRule, getRule, getEntries, addBabelPreset, addBabelPlugin, modifyBabelOptions
 }) {
     // Either
     //  - apply modifications to `config` (by using modifiers or manually), or

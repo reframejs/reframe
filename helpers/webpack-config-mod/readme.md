@@ -157,7 +157,7 @@ console.log("Success");
    <br/>
    Add a babel preset to all `babel-loader` loaders' options object.
 
- - `modifyBabelConfig(config, action)`
+ - `modifyBabelOptions(config, action)`
    <br/>
    Apply the `action` function to all `babel-loader` loaders' options object.
 
