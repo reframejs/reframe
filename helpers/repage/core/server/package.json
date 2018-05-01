@@ -1,6 +1,6 @@
 {
   "name": "@repage/server",
-  "version": "0.0.1-rc.21",
+  "version": "0.1.0",
   "main": "./server",
   "dependencies": {
     "@atto/parse-uri": "0.0.1",

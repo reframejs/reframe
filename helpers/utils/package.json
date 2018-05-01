@@ -1,6 +1,6 @@
 {
   "name": "@reframe/utils",
-  "version": "0.0.1-rc.21",
+  "version": "0.1.0",
   "dependencies": {
     "@brillout/find-package-files": "^0.1.0",
     "@brillout/get-user-dir": "^0.1.2",

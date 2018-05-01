@@ -1,11 +1,11 @@
 {
   "name": "@reframe/postcss",
-  "version": "0.0.1-rc.21",
+  "version": "0.1.0",
   "scripts": {
     "docs": "mdocs"
   },
   "dependencies": {
-    "@rebuild/config": "0.0.1-rc.21",
+    "@rebuild/config": "0.1.0",
     "css-loader": "^0.28.11",
     "postcss-loader": "^2.1.3",
     "reassert": "^1.1.8"

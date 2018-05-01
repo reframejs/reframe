@@ -1,12 +1,12 @@
 {
    "name": "@reframe/build",
-   "version": "0.0.1-rc.21",
+   "version": "0.1.0",
    "dependencies": {
-      "@reframe/utils": "0.0.1-rc.21",
-      "@repage/build": "0.0.1-rc.21",
-      "@repage/core": "0.0.1-rc.21",
+      "@reframe/utils": "0.1.0",
+      "@repage/build": "0.1.0",
+      "@repage/core": "0.1.0",
       "reassert": "^1.1.7",
-      "webpack-ssr": "0.0.1-rc.21"
+      "webpack-ssr": "0.1.0"
    },
    "publishConfig": {
       "access": "public"
