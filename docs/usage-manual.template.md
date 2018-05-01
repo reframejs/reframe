@@ -22,10 +22,14 @@
  - [Custom/Eject Server](#customeject-server)
  - [Custom Webpack Config](#custom-webpack-config)
  - [Custom &lt;head&gt;, &lt;script&gt;, ...](#custom-head-script-)
+<!--- TODO
  - [Custom/Eject Browser Code](#customeject-browser-code)
+-->
  - [Custom/Advanced Routing](#customadvanced-routing)
  - [Custom Error Pages (404, 5xx, ...)](#custom-error-pages-404-5xx-)
+<!--- TODO
  - [Custom/Eject Build](#customeject-build)
+-->
 
 
 ## Getting Started
@@ -344,9 +348,11 @@ We refer to [`@brillout/html-crust`'s documentation](https://github.com/brillout
 
 
 
+<!--- TODO
 ## Custom/Eject Browser Code
 
 TODO
+-->
 
 
 
@@ -453,4 +459,8 @@ export default {
 
 
 
+<!--- TODO
 ## Custom/Eject Build
+
+TODO
+-->
