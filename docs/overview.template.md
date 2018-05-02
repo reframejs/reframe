@@ -99,7 +99,7 @@ allow you to create
    Pages are rendered in the browser.
    <br/>
    The DOM is dynamic allowing you create interactive views.
-   In other words views that update themselves in the browser with DOM manipulations (instead of reloading an entire new page).
+   In other words views that update themselves in the browser with DOM manipulations (instead of loading an entire new page).
    <br/>
    Pages are also rendered to HTML on the server.
    <br/>
