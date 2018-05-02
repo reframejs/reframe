@@ -46,7 +46,6 @@ function startCommands() {
 }
 
 async function runStart(opts) {
-    console.log(arguments);
     const projectConfig = init({dev: true, ...opts});
     log_found_stuff({projectConfig, log_page_configs: true});
     await buildAssets(projectConfig);
@@ -85,7 +84,13 @@ async function startServer(projectConfig) {
 
     log_server(server, projectConfig);
 }
-function init({dev, log, doNotWatchBuildFiles}) {
+function init({dev, log, doNotWatchBuildFiles, _description}) {
+    if( _description ) {
+        console.log();
+        console.log(_description);
+        console.log();
+    }
+
     if( ! dev ) {
         process.env['NODE_ENV'] = 'production';
     }
