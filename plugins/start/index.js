@@ -271,14 +271,6 @@ function log_found_stuff({projectConfig, log_page_configs, log_built_pages}) {
         configFiles
         .sort(([_, a], [__, b]) => (b > a && -1 || b < a && 1 || 0))
         .forEach(([pageName, filePath], i) => {
-            /*
-            const baseDir = (
-                i === 0 ? (
-                    projectRootDir
-                )
-                configFiles[i]
-            );
-            */
             const filePath__parts = (
                 pathModule.relative(projectRootDir, filePath)
                 .split(pathModule.sep)
