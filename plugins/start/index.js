@@ -177,7 +177,8 @@ function log_routes(projectConfig, server) {
 
 function log_server_start_hint() {
     const {colorCmd} = require('@reframe/utils/cliTheme');
-    console.log('\n', ' Run '+colorCmd('reframe server')+' to start the server.', '\n');
+    console.log('  Run '+colorCmd('reframe server')+' to start the server.');
+    console.log();
 }
 
 function log_found_stuff({projectConfig, log_page_configs, log_built_pages}) {
