@@ -12,7 +12,7 @@ function startCommands() {
         cliCommands: [
             {
                 name: 'start',
-                description: 'Build and start server for development.',
+                description: 'Build pages and start server for development.',
                 options: [
                     optLog,
                 ],

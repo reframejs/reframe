@@ -78,13 +78,13 @@ Inside that directory, you can run commands such as
     Build and start server for development.
 
   ${colorCmd('reframe')}
-    Display all commands.
-
-  ${colorCmd('reframe eject')}
-    Display all ejectables.
+    List all commands.
 
   ${colorCmd('reframe eject server')}
     Ejects ~30 LOC giving you control over the Node.JS/hapi server.
+
+  ${colorCmd('reframe eject')}
+    List all ejectables.
 
 Run ${colorCmd('cd '+projectName+' && reframe start')} and go to ${colorUrl('http://localhost:3000')} to explore your new app.
 `
