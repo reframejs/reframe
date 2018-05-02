@@ -100,6 +100,9 @@ function getDependencies({packageJsonFile}) {
     try {
         packageJson = require(packageJsonFile);
     } catch (err) {
+        console.log();
+        console.error(err);
+        console.log();
         assert_usage(
             false,
             "Couldn't load your app's `package.json` at `"+packageJsonFile+"`.",
