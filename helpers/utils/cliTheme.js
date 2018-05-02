@@ -15,7 +15,7 @@ const cliColors = {
 
     colorDim: chalk.dim,
 
-    symbolSuccess: chalk.green('\u2714'),
+    symbolSuccess: chalk.green('\u{2714}'),
 
     strDir: dirPath => {
         dirPath = dirPath + (dirPath.endsWith(pathModule.sep) ? '' : pathModule.sep)

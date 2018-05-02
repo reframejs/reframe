@@ -3,7 +3,8 @@
     "version": "0.1.0",
     "dependencies": {
         "@reframe/utils": "0.1.0",
-        "reassert": "^1.1.8"
+        "reassert": "^1.1.8",
+        "string-width": "^2.1.1"
     },
     "publishConfig": {
         "access": "public"

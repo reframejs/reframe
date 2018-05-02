@@ -192,11 +192,7 @@ function log_found_stuff({projectConfig, log_page_configs, log_built_pages}) {
     log_page_configs && lines.push(...log_found_page_configs());
 
     const prefix = symbolSuccess+' Found ';
-    const indent = new Array(8).fill(' ').join('');
-    lines[0] = prefix + lines[0];
-    for(let i=1; i<lines.length; i++) {
-        lines[i] = indent + lines[i];
-    }
+    addPrefix(lines, prefix);
 
     console.log(lines.join('\n')+'\n');
 
@@ -251,12 +247,12 @@ function log_found_stuff({projectConfig, log_page_configs, log_built_pages}) {
 
         const numberOfPages = Object.keys(pageConfigFiles).length;
         if( numberOfPages===0 ) {
-            return;
+            return [];
         }
 
         const basePath = getCommonRoot(Object.values(pageConfigFiles));
 
-        let pageConfigs__str = (
+        const lines = (
             Object.entries(pageConfigFiles)
             .map(([pageName, filePath]) => {
                 const filePath__parts = (
@@ -272,16 +268,20 @@ function log_found_stuff({projectConfig, log_page_configs, log_built_pages}) {
                     .join(pathModule.sep)
                 );
             })
-            .join(', ')
         );
 
-        if( numberOfPages>1 ) {
-            pageConfigs__str = '{'+pageConfigs__str+'}';
-        }
+        const prefix = 'page config'+(numberOfPages===1?'':'s')+' '+strDir(basePath);
+        addPrefix(lines, prefix);
 
-        return [
-            'page config'+(numberOfPages===1?'':'s')+' '+strDir(basePath)+pageConfigs__str
-        ];
+        return lines;
+    }
+}
+function addPrefix(lines, prefix) {
+    const stringWidth = require('string-width');
+    const indent = new Array(stringWidth(prefix)).fill(' ').join('');
+    lines[0] = prefix + lines[0];
+    for(let i=1; i<lines.length; i++) {
+        lines[i] = indent + lines[i];
     }
 }
 function getCommonRoot(filePaths) {
