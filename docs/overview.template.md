@@ -55,7 +55,7 @@ There are several eject commands that you can apply one by one and progressively
 
 If you run all eject commands then you effectively get rid of Reframe.
 
-> Rreframe doesn't lock you in: You can progressively and fully eject Reframe.
+> Reframe doesn't lock you in: You can progressively and fully eject Reframe.
 
 <br/>
 
