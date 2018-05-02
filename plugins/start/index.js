@@ -59,6 +59,7 @@ async function runBuild(opts) {
 
 async function runServer(opts) {
     const projectConfig = init(opts);
+    log_found_stuff({log_built_pages: true});
     await startServer(projectConfig, true);
 }
 
@@ -68,59 +69,19 @@ async function buildAssets(projectConfig) {
     await require(projectConfig.build.executeBuild);
 }
 
-async function startServer(projectConfig, checkBuiltPages) {
-    const assert_usage = require('reassert/usage');
-
-    if( checkBuiltPages ) {
-        check_and_log_built_pages_found(projectConfig);
-    }
-
+async function startServer(projectConfig) {
     assert_server(projectConfig);
+
     let server;
     try {
         server = await require(projectConfig.serverEntryFile);
     } catch(err) {
-        const {colorErr} = require('@reframe/utils/cliTheme');
-        if( ((err||{}).message||'').includes('EADDRINUSE') ) {
-            console.error();
-            console.error(err.stack);
-            console.error();
-            console.error([
-                "The server is starting on an "+colorErr("address already in use")+".",
-                "Maybe you already started a server at this address?",
-            ].join('\n'));
-            console.error();
-            return;
-        }
-        throw err;
+        prettify_error(err);
+        return;
     }
+
     log_server(server, projectConfig);
 }
-function check_and_log_built_pages_found(projectConfig) {
-    const assert_usage = require('reassert/usage');
-    const {colorErr, symbolSuccess, strDir, colorEmp} = require('@reframe/utils/cliTheme');
-
-    const {buildOutputDir} = projectConfig.projectFiles;
-
-    let buildInfo;
-    try {
-        buildInfo = require(projectConfig.build.getBuildInfo)();
-    } catch(err) {
-        if( ((err||{}).message||'').includes('The build needs to have been run previously') ) {
-            assert_usage(
-                false,
-                colorErr("Built pages not found")+" at `"+buildOutputDir+"`.",
-                "Did you run the build (e.g. `reframe build`) before starting the server?"
-            );
-            return;
-        }
-        throw err;
-    }
-
-    const {buildEnv} = buildInfo;
-    console.log(symbolSuccess+' Found built pages '+strDir(buildOutputDir)+' (Built for '+colorEmp(buildEnv)+')');
-}
-
 function init({dev, log, doNotWatchBuildFiles}) {
     if( ! dev ) {
         process.env['NODE_ENV'] = 'production';
@@ -268,7 +229,7 @@ function log_routes(projectConfig, server) {
         pageConfigs
         .sort(({route: route1}, {route: route2}) => (route2 > route1 && -1 || route2 < route1 && 1 || 0))
         .map(({route, pageName}) =>
-            '    '+/*colorDim*/(serverUrl)+colorPkg(route)+' -> '+pageName
+            '    '+serverUrl+colorPkg(route)+' -> '+pageName
         )
         .join('\n')
     );
@@ -278,4 +239,60 @@ function log_routes(projectConfig, server) {
 function log_server_start_hint() {
     const {colorCmd} = require('@reframe/utils/cliTheme');
     console.log('\n', ' Run '+colorCmd('reframe server')+' to start the server.', '\n');
+}
+
+function log_found_stuff({projectConfig, logPageConfigs}) {
+    const getProjectConfig = require('@reframe/utils/getProjectConfig');
+
+    const projectConfig = getProjectConfig();
+
+    return;
+
+
+    const foundStuff = [];
+
+    if( log_built_pages ) {
+        foundStuff.push(log_built_pages_found());
+    }
+
+    return foundStuff;
+}
+function prettify_error(err) {
+    if( ! ((err||{}).message||'').includes('EADDRINUSE') ) {
+        throw err;
+    }
+    const {colorErr} = require('@reframe/utils/cliTheme');
+    console.error();
+    console.error(err.stack);
+    console.error();
+    console.error([
+        "The server is starting on an "+colorErr("address already in use")+".",
+        "Maybe you already started a server at this address?",
+    ].join('\n'));
+    console.error();
+}
+
+function log_built_pages_found(projectConfig) {
+    const assert_usage = require('reassert/usage');
+    const {colorErr, symbolSuccess, strDir, colorEmp} = require('@reframe/utils/cliTheme');
+
+    const {buildOutputDir} = projectConfig.projectFiles;
+
+    let buildInfo;
+    try {
+        buildInfo = require(projectConfig.build.getBuildInfo)();
+    } catch(err) {
+        if( ((err||{}).message||'').includes('The build needs to have been run previously') ) {
+            assert_usage(
+                false,
+                colorErr("Built pages not found")+" at `"+buildOutputDir+"`.",
+                "Did you run the build (e.g. `reframe build`) before starting the server?"
+            );
+            return;
+        }
+        throw err;
+    }
+
+    const {buildEnv} = buildInfo;
+    return 'built pages '+strDir(buildOutputDir)+' (Built for '+colorEmp(buildEnv)+')';
 }
