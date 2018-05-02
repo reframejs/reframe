@@ -113,7 +113,7 @@ function Logger(opts) {
                 this.getBuildEndText(),
                 output_directory__base && ' '+relative_to_homedir(output_directory__base)+'/',
                 this.getEnvText(),
-                '\n'
+                '\n\n'
             ]
             .filter(Boolean).join('')
         );

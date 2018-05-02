@@ -46,26 +46,29 @@ function startCommands() {
 }
 
 async function runStart(opts) {
+    console.log(arguments);
     const projectConfig = init({dev: true, ...opts});
+    log_found_stuff({projectConfig, log_page_configs: true});
     await buildAssets(projectConfig);
     await startServer(projectConfig);
 }
 
 async function runBuild(opts) {
     const projectConfig = init({...opts, doNotWatchBuildFiles: true});
+    log_found_stuff({projectConfig, log_page_configs: true});
     await buildAssets(projectConfig);
     log_server_start_hint();
 }
 
 async function runServer(opts) {
     const projectConfig = init(opts);
-    log_found_stuff({log_built_pages: true});
+    log_found_stuff({projectConfig, log_built_pages: true});
     await startServer(projectConfig, true);
 }
 
+
 async function buildAssets(projectConfig) {
     assert_build(projectConfig);
-    log_found_page_configs(projectConfig);
     await require(projectConfig.build.executeBuild);
 }
 
@@ -88,13 +91,8 @@ function init({dev, log, doNotWatchBuildFiles}) {
     }
 
     const getProjectConfig = require('@reframe/utils/getProjectConfig');
-    const pathModule = require('path');
-    const {symbolSuccess, strFile, colorPkg} = require('@reframe/utils/cliTheme');
 
     const projectConfig = getProjectConfig();
-
-    log_plugins();
-    log_found_reframe_config();
 
     Object.assign(
         projectConfig,
@@ -107,24 +105,6 @@ function init({dev, log, doNotWatchBuildFiles}) {
     );
 
     return projectConfig;
-
-    function log_found_reframe_config(file_path, description) {
-        log_found_file(projectConfig.projectFiles.reframeConfigFile, 'Reframe config');
-    }
-    function log_found_file(file_path, description) {
-        if( file_path ) {
-            console.log(symbolSuccess+' Found '+description+' '+strFile(file_path));
-        }
-    }
-
-    function log_plugins() {
-        const {_rootPluginNames} = projectConfig;
-        if( _rootPluginNames.length===0 ) {
-            return;
-        }
-        const pluginList__str = _rootPluginNames.map(s => colorPkg(s)).join(', ');
-        console.log(symbolSuccess+' Found plugin'+(_rootPluginNames.length===1?'':'s')+' '+pluginList__str);
-    }
 }
 
 function assert_build(projectConfig) {
@@ -153,66 +133,20 @@ function assert_config(bool, projectConfig, path, name) {
     );
 }
 
-function log_found_page_configs(projectConfig) {
-    const pathModule = require('path');
-    const {symbolSuccess, colorPkg, strDir} = require('@reframe/utils/cliTheme');
-    const pageConfigFiles = projectConfig.getPageConfigFiles();
-
-    const numberOfPages = Object.keys(pageConfigFiles).length;
-    if( numberOfPages===0 ) {
-        return;
+function prettify_error(err) {
+    if( ! ((err||{}).message||'').includes('EADDRINUSE') ) {
+        throw err;
     }
-
-    const basePath = getCommonRoot(Object.values(pageConfigFiles));
-
-    let pageConfigs__str = (
-        Object.entries(pageConfigFiles)
-        .map(([pageName, filePath]) => {
-            const filePath__parts = (
-                pathModule.relative(basePath, filePath)
-                .split(pathModule.sep)
-            );
-            filePath__parts[filePath__parts.length-1] = (
-                filePath__parts[filePath__parts.length-1]
-                .replace(pageName, colorPkg(pageName))
-            );
-            return (
-                filePath__parts
-                .join(pathModule.sep)
-            );
-        })
-        .join(', ')
-    );
-
-    if( numberOfPages>1 ) {
-        pageConfigs__str = '{'+pageConfigs__str+'}';
-    }
-
-    console.log([
-        symbolSuccess,
-        'Found page config'+(numberOfPages===1?'':'s'),
-        strDir(basePath)+pageConfigs__str,
-    ].join(' '));
+    const {colorErr} = require('@reframe/utils/cliTheme');
+    console.error();
+    console.error(err.stack);
+    console.error();
+    console.error([
+        "The server is starting on an "+colorErr("address already in use")+".",
+        "Maybe you already started a server at this address?",
+    ].join('\n'));
+    console.error();
 }
-function getCommonRoot(filePaths) {
-    const pathModule = require('path');
-    const filePaths__parts = filePaths.map(getPathParts);
-
-    let basePath = filePaths__parts[0];
-
-    for(let i=0; i<basePath.length; i++) {
-        if( filePaths__parts.every(filePath__parts => filePath__parts[i]===basePath[i]) ) {
-            continue;
-        }
-        basePath = basePath.slice(0, i);
-        break;
-    }
-
-    return basePath.join(pathModule.sep);
-
-    function getPathParts(filePath) { return pathModule.dirname(filePath).split(pathModule.sep); }
-}
-
 
 function log_server(server, projectConfig) {
  // const {symbolSuccess} = require('@reframe/utils/cliTheme');
@@ -241,58 +175,126 @@ function log_server_start_hint() {
     console.log('\n', ' Run '+colorCmd('reframe server')+' to start the server.', '\n');
 }
 
-function log_found_stuff({projectConfig, logPageConfigs}) {
-    const getProjectConfig = require('@reframe/utils/getProjectConfig');
+function log_found_stuff({projectConfig, log_page_configs, log_built_pages}) {
+    const {colorErr, symbolSuccess, strDir, strFile, colorPkg, colorEmp} = require('@reframe/utils/cliTheme');
+    const pathModule = require('path');
 
-    const projectConfig = getProjectConfig();
+    const lines = [];
+
+    lines.push(...log_plugins());
+    lines.push(...log_reframe_config());
+    log_built_pages && lines.push(...log_built_pages_found());
+    log_page_configs && lines.push(...log_found_page_configs());
+
+    const prefix = symbolSuccess+' Found ';
+    const indent = new Array(8).fill(' ').join('');
+    lines[0] = prefix + lines[0];
+    for(let i=1; i<lines.length; i++) {
+        lines[i] = indent + lines[i];
+    }
+
+    console.log(lines.join('\n')+'\n');
 
     return;
 
+    function log_built_pages_found() {
+        const assert_usage = require('reassert/usage');
 
-    const foundStuff = [];
+        const {buildOutputDir} = projectConfig.projectFiles;
 
-    if( log_built_pages ) {
-        foundStuff.push(log_built_pages_found());
+        let buildInfo;
+        try {
+            buildInfo = require(projectConfig.build.getBuildInfo)();
+        } catch(err) {
+            if( ((err||{}).message||'').includes('The build needs to have been run previously') ) {
+                assert_usage(
+                    false,
+                    colorErr("Built pages not found")+" at `"+buildOutputDir+"`.",
+                    "Did you run the build (e.g. `reframe build`) before starting the server?"
+                );
+                return;
+            }
+            throw err;
+        }
+
+        const {buildEnv} = buildInfo;
+        return ['built pages '+strDir(buildOutputDir)+' (Built for '+colorEmp(buildEnv)+')'];
     }
 
-    return foundStuff;
-}
-function prettify_error(err) {
-    if( ! ((err||{}).message||'').includes('EADDRINUSE') ) {
-        throw err;
+    function log_reframe_config() {
+        const {reframeConfigFile} = projectConfig.projectFiles;
+        return (
+            reframeConfigFile ? (
+                ['Reframe config '+strFile(reframeConfigFile)]
+            ) : (
+                []
+            )
+        );
     }
-    const {colorErr} = require('@reframe/utils/cliTheme');
-    console.error();
-    console.error(err.stack);
-    console.error();
-    console.error([
-        "The server is starting on an "+colorErr("address already in use")+".",
-        "Maybe you already started a server at this address?",
-    ].join('\n'));
-    console.error();
-}
 
-function log_built_pages_found(projectConfig) {
-    const assert_usage = require('reassert/usage');
-    const {colorErr, symbolSuccess, strDir, colorEmp} = require('@reframe/utils/cliTheme');
+    function log_plugins() {
+        const {_rootPluginNames} = projectConfig;
+        if( _rootPluginNames.length===0 ) {
+            return [];
+        }
+        const pluginList__str = _rootPluginNames.map(s => colorPkg(s)).join(', ');
+        return ['plugin'+(_rootPluginNames.length===1?'':'s')+' '+pluginList__str];
+    }
 
-    const {buildOutputDir} = projectConfig.projectFiles;
+    function log_found_page_configs() {
+        const pageConfigFiles = projectConfig.getPageConfigFiles();
 
-    let buildInfo;
-    try {
-        buildInfo = require(projectConfig.build.getBuildInfo)();
-    } catch(err) {
-        if( ((err||{}).message||'').includes('The build needs to have been run previously') ) {
-            assert_usage(
-                false,
-                colorErr("Built pages not found")+" at `"+buildOutputDir+"`.",
-                "Did you run the build (e.g. `reframe build`) before starting the server?"
-            );
+        const numberOfPages = Object.keys(pageConfigFiles).length;
+        if( numberOfPages===0 ) {
             return;
         }
-        throw err;
+
+        const basePath = getCommonRoot(Object.values(pageConfigFiles));
+
+        let pageConfigs__str = (
+            Object.entries(pageConfigFiles)
+            .map(([pageName, filePath]) => {
+                const filePath__parts = (
+                    pathModule.relative(basePath, filePath)
+                    .split(pathModule.sep)
+                );
+                filePath__parts[filePath__parts.length-1] = (
+                    filePath__parts[filePath__parts.length-1]
+                    .replace(pageName, colorPkg(pageName))
+                );
+                return (
+                    filePath__parts
+                    .join(pathModule.sep)
+                );
+            })
+            .join(', ')
+        );
+
+        if( numberOfPages>1 ) {
+            pageConfigs__str = '{'+pageConfigs__str+'}';
+        }
+
+        return [
+            'page config'+(numberOfPages===1?'':'s')+' '+strDir(basePath)+pageConfigs__str
+        ];
+    }
+}
+function getCommonRoot(filePaths) {
+    const pathModule = require('path');
+    const filePaths__parts = filePaths.map(getPathParts);
+
+    let basePath = filePaths__parts[0];
+
+    for(let i=0; i<basePath.length; i++) {
+        if( filePaths__parts.every(filePath__parts => filePath__parts[i]===basePath[i]) ) {
+            continue;
+        }
+        basePath = basePath.slice(0, i);
+        break;
     }
 
-    const {buildEnv} = buildInfo;
-    return 'built pages '+strDir(buildOutputDir)+' (Built for '+colorEmp(buildEnv)+')';
+    return basePath.join(pathModule.sep);
+
+    function getPathParts(filePath) { return pathModule.dirname(filePath).split(pathModule.sep); }
 }
+
