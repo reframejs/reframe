@@ -4,7 +4,7 @@ module.exports = forceRequire;
 
 function forceRequire(modulePath) {
     if( ! source_map_installed ) {
-        require('source-map-support').install();
+     // require('source-map-support').install();
         source_map_installed = true;
     }
 

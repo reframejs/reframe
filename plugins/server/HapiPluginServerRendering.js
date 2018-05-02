@@ -5,6 +5,7 @@ const {compute_file_hash} = require('@reframe/utils/compute_file_hash');
 const {getPageHtml} = require('@repage/server');
 const Repage = require('@repage/core');
 const getProjectConfig = require('@reframe/utils/getProjectConfig');
+const {applySourcemaps} = require('@reframe/utils/source-map-support');
 
 const HapiPluginServerRendering = {
     name: 'ReframeServerRendering',
@@ -57,7 +58,15 @@ async function compute_html(request, repage_object) {
     const uri = request.url.href;
     assert_internal(uri && uri.constructor===String, uri);
 
-    let {html, renderToHtmlIsMissing} = await getPageHtml(repage_object, uri, {canBeNull: true});
+    try {
+        let {html, renderToHtmlIsMissing} = await getPageHtml(repage_object, uri, {canBeNull: true});
+    } catch(err) {
+        await applySourcemaps(err);
+        console.log(13);
+        console.error(err);
+        console.log(23);
+        throw 'aaa';
+    }
     assert_html(html, renderToHtmlIsMissing);
 
     return html;
