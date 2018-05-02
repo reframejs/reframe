@@ -4,7 +4,6 @@ const HelloComponent = (
   props => {
     // Our route argument `name` is available at `props.route.args.name`
     const name = props.route.args.name;
-    throw new Error('hm2');
     return (
       <div>Hello {name}</div>
     );
