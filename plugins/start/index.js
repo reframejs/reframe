@@ -188,6 +188,7 @@ function log_found_stuff({projectConfig, log_page_configs, log_built_pages}) {
     const lines = [];
 
     lines.push(...log_plugins());
+    lines.push(...log_app_root());
     lines.push(...log_reframe_config());
     log_built_pages && lines.push(...log_built_pages_found());
     log_page_configs && lines.push(...log_found_page_configs());
@@ -243,21 +244,26 @@ function log_found_stuff({projectConfig, log_page_configs, log_built_pages}) {
         return ['plugin'+(_rootPluginNames.length===1?'':'s')+' '+pluginList__str];
     }
 
+    function log_app_root() {
+        const {projectRootDir} = projectConfig.projectFiles;
+
+        return ['project '+strDir(projectRootDir)];
+    }
+
     function log_found_page_configs() {
         const pageConfigFiles = projectConfig.getPageConfigFiles();
+        const {projectRootDir} = projectConfig.projectFiles;
 
         const numberOfPages = Object.keys(pageConfigFiles).length;
         if( numberOfPages===0 ) {
             return [];
         }
 
-        const basePath = getCommonRoot(Object.values(pageConfigFiles));
-
         const lines = (
             Object.entries(pageConfigFiles)
             .map(([pageName, filePath]) => {
                 const filePath__parts = (
-                    pathModule.relative(basePath, filePath)
+                    pathModule.relative(projectRootDir, filePath)
                     .split(pathModule.sep)
                 );
                 filePath__parts[filePath__parts.length-1] = (
@@ -271,7 +277,7 @@ function log_found_stuff({projectConfig, log_page_configs, log_built_pages}) {
             })
         );
 
-        const prefix = 'page config'+(numberOfPages===1?'':'s')+' '+strDir(basePath);
+        const prefix = 'page config'+(numberOfPages===1?'':'s')+' ';
         addPrefix(lines, prefix);
 
         return lines;
@@ -285,22 +291,3 @@ function addPrefix(lines, prefix) {
         lines[i] = indent + lines[i];
     }
 }
-function getCommonRoot(filePaths) {
-    const pathModule = require('path');
-    const filePaths__parts = filePaths.map(getPathParts);
-
-    let basePath = filePaths__parts[0];
-
-    for(let i=0; i<basePath.length; i++) {
-        if( filePaths__parts.every(filePath__parts => filePath__parts[i]===basePath[i]) ) {
-            continue;
-        }
-        basePath = basePath.slice(0, i);
-        break;
-    }
-
-    return basePath.join(pathModule.sep);
-
-    function getPathParts(filePath) { return pathModule.dirname(filePath).split(pathModule.sep); }
-}
-
