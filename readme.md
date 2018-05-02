@@ -246,12 +246,12 @@ allow you to create
    The DOM is dynamic allowing you create interactive views.
    In other words views that update themselves in the browser with DOM manipulations (instead of loading an entire new page).
    <br/>
-   Pages are also rendered to HTML on the server.
+   (Pages are also rendered to HTML on the server.)
    <br/>
    This is the default.
  - **Good ol' 1998 websites** <sup><sub>:floppy_disk:</sub></sup>
    <br/>
-   Pages are rendered to HTML on the server.
+   Pages are only rendered to HTML on the server.
    <br/>
    Pages are not rendered in the browser, the DOM is not manipulated, and the browser doesn't load any (or almost no) JavaScript.
    <br/>
@@ -266,8 +266,6 @@ allow you to create
    <br/>
    Opt-in by setting `htmlStatic: true` to all your page configs.
  - **Hybrid apps**
-   <br/>
-   Pages with different types.
    <br/>
    Some pages are DOM-static, some DOM-dynamic, some HTML-static, and some HTML-dynamic.
    <br/>
