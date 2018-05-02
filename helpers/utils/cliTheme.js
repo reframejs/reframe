@@ -3,8 +3,12 @@ const relativeToHomedir = require('@brillout/relative-to-homedir');
 const pathModule = require('path');
 
 const cliColors = {
+    /*
     colorDir: chalk.green,
     colorFile: chalk.green,
+    */
+    colorDir: chalk.cyan,
+    colorFile: chalk.cyan,
 
     colorEmp: chalk.cyan,
     colorCmd: chalk.cyan,

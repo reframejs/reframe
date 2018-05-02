@@ -120,7 +120,7 @@ function assert_server(projectConfig) {
 }
 function assert_config(bool, projectConfig, path, name) {
     const assert_usage = require('reassert/usage');
-    const assert_internal = require('reassert/usage');
+    const assert_internal = require('reassert/internal');
     assert_internal(projectConfig._rootPluginNames);
     assert_internal(projectConfig._packageJsonFile);
     assert_usage(
@@ -166,7 +166,7 @@ function log_routes(projectConfig, server) {
 
     const routes = (
         pageConfigs
-        .sort(({route: route1}, {route: route2}) => (route2 > route1 && -1 || route2 < route1 && 1 || 0))
+        .sort(({route: a}, {route: b}) => (b > a && -1 || b < a && 1 || 0))
         .map(({route, pageName}) =>
             '    '+serverUrl+colorPkg(route)+' -> '+pageName
         )
@@ -184,11 +184,13 @@ function log_server_start_hint() {
 function log_found_stuff({projectConfig, log_page_configs, log_built_pages}) {
     const {colorErr, symbolSuccess, strDir, strFile, colorPkg, colorEmp} = require('@reframe/utils/cliTheme');
     const pathModule = require('path');
+    const assert_internal = require('reassert/internal');
+    const assert_usage = require('reassert/usage');
 
     const lines = [];
 
+    lines.push(...log_project_root());
     lines.push(...log_plugins());
-    lines.push(...log_app_root());
     lines.push(...log_reframe_config());
     log_built_pages && lines.push(...log_built_pages_found());
     log_page_configs && lines.push(...log_found_page_configs());
@@ -201,8 +203,6 @@ function log_found_stuff({projectConfig, log_page_configs, log_built_pages}) {
     return;
 
     function log_built_pages_found() {
-        const assert_usage = require('reassert/usage');
-
         const {buildOutputDir} = projectConfig.projectFiles;
 
         let buildInfo;
@@ -244,38 +244,59 @@ function log_found_stuff({projectConfig, log_page_configs, log_built_pages}) {
         return ['plugin'+(_rootPluginNames.length===1?'':'s')+' '+pluginList__str];
     }
 
-    function log_app_root() {
+    function log_project_root() {
         const {projectRootDir} = projectConfig.projectFiles;
 
-        return ['project '+strDir(projectRootDir)];
+        const dirS = strDir(projectRootDir).split(pathModule.sep);
+        const l = dirS.length;
+        assert_internal(dirS[l-1]==='');
+        assert_internal(dirS[l-2]!=='');
+
+        dirS[l-2] = colorEmp(dirS[l-2]);
+        const project_root = dirS.slice(0, -1).join(pathModule.sep)+pathModule.sep;
+
+        return ['project '+project_root];
     }
 
     function log_found_page_configs() {
-        const pageConfigFiles = projectConfig.getPageConfigFiles();
+        const configFiles = Object.entries(projectConfig.getPageConfigFiles());
         const {projectRootDir} = projectConfig.projectFiles;
 
-        const numberOfPages = Object.keys(pageConfigFiles).length;
+        const numberOfPages = configFiles.length;
         if( numberOfPages===0 ) {
             return [];
         }
 
-        const lines = (
-            Object.entries(pageConfigFiles)
-            .map(([pageName, filePath]) => {
-                const filePath__parts = (
-                    pathModule.relative(projectRootDir, filePath)
-                    .split(pathModule.sep)
-                );
-                filePath__parts[filePath__parts.length-1] = (
-                    filePath__parts[filePath__parts.length-1]
-                    .replace(pageName, colorPkg(pageName))
-                );
-                return (
-                    filePath__parts
-                    .join(pathModule.sep)
-                );
-            })
-        );
+        const lines = [];
+        configFiles
+        .sort(([_, a], [__, b]) => (b > a && -1 || b < a && 1 || 0))
+        .forEach(([pageName, filePath], i) => {
+            /*
+            const baseDir = (
+                i === 0 ? (
+                    projectRootDir
+                )
+                configFiles[i]
+            );
+            */
+            const filePath__parts = (
+                pathModule.relative(projectRootDir, filePath)
+                .split(pathModule.sep)
+            );
+            filePath__parts[filePath__parts.length-1] = (
+                filePath__parts[filePath__parts.length-1]
+                .replace(pageName, colorPkg(pageName))
+            );
+
+            let filePath__relative = filePath__parts.join(pathModule.sep);
+
+            const filePath__previous = (configFiles[i-1]||[])[1]||'';
+            const filePath__previous__rel = pathModule.relative(projectRootDir, filePath__previous)
+
+            filePath__relative = eraseCommonPath(filePath__previous__rel, filePath__relative);
+
+            lines[i] = filePath__relative;
+        });
 
         const prefix = 'page config'+(numberOfPages===1?'':'s')+' ';
         addPrefix(lines, prefix);
@@ -284,10 +305,31 @@ function log_found_stuff({projectConfig, log_page_configs, log_built_pages}) {
     }
 }
 function addPrefix(lines, prefix) {
-    const stringWidth = require('string-width');
-    const indent = new Array(stringWidth(prefix)).fill(' ').join('');
+    const indent = getIndent(prefix);
     lines[0] = prefix + lines[0];
     for(let i=1; i<lines.length; i++) {
         lines[i] = indent + lines[i];
     }
+}
+function eraseCommonPath(path__top, path__bot) {
+    const pathModule = require('path');
+
+    const path__top__parts = path__top.split(pathModule.sep);
+    const path__bot__parts = path__bot.split(pathModule.sep);
+
+    let ret = '';
+    for(let i = 0; i<path__top__parts.length; i++) {
+        if( path__bot__parts[i] === path__top__parts[i] ) {
+            ret += getIndent(path__bot__parts[i]+pathModule.sep);
+            continue;
+        }
+        ret += path__bot__parts.slice(i).join(pathModule.sep);
+        break;
+    }
+
+    return ret;
+}
+function getIndent(str) {
+    const stringWidth = require('string-width');
+    return new Array(stringWidth(str)).fill(' ').join('');
 }
