@@ -47,9 +47,9 @@ You can create a React web app with **no build configuration** and **no server c
 
 Yet, **everything is customizable/ejectable**.
 
-For example, the command `reframe eject server` ejects the server code:
+For example, the command `reframe eject server` ejects [~30 LOC of server code](/plugins/server/startServer.js):
 The server code is copied from Reframe's codebase to your codebase.
-Giving you control over the server code allowing you to add API endpoints, change the server config, use a process manager, etc.
+Giving you control over the server and allowing you to add API endpoints, change the server config, use a process manager, etc.
 
 There are several eject commands that you can apply one by one and progressively as the need arises.
 
@@ -76,44 +76,46 @@ Reframe does the rest:
 
 <br/>
 
-Page configs have the options
+The page config options
 
  - `htmlStatic: true`
    <br/>
    Render the page to HTML at build-time (instead of request-time).
    <br/>
-   By default a page is (re-)rendered to HTML every time the user loads the page.
-   By setting `htmlStatic: true` the page is rendered to HTML only once when Reframe is builing your app's pages.
+   By default a page is re-rendered to HTML every time the user loads the page.
+   By setting `htmlStatic: true` the page is rendered to HTML only once, when Reframe is builing your app's pages.
  - `domStatic: true`
    <br/>
    Do not render the page in the browser.
    <br/>
    By default a page is rendered twice: On the server to HTML and in the browser to the DOM.
-   (React components can be rendered to HTML as well as to the DOM.)
+   (React components can be rendered to the DOM as well as to HTML.)
    By setting `domStatic: true` the page is only rendered to HTML.
 
-Allowing you to create
+allow you to create
 
  - **Modern interactive apps** <sup><sub>:sparkles:</sub></sup>
    <br/>
    Pages are rendered in the browser.
    <br/>
-   The DOM is dynamic allowing you create interactive views, in other words views that update in the browser (without having to reload an entire new page).
+   The DOM is dynamic allowing you create interactive views.
+   In other words views that update themselves in the browser with DOM manipulations (instead of reloading an entire new page).
+   <br/>
+   Pages are also rendered to HTML on the server.
    <br/>
    This is the default.
  - **Good ol' 1998 websites** <sup><sub>:floppy_disk:</sub></sup>
    <br/>
    Pages are rendered to HTML on the server.
    <br/>
-   Pages are not rendered in the browser.
-   The browser doesn't load any (or almost no) JavaScript.
+   Pages are not rendered in the browser, the DOM is not manipulated, and the browser doesn't load any (or almost no) JavaScript.
    <br/>
    Opt-in by setting `domStatic: true` to all your page configs.
  - **Serverless apps**
    <br/>
    Pages are rendered to HTML at build-time.
    <br/>
-   All pages are rendered to HTML only when Reframe is building and are served statically.
+   All pages are rendered to HTML only once, when Reframe is building the pages, and the HTML is served statically.
    <br/>
    Such app doen't need a Node.js server and can be deployed to a static host such as GitHub Pages or Netlify.
    <br/>
@@ -124,17 +126,22 @@ Allowing you to create
    <br/>
    Some pages are DOM-static, some DOM-dynamic, some HTML-static, and some HTML-dynamic.
    <br/>
-   That way you can create couple of pages with interactive views while the rest of your app is non-interactive.
+   That way you can create couple of pages that have interactive views while the rest of your app is non-interactive.
    Non-interactive views are considerably easier to implement and usually perform better.
    Hybrid apps allow the approach "Whenever possible, implement features with non-interative views".
    <br/>
    Opt-in by setting `htmlStatic: true` / `domStatic: true` to some of your page configs.
 
-> With Reframe you can create dynamics apps, static apps, and hybrid apps.
+In short:
 
-Changing the type of your app is merely a matter of adding/removing `htmlStatic: true`/`domStatic: true` to your page configs.
+> You can create static apps, dynamic apps, and hybrid apps.
 
-> With Reframe you can start writing your app and only later decide the type of your app.
+Changing the type of your app is merely a matter of adding/removing `htmlStatic: true` / `domStatic: true` to your page configs.
+
+> You can start writing your app and only later decide the type of your app.
+
+To sum up,
+Reframe is **easy**, **universal** (you can create any type of web app), and **ejectable**.
 
 <br/>
 
