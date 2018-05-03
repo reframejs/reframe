@@ -157,6 +157,7 @@ function log_server(server, projectConfig) {
  // const {symbolSuccess} = require('@reframe/utils/cliTheme');
  // console.log(symbolSuccess+' Server running '+server.info.uri);
     log_routes(projectConfig, server);
+    console.log();
 }
 function log_routes(projectConfig, server) {
     const {pageConfigs} = require(projectConfig.build.getBuildInfo)();
