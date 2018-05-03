@@ -9,7 +9,7 @@ const serve = require('@rebuild/serve');
 const build = require('@rebuild/build');
 const {Logger} = require('@rebuild/build/utils/Logger');
 
-/*
+//*
 global.DEBUG_WATCH = true;
 //*/
 
@@ -18,9 +18,7 @@ module.exports = {IsoBuilder};
 
 
 function IsoBuilder() {
-    const latestRun = {
-        runNumber: 0,
-    };
+    const latestRun = {runNumber: 0, overallPromise: null};
 
     const isoBuilder = this;
 
@@ -59,11 +57,11 @@ function IsoBuilder() {
         onSuccessfullWatchChange,
     });
 
-    this.build = runAllBuilds;
+    this.build = startAll;
 
     return this;
 
-    function runAllBuilds() {
+    function startAll() {
         return (
             buildAll({
                 isoBuilder,
@@ -93,7 +91,7 @@ function IsoBuilder() {
 
     function onSuccessfullWatchChange(buildName) {
         global.DEBUG_WATCH && console.log('REBUILD-REASON: webpack-watch for `'+buildName+'`');
-        runAllBuilds();
+        startAll();
     }
 }
 
@@ -101,13 +99,13 @@ function BuildManager({buildName, buildFunction, onBuildStateChange, onSuccessfu
     const _compiler = new WebpackCompilerWithCache();
 
     const that = Object.assign(this, {
-        runBuild,
+        startBuild,
         getCompilationInfo: () => null,
     });
 
     return this;
 
-    async function runBuild({webpackConfig, runIsOutdated}) {
+    async function startBuild({webpackConfig, runIsOutdated}) {
         assert_usage(webpackConfig);
         assert_internal(runIsOutdated);
 
@@ -296,28 +294,24 @@ async function buildAll({isoBuilder, latestRun, browserBuild, nodejsBuild}) {
 
     log_state_start({logger});
 
-    const run = {
-        runNumber: latestRun.runNumber+1,
-        isOutdated: () => run.runNumber!==latestRun.runNumber,
-    };
+    const runNumber = latestRun.runNumber + 1;
+    const runIsOutdated = () => runNumber !== latestRun.runNumber;
+    latestRun.runNumber = runNumber;
+    latestRun.overallPromise = overallPromise;
 
     const buildForNodejs = (
         webpackConfig =>
-            nodejsBuild.runBuild({webpackConfig, runIsOutdated: run.isOutdated})
+            nodejsBuild.startBuild({webpackConfig, runIsOutdated})
     );
     const buildForBrowser = (
         webpackConfig =>
-            browserBuild.runBuild({webpackConfig, runIsOutdated: run.isOutdated})
+            browserBuild.startBuild({webpackConfig, runIsOutdated})
     );
 
     assert_usage(isoBuilder.builder);
     const generator = isoBuilder.builder({buildForNodejs, buildForBrowser});
 
     const {promise: overallPromise, resolvePromise: resolveOverallPromise} = gen_promise();
-    run.overallPromise = overallPromise;
-
-    latestRun.runNumber = run.runNumber;
-    latestRun.overallPromise = run.overallPromise;
 
     let resolvedValue;
     let isAborted = true;
@@ -334,10 +328,10 @@ async function buildAll({isoBuilder, latestRun, browserBuild, nodejsBuild}) {
         resolvedValue = await currentPromise.then();
         resolveTimeout();
         if( resolvedValue && resolvedValue.abortBuilder ) {
-            assert_internal(run.isOutdated());
+            assert_internal(runIsOutdated());
             break;
         }
-        if( run.isOutdated() ) {
+        if( runIsOutdated() ) {
             break;
         }
     }
@@ -346,7 +340,7 @@ async function buildAll({isoBuilder, latestRun, browserBuild, nodejsBuild}) {
 
     await waitOnLatestRun(latestRun);
 
-    const isOutdated = run.isOutdated();
+    const isOutdated = runIsOutdated();
     if( ! isOutdated ) {
         log_state_end({logger, nodejsBuild, browserBuild});
     }
