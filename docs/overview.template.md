@@ -76,7 +76,7 @@ Reframe does the rest:
 
 <br/>
 
-There are two page config options that allow you to create all kinds of web apps:
+There are two page config options that allow you to create all kinds of web apps.
 
  - `htmlStatic: true`
    <br/>
