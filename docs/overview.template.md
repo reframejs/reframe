@@ -76,7 +76,7 @@ Reframe does the rest:
 
 <br/>
 
-The page config options
+Page configs have the options `htmlStatic: true` and `domStatic: true` allowing you to create all kinds of web apps.
 
  - `htmlStatic: true`
    <br/>
@@ -92,7 +92,7 @@ The page config options
    (React components can be rendered to the DOM as well as to HTML.)
    By setting `domStatic: true` the page is only rendered to HTML.
 
-allow you to create
+Allowing you to create:
 
  - **Modern interactive apps** <sup><sub>:sparkles:</sub></sup>
    <br/>
@@ -138,7 +138,9 @@ Changing the type of your app is merely a matter of adding/removing `htmlStatic:
 
 > You can start writing your app and only later decide the type of your app.
 
-To sum up,
+<br/>
+
+In summary,
 Reframe is **easy**, **universal** (you can create any type of web app), and **ejectable**.
 
 <br/>
