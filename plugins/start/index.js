@@ -222,7 +222,7 @@ function log_found_stuff({projectConfig, log_page_configs, log_built_pages}) {
         }
 
         const {buildEnv} = buildInfo;
-        return ['built pages '+strDir(buildOutputDir)+' (Built for '+colorEmp(buildEnv)+')'];
+        return ['built pages '+strDir(buildOutputDir)+' (for '+colorEmp(buildEnv)+')'];
     }
 
     function log_reframe_config() {

@@ -27,7 +27,11 @@ async function startServer() {
 
     await server.start();
 
-    console.log(chalk.green('\u2714')+' Server running');
+    console.log([
+        chalk.green('\u2714'),
+        'Server running',
+        '(for '+chalk.cyan(process.env.NODE_ENV||'development')+')',
+    ].join(' '));
 
     return server;
 }
