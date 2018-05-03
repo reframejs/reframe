@@ -13,7 +13,7 @@ const HelloComponent = (
 const HelloPage = {
   route: '/hello/:name', // Parameterized route
   view: HelloComponent,
-  title: 'Hi there',
+  title: 'Hi there', // Page's <title>
 };
 
 export default HelloPage;

@@ -155,7 +155,7 @@ It automatically transpiles, bundles, routes, renders, and serves your pages.
 const WelcomePage = {
   route: '/',
   view: () => <div>Welcome to Reframe</div>,
-  title: 'Welcome' // Page's <title>
+  title: 'Welcome'
 };
 
 export default WelcomePage;
@@ -207,7 +207,7 @@ const HelloComponent = (
 const HelloPage = {
   route: '/hello/:name', // Parameterized route
   view: HelloComponent,
-  title: 'Hi there',
+  title: 'Hi there', // Page's <title>
 };
 
 export default HelloPage;

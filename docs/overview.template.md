@@ -28,7 +28,7 @@ It automatically transpiles, bundles, routes, renders, and serves your pages.
 const WelcomePage = {
   route: '/',
   view: () => <div>Welcome to Reframe</div>,
-  title: 'Welcome' // Page's <title>
+  title: 'Welcome'
 };
 
 export default WelcomePage;
