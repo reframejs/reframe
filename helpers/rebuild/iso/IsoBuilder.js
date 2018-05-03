@@ -9,7 +9,7 @@ const serve = require('@rebuild/serve');
 const build = require('@rebuild/build');
 const {Logger} = require('@rebuild/build/utils/Logger');
 
-//*
+/*
 global.DEBUG_WATCH = true;
 //*/
 
@@ -18,7 +18,7 @@ module.exports = {IsoBuilder};
 
 
 function IsoBuilder() {
-    const latestRun = {runNumber: 0, overallPromise: null};
+    const latestRun = {runNumber: 0, runPromise: null};
 
     const isoBuilder = this;
 
@@ -297,8 +297,9 @@ async function buildAll({isoBuilder, latestRun, browserBuild, nodejsBuild}) {
 
     const runNumber = latestRun.runNumber + 1;
     const runIsOutdated = () => runNumber !== latestRun.runNumber;
+    const {promise: runPromise, resolvePromise: resolveRunPromise} = gen_promise();
     latestRun.runNumber = runNumber;
-    latestRun.overallPromise = overallPromise;
+    latestRun.runPromise = runPromise;
 
     const buildForNodejs = (
         webpackConfig =>
@@ -311,8 +312,6 @@ async function buildAll({isoBuilder, latestRun, browserBuild, nodejsBuild}) {
 
     assert_usage(isoBuilder.builder);
     const generator = isoBuilder.builder({buildForNodejs, buildForBrowser});
-
-    const {promise: overallPromise, resolvePromise: resolveOverallPromise} = gen_promise();
 
     let resolvedValue;
     let isAborted = true;
@@ -337,7 +336,7 @@ async function buildAll({isoBuilder, latestRun, browserBuild, nodejsBuild}) {
         }
     }
 
-    resolveOverallPromise({isAborted});
+    resolveRunPromise({isAborted});
 
     await waitOnLatestRun(latestRun);
 
@@ -408,7 +407,7 @@ function log_state_fail({logger, browserCompilationInfo, nodejsCompilationInfo})
 
 async function waitOnLatestRun(latestRun) {
     const {runNumber} = latestRun;
-    const {isAborted} = await latestRun.overallPromise;
+    const {isAborted} = await latestRun.runPromise;
     if( latestRun.runNumber !== runNumber ) {
         return waitOnLatestRun(latestRun);
     }
