@@ -2,6 +2,7 @@ const assert_internal = require('reassert/internal');
 const assert_usage = require('reassert/usage');
 const findProjectFiles = require('./findProjectFiles');
 const pathModule = require('path');
+const {colorErr, strDir, colorEmp} = require('@reframe/utils/cliTheme');
 const {processNodejsConfig} = require('./process-config/processNodejsConfig');
 
 module.exports = getProjectConfig;
@@ -141,9 +142,9 @@ function assert_plugin_found({rootPlugins, projectRootDir, packageJsonFile}) {
     const nodeModulesDir = pathModule.resolve(pathModule.dirname(packageJsonFile), "./node_modules");
     assert_usage(
         rootPlugins.length>0,
-        "Project found at `"+projectRootDir+"` but no Reframe plugin found.",
+        "Project found at "+colorEmp(strDir(projectRootDir))+" but "+colorErr("no Reframe plugin found."),
         "You need to add a plugin either by adding it to your `reframe.config.js` or by adding it as a dependency in your `package.json`.",
-        "Note that, if the plugin is listed in the `dependencies` field of your `"+packageJsonFile+"`, then it also needs to be installed. In other words, does it exist in `"+nodeModulesDir+"`?",
+        "Note that, if the plugin is listed in the `dependencies` field of your `"+packageJsonFile+"`, then it also needs to be installed. In other words, does it exist in `"+strDir(nodeModulesDir)+"`?",
     );
 
 }
