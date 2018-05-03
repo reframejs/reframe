@@ -2,10 +2,9 @@
   "name": "@reframe/utils",
   "version": "0.1.0",
   "dependencies": {
+    "@brillout/cli-theme": "0.1.0",
     "@brillout/find-package-files": "^0.1.0",
     "@brillout/get-user-dir": "^0.1.2",
-    "@brillout/relative-to-homedir": "^0.1.0",
-    "chalk": "^2.4.0",
     "cross-spawn": "^6.0.4",
     "find-up": "^2.1.0",
     "git-state": "^4.0.0",

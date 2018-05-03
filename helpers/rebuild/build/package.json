@@ -7,7 +7,6 @@
     "bluebird": "^3.5.1",
     "chalk": "^2.3.0",
     "commondir": "^1.0.1",
-    "inert": "^5.1.0",
     "lodash": "^4.17.4",
     "log-symbols": "^2.2.0",
     "mkdirp": "^0.5.1",

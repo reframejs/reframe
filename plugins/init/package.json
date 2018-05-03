@@ -2,6 +2,7 @@
     "name": "@reframe/init",
     "version": "0.1.0",
     "dependencies": {
+        "@brillout/cli-theme": "0.1.0",
         "@reframe/utils": "0.1.0",
         "fs-extra": "^5.0.0"
     },

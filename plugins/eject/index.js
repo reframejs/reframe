@@ -24,7 +24,7 @@ async function runEject(ejectableName) {
     const assert_usage = require('reassert/usage');
     const assert_internal = require('reassert/internal');
     const getProjectConfig = require('@reframe/utils/getProjectConfig');
-    const {symbolSuccess, strFile} = require('@reframe/utils/cliTheme');
+    const {symbolSuccess, strFile} = require('@brillout/cli-theme');
     const runNpmInstall = require('@reframe/utils/runNpmInstall');
     const git = require('@reframe/utils/git');
     const pathModule = require('path');

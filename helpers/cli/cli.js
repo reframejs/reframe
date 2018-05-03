@@ -21,7 +21,7 @@ if( ! projectRootDir ) {
     );
 } else {
     const assert_usage = require('reassert');
-    const {colorErr, colorDir, colorFile, colorPkg, strDir, strFile} = require('@reframe/utils/cliTheme');
+    const {colorErr, colorDir, colorFile, colorPkg, strDir, strFile} = require('@brillout/cli-theme');
     const {_rootPluginNames, cli_commands, projectFiles: {reframeConfigFile}} = projectConfig;
     assert_usage(
         cli_commands.length>0,

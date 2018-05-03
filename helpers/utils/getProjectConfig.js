@@ -2,7 +2,7 @@ const assert_internal = require('reassert/internal');
 const assert_usage = require('reassert/usage');
 const findProjectFiles = require('./findProjectFiles');
 const pathModule = require('path');
-const {colorErr, strDir, colorEmp} = require('@reframe/utils/cliTheme');
+const {colorErr, strDir, colorEmp} = require('@brillout/cli-theme');
 const {processNodejsConfig} = require('./process-config/processNodejsConfig');
 
 module.exports = getProjectConfig;

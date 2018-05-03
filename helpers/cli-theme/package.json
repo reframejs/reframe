@@ -1,0 +1,12 @@
+{
+  "name": "@brillout/cli-theme",
+  "version": "0.1.0",
+  "dependencies": {
+    "@brillout/relative-to-homedir": "^0.1.0",
+    "chalk": "^2.4.1"
+  },
+  "repository": "https://github.com/reframejs/reframe/tree/master/helpers/cli-theme",
+  "publishConfig": {
+    "access": "public"
+  }
+}

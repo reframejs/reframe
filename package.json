@@ -33,6 +33,7 @@
 
         "helpers/utils",
         "helpers/cli",
+        "helpers/cli-theme",
         "helpers/webpack-ssr",
         "helpers/webpack-config-mod",
         "helpers/file-sets",

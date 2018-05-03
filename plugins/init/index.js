@@ -25,7 +25,7 @@ function initCommands() {
 async function scaffoldApp(projectName) {
     const path = require('path');
     const fs = require('fs-extra');
-    const {colorDir, colorCmd, colorPkg, colorUrl, symbolSuccess, strDir} = require('@reframe/utils/cliTheme');
+    const {colorDir, colorCmd, colorPkg, colorUrl, symbolSuccess, strDir} = require('@brillout/cli-theme');
 
     const projectRootDir = path.resolve(process.cwd(), projectName);
 
@@ -121,7 +121,7 @@ Initial code not commited as your Git user name and/or email is not configured.`
 }
 
 function showUsageExample() {
-    const {colorCmd} = require('@reframe/utils/cliTheme');
+    const {colorCmd} = require('@brillout/cli-theme');
 
     console.log(
 `
@@ -132,7 +132,7 @@ function showUsageExample() {
 }
 
 function showUsageInfo() {
-    const {colorCmd} = require('@reframe/utils/cliTheme');
+    const {colorCmd} = require('@brillout/cli-theme');
 
     console.log(
 `

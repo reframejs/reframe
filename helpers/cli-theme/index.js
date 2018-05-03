@@ -1,8 +1,8 @@
 const chalk = require('chalk');
 const relativeToHomedir = require('@brillout/relative-to-homedir');
-const pathModule = require('path');
+const path = require('path');
 
-const cliColors = {
+const cliTheme = {
     /*
     colorDir: chalk.green,
     colorFile: chalk.green,
@@ -19,18 +19,13 @@ const cliColors = {
 
     colorDim: chalk.dim,
 
-    symbolSuccess: chalk.green('\u{2714}'),
+    symbolSuccess: chalk.cyan(' \u{2714} '),
 
     strDir: dirPath => {
-        dirPath = dirPath + (dirPath.endsWith(pathModule.sep) ? '' : pathModule.sep)
-        /*
-        dirPath = dirPath + (
-            pathModule.sep==='/' && !dirPath.endsWith('/') && '/' || ''
-        );
-        */
-        return cliColors.strFile(dirPath);
+        dirPath = dirPath + (dirPath.endsWith(path.sep) ? '' : path.sep)
+        return cliTheme.strFile(dirPath);
     },
     strFile: filePath => relativeToHomedir(filePath),
 };
 
-module.exports = cliColors;
+module.exports = cliTheme;

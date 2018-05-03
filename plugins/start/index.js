@@ -142,7 +142,7 @@ function prettify_error(err) {
     if( ! ((err||{}).message||'').includes('EADDRINUSE') ) {
         throw err;
     }
-    const {colorErr} = require('@reframe/utils/cliTheme');
+    const {colorErr} = require('@brillout/cli-theme');
     console.error();
     console.error(err.stack);
     console.error();
@@ -154,14 +154,14 @@ function prettify_error(err) {
 }
 
 function log_server(server, projectConfig) {
- // const {symbolSuccess} = require('@reframe/utils/cliTheme');
+ // const {symbolSuccess} = require('@brillout/cli-theme');
  // console.log(symbolSuccess+' Server running '+server.info.uri);
     log_routes(projectConfig, server);
     console.log();
 }
 function log_routes(projectConfig, server) {
     const {pageConfigs} = require(projectConfig.build.getBuildInfo)();
-    const {colorPkg, colorDim} = require('@reframe/utils/cliTheme');
+    const {colorPkg, colorDim} = require('@brillout/cli-theme');
 
     const serverUrl = server && server.info && server.info.uri || '';
 
@@ -177,13 +177,13 @@ function log_routes(projectConfig, server) {
 }
 
 function log_server_start_hint() {
-    const {colorCmd} = require('@reframe/utils/cliTheme');
+    const {colorCmd} = require('@brillout/cli-theme');
     console.log('  Run '+colorCmd('reframe server')+' to start the server.');
     console.log();
 }
 
 function log_found_stuff({projectConfig, log_page_configs, log_built_pages}) {
-    const {colorErr, symbolSuccess, strDir, strFile, colorPkg, colorEmp} = require('@reframe/utils/cliTheme');
+    const {colorErr, symbolSuccess, strDir, strFile, colorPkg, colorEmp} = require('@brillout/cli-theme');
     const pathModule = require('path');
     const assert_internal = require('reassert/internal');
     const assert_usage = require('reassert/usage');
