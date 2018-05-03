@@ -1,6 +1,7 @@
 {
   "name": "@reframe/postcss",
   "version": "0.1.0",
+  "reframePlugin": true,
   "scripts": {
     "docs": "mdocs"
   },
