@@ -1,7 +1,6 @@
 {
    "name": "@reframe/build",
    "version": "0.1.0",
-   "reframePlugin": true,
    "dependencies": {
       "@reframe/utils": "0.1.0",
       "@repage/build": "0.1.0",

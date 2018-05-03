@@ -1,7 +1,6 @@
 {
   "name": "@reframe/browser",
   "version": "0.1.0",
-  "reframePlugin": true,
   "dependencies": {
     "@repage/browser": "0.1.0",
     "@repage/core": "0.1.0"
