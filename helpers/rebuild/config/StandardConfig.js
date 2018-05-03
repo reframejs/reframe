@@ -97,9 +97,11 @@ function config_code_splitting() {
 
 //*
 function config_source_map() {
+    /*
     if( ! is_production() ) {
         return;
     }
+    */
     return {
         devtool: 'source-map',
      // devtool: 'eval-source-map',
