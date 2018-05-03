@@ -268,6 +268,13 @@ function log_found_stuff({projectConfig, log_page_configs, log_built_pages}) {
             return [];
         }
 
+        const basePath = (
+            pathModule.relative(
+                projectRootDir,
+                getCommonRoot(configFiles.map(([pageName, filePath]) => filePath))
+            )
+        );
+
         const lines = [];
         configFiles
         .sort(([_, a], [__, b]) => (b > a && -1 || b < a && 1 || 0))
@@ -286,7 +293,10 @@ function log_found_stuff({projectConfig, log_page_configs, log_built_pages}) {
             const filePath__previous = (configFiles[i-1]||[])[1]||'';
             const filePath__previous__rel = pathModule.relative(projectRootDir, filePath__previous)
 
-            filePath__relative = eraseCommonPath(filePath__previous__rel, filePath__relative);
+         // filePath__relative = eraseCommonPath(filePath__previous__rel, filePath__relative);
+            if( i!==0 ) {
+                filePath__relative = eraseCommonPath(basePath+'/', filePath__relative);
+            }
 
             lines[i] = filePath__relative;
         });
@@ -321,6 +331,24 @@ function eraseCommonPath(path__top, path__bot) {
     }
 
     return ret;
+}
+function getCommonRoot(filePaths) {
+    const pathModule = require('path');
+    const filePaths__parts = filePaths.map(getPathParts);
+
+    let basePath = filePaths__parts[0];
+
+    for(let i=0; i<basePath.length; i++) {
+        if( filePaths__parts.every(filePath__parts => filePath__parts[i]===basePath[i]) ) {
+            continue;
+        }
+        basePath = basePath.slice(0, i);
+        break;
+    }
+
+    return basePath.join(pathModule.sep);
+
+    function getPathParts(filePath) { return pathModule.dirname(filePath).split(pathModule.sep); }
 }
 function getIndent(str) {
     const stringWidth = require('string-width');
