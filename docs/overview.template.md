@@ -83,7 +83,7 @@ There are two page config options that allow you to create all kinds of web apps
    Render the page to HTML at build-time (instead of request-time).
    <br/>
    By default a page is re-rendered to HTML every time the user loads the page.
-   By setting `htmlStatic: true` the page is rendered to HTML only once, when Reframe is builing your app's pages.
+   By setting `htmlStatic: true` the page is rendered to HTML only once, when Reframe is building your app's pages.
  - `domStatic: true`
    <br/>
    Do not render the page in the browser.
