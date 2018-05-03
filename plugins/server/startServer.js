@@ -6,8 +6,7 @@ const chalk = require('chalk');
 module.exports = startServer();
 
 async function startServer() {
-    // By default, Reframe uses the hapi framework to create a server.
-    // More infos about hapi at https://hapijs.com/
+    // By default, Reframe uses the hapi framework (https://hapijs.com/) to create a server.
     // You can as well use Reframe with another server framework such as Express.
     const server = Hapi.Server({
         port: 3000,

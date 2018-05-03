@@ -39,7 +39,7 @@ A *page config* is a plain JavaScript object that configures a page by assigning
  - a route, and
  - further optional page configurations
 
-You can create a React web app with **no build configuration** and **no server configuration**.
+You can create an app with **no build configuration** and **no server configuration**.
 
 > All you need to create a web app is one React component and one page config per page.
 
