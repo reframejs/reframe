@@ -178,7 +178,7 @@ function log_routes(projectConfig, server) {
 
 function log_server_start_hint() {
     const {colorCmd} = require('@brillout/cli-theme');
-    console.log('  Run '+colorCmd('reframe server')+' to start the server.');
+    console.log('Run '+colorCmd('reframe server')+' to start the server.');
     console.log();
 }
 

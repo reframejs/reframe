@@ -594,7 +594,7 @@ will copy the following file to your codebase.
 const Hapi = require('hapi');
 const HapiPluginServerRendering = require('./HapiPluginServerRendering');
 const HapiPluginStaticAssets = require('./HapiPluginStaticAssets');
-const chalk = require('chalk');
+const {symbolSuccess, colorEmphasis} = require('@brillout/cli-theme');
 
 module.exports = startServer();
 
@@ -620,10 +620,10 @@ async function startServer() {
     await server.start();
 
     console.log([
-        chalk.green('\u2714'),
-        'Server running',
-        '(for '+chalk.cyan(process.env.NODE_ENV||'development')+')',
-    ].join(' '));
+        symbolSuccess,
+        'Server running ',
+        '(for '+colorEmphasis(process.env.NODE_ENV||'development')+')',
+    ].join(''));
 
     return server;
 }
