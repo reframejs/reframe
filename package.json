@@ -30,6 +30,7 @@
         "examples/custom",
         "examples/custom-webpack",
         "examples/custom-webpack-full",
+        "examples/dom-static",
 
         "helpers/utils",
         "helpers/cli",
