@@ -76,7 +76,7 @@ Reframe does the rest:
 
 <br/>
 
-Page configs have the options `htmlStatic: true` and `domStatic: true` allowing you to create all kinds of web apps.
+There are two page config options that allow you to create all kinds of web apps:
 
  - `htmlStatic: true`
    <br/>
@@ -132,9 +132,10 @@ Allowing you to create:
 
 In short:
 
-> You can create static apps, dynamic apps, and hybrid apps.
+> You can create static, dynamic, and hybrid apps.
 
 Changing the type of your app is merely a matter of adding/removing `htmlStatic: true` / `domStatic: true` to your page configs.
+Therefore:
 
 > You can start writing your app and only later decide the type of your app.
 
