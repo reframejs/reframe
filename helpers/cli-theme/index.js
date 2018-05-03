@@ -22,7 +22,7 @@ const cliTheme = {
 
     colorDim: chalk.dim,
 
-    symbolSuccess: chalk.green(' '+symbols.success+' '),
+    symbolSuccess: chalk.cyan(' '+symbols.success+' '),
     symbolError: chalk.red(' '+symbols.error+' '),
 
     indent: '   ',
