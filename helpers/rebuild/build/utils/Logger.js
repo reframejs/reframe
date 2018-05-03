@@ -4,7 +4,7 @@ const ora = require('ora');
 const log = require('reassert/log');
 const log_title = require('../utils/log_title');
 const commondir = require('commondir');
-const {colorEmp, strDir, colorWarning, colorErr, symbolSuccess, symbolError} = require('@brillout/cli-theme');
+const {colorEmphasis, strDir, colorWarning, colorErr, symbolSuccess, symbolError} = require('@brillout/cli-theme');
 
 module.exports = {Logger};
 
@@ -144,7 +144,7 @@ function getBuildEndText() {
     return 'Code built';
 }
 function getEnvText() {
-    return ' (for '+colorEmp(get_build_env())+')';
+    return ' (for '+colorEmphasis(get_build_env())+')';
 }
 
 function getRebuildText() {

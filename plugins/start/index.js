@@ -183,7 +183,7 @@ function log_server_start_hint() {
 }
 
 function log_found_stuff({projectConfig, log_page_configs, log_built_pages}) {
-    const {colorErr, symbolSuccess, strDir, strFile, colorPkg, colorEmp} = require('@brillout/cli-theme');
+    const {colorErr, symbolSuccess, strDir, strFile, colorPkg, colorEmphasis} = require('@brillout/cli-theme');
     const pathModule = require('path');
     const assert_internal = require('reassert/internal');
     const assert_usage = require('reassert/usage');
@@ -222,7 +222,7 @@ function log_found_stuff({projectConfig, log_page_configs, log_built_pages}) {
         }
 
         const {buildEnv} = buildInfo;
-        return ['built pages '+strDir(buildOutputDir)+' (for '+colorEmp(buildEnv)+')'];
+        return ['built pages '+strDir(buildOutputDir)+' (for '+colorEmphasis(buildEnv)+')'];
     }
 
     function log_reframe_config() {
@@ -253,7 +253,7 @@ function log_found_stuff({projectConfig, log_page_configs, log_built_pages}) {
         assert_internal(dirS[l-1]==='');
         assert_internal(dirS[l-2]!=='');
 
-        dirS[l-2] = colorEmp(dirS[l-2]);
+        dirS[l-2] = colorEmphasis(dirS[l-2]);
         const project_root = dirS.slice(0, -1).join(pathModule.sep)+pathModule.sep;
 
         return ['project '+project_root];
