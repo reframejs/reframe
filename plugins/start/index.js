@@ -142,12 +142,12 @@ function prettify_error(err) {
     if( ! ((err||{}).message||'').includes('EADDRINUSE') ) {
         throw err;
     }
-    const {colorErr} = require('@brillout/cli-theme');
+    const {colorError} = require('@brillout/cli-theme');
     console.error();
     console.error(err.stack);
     console.error();
     console.error([
-        "The server is starting on an "+colorErr("address already in use")+".",
+        "The server is starting on an "+colorError("address already in use")+".",
         "Maybe you already started a server at this address?",
     ].join('\n'));
     console.error();
@@ -183,7 +183,7 @@ function log_server_start_hint() {
 }
 
 function log_found_stuff({projectConfig, log_page_configs, log_built_pages}) {
-    const {colorErr, symbolSuccess, strDir, strFile, colorPkg, colorEmphasis} = require('@brillout/cli-theme');
+    const {colorError, symbolSuccess, strDir, strFile, colorPkg, colorEmphasis} = require('@brillout/cli-theme');
     const pathModule = require('path');
     const assert_internal = require('reassert/internal');
     const assert_usage = require('reassert/usage');
@@ -213,7 +213,7 @@ function log_found_stuff({projectConfig, log_page_configs, log_built_pages}) {
             if( ((err||{}).message||'').includes('The build needs to have been run previously') ) {
                 assert_usage(
                     false,
-                    colorErr("Built pages not found")+" at `"+buildOutputDir+"`.",
+                    colorError("Built pages not found")+" at `"+buildOutputDir+"`.",
                     "Did you run the build (e.g. `reframe build`) before starting the server?"
                 );
                 return;

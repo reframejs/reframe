@@ -4,7 +4,7 @@ const ora = require('ora');
 const log = require('reassert/log');
 const log_title = require('../utils/log_title');
 const commondir = require('commondir');
-const {colorEmphasis, strDir, colorWarning, colorErr, symbolSuccess, symbolError} = require('@brillout/cli-theme');
+const {colorEmphasis, strDir, colorWarning, colorError, symbolSuccess, symbolError} = require('@brillout/cli-theme');
 
 module.exports = {Logger};
 
@@ -169,7 +169,7 @@ function log_stats_errors({webpack_stats}) {
         if( info.errors.forEach ) {
             info.errors.forEach(error => {
                 const prefix = 'ERROR in ';
-                print_err(colorErr(prefix+error));
+                print_err(colorError(prefix+error));
             });
         } else {
             print_err(info.errors);

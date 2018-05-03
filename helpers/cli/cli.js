@@ -21,11 +21,11 @@ if( ! projectRootDir ) {
     );
 } else {
     const assert_usage = require('reassert');
-    const {colorErr, colorDir, colorFile, colorPkg, strDir, strFile} = require('@brillout/cli-theme');
+    const {colorError, colorDir, colorFile, colorPkg, strDir, strFile} = require('@brillout/cli-theme');
     const {_rootPluginNames, cli_commands, projectFiles: {reframeConfigFile}} = projectConfig;
     assert_usage(
         cli_commands.length>0,
-        colorErr("No commands found."),
+        colorError("No commands found."),
         "Project found at "+colorDir(strDir(projectRootDir))+".",
         reframeConfigFile ? (
             "Reframe config found at "+colorFile(strFile(reframeConfigFile))+"."

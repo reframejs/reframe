@@ -17,7 +17,7 @@ const cliTheme = {
     colorPkg: chalk.cyan,
     colorUrl: chalk.cyan,
 
-    colorErr: chalk.bold.red,
+    colorError: chalk.bold.red,
     colorWarning: chalk.yellow,
 
     colorDim: chalk.dim,
