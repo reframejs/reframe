@@ -111,6 +111,13 @@ function BuildManager({buildName, buildFunction, onBuildStateChange, onSuccessfu
 
         global.DEBUG_WATCH && console.log(chalk.bold.cyan('RUN-START ')+buildName);
 
+        that.getCompilationInfo = () => {
+            if( runIsOutdated() ) {
+                return null;
+            }
+            return _compiler.getInfo();
+        };
+
         if( runIsOutdated() ) return abortRun();
 
         await _compiler.updateCompiler({
@@ -119,13 +126,6 @@ function BuildManager({buildName, buildFunction, onBuildStateChange, onSuccessfu
             compilationStateChangeListener,
         });
         if( runIsOutdated() ) return abortRun();
-
-        that.getCompilationInfo = () => {
-            if( runIsOutdated() ) {
-                return null;
-            }
-            return _compiler.getInfo();
-        };
 
         await _compiler.waitCompilation();
         if( runIsOutdated() ) return abortRun();
@@ -170,8 +170,8 @@ function BuildManager({buildName, buildFunction, onBuildStateChange, onSuccessfu
         }
 
         function abortRun() {
+            assert_internal(runIsOutdated());
             global.DEBUG_WATCH && console.log(chalk.bold.magenta('RUN-ABORT ')+buildName);
-            that.getCompilationInfo = () => null;
             return Promise.resolve({abortBuilder: true});
         }
 
@@ -268,6 +268,7 @@ function WebpackCompilerWithCache() {
                     }
 
                     _compilation_info = compilationInfo;
+                    assert_internal(_compilation_info);
 
                     stateChangeListener(compilationInfo);
                 },
@@ -341,10 +342,10 @@ async function buildAll({isoBuilder, latestRun, browserBuild, nodejsBuild}) {
     await waitOnLatestRun(latestRun);
 
     const isOutdated = runIsOutdated();
+    global.DEBUG_WATCH && console.log(chalk.bold("END-OVERALL-BUILDER "+(isOutdated?"[OUTDATED]":"[LATEST]")));
     if( ! isOutdated ) {
         log_state_end({logger, nodejsBuild, browserBuild});
     }
-    global.DEBUG_WATCH && console.log(chalk.bold("END-OVERALL-BUILDER "+(isOutdated?"[OUTDATED]":"[LATEST]")));
 }
 function log_state_end({logger, nodejsBuild, browserBuild}) {
     const nodejsCompilationInfo = nodejsBuild.getCompilationInfo();
