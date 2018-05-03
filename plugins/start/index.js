@@ -155,13 +155,13 @@ function prettify_error(err) {
 
 function log_server(server, projectConfig) {
  // const {symbolSuccess} = require('@brillout/cli-theme');
- // console.log(symbolSuccess+' Server running '+server.info.uri);
+ // console.log(symbolSuccess+'Server running '+server.info.uri);
     log_routes(projectConfig, server);
     console.log();
 }
 function log_routes(projectConfig, server) {
     const {pageConfigs} = require(projectConfig.build.getBuildInfo)();
-    const {colorPkg, colorDim} = require('@brillout/cli-theme');
+    const {colorPkg, colorDim, indent} = require('@brillout/cli-theme');
 
     const serverUrl = server && server.info && server.info.uri || '';
 
@@ -169,7 +169,7 @@ function log_routes(projectConfig, server) {
         pageConfigs
         .sort(({route: a}, {route: b}) => (b > a && -1 || b < a && 1 || 0))
         .map(({route, pageName}) =>
-            '    '+serverUrl+colorPkg(route)+' -> '+pageName
+            indent+'  '+serverUrl+colorPkg(route)+' -> '+pageName
         )
         .join('\n')
     );
@@ -196,7 +196,7 @@ function log_found_stuff({projectConfig, log_page_configs, log_built_pages}) {
     log_built_pages && lines.push(...log_built_pages_found());
     log_page_configs && lines.push(...log_found_page_configs());
 
-    const prefix = symbolSuccess+' Found ';
+    const prefix = symbolSuccess+'Found ';
     addPrefix(lines, prefix);
 
     console.log(lines.join('\n')+'\n');

@@ -85,7 +85,7 @@ async function runEject(ejectableName) {
         actions.forEach(action => action());
 
         await git.commit({cwd: projectRootDir, message: "eject "+ejectableSpec.name});
-        console.log(symbolSuccess+' Eject done.');
+        console.log(symbolSuccess+'Eject done.');
         console.log('  Run `git show HEAD` to see all ejected code.');
     }
 
@@ -129,7 +129,7 @@ async function runEject(ejectableName) {
 
                 const action = () => {
                     fs__write(projectFile, fileContentNew);
-                    console.log(symbolSuccess+' Modified '+strFile(projectFile));
+                    console.log(symbolSuccess+'Modified '+strFile(projectFile));
                 };
 
                 return action;
@@ -185,7 +185,7 @@ async function runEject(ejectableName) {
 
         const action = () => {
             fs__write(reframeConfigPath, reframeConfigContent);
-            console.log(symbolSuccess+' Modified '+strFile(reframeConfigFile));
+            console.log(symbolSuccess+'Modified '+strFile(reframeConfigFile));
         };
 
         actions.push(action);
@@ -378,7 +378,7 @@ async function runEject(ejectableName) {
         );
         return () => {
             fs__write(filePath, fileContent);
-            console.log(symbolSuccess+' New file '+strFile(filePath));
+            console.log(symbolSuccess+'New file '+strFile(filePath));
         };
     }
     function fs__write(filePath, fileContent) {

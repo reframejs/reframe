@@ -2,6 +2,8 @@ const chalk = require('chalk');
 const relativeToHomedir = require('@brillout/relative-to-homedir');
 const path = require('path');
 
+const symbols = getSymbols();
+
 const cliTheme = {
     /*
     colorDir: chalk.green,
@@ -16,10 +18,14 @@ const cliTheme = {
     colorUrl: chalk.cyan,
 
     colorErr: chalk.bold.red,
+    colorWarning: chalk.yellow,
 
     colorDim: chalk.dim,
 
-    symbolSuccess: chalk.cyan(' \u{2714} '),
+    symbolSuccess: chalk.green(' '+symbols.success+' '),
+    symbolError: chalk.red(' '+symbols.error+' '),
+
+    indent: '   ',
 
     strDir: dirPath => {
         dirPath = dirPath + (dirPath.endsWith(path.sep) ? '' : path.sep)
@@ -29,3 +35,24 @@ const cliTheme = {
 };
 
 module.exports = cliTheme;
+
+// Adapted from https://www.npmjs.com/package/log-symbols
+function getSymbols() {
+    const isSupported = process.platform !== 'win32' || process.env.CI || process.env.TERM === 'xterm-256color';
+
+    const main = {
+        info: 'ℹ',
+        success: '✔',
+        warning: '⚠',
+        error: '✖',
+    };
+
+    const fallbacks = {
+        info: 'i',
+        success: '√',
+        warning: '‼',
+        error: '×',
+    };
+
+    return isSupported ? main : fallbacks;
+}

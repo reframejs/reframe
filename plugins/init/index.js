@@ -70,7 +70,7 @@ This might take a couple of minutes.
 
     console.log(
 `
-${symbolSuccess} Reframe app created in ${projectRootDir__pretty}.
+${symbolSuccess}Reframe app created in ${projectRootDir__pretty}.
 
 Inside that directory, you can run commands such as
 

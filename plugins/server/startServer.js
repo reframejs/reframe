@@ -1,7 +1,7 @@
 const Hapi = require('hapi');
 const HapiPluginServerRendering = require('./HapiPluginServerRendering');
 const HapiPluginStaticAssets = require('./HapiPluginStaticAssets');
-const chalk = require('chalk');
+const {symbolSuccess, colorEmp} = require('@brillout/cli-theme');
 
 module.exports = startServer();
 
@@ -27,10 +27,10 @@ async function startServer() {
     await server.start();
 
     console.log([
-        chalk.green('\u2714'),
-        'Server running',
-        '(for '+chalk.cyan(process.env.NODE_ENV||'development')+')',
-    ].join(' '));
+        symbolSuccess,
+        'Server running ',
+        '(for '+colorEmp(process.env.NODE_ENV||'development')+')',
+    ].join(''));
 
     return server;
 }

@@ -1,12 +1,10 @@
 const assert_internal = require('reassert/internal');
 const assert_tmp = assert_internal;
-const chalk = require('chalk');
-const log_symbols = require('log-symbols');
 const ora = require('ora');
 const log = require('reassert/log');
 const log_title = require('../utils/log_title');
 const commondir = require('commondir');
-const relative_to_homedir = require('@brillout/relative-to-homedir');
+const {colorEmp, strDir, colorWarning, colorErr, symbolSuccess, symbolError} = require('@brillout/cli-theme');
 
 module.exports = {Logger};
 
@@ -18,8 +16,8 @@ function Logger(opts) {
             onNewBuildState: new BuildStateManager(this),
 
             symbols: {
-                success_symbol: log_symbols.success,
-                failure_symbol: log_symbols.error,
+                success_symbol: symbolSuccess,
+                failure_symbol: symbolError,
             },
 
             loading_spinner: {
@@ -57,7 +55,7 @@ function Logger(opts) {
         process.stdout.write('\n');
         log_compilation_error({compilation_info});
         process.stdout.write('\n');
-        console.log(this.symbols.failure_symbol+' Build failed');
+        console.log(this.symbols.failure_symbol+'Build failed');
         process.stdout.write('\n');
     }
 
@@ -66,7 +64,7 @@ function Logger(opts) {
     }
 
     function on_re_compilation_success() {
-        console.log(this.symbols.success_symbol+' Re-built');
+        console.log(this.symbols.success_symbol+'Re-built');
     }
 
     function log_compilation_info({compilation_info}) {
@@ -109,9 +107,9 @@ function Logger(opts) {
         process.stdout.write(
             [
                 log_config_and_stats && '\n',
-                this.symbols.success_symbol+' ',
+                this.symbols.success_symbol,
                 this.getBuildEndText(),
-                output_directory__base && ' '+relative_to_homedir(output_directory__base)+'/',
+                output_directory__base && ' '+strDir(output_directory__base),
                 this.getEnvText(),
                 '\n\n'
             ]
@@ -146,7 +144,7 @@ function getBuildEndText() {
     return 'Code built';
 }
 function getEnvText() {
-    return ' (for '+chalk.cyan(get_build_env())+')';
+    return ' (for '+colorEmp(get_build_env())+')';
 }
 
 function getRebuildText() {
@@ -171,7 +169,7 @@ function log_stats_errors({webpack_stats}) {
         if( info.errors.forEach ) {
             info.errors.forEach(error => {
                 const prefix = 'ERROR in ';
-                print_err(chalk.bold.redBright(prefix+error));
+                print_err(colorErr(prefix+error));
             });
         } else {
             print_err(info.errors);
@@ -182,7 +180,7 @@ function log_stats_errors({webpack_stats}) {
         log_title('Warning');
         if( info.warnings.forEach ) {
             info.warnings.forEach(error => {
-                print_warn(chalk.yellow(error));
+                print_warn(colorWarning(error));
             });
         } else {
             print_warn(info.warnings);
