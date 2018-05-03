@@ -1,9 +1,6 @@
 const assert_internal = require('reassert/internal');
 const assert_tmp = assert_internal;
 const watchDir = require('../utils/autoreload/watchDir');
-const {start_a_server} = require('../utils/serve_static_dir');
-const {HapiPluginStaticAssets__create} = require('@rebuild/build/utils/HapiPluginStaticAssets');
-
 
 module.exports = {
     webpack_config_modifier,
@@ -82,19 +79,6 @@ function get_compiler_handler({doNotCreateServer, doNotFireReloadEvents, doNotWa
             watchDir(dirPath);
         }
 
-        const HapiPluginStaticAssets = HapiPluginStaticAssets__create(dirPath);
-
-        return {
-            HapiPluginStaticAssets,
-            watching,
-            /*
-            server_start_promise: (async () => {
-                if( ! doNotCreateServer ) {
-                    await start_a_server({port, HapiPluginStaticAssets});
-                }
-            })(),
-            */
-        };
-
+        return {watching};
     }
 }
