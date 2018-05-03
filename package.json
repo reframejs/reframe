@@ -31,6 +31,7 @@
         "examples/custom-webpack",
         "examples/custom-webpack-full",
         "examples/dom-static",
+        "examples/runtime-error",
 
         "helpers/utils",
         "helpers/cli",
