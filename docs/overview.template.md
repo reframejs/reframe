@@ -204,6 +204,5 @@ Reframe is **easy**, **universal** (you can create any type of web app), and **e
 ### Quick Start
 
 !INLINE ./start.md --hide-source-path
-<br/>
 
 Read the source code of `my-app/` and check out the [Usage Manual](/docs/usage-manual.md) to familiarize yourself with Reframe's usage.
