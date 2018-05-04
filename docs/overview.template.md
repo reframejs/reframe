@@ -38,8 +38,6 @@ Overview
 <a href="#tech-specs">Tech Specs</a>
 </p></div>
 
-<br/>
-
 ### Easy
 
 Reframe allows you to create web apps by defining so-called "page configs".
