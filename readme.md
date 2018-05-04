@@ -348,6 +348,7 @@ Reframe is **easy**, **universal** (you can create any type of web app), and **e
    ~~~shell
    $ npm install -g @reframe/cli
    ~~~
+
 <br/>
 
 2. Initialize a new Rreframe app.
@@ -355,6 +356,7 @@ Reframe is **easy**, **universal** (you can create any type of web app), and **e
    $ reframe init my-app
    ~~~
    A `my-app/` directory is created and populated with a sample Reframe app.
+
 <br/>
 
 3. Build the pages and start the server.
@@ -362,6 +364,7 @@ Reframe is **easy**, **universal** (you can create any type of web app), and **e
    $ cd my-app
    $ reframe start
    ~~~
+
 <br/>
 
 4. Open [http://localhost:3000](http://localhost:3000).
