@@ -11,12 +11,15 @@
 
 ##### Contents
 
- - [What is Reframe](#what-is-reframe)
+ - [Easy](#easy)
+ - [Ejectable](#ejectable)
+ - [Example](#universal)
+ - [Universal](#universal)
  - [Tech Specs](#tech-specs)
  - [Quick Start](#quick-start)
 
 
-### What is Reframe
+### Easy
 
 Reframe allows you to create web apps by defining so-called "page configs".
 Reframe takes care of the rest:
@@ -40,9 +43,11 @@ You can create an app with **no build configuration** and **no server configurat
 
 > All you need to create a web app is one React component and one page config per page.
 
-<br/>
 
-Yet, **everything is customizable/ejectable**.
+
+### Ejectable
+
+**Everything is customizable/ejectable**.
 
 For example, the command `reframe eject server` ejects [~30 LOC of server code](/plugins/server/startServer.js):
 The server code is copied from Reframe's codebase to your codebase.
@@ -54,7 +59,9 @@ If you run all eject commands then you effectively get rid of Reframe.
 
 > Reframe doesn't lock you in: You can progressively and fully eject Reframe.
 
-<br/>
+
+
+### Example
 
 In the following we create a web app
 by defining a page config `HelloPage`.
@@ -73,7 +80,9 @@ Reframe does the rest:
 
 That's it: We created a web app by simply defining one page config.
 
-<br/>
+
+
+### Universal
 
 Reframe is universal (you can create any type of web app)
 thanks to two page config options: `htmlStatic: true` and `domStatic: true`.
@@ -100,21 +109,7 @@ Thus, you can create:
  - **Serverless apps** - Apps with static HTML. (No Node.js server is needed as all pages' HTML are rendered at built-time.)
  - **Hybrid apps** - Apps where some pages have a static HTML and some have a static DOM.
 
-In short:
 
-> You can create static, dynamic, and hybrid apps.
-
-Changing the type of your app is merely a matter of adding/removing `htmlStatic: true` / `domStatic: true` to your page configs.
-Therefore:
-
-> You can start writing your app and only later decide the type of your app.
-
-<br/>
-
-In summary,
-Reframe is **easy**, **universal** (you can create any type of web app), and **ejectable**.
-
-<br/>
 
 ### Tech Specs
 
