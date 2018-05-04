@@ -11,28 +11,30 @@
 
 
 <div><p align="center">
-Contents
-</p></div>
-
-<div><p align="center">
 <a href="#easy">Easy</a>
+&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
 <a href="#ejectable">Ejectable</a>
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;
 <a href="#example">Example</a>
+&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
 <a href="#universal">Universal</a>
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;
 <a href="#tech-specs">Tech Specs</a>
+&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
 <a href="#quick-start">Quick Start</a>
 </p></div>
 
+<br/>
 
 ### Easy
 
@@ -58,7 +60,7 @@ You can create an app with **no build configuration** and **no server configurat
 
 > All you need to create a web app is one React component and one page config per page.
 
-
+<br/>
 
 ### Ejectable
 
@@ -74,7 +76,7 @@ If you run all eject commands then you effectively get rid of Reframe.
 
 > Reframe doesn't lock you in: You can progressively and fully eject Reframe.
 
-
+<br/>
 
 ### Example
 
@@ -95,7 +97,7 @@ Reframe does the rest:
 
 That's it: We created a web app by simply defining one page config.
 
-
+<br/>
 
 ### Universal
 
@@ -124,7 +126,7 @@ Thus, you can create:
  - **Serverless apps** - Apps with static HTML. (No Node.js server is needed as all pages' HTML are rendered at built-time.)
  - **Hybrid apps** - Apps where some pages have a static HTML and some have a static DOM.
 
-
+<br/>
 
 ### Tech Specs
 
