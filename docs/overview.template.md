@@ -71,61 +71,34 @@ Reframe does the rest:
     <img src='https://github.com/reframejs/reframe/raw/master/docs/images/reframe_overview_screenshot.png?sanitize=true' width=1200 style="max-width:100%;"/>
 </p>
 
+That's it: We created a web app by simply defining one page config.
+
 <br/>
 
-There are two page config options that allow you to create all kinds of web apps.
+Reframe is universal (you can create any type of web app)
+thanks to two page config options: `htmlStatic: true` and `domStatic: true`.
 
- - `htmlStatic: true`
-   <br/>
-   Render the page to HTML at build-time (instead of request-time).
-   <br/>
-   By default a page is re-rendered to HTML every time the user loads the page.
-   By setting `htmlStatic: true` the page is rendered to HTML only once, when Reframe is building your app's pages.
- - `domStatic: true`
-   <br/>
-   Do not render the page in the browser.
-   <br/>
-   By default a page is rendered twice: On the server to HTML and in the browser to the DOM.
-   (React components can be rendered to the DOM as well as to HTML.)
-   By setting `domStatic: true` the page is only rendered to HTML.
+By default a page is rendered twice:
+On the server (to HTML) and in the browser (to the DOM).
+(React components, and therefore the entire page as well, can be rendered to the DOM as well as to HTML.)
 
-Allowing you to create:
+Because it is rendered in the browser, a page can have interactive views
+(a like button, a realtime graph, a To-Do list, etc.).
+But if a page has no interactive views then it is wasteful to render it in the browser.
+By adding `domStatic: true` to its page config, the page is only rendered on the server.
+The browser loads no (or almost no) JavaScript and the DOM is static.
 
- - **Modern interactive apps** <sup><sub>:sparkles:</sub></sup>
-   <br/>
-   Pages are rendered in the browser.
-   <br/>
-   The DOM is dynamic allowing you create interactive views.
-   In other words views that update themselves in the browser with DOM manipulations (instead of loading an entire new page).
-   <br/>
-   (Pages are also rendered to HTML on the server.)
-   <br/>
-   This is the default.
- - **Good ol' 1998 websites** <sup><sub>:floppy_disk:</sub></sup>
-   <br/>
-   Pages are only rendered to HTML on the server.
-   <br/>
-   Pages are not rendered in the browser, the DOM is not manipulated, and the browser doesn't load any (or almost no) JavaScript.
-   <br/>
-   Opt-in by setting `domStatic: true` to all your page configs.
- - **Serverless apps**
-   <br/>
-   Pages are rendered to HTML at build-time.
-   <br/>
-   All pages are rendered to HTML only once, when Reframe is building the pages, and the HTML is served statically.
-   <br/>
-   Such app doen't need a Node.js server and can be deployed to a static host such as GitHub Pages or Netlify.
-   <br/>
-   Opt-in by setting `htmlStatic: true` to all your page configs.
- - **Hybrid apps**
-   <br/>
-   Some pages are DOM-static, some DOM-dynamic, some HTML-static, and some HTML-dynamic.
-   <br/>
-   That way you can create couple of pages that have interactive views while the rest of your app is non-interactive.
-   Non-interactive views are considerably easier to implement and usually perform better.
-   Hybrid apps allow the approach "Whenever possible, implement features with non-interative views".
-   <br/>
-   Opt-in by setting `htmlStatic: true` / `domStatic: true` to some of your page configs.
+By default a page is dynamically rendered to HTML at request-time.
+But some pages are static
+(a landing page, a blog post, a personal homepage, etc.) and it would be wasteful to re-render its HTML on every page request.
+By adding `htmlStatic: true` to a page config, the page is rendered to HTML at build-time instead.
+
+Thus, you can create:
+
+ - **Modern interactive apps** <sup><sub>:sparkles:</sub></sup> - Apps with interactive views. (The DOM is dynamic.)
+ - **Good ol' 1998 websites** <sup><sub>:floppy_disk:</sub></sup> - Apps without interactive views. (The DOM is static.)
+ - **Serverless apps** - Apps with static HTML. (No Node.js server is needed as all pages' HTML are rendered at built-time.)
+ - **Hybrid apps** - Apps where some pages have a static HTML and some have a static DOM.
 
 In short:
 
