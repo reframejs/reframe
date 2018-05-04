@@ -15,11 +15,15 @@
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
-<a href="#ejectable">Ejectable</a>
-&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;
 <a href="#example">Example</a>
+&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="#quick-start">Quick Start</a>
+&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="#ejectable">Ejectable</a>
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
@@ -28,10 +32,6 @@
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
 <a href="#tech-specs">Tech Specs</a>
-&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="#quick-start">Quick Start</a>
 </p></div>
 
 <br/>
@@ -62,22 +62,6 @@ You can create an app with **no build configuration** and **no server configurat
 
 <br/>
 
-### Ejectable
-
-**Everything is customizable/ejectable**.
-
-For example, the command `reframe eject server` ejects [~30 LOC of server code](/plugins/server/startServer.js):
-The server code is copied from Reframe's codebase to your codebase.
-Giving you control over the server and allowing you to add API endpoints, change the server config, use a process manager, etc.
-
-There are several eject commands that you can apply one by one and progressively as the need arises.
-
-If you run all eject commands then you effectively get rid of Reframe.
-
-> Reframe doesn't lock you in: You can progressively and fully eject Reframe.
-
-<br/>
-
 ### Example
 
 In the following we create a web app
@@ -96,6 +80,33 @@ Reframe does the rest:
 </p>
 
 That's it: We created a web app by simply defining one page config.
+
+<br/>
+
+### Quick Start
+
+!INLINE ./start.md --hide-source-path
+
+To familiarize yourself with Reframe,
+read the source code of `my-app/`,
+check out the [Usage Manual](/docs/usage-manual.md),
+and read this overview.
+
+<br/>
+
+### Ejectable
+
+**Everything is customizable/ejectable**.
+
+For example, the command `reframe eject server` ejects [~30 LOC of server code](/plugins/server/startServer.js):
+The server code is copied from Reframe's codebase to your codebase.
+Giving you control over the server and allowing you to add API endpoints, change the server config, use a process manager, etc.
+
+There are several eject commands that you can apply one by one and progressively as the need arises.
+
+If you run all eject commands then you effectively get rid of Reframe.
+
+> Reframe doesn't lock you in: You can progressively and fully eject Reframe.
 
 <br/>
 
@@ -183,11 +194,3 @@ Thus, you can create:
   When setting `htmlStatic: true` to a page config, the page is rendered to HTML at build-time (instead of request-time).
   The page's HTML is rendered only once, when Reframe is building the pages, and is served statically.
   Decreasing load time.
-
-<br/>
-
-### Quick Start
-
-!INLINE ./start.md --hide-source-path
-
-Read the source code of `my-app/` and check out the [Usage Manual](/docs/usage-manual.md) to familiarize yourself with Reframe's usage.
