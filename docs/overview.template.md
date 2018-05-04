@@ -15,22 +15,22 @@ Contents
 </p></div>
 
 <div><p align="center">
-[Easy](#easy)
+<a href="#easy">Easy</a>
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
-[Ejectable](#ejectable)
+<a href="#ejectable">Ejectable</a>
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
-[Example](#universal)
+<a href="#example">Example</a>
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
-[Universal](#universal)
+<a href="#universal">Universal</a>
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
-[Tech Specs](#tech-specs)
+<a href="#tech-specs">Tech Specs</a>
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
-[Quick Start](#quick-start)
+<a href="#quick-start">Quick Start</a>
 </p></div>
 
 
