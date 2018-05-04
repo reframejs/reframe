@@ -150,15 +150,12 @@ Reframe takes care of the rest:
 It automatically transpiles, bundles, routes, renders, and serves your pages.
 
 ~~~jsx
-// A page config example
-
+// A page config
 const WelcomePage = {
   route: '/',
   view: () => <div>Welcome to Reframe</div>,
   title: 'Welcome'
 };
-
-export default WelcomePage;
 ~~~
 
 A *page config* is a plain JavaScript object that configures a page by assigning it
@@ -194,20 +191,16 @@ by defining a page config `HelloPage`.
 
 import React from 'react';
 
-const HelloComponent = (
-  props => {
+const HelloPage = {
+  route: '/hello/:name', // Parameterized route
+  title: 'Hi there', // Page's <title>
+  view: props => {
     // Our route argument `name` is available at `props.route.args.name`
     const name = props.route.args.name;
     return (
       <div>Hello {name}</div>
     );
   }
-);
-
-const HelloPage = {
-  route: '/hello/:name', // Parameterized route
-  view: HelloComponent,
-  title: 'Hi there', // Page's <title>
 };
 
 export default HelloPage;
@@ -352,25 +345,21 @@ Reframe is **easy**, **universal** (you can create any type of web app), and **e
 ### Quick Start
 
 1. Install the Reframe CLI.
-
-~~~shell
-$ npm install -g @reframe/cli
-~~~
+   ~~~shell
+   $ npm install -g @reframe/cli
+   ~~~
 
 2. Initialize a new Rreframe app.
-
-~~~shell
-$ reframe init my-app
-~~~
-
-A `my-app/` directory is created and populated with a sample Reframe app.
+   ~~~shell
+   $ reframe init my-app
+   ~~~
+   A `my-app/` directory is created and populated with a sample Reframe app.
 
 3. Build the pages and start the server.
-
-~~~shell
-$ cd my-app
-$ reframe start
-~~~
+   ~~~shell
+   $ cd my-app
+   $ reframe start
+   ~~~
 
 4. Open [http://localhost:3000](http://localhost:3000).
 

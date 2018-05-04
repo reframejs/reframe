@@ -23,15 +23,12 @@ Reframe takes care of the rest:
 It automatically transpiles, bundles, routes, renders, and serves your pages.
 
 ~~~jsx
-// A page config example
-
+// A page config
 const WelcomePage = {
   route: '/',
   view: () => <div>Welcome to Reframe</div>,
   title: 'Welcome'
 };
-
-export default WelcomePage;
 ~~~
 
 A *page config* is a plain JavaScript object that configures a page by assigning it
