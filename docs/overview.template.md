@@ -149,14 +149,16 @@ Thus, you can create:
 
 - **Non-interactive pages**
   <br/>
-  You can create couple of pages that have interactive views while the rest of your app is non-interactive.
+  You can create only few pages that have interactive views while the rest of your app is non-interactive.
+  <br/>
   Non-interactive views are considerably easier to implement.
-  You can write apps with the approach **"Whenever possible, implement features with non-interative views"**.
+  <br/>
+  You can write apps with the approach "Whenever possible, implement features with non-interative views".
 - **React Router**
   <br/>
   The syntax of the page config's `route` string is the same than in React Router v4.
   <br/>
-  And by adding the [@reframe/react-router](/plugins/react-router) plugin
+  By adding the [@reframe/react-router](/plugins/react-router) plugin
   you can use React Router's components `<Route>`, `<Switch>`, etc.
 - **TypeScript**
   <br/>
