@@ -10,6 +10,7 @@ const getUserDir = require('@brillout/get-user-dir');
 const getDefaultBrowserConfig = require('./getDefaultBrowserConfig');
 const getDefaultNodejsConfig = require('./getDefaultNodejsConfig');
 const webpackConfigMod = require('@brillout/webpack-config-mod');
+const {colorError} = require('@brillout/cli-theme');
 const handleOutputDir = require('./handleOutputDir');
 const FileSets = require('@brillout/file-sets');
 
@@ -143,7 +144,7 @@ function getNodejsEntries({pageFiles__by_interface}) {
 function getPageFiles({nodejsConfig, pageFiles__by_interface}) {
     const nodejsEntries = webpackConfigMod.getEntries(nodejsConfig);
     const nodejsEntryNames = Object.keys(nodejsEntries);
-    assert_usage(nodejsEntryNames.length>0);
+    assert_internal(nodejsEntryNames.length>0);
 
     Object.entries(pageFiles__by_interface)
     .forEach(([pageName, pageFile]) => {
@@ -181,11 +182,6 @@ function getPageFiles({nodejsConfig, pageFiles__by_interface}) {
         ...pageFiles__by_config,
     };
 
-    assert_usage(
-        Object.keys(pageFiles).length>0,
-        "No pages found."
-    );
-
     return pageFiles;
 }
 
@@ -202,6 +198,18 @@ function assert_config({config, webpackEntries, outputPath, getterName}) {
         "`"+getterName+"` should return a webpack config but returns `"+config+"` instead."
     );
 
+    const configEntries = Object.keys(webpackConfigMod.getEntries(config));
+    assert_internal(configEntries.length>=0, configEntries);
+    assert_usage(
+        configEntries.length>0 || Object.keys(webpackEntries).length>0,
+        colorError("No pages found."),
+        "Do your page config file names end with `.config.js`?"
+    );
+    assert_usage(
+        configEntries.length>0,
+        config
+    );
+
     /* TODO
     Object.entries(webpackEntries)
     .forEach(([pageName]) => {
@@ -212,8 +220,16 @@ function assert_config({config, webpackEntries, outputPath, getterName}) {
     });
     */
     assert_usage(
+        config.output,
+        config,
+        "The config returned by `"+getterName+"` has its `output` set to `"+config.output+"` but we expect `output.path` to be `"+outputPath+"`.",
+        "The config is printed above."
+    );
+    assert_usage(
         config.output && config.output.path===outputPath,
-        "The config returned by `"+getterName+"` has its `output.path` set to `"+(config.output && config.output.path)+"` but it should be `"+outputPath+"` instead."
+        config,
+        "The config returned by `"+getterName+"` has its `output.path` set to `"+(config.output && config.output.path)+"` but it should be `"+outputPath+"` instead.",
+        "The config is printed above."
     );
 }
 

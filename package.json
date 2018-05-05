@@ -22,6 +22,7 @@
         "plugins/postcss",
         "plugins/react",
         "plugins/react-router",
+        "plugins/react-router/example",
         "plugins/start",
         "plugins/typescript",
 

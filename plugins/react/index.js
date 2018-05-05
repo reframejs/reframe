@@ -26,6 +26,11 @@ function react() {
 
     function addJsxSupport({config, getRule, setRule}) {
         const jsRule = getRule(config, '.js');
+
+        if( ! jsRule ) {
+            return;
+        }
+
         const jsxRule = {...jsRule, test: /\.jsx$/};
         setRule(config, '.jsx', jsxRule);
 

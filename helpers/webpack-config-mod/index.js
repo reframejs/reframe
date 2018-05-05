@@ -6,10 +6,10 @@ const webpackConfigMod = {setRule, getRule, getEntries, addBabelPreset, addBabel
 
 module.exports = webpackConfigMod;
 
-function getRule(config, filenameExtension, {canBeMissing=false}={}) {
+function getRule(config, filenameExtension, {canBeMissing=true}={}) {
     assert_filenameExtension(filenameExtension);
 
-    const rules = getAllRules(config);
+    const rules = getAllRules(config, {canBeMissing});
 
     const dummyFileName = 'dummy'+filenameExtension;
 
@@ -39,7 +39,7 @@ function getRule(config, filenameExtension, {canBeMissing=false}={}) {
     return rulesFound[0];
 }
 
-function setRule(config, filenameExtension, newRule) {
+function setRule(config, filenameExtension, newRule, {canBeMissing=true}={}) {
     assert_filenameExtension(filenameExtension);
 
     newRule = {...newRule};
@@ -55,8 +55,8 @@ function setRule(config, filenameExtension, newRule) {
         newRule.test,
         "But it doesn't match the file name `"+dummyFileName+"`."
     );
-    const ruleOld = getRule(config, filenameExtension, {canBeMissing: true});
-    const rules = getAllRules(config);
+    const ruleOld = getRule(config, filenameExtension, {canBeMissing});
+    const rules = getAllRules(config, {canBeMissing});
     if( ! ruleOld ) {
         rules.push(newRule);
         return;
@@ -73,22 +73,26 @@ function assert_filenameExtension(filenameExtension) {
     );
 }
 
-function modifyBabelOptions(config, action) {
-    const babelLoaders = getBabelLoaders(config);
+function modifyBabelOptions(config, action, {canBeMissing=true}) {
+    const babelLoaders = getBabelLoaders(config, {canBeMissing});
 
     babelLoaders.forEach(babelLoader => {
         action(babelLoader);
     });
 }
 
-function getBabelLoaders(config) {
-    const rules = getAllRules(config);
+function getBabelLoaders(config, {canBeMissing}) {
+    const rules = getAllRules(config, {canBeMissing});
 
     rules.forEach(rule => {
         normlizeLoaders(rule);
     });
 
     const rulesFound = rules.filter(rule => rule.use.some(isBabelLoader));
+
+    if( rulesFound.length===0 && canBeMissing ) {
+        return [];
+    }
 
     assert_usage(
         rulesFound.length>0,
@@ -123,7 +127,7 @@ function getBabelLoaders(config) {
 
 }
 
-function addBabelPreset(config, babelPreset) {
+function addBabelPreset(config, babelPreset, {canBeMissing=true}={}) {
     modifyBabelOptions(
         config,
         loader => {
@@ -131,11 +135,12 @@ function addBabelPreset(config, babelPreset) {
             loader.options = loader.options || {};
             loader.options.presets = loader.options.presets || [];
             loader.options.presets.push(babelPreset);
-        }
+        },
+        {canBeMissing}
     );
 }
 
-function addBabelPlugin(config, babelPlugin) {
+function addBabelPlugin(config, babelPlugin, {canBeMissing=true}={}) {
     modifyBabelOptions(
         config,
         loader => {
@@ -143,7 +148,8 @@ function addBabelPlugin(config, babelPlugin) {
             loader.options = loader.options || {};
             loader.options.plugins = loader.options.plugins || [];
             loader.options.plugins.push(babelPlugin);
-        }
+        },
+        {canBeMissing}
     );
 }
 
@@ -216,7 +222,7 @@ function normlizeLoaders(rule) {
     );
 }
 
-function getAllRules(config, {canBeMissing}={}) {
+function getAllRules(config, {canBeMissing}) {
     assert_usage(
         config,
         'Config is missing'
@@ -225,8 +231,9 @@ function getAllRules(config, {canBeMissing}={}) {
     if( ! config.module.rules ) {
         assert_usage(
             canBeMissing,
-            'There are no rules at all.',
-            'In other words `config.module.rules` is falsy.'
+            'Trying to get the rules of webpack config.',
+            'But there are no rules at all.',
+            '(`config.module.rules` is falsy.)'
         );
         config.module.rules = config.module.rules || [];
     }
