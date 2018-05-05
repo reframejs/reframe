@@ -149,11 +149,10 @@ Thus, you can create:
 
 - **Non-interactive pages**
   <br/>
-  You can create only few pages that have interactive views while the rest of your app is non-interactive.
+  Non-interactive views are easier to implement
+  and, with Reframe, you can write an app that has only few interactive views while the rest is non-interactive.
   <br/>
-  Non-interactive views are considerably easier to implement.
-  <br/>
-  You can write apps with the approach "Whenever possible, implement features with non-interative views".
+  Following the approach "Whenever possible, implement features with non-interative views".
 - **React Router**
   <br/>
   The syntax of the page config's `route` string is the same than in React Router v4.
