@@ -148,10 +148,10 @@ Thus, you can create:
 ###### Developer Experience
 
 - **Non-interactive pages**
-   You can create couple of pages that have interactive views while the rest of your app is non-interactive.
-   Non-interactive views are considerably easier to implement.
-   You can write apps with the approach "Whenever possible, implement features with non-interative views".
-
+  <br/>
+  You can create couple of pages that have interactive views while the rest of your app is non-interactive.
+  Non-interactive views are considerably easier to implement.
+  You can write apps with the approach **"Whenever possible, implement features with non-interative views"**.
 - **React Router**
   <br/>
   The syntax of the page config's `route` string is the same than in React Router v4.
@@ -179,7 +179,7 @@ Thus, you can create:
 
 ###### SEO
 
-- **Server-Side Rendering**
+- **Server-Side Rendering** (**SSR**)
   <br/>
   By default, pages are entirely rendered to HTML giving you full control over SEO.
 
@@ -197,7 +197,7 @@ Thus, you can create:
   When setting `domStatic: true` to a page config, the page is not hydrated.
   (In other words, the page's view is not rendered to the DOM but only rendered to HTML.)
   Not only is computational time saved by skiping rendering to the DOM but also load time is saved by skipping loading JavaScript code.
-- **Server-Side Rendering**
+- **Server-Side Rendering** (**SSR**)
   <br/>
   By default, pages are rendered to HTML before being rendered to the DOM in the browser.
   Improving the user perceived load time.
