@@ -303,12 +303,13 @@ Thus, you can create:
 
 ### Tech Specs
 
-- **Server-Side Rendering** (**SSR**) for SEO and improved speed
+###### Developer Experience
+
+- **Non-interactive pages**
   <br/>
-  By default all pages are rendered to HTML on the server
-  and hydrated in the browser.
-  <br/>
-  Giving you full control over SEO and improving the user perceived load time.
+  You can create couple of pages that have interactive views while the rest of your app is non-interactive.
+  Non-interactive views are considerably easier to implement.
+  You can write apps with the approach **"Whenever possible, implement features with non-interative views"**.
 - **React Router**
   <br/>
   The syntax of the page config's `route` string is the same than in React Router v4.
@@ -333,25 +334,38 @@ Thus, you can create:
   Hapi
   ([hapijs.com](https://hapijs.com/))
   is known for its robustness and scalability.
-- **Code-splitting** for improved speed
+
+###### SEO
+
+- **Server-Side Rendering** (**SSR**)
+  <br/>
+  By default, pages are entirely rendered to HTML giving you full control over SEO.
+
+###### Performance
+
+- **Code-splitting**
   <br/>
   By default a page loads two scripts:
   One script that is shared and cached across all pages
   (that includes React, polyfills, etc.)
   and a second script that includes the React components of the page.
   That way, a page only loads what it needs.
-- **Static DOM** for improved speed
+- **Static DOM**
   <br/>
   When setting `domStatic: true` to a page config, the page is not hydrated.
   (In other words, the page's view is not rendered to the DOM but only rendered to HTML.)
   Not only is computational time saved by skiping rendering to the DOM but also load time is saved by skipping loading JavaScript code.
-- **Optimal HTTP caching** for improved speed
+- **Server-Side Rendering** (**SSR**)
+  <br/>
+  By default, pages are rendered to HTML before being rendered to the DOM in the browser.
+  Improving the user perceived load time.
+- **Optimal HTTP caching**
   <br/>
   Every dynamic server response is cached with a ETag header.
   And every static server response is indefinitely cached.
   (A static asset is served under a URL that contains the assets' hash
   and is served with the `Cache-Control` header set to `immutable` and `max-age`'s maximum value.)
-- **Static Rendering** for improved speed
+- **Static Rendering**
   <br/>
   When setting `htmlStatic: true` to a page config, the page is rendered to HTML at build-time (instead of request-time).
   The page's HTML is rendered only once, when Reframe is building the pages, and is served statically.
