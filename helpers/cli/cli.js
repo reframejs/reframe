@@ -54,7 +54,7 @@ program
 .description('Output usage information')
 .action(commandName => {
     noCommand = false;
-    showHelp(commandName);
+    printHelp(commandName);
 });
 
 const commandList = {};
@@ -85,10 +85,10 @@ projectConfig
     .action(function(options) {
         noCommand = false;
         if( process.argv.includes('-h') || process.argv.includes('--help') ) {
-            showHelp(cmdSpec.name)
+            printHelp(cmdSpec.name)
             return;
         }
-        cmdSpec.action.apply(this, arguments);
+        cmdSpec.action(options, {printHelp: () => printHelp(cmdSpec.name)});
     });
 });
 
@@ -96,7 +96,7 @@ program
 .arguments('<command>')
 .action(commandName => {
     noCommand = false;
-    showInvalidCommand(arg);
+    printInvalidCommand(commandName);
 });
 
 program.option('-h, --help');
@@ -106,25 +106,25 @@ loading_spinner.stop();
 program.parse(process.argv);
 
 if( noCommand ) {
-    showHelp();
+    printHelp();
 }
 
-function showHelp(commandName) {
+function printHelp(commandName) {
  // console.log('help for '+commandName);
     if( commandName ) {
         const cmdSpec = commandList[commandName];
         if( ! cmdSpec ) {
-            showInvalidCommand(commandName);
+            printInvalidCommand(commandName);
             return;
         }
-        showHelpCommand(cmdSpec);
+        printHelpCommand(cmdSpec);
         return;
     }
 
-    showHelpProgram();
+    printHelpProgram();
 }
 
-function showHelpCommand(cmdSpec) {
+function printHelpCommand(cmdSpec) {
     let usageLog = INDENT+'Usage: reframe '+cmdSpec.commandLine;
 
     const optionsSpec = cmdSpec.options || [];
@@ -156,7 +156,7 @@ function showHelpCommand(cmdSpec) {
     }
 }
 
-function showHelpProgram() {
+function printHelpProgram() {
     console.log();
     console.log(INDENT+'Usage: reframe [command]');
     console.log();
@@ -174,7 +174,10 @@ function showHelpProgram() {
     console.log();
 }
 
-function showInvalidCommand(commandName) {
-    console.error("Command "+colorEmphasisLight(commandName)+" doesn't exist.");
-    console.error('Run '+colorEmphasisLight('reframe help')+' for the list of commands.');
+function printInvalidCommand(commandName) {
+    console.log();
+    console.log("Command "+colorEmphasisLight(commandName)+" doesn't exist.");
+    console.log();
+    console.log('Run '+colorEmphasisLight('reframe help')+' for the list of commands.');
+    console.log();
 }

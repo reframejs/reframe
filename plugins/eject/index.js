@@ -7,7 +7,7 @@ function ejectCommands() {
             {
                 name: 'eject',
                 param: '[ejectable]',
-                description: 'Eject an "ejectable". Run `reframe eject` for the list of ejectables.',
+                description: 'Eject an "ejectable".',
                 action: runEject,
                 getHelp,
             },
@@ -15,9 +15,9 @@ function ejectCommands() {
     };
 }
 
-async function runEject(ejectableName) {
+async function runEject(ejectableName, {printHelp}) {
     if( !ejectableName ) {
-        printEjectables(0);
+        printHelp();
         return;
     }
     const detective = require('detective');
