@@ -5,7 +5,8 @@ function ejectCommands() {
         name: require('./package.json').name,
         cliCommands: [
             {
-                name: 'eject [ejectable]',
+                name: 'eject',
+                param: '[ejectable]',
                 description: 'Eject an "ejectable". Run `reframe eject` for the list of ejectables.',
                 action: runEject,
                 onHelp,

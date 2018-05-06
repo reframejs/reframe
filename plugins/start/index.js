@@ -4,7 +4,7 @@ function startCommands() {
 
     const optLog = {
         name: "-l, --log",
-        description: "Prints build and page information",
+        description: "Print build and page information.",
     };
 
     return {
@@ -36,7 +36,7 @@ function startCommands() {
                 options: [
                     {
                         name: "-d, --dev",
-                        description: "Start for development",
+                        description: "Start for development.",
                     },
                 ],
                 action: runServer,
@@ -185,16 +185,18 @@ function log_server_start_hint() {
 function log_found_stuff({projectConfig, log_page_configs, log_built_pages}) {
     const {colorError, symbolSuccess, strDir, strFile, colorPkg, colorEmphasis} = require('@brillout/cli-theme');
     const pathModule = require('path');
-    const assert_internal = require('reassert/internal');
     const assert_usage = require('reassert/usage');
+    const cliUtils = require('@reframe/utils/cliUtils');
 
-    const lines = [];
+    let lines = [];
 
-    lines.push(...log_project_root());
-    lines.push(...log_plugins());
-    lines.push(...log_reframe_config());
+    lines.push(cliUtils.getProjectRootLog(projectConfig));
+    lines.push(cliUtils.getRootPluginsLog(projectConfig));
+    lines.push(log_reframe_config());
     log_built_pages && lines.push(...log_built_pages_found());
     log_page_configs && lines.push(...log_found_page_configs());
+
+    lines = lines.filter(Boolean);
 
     const prefix = symbolSuccess+'Found ';
     addPrefix(lines, prefix);
@@ -216,7 +218,6 @@ function log_found_stuff({projectConfig, log_page_configs, log_built_pages}) {
                     colorError("Built pages not found")+" at `"+buildOutputDir+"`.",
                     "Did you run the build (e.g. `reframe build`) before starting the server?"
                 );
-                return;
             }
             throw err;
         }
@@ -229,34 +230,11 @@ function log_found_stuff({projectConfig, log_page_configs, log_built_pages}) {
         const {reframeConfigFile} = projectConfig.projectFiles;
         return (
             reframeConfigFile ? (
-                ['Reframe config '+strFile(reframeConfigFile)]
+                'Reframe config '+strFile(reframeConfigFile)
             ) : (
-                []
+                null
             )
         );
-    }
-
-    function log_plugins() {
-        const {_rootPluginNames} = projectConfig;
-        if( _rootPluginNames.length===0 ) {
-            return [];
-        }
-        const pluginList__str = _rootPluginNames.map(s => colorPkg(s)).join(', ');
-        return ['plugin'+(_rootPluginNames.length===1?'':'s')+' '+pluginList__str];
-    }
-
-    function log_project_root() {
-        const {projectRootDir} = projectConfig.projectFiles;
-
-        const dirS = strDir(projectRootDir).split(pathModule.sep);
-        const l = dirS.length;
-        assert_internal(dirS[l-1]==='');
-        assert_internal(dirS[l-2]!=='');
-
-        dirS[l-2] = colorEmphasis(dirS[l-2]);
-        const project_root = dirS.slice(0, -1).join(pathModule.sep)+pathModule.sep;
-
-        return ['project '+project_root];
     }
 
     function log_found_page_configs() {
