@@ -20,7 +20,7 @@ function startCommands() {
             },
             {
                 name: 'build',
-                description: 'Build for production.',
+                description: 'Build pages for production.',
                 options: [
                     optLog,
                     {

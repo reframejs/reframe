@@ -33,11 +33,42 @@ const cliTheme = {
         return cliTheme.strFile(dirPath);
     },
     strFile: filePath => relativeToHomedir(filePath),
+    strTable,
 };
 
 module.exports = cliTheme;
 
-// Adapted from https://www.npmjs.com/package/log-symbols
+function strTable(rows, {padding=2, indent}) {
+    const columnWidths = [];
+
+    rows.forEach(cells => {
+        cells.forEach((cell, columnNumber) => {
+            columnWidths[columnNumber] = (
+                Math.max(
+                    cell.length,
+                    columnWidths[columnNumber]||0
+                )
+            );
+        });
+    });
+
+    const lines = [];
+
+    rows.forEach(cells => {
+        let line = indent;
+        cells.forEach((cell, columnNumber) => {
+            const colWidth = columnWidths[columnNumber];
+            let cellStr = new Array(colWidth+padding).fill(' ').join('');
+            cellStr = cell + cellStr.slice(cell.length);
+            line += cellStr;
+        });
+        lines.push(line);
+    });
+
+    return lines.join('\n');
+}
+
+// Copied and adapted from https://www.npmjs.com/package/log-symbols
 function getSymbols() {
     const isSupported = process.platform !== 'win32' || process.env.CI || process.env.TERM === 'xterm-256color';
 

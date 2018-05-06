@@ -1,6 +1,4 @@
 #!/usr/bin/env node
-//#!/usr/bin/node debug
-
 
 process.on('unhandledRejection', err => {throw err});
 
@@ -46,10 +44,8 @@ if( ! projectRootDir ) {
 
 const program = require('commander');
 const cliUtils = require('@reframe/utils/cliUtils');
-const {colorEmphasisLight} = require('@brillout/cli-theme');
-const indent = '  ';
-const assert_internal = require('reassert/internal');
-
+const {colorEmphasisLight, strTable} = require('@brillout/cli-theme');
+const INDENT = '  ';
 
 let noCommand = true;
 
@@ -77,8 +73,6 @@ projectConfig
 
     commandList[cmdSpec.name] = {...cmdSpec, commandLine};
 
- // console.log(cmdSpec.name);
-
     (cmdSpec.options||[])
     .forEach(opt => {
         cmd.option(opt.name, opt.description);
@@ -96,16 +90,6 @@ projectConfig
         }
         cmdSpec.action.apply(this, arguments);
     });
-
-    cmd.on('--help', () => {
-        /*
-        if( cmdSpec.onHelp ) {
-            cmdSpec.onHelp();
-        }
-        console.log();
-        */
-        showHelp(cmdSpec.name);
-    });
 });
 
 program
@@ -114,13 +98,6 @@ program
     noCommand = false;
     showInvalidCommand(arg);
 });
-
-/*
-program.on('--help', () => {
-});
-*/
-
-//program.usage('[command]');
 
 program.option('-h, --help');
 
@@ -148,48 +125,52 @@ function showHelp(commandName) {
 }
 
 function showHelpCommand(cmdSpec) {
-    let usageLog = indent+'Usage: reframe '+cmdSpec.commandLine;
-    let optionsLog = indent+'Options:\n';
+    let usageLog = INDENT+'Usage: reframe '+cmdSpec.commandLine;
 
-    (cmdSpec.options||[])
-    .forEach(opt => {
-        /*
-        assert_internal(opt.name.startsWith('--'), opt.name);
-        assert_internal(!/\s/.test(opt.name), opt.name);
-        */
-        usageLog += ' ['+opt.name.split(', ').join('|')+']';
+    const optionsSpec = cmdSpec.options || [];
 
-        let optLog = '                  '+opt.description;
-        optLog = indent+indent + opt.name + optLog.slice(opt.name.length);
-        optionsLog += '\n'+optLog;
-    });
+    let optionsLog = '';
+    if( optionsSpec.length>0 ) {
+        optionsSpec
+        .forEach(opt => {
+            usageLog += ' ['+opt.name.split(', ').join('|')+']';
+        });
 
+        optionsLog += '\n';
+        optionsLog += INDENT+'Options:\n';
+        optionsLog += strTable(
+            optionsSpec
+            .map(opt => [opt.name, opt.description]),
+            {indent: INDENT+INDENT}
+        );
+        optionsLog += '\n';
+    }
 
-
+    console.log();
+    console.log(INDENT+colorEmphasisLight('reframe '+cmdSpec.name)+' - '+cmdSpec.description);
     console.log();
     console.log(usageLog);
-    console.log();
     console.log(optionsLog);
-    console.log();
+    if( cmdSpec.getHelp ) {
+        cmdSpec.getHelp();
+    }
 }
 
 function showHelpProgram() {
     console.log();
-    console.log(indent+'Usage: reframe [command]');
+    console.log(INDENT+'Usage: reframe [command]');
     console.log();
-    console.log(indent+'Commands:');
-    Object.entries(commandList)
-    .forEach(([commandName, cmdSpec]) => {
-        let cmdLog = '         '+cmdSpec.description;
-        cmdLog = cmdLog.slice(commandName.length);
-        cmdLog = indent+indent + colorEmphasisLight(commandName) + cmdLog;
-        console.log(cmdLog);
-    });
+    console.log(INDENT+'Commands:');
+    console.log(strTable(
+        Object.entries(commandList)
+        .map(([commandName, cmdSpec]) => [colorEmphasisLight(commandName), cmdSpec.description]),
+        {indent: INDENT+INDENT}
+    ));
     console.log();
     const emphasize = colorEmphasisLight;
-    console.log(indent+'Commands provided by '+cliUtils.getRootPluginsLog(projectConfig, emphasize)+' of '+cliUtils.getProjectRootLog(projectConfig, emphasize)+'.');
+    console.log(INDENT+'Commands provided by '+cliUtils.getRootPluginsLog(projectConfig, emphasize)+' of '+cliUtils.getProjectRootLog(projectConfig, emphasize)+'.');
     console.log();
-    console.log(indent+'Run `'+colorEmphasisLight('reframe help <command>')+'` for more information on specific commands.');
+    console.log(INDENT+'Run `'+colorEmphasisLight('reframe help <command>')+'` for more information on specific commands.');
     console.log();
 }
 

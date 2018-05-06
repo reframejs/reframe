@@ -9,7 +9,7 @@ function ejectCommands() {
                 param: '[ejectable]',
                 description: 'Eject an "ejectable". Run `reframe eject` for the list of ejectables.',
                 action: runEject,
-                onHelp,
+                getHelp,
             },
         ],
     };
@@ -401,9 +401,9 @@ async function runEject(ejectableName) {
     function fs__read(filePath) { return fs.readFileSync(filePath, 'utf8'); }
 }
 
-function onHelp() {
-    console.log();
+function getHelp() {
     printEjectables();
+    console.log();
 }
 
 function getEjectables() {
@@ -414,12 +414,17 @@ function getEjectables() {
 }
 
 function printEjectables(tabbing=2) {
+    const {colorEmphasisLight, strTable} = require('@brillout/cli-theme');
+
     const ejectables = getEjectables();
     const tab = new Array(tabbing).fill(' ').join('');
-    console.log(tab+'List of ejectables:');
-    Object.values(ejectables)
-    .forEach(ejectable => {
-        const {name, description} = ejectable;
-        console.log(tab+"  `reframe eject "+name+"` - "+description);
-    });
+    console.log(tab+'Ejectables:');
+    console.log(strTable(
+        Object.values(ejectables)
+        .map(ejectable => {
+            const {name, description} = ejectable;
+            return ["reframe eject "+colorEmphasisLight(name), description];
+        })
+        , {indent: tab+'  '}
+    ));
 }
