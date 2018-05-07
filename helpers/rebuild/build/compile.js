@@ -201,7 +201,7 @@ function setup_compiler_handler({
         compiling = false;
         clearTimeout(compilation_timeout);
 
-        compilation_info = get_compilation_info({webpack_stats, is_success});
+        compilation_info = get_compilation_info({webpack_config, webpack_stats, is_success});
         assert_internal(compilation_info);
 
         on_compiler_end(compilation_info);
@@ -216,7 +216,7 @@ function setup_compiler_handler({
     });
 
     webpack_config = deep_copy(webpack_config);
-    const {watching, server_start_promise, ...compiler_handler_return} = compiler_handler({webpack_compiler, webpack_config, webpack_compiler_error_handler});
+    const {watching, server_start_promise} = compiler_handler({webpack_compiler, webpack_config, webpack_compiler_error_handler});
     assert_internal((watching===null || watching));
     assert_tmp(server_start_promise===undefined);
 
@@ -235,18 +235,6 @@ function setup_compiler_handler({
     };
 
     return {stop_compilation, wait_compilation, wait_successfull_compilation, server_start_promise};
-
-    function get_compilation_info({webpack_stats, is_success}) {
-        const dist_info = (
-            get_dist_info({
-                config: webpack_config,
-                webpack_stats,
-            })
-        );
-        assert_internal(dist_info);
-
-        return {webpack_stats, is_success, output: dist_info, ...compiler_handler_return};
-    }
 
     function webpack_compiler_error_handler(err) {
         if( err ){
@@ -416,7 +404,18 @@ function log_config(config) {
     log(config);
 }
 
-function get_dist_info(args) {
+function get_compilation_info({webpack_config, webpack_stats, is_success}) {
+    const output = (
+        get_output_info({
+            config: webpack_config,
+            webpack_stats,
+        })
+    );
+
+    return {webpack_stats, is_success, output};
+}
+
+function get_output_info(args) {
     const {config, webpack_stats} = args;
     assert_internal(webpack_stats, args);
     assert_internal(config, args);
@@ -424,7 +423,7 @@ function get_dist_info(args) {
     const dist_root_directory = get_dist_root_directory({config});
     assert_internal(dist_root_directory, config, dist_root_directory);
 
-    const entry_points = get_dist_entry_points({config, webpack_stats, dist_root_directory});
+    const entry_points = get_entry_points({config, webpack_stats, dist_root_directory});
 
     const {port} = config.devServer||{};
     const served_at = port ? 'http://localhost:'+port : null;
@@ -508,7 +507,7 @@ function get_styles_and_scripts({all_assets}) {
     return {styles, scripts};
 }
 
-function get_dist_entry_points({config, webpack_stats, dist_root_directory}) {
+function get_entry_points({config, webpack_stats, dist_root_directory}) {
     const entry_points = {};
     get_entries(config)
     .forEach(({entry_name, source_entry_points}) => {

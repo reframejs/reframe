@@ -17,7 +17,7 @@ function get_compiler_handler({watch=false}) {
             } else {
                 watching = webpack_compiler.watch(webpack_config.watchOptions, webpack_compiler_error_handler);
             }
-            return {watching/*, server_start_promise: () => {}*/};
+            return {watching};
         }
     );
 }
