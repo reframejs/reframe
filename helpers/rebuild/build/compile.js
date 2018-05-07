@@ -180,25 +180,10 @@ function setup_compiler_handler({
         );
     },TIMEOUT_SECONDS*1000);
 
-    let compilation_promise__resolve;
-    let compilation_promise;
-    let successfull_compilation_promise__resolve;
-    let successfull_compilation_promise;
-    let isFirstCompilation;
-    const reset_compilation_promise = () => {
-        if( isFirstCompilation ) {
-            isFirstCompilation = false;
-            return;
-        }
-        compilation_promise = new Promise(resolve => compilation_promise__resolve=resolve);
-        successfull_compilation_promise = new Promise(resolve => successfull_compilation_promise__resolve=resolve);
-    };
-
-    reset_compilation_promise();
-    isFirstCompilation = true;
-
-    const wait_successfull_compilation = () => successfull_compilation_promise;
-    const wait_compilation = () => compilation_promise;
+    const end_promise = genPromise();
+    const suc_promise = genPromise();
+    const wait_compilation = () => end_promise.getPromise();
+    const wait_successfull_compilation = () => suc_promise.getPromise();
 
     onCompileStart.addListener(() => {
         assert_internal(compiling===false);
@@ -206,7 +191,8 @@ function setup_compiler_handler({
 
         compilation_info = null;
 
-        reset_compilation_promise();
+        end_promise.reset();
+        suc_promise.reset();
 
         on_compiler_start();
     });
@@ -223,9 +209,9 @@ function setup_compiler_handler({
         const compilationInfo = {is_compiling: false, is_failure: !is_success, ...compilation_info};
         assert_compilationInfo(compilationInfo);
 
-        compilation_promise__resolve(compilationInfo);
+        end_promise.resolveIt(compilationInfo);
         if( is_success ) {
-            successfull_compilation_promise__resolve(compilationInfo);
+            suc_promise.resolveIt(compilationInfo);
         }
     });
 
@@ -271,6 +257,44 @@ function setup_compiler_handler({
                 print_err(err.details);
             }
         }
+    }
+}
+
+function genPromise() {
+
+    let pinky_promise;
+    let pinky_promise_resolve;
+    let pinky_promise_is_resolved;
+
+    create();
+
+    return {
+        getPromise,
+        reset,
+        resolveIt,
+    };
+
+    function getPromise() {
+        assert_internal(pinky_promise);
+        assert_internal(pinky_promise.then);
+        return pinky_promise;
+    }
+
+    function reset() {
+        if( ! pinky_promise_is_resolved ) {
+            return;
+        }
+        create();
+    }
+
+    function create() {
+        pinky_promise_is_resolved = false;
+        pinky_promise = new Promise(resolve => pinky_promise_resolve=resolve);
+    }
+
+    function resolveIt(val) {
+        pinky_promise_is_resolved = true;
+        pinky_promise_resolve(val);
     }
 }
 
