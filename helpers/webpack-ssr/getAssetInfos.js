@@ -1,6 +1,6 @@
 const assert_internal = require('reassert/internal');
 const assert_usage = require('reassert/usage');
-const forceRequire = require('./utils/forceRequire');
+const forceRequire = require('@rebuild/build/utils/forceRequire');
 const fs = require('fs');
 const pathModule = require('path');
 

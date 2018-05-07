@@ -13,7 +13,6 @@
     "@rebuild/serve": "0.1.0",
     "chokidar": "^2.0.3",
     "mkdirp": "^0.5.1",
-    "reassert": "^1.1.7",
-    "source-map-support": "^0.5.4"
+    "reassert": "^1.1.7"
   }
 }

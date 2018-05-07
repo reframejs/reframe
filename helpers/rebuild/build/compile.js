@@ -486,7 +486,7 @@ function load_entry_point(entry_point) {
     } catch(err) {
         runtimeError = err;
     }
-    return {loadedModule, runtimeError};
+    return {loadedModule, runtimeError, loadedModulePath: filepath};
 }
 
 function get_entry_points({config, webpack_stats, dist_root_directory, loadEntryPoints}) {
@@ -517,6 +517,7 @@ function get_entry_points({config, webpack_stats, dist_root_directory, loadEntry
                 runtimeError = ret.runtimeError;
             } else {
                 ep.loadedModule = ret.loadedModule;
+                ep.loadedModulePath = ret.loadedModulePath;
             }
         }
     });

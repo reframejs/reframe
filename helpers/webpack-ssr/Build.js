@@ -5,7 +5,6 @@ const {Logger} = require('@rebuild/build/utils/Logger');
 const reloadBrowser = require('@rebuild/serve/utils/autoreload/reloadBrowser');
 const autoreloadClientPath = require.resolve('@rebuild/serve/utils/autoreload/client');
 const pathModule = require('path');
-const forceRequire = require('./utils/forceRequire');
 const getUserDir = require('@brillout/get-user-dir');
 const getDefaultBrowserConfig = require('./getDefaultBrowserConfig');
 const getDefaultNodejsConfig = require('./getDefaultNodejsConfig');
@@ -234,16 +233,23 @@ function assert_config({config, webpackEntries, outputPath, getterName}) {
 }
 
 function loadPageModules({nodejsEntryPoints, pageFiles}) {
+    const epS = Object.entries(nodejsEntryPoints);
+    assert_internal(epS.length === Object.keys(pageFiles).length);
     const pageModules = (
-        Object.entries(pageFiles)
-        .map(([pageName, pageFile]) => {
-            const entryName = pageName;
-            const entry_point = nodejsEntryPoints[entryName];
-            assert_internal(entry_point, entryName);
-            const pageFileTranspiled = get_script_dist_path(entry_point);
-            const pageExport = forceRequire(pageFileTranspiled);
-            assert_internal(pageFile, pageName);
-            return {pageName, pageExport, pageFile, pageFileTranspiled};
+        epS
+        .map(([pageName, entry_point]) => {
+            const {loadedModule, loadedModulePath} = entry_point;
+            const pageFile = pageFiles[pageName];
+            console.log(loadedModule);
+            assert_internal(pageName);
+            assert_internal(pageFile);
+            assert_internal(loadedModulePath);
+            return {
+                pageName,
+                pageExport: loadedModule,
+                pageFile,
+                pageFileTranspiled: loadedModulePath,
+            };
         })
     );
     return pageModules;
