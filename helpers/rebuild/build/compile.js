@@ -128,12 +128,10 @@ function run({
         compiling = false;
         clearTimeout(compilation_timeout);
 
-        console.log(1);
         compilation_info = get_compilation_info({webpack_config, webpack_stats, is_success, loadEntryPoints});
         assert_internal(compilation_info);
 
         const is_failure = !is_success || !!compilation_info.runtimeError;
-        console.log(is_failure);
 
         const compilationInfo = {
             is_compiling: false,
@@ -150,7 +148,6 @@ function run({
             suc_promise.resolveIt(compilationInfo);
             is_first_success = false;
         }
-        console.log(2);
     });
 
     webpack_config = deep_copy(webpack_config);

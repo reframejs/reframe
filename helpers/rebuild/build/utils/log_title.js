@@ -1,6 +1,7 @@
 module.exports = log_title;
 
-function log_title(title, min_bar_length=40) {
+function log_title(title, {color=s=>s}={}) {
+    const min_bar_length = 40;
     title = ' '+title+' ';
     const bar_length = Math.max(min_bar_length, title.length+6);
     const margin = Math.floor((bar_length - title.length) / 2);
@@ -17,11 +18,11 @@ function log_title(title, min_bar_length=40) {
         })
         .join('')
     );
-    console.log(
+    console.log(color(
         [
             bar,
             title_bar,
             bar,
         ].join('\n')
-    );
+    ));
 }

@@ -70,7 +70,7 @@ function Logger(opts) {
     function log_compilation_info({compilation_info}) {
         compilation_info
         .filter(Boolean)
-        .sort(({is_success: is_success_1}, {is_success: is_success_2}) => is_success_2 - is_success_1)
+        .sort(({is_failure: is_failure_1}, {is_failure: is_failure_2}) => is_failure_1 - is_failure_2)
         .forEach(({webpack_config, webpack_stats, output}) => {
             process.stdout.write('\n');
             log_config(webpack_config);
@@ -82,29 +82,25 @@ function Logger(opts) {
     }
 
     function log_error(compilation_info) {
-        log_compilation_error(compilation_info);
-        log_runtime_error(compilation_info);
-    }
-    function log_compilation_error(compilation_info) {
-        const infos = (
+        const erroredCompilations = (
             compilation_info
             .filter(Boolean)
-            .filter(({is_success}) => !is_success)
+            .filter(({is_failure}) => is_failure)
         );
-        assert_internal(infos.length>0);
-        infos.forEach(({webpack_stats}) => {
-            log_stats_errors({webpack_stats});
+        assert_internal(erroredCompilations.length>0);
+
+        erroredCompilations
+        .forEach(({runtimeError, webpack_stats}) => {
+            if( runtimeError ) {
+                log_runtime_error(runtimeError);
+            } else {
+                log_stats_errors({webpack_stats});
+            }
         });
     }
-    function log_runtime_error(compilation_info) {
-        compilation_info
-        .filter(Boolean)
-        .map(({runtimeError}) => runtimeError)
-        .filter(Boolean)
-        .forEach(runtimeError => {
-            log_title('Error');
-            print_err(runtimeError);
-        });
+    function log_runtime_error(runtimeError) {
+        log_title('Error', {color: colorError});
+        print_err(colorError(runtimeError.stack));
     }
 
     function log_compilation_distribution({compilation_info}) {
@@ -172,9 +168,12 @@ function get_build_env() {
 function log_stats_errors({webpack_stats}) {
     const has_errors = webpack_stats.hasErrors();
     const has_warnings = webpack_stats.hasWarnings();
+    assert_internal(has_errors);
+    /*
     if( !has_errors && !has_warnings ) {
         return;
     }
+    */
 
     const info = webpack_stats.toJson();
 

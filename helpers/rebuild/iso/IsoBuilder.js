@@ -9,7 +9,7 @@ const serve = require('@rebuild/serve');
 const build = require('@rebuild/build');
 const {Logger} = require('@rebuild/build/utils/Logger');
 
-//*
+/*
 global.DEBUG_WATCH = true;
 //*/
 
@@ -348,12 +348,15 @@ function log_state_fail({logger, browserCompilationInfo, nodejsCompilationInfo})
 
     const is_compiling = (browserCompilationInfo||{}).is_compiling || (nodejsCompilationInfo||{}).is_compiling;
 
+    /*
+    console.log('F', is_compiling);
     if( is_compiling ) {
         return;
     }
+    */
 
     logger.onNewBuildState({
-        is_compiling: false,
+        is_compiling,
         is_failure: true,
         compilation_info: [browserCompilationInfo, nodejsCompilationInfo],
     });
