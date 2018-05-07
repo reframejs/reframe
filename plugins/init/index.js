@@ -5,8 +5,9 @@ function initCommands() {
         name: require('./package.json').name,
         cliCommands: [
             {
-                name: 'init [project-directory]',
-                description: 'Create a new Reframe app.',
+                name: 'init',
+                param: '[project-directory]',
+                description: 'Create a new Reframe project.',
                 options: [],
                 action: async projectName => {
                     if( ! projectName ) {

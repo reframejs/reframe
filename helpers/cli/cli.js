@@ -6,32 +6,34 @@ const ora = require('ora');
 const loading_spinner = ora();
 loading_spinner.start();
 
+const program = require('commander');
+const cliUtils = require('@reframe/utils/cliUtils');
+const assert_usage = require('reassert/usage');
+const {colorEmphasisLight, strTable, strDir, strFile, colorFile, colorPkg, colorDir, colorError} = require('@brillout/cli-theme');
 const getUserDir = require('@brillout/get-user-dir');
 const getProjectConfig = require('@reframe/utils/getProjectConfig');
+
+const INDENT = '  ';
+const FALLBACK_PLUGIN = '@reframe/init';
 
 const cwd = process.cwd();
 getUserDir.userDir = cwd;
 
 const projectConfig = getProjectConfig({projectNotRequired: true, pluginRequired: true});
 
-const {projectRootDir} = projectConfig.projectFiles;
+const isProject = projectConfig.projectFiles.projectRootDir;
 
-if( ! projectRootDir ) {
-    const initPackageName = '@reframe/init';
-    const initCommands = require(initPackageName);
+if( ! isProject ) {
+    const initCommands = require(FALLBACK_PLUGIN);
     projectConfig.addPlugin(
         initCommands()
     );
-    const {strDir, colorEmphasisLight} = require('@brillout/cli-theme');
-    console.log(symbolSuccess+' Found commands defined by plugin '+colorEmphasisLight(initPackageName)+' ('+strDir(cwd)+' is not a Reframe project)');
 } else {
-    const assert_usage = require('reassert/usage');
-    const {colorError, symbolSuccess, colorDir, colorFile, colorPkg, strDir, strFile} = require('@brillout/cli-theme');
     const {_rootPluginNames, cli_commands, projectFiles: {reframeConfigFile}} = projectConfig;
     assert_usage(
         cli_commands.length>0,
         colorError("No commands found."),
-        "Project found at "+colorDir(strDir(projectRootDir))+".",
+        "Project found at "+colorDir(strDir(projectConfig.projectFiles.projectRootDir))+".",
         reframeConfigFile ? (
             "Reframe config found at "+colorFile(strFile(reframeConfigFile))+"."
         ) : (
@@ -41,11 +43,6 @@ if( ! projectRootDir ) {
         "None of the loaded plugins are adding commands."
     );
 }
-
-const program = require('commander');
-const cliUtils = require('@reframe/utils/cliUtils');
-const {colorEmphasisLight, strTable} = require('@brillout/cli-theme');
-const INDENT = '  ';
 
 let noCommand = true;
 
@@ -78,8 +75,6 @@ projectConfig
         cmd.option(opt.name, opt.description);
     });
 
-    cmd.option('-h, --help');
-
     cmd
     .description(cmdSpec.description)
     .action(function(options) {
@@ -99,6 +94,7 @@ program
     printInvalidCommand(commandName);
 });
 
+// Disable commander's default help behavior
 program.option('-h, --help');
 
 loading_spinner.stop();
@@ -110,7 +106,6 @@ if( noCommand ) {
 }
 
 function printHelp(commandName) {
- // console.log('help for '+commandName);
     if( commandName ) {
         const cmdSpec = commandList[commandName];
         if( ! cmdSpec ) {
@@ -167,9 +162,13 @@ function printHelpProgram() {
         {indent: INDENT+INDENT}
     ));
     console.log();
- // const emphasize = colorEmphasisLight;
-    const emphasize = s => s;
-    console.log(INDENT+'Commands provided by '+cliUtils.getRootPluginsLog(projectConfig, emphasize)+' of '+cliUtils.getProjectRootLog(projectConfig, emphasize)+'.');
+    if( ! isProject ) {
+        console.log(INDENT+'Commands provided by plugin '+FALLBACK_PLUGIN+'. (No project found at '+strDir(cwd)+'.)');
+    } else {
+     // const emphasize = colorEmphasisLight;
+        const emphasize = s => s;
+        console.log(INDENT+'Commands provided by '+cliUtils.getRootPluginsLog(projectConfig, emphasize)+' of '+cliUtils.getProjectRootLog(projectConfig, emphasize)+'.');
+    }
     console.log();
     console.log(INDENT+'Run '+colorEmphasisLight('reframe help <command>')+' for more information on specific commands.');
     console.log();
