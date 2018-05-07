@@ -167,10 +167,11 @@ function printHelpProgram() {
         {indent: INDENT+INDENT}
     ));
     console.log();
-    const emphasize = colorEmphasisLight;
+ // const emphasize = colorEmphasisLight;
+    const emphasize = s => s;
     console.log(INDENT+'Commands provided by '+cliUtils.getRootPluginsLog(projectConfig, emphasize)+' of '+cliUtils.getProjectRootLog(projectConfig, emphasize)+'.');
     console.log();
-    console.log(INDENT+'Run `'+colorEmphasisLight('reframe help <command>')+'` for more information on specific commands.');
+    console.log(INDENT+'Run '+colorEmphasisLight('reframe help <command>')+' for more information on specific commands.');
     console.log();
 }
 
