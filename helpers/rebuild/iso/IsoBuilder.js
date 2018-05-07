@@ -94,13 +94,13 @@ function BuildManager({buildName, buildFunction, onSuccessfullWatchChange, onBui
     const _compiler = new WebpackCompilerWithCache();
 
     const that = Object.assign(this, {
-        startBuild,
+        runBuild,
         getCompilationInfo: () => null,
     });
 
     return this;
 
-    async function startBuild({webpackConfig, runIsOutdated}) {
+    async function runBuild({webpackConfig, runIsOutdated}) {
         assert_usage(webpackConfig);
         assert_internal(runIsOutdated);
 
@@ -280,11 +280,11 @@ async function buildAll({isoBuilder, latestRun, browserBuild, nodejsBuild}) {
 
     const buildForNodejs = (
         webpackConfig =>
-            nodejsBuild.startBuild({webpackConfig, runIsOutdated})
+            nodejsBuild.runBuild({webpackConfig, runIsOutdated})
     );
     const buildForBrowser = (
         webpackConfig =>
-            browserBuild.startBuild({webpackConfig, runIsOutdated})
+            browserBuild.runBuild({webpackConfig, runIsOutdated})
     );
 
     assert_usage(isoBuilder.builder);
