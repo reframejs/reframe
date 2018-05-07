@@ -84,16 +84,6 @@ function IsoBuilder() {
         log_state_start({logger});
     }
 
-        /*
-    function onBuildStateChange(buildName) {
-        const {logger} = isoBuilder;
-        const {__compilationInfo: browserCompilationInfo} = browserBuild;
-        const {__compilationInfo: nodejsCompilationInfo} = nodejsBuild;
-        global.DEBUG_WATCH && console.log('BUILD-STATE-CHANGE `'+buildName+'`');
-        logCompilationStateChange({logger, browserCompilationInfo, nodejsCompilationInfo});
-    }
-        */
-
     function onSuccessfullWatchChange(buildName) {
         global.DEBUG_WATCH && console.log('REBUILD-REASON: webpack-watch for `'+buildName+'`');
         startAll();
@@ -132,16 +122,6 @@ function BuildManager({buildName, buildFunction, onSuccessfullWatchChange, onBui
         });
         if( runIsOutdated() ) return abortRun();
 
-        /*
-        await _compiler.waitCompilation();
-        if( runIsOutdated() ) return abortRun();
-
-        if( _compiler.getInfo().is_failure ) {
-            global.DEBUG_WATCH && console.log(chalk.bold.red('RUN-FAIL first-failure ')+_compiler.getCompilerId());
-            onBuildFail();
-        }
-
-        */
         await _compiler.waitSuccessfullCompilation();
         if( runIsOutdated() ) return abortRun();
 
@@ -201,7 +181,6 @@ function WebpackCompilerWithCache() {
         getInfo,
         updateCompiler,
         getCompilerId,
-     // waitCompilation,
         waitSuccessfullCompilation,
     });
 
@@ -223,17 +202,11 @@ function WebpackCompilerWithCache() {
         assert_compilationInfo(_compilation_info);
         return _compilation_info;
     }
-    /*
-    function waitCompilation() {
-        return webpackCompiler_last.wait_compilation();
-    }
-    */
     function waitSuccessfullCompilation() {
         return webpackCompiler_last.wait_successfull_compilation();
     }
     function getCompilerId() {
         return webpackCompiler_last.compilerId.toString();
-     // return webpackCompiler_last ? webpackCompiler_last.compilerId.toString() : null;
     }
 
     async function getCompiler({webpackConfig, getWebpackCompiler}) {
@@ -366,29 +339,6 @@ function log_state_start({logger}){
         is_compiling: true,
     });
 }
-/*
-function logCompilationStateChange({browserCompilationInfo, nodejsCompilationInfo, logger}) {
-    assert_compilationInfo(browserCompilationInfo);
-    assert_compilationInfo(nodejsCompilationInfo);
-
-    const is_failure = (browserCompilationInfo||{}).is_failure || (nodejsCompilationInfo||{}).is_failure;
-    const is_compiling = (browserCompilationInfo||{}).is_compiling || (nodejsCompilationInfo||{}).is_compiling;
-
-    if( is_failure && ! is_compiling ) {
-        logger.onNewBuildState({
-            is_compiling: false,
-            is_failure: true,
-            compilation_info: [browserCompilationInfo, nodejsCompilationInfo],
-        });
-    }
-
-    if( is_compiling && ! logger.build_state.is_compiling ) {
-        logger.onNewBuildState({
-            is_compiling: true,
-        });
-    }
-}
-*/
 function log_state_fail({logger, browserCompilationInfo, nodejsCompilationInfo}) {
     assert_compilationInfo(browserCompilationInfo);
     assert_compilationInfo(nodejsCompilationInfo);
@@ -459,8 +409,10 @@ function gen_promise() {
     assert_internal(promise_resolver);
     return {promise, resolvePromise: promise_resolver};
 }
+/*
 function sleep({seconds}) {
     const {promise, resolvePromise} = gen_promise();
     setTimeout(resolvePromise, seconds*1000);
     return promise;
 }
+*/
