@@ -12,6 +12,7 @@ const HtmlCrust = require('@brillout/html-crust');
 const mkdirp = require('mkdirp');
 const deep_copy = require('./utils/deep_copy');
 const log_title = require('./utils/log_title');
+const forceRequire = require('./utils/forceRequire');
 
 /*
 global.DEBUG_WATCH = true;
@@ -30,6 +31,7 @@ function compile(
         context,
         onCompilationStateChange = ()=>{},
         compilationName,
+        loadEntryPoints,
     }
 ) {
     assert_internal(compilationName);
@@ -46,6 +48,7 @@ function compile(
             webpack_config,
             compiler_handler,
             compilationName,
+            loadEntryPoints,
             on_compilation_start: ({is_first_start, previous_was_success}) => {
                 if( ! is_first_start ) {
                     const compilationInfo = {
@@ -93,6 +96,7 @@ function run({
     compiler_handler,
     on_compilation_start,
     on_compilation_end,
+    loadEntryPoints,
     compilationName,
 }) {
     let compiler__is_running;
@@ -109,6 +113,7 @@ function run({
         webpack_config,
         compilationName,
         compiler_handler,
+        loadEntryPoints,
         on_compiler_start: () => {
             assert_internal(!compiler__is_running);
             compiler__is_running = true;
@@ -158,6 +163,7 @@ function setup_compiler_handler({
     on_compiler_start,
     on_compiler_end,
     compilationName,
+    loadEntryPoints,
 }) {
     assert_usage(webpack_config.constructor===Object, webpack_config);
     assert_usage(webpack_config.entry, webpack_config, 'Missing `entry` in the config printed above.');
@@ -201,18 +207,23 @@ function setup_compiler_handler({
         compiling = false;
         clearTimeout(compilation_timeout);
 
-        compilation_info = get_compilation_info({webpack_config, webpack_stats, is_success});
+        console.log(1);
+        compilation_info = get_compilation_info({webpack_config, webpack_stats, is_success, loadEntryPoints});
         assert_internal(compilation_info);
+
+        const is_failure = !is_success || !!compilation_info.runtimeError;
+        console.log(is_failure);
 
         on_compiler_end(compilation_info);
 
-        const compilationInfo = {is_compiling: false, is_failure: !is_success, ...compilation_info};
+        const compilationInfo = {is_compiling: false, is_failure, ...compilation_info};
         assert_compilationInfo(compilationInfo);
 
         end_promise.resolveIt(compilationInfo);
-        if( is_success ) {
+        if( ! is_failure ) {
             suc_promise.resolveIt(compilationInfo);
         }
+        console.log(2);
     });
 
     webpack_config = deep_copy(webpack_config);
@@ -313,7 +324,10 @@ function get_webpack_compiler(webpack_config, compilationName) {
     // - https://github.com/webpack/webpack-dev-server/blob/master/lib/Server.js
     webpack_compiler.hooks.compile.tap('weDontNeedToNameThis_aueipvuwivxp', () => {
         global.DEBUG_WATCH && console.log('WEBPACK-COMPILE-START '+compilationName);
-        onCompileStartListeners.forEach(fn => fn());
+
+        avoidErrorSwallowing(() => {
+            onCompileStartListeners.forEach(fn => fn());
+        });
     });
 
     global.DEBUG_WATCH && print_changed_files(webpack_compiler);
@@ -334,7 +348,9 @@ function get_webpack_compiler(webpack_config, compilationName) {
         if( is_success ) {
             resolve_first_successful_compilation(webpack_stats);
         }
-        onCompileEndListeners.forEach(fn => fn({webpack_stats, is_success}));
+        avoidErrorSwallowing(() => {
+            onCompileEndListeners.forEach(fn => fn({webpack_stats, is_success}));
+        });
     });
 
     return {webpack_compiler, first_compilation, first_successful_compilation, onCompileStart, onCompileEnd};
@@ -404,39 +420,39 @@ function log_config(config) {
     log(config);
 }
 
-function get_compilation_info({webpack_config, webpack_stats, is_success}) {
-    const output = (
+function get_compilation_info({webpack_config, webpack_stats, is_success, loadEntryPoints}) {
+    const {output, runtimeError} = (
         get_output_info({
             config: webpack_config,
             webpack_stats,
+            loadEntryPoints,
         })
     );
 
-    return {webpack_stats, is_success, output};
+    return {webpack_stats, is_success, output, runtimeError};
 }
 
-function get_output_info(args) {
-    const {config, webpack_stats} = args;
-    assert_internal(webpack_stats, args);
-    assert_internal(config, args);
+function get_output_info({config, webpack_stats, loadEntryPoints}) {
+    assert_internal(webpack_stats);
+    assert_internal(config);
 
     const dist_root_directory = get_dist_root_directory({config});
     assert_internal(dist_root_directory, config, dist_root_directory);
 
-    const entry_points = get_entry_points({config, webpack_stats, dist_root_directory});
+    const {entry_points, runtimeError} = get_entry_points({config, webpack_stats, dist_root_directory, loadEntryPoints});
 
     const {port} = config.devServer||{};
     const served_at = port ? 'http://localhost:'+port : null;
 
  // debug_webpack_stats(webpack_stats);
 
-    const dist_info = {
+    const output = {
         entry_points,
         dist_root_directory,
         served_at,
     };
 
-    return dist_info;
+    return {output, runtimeError};
 
 }
 
@@ -507,8 +523,54 @@ function get_styles_and_scripts({all_assets}) {
     return {styles, scripts};
 }
 
-function get_entry_points({config, webpack_stats, dist_root_directory}) {
+function load_entry_point(entry_point) {
+    const scripts = (
+        entry_point
+        .all_assets
+        .map(asset => {
+            const {asset_type, filepath} = asset;
+            assert_internal(asset_type, asset);
+
+            if( asset_type === 'script' ) {
+                assert_internal(filepath, asset);
+                return filepath;
+            }
+            return null;
+        })
+        .filter(Boolean)
+    );
+
+    assert_usage(
+        scripts.length>0,
+        "Cannot load module of entry point since there aren't any module after compilation."
+    );
+
+    assert_usage(
+        scripts.length===1,
+        scripts,
+        "Cannot load module of entry point since there are several module after compilation.",
+        "There should be only one compiled module",
+        "Compiled module printed above"
+    );
+
+    const filepath = scripts[0];
+    assert_internal(path_module.isAbsolute(filepath));
+
+    let loadedModule = null;
+    let runtimeError = null;
+    try {
+        loadedModule = forceRequire(filepath);
+    } catch(err) {
+        runtimeError = err;
+    }
+    return {loadedModule, runtimeError};
+}
+
+function get_entry_points({config, webpack_stats, dist_root_directory, loadEntryPoints}) {
     const entry_points = {};
+
+    let runtimeError;
+
     get_entries(config)
     .forEach(({entry_name, source_entry_points}) => {
         assert_internal(entry_name);
@@ -518,16 +580,25 @@ function get_entry_points({config, webpack_stats, dist_root_directory}) {
 
         const {scripts, styles} = get_styles_and_scripts({all_assets});
 
-        entry_points[entry_name] = {
+        const ep = entry_points[entry_name] = {
             entry_name,
             all_assets,
             scripts,
             styles,
             source_entry_points,
         };
+
+        if( loadEntryPoints && ! runtimeError ) {
+            const ret = load_entry_point(ep);
+            if( ret.runtimeError ) {
+                runtimeError = ret.runtimeError;
+            } else {
+                ep.loadedModule = ret.loadedModule;
+            }
+        }
     });
 
-    return entry_points;
+    return {entry_points, runtimeError};
 }
 
 function get_entries(webpack_config) {
@@ -580,7 +651,6 @@ function get_entries(webpack_config) {
 function get_all_entry_assets({entry_name, webpack_stats, dist_root_directory}) {
     const webpack_stats_json = webpack_stats.toJson();
     const {entrypoints, publicPath, errors} = webpack_stats_json
-
 
     const entry_point = entrypoints[entry_name];
 
@@ -673,4 +743,14 @@ function assert_compilationInfo(compilationInfo) {
     assert_internal(compilationInfo.output, compilationInfo);
     assert_internal(compilationInfo.output.dist_root_directory);
     assert_internal(compilationInfo.output.entry_points);
+}
+
+// We use `avoidErrorSwallowing` to circumvent Webpack's error swallowing behavior
+function avoidErrorSwallowing(fn) {
+    try {
+        fn()
+    } catch(err) {
+        console.error(err);
+        process.exit(1);
+    }
 }

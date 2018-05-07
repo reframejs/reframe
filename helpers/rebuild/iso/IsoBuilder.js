@@ -9,7 +9,7 @@ const serve = require('@rebuild/serve');
 const build = require('@rebuild/build');
 const {Logger} = require('@rebuild/build/utils/Logger');
 
-/*
+//*
 global.DEBUG_WATCH = true;
 //*/
 
@@ -50,6 +50,7 @@ function IsoBuilder() {
                 logger: null,
                 onCompilationStateChange,
                 compilationName: 'nodejsCompilation',
+                loadEntryPoints: true,
             })
         ),
         onBuildStart,

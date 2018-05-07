@@ -1,4 +1,3 @@
-// TODO - remove
 let source_map_installed;
 
 module.exports = forceRequire;

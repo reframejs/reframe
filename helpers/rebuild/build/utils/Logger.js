@@ -53,7 +53,7 @@ function Logger(opts) {
 
     function on_compilation_fail({compilation_info}) {
         process.stdout.write('\n');
-        log_compilation_error({compilation_info});
+        log_error(compilation_info);
         process.stdout.write('\n');
         console.log(this.symbols.failure_symbol+'Build failed');
         process.stdout.write('\n');
@@ -81,7 +81,11 @@ function Logger(opts) {
         });
     }
 
-    function log_compilation_error({compilation_info}) {
+    function log_error(compilation_info) {
+        log_compilation_error(compilation_info);
+        log_runtime_error(compilation_info);
+    }
+    function log_compilation_error(compilation_info) {
         const infos = (
             compilation_info
             .filter(Boolean)
@@ -90,6 +94,16 @@ function Logger(opts) {
         assert_internal(infos.length>0);
         infos.forEach(({webpack_stats}) => {
             log_stats_errors({webpack_stats});
+        });
+    }
+    function log_runtime_error(compilation_info) {
+        compilation_info
+        .filter(Boolean)
+        .map(({runtimeError}) => runtimeError)
+        .filter(Boolean)
+        .forEach(runtimeError => {
+            log_title('Error');
+            print_err(runtimeError);
         });
     }
 
