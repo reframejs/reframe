@@ -13,8 +13,6 @@ const {colorEmphasisLight, strTable, strDir, strFile, colorFile, colorPkg, color
 const getUserDir = require('@brillout/get-user-dir');
 const getProjectConfig = require('@reframe/utils/getProjectConfig');
 
-const FALLBACK_PLUGIN = '@reframe/init';
-
 const cwd = process.cwd();
 getUserDir.userDir = cwd;
 
@@ -24,7 +22,7 @@ const isProject = projectConfig.projectFiles.projectRootDir;
 
 if( ! isProject ) {
     projectConfig.addPlugin(
-        require(FALLBACK_PLUGIN)()
+        require('@reframe/init')()
     );
 }
 
@@ -180,13 +178,17 @@ function initProgram() {
             {indent: INDENT+INDENT}
         ));
         console.log();
-        if( ! isProject ) {
-            console.log(INDENT+'Commands provided by plugin '+FALLBACK_PLUGIN+'. (No project found at '+strDir(cwd)+'.)');
-        } else {
-         // const emphasize = colorEmphasisLight;
-            const emphasize = s => s;
-            console.log(INDENT+'Commands provided by '+cliUtils.getRootPluginsLog(projectConfig, emphasize)+' of '+cliUtils.getProjectRootLog(projectConfig, emphasize)+'.');
-        }
+     // const emphasize = colorEmphasisLight;
+        const emphasize = s => s;
+        console.log(
+            INDENT+'Commands provided by '+cliUtils.getRootPluginsLog(projectConfig, emphasize)+(
+                isProject ? (
+                    ' of '+cliUtils.getProjectRootLog(projectConfig, emphasize)+'.'
+                ) : (
+                    '. (No project found at '+strDir(cwd)+'.)'
+                )
+            )
+        );
         console.log();
         console.log(INDENT+'Run '+colorEmphasisLight('reframe help <command>')+' for more information on specific commands.');
         console.log();
