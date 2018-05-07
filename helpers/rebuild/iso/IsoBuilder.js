@@ -9,7 +9,7 @@ const serve = require('@rebuild/serve');
 const build = require('@rebuild/build');
 const {Logger} = require('@rebuild/build/utils/Logger');
 
-//*
+/*
 global.DEBUG_WATCH = true;
 //*/
 
@@ -142,7 +142,7 @@ function BuildManager({buildName, buildFunction, onSuccessfullWatchChange, onBui
             }
 
             if( ! is_compiling && is_failure ) {
-                console.log(chalk.bold.red('RUN-FAIL ')+_compiler.getCompilerId());
+                global.DEBUG_WATCH && console.log(chalk.bold.red('RUN-FAIL ')+_compiler.getCompilerId());
                 onBuildFail();
             }
 
