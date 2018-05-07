@@ -136,7 +136,7 @@ function BuildManager({buildName, buildFunction, onSuccessfullWatchChange, onBui
                 return;
             }
 
-            const {is_compiling, is_failure, is_first_compilation} = compilationInfo;
+            const {is_compiling, is_failure, is_first_success} = compilationInfo;
 
             if( is_compiling ) {
                 onBuildStart();
@@ -147,7 +147,7 @@ function BuildManager({buildName, buildFunction, onSuccessfullWatchChange, onBui
                 onBuildFail();
             }
 
-            if( !is_compiling && !is_first_compilation && !is_failure ) {
+            if( !is_compiling && !is_first_success && !is_failure ) {
                 onSuccessfullWatchChange(buildName);
             }
         }
@@ -237,9 +237,9 @@ function WebpackCompilerWithCache() {
                     const compilerId = webpackCompiler.compilerId.toString();
                     const compilerId__last = getCompilerId();
 
-                    const {is_compiling, is_failure, is_first_compilation} = compilationInfo;
+                    const {is_compiling, is_failure, is_first_success} = compilationInfo;
 
-                    global.DEBUG_WATCH && console.log('COMPILATION-STATE-CHANGE '+JSON.stringify({is_compiling, is_failure, is_first_compilation, compilerId, compilerId__last}));
+                    global.DEBUG_WATCH && console.log('COMPILATION-STATE-CHANGE '+JSON.stringify({is_compiling, is_failure, is_first_success, compilerId, compilerId__last}));
 
                     if( compilerId !== compilerId__last ) {
                         return;

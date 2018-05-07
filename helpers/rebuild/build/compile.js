@@ -41,7 +41,7 @@ function compile(
     assert_tmp(!onBuild);
     assert_tmp(doNotGenerateIndexHtml);
 
-    const resolveTimeout = gen_timeout({name: 'Compilation Build '+compilationName});
+ // const resolveTimeout = gen_timeout({name: 'Compilation Build '+compilationName});
 
     const {stop_compilation, wait_compilation, wait_successfull_compilation, first_success_promise} = (
         run({
@@ -49,29 +49,14 @@ function compile(
             compiler_handler,
             compilationName,
             loadEntryPoints,
-            on_compilation_start: ({is_first_start, previous_was_success}) => {
-                if( ! is_first_start ) {
-                    const compilationInfo = {
-                        is_compiling: true,
-                    };
-                    assert_compilationInfo(compilationInfo);
+            on_compilation_start: compilationInfo => {
+                assert_compilationInfo(compilationInfo);
+                if( ! compilationInfo.is_first_start ) {
                     onCompilationStateChange(compilationInfo);
                 }
             },
-            on_compilation_end: async ({compilation_info, is_first_result, no_previous_success, is_success, is_abort, previous_was_success}) => {
-                resolveTimeout();
-                if( is_abort ) {
-                    return;
-                }
-                assert_usage(compilation_info.constructor===Object);
-                assert_internal([true, false].includes(is_success));
-                const compilationInfo = {
-                    is_first_compilation: no_previous_success,
-                    is_compiling: false,
-                    is_failure: !is_success,
-                    ...compilation_info,
-                };
-                assert_compilationInfo(compilationInfo);
+            on_compilation_end: compilationInfo => {
+             // resolveTimeout();
                 onCompilationStateChange(compilationInfo);
             },
         })
@@ -94,76 +79,10 @@ function compile(
 function run({
     webpack_config,
     compiler_handler,
+    compilationName,
+    loadEntryPoints,
     on_compilation_start,
     on_compilation_end,
-    loadEntryPoints,
-    compilationName,
-}) {
-    let compiler__is_running;
-
-    let resolve_promise;
-    const fist_successful_compilation = new Promise(resolve => resolve_promise = resolve);
-
-    let is_first_start = true;
-    let is_first_result = true;
-    let no_previous_success = true;
-    let previous_was_success = null;
-
-    return setup_compiler_handler({
-        webpack_config,
-        compilationName,
-        compiler_handler,
-        loadEntryPoints,
-        on_compiler_start: () => {
-            assert_internal(!compiler__is_running);
-            compiler__is_running = true;
-            on_compilation_start({
-                previous_was_success,
-                is_first_start,
-            });
-            is_first_start = false;
-        },
-        on_compiler_end: compilation_info => {
-            assert_internal(compiler__is_running);
-            compiler__is_running = false;
-
-            assert_internal(compilation_info.webpack_stats);
-            assert_internal(compilation_info.is_success.constructor===Boolean);
-            assert_internal(compilation_info.output);
-
-            const is_success = compilation_info.is_success;
-
-            const compilation_args = {
-                compilation_info: {
-                    webpack_config,
-                    ...compilation_info,
-                },
-                is_success,
-                previous_was_success,
-                is_first_result,
-                no_previous_success,
-            };
-
-            previous_was_success = is_success;
-            is_first_result = false;
-
-            on_compilation_end(compilation_args);
-
-            if( is_success && no_previous_success ) {
-                resolve_promise(compilation_args);
-                no_previous_success = false;
-            }
-        },
-    });
-}
-
-function setup_compiler_handler({
-    webpack_config,
-    compiler_handler,
-    on_compiler_start,
-    on_compiler_end,
-    compilationName,
-    loadEntryPoints,
 }) {
     assert_usage(webpack_config.constructor===Object, webpack_config);
     assert_usage(webpack_config.entry, webpack_config, 'Missing `entry` in the config printed above.');
@@ -174,9 +93,10 @@ function setup_compiler_handler({
     );
     assert_internal(webpack_compiler);
 
-    let compilation_info;
-
+    let is_first_start = true;
+    let is_first_success = true;
     let compiling = false;
+    let compilation_info;
 
     const TIMEOUT_SECONDS = 30;
     const compilation_timeout = setTimeout(() => {
@@ -200,7 +120,8 @@ function setup_compiler_handler({
         end_promise.reset();
         suc_promise.reset();
 
-        on_compiler_start();
+        on_compilation_start({is_first_start, is_compiling: true});
+        is_first_start = false;
     });
     onCompileEnd.addListener(({webpack_stats, is_success}) => {
         assert_internal(compiling===true);
@@ -214,14 +135,20 @@ function setup_compiler_handler({
         const is_failure = !is_success || !!compilation_info.runtimeError;
         console.log(is_failure);
 
-        on_compiler_end(compilation_info);
-
-        const compilationInfo = {is_compiling: false, is_failure, ...compilation_info};
+        const compilationInfo = {
+            is_compiling: false,
+            is_failure,
+            is_first_success: !is_failure && is_first_success,
+            ...compilation_info
+        };
         assert_compilationInfo(compilationInfo);
+
+        on_compilation_end(compilationInfo);
 
         end_promise.resolveIt(compilationInfo);
         if( ! is_failure ) {
             suc_promise.resolveIt(compilationInfo);
+            is_first_success = false;
         }
         console.log(2);
     });
@@ -242,7 +169,6 @@ function setup_compiler_handler({
         }
         //*/
         global.DEBUG_WATCH && console.log('WEBPACK-ABORT-END '+compilationName);
-     // on_compiler_end({is_abort: true});
     };
 
     return {stop_compilation, wait_compilation, wait_successfull_compilation, server_start_promise};
