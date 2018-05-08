@@ -13,6 +13,7 @@ function getPageConfigFiles({pagesDir}) {
     const pageConfigFiles = {};
 
     findPackageFiles('*.config.*', {cwd: pagesDir, no_dir: true})
+    .filter(isNotDraft)
     .forEach(pageConfigFile => {
         assert_internal(pageConfigFile);
         const pageName = getPageName(pageConfigFile, pagesDir);
@@ -26,6 +27,14 @@ function getPageConfigFiles({pagesDir}) {
     });
 
     return pageConfigFiles;
+}
+
+function isNotDraft(filePath) {
+    // We filter out file names that contain a special character in their extension
+    // In order to filter out draft files
+    // E.g. VIM saves drafts with a `~` ending such as `/path/to/file.js~`
+    const fileExtension = filePath.split('.').slice(-1)[0];
+    return /^[a-zA-Z0-9]*$/.test(fileExtension);
 }
 
 function getPageName(pageConfigFile, pagesDir) {
