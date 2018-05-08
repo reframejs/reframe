@@ -23,7 +23,6 @@ function renderToDom2({pageConfig, initialProps}) {
 
     const do_hydrate = container.firstChild !== null;
 
-    console.log('Y');
     if( do_hydrate ) {
         ReactDOM.hydrate(react_element, container);
     } else {

@@ -6,8 +6,9 @@ const WelcomePage = {
       <div>
           Welcome to Reframe.
       </div>
+      <br/>
       <div>
-          Props: {JSON.stringify(props)}
+          Props: <span>{JSON.stringify(props)}</span>
       </div>
   </div>
 };

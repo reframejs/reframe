@@ -8,9 +8,13 @@ function hydratePage({pageConfig, router2, navigator=getDefaultNavigator(), rend
     const url = parseUri(uri);
     const routeArguments = router2.getRouteArguments(url);
 
-    const route = {url, args: routeArguments};
+    // TODO check if same value than on server
+    const route = {
+        args: routeArguments || {},
+        url,
+    };
 
-    const initialProps = {route, yo: 42};
+    const initialProps = {route};
 
     if( pageConfig.getInitialProps ) {
         Object.assign(initialProps, pageConfig.getInitialProps(initialProps));
