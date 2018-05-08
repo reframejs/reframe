@@ -240,7 +240,6 @@ function loadPageModules({nodejsEntryPoints, pageFiles}) {
         .map(([pageName, entry_point]) => {
             const {loadedModule, loadedModulePath} = entry_point;
             const pageFile = pageFiles[pageName];
-            console.log(loadedModule);
             assert_internal(pageName);
             assert_internal(pageFile);
             assert_internal(loadedModulePath);
