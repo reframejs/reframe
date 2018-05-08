@@ -1,0 +1,10 @@
+{
+  "name": "@brillout/repage",
+  "version": "0.1.0",
+  "dependencies": {
+  },
+  "repository": "https://github.com/reframejs/reframe/tree/master/helpers/repage",
+  "publishConfig": {
+    "access": "public"
+  }
+}

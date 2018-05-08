@@ -27,6 +27,7 @@
         "plugins/typescript",
 
         "examples/basics",
+        "examples/simple",
         "examples/partial-dom-dynamic",
         "examples/custom",
         "examples/custom-webpack",
@@ -40,6 +41,7 @@
         "helpers/webpack-ssr",
         "helpers/webpack-config-mod",
         "helpers/file-sets",
+        "helpers/repage2",
         "helpers/repage/core/core",
         "helpers/repage/core/build",
         "helpers/repage/core/browser",
