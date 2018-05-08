@@ -3,7 +3,7 @@ const parseUri = require('@atto/parse-uri');
 
 module.exports = hydratePage;
 
-function hydratePage({pageConfig, router2, navigator=getDefaultNavigator(), renderToDom2}) {
+async function hydratePage({pageConfig, router2, navigator=getDefaultNavigator(), renderToDom2}) {
     const uri = navigator.getCurrentRoute();
     const url = parseUri(uri);
     const routeArguments = router2.getRouteArguments(url);
@@ -17,10 +17,10 @@ function hydratePage({pageConfig, router2, navigator=getDefaultNavigator(), rend
     const initialProps = {route};
 
     if( pageConfig.getInitialProps ) {
-        Object.assign(initialProps, pageConfig.getInitialProps(initialProps));
+        Object.assign(initialProps, await pageConfig.getInitialProps(initialProps));
     }
 
-    renderToDom2({pageConfig, initialProps});
+    await renderToDom2({pageConfig, initialProps});
 }
 
 function getDefaultNavigator() {

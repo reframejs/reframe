@@ -1,35 +1,39 @@
+const {containerId, getReactElement} = require('./common');
 const ReactDOM = require('react-dom');
-const React = require('react');
 
 module.exports = renderToDom;
 
-function renderToDom({pageConfig, initialProps}) {
-    const container_id = 'react-root';
+async function renderToDom({pageConfig, initialProps}) {
+    const reactElement = getReactElement({pageConfig, initialProps});
 
-    const container = get_or_create_container(container_id);
+    const container = get_or_create_container(containerId);
 
-    const react_element = React.createElement(pageConfig.view, initialProps);
+    await render(reactElement, container);
+}
 
-    const do_hydrate = container.firstChild !== null;
+// TODO: always assume that page is already rendered to HTML
 
-    if( do_hydrate ) {
-        ReactDOM.hydrate(react_element, container);
+async function render(reactElement, container) {
+    const isAlreadyRendered = container.firstChild !== null;
+
+    if( isAlreadyRendered ) {
+        ReactDOM.hydrate(reactElement, container);
     } else {
-        ReactDOM.render(react_element, container);
+        ReactDOM.render(reactElement, container);
     }
 }
 
-function get_or_create_container(container_id) {
-    let container = document.body.querySelector('#'+container_id);
+function get_or_create_container(containerId) {
+    let container = document.getElementById(containerId);
     if( ! container ) {
-        container = create_dom_element({dom_id: container_id});
+        container = create_dom_element({domId: containerId});
     }
     return container;
 }
 
-function create_dom_element({dom_id}) {
+function create_dom_element({domId}) {
     const el = document.createElement('div');
-    el.id = dom_id;
+    el.id = domId;
     const firstChild = document.body.firstChild;
     if( ! firstChild ) {
         document.body.appendChild(el);
@@ -38,4 +42,3 @@ function create_dom_element({dom_id}) {
     }
     return el;
 }
-
