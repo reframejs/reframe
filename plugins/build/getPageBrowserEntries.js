@@ -73,10 +73,10 @@ function generateBrowserConfig() {
         "  const browserConfigObject = {};",
         "  browserConfigObject.plugins = [",
         ...(
-            projectConfig.browserConfigFiles.map(({diskPath}) => {
-                assert_internal(pathModule.isAbsolute(diskPath), diskPath);
-                assert_internal(isModule(diskPath), diskPath);
-                return "    require('"+diskPath+"')(),";
+            projectConfig.browserConfigFiles.map(browserConfigFile => {
+                assert_internal(pathModule.isAbsolute(browserConfigFile), browserConfigFile);
+                assert_internal(isModule(browserConfigFile), browserConfigFile);
+                return "    require('"+browserConfigFile+"')(),";
             })
         ),
         "  ];",

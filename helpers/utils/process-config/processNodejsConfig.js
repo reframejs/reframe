@@ -129,7 +129,7 @@ function get_browser_config_paths(_processed, r_objects) {
         if( ! browserConfigFile ) {
             return;
         }
-        assert_usage(browserConfigFile.diskPath && path_module.isAbsolute(browserConfigFile.diskPath));
+        assert_usage(browserConfigFile && path_module.isAbsolute(browserConfigFile));
         browserConfigFiles.push(browserConfigFile);
     });
 }

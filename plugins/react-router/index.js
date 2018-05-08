@@ -6,9 +6,7 @@ module.exports = react_router;
 function react_router() {
     return {
         name: require('./package.json').name,
-        browserConfigFile: {
-            diskPath: require.resolve('./browser.js'),
-        },
+        browserConfigFile: require.resolve('./browser.js'),
         pageMixin: {
             viewWrapper: (viewElement, {route}) => {
                 const loc = {
