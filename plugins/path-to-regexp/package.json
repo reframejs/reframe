@@ -5,7 +5,8 @@
     "docs": "mdocs"
   },
   "dependencies": {
-    "@repage/router-path-to-regexp": "0.1.0"
+    "react-router": "4.2.0",
+    "reassert": "^1.1.8"
   },
   "publishConfig": {
     "access": "public"

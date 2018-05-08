@@ -2,9 +2,8 @@
    "name": "@reframe/build",
    "version": "0.1.0",
    "dependencies": {
+      "@brillout/repage": "0.1.0",
       "@reframe/utils": "0.1.0",
-      "@repage/build": "0.1.0",
-      "@repage/core": "0.1.0",
       "reassert": "^1.1.7",
       "webpack-ssr": "0.1.0"
    },

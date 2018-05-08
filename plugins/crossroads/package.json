@@ -5,7 +5,8 @@
     "docs": "mdocs"
   },
   "dependencies": {
-    "@repage/router-crossroads": "0.1.0"
+    "crossroads": "^0.12.2",
+    "reassert": "^1.1.8"
   },
   "publishConfig": {
     "access": "public"

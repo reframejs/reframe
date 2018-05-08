@@ -5,7 +5,10 @@
     "docs": "mdocs"
   },
   "dependencies": {
-    "@repage/renderer-react": "0.1.0"
+    "@brillout/html-crust": "^0.1.0",
+    "react": "^16.1.1",
+    "react-dom": "^16.1.1",
+    "reassert": "^1.1.8"
   },
   "publishConfig": {
     "access": "public"

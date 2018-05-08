@@ -1,5 +1,4 @@
 const assert_warning = require('reassert/warning');
-const parseUri = require('@atto/parse-uri');
 const {getUrl, getInitialProps} = require('./common');
 
 module.exports = getStaticPageHtmls;
