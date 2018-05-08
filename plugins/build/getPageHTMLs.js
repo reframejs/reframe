@@ -24,6 +24,7 @@ async function getPageHTMLs() {
     );
 
     function get_static_pages_info() {
+        return [];
         const repage = new Repage();
 
         repage.addPlugins([

@@ -1,26 +1,16 @@
 const assert_internal = require('reassert/internal');
-const parseUri = require('@atto/parse-uri');
+const {getRouteInfo, getInitialProps} = require('./common');
 
 module.exports = hydratePage;
 
-async function hydratePage({pageConfig, router2, navigator=getDefaultNavigator(), renderToDom2}) {
+async function hydratePage({pageConfig, router, navigator=getDefaultNavigator(), renderToDom}) {
     const uri = navigator.getCurrentRoute();
-    const url = parseUri(uri);
-    const routeArguments = router2.getRouteArguments(url);
 
-    // TODO check if same value than on server
-    const route = {
-        args: routeArguments || {},
-        url,
-    };
+    const route = getRouteInfo({uri, router});
 
-    const initialProps = {route};
+    const initialProps = await getInitialProps({pageConfig, route});
 
-    if( pageConfig.getInitialProps ) {
-        Object.assign(initialProps, await pageConfig.getInitialProps(initialProps));
-    }
-
-    await renderToDom2({pageConfig, initialProps});
+    await renderToDom({pageConfig, initialProps});
 }
 
 function getDefaultNavigator() {

@@ -23,11 +23,11 @@ function get_transparent_fields(_processed, r_objects) {
     r_objects
     .reverse()
     .forEach(r_object => {
-        if (r_object.router2) {
-            _processed.router2 = r_object.router2;
+        if (r_object.router) {
+            _processed.router = r_object.router;
         }
-        if (r_object.renderToDom2) {
-            _processed.renderToDom2 = r_object.renderToDom2;
+        if (r_object.renderToDom) {
+            _processed.renderToDom = r_object.renderToDom;
         }
     });
 }

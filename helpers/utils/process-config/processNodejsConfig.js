@@ -169,6 +169,9 @@ function get_transparent_fields(_processed, r_objects) {
         if (r_object.renderToHtml) {
             _processed.renderToHtml = r_object.renderToHtml;
         }
+        if (r_object.router) {
+            _processed.router = r_object.router;
+        }
     });
 }
 

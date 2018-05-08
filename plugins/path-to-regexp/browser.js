@@ -1,18 +1,11 @@
-//const RepageRouterPathToRegexp = require('@repage/router-path-to-regexp/browser');
-
-const router = require('./router');
-
 module.exports = pathToRegexp;
 
 function pathToRegexp() {
+    const router = require('./router');
+
     return {
         name: require('./package.json').name,
-        router2: router,
-        /*
-        repagePlugins: [
-            RepageRouterPathToRegexp,
-        ],
-        */
+        router,
     };
 }
 

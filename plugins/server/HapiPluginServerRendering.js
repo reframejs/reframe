@@ -1,8 +1,7 @@
 const assert_usage = require('reassert/usage');
 const assert_internal = require('reassert/internal');
 const {compute_file_hash} = require('@reframe/utils/compute_file_hash');
-const {getPageHtml} = require('@repage/server');
-const Repage = require('@repage/core');
+const getPageHtml = require('@brillout/repage/getPageHtml');
 const getProjectConfig = require('@reframe/utils/getProjectConfig');
 
 const HapiPluginServerRendering = {
@@ -14,55 +13,38 @@ const HapiPluginServerRendering = {
 module.exports = HapiPluginServerRendering;
 
 function register(server, options) {
-    server.ext('onPreResponse', (request, h) =>
-        handle_request(request, h)
-    );
+    server.ext('onPreResponse', handleRequest);
 }
 
-async function handle_request(request, h) {
-    if( request_is_already_served(request) ) {
+async function handleRequest(request, h) {
+    if( alreadyServed(request) ) {
         return h.continue;
     }
 
-    const repage_object = create_repage_object();
-
-    const html = await compute_html(request, repage_object);
+    const html = await getHtml(request);
 
     if( html === null ) {
         return h.continue;
     }
 
-    const response = compute_response(html, h);
-    return response;
+    return getResponse(html, h);
 }
 
-function create_repage_object() {
-    const projectConfig = getProjectConfig();
-
-    const {repage_plugins} = projectConfig;
-    assert_internal(repage_plugins.constructor===Array);
-
-    const {pageConfigs} = require(projectConfig.build.getBuildInfo)();
-    assert_internal(pageConfigs.constructor===Array);
-
-    const repage_object = new Repage();
-    repage_object.addPlugins(repage_plugins);
-    repage_object.addPages(pageConfigs);
-
-    return repage_object;
-}
-
-async function compute_html(request, repage_object) {
+async function getHtml(request) {
     const uri = request.url.href;
     assert_internal(uri && uri.constructor===String, uri);
 
-    let {html, renderToHtmlIsMissing} = await getPageHtml(repage_object, uri, {canBeNull: true});
-    assert_html(html, renderToHtmlIsMissing);
+    const projectConfig = getProjectConfig();
 
+    const {pageConfigs} = require(projectConfig.build.getBuildInfo)();
+
+    const {renderToHtml, router} = projectConfig;
+
+    const html = await getPageHtml({pageConfigs, uri, renderToHtml, router});
     return html;
 }
 
-function compute_response(html, h) {
+function getResponse(html, h) {
     const etag = compute_file_hash(html);
     const response_304 = (
         h.entity({
@@ -78,17 +60,9 @@ function compute_response(html, h) {
     return response_200;
 }
 
-function request_is_already_served(request) {
+function alreadyServed(request) {
     return (
         ! request.response.isBoom ||
         request.response.output.statusCode !== 404
     );
-}
-
-function assert_html(html, renderToHtmlIsMissing) {
-    assert_internal(html === null || html && html.constructor===String, html);
-
-    assert_internal([true, false].includes(renderToHtmlIsMissing));
-    assert_internal(!renderToHtmlIsMissing || html===null);
-    assert_usage(renderToHtmlIsMissing===false);
 }
