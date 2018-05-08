@@ -6,7 +6,7 @@
         "clean": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +"
     },
     "devDependencies": {
-        "@brillout/check-deps": "^0.1.1",
+        "@brillout/check-deps": "^0.1.2",
         "@brillout/mdocs": "^0.1.12",
         "lerna": "^2.9.0"
     },
@@ -22,6 +22,7 @@
         "plugins/path-to-regexp",
         "plugins/postcss",
         "plugins/react",
+        "plugins/react-native-web",
         "plugins/react-router",
         "plugins/react-router/example",
         "plugins/start",

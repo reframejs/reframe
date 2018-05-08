@@ -1,0 +1,27 @@
+{
+  "name": "@reframe/react-native-web",
+  "version": "0.1.0",
+  "scripts": {
+    "docs": "mdocs"
+  },
+  "dependencies": {
+    "@brillout/html-crust": "^0.1.0",
+    "@reframe/react": "0.1.0",
+    "babel-plugin-react-native-web": "^0.6.1",
+    "react-dom": "^16.1.1",
+    "react-native-web": "^0.6.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "checkDeps": {
+    "skip": [
+      "react-native-web",
+      "react-native"
+    ]
+  },
+  "repository": "https://github.com/reframejs/reframe/tree/master/plugins/react-native-web",
+  "devDependencies": {
+    "@brillout/mdocs": "^0.1.11"
+  }
+}
