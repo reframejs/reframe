@@ -4,11 +4,12 @@ const {AppRegistry} = require('react-native-web');
 module.exports = renderToDom;
 
 async function renderToDom({pageConfig, initialProps}) {
-    // register the app
+    const App = pageConfig.view;
+
     AppRegistry.registerComponent('App', () => App);
 
     AppRegistry.runApplication('App', {
-        initialProps: {},
+        initialProps,
         rootTag: document.getElementById(containerId),
     });
 }

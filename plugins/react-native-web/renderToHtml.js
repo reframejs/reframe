@@ -13,7 +13,8 @@ function renderToHtml({pageConfig, initialProps}) {
     const { element, getStyleElement } = AppRegistry.getApplication('App', { initialProps });
 
     const div = ReactDOMServer.renderToStaticMarkup(element);
-    const body = '<div id="'+containerId+'">'+div+'</div>';
+    const css = ReactDOMServer.renderToStaticMarkup(getStyleElement());
+    const body = '<div id="'+containerId+'">'+div+'</div>'+css;
 
     const html = HtmlCrust.renderToHtml(Object.assign({}, pageConfig, {body}));
 
