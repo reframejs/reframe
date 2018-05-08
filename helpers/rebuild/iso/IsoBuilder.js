@@ -329,6 +329,14 @@ function log_state_end({logger, nodejsBuild, browserBuild}) {
     const browserCompilationInfo = browserBuild.getCompilationInfo();
     assert_internal(nodejsCompilationInfo);
     assert_internal(browserCompilationInfo);
+
+    // TODO - think this through: Is this avoidable?
+    if( nodejsCompilationInfo.is_compiling || browserCompilationInfo.is_compiling ) {
+        return;
+    }
+
+    assert_internal(nodejsCompilationInfo.is_compiling===false);
+    assert_internal(browserCompilationInfo.is_compiling===false);
     logger.onNewBuildState({
         is_compiling: false,
         is_failure: false,
