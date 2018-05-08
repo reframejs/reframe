@@ -12,9 +12,7 @@
     "@reframe/path-to-regexp": "0.1.0",
     "@reframe/react": "0.1.0",
     "@reframe/server": "0.1.0",
-    "@reframe/start": "0.1.0",
-    "@repage/navigator": "0.1.0",
-    "@repage/renderer": "0.1.0"
+    "@reframe/start": "0.1.0"
   },
   "publishConfig": {
     "access": "public"
