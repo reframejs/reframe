@@ -1,10 +1,26 @@
 const parseUri = require('@atto/parse-uri');
 
-module.exports = {getRouteInfo, getInitialProps};
+module.exports = {getUrl, getInitialProps};
 
-function getRouteInfo({uri, router}) {
+function getUrl({uri}) {
     const url = parseUri(uri);
-    const routeArguments = router.getRouteArguments(url);
+    return url;
+}
+
+async function getInitialProps({pageConfig, url, router}) {
+    const route = getRouteInfo({url, router, pageConfig});
+
+    const initialProps = {route};
+
+    if( pageConfig.getInitialProps ) {
+        Object.assign(initialProps, await pageConfig.getInitialProps(initialProps));
+    }
+
+    return initialProps;
+}
+
+function getRouteInfo({url, router, pageConfig}) {
+    const routeArguments = router.getRouteArguments(url, pageConfig);
 
     // TODO check if same value than on server
     const route = {
@@ -13,14 +29,4 @@ function getRouteInfo({uri, router}) {
     };
 
     return route;
-}
-
-async function getInitialProps({pageConfig, route}) {
-    const initialProps = {route};
-
-    if( pageConfig.getInitialProps ) {
-        Object.assign(initialProps, await pageConfig.getInitialProps(initialProps));
-    }
-
-    return initialProps;
 }

@@ -1,7 +1,6 @@
 const assert_warning = require('reassert/warning');
 const parseUri = require('@atto/parse-uri');
-
-const {getRouteInfo, getInitialProps} = require('./common');
+const {getUrl, getInitialProps} = require('./common');
 
 module.exports = getStaticPageHtmls;
 
@@ -28,13 +27,12 @@ async function getStaticPageHtmls({pageConfigs, router, renderToHtml}) {
             .filter(pageConfig => pageConfig.htmlStatic)
             .map(async pageConfig => {
                 const uri = router.getRouteUri({}, pageConfig);
-                const route = getRouteInfo({uri, router});
 
-                const initialProps = await getInitialProps({pageConfig, route});
+                const url = getUrl({uri});
+
+                const initialProps = await getInitialProps({pageConfig, url, router});
 
                 const html = await renderToHtml({pageConfig, initialProps});
-
-                const {url} = route;
 
                 return {url, html};
             })

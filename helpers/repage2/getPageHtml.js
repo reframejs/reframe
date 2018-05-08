@@ -1,12 +1,10 @@
 const assert_warning = require('reassert/warning');
-const {getRouteInfo, getInitialProps} = require('./common');
+const {getUrl, getInitialProps} = require('./common');
 
 module.exports = getPageHtml;
 
 async function getPageHtml({pageConfigs, uri, renderToHtml, router}) {
-    const route = getRouteInfo({uri, router});
-
-    const {url} = route;
+    const url = getUrl({uri});
 
     const pageConfigMatches = (
         pageConfigs
@@ -24,7 +22,7 @@ async function getPageHtml({pageConfigs, uri, renderToHtml, router}) {
         'Performance warning; dynamically rendering a static page at `'+uri+'`.'
     );
 
-    const initialProps = await getInitialProps({pageConfig, route});
+    const initialProps = await getInitialProps({pageConfig, url, router});
 
     return renderToHtml({pageConfig, initialProps});
 }

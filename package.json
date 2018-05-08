@@ -16,6 +16,7 @@
         "plugins/browser",
         "plugins/eject",
         "plugins/crossroads",
+        "plugins/crossroads/example",
         "plugins/react-kit",
         "plugins/init",
         "plugins/path-to-regexp",

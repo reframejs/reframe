@@ -1,14 +1,14 @@
 const assert_internal = require('reassert/internal');
-const {getRouteInfo, getInitialProps} = require('./common');
+const {getUrl, getInitialProps} = require('./common');
 
 module.exports = hydratePage;
 
 async function hydratePage({pageConfig, router, navigator=getDefaultNavigator(), renderToDom}) {
     const uri = navigator.getCurrentRoute();
 
-    const route = getRouteInfo({uri, router});
+    const url = getUrl({uri});
 
-    const initialProps = await getInitialProps({pageConfig, route});
+    const initialProps = await getInitialProps({pageConfig, url, router});
 
     await renderToDom({pageConfig, initialProps});
 }
