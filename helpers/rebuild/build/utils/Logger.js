@@ -202,6 +202,7 @@ function log_stats_errors({webpack_stats}) {
 }
 
 function log_config(config) {
+    assert_internal(config);
     log_title('Webpack Config');
     log(config);
 }

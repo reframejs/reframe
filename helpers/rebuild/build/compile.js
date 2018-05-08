@@ -339,6 +339,7 @@ function call_webpack(webpack_config) {
 }
 
 function log_config(config) {
+    assert_internal(config);
     log_title('Webpack Config');
     log(config);
 }
@@ -352,7 +353,7 @@ function get_compilation_info({webpack_config, webpack_stats, is_success, loadEn
         })
     );
 
-    return {webpack_stats, is_success, output, runtimeError};
+    return {webpack_config, webpack_stats, is_success, output, runtimeError};
 }
 
 function get_output_info({config, webpack_stats, loadEntryPoints}) {
