@@ -1,42 +1,26 @@
 const assert_internal = require('reassert/internal');
-
-const getProjectConfig = require('@reframe/utils/getProjectConfig');
 const assert_pageConfig = require('@reframe/utils/assert_pageConfig');
-
-const Repage = require('@repage/core');
-const {getStaticPages} = require('@repage/build');
-
+const getProjectConfig = require('@reframe/utils/getProjectConfig');
+const getStaticPageHtmls = require('@brillout/repage/getStaticPageHtmls');
 
 module.exports = getPageHTMLs;
-
 
 async function getPageHTMLs() {
     const projectConfig = getProjectConfig();
 
     const {pageConfigs} = require(projectConfig.build.getBuildInfo)();
 
+    const {router, renderToHtml} = projectConfig;
+
     return (
-        (await get_static_pages_info())
+        (await getStaticPageHtmls({pageConfigs, router, renderToHtml}))
         .map(({url, html}) => {
-            assert_input({url, html});
+            assert_result({url, html});
             return {pathname: url.pathname, html};
         })
     );
 
-    function get_static_pages_info() {
-        return [];
-        const repage = new Repage();
-
-        repage.addPlugins([
-            ...projectConfig.repage_plugins,
-        ]);
-
-        repage.addPages(pageConfigs);
-
-        return getStaticPages(repage);
-    }
-
-    function assert_input({url, html}) {
+    function assert_result({url, html}) {
         assert_internal(html===null || html && html.constructor===String, html);
         assert_internal(html);
 
