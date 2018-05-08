@@ -7,4 +7,5 @@ function webpackNodejsConfig(args) {
     webpackNodejsConfig__react(args);
     const {addBabelPreset, config} = args;
     addBabelPreset(config, babelPresetReactNativeWebPath);
+    return config;
 }

@@ -1,5 +1,5 @@
 const {containerId} = require('./common');
-const {AppRegistry} = require('react-native');
+const {AppRegistry} = require('react-native-web');
 
 module.exports = renderToDom;
 

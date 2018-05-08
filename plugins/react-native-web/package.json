@@ -8,6 +8,7 @@
     "@brillout/html-crust": "^0.1.0",
     "@reframe/react": "0.1.0",
     "babel-plugin-react-native-web": "^0.6.1",
+    "react-art": "^16.3.2",
     "react-dom": "^16.1.1",
     "react-native-web": "^0.6.1"
   },
@@ -16,7 +17,6 @@
   },
   "checkDeps": {
     "skip": [
-      "react-native-web",
       "react-native"
     ]
   },

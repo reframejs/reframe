@@ -104,15 +104,23 @@ function get_webpack_config_modifiers(_processed, r_objects) {
         // We assemble all `r_objects`'s config modifiers into one `supra_modifier`
         r_objects
         .forEach(r_object => {
-            const modifier = r_object[modifier_name]
+            assert_internal(r_object.name);
+            const modifier = r_object[modifier_name];
             if( ! modifier ) {
                 return;
             }
             assert_plugin(r_object[modifier_name] instanceof Function);
             const previous_modifier = supra_modifier;
             supra_modifier = (
-                args =>
-                    modifier({...args, config: previous_modifier(args)})
+                args => {
+                    const config = previous_modifier(args);
+                    const config__new = modifier({...args, config});
+                    assert_usage(
+                        config__new,
+                        "The `"+modifier_name+"` of `"+r_object.name+"` is returning `"+config__new+"` but it should be returning a webpack config instead."
+                    );
+                    return config__new;
+                }
             );
         });
 

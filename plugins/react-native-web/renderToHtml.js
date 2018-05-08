@@ -1,7 +1,7 @@
 const {containerId} = require('./common');
 const ReactDOMServer = require('react-dom/server');
 const HtmlCrust = require('@brillout/html-crust');
-const {AppRegistry} = require('react-native');
+const {AppRegistry} = require('react-native-web');
 
 module.exports = renderToHtml;
 

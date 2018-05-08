@@ -1,0 +1,13 @@
+{
+  "name": "examples-react-native-web",
+  "private": true,
+  "version": "0.1.0",
+  "dependencies": {
+    "@reframe/react-kit": "0.1.0",
+    "@reframe/react-native-web": "0.1.0",
+    "react": "^16.3.2"
+  },
+  "checkDeps": {
+    "skip": true
+  }
+}
