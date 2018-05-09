@@ -44,9 +44,9 @@
   dependencies:
     reassert "^1.0.3"
 
-"@brillout/html-crust@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@brillout/html-crust/-/html-crust-0.2.0.tgz#32bf2c90a518b29eb3e7fff1bd6670ece768393e"
+"@brillout/html-crust@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@brillout/html-crust/-/html-crust-0.4.0.tgz#d98fb147278cd2605fce2b0e316fcef143a8aa3d"
   dependencies:
     reassert "^1.1.8"
 

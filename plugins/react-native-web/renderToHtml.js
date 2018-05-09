@@ -16,9 +16,9 @@ function renderToHtml({pageConfig, initialProps}) {
 
     const css = ReactDOMServer.renderToStaticMarkup(getStyleElement());
 
-    const body = '<div id="'+containerId+'">'+div+'</div>';
-    const htmlCrustOptions = Object.assign({inlineStyles: []}, pageConfig, {body});
-    htmlCrustOptions.inlineStyles.push(css);
+    const htmlCrustOptions = Object.assign({headHtmls: [], bodyHtmls: []}, pageConfig);
+    htmlCrustOptions.bodyHtmls.push('<div id="'+containerId+'">'+div+'</div>');
+    htmlCrustOptions.headHtmls.push(css);
 
     const html = HtmlCrust(htmlCrustOptions);
 
