@@ -50,8 +50,7 @@ It automatically transpiles, bundles, routes, renders, and serves your pages.
 // A page config
 const WelcomePage = {
   route: '/',
-  view: () => <div>Welcome to Reframe</div>,
-  title: 'Welcome'
+  view: () => <div>Welcome to Reframe</div>
 };
 ~~~
 
