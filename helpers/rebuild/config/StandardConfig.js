@@ -1,7 +1,6 @@
-const assert = require('reassert/hard');
-const assert_usage = assert;
-const assert_todo = assert;
-const assert_internal = assert;
+const assert_usage = require('reassert/usage');
+const assert_internal = require('reassert/internal');
+const assert_todo = assert_internal;
 const pathModule = require('path');
 const webpack = require('webpack');
 const get_caller = require('parent-module');
@@ -281,11 +280,32 @@ function config_ignore_node_modules() {
     };
 
     function skip_node_modules(context, request, callback) {
-        const filePath = require.resolve(request, {paths: [context]});
-        if( filePath.split(pathModule.sep).includes('node_modules') ) {
-            return callback(null, "commonjs " + request);
+     // console.log(request);
+     // console.log(context);
+
+        let filePath;
+        try {
+            filePath = require.resolve(request, {paths: [context]});
+        } catch(err) {
+            include();
+            return;
         }
-        callback();
+
+        if( filePath.split(pathModule.sep).includes('node_modules') ) {
+            skip();
+            return;
+        }
+
+        include();
+
+        return;
+
+        function skip() {
+            callback(null, "commonjs " + request);
+        }
+        function include() {
+            callback();
+        }
     }
 }
 
