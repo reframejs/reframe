@@ -55,6 +55,7 @@ function StandardNodeConfig(args) {
         ...BaseConfig.call(null, {is_node_target: true, ...args}),
         config_target({libraryTarget: 'commonjs2'}),
         config_ignore_css,
+        config_ignore_node_modules,
     ];
 }
 
@@ -272,6 +273,20 @@ function config_ignore_css() {
         }
     };
     return {module: {rules}};
+}
+
+function config_ignore_node_modules() {
+    return {
+        externals: [skip_node_modules],
+    };
+
+    function skip_node_modules(context, request, callback) {
+        const filePath = require.resolve(request, {paths: [context]});
+        if( filePath.split(pathModule.sep).includes('node_modules') ) {
+            return callback(null, "commonjs " + request);
+        }
+        callback();
+    }
 }
 
 function config_json() {
