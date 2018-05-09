@@ -362,7 +362,7 @@ Thus, you can create:
   Not only is computational time saved by skiping rendering to the DOM but also load time is saved by skipping loading JavaScript code.
 - **Server-Side Rendering** (**SSR**)
   <br/>
-  By default, pages are rendered to HTML before being rendered to the DOM in the browser.
+  By default, a page is rendered to HTML on the server before being rendered to the DOM in the browser.
   Improving the user perceived load time.
 - **Optimal HTTP caching**
   <br/>
