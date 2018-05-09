@@ -375,7 +375,7 @@ Thus, you can create:
 - **Static Rendering**
   <br/>
   When setting `htmlStatic: true` to a page config, the page is rendered to HTML at build-time (instead of request-time).
-  The page's HTML is rendered only once, when Reframe is building the pages, and is served statically.
+  The page's HTML is rendered only once (when Reframe is building the pages) and is served statically.
   Decreasing load time.
 
 <!---
