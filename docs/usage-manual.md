@@ -159,6 +159,7 @@
 -->
 
 <br/>
+<br/>
 
 ## Getting Started
 
@@ -181,6 +182,7 @@
 
 4. Open [http://localhost:3000](http://localhost:3000).
 
+<br/>
 <br/>
 
 ## CSS & Static Assets
@@ -295,6 +297,7 @@ Also note that all types of static assets are supported.
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 
+<br/>
 <br/>
 
 
@@ -433,6 +436,7 @@ And the HTML returned by the server is:
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 
 <br/>
+<br/>
 
 
 
@@ -478,6 +482,7 @@ export default pageB;
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 
+<br/>
 <br/>
 
 
@@ -591,6 +596,7 @@ Reframe embraces that recommandation by allowing you to write an app where only 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 
 <br/>
+<br/>
 
 
 
@@ -671,6 +677,7 @@ to eject the `HapiPluginStaticAssets` plugin and to gain control over the servin
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 
 <br/>
+<br/>
 
 
 
@@ -723,6 +730,7 @@ Examples:
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 
 <br/>
+<br/>
 
 
 
@@ -740,6 +748,7 @@ We refer to [`@brillout/html-crust`'s documentation](https://github.com/brillout
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 
+<br/>
 <br/>
 
 
@@ -831,6 +840,7 @@ We refer to the source code of the plugin [`@reframe/crossroads`](/plugins/cross
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 
 <br/>
+<br/>
 
 
 
@@ -910,6 +920,7 @@ And run `reframe eject build-browser-entries` to eject `getPageBrowserEntries()`
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 
+<br/>
 <br/>
 
 <!---
