@@ -116,14 +116,14 @@
     Create apps with page configs
     &nbsp;&nbsp;
     &nbsp;&nbsp;
-    <b>Ejectable</b>
+    <b>Progressive Eject</b>
     &nbsp;-&nbsp;
     No lock-in
     &nbsp;&nbsp;
     &nbsp;&nbsp;
     <b>Universal</b>
     &nbsp;-&nbsp;
-    Create static, dynamic and hybrid apps
+    Create static and dynamic apps
 </p></div>
 
 <br/>

@@ -116,14 +116,14 @@
     Create apps with page configs
     &nbsp;&nbsp;
     &nbsp;&nbsp;
-    <b>Ejectable</b>
+    <b>Progressive Eject</b>
     &nbsp;-&nbsp;
     No lock-in
     &nbsp;&nbsp;
     &nbsp;&nbsp;
     <b>Universal</b>
     &nbsp;-&nbsp;
-    Create static, dynamic and hybrid apps
+    Create static and dynamic apps
 </p></div>
 
 <br/>
@@ -336,8 +336,11 @@ export default {
 import fetch from '@brillout/fetch';
 
 async function getCharacters() {
-    const urlBase = 'https://brillout-misc.github.io/game-of-thrones';
-    const url = urlBase + '/characters/list.json';
+    /* GitHub seem to have disabled CORS for localhost
+    const url = 'https://brillout-misc.github.io/game-of-thrones/characters/list.json';
+    /*/
+    const url = 'https://api.myjson.com/bins/12ktoq';
+    //*/
     const characters = await (
         fetch(url)
         .then(response => response.json())
