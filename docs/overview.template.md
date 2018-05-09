@@ -27,7 +27,7 @@ Overview
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
-<a href="#ejectable">Ejectable</a>
+<a href="#progressive-eject">Progressive Eject</a>
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
@@ -98,9 +98,9 @@ and read this overview.
 
 <br/>
 
-### Ejectable
+### Progressive Eject
 
-**Everything is customizable/ejectable**.
+All of Reframe is ejectable and customizable.
 
 For example, the command `reframe eject server` ejects [~30 LOC of server code](/plugins/server/startServer.js):
 The server code is copied from Reframe's codebase to your codebase.
@@ -121,7 +121,7 @@ thanks to two page config options: `htmlStatic: true` and `domStatic: true`.
 
 By default a page is rendered twice:
 On the server (to HTML) and in the browser (to the DOM).
-(React components, and therefore the entire page as well, can be rendered to the DOM as well as to HTML.)
+(React components can be rendered to the DOM as well as to HTML.)
 
 Because it is rendered in the browser, a page can have interactive views
 (a like button, a realtime graph, a To-Do list, etc.).
@@ -138,7 +138,7 @@ Thus, you can create:
 
  - **Modern interactive apps** <sup><sub>:sparkles:</sub></sup> - Apps with interactive views. (The DOM is dynamic.)
  - **Good ol' 1998 websites** <sup><sub>:floppy_disk:</sub></sup> - Apps without interactive views. (The DOM is static.)
- - **Serverless apps** - Apps with static HTML. (No Node.js server is needed as all pages' HTML are rendered at built-time.)
+ - **Serverless apps** - Apps with static HTML. (No Node.js server is needed as all pages' HTMLs are rendered at built-time.)
  - **Hybrid apps** - Apps where some pages have a static HTML and some have a static DOM.
 
 <br/>
@@ -147,12 +147,18 @@ Thus, you can create:
 
 ###### Developer Experience
 
-- **Non-interactive pages**
+- **Mostly-non-interactive apps**
   <br/>
-  Non-interactive views are easier to implement
-  and, with Reframe, you can write an app that has only few interactive views while the rest is non-interactive.
+  You can write an app that has only few interactive views while the rest is non-interactive.
   <br/>
   Following the approach "Whenever possible, implement features with non-interative views".
+  (Non-interactive views are considerably easier to implement.)
+- **Serverless deploy**
+  <br/>
+  If your app is HTML-static
+  (by setting `htmlStatic: true` to all your page configs)
+  then it can be deployed to a static website host
+  such as [GitHub Pages](https://pages.github.com/) or Netlify.
 - **React Router**
   <br/>
   The syntax of the page config's `route` string is the same than in React Router v4.
@@ -196,7 +202,7 @@ Thus, you can create:
 - **Static DOM**
   <br/>
   When setting `domStatic: true` to a page config, the page is not hydrated.
-  (In other words, the page's view is not rendered to the DOM but only rendered to HTML.)
+  (In other words, the page is not rendered to the DOM but only rendered to HTML.)
   Not only is computational time saved by skiping rendering to the DOM but also load time is saved by skipping loading JavaScript code.
 - **Server-Side Rendering** (**SSR**)
   <br/>
