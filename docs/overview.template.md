@@ -155,7 +155,7 @@ Thus, you can create:
 - **Serverless deploy**
   <br/>
   If your app is HTML-static
-  (by setting `htmlStatic: true` to all your page configs)
+  (if all your page configs have `htmlStatic: true`)
   then it can be deployed to a static website host
   such as [GitHub Pages](https://pages.github.com/) or [Netlify](https://www.netlify.com/).
 - **React Router**
