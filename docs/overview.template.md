@@ -158,7 +158,7 @@ Thus, you can create:
   If your app is HTML-static
   (by setting `htmlStatic: true` to all your page configs)
   then it can be deployed to a static website host
-  such as [GitHub Pages](https://pages.github.com/) or Netlify.
+  such as [GitHub Pages](https://pages.github.com/) or [Netlify](https://www.netlify.com/).
 - **React Router**
   <br/>
   The syntax of the page config's `route` string is the same than in React Router v4.
