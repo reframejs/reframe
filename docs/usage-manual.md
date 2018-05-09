@@ -291,7 +291,7 @@ We referer to the Customization Manual for further information.
 
 Also note that all types of static assets are supported.
 
-&nbsp;
+<br/>
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 
@@ -428,7 +428,7 @@ And the HTML returned by the server is:
 </html>
 ~~~
 
-&nbsp;
+<br/>
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 
@@ -474,7 +474,7 @@ const pageB = {
 export default pageB;
 ~~~
 
-&nbsp;
+<br/>
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 
@@ -586,7 +586,7 @@ We recommended to implement app requirements with DOM-static views whenever poss
 and to implement DOM-dynamic views only when necessary.
 Reframe embraces that recommandation by allowing you to write an app where only few pages are DOM-dynamic while the rest of the app is DOM-static.
 
-&nbsp;
+<br/>
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 
@@ -666,7 +666,7 @@ $ reframe eject server-assets
 
 to eject the `HapiPluginStaticAssets` plugin and to gain control over the serving of static browser assets. (JavaScript files, CSS files, images, fonts, etc.)
 
-&nbsp;
+<br/>
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 
@@ -718,7 +718,7 @@ Examples:
  - Source code of [`@reframe/react`](/plugins/react)
  - Source code of [`@reframe/typescript`](/plugins/typescript)
 
-&nbsp;
+<br/>
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 
@@ -736,7 +736,7 @@ Thus, the page config has full control over the outer part of HTML including the
 
 We refer to [`@brillout/html-crust`'s documentation](https://github.com/brillout/html-crust) for further information.
 
-&nbsp;
+<br/>
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 
@@ -826,7 +826,7 @@ It can, for example, be used with [Crossroads.js](https://github.com/millermedei
 
 We refer to the source code of the plugin [`@reframe/crossroads`](/plugins/crossroads) for further information about how to use Reframe with another routing library.
 
-&nbsp;
+<br/>
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 
@@ -906,7 +906,7 @@ Run `reframe eject build-static-rendering` to eject `getPageHTMLs()` to gain con
 
 And run `reframe eject build-browser-entries` to eject `getPageBrowserEntries()` to gain control over the browser entry code of your pages.
 
-&nbsp;
+<br/>
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 
