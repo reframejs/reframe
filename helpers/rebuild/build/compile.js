@@ -8,7 +8,6 @@ const log = require('reassert/log');
 const webpack = require('webpack');
 const path_module = require('path');
 const fs = require('fs');
-const HtmlCrust = require('@brillout/html-crust');
 const mkdirp = require('mkdirp');
 const deep_copy = require('./utils/deep_copy');
 const log_title = require('./utils/log_title');

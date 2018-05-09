@@ -13,10 +13,14 @@ function renderToHtml({pageConfig, initialProps}) {
     const { element, getStyleElement } = AppRegistry.getApplication('App', { initialProps });
 
     const div = ReactDOMServer.renderToStaticMarkup(element);
-    const css = ReactDOMServer.renderToStaticMarkup(getStyleElement());
-    const body = '<div id="'+containerId+'">'+div+'</div>'+css;
 
-    const html = HtmlCrust.renderToHtml(Object.assign({}, pageConfig, {body}));
+    const css = ReactDOMServer.renderToStaticMarkup(getStyleElement());
+
+    const body = '<div id="'+containerId+'">'+div+'</div>';
+    const htmlCrustOptions = Object.assign({inlineStyles: []}, pageConfig, {body});
+    htmlCrustOptions.inlineStyles.push(css);
+
+    const html = HtmlCrust(htmlCrustOptions);
 
     return html;
 }

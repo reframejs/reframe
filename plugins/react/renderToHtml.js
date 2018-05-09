@@ -10,7 +10,7 @@ function renderToHtml({pageConfig, initialProps}) {
     const div = ReactDOMServer.renderToStaticMarkup(reactElement);
     const body = '<div id="'+containerId+'">'+div+'</div>';
 
-    const html = HtmlCrust.renderToHtml(Object.assign({}, pageConfig, {body}));
+    const html = HtmlCrust(Object.assign({}, pageConfig, {body}));
 
     return html;
 }

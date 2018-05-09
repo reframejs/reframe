@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "dependencies": {
     "@brillout/cli-theme": "0.1.0",
-    "@brillout/html-crust": "^0.1.0",
     "bluebird": "^3.5.1",
     "commondir": "^1.0.1",
     "lodash": "^4.17.4",
