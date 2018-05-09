@@ -224,8 +224,6 @@ Reframe does the rest:
     <img src='https://github.com/reframejs/reframe/raw/master/docs/images/reframe_overview_screenshot.png?sanitize=true' width=1200 style="max-width:100%;"/>
 </p>
 
-That's it: We created a web app by simply defining one page config.
-
 <br/>
 
 ### Quick Start
