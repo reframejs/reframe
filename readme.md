@@ -272,8 +272,9 @@ If you run all eject commands then you effectively get rid of Reframe.
 
 ### Universal
 
-Reframe is universal (you can create any type of web app)
-thanks to two page config options: `htmlStatic: true` and `domStatic: true`.
+Reframe is universal: You can create any type of web app.
+
+This is thanks to two page config options: `htmlStatic: true` and `domStatic: true`.
 
 By default a page is rendered twice:
 On the server (to HTML) and in the browser (to the DOM).
