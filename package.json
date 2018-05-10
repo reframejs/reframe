@@ -45,7 +45,7 @@
         "helpers/webpack-ssr",
         "helpers/webpack-config-mod",
         "helpers/file-sets",
-        "helpers/repage2",
+        "helpers/repage",
         "helpers/rebuild/config",
         "helpers/rebuild/build",
         "helpers/rebuild/iso",
