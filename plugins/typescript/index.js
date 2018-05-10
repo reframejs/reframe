@@ -11,13 +11,13 @@ function ts({loaderOptions={transpileOnly: true}, dontUseForkChecker=false, fork
         webpackBrowserConfig: webpackMod,
         webpackNodejsConfig: webpackMod,
     };
-    function webpackMod({config, getRule, setRule}) {
-        add_typescript({config, getRule, setRule, loaderOptions, dontUseForkChecker, forkCheckerOptions});
+    function webpackMod({config, getRule, setRule, addExtension}) {
+        add_typescript({config, getRule, setRule, addExtension, loaderOptions, dontUseForkChecker, forkCheckerOptions});
         return config;
     }
 }
 
-function add_typescript({config, getRule, setRule, loaderOptions, dontUseForkChecker, forkCheckerOptions}) {
+function add_typescript({config, getRule, setRule, addExtension, loaderOptions, dontUseForkChecker, forkCheckerOptions}) {
     const jsRule = getRule(config, '.js');
 
     assert_usage([Object, Array].includes(jsRule.use && jsRule.use.constructor), jsRule);
@@ -44,6 +44,9 @@ function add_typescript({config, getRule, setRule, loaderOptions, dontUseForkChe
     };
     setRule(config, '.ts', tsRule);
     setRule(config, '.tsx', tsRule);
+
+    addExtension(config, '.ts');
+    addExtension(config, '.tsx');
 
     if( ! dontUseForkChecker ) {
         config.plugins = config.plugins || [];

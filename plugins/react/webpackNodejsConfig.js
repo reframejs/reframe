@@ -2,15 +2,15 @@ const babelPresetReactPath = require.resolve('babel-preset-react');
 
 module.exports = webpackNodejsConfig;
 
-function webpackNodejsConfig({config, setRule, getRule, addBabelPreset}) {
+function webpackNodejsConfig({config, setRule, getRule, addBabelPreset, addExtension}) {
     addBabelPreset(config, babelPresetReactPath);
 
-    addJsxExtension({config, setRule, getRule});
+    addJsxExtension({config, setRule, getRule, addExtension});
 
     return config;
 }
 
-function addJsxExtension({config, getRule, setRule}) {
+function addJsxExtension({config, getRule, setRule, addExtension}) {
     const jsRule = getRule(config, '.js');
 
     if( ! jsRule ) {
@@ -21,6 +21,5 @@ function addJsxExtension({config, getRule, setRule}) {
     delete jsxRule.test;
     setRule(config, '.jsx', jsxRule);
 
-    config.resolve = config.resolve || {};
-    config.resolve.extensions = ['.jsx', '.js', '.json'];
+    addExtension(config, '.jsx');
 }

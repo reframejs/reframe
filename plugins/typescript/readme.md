@@ -113,7 +113,7 @@ module.exports = {
 ### Example
 
 ~~~js
-// /typescript/example/reframe.config.js
+// /example/reframe.config.js
 
 const ts = require('@reframe/typescript');
 
@@ -125,7 +125,7 @@ module.exports = {
 ~~~
 
 ~~~tsx
-// /typescript/example/pages/landing.tsx
+// /example/pages/landing.config.tsx
 
 import * as React from "react";
 

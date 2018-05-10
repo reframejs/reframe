@@ -39,3 +39,7 @@ Webpack config modifiers.
  - `modifyBabelOptions(config, action)`
    <br/>
    Apply the `action` function to all `babel-loader` loaders' options object.
+
+ - `addExtension(config, extension)`
+   <br/>
+   Add `extension` to `config.resolve.extensions` (only if missing).

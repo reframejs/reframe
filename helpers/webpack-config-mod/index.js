@@ -2,7 +2,7 @@ const assert_usage = require('reassert/usage');
 const assert_internal = require('reassert/internal');
 const escapeRegexp = require('lodash.escaperegexp');
 
-const webpackConfigMod = {setRule, getRule, getEntries, addBabelPreset, addBabelPlugin, modifyBabelOptions};
+const webpackConfigMod = {setRule, getRule, getEntries, addBabelPreset, addBabelPlugin, modifyBabelOptions, addExtension};
 
 module.exports = webpackConfigMod;
 
@@ -151,6 +151,16 @@ function addBabelPlugin(config, babelPlugin, {canBeMissing=true}={}) {
         },
         {canBeMissing}
     );
+}
+
+function addExtension(config, extension) {
+    assert_usage(config && extension);
+    assert_usage(extension.constructor === String && extension.startsWith('.'));
+    config.resolve = config.resolve || {};
+    config.resolve.extensions = config.resolve.extensions || ['.js', '.json'];
+    if( ! config.resolve.extensions.includes(extension) ) {
+        config.resolve.extensions.push(extension);
+    }
 }
 
 function runRuleTest(ruleTest, filename) {

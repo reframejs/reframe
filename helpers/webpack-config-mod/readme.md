@@ -75,9 +75,9 @@
 
 
 -->
-Utilities to modify a webpack config.
-
 ## `@brillout/webpack-config-mod`
+
+Webpack config modifiers.
 
 ##### Contents
 
@@ -160,6 +160,10 @@ console.log("Success");
  - `modifyBabelOptions(config, action)`
    <br/>
    Apply the `action` function to all `babel-loader` loaders' options object.
+
+ - `addExtension(config, extension)`
+   <br/>
+   Add `extension` to `config.resolve.extensions` (only if missing).
 
 <!---
 
