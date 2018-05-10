@@ -41,9 +41,14 @@ function initProgram() {
 
     let noCommand = true;
 
+    const commandArray = [];
+    addPluginCommands();
+    addVersionCommand();
     addHelpCommand();
 
-    const commandList = addCommands(projectConfig.allCliCommands);
+    const commandSpecs = getCommandSpecs();
+
+    addCommands();
 
     addFallbackCommand();
 
@@ -54,29 +59,45 @@ function initProgram() {
             program.parse(process.argv);
 
             if( noCommand ) {
-                printHelp();
+                if( hasOption('-v', '--version') ) {
+                    printVersions();
+                } else {
+                    printHelp();
+                }
             }
         },
     };
 
-    function addCommands(commandArray) {
-        const commandList = {};
+    function addPluginCommands() {
+        commandArray.push(...projectConfig.allCliCommands);
+    }
 
-        projectConfig
-        .allCliCommands
-        .forEach(cmdSpec => {
+    function getCommandSpecs() {
+        const commandSpecs = {};
+        commandArray.forEach(cmdSpec => {
+            assert_usage(
+                cmdSpec.name && cmdSpec.description && cmdSpec.action,
+                cmdSpec
+            );
             let commandLine = cmdSpec.name;
             if( cmdSpec.param ) {
                 commandLine += ' '+cmdSpec.param;
             }
+            commandSpecs[cmdSpec.name] = {options: [], commandLine, ...cmdSpec};
+        });
+        return commandSpecs;
+    }
+
+    function addCommands() {
+        Object.values(commandSpecs)
+        .forEach(cmdSpec => {
+
             const cmd = (
                 program
-                .command(commandLine)
+                .command(cmdSpec.commandLine)
             );
 
-            commandList[cmdSpec.name] = {...cmdSpec, commandLine};
-
-            (cmdSpec.options||[])
+            cmdSpec.options
             .forEach(opt => {
                 cmd.option(opt.name, opt.description);
             });
@@ -85,25 +106,53 @@ function initProgram() {
             .description(cmdSpec.description)
             .action(function(options) {
                 noCommand = false;
-                if( process.argv.includes('-h') || process.argv.includes('--help') ) {
+                if( hasOption('-h', '--help') ) {
                     printHelp(cmdSpec.name)
                     return;
                 }
                 cmdSpec.action(options, {printHelp: () => printHelp(cmdSpec.name)});
             });
         });
-
-        return commandList;
     }
 
     function addHelpCommand() {
-        program
-        .command('help [command]')
-        .description('Output usage information')
-        .action(commandName => {
-            noCommand = false;
-            printHelp(commandName);
+        commandArray.push({
+            name: 'help',
+            param: '[command]',
+            description: 'Print usage information.',
+            action: commandName => {
+                printHelp(commandName);
+            },
         });
+    }
+
+    function addVersionCommand() {
+        program.option('-v, --version');
+
+        commandArray.push({
+            name: 'version',
+            description: 'Print version number of cli and plugins.',
+            action: commandName => {
+                printVersions();
+            },
+        });
+    }
+
+    function printVersions() {
+        const pkg = require('./package.json');
+        console.log();
+        console.log(INDENT+'Cli:');
+        console.log(INDENT+INDENT+pkg.name+'@'+pkg.version);
+        if( projectConfig._rootPluginNames.length === 0 ) {
+            return;
+        }
+        console.log();
+        console.log(INDENT+'Plugins:');
+        projectConfig._rootPluginNames.forEach(pkgName => {
+            const pluginPkg = require(pkgName+'/package.json');
+            console.log(INDENT+INDENT+pkgName+'@'+pluginPkg.version);
+        });
+        console.log();
     }
 
     function addFallbackCommand() {
@@ -122,7 +171,7 @@ function initProgram() {
 
     function printHelp(commandName) {
         if( commandName ) {
-            const cmdSpec = commandList[commandName];
+            const cmdSpec = commandSpecs[commandName];
             if( ! cmdSpec ) {
                 printInvalidCommand(commandName);
                 return;
@@ -172,8 +221,8 @@ function initProgram() {
         console.log();
         console.log(INDENT+'Commands:');
         console.log(strTable(
-            Object.entries(commandList)
-            .map(([commandName, cmdSpec]) => [colorEmphasisLight(commandName), cmdSpec.description]),
+            Object.entries(commandSpecs)
+            .map(([commandName, cmdSpec]) => [commandName, cmdSpec.description]),
             {indent: INDENT+INDENT}
         ));
         console.log();
@@ -199,6 +248,10 @@ function initProgram() {
         console.log();
         console.log('Run '+colorEmphasisLight('reframe help')+' for the list of commands.');
         console.log();
+    }
+
+    function hasOption(optName1, optName2) {
+        return process.argv.includes(optName1) || process.argv.includes(optName2);
     }
 }
 
