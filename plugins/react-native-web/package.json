@@ -21,7 +21,8 @@
   },
   "checkDeps": {
     "skip": [
-      "react-native"
+      "react-native",
+      "react-art"
     ]
   }
 }
