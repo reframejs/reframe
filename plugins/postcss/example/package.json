@@ -1,0 +1,15 @@
+{
+  "name": "examples-postcss",
+  "private": true,
+  "version": "0.1.0",
+  "dependencies": {
+    "@reframe/react-kit": "0.1.0",
+    "@reframe/postcss": "0.1.0",
+    "postcss-cssnext": "^3.1.0",
+    "react": "^16.3.2",
+    "sugarss": "^1.0.1"
+  },
+  "checkDeps": {
+    "skip": true
+  }
+}

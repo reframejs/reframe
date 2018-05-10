@@ -21,6 +21,7 @@
         "plugins/init",
         "plugins/path-to-regexp",
         "plugins/postcss",
+        "plugins/postcss/example",
         "plugins/react",
         "plugins/react-native-web",
         "plugins/react-native-web/example",

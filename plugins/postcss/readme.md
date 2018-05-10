@@ -94,8 +94,8 @@ module.exports = {
     plugins: [
         postcss({
             loaderOptions: {
-                // All options defined here are passed down as `postcss-loader` options.
-                // This is where you add PostCSS plugins, PostCSS parser, etc.
+                // All options defined here are passed down as options for `postcss-loader`.
+                // This is where you add PostCSS plugins, a PostCSS parser, etc.
             },
         })
     ],
@@ -105,7 +105,7 @@ module.exports = {
 ### Example
 
 ~~~js
-// /postcss/example/reframe.config.js
+// /example/reframe.config.js
 
 const postcss = require('@reframe/postcss');
 
@@ -124,7 +124,7 @@ module.exports = {
 ~~~
 
 ~~~sugarss
-// /postcss/example/pages/landing.css
+// /example/pages/landing.css
 
 :root
   --red: #f88
@@ -147,7 +147,7 @@ module.exports = {
 ~~~
 
 ~~~js
-// /postcss/example/pages/landing.js
+// /example/pages/landing.js
 
 import React from 'react';
 import './landing.css';

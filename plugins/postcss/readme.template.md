@@ -17,8 +17,8 @@ module.exports = {
     plugins: [
         postcss({
             loaderOptions: {
-                // All options defined here are passed down as `postcss-loader` options.
-                // This is where you add PostCSS plugins, PostCSS parser, etc.
+                // All options defined here are passed down as options for `postcss-loader`.
+                // This is where you add PostCSS plugins, a PostCSS parser, etc.
             },
         })
     ],
