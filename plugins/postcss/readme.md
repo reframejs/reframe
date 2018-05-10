@@ -147,7 +147,7 @@ module.exports = {
 ~~~
 
 ~~~js
-// /example/pages/landing.js
+// /example/pages/landing.config.js
 
 import React from 'react';
 import './landing.css';
