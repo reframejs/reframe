@@ -143,13 +143,13 @@ function get_browser_config_paths(_processed, r_objects) {
 }
 
 function get_cli_commands(_processed, r_objects) {
-    const cli_commands = _processed.cli_commands = [];
+    const allCliCommands = _processed.allCliCommands = [];
 
     r_objects
     .forEach(r_object => {
         if (r_object.cliCommands) {
             r_object.cliCommands.forEach(command => {
-                cli_commands.push(command);
+                allCliCommands.push(command);
             });
         }
     });

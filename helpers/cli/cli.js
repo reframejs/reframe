@@ -43,7 +43,7 @@ function initProgram() {
 
     addHelpCommand();
 
-    const commandList = addCommands(projectConfig.cli_commands);
+    const commandList = addCommands(projectConfig.allCliCommands);
 
     addFallbackCommand();
 
@@ -63,7 +63,7 @@ function initProgram() {
         const commandList = {};
 
         projectConfig
-        .cli_commands
+        .allCliCommands
         .forEach(cmdSpec => {
             let commandLine = cmdSpec.name;
             if( cmdSpec.param ) {
@@ -203,13 +203,13 @@ function initProgram() {
 }
 
 function assert_at_least_one_command() {
-    const {_rootPluginNames, cli_commands, projectFiles: {reframeConfigFile}} = projectConfig;
+    const {_rootPluginNames, allCliCommands, projectFiles: {reframeConfigFile}} = projectConfig;
 
     if( ! isProject ) {
-        assert_internal(cli_commands.length>0);
+        assert_internal(allCliCommands.length>0);
     } else {
         assert_usage(
-            cli_commands.length>0,
+            allCliCommands.length>0,
             colorError("No commands found."),
             "Project found at "+colorDir(strDir(projectConfig.projectFiles.projectRootDir))+".",
             reframeConfigFile ? (
