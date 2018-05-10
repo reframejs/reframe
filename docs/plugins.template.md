@@ -23,3 +23,4 @@ List of Reframe plugins. Make a PR to add yours.
 
 ###### View renderers
  - [@reframe/react](/plugins/react) - Use Reframe with React.
+ - [@reframe/react-native-web](/plugins/react-native-web) - Use Reframe with [React Native Web](https://github.com/necolas/react-native-web).

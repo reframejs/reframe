@@ -11,7 +11,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "repository": "github:reframejs/reframe",
+  "repository": "https://github.com/reframejs/reframe/tree/master/plugins/crossroads",
   "devDependencies": {
     "@brillout/mdocs": "^0.1.11"
   }

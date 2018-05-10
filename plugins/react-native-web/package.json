@@ -12,6 +12,10 @@
     "react-dom": "^16.1.1",
     "react-native-web": "^0.6.1"
   },
+  "devDependencies": {
+    "@brillout/mdocs": "^0.1.11"
+  },
+  "repository": "https://github.com/reframejs/reframe/tree/master/plugins/react-native-web",
   "publishConfig": {
     "access": "public"
   },
@@ -19,9 +23,5 @@
     "skip": [
       "react-native"
     ]
-  },
-  "repository": "https://github.com/reframejs/reframe/tree/master/plugins/react-native-web",
-  "devDependencies": {
-    "@brillout/mdocs": "^0.1.11"
   }
 }

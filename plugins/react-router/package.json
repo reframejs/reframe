@@ -9,11 +9,11 @@
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2"
   },
-  "publishConfig": {
-    "access": "public"
-  },
-  "repository": "github:reframejs/reframe",
   "devDependencies": {
     "@brillout/mdocs": "^0.1.11"
+  },
+  "repository": "https://github.com/reframejs/reframe/tree/master/plugins/react-router",
+  "publishConfig": {
+    "access": "public"
   }
 }
