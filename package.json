@@ -29,6 +29,7 @@
         "plugins/react-router/example",
         "plugins/start",
         "plugins/typescript",
+        "plugins/typescript/example",
 
         "examples/basics",
         "examples/simple",
