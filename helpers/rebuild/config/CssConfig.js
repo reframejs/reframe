@@ -1,8 +1,7 @@
-const assert = require('reassert');
-const assert_internal = assert;
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const assert_internal = require('reassert/internal');
 
 module.exports = CssConfig;
-module.exports.getExtractTextPlugin = getExtractTextPlugin;
 
 function CssConfig() {
     return config_css;
@@ -36,31 +35,19 @@ function config_css(config) {
     }
     */
 
-    const {extractPlugin, extractLoader} = getExtractTextPlugin({config});
+    const filename = get_style_filename(config);
 
     return {
         plugins: [
-            extractPlugin,
+            new MiniCssExtractPlugin({filename}),
         ],
         module: {rules: {css: {
             use: [
-                extractLoader,
+                MiniCssExtractPlugin.loader,
                 require.resolve("css-loader"),
             ],
         }}},
     };
-}
-
-function getExtractTextPlugin({config}) {
-    const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-
-    const filename = get_style_filename(config);
-
-    const extractPlugin = new MiniCssExtractPlugin({filename});
-
-    const extractLoader = MiniCssExtractPlugin.loader;
-
-    return {extractPlugin, extractLoader};
 }
 
 function get_style_filename(config) {
