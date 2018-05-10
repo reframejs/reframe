@@ -1,5 +1,4 @@
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const assert_internal = require('reassert/internal');
 const assert_usage = require('reassert/usage');
 const find_up = require('find-up');
 const getUserDir = require('@brillout/get-user-dir');
@@ -12,18 +11,16 @@ function ts({loaderOptions={transpileOnly: true}, dontUseForkChecker=false, fork
         webpackBrowserConfig: webpackMod,
         webpackNodejsConfig: webpackMod,
     };
-    function webpackMod({config}) {
-        add_typescript(config, {loaderOptions, dontUseForkChecker, forkCheckerOptions});
+    function webpackMod({config, getRule, setRule}) {
+        add_typescript({config, getRule, setRule, loaderOptions, dontUseForkChecker, forkCheckerOptions});
         return config;
     }
 }
 
-function add_typescript(config, {loaderOptions, dontUseForkChecker, forkCheckerOptions}) {
-    const jsRule = (
-        config.module.rules
-        .find(({test: testRegExp}) => testRegExp.test('dummy.js'))
-    );
-    assert_internal([Object, Array].includes(jsRule.use && jsRule.use.constructor), jsRule);
+function add_typescript({config, getRule, setRule, loaderOptions, dontUseForkChecker, forkCheckerOptions}) {
+    const jsRule = getRule(config, '.js');
+
+    assert_usage([Object, Array].includes(jsRule.use && jsRule.use.constructor), jsRule);
     const jsLoaders = (
         jsRule.use.constructor===Array ? (
             jsRule.use
@@ -36,8 +33,7 @@ function add_typescript(config, {loaderOptions, dontUseForkChecker, forkCheckerO
     forkCheckerOptions.tsconfig = tsconfig_path;
     loaderOptions.configFile = tsconfig_path;
 
-    config.module.rules.push({
-        test: /\.(ts|tsx)$/,
+    const tsRule = {
         use: [
             ...jsLoaders,
             {
@@ -45,9 +41,12 @@ function add_typescript(config, {loaderOptions, dontUseForkChecker, forkCheckerO
                 options: loaderOptions,
             }
         ]
-    });
+    };
+    setRule(config, '.ts', tsRule);
+    setRule(config, '.tsx', tsRule);
 
     if( ! dontUseForkChecker ) {
+        config.plugins = config.plugins || [];
         config.plugins.push(new ForkTsCheckerWebpackPlugin(forkCheckerOptions));
     }
 }

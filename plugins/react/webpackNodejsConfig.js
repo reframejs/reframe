@@ -5,19 +5,20 @@ module.exports = webpackNodejsConfig;
 function webpackNodejsConfig({config, setRule, getRule, addBabelPreset}) {
     addBabelPreset(config, babelPresetReactPath);
 
-    addJsxSupport({config, setRule, getRule});
+    addJsxExtension({config, setRule, getRule});
 
     return config;
 }
 
-function addJsxSupport({config, getRule, setRule}) {
+function addJsxExtension({config, getRule, setRule}) {
     const jsRule = getRule(config, '.js');
 
     if( ! jsRule ) {
         return;
     }
 
-    const jsxRule = {...jsRule, test: /\.jsx$/};
+    const jsxRule = {...jsRule};
+    delete jsxRule.test;
     setRule(config, '.jsx', jsxRule);
 
     config.resolve = config.resolve || {};
