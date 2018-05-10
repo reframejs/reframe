@@ -23,6 +23,7 @@
         "plugins/postcss",
         "plugins/react",
         "plugins/react-native-web",
+        "plugins/react-native-web/example",
         "plugins/react-router",
         "plugins/react-router/example",
         "plugins/start",

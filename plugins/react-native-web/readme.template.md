@@ -2,7 +2,7 @@ Reframe + React Native Web = :heart:
 
 # `@reframe/react-native-web`
 
-Implement views for the Web and for native mobile using [React Native Web](https://github.com/necolas/react-native-web).
+Implement views for the web and for native mobile using [React Native Web](https://github.com/necolas/react-native-web).
 
 ### Usage
 
