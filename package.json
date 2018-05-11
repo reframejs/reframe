@@ -8,7 +8,7 @@
     "devDependencies": {
         "@brillout/check-deps": "^0.1.2",
         "@brillout/mdocs": "^0.1.12",
-        "lerna": "^2.9.0"
+        "lerna": "^2.11.0"
     },
     "workspaces": [
         "plugins/build",
@@ -30,7 +30,6 @@
         "plugins/start",
         "plugins/typescript",
         "plugins/typescript/example",
-
         "examples/basics",
         "examples/simple",
         "examples/partial-dom-dynamic",
@@ -38,7 +37,6 @@
         "examples/custom-webpack-full",
         "examples/dom-static",
         "examples/runtime-error",
-
         "helpers/utils",
         "helpers/cli",
         "helpers/cli-theme",
