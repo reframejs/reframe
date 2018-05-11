@@ -206,7 +206,7 @@ const HelloPage = {
   route: '/hello/:name', // Parameterized route
   title: 'Hi there', // Page's <title>
   view: props => {
-    // Our route argument `name` is available at `props.route.args.name`
+    // The route argument `name` is available at `props.route.args.name`
     const name = props.route.args.name;
     return (
       <div>Hello {name}</div>
@@ -259,7 +259,7 @@ All of Reframe is ejectable and customizable.
 
 For example, the command `reframe eject server` ejects [~30 LOC of server code](/plugins/server/startServer.js):
 The server code is copied from Reframe's codebase to your codebase.
-Giving you control over the server and allowing you to add API endpoints, change the server config, use a process manager, etc.
+This gives you control over the server allowing you to add API endpoints, change the server config, use a process manager, etc.
 
 There are several eject commands that you can apply one by one and progressively as the need arises.
 
@@ -271,31 +271,14 @@ If you run all eject commands then you effectively get rid of Reframe.
 
 ### Universal
 
-Reframe is universal: You can create any type of web app.
+Reframe is universal, that is, you can create any type of web app:
 
-This is thanks to two page config options: `htmlStatic: true` and `domStatic: true`.
+ - **Modern interactive apps** <sup><sub>:sparkles:</sub></sup> - Apps with interactive views. (A realtime graph, a like button, an interactive table, a To-Do list, etc.)
+ - **Good ol' 1998 websites** <sup><sub>:floppy_disk:</sub></sup> - Apps without interactive views. (The browser loads no (or almost no) JavaScript and the DOM is static.)
+ - **Serverless apps** - Apps that don't need a Node.js server. (They can be deployed to a static website host such as GitHub Pages or Netlify.)
+ - **Hybrid apps** - Apps with interactive pages as well as non-interative pages.
 
-By default a page is rendered twice:
-On the server (to HTML) and in the browser (to the DOM).
-(React components can be rendered to the DOM as well as to HTML.)
-
-Because it is rendered in the browser, a page can have interactive views
-(a like button, a realtime graph, a To-Do list, etc.).
-But if a page has no interactive views then it is wasteful to render it in the browser.
-By adding `domStatic: true` to its page config, the page is only rendered on the server.
-The browser loads no (or almost no) JavaScript and the DOM is static.
-
-By default a page is dynamically rendered to HTML at request-time.
-But some pages are static
-(a landing page, a blog post, a personal homepage, etc.) and it would be wasteful to re-render its HTML on every page request.
-By adding `htmlStatic: true` to a page config, the page is rendered to HTML at build-time instead.
-
-Thus, you can create:
-
- - **Modern interactive apps** <sup><sub>:sparkles:</sub></sup> - Apps with interactive views. (The DOM is dynamic.)
- - **Good ol' 1998 websites** <sup><sub>:floppy_disk:</sub></sup> - Apps without interactive views. (The DOM is static.)
- - **Serverless apps** - Apps with static HTML. (No Node.js server is needed as all pages' HTMLs are rendered at built-time.)
- - **Hybrid apps** - Apps where some pages have a static HTML and some have a static DOM.
+Choosing the type of your app is only a matter of setting `htmlStatic: true` and/or `domStatic: true` to your page configs.
 
 <br/>
 
@@ -309,6 +292,10 @@ Thus, you can create:
   <br/>
   Following the approach "Whenever possible, implement features with non-interative views".
   (Non-interactive views are considerably easier to implement.)
+- **Learn once, write any app**
+  <br/>
+  Instead of learning a framework to create a static app and a second framework to implement a dynamic app,
+  you only learn Reframe to be able to implement any type of web app.
 - **Serverless deploy**
   <br/>
   If your app is HTML-static
@@ -359,17 +346,15 @@ Thus, you can create:
   <br/>
   When setting `domStatic: true` to a page config, the page is not hydrated.
   (In other words, the page is not rendered to the DOM but only rendered to HTML.)
-  Not only is computational time saved by skiping rendering to the DOM but also load time is saved by skipping loading JavaScript code.
+  Not only is computational time saved by skipping rendering to the DOM but also load time is saved by skipping loading JavaScript code.
 - **Server-Side Rendering** (**SSR**)
   <br/>
   By default, a page is rendered to HTML on the server before being rendered to the DOM in the browser.
-  Improving the user perceived load time.
+  That improves the user perceived load time.
 - **Optimal HTTP caching**
   <br/>
   Every dynamic server response is cached with a ETag header.
   And every static server response is indefinitely cached.
-  (A static asset is served under a URL that contains the assets' hash
-  and is served with the `Cache-Control` header set to `immutable` and `max-age`'s maximum value.)
 - **Static Rendering**
   <br/>
   When setting `htmlStatic: true` to a page config, the page is rendered to HTML at build-time (instead of request-time).
