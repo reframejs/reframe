@@ -1,4 +1,3 @@
-const assert_internal = require('reassert/internal');
 const {getUrl, getInitialProps} = require('./common');
 
 module.exports = hydratePage;
@@ -23,7 +22,6 @@ function getDefaultNavigator() {
 
     function getCurrentRoute() {
         const current_route = window.location.href.replace(window.location.origin, '');
-        assert_internal(current_route.startsWith('/'));
         return current_route;
     }
 }
