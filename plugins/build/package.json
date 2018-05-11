@@ -1,11 +1,11 @@
 {
    "name": "@reframe/build",
-   "version": "0.1.1",
+   "version": "0.1.2",
    "dependencies": {
-      "@brillout/repage": "0.1.1",
-      "@reframe/utils": "0.1.1",
+      "@brillout/repage": "0.1.2",
+      "@reframe/utils": "0.1.2",
       "reassert": "^1.1.7",
-      "webpack-ssr": "0.1.1"
+      "webpack-ssr": "0.1.2"
    },
    "publishConfig": {
       "access": "public"
