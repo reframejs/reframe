@@ -273,10 +273,22 @@ If you run all eject commands then you effectively get rid of Reframe.
 
 Reframe is universal, that is, you can create any type of web app:
 
- - **Modern interactive apps** <sup><sub>:sparkles:</sub></sup> - Apps with interactive views. (A realtime graph, a like button, an interactive table, a To-Do list, etc.)
- - **Good ol' 1998 websites** <sup><sub>:floppy_disk:</sub></sup> - Apps without interactive views. (The browser loads no (or almost no) JavaScript and the DOM is static.)
- - **Serverless apps** - Apps that don't need a Node.js server. (They can be deployed to a static website host such as GitHub Pages or Netlify.)
- - **Hybrid apps** - Apps with interactive pages as well as non-interative pages.
+ - **Modern interactive apps** <sup><sub>:sparkles:</sub></sup>
+   <br/>
+   Apps with interactive views.
+   <br/>
+   (A realtime graph, an interactive table, a To-Do list, etc.)
+ - **Good ol' 1998 websites** <sup><sub>:floppy_disk:</sub></sup> 
+   <br/>
+   Apps without interactive views.
+   <br/>
+   (The browser loads no (or almost no) JavaScript and the DOM is static.)
+ - **Serverless apps**
+   <br/>
+   Apps that don't need a Node.js server.
+ - **Hybrid apps**
+   <br/>
+   Apps with interactive pages as well as non-interative pages.
 
 Choosing the type of your app is only a matter of setting `htmlStatic: true` and/or `domStatic: true` to your page configs.
 
@@ -294,31 +306,30 @@ Choosing the type of your app is only a matter of setting `htmlStatic: true` and
   (Non-interactive views are considerably easier to implement.)
 - **Learn once, write any app**
   <br/>
-  Instead of learning a framework to create a static app and a second framework to implement a dynamic app,
+  Instead of learning a framework to create a static app and a second framework to create a dynamic app,
   you only learn Reframe to be able to implement any type of web app.
 - **Serverless deploy**
   <br/>
   If your app is HTML-static
   (if all your page configs have `htmlStatic: true`)
   then it can be deployed to a static website host
-  such as [GitHub Pages](https://pages.github.com/) or [Netlify](https://www.netlify.com/).
+  such as GitHub Pages or Netlify.
 - **React Router**
   <br/>
   The syntax of the page config's `route` string is the same than in React Router v4.
   <br/>
-  By adding the [@reframe/react-router](/plugins/react-router) plugin
+  By adding the `@reframe/react-router` plugin
   you can use React Router's components `<Route>`, `<Switch>`, etc.
 - **TypeScript**
   <br/>
-  Add the [@reframe/typescript](/plugins/typescript) plugin and write your app in TypeScript.
+  Add the `@reframe/typescript` plugin and write your app in TypeScript.
 - **PostCSS**
   <br/>
-  Add the [@reframe/postcss](/plugins/postcss) plugin to write modern CSS.
+  Add the `@reframe/postcss` plugin to write modern CSS.
 - **Webpack**
   <br/>
   Reframe uses webpack to build the app's pages.
   Webpack
-  ([webpack.js.org](https://webpack.js.org/))
   is the state of the art to build browser assets.
 - **Hapi**
   <br/>
