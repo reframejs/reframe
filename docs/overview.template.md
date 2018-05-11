@@ -165,7 +165,7 @@ Choosing the type of your app is only a matter of setting `htmlStatic: true` and
   Add the `@reframe/typescript` plugin and write your app in TypeScript.
 - **PostCSS**
   <br/>
-  Add the `@reframe/postcss` plugin to write modern CSS.
+  Add the `@reframe/postcss` plugin and write modern CSS.
 - **Webpack**
   <br/>
   Reframe uses webpack to build the app's pages.
@@ -209,5 +209,5 @@ Choosing the type of your app is only a matter of setting `htmlStatic: true` and
 - **Static Rendering**
   <br/>
   When setting `htmlStatic: true` to a page config, the page is rendered to HTML at build-time (instead of request-time).
-  The page's HTML is rendered only once (when Reframe is building the pages) and is served statically.
+  The page's HTML is rendered only once and is served statically.
   Decreasing load time.
