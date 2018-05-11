@@ -2,14 +2,16 @@ const {getUrl, getInitialProps} = require('./common');
 
 module.exports = hydratePage;
 
-async function hydratePage({pageConfig, router, navigator=getDefaultNavigator(), renderToDom}) {
+// TODO - remove browserConfig
+async function hydratePage({pageConfig, router, navigator=getDefaultNavigator(), renderToDom, browserConfig}) {
     const uri = navigator.getCurrentRoute();
 
     const url = getUrl({uri});
 
     const initialProps = await getInitialProps({pageConfig, url, router});
 
-    await renderToDom({pageConfig, initialProps});
+// TODO - remove browserConfig
+    await renderToDom({pageConfig, initialProps, browserConfig});
 }
 
 function getDefaultNavigator() {

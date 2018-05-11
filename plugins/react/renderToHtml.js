@@ -9,12 +9,18 @@ module.exports = renderToHtml;
 function renderToHtml({pageConfig, initialProps}) {
     let reactElement = React.createElement(pageConfig.view, initialProps);
 
-    applyViewWrappers(reactElement);
+    reactElement = applyViewWrappers(reactElement, initialProps);
 
-    const div = ReactDOMServer.renderToStaticMarkup(reactElement);
+    const contentHtml = ReactDOMServer.renderToStaticMarkup(reactElement);
 
+    const html = renderHtmlCrust(contentHtml, pageConfig);
+
+    return html;
+}
+
+function renderHtmlCrust(contentHtml, pageConfig) {
     const htmlCrustOptions = Object.assign({bodyHtmls: []}, pageConfig);
-    htmlCrustOptions.bodyHtmls.push('<div id="'+containerId+'">'+div+'</div>');
+    htmlCrustOptions.bodyHtmls.push('<div id="'+containerId+'">'+contentHtml+'</div>');
 
     const html = HtmlCrust(htmlCrustOptions);
 
@@ -25,11 +31,13 @@ function renderToHtml({pageConfig, initialProps}) {
 // E.g. the `@reframe/react-router` plugin adds a view wrapper to add
 // the provider-components `<BrowserRouter>` and `<StaticRouter>`.
 // You can remove this code if `getProjectConfig().viewWrappers.length===0`.
-function applyViewWrappers(reactElement) {
+function applyViewWrappers(reactElement, initialProps) {
     const projectConfig = getProjectConfig();
 
     projectConfig.viewWrappers
     .forEach(viewWrapper => {
-        reactElement
+        reactElement = viewWrapper(reactElement, initialProps);
     });
+
+    return reactElement;
 }

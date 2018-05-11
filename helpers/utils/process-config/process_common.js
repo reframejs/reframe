@@ -1,7 +1,7 @@
 const assert_internal = require('reassert/internal');
 const assert_usage = require('reassert/usage');
 
-module.exports = {get_r_objects, get_repage_plugins};
+module.exports = {get_r_objects, get_view_wrappers};
 
 function get_r_objects(config_obj, extraPlugins) {
 
@@ -72,31 +72,14 @@ function assert_dupes(r_objects, reframe_config, extraPlugins) {
     );
 }
 
-function get_repage_plugins(_processed, r_objects, isBrowserConfig) {
-    assert_internal([true, false].includes(isBrowserConfig));
-    if( _processed.repage_plugins ) {
-        return;
-    }
-    const repage_plugins = _processed.repage_plugins = [];
+function get_view_wrappers(_processed, r_objects) {
+    const viewWrappers = _processed.viewWrappers = [];
 
     r_objects
     .forEach(r_object => {
-        const {pageMixin, name} = r_object;
-        assert_internal(name, r_object);
-        if( pageMixin ) {
-            const repage_plugin_obj = {pageMixin, name};
-            if( isBrowserConfig ) {
-                repage_plugin_obj.isAllowedInBrowser = true;
-            }
-            repage_plugins.push(repage_plugin_obj);
-        }
-    });
-
-    r_objects
-    .forEach(r_object => {
-        const {repagePlugins} = r_object;
-        if( repagePlugins ) {
-            repage_plugins.push(...repagePlugins);
+        const {viewWrapper} = r_object;
+        if( viewWrapper ) {
+            viewWrappers.push(viewWrapper);
         }
     });
 }

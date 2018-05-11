@@ -6,6 +6,7 @@ const pageConfig = __REFRAME__PAGE_CONFIG;
 (async () => {
     // Include code here that needs to run before the hydration
 
+// TODO - remove browserConfig
     await hydratePage(pageConfig, browserConfig);
 
     // Include code here that needs to run after the hydration

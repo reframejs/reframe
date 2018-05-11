@@ -9,6 +9,8 @@ async function hydratePage(pageConfig, browserConfig) {
             pageConfig,
             router,
             renderToDom,
+// TODO - remove browserConfig
+            browserConfig,
         })
     );
 }

@@ -2,7 +2,7 @@ const assert = require('reassert');
 const assert_internal = assert;
 const assert_usage = assert;
 const assert_plugin = assert;
-const {get_r_objects, get_repage_plugins} = require('./process_common');
+const {get_r_objects, get_view_wrappers} = require('./process_common');
 
 module.exports = processBrowserConfig;
 
@@ -13,7 +13,7 @@ function processBrowserConfig(reframeBrowserConfig) {
 
     const r_objects = get_r_objects(reframeBrowserConfig);
 
-    get_repage_plugins(_processed, r_objects, true);
+    get_view_wrappers(_processed, r_objects);
     get_transparent_fields(_processed, r_objects);
 
     return _processed;

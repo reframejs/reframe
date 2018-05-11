@@ -66,7 +66,7 @@ const assert_internal = require('reassert/internal');
 const assert_usage = require('reassert/usage');
 const assert_plugin = assert_usage;
 const path_module = require('path');
-const {get_r_objects, get_repage_plugins} = require('./process_common');
+const {get_r_objects, get_view_wrappers} = require('./process_common');
 const get_project_files = require('./get_project_files');
 
 module.exports = {processNodejsConfig};
@@ -81,7 +81,7 @@ function processNodejsConfig({reframeConfig, extraPlugins}) {
 
     get_webpack_config_modifiers(_processed, r_objects);
     get_browser_config_paths(_processed, r_objects);
-    get_repage_plugins(_processed, r_objects, false);
+    get_view_wrappers(_processed, r_objects);
     get_project_files(_processed, r_objects);
     get_cli_commands(_processed, r_objects);
     get_transparent_fields(_processed, r_objects);
