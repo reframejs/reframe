@@ -276,12 +276,10 @@ Reframe is universal, that is, you can create any type of web app:
  - **Modern interactive apps** <sup><sub>:sparkles:</sub></sup>
    <br/>
    Apps with interactive views.
-   <br/>
    (A realtime graph, an interactive table, a To-Do list, etc.)
  - **Good ol' 1998 websites** <sup><sub>:floppy_disk:</sub></sup> 
    <br/>
    Apps without interactive views.
-   <br/>
    (The browser loads no (or almost no) JavaScript and the DOM is static.)
  - **Serverless apps**
    <br/>
