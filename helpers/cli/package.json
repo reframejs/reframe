@@ -1,14 +1,14 @@
 {
   "name": "@reframe/cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "bin": {
     "reframe": "./cli.js"
   },
   "dependencies": {
-    "@brillout/cli-theme": "0.1.0",
+    "@brillout/cli-theme": "0.1.1",
     "@brillout/get-user-dir": "^0.1.2",
-    "@reframe/init": "0.1.0",
-    "@reframe/utils": "0.1.0",
+    "@reframe/init": "0.1.1",
+    "@reframe/utils": "0.1.1",
     "commander": "2.14.1",
     "ora": "^2.0.0",
     "reassert": "^1.1.7"

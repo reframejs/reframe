@@ -1,10 +1,10 @@
 {
   "name": "__reframe_examples_partial-dom-dynamic",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.1.1",
   "dependencies": {
-    "@reframe/browser": "0.1.0",
-    "@reframe/react-kit": "0.1.0",
+    "@reframe/browser": "0.1.1",
+    "@reframe/react-kit": "0.1.1",
     "react": "^16.3.2"
   },
   "checkDeps": {

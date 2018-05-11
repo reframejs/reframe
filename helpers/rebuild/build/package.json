@@ -1,16 +1,16 @@
 {
   "name": "@rebuild/build",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "dependencies": {
-    "@brillout/cli-theme": "0.1.0",
+    "@brillout/cli-theme": "0.1.1",
     "bluebird": "^3.5.1",
     "commondir": "^1.0.1",
     "lodash": "^4.17.4",
     "mkdirp": "^0.5.1",
     "ora": "^1.3.0",
     "reassert": "^1.1.8",
-    "webpack": "^4.6.0",
-    "source-map-support": "^0.5.4"
+    "source-map-support": "^0.5.4",
+    "webpack": "^4.6.0"
   },
   "publishConfig": {
     "access": "public"
