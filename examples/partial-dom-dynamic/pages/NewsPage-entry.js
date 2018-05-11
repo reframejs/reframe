@@ -4,7 +4,7 @@ import NewsBrowserConfigPage from './NewsPage-browser-config.js';
 console.log("before partial hydration");
 
 (async () => {
-    await hydratePage(NewsBrowserConfigPage, __REFRAME__BROWSER_CONFIG);
+    await hydratePage(NewsBrowserConfigPage);
 
     console.log("after partial hydration");
 })();

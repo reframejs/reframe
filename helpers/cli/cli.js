@@ -22,9 +22,9 @@ const projectConfig = getProjectConfig({projectNotRequired: true, pluginRequired
 const isProject = !!projectConfig.projectFiles.projectRootDir;
 
 if( ! isProject ) {
-    projectConfig.addPlugin(
+    projectConfig.addPlugins([
         require('@reframe/init')()
-    );
+    ]);
 }
 
 assert_at_least_one_command();

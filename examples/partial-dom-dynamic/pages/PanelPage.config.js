@@ -21,5 +21,8 @@ const PanelComponent = () => (
 export default {
     route: '/panel',
     view: PanelComponent,
-    browserEntry: './PanelPage-entry.js',
+    browserEntry: {
+        doNotIncludePageConfig: true,
+        pathToEntry: './PanelPage-entry.js',
+    },
 };

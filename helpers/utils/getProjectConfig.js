@@ -11,12 +11,12 @@ let projectConfig__cache;
 
 function getProjectConfig(...args) {
     if( ! projectConfig__cache ) {
-        projectConfig__cache = computeProjectConfig(...args);
+        projectConfig__cache = computeConfig(...args);
     }
     return projectConfig__cache;
 }
 
-function computeProjectConfig({projectNotRequired=false, pluginRequired=false}={}) {
+function computeConfig({projectNotRequired=false, pluginRequired=false}={}) {
     let {reframeConfigFile, packageJsonFile, projectRootDir} = findProjectFiles({projectNotRequired});
 
     const projectFound = !!packageJsonFile;
@@ -39,16 +39,17 @@ function computeProjectConfig({projectNotRequired=false, pluginRequired=false}={
 
     const projectConfig = {};
 
-    setProjectConfig();
+    setConfig();
 
     return projectConfig;
 
-    function addPlugin(plugin) {
-        extraPlugins.push(plugin);
-        setProjectConfig();
+    function addPlugins(plugins) {
+        assert_usage(plugins.length>=0);
+        extraPlugins.push(...plugins);
+        setConfig();
     }
 
-    function setProjectConfig() {
+    function setConfig() {
         for(const prop in projectConfig) {
             delete projectConfig[prop];
         }
@@ -61,7 +62,7 @@ function computeProjectConfig({projectNotRequired=false, pluginRequired=false}={
         }
 
         Object.assign(projectConfig, {
-            addPlugin,
+            addPlugins,
             _packageJsonFile: packageJsonFile,
             _rootPluginNames: getRootPlugins().map(plugin => plugin.name),
         });

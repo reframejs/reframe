@@ -6,6 +6,7 @@ export default {
     browserEntry: {
         pathToEntry: './custom-hydration.entry.js',
         doNotIncludePageConfig: true,
+        doNotInlcudeBrowserConfig: true,
     },
     view: () => (
         <div>

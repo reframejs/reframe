@@ -1,16 +1,18 @@
-const repage_hydratePage = require('@brillout/repage/hydratePage');
+import getProjectBrowserConfig from '@reframe/utils/process-config/getProjectBrowserConfig';
+import hydratePage__repage from '@brillout/repage/hydratePage';
 
-module.exports = hydratePage;
+async function hydratePage(pageConfig) {
+    const projectBrowserConfig = getProjectBrowserConfig();
 
-async function hydratePage(pageConfig, browserConfig) {
-    const {renderToDom, router} = browserConfig;
+    const {renderToDom, router, currentPageConfig} = projectBrowserConfig;
+
     await (
-        repage_hydratePage({
-            pageConfig,
+        hydratePage__repage({
+            pageConfig: pageConfig || currentPageConfig,
             router,
             renderToDom,
-// TODO - remove browserConfig
-            browserConfig,
         })
     );
 }
+
+export default hydratePage;

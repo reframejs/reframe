@@ -32,27 +32,13 @@ function getBrowserEntryString({pageConfig, pageFile, pageName}) {
     let browserEntryString = '';
 
     if( ! browserEntrySpec.doNotInlcudeBrowserConfig ) {
-        const browserConfig = generateBrowserConfig();
-        assert_internal(browserConfig);
-        browserEntryString += (
-            [
-                "window.__REFRAME__BROWSER_CONFIG = "+browserConfig+";",
-                "", "",
-            ]
-            .join('\n')
-        );
+        const configCode = generateConfigCode();
+        browserEntryString += configCode+'\n\n';
     }
 
     if( ! browserEntrySpec.doNotIncludePageConfig ) {
-        browserEntryString += (
-            [
-                "let pageConfig = require('"+pageFile+"');",
-                "pageConfig = (pageConfig||{}).__esModule===true ? pageConfig.default : pageConfig;",
-                "window.__REFRAME__PAGE_CONFIG = pageConfig;",
-                "", "",
-            ]
-            .join('\n')
-        );
+        const pageConfigCode = generatePageConfigCode(pageFile);
+        browserEntryString += pageConfigCode+'\n\n';
     }
 
     browserEntryString += [
@@ -63,15 +49,16 @@ function getBrowserEntryString({pageConfig, pageFile, pageName}) {
     return browserEntryString;
 }
 
-function generateBrowserConfig() {
+function generateConfigCode() {
     const projectConfig = getProjectConfig();
 
     const sourceCode = [
         "(() => {",
-        "  const processBrowserConfig = require('"+require.resolve('@reframe/utils/process-config/processBrowserConfig')+"');",
+        "  const getProjectBrowserConfig = require('"+require.resolve('@reframe/utils/process-config/getProjectBrowserConfig')+"');",
         "",
-        "  const browserConfigObject = {};",
-        "  browserConfigObject.plugins = [",
+        "  const projectBrowserConfig = getProjectBrowserConfig();",
+        "",
+        "  projectBrowserConfig.addPlugins([",
         ...(
             projectConfig.browserConfigFiles.map(browserConfigFile => {
                 assert_internal(pathModule.isAbsolute(browserConfigFile), browserConfigFile);
@@ -79,10 +66,25 @@ function generateBrowserConfig() {
                 return "    require('"+browserConfigFile+"')(),";
             })
         ),
-        "  ];",
+        "  ]);",
+        "})();",
+    ].join('\n')
+
+    return sourceCode;
+}
+
+function generatePageConfigCode(pageFile) {
+    const sourceCode = [
+        "(() => {",
+        "  const getProjectBrowserConfig = require('"+require.resolve('@reframe/utils/process-config/getProjectBrowserConfig')+"');",
         "",
-        "  return processBrowserConfig(browserConfigObject);",
-        "})()",
+        "  const projectBrowserConfig = getProjectBrowserConfig();",
+        "",
+        "  let pageConfig = require('"+pageFile+"');",
+        "  pageConfig = (pageConfig||{}).__esModule===true ? pageConfig.default : pageConfig;",
+        "",
+        "  projectBrowserConfig.setCurrentPageConfig(pageConfig);",
+        "})();",
     ].join('\n')
 
     return sourceCode;

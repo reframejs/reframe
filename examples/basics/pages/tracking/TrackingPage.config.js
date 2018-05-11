@@ -12,6 +12,5 @@ export default {
             src: 'https://www.google-analytics.com/analytics.js',
         },
     ],
-    domStatic: true,
     browserEntry: './TrackingPage-entry.js',
 };

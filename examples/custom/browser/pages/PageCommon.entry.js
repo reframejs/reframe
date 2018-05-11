@@ -1,7 +1,7 @@
 import hydratePage from '@reframe/browser/hydratePage';
 
 (async () => {
-    await hydratePage(__REFRAME__PAGE_CONFIG, __REFRAME__BROWSER_CONFIG);
+    await hydratePage();
 
     // We send the tracking only after the hydration is done
     window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

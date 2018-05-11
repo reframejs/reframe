@@ -17,5 +17,8 @@ export default {
     title: 'News Site',
     route: '/news',
     view: NewsComponent,
-    browserEntry: './NewsPage-entry.js',
+    browserEntry: {
+        doNotIncludePageConfig: true,
+        pathToEntry: './NewsPage-entry.js',
+    },
 };

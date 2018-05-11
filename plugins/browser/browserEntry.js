@@ -1,13 +1,9 @@
-const hydratePage = require('./hydratePage');
-
-const browserConfig = __REFRAME__BROWSER_CONFIG;
-const pageConfig = __REFRAME__PAGE_CONFIG;
+import hydratePage from './hydratePage';
 
 (async () => {
     // Include code here that needs to run before the hydration
 
-// TODO - remove browserConfig
-    await hydratePage(pageConfig, browserConfig);
+    await hydratePage();
 
     // Include code here that needs to run after the hydration
 })();

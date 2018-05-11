@@ -4,7 +4,7 @@ import PanelBrowserConfigPage from './PanelPage-browser-config.js';
 console.log("before partial hydration");
 
 (async () => {
-    await hydratePage(PanelBrowserConfigPage, __REFRAME__BROWSER_CONFIG);
+    await hydratePage(PanelBrowserConfigPage);
 
     console.log("after partial hydration");
 })();
