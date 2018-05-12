@@ -9,13 +9,19 @@ function ejectCommands() {
                 param: '[ejectable]',
                 description: 'Eject an "ejectable".',
                 action: runEject,
+                options: [
+                    {
+                        name: "--skip-git",
+                        description: "Skip checking if the repository has untracked/dirty files.",
+                    }
+                ],
                 getHelp,
             },
         ],
     };
 }
 
-async function runEject(ejectableName, {printHelp}) {
+async function runEject({inputs: [ejectableName], options: {skipGit}, printHelp}) {
     if( !ejectableName ) {
         printHelp();
         return;
@@ -27,7 +33,7 @@ async function runEject(ejectableName, {printHelp}) {
     const getProjectConfig = require('@reframe/utils/getProjectConfig');
     const {symbolSuccess, strFile} = require('@brillout/cli-theme');
     const runNpmInstall = require('@reframe/utils/runNpmInstall');
-    const git = require('@reframe/utils/git');
+    const gitUtils = require('@reframe/utils/git');
     const pathModule = require('path');
     const fs = require('fs');
     const os = require('os');
@@ -51,15 +57,19 @@ async function runEject(ejectableName, {printHelp}) {
 
         const {projectRootDir, packageJsonFile: projectPackageJsonFile} = projectConfig.projectFiles;
 
+        const gitIsInstalled = gitUtils.gitIsAvailable();
+
         assert_usage(
-            await git.isRepository({cwd: projectRootDir}),
+            skipGit || gitIsInstalled && await gitUtils.isRepository({cwd: projectRootDir}),
             "The project is not checked into a Git repository.",
-            "Initialize a Git repository before ejecting."
+            "Initialize a Git repository before ejecting.",
+            "Or run the command with the `--skip-git` flag"
         );
         assert_usage(
-            !(await git.hasDirtyOrUntrackedFiles({cwd: projectRootDir})),
+            skipGit || gitIsInstalled && !(await gitUtils.hasDirtyOrUntrackedFiles({cwd: projectRootDir})),
             "The project's repository has untracked/dirty files.",
-            "Commit them before ejecting."
+            "Commit them before ejecting.",
+            "Or run the command with the `--skip-git` flag"
         );
 
         const {packageName: ejectablePackageName} = ejectableSpec;
@@ -85,9 +95,10 @@ async function runEject(ejectableName, {printHelp}) {
 
         actions.forEach(action => action());
 
-        await git.commit({cwd: projectRootDir, message: "eject "+ejectableSpec.name});
         console.log(symbolSuccess+'Eject done.');
-        console.log('  Run `git show HEAD` to see all ejected code.');
+        if( ! skipGit && gitIsInstalled ) {
+            console.log('  Run `git diff` to see all ejected code.');
+        }
     }
 
     function copyFile({fileCopy, actions, deps, ejectablePackageName, projectConfig}) {

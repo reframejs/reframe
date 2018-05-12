@@ -104,13 +104,15 @@ function initProgram() {
 
             cmd
             .description(cmdSpec.description)
-            .action(function(options) {
+            .action(function(...args) {
                 noCommand = false;
                 if( hasOption('-h', '--help') ) {
                     printHelp(cmdSpec.name)
                     return;
                 }
-                cmdSpec.action(options, {printHelp: () => printHelp(cmdSpec.name)});
+                const inputs = args.slice(0, -1);
+                const options = args.slice(-1)[0];
+                cmdSpec.action({inputs, options, printHelp: () => printHelp(cmdSpec.name)});
             });
         });
     }
@@ -120,7 +122,7 @@ function initProgram() {
             name: 'help',
             param: '[command]',
             description: 'Print usage information.',
-            action: commandName => {
+            action: ({inputs: [commandName]}) => {
                 printHelp(commandName);
             },
         });
@@ -132,7 +134,7 @@ function initProgram() {
         commandArray.push({
             name: 'version',
             description: 'Print version number of cli and plugins.',
-            action: commandName => {
+            action: () => {
                 printVersions();
             },
         });

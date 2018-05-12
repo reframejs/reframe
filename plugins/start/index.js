@@ -2,8 +2,8 @@ module.exports = startCommands;
 
 function startCommands() {
 
-    const optLog = {
-        name: "-l, --log",
+    const optVerbose = {
+        name: "-v, --verbose",
         description: "Print build and page information.",
     };
 
@@ -14,7 +14,7 @@ function startCommands() {
                 name: 'start',
                 description: 'Build pages and start server for development.',
                 options: [
-                    optLog,
+                    optVerbose,
                 ],
                 action: runStart,
             },
@@ -22,7 +22,7 @@ function startCommands() {
                 name: 'build',
                 description: 'Build pages for production.',
                 options: [
-                    optLog,
+                    optVerbose,
                     {
                         name: "-d, --dev",
                         description: "Build for development.",
@@ -45,22 +45,22 @@ function startCommands() {
     };
 }
 
-async function runStart(opts) {
-    const projectConfig = init({dev: true, ...opts});
+async function runStart({options}) {
+    const projectConfig = init({dev: true, ...options});
     log_found_stuff({projectConfig, log_page_configs: true});
     await buildAssets(projectConfig);
     await startServer(projectConfig);
 }
 
-async function runBuild(opts) {
-    const projectConfig = init({...opts, doNotWatchBuildFiles: true});
+async function runBuild({options}) {
+    const projectConfig = init({...options, doNotWatchBuildFiles: true});
     log_found_stuff({projectConfig, log_page_configs: true});
     await buildAssets(projectConfig);
     log_server_start_hint();
 }
 
-async function runServer(opts) {
-    const projectConfig = init(opts);
+async function runServer({options}) {
+    const projectConfig = init(options);
     log_found_stuff({projectConfig, log_built_pages: true});
     await startServer(projectConfig, true);
 }
@@ -84,7 +84,7 @@ async function startServer(projectConfig) {
 
     log_server(server, projectConfig);
 }
-function init({dev, log, doNotWatchBuildFiles, _description}) {
+function init({dev, verbose, doNotWatchBuildFiles, _description}) {
     if( _description ) {
         console.log();
         console.log(_description);
@@ -103,7 +103,7 @@ function init({dev, log, doNotWatchBuildFiles, _description}) {
         projectConfig,
         {
             log: {
-                verbose: !!log,
+                verbose: !!verbose,
             },
             doNotWatchBuildFiles,
         }

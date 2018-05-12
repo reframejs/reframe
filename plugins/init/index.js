@@ -9,7 +9,7 @@ function initCommands() {
                 param: '[project-directory]',
                 description: 'Create a new Reframe project.',
                 options: [],
-                action: async projectName => {
+                action: async ({inputs: [projectName]}) => {
                     if( ! projectName ) {
                         showUsageInfo();
                         showUsageExample();
@@ -36,8 +36,7 @@ async function scaffoldApp(projectName) {
     const projectRootDir__pretty = colorDir(strDir(projectRootDir))
 
     console.log(
-`
-Creating a new Reframe app in ${projectRootDir__pretty}.
+`Creating a new Reframe app in ${projectRootDir__pretty}.
 
 Installing ${colorPkg('react')} and ${colorPkg('@reframe/react-kit')}.
 This might take a couple of minutes.
@@ -67,8 +66,6 @@ This might take a couple of minutes.
 
     await npmInstall(projectRootDir);
 
-    await gitInit(projectRootDir);
-
     console.log(
 `
 ${symbolSuccess}Reframe app created in ${projectRootDir__pretty}.
@@ -87,7 +84,7 @@ Inside that directory, you can run commands such as
   ${colorCmd('reframe eject')}
     List all ejectables.
 
-Run ${colorCmd('cd '+projectName+' && reframe start')} and go to ${colorUrl('http://localhost:3000')} to explore your new app.
+Run ${colorCmd('cd '+projectName+' && reframe start')} and go to ${colorUrl('http://localhost:3000')} to open your new app.
 `
     );
 }
@@ -95,30 +92,6 @@ Run ${colorCmd('cd '+projectName+' && reframe start')} and go to ${colorUrl('htt
 async function npmInstall(cwd) {
     const runNpmInstall = require('@reframe/utils/runNpmInstall');
     const exitCode = await runNpmInstall({cwd});
-}
-
-async function gitInit(cwd) {
-    const git = require('@reframe/utils/git');
-
-    if( ! await git.gitIsInstalled() ) {
-        console.log(
-`
-Git repository not initialized as Git is not installed.`
-        );
-        return;
-    }
-
-    await git.init({cwd});
-
-    if( ! await git.gitIsConfigured({cwd}) ) {
-        console.log(
-`
-Initial code not commited as your Git user name and/or email is not configured.`
-        );
-        return;
-    }
-
-    await git.commit({cwd, message: 'boostrap Reframe app'});
 }
 
 function showUsageExample() {
