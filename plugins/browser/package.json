@@ -2,7 +2,8 @@
   "name": "@reframe/browser",
   "version": "0.1.2",
   "dependencies": {
-    "@brillout/repage": "0.1.2"
+    "@brillout/repage": "0.1.2",
+    "@reframe/utils": "0.1.2"
   },
   "publishConfig": {
     "access": "public"

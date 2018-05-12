@@ -1,5 +1,7 @@
-import getProjectBrowserConfig from '@reframe/utils/process-config/getProjectBrowserConfig';
-import hydratePage__repage from '@brillout/repage/hydratePage';
+const getProjectBrowserConfig = require('@reframe/utils/process-config/getProjectBrowserConfig');
+const hydratePage__repage = require('@brillout/repage/hydratePage');
+
+module.exports = hydratePage;
 
 async function hydratePage(pageConfig) {
     const projectBrowserConfig = getProjectBrowserConfig();
@@ -14,5 +16,3 @@ async function hydratePage(pageConfig) {
         })
     );
 }
-
-export default hydratePage;

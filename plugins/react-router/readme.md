@@ -100,7 +100,7 @@ module.exports = {
 ### Example
 
 ~~~js
-// /react-router/example/reframe.config.js
+// /example/reframe.config.js
 
 const reactRouter = require('@reframe/react-router');
 
@@ -112,7 +112,7 @@ module.exports = {
 ~~~
 
 ~~~js
-// /react-router/example/pages/page.js
+// /example/pages/spa-page.config.js
 
 import React from 'react';
 import {Link, Route} from "react-router-dom";

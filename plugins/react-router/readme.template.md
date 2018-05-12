@@ -27,5 +27,5 @@ module.exports = {
 ~~~
 
 ~~~js
-!INLINE ./example/pages/page.js
+!INLINE ./example/pages/spa-page.config.js
 ~~~
