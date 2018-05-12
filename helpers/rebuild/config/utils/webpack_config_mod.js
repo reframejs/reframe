@@ -75,7 +75,7 @@ function merge_all_configs({config_parts}) {
                 default_config_name: 'browser',
                 config: (
                     conf.constructor===Function ?
-                        conf({config: config__overall, context: 'TODO -- remove me?'}) :
+                        conf({config: config__overall}) :
                         conf
                 ),
             })

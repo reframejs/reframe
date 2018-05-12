@@ -98,7 +98,6 @@ function get_webpack_config_modifiers(_processed, r_objects) {
     return;
 
     function assemble_modifiers(modifier_name) {
-        // TODO add webpack config modification utilities
         let supra_modifier = ({config}) => config;
 
         // We assemble all `r_objects`'s config modifiers into one `supra_modifier`

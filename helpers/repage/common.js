@@ -22,7 +22,7 @@ async function getInitialProps({pageConfig, url, router}) {
 function getRouteInfo({url, router, pageConfig}) {
     const routeArguments = router.getRouteArguments(url, pageConfig);
 
-    // TODO check if same value than on server
+    // TODO-eventually check if same value than on server
     const route = {
         args: routeArguments || {},
         url,

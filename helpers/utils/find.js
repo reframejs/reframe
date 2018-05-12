@@ -116,7 +116,7 @@ function find_up(filename, {only_dir, no_dir, cwd}) {
     assert_internal(filename);
     assert_internal(cwd.startsWith('/'));
 
-    /* TODO
+    /* TODO-eventually
     assert_not_implemented(!only_dir);
     assert_not_implemented(!no_dir);
     */

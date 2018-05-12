@@ -209,7 +209,6 @@ function assert_config({config, webpackEntries, outputPath, getterName}) {
         config
     );
 
-    /* TODO
     Object.entries(webpackEntries)
     .forEach(([pageName]) => {
         assert_usage(
@@ -217,7 +216,6 @@ function assert_config({config, webpackEntries, outputPath, getterName}) {
             "The config returned by `"+getterName+"` is missing the `"+pageName+"` entry: `config.entry['"+pageName+"']=="+config.entry[pageName]+"`."
         );
     });
-    */
     assert_usage(
         config.output,
         config,

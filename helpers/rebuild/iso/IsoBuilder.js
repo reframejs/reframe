@@ -330,7 +330,7 @@ function log_state_end({logger, nodejsBuild, browserBuild}) {
     assert_internal(nodejsCompilationInfo);
     assert_internal(browserCompilationInfo);
 
-    // TODO - think this through: Is this avoidable?
+    // TODO-LATER - think this through: Is this avoidable?
     if( nodejsCompilationInfo.is_compiling || browserCompilationInfo.is_compiling ) {
         return;
     }

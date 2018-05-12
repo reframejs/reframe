@@ -42,7 +42,7 @@ async function register(server) {
         );
         const filePath = path.join(staticAssetsDir, filename);
 
-        // TODO;
+        // TODO-LATER;
         //  - Consider caching fileExists and/or all responses
         //    - Possible in dev?
         //    - For sure in prod?
