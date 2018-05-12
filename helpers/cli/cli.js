@@ -139,17 +139,29 @@ function initProgram() {
     }
 
     function printVersions() {
-        const pkg = require('./package.json');
-        console.log();
-        console.log(INDENT+'Cli:');
-        console.log(INDENT+INDENT+pkg.name+'@'+pkg.version);
-        if( projectConfig._rootPluginNames.length === 0 ) {
+        {
+            const cliPkg = require('./package.json');
+            console.log();
+            console.log(INDENT+'Cli:');
+            console.log(INDENT+INDENT+cliPkg.name+'@'+cliPkg.version);
+        }
+
+        const {_rootPluginNames, projectFiles: {projectRootDir}} = projectConfig;
+        if( _rootPluginNames.length === 0 ) {
             return;
         }
         console.log();
         console.log(INDENT+'Plugins:');
-        projectConfig._rootPluginNames.forEach(pkgName => {
-            const pluginPkg = require(pkgName+'/package.json');
+        _rootPluginNames.forEach(pkgName => {
+            assert_internal(projectRootDir);
+            let pluginPkgPath;
+            try {
+                pluginPkgPath = require.resolve(pkgName+'/package.json', {paths: [projectRootDir]});
+            } catch(err) {
+                console.error(err);
+                return;
+            }
+            const pluginPkg = require(pluginPkgPath);
             console.log(INDENT+INDENT+pkgName+'@'+pluginPkg.version);
         });
         console.log();
