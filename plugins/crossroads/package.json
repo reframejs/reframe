@@ -1,6 +1,6 @@
 {
   "name": "@reframe/crossroads",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "dependencies": {
     "crossroads": "^0.12.2",
     "reassert": "^1.1.8"
