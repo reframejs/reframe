@@ -91,14 +91,14 @@ async function runEject({inputs: [ejectableName], options: {skipGit}, printHelp}
 
         assert_plugin(actions.length>0);
 
+        console.log();
+
         await updateDependencies({deps, ejectableSpec, projectConfig});
 
         actions.forEach(action => action());
 
         console.log(symbolSuccess+'Eject done.');
-        if( ! skipGit && gitIsInstalled ) {
-            console.log('  Run `git diff` to see all ejected code.');
-        }
+        console.log();
     }
 
     function copyFile({fileCopy, actions, deps, ejectablePackageName, projectConfig}) {
@@ -327,6 +327,7 @@ async function runEject({inputs: [ejectableName], options: {skipGit}, printHelp}
 
         if( hasNewDeps ) {
             console.log('Installing new dependencies '+depsWithVersion.join(', ')+'.');
+            console.log();
             await runNpmInstall({cwd: projectRootDir, packages: depsWithVersion});
         }
     }

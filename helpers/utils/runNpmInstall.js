@@ -3,21 +3,19 @@ const spawn = require('cross-spawn');
 module.exports = runNpmInstall;
 
 function runNpmInstall({cwd, packages}) {
-    const child = spawn(
-        'npm',
-        [
-            'install',
+    const commandInput = [
+        'install',
 
-            '--loglevel',
-            'error',
+        '--loglevel',
+        'error',
 
-            // We let the user decide whether to user `yarn.lock` or `package-lock.json`
-            '--no-package-lock',
+        // We let the user decide whether to user `yarn.lock` or `package-lock.json`
+        '--no-package-lock',
 
-            ...(packages ? ['--save', ...packages] : []),
-        ],
-        {stdio: 'inherit', cwd}
-    );
+        ...(packages ? ['--save', ...packages] : []),
+    ];
+
+    const child = spawn('npm', commandInput, {stdio: 'inherit', cwd});
 
     const {promise, resolvePromise, rejectPromise} = genPromise();
     child.on('close', exitCode => {
