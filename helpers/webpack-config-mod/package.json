@@ -13,7 +13,7 @@
     "access": "public"
   },
   "devDependencies": {
-    "@brillout/mdocs": "^0.1.14",
+    "@brillout/mdocs": "^0.1.15",
     "reassert": "^1.1.8"
   }
 }

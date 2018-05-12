@@ -17,7 +17,7 @@
   },
   "repository": "https://github.com/reframejs/reframe/tree/master/plugins/typescript",
   "devDependencies": {
-    "@brillout/mdocs": "^0.1.11"
+    "@brillout/mdocs": "^0.1.15"
   },
   "checkDeps": {
     "skip": [

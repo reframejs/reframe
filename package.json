@@ -7,7 +7,7 @@
     },
     "devDependencies": {
         "@brillout/check-deps": "^0.1.2",
-        "@brillout/mdocs": "^0.1.12",
+        "@brillout/mdocs": "^0.1.15",
         "lerna": "^2.11.0"
     },
     "workspaces": [

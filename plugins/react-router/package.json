@@ -10,7 +10,7 @@
     "react-router-dom": "^4.2.2"
   },
   "devDependencies": {
-    "@brillout/mdocs": "^0.1.11"
+    "@brillout/mdocs": "^0.1.15"
   },
   "repository": "https://github.com/reframejs/reframe/tree/master/plugins/react-router",
   "publishConfig": {
