@@ -1,5 +1,5 @@
 {
-  "name": "examples_custom",
+  "name": "_example-custom",
   "private": true,
   "dependencies": {
     "@brillout/fetch": "^0.0.2",

@@ -1,5 +1,5 @@
 {
-  "name": "__reframe_examples__custom_bundler",
+  "name": "_example-custom_bundler",
   "private": true,
   "dependencies": {
     "@reframe/browser": "0.0.1-rc.21",

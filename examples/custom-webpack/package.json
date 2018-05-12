@@ -1,5 +1,5 @@
 {
-  "name": "examples_custom-webpack",
+  "name": "_example-custom-webpack",
   "private": true,
   "dependencies": {
     "@reframe/react-kit": "0.1.3",
