@@ -100,7 +100,7 @@ module.exports = {
 ### Example
 
 ~~~js
-// /example/reframe.config.js
+// /plugins/react-native-web/example/reframe.config.js
 
 const reactNativeWeb = require('@reframe/react-native-web'); // npm install @reframe/react-native-web
 
@@ -112,7 +112,7 @@ module.exports = {
 ~~~
 
 ~~~js
-// /example/pages/hello-native-web.config.js
+// /plugins/react-native-web/example/pages/hello-native-web.config.js
 
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';

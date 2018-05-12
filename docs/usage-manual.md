@@ -879,7 +879,6 @@ It will copy the following file to your codebase.
 ~~~js
 // /plugins/build/executeBuild.js
 
-// TODO - rename filename to `build.js`?
 const getProjectConfig = require('@reframe/utils/getProjectConfig');
 
 const Build = require('webpack-ssr/Build');

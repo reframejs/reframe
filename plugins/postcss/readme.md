@@ -105,7 +105,7 @@ module.exports = {
 ### Example
 
 ~~~js
-// /example/reframe.config.js
+// /plugins/postcss/example/reframe.config.js
 
 const postcss = require('@reframe/postcss');
 
@@ -124,7 +124,7 @@ module.exports = {
 ~~~
 
 ~~~sugarss
-// /example/pages/landing.css
+// /plugins/postcss/example/pages/landing.css
 
 :root
   --red: #f88
@@ -147,7 +147,7 @@ module.exports = {
 ~~~
 
 ~~~js
-// /example/pages/landing.config.js
+// /plugins/postcss/example/pages/landing.config.js
 
 import React from 'react';
 import './landing.css';
