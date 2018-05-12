@@ -2,8 +2,8 @@ module.exports = startCommands;
 
 function startCommands() {
 
-    const optVerbose = {
-        name: "-v, --verbose",
+    const optLog = {
+        name: "-l, --log",
         description: "Print build and page information.",
     };
 
@@ -14,7 +14,11 @@ function startCommands() {
                 name: 'start',
                 description: 'Build pages and start server for development.',
                 options: [
-                    optVerbose,
+                    optLog,
+                    {
+                        name: "-d, --dev",
+                        description: "Start for development.",
+                    },
                 ],
                 action: runStart,
             },
@@ -22,7 +26,7 @@ function startCommands() {
                 name: 'build',
                 description: 'Build pages for production.',
                 options: [
-                    optVerbose,
+                    optLog,
                     {
                         name: "-d, --dev",
                         description: "Build for development.",
@@ -84,7 +88,7 @@ async function startServer(projectConfig) {
 
     log_server(server, projectConfig);
 }
-function init({dev, verbose, doNotWatchBuildFiles, _description}) {
+function init({dev, log, doNotWatchBuildFiles, _description}) {
     if( _description ) {
         console.log();
         console.log(_description);
@@ -103,7 +107,7 @@ function init({dev, verbose, doNotWatchBuildFiles, _description}) {
         projectConfig,
         {
             log: {
-                verbose: !!verbose,
+                verbose: !!log,
             },
             doNotWatchBuildFiles,
         }
