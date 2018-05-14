@@ -65,7 +65,7 @@ function get_style_filename(config) {
         assert_internal(config.output.filename.includes(NAME));
         filename = filename.replace(NAME, NAME+'.style');
     }
- // filename = filename.replace(/\[chunkhash\]/g, '[contenthash]');
+    filename = filename.replace(/\[chunkhash\]/g, '[contenthash]');
     return filename
 }
 

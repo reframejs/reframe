@@ -1,8 +1,9 @@
 import React from 'react';
+import Header from '../views/Header';
 
 const Welcome = () => (
     <div>
-        <h3>Welcome to Reframe</h3>
+        <Header/>
         <div>
             Page examples:
             <br/>

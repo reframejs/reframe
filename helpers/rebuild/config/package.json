@@ -17,7 +17,7 @@
     "json-loader": "^0.5.7",
     "loader-utils": "^1.1.0",
     "lodash": "^4.17.4",
-    "mini-css-extract-plugin": "^0.2.0",
+    "mini-css-extract-plugin": "^0.4.0",
     "parent-module": "^0.1.0",
     "reassert": "^1.1.8",
     "style-loader": "^0.21.0",

@@ -4,8 +4,10 @@ import logoUrl from './logo.svg';
 
 const Header = () => (
     <div className="header">
-        <img src={logoUrl} className="logo"/>
-        <a href="/">Sample Project</a>
+        <a href="/">
+            <img src={logoUrl} className="logo"/>
+            <span>MyApp</span>
+        </a>
     </div>
 );
 
