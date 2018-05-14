@@ -44,9 +44,9 @@
   dependencies:
     reassert "^1.1.8"
 
-"@brillout/mdocs@^0.1.11", "@brillout/mdocs@^0.1.12", "@brillout/mdocs@^0.1.14":
-  version "0.1.14"
-  resolved "https://registry.yarnpkg.com/@brillout/mdocs/-/mdocs-0.1.14.tgz#3ce90022741cd57964c1f60879b8c2a3b4136158"
+"@brillout/mdocs@^0.1.15":
+  version "0.1.15"
+  resolved "https://registry.yarnpkg.com/@brillout/mdocs/-/mdocs-0.1.15.tgz#03a47ff25cad92990ba6f21c09894f35d513919e"
   dependencies:
     find-up "^2.1.0"
     reassert "^1.1.8"
@@ -2484,9 +2484,9 @@ fs-extra@^4.0.1:
     jsonfile "^4.0.0"
     universalify "^0.1.0"
 
-fs-extra@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-5.0.0.tgz#414d0110cdd06705734d055652c5411260c31abd"
+fs-extra@^6.0.1:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-6.0.1.tgz#8abc128f7946e310135ddc93b98bddb410e7a34b"
   dependencies:
     graceful-fs "^4.1.2"
     jsonfile "^4.0.0"
@@ -5396,12 +5396,6 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
 signals@<2.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/signals/-/signals-1.0.0.tgz#65f0c1599352b35372ecaae5a250e6107376ed69"
-
-simple-git@^1.92.0:
-  version "1.92.0"
-  resolved "https://registry.yarnpkg.com/simple-git/-/simple-git-1.92.0.tgz#6061468eb7d19f0141078fc742e62457e910f547"
-  dependencies:
-    debug "^3.1.0"
 
 simple-swizzle@^0.2.2:
   version "0.2.2"
