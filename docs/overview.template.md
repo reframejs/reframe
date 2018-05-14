@@ -65,6 +65,8 @@ You can create an app with **no build configuration** and **no server configurat
 
 Yet **you can customize and (progressively) eject everything**.
 
+<br/>
+
 ### Example
 
 In the following we create a web app
