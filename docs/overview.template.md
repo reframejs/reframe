@@ -63,8 +63,6 @@ You can create an app with **no build configuration** and **no server configurat
 
 > All you need to create a web app is one React component and one page config per page.
 
-<br/>
-
 Yet **you can customize and (progressively) eject everything**.
 
 ### Example
