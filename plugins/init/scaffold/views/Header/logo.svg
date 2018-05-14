@@ -1,0 +1,21 @@
+<svg width="78" height="91" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+ <defs>
+  <linearGradient y2="0.57813" x2="0.90106" y1="0.32813" x1="0.19794" id="gradient_bottom">
+   <stop offset="0" stop-color="#6c79f0"/>
+   <stop offset="1" stop-color="#20a2e8"/>
+  </linearGradient>
+  <linearGradient id="gradient_left" x1="1" y1="1" x2="1" y2="0">
+   <stop offset="0" stop-color="#6c79f0"/>
+   <stop offset="1" stop-color="#a85af7"/>
+  </linearGradient>
+  <linearGradient id="gradient_top" x1="0.85419" y1="0.82813" x2="0.24872" y2="0.42188">
+   <stop offset="0" stop-color="#d043fb"/>
+   <stop offset="1" stop-color="#a85af7"/>
+  </linearGradient>
+ </defs>
+ <g>
+  <polygon points="77.70126342773438,47.29999923706055 77.70126342773438,47.29999923706055 52.9197998046875,61.89999008178711 28.1383056640625,47.499996185302734 28.237060546875,76.5000114440918 53.018524169921875,90.9000358581543 77.80001831054688,76.30001449584961 " id="logo_part_bottom" stroke="null" fill="url(#gradient_bottom)"/>
+  <polygon points="49.562957763671875,31.200000762939453 24.6827392578125,16.89999771118164 0,31.500003814697266 0.098724365234375,60.39999771118164 24.978912353515625,74.79999923706055 24.781463623046875,45.79999923706055 " id="logo_part_left" stroke="null" fill="url(#gradient_left)"/>
+  <polygon points="52.9197998046875,57.89999008178711 77.70126342773438,43.40000534057617 77.50381469726562,14.39999771118164 52.722320556640625,0 28.039581298828125,14.60000991821289 52.821075439453125,29.000003814697266 " id="logo_part_top" stroke="null" fill="url(#gradient_top)"/>
+ </g>
+</svg>
