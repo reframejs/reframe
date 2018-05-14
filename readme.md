@@ -142,7 +142,7 @@ Overview
 <br/>
 
 <div><p align="center">
-<a href="#easy">Easy</a>
+<a href="#intro">Intro</a>
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
@@ -167,7 +167,7 @@ Overview
 
 &nbsp;
 
-### Easy
+### Intro
 
 Reframe allows you to create web apps by defining so-called "page configs".
 Reframe takes care of the rest:
@@ -191,6 +191,8 @@ You can create an app with **no build configuration** and **no server configurat
 > All you need to create a web app is one React component and one page config per page.
 
 <br/>
+
+Yet **you can customize and (progressively) eject everything**.
 
 ### Example
 
