@@ -222,7 +222,7 @@ export default HelloPage;
 Reframe does the rest:
 
 <p align="center">
-    <img src='https://github.com/reframejs/reframe/raw/master/docs/images/reframe-start.png?sanitize=true' width=1200 style="max-width:100%;"/>
+    <img src='https://github.com/reframejs/reframe/raw/master/docs/images/reframe-start.png?sanitize=true' width="780" style="max-width:100%;"/>
 </p>
 
 <br/>
