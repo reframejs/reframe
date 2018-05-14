@@ -142,7 +142,7 @@ Overview
 <br/>
 
 <div><p align="center">
-<a href="#intro">Intro</a>
+<a href="#intro">Introduction</a>
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
@@ -167,7 +167,7 @@ Overview
 
 &nbsp;
 
-### Intro
+### Introduction
 
 Reframe allows you to create web apps by defining so-called "page configs".
 Reframe takes care of the rest:
