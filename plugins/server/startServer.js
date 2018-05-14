@@ -10,9 +10,7 @@ async function startServer() {
     // You can as well use Reframe with another server framework such as Express.
     const server = Hapi.Server({
         port: 3000,
-        debug: {
-            request: ['internal'],
-        },
+        debug: {request: ['internal']},
     });
 
     await server.register([

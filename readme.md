@@ -208,7 +208,7 @@ const HelloPage = {
   route: '/hello/:name', // Parameterized route
   title: 'Hi there', // Page's <title>
   view: props => {
-    // The route argument `name` is available at `props.route.args.name`
+    // The route argument `name` is available at `props.route.args`
     const name = props.route.args.name;
     return (
       <div>Hello {name}</div>
@@ -342,7 +342,7 @@ Choosing the type of your app is only a matter of setting `htmlStatic: true` and
 
 - **Server-Side Rendering** (**SSR**)
   <br/>
-  By default, pages are entirely rendered to HTML giving you full control over SEO.
+  By default, all pages' views are rendered to HTML giving you full control over SEO.
 
 ###### Performance
 
@@ -350,7 +350,7 @@ Choosing the type of your app is only a matter of setting `htmlStatic: true` and
   <br/>
   By default a page loads two scripts:
   One script that is shared and cached across all pages
-  (that includes React, polyfills, etc.)
+  (that includes common code such as React, polyfills, etc.)
   and a second script that includes the React components of the page.
   That way, a page only loads what it needs.
 - **Static DOM**
@@ -361,7 +361,7 @@ Choosing the type of your app is only a matter of setting `htmlStatic: true` and
 - **Server-Side Rendering** (**SSR**)
   <br/>
   By default, a page is rendered to HTML on the server before being rendered to the DOM in the browser.
-  That improves the user perceived load time.
+  Improving the user-perceived load time.
 - **Optimal HTTP caching**
   <br/>
   Every dynamic server response is cached with a ETag header.
