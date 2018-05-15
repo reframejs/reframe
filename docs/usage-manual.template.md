@@ -331,7 +331,7 @@ Examples:
 
 You can customize the babel config by creating a `.babelrc` file.
 
-Checkout the example at [/examples/custom-babel](https://github.com/reframejs/reframe/tree/master/examples/custom-babel).
+Checkout the example at [/examples/custom-babel](/examples/custom-babel).
 
 !INLINE ./help.md --hide-source-path
 
@@ -500,11 +500,21 @@ Your app is composed exlusively of static assets which are located in the `dist/
 
 ## React Native (Web)
 
-If you want your app to be deployed on both mobile and the web you can share code between wanna consider using R
+If you want an app on the web as well as on mobile, you may consider creating a web app with Reframe and [React Native Web](https://github.com/necolas/react-native-web) and a mobile app with [React Native](https://facebook.github.io/react-native/).
+Both app will then share most/lots of code.
+
+Add the [`@reframe/react-native-web`](/plugins/react-native-web) plugin to render your page's React components with React Native Web.
+
+Examples of Reframe + RNW apps:
+ - [/examples/react-native-web-and-react-router](/examples/react-native-web-and-react-router)
+ - [/plugins/react-native-web/example](/plugins/react-native-web/example)
+
+!INLINE ./help.md --hide-source-path
+
+
 
 ## React Native (Web) + React Router
 
-[/examples/react-native-web-and-react-router](https://github.com/reframejs/reframe/tree/master/examples/react-native-web-and-react-router)
+[/examples/react-native-web-and-react-router](/examples/react-native-web-and-react-router)
 
-
-##
+!INLINE ./help.md --hide-source-path
