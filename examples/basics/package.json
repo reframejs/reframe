@@ -12,7 +12,7 @@
     "react": "^16.3.2"
   },
   "devDependencies": {
-    "@brillout/mdocs": "^0.1.15"
+    "@brillout/mdocs": "^0.1.16"
   },
   "checkDeps": {
     "skip": true
