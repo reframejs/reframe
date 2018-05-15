@@ -15,7 +15,7 @@
  - [CSS & Static Assets](#css--static-assets)
  - [Async Data](#async-data)
  - [Links & Page Navigation](#links--page-navigation)
- - [Static Pages VS Dynamic Pages](#static-pages-vs-dynamic-pages)
+ - [`domStatic` & `htmlStatic`](#domstatic--htmlstatic)
 
 ###### Customization & Eject
 
@@ -28,6 +28,11 @@
  - [Custom Error Pages (404, 5xx, ...)](#custom-error-pages-404-5xx-)
  - [Custom/Eject Browser Code](#customeject-browser-code)
 -->
+
+###### Use Cases
+
+ - [Serverless Deploy](#serverless-deploy)
+
 
 <br/>
 <br/>
@@ -181,9 +186,14 @@ An example of basic page navigation:
 
 
 
-## Static Pages VS Dynamic Pages
+## `domStatic` & `htmlStatic`
 
-An cornerstone feature of the page config is that it allows you to configure a page to be "HTML-static" or "HTML-dynamic" and "DOM-static" or "DOM-dynamic":
+A page is rendered twice:
+On the server (to HTML) and in the browser (to the DOM).
+(React components can be rendered to the DOM as well as to HTML.)
+
+A page is "DOM-dynamic" and "HTML-dynamic" by default but you can configure it to be "DOM-static" and/or "HTML-static":
+
  - *HTML-static*
    <br/>
    The page is rendered to HTML at build-time.
@@ -202,66 +212,27 @@ An cornerstone feature of the page config is that it allows you to configure a p
    <br/>
    The page is not hydrated.
    <br/>
-   (In other words, the DOM doesn't have any React component attached to it and the DOM will not change.)
+   (In other words, the page is not rendered to the DOM and the DOM will not change.)
    <br/>
    Add `domStatic: true` to the page config.
  - *DOM-dynamic*
    <br/>
    The page is hydrated.
    <br/>
-   (In other words, React components are attached to the DOM and the page's DOM will eventually be updated by React.)
+   (In other words, the page is rendered to the DOM and the DOM will eventually be updated.)
    <br/>
    Default setting.
 
-Let's consider the following example:
+You add `htmlStatic: true` and/or `domStatic: true` to your page configs for performance reasons:
+ - DOM-static pages are more performant as the browser doesn't load nor render the page's React components.
+ - HTML-static pages are more performant as the HTML is rendered only once at build-time instead of being re-rendered on every request.
 
-~~~js
-// /pages/TimePage.js
-
-import TimeComponent from '../views/TimeComponent';
-
-export default {
-    route: '/',
-    view: TimeComponent,
-    htmlStatic: true,
-    domStatic: true,
-};
-~~~
-
-~~~jsx
-// /views/TimeComponent
-
-!INLINE ../examples/basics/views/TimeComponent.js --hide-source-path
-~~~
-
-The page will always display the same time, namely the time when the page's HTML was generated at build-time.
-That's because `htmlStatic: true` makes Reframe generate the HTML at build-time (instead of request-time).
-And that's also because `domStatic: true` makes Reframe not hydrate the page:
-`TimeComponent` is not attached to the DOM but is only used to generate the page's HTML.
-
-Removing `htmlStatic: true` makes Reframe generate the HTML at request-time.
-The page then shows the current time whenever the page (re-)loads.
-
-Removing `domStatic: true` makes Reframe hydrate the page.
-`TimeComponent` is attached to the page's DOM and the DOM is updated every second to always show the current time.
-
-DOM-static pages are considerably more performant as the browser doesn't load nor render the page's React components.
-
-And HTML-static pages are more performant as the HTML is rendered only once at build-time instead of being re-rendered on every request.
-
-If all pages are HTML-static,
-then all HTMLs are rendered at build-time,
-no server code is required,
-and the app can be deployed to a static website host
-such as [GitHub Pages](https://pages.github.com/) or [Netlify](https://www.netlify.com/).
-
-Also,
-keep in mind that DOM-dynamic views are inherently more complex than DOM-static views.
-We recommended to implement app requirements with DOM-static views whenever possible,
-and to implement DOM-dynamic views only when necessary.
-Reframe embraces that recommandation by allowing you to write an app where only few pages are DOM-dynamic while the rest of the app is DOM-static.
+Interactive/stateful views are inherently more complex to implement than non-interactive views and
+we recommended to implement app requirements with non-interactive views whenever possible.
 
 !INLINE ./help.md --hide-source-path
+
+
 
 
 
@@ -491,5 +462,17 @@ It will copy the following file to your codebase.
 Run `reframe eject build-static-rendering` to eject `getPageHTMLs()` to gain control over the HTML rendering of your HTML-static pages. (That is pages with `htmlStatic: true` in their page configs.)
 
 And run `reframe eject build-browser-entries` to eject `getPageBrowserEntries()` to gain control over the browser entry code of your pages.
+
+!INLINE ./help.md --hide-source-path
+
+
+
+## Serverless Deploy
+
+If all pages are HTML-static,
+then all HTMLs are rendered at build-time,
+no server code is required,
+and the app can be deployed to a static website host
+such as [GitHub Pages](https://pages.github.com/) or [Netlify](https://www.netlify.com/).
 
 !INLINE ./help.md --hide-source-path
