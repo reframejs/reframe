@@ -4,17 +4,19 @@ import Header from '../views/Header';
 const Welcome = () => (
     <div>
         <Header/>
-        <div>
-            Page examples:
+        <div style={{margin: 'auto', maxWidth: 500}}>
+            <h2>
+                Welcome to Reframe
+            </h2>
+            <div>Interactive pages</div>
+            <a href="/time">/time</a> - Display time
             <br/>
-            <a href="/game-of-thrones">/game-of-thrones</a> - Async data: Loading game of thrones Chara (exposed 
+            <a href="/counter">/counter</a> - Counter
+            <br/><br/>
+            <div>Non-interactive pages</div>
+            <a href="/game-of-thrones">/game-of-thrones</a> - Load and display list of GoT Characters
             <br/>
-            <a href="/game-of-thrones">/game-of-thrones</a> - CSS & static assets
-            <br/>
-            <a href="/time">/time</a> - A dynamic page
-        </div>
-        <div>
-            This page is entirely static.
+            <a href="/">/</a> - This landing page
         </div>
     </div>
 );

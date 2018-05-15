@@ -9,7 +9,13 @@ async function getCharacters() {
     const characters = await (
         fetch(url)
         .then(response => response.json())
-        .catch(err => {console.error(url); throw err})
+        .catch(err => {
+            if( err.code === 'EAI_AGAIN' ) {
+                return null;
+            }
+            console.error(url);
+            throw err;
+        })
     );
     return characters;
 }
