@@ -1,7 +1,6 @@
 import fetch from '@brillout/fetch';
 
-async function getCharacters() {
-    const url = 'https://api.myjson.com/bins/12ktoq';
+async function getJson(url) {
     const characters = await (
         fetch(url)
         .then(response => response.json())
@@ -16,5 +15,5 @@ async function getCharacters() {
     return characters;
 }
 
-export default getCharacters;
+export default getJson;
 

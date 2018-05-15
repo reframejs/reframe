@@ -23,22 +23,25 @@ class Time extends React.Component {
     }
 }
 
+const TimeView = () => (
+    <div>
+        <Header/>
+        <div style={{textAlign: 'center', fontSize: '2em', margin: 50}}>
+            <Time/>
+        </div>
+    </div>
+);
+
 export default {
     route: "/time",
-    view: () => (
-        <div>
-            <Header/>
-            <div style={{textAlign: 'center', fontSize: '2em', margin: 50}}>
-                <Time/>
-            </div>
-        </div>
-    ),
+    view: TimeView,
 
-    // Uncomment the following to make the DOM static
-    // The time shown only changes when you reload the page and will show the request time
+    // If we set `domStatic` to `true` then the DOM is static and the page
+    // shows the time when the server received the page request.
     // domStatic: true,
 
-    // If you uncomment the following two then 
+    // If we also set `htmlStatic` to `true` then the page shows the time
+    // when the page was built. (When `reframe start` / `reframe build` was run.)
     // htmlStatic: true,
     // domStatic: true,
 };

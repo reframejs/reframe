@@ -352,7 +352,13 @@ async function getCharacters() {
     const characters = await (
         fetch(url)
         .then(response => response.json())
-        .catch(err => {console.error(url); throw err})
+        .catch(err => {
+            if( err.code === 'EAI_AGAIN' ) {
+                return null;
+            }
+            console.error(url);
+            throw err;
+        })
     );
     return characters;
 }
@@ -377,7 +383,7 @@ Because `aysnc getInitialProps()` is called and waited for prior to rendering th
 </html>
 ~~~
 
-Alternatively, we can fetch data in a statefull component.
+Alternatively, we can fetch data in a stateful component.
 
 ~~~js
 // /examples/basics/pages/got/GameOfThronesPage2.config.js
@@ -409,7 +415,7 @@ export default {
 ~~~
 
 Note that,
-when using such statefull component,
+when using such stateful component,
 the server renders the HTML before the data is loaded.
 In our case,
  this means that the HTML `view-source:http://localhost:3000/game-of-thrones-2`

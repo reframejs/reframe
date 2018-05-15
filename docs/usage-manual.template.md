@@ -126,14 +126,14 @@ Because `aysnc getInitialProps()` is called and waited for prior to rendering th
 </html>
 ~~~
 
-Alternatively, we can fetch data in a statefull component.
+Alternatively, we can fetch data in a stateful component.
 
 ~~~js
 !INLINE ../examples/basics/pages/got/GameOfThronesPage2.config.js
 ~~~
 
 Note that,
-when using such statefull component,
+when using such stateful component,
 the server renders the HTML before the data is loaded.
 In our case,
  this means that the HTML `view-source:http://localhost:3000/game-of-thrones-2`

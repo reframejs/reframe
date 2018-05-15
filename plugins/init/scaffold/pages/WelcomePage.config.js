@@ -9,7 +9,7 @@ const Welcome = () => (
                 Welcome to Reframe
             </h2>
 
-            Interactive pages
+            Interactive/stateful pages
             <ul>
                 <li>
                     <a href="/counter">/counter</a> - Counter
@@ -36,12 +36,11 @@ const WelcomePage = {
     route: '/',
     view: Welcome,
     title: 'Welcome',
-
-    // 
+    // The WelcomePage's HTML doesn't need to be re-rendered on every page request.
+    // Hence, we set `htmlStatic` to `true` to render the HTML at build-time instead of request-time.
     htmlStatic: true,
-
-    // This page contains no interactive views (In other words no statefull React components)
-    // We can therefore set 
+    // This page contains no interactive/stateful views.
+    // Thus, we set `domStatic` to `true` to avoid loading unnecessary JavaScript code.
     domStatic: true,
 };
 

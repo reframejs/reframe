@@ -32,15 +32,22 @@ class Counter extends React.Component {
     }
 }
 
+const CounterView = () => (
+    <div>
+        <Header/>
+        <div style={{textAlign: 'center', fontSize: '2em', margin: 50}}>
+            <Counter/>
+        </div>
+    </div>
+);
+
 export default {
     route: "/counter",
-    view: () => (
-        <div>
-            <Header/>
-            <div style={{textAlign: 'center', fontSize: '2em', margin: 50}}>
-                <Counter/>
-            </div>
-        </div>
-    ),
+    view: CounterView,
+
+    // Only the DOM needs to be dynamic.
+    htmlStatic: true,
+
+    // The default value of `domStatic` is `false`.
 };
 
