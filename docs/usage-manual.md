@@ -220,7 +220,7 @@ import diamondUrl from './diamond.png';
 // do something with diamondUrl, e.g. `await fetch(diamondUrl)` or `<img src={diamondUrl}/>`
 ~~~
 
-In addition, static assets can be referenced in CSS files by using the CSS `url` data type.
+In addition, static assets can be referenced in CSS by using the `url` data type.
 
 ~~~css
 .diamond-background {
@@ -266,7 +266,7 @@ import CharacterList from './views/CharacterList';
 export default {
     route: '/game-of-thrones',
 
-    // Everything returned in `getInitialProps()` is be passed to the props of the view
+    // Everything returned in `getInitialProps()` is passed to the props of the view
     getInitialProps: async () => {
         const characters = await getCharacters();
         return {characters};
@@ -281,35 +281,6 @@ export default {
 
 Alternatively, you can fetch data in a stateful component.
 But in that case the data will not be rendered to HTML.
-
-~~~js
-// /examples/basics/pages/got/GameOfThronesPage2.config.js
-
-import React from 'react';
-import getCharacters from './data/getCharacters';
-import CharacterList from './views/CharacterList';
-
-class Characters extends React.Component {
-    render() {
-        if( ! this.state || ! this.state.characters ) {
-            return <div>Loading...</div>;
-        }
-        return <CharacterList characters={this.state.characters}/>;
-    }
-    async componentDidMount() {
-        const characters = (
-            (await getCharacters())
-            .map(character => character.name)
-        );
-        this.setState({characters});
-    }
-}
-
-export default {
-    route: '/game-of-thrones-2',
-    view: Characters,
-};
-~~~
 
 Deeper explanation and example of pages loading data:
  - [/examples/basics/pages/got/](/examples/basics/pages/got/)
@@ -331,7 +302,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 The standard way to navigate between pages in a Reframe app is to use HTML link tags such as `<a href="/about">About</a>`.
 
-See [Custom/Advanced Routing](#custom-advanced-routing) for alternative ways of navigating.
+See [Custom/Advanced Routing](#customadvanced-routing) for alternative ways of navigating.
 
 Example of page navigation:
 
@@ -379,7 +350,8 @@ A page is rendered twice:
 On the server (to HTML) and in the browser (to the DOM).
 (React components can be rendered to the DOM as well as to HTML.)
 
-A page is "DOM-dynamic" and "HTML-dynamic" by default but you can configure it to be "DOM-static" and/or "HTML-static":
+A page is "DOM-dynamic" and "HTML-dynamic" by default.
+You can configure it to be "DOM-static" and/or "HTML-static".
 
  - *HTML-static*
    <br/>
@@ -410,8 +382,8 @@ A page is "DOM-dynamic" and "HTML-dynamic" by default but you can configure it t
    <br/>
    Default setting.
 
-You add `htmlStatic: true` and/or `domStatic: true` to your page configs for performance reasons:
- - DOM-static pages are more performant as the browser doesn't load nor render the page's React components.
+You want to add `htmlStatic: true` and/or `domStatic: true` to your page configs for performance reasons:
+ - DOM-static pages are more performant as the browser doesn't load nor render the page in the browser.
  - HTML-static pages are more performant as the HTML is rendered only once at build-time instead of being re-rendered on every request.
 
 Interactive/stateful views are inherently more complex to implement than non-interactive views and
@@ -569,7 +541,8 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 You can customize the babel config by creating a `.babelrc` file.
 
-Checkout the example at [/examples/custom-babel](/examples/custom-babel).
+Example:
+ - [/examples/custom-babel](/examples/custom-babel)
 
 <br/>
 

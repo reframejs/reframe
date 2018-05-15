@@ -96,7 +96,7 @@ import CharacterList from './views/CharacterList';
 export default {
     route: '/game-of-thrones',
 
-    // Everything returned in `getInitialProps()` is be passed to the props of the view
+    // Everything returned in `getInitialProps()` is passed to the props of the view
     getInitialProps: async () => {
         const characters = await getCharacters();
         return {characters};
