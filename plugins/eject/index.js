@@ -328,7 +328,7 @@ async function runEject({inputs: [ejectableName], options: {skipGit}, printHelp}
         if( hasNewDeps ) {
             console.log('Installing new dependencies '+depsWithVersion.join(', ')+'.');
             console.log();
-            await runNpmInstall({cwd: projectRootDir, packages: depsWithVersion});
+            await runNpmInstall(projectRootDir, {packages: depsWithVersion});
         }
     }
     function getPackageVersion({ejectablePackageJson, depName}) {

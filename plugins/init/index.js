@@ -44,7 +44,7 @@ This might take a couple of minutes.
 
     await scaffoldProject(projectRootDir);
 
- // await runNpmInstall(projectRootDir);
+    await runNpmInstall(projectRootDir);
 
     console.log(
 `

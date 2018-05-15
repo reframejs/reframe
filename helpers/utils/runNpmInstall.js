@@ -1,15 +1,18 @@
-const spawn = require('cross-spawn');
-
 module.exports = runNpmInstall;
 
-function runNpmInstall({cwd, packages}) {
+function runNpmInstall(cwd, {packages}={}) {
+    const spawn = require('cross-spawn');
+    const assert_internal = require('reassert/internal');
+
+    assert_internal(cwd);
+
     const commandInput = [
         'install',
 
         '--loglevel',
         'error',
 
-        // We let the user decide whether to user `yarn.lock` or `package-lock.json`
+        // We let the user decide whether to use `yarn.lock` or `package-lock.json`
         '--no-package-lock',
 
         ...(packages ? ['--save', ...packages] : []),
