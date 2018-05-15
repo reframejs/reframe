@@ -129,11 +129,11 @@ Deeper explanation and example of pages loading data:
 
 ## Page Navigation & Links
 
-The basic way to navigate between pages is to use link tags such as `<a href="/about">About</a>`.
+The standard way to navigate between pages in a Reframe app is to use HTML link tags such as `<a href="/about">About</a>`.
 
 See [Custom/Advanced Routing](#custom-advanced-routing) for alternative ways of navigating.
 
-An example of basic page navigation:
+Example of page navigation:
 
 ~~~js
 !INLINE ../examples/basics/pages/page-a.config.js
@@ -430,6 +430,7 @@ export default {
 
 
 
+
 ## Custom/Eject Build
 
 Run `reframe eject build` to eject the overall build code.
@@ -448,6 +449,10 @@ And run `reframe eject build-browser-entries` to eject `getPageBrowserEntries()`
 
 
 
+
+
+
+
 ## Serverless Deploy
 
 If you add `htmlStatic: true` to all your page configs,
@@ -456,25 +461,34 @@ no server code is required,
 and your app can be deployed to a static website host
 such as [GitHub Pages](https://pages.github.com/) or [Netlify](https://www.netlify.com/).
 
-Your app is composed exlusively of static assets which are located in the `dist/browser/` directory.
-(The `dist/` directory is located at the root directory of your app.)
+Your app then consists of static assets only.
+The static assets are located in the `dist/browser/` directory.
+(The `dist/` directory is located at your app's root directory.)
 
 !INLINE ./help.md --hide-source-path
+
+
+
 
 
 
 ## React Native (Web)
 
-If you want an app on the web as well as on mobile, you may consider creating a web app with Reframe and [React Native Web](https://github.com/necolas/react-native-web) and a mobile app with [React Native](https://facebook.github.io/react-native/).
+If you want an app on the web and on mobile,
+you may consider create a web app with Reframe and [React Native Web](https://github.com/necolas/react-native-web)
+and a mobile app with [React Native](https://facebook.github.io/react-native/).
 Both app will then share most/lots of code.
 
 Add the [`@reframe/react-native-web`](/plugins/react-native-web) plugin to render your page's React components with React Native Web.
 
-Examples of Reframe + RNW apps:
- - [/examples/react-native-web-and-react-router](/examples/react-native-web-and-react-router)
+Examples of apps using Reframe + RNW:
  - [/plugins/react-native-web/example](/plugins/react-native-web/example)
+ - [/examples/react-native-web-and-react-router](/examples/react-native-web-and-react-router)
 
 !INLINE ./help.md --hide-source-path
+
+
+
 
 
 
@@ -482,7 +496,7 @@ Examples of Reframe + RNW apps:
 
 As mentioned in the previous section you can use Reframe + React Native Web to share code with your React Native mobile app.
 
-You can also share routing logic by using Reframe + React Native Web + [React Router Web](https://reacttraining.com/react-router/web) for your web app and React Native + [React Router Native](https://reacttraining.com/react-router/native) for your mobile app.
+And you can share routing logic by using Reframe + React Native Web + [React Router Web](https://reacttraining.com/react-router/web) for your web app and React Native + [React Router Native](https://reacttraining.com/react-router/native) for your mobile app.
 
 For example:
  - [/examples/react-native-web-and-react-router](/examples/react-native-web-and-react-router)
