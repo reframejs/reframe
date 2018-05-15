@@ -7,7 +7,7 @@
         "clean": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +",
         "publish": "lerna publish --force-publish=*",
         "publish-test": "lerna publish --skip-git --skip-npm --force-publish=*",
-        "publish-retry": "lerna publish --skip-npm --force-publish=*"
+        "publish-retry": "lerna publish --skip-git --force-publish=*"
     },
     "devDependencies": {
         "@brillout/check-deps": "^0.1.2",
