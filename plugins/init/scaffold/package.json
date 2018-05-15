@@ -1,10 +1,10 @@
 {
   "name": "_sample-project",
   "private": "true",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "dependencies": {
     "@brillout/fetch": "^0.0.2",
-    "@reframe/react-kit": "0.1.4",
+    "@reframe/react-kit": "0.1.5",
     "react": "^16.3.2"
   }
 }

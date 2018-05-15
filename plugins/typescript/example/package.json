@@ -1,9 +1,9 @@
 {
   "name": "_example-typescript",
   "private": true,
-  "version": "0.1.4",
+  "version": "0.1.5",
   "dependencies": {
-    "@reframe/react-kit": "0.1.4",
+    "@reframe/react-kit": "0.1.5",
     "@reframe/typescript": "0.1.4",
     "react": "^16.3.2"
   },
