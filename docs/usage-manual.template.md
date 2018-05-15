@@ -13,7 +13,7 @@
 
  - [Getting Started](#getting-started)
  - [CSS & Static Assets](#css--static-assets)
- - [Async Data](#async-data)
+ - [Data Loading](#data-loading)
  - [Page Navigation & Links](#page-navigation--links)
  - [`domStatic` & `htmlStatic`](#domstatic--htmlstatic)
 
@@ -85,7 +85,7 @@ In addition, static assets can be referenced in CSS files by using the CSS `url`
 CSS and static assets are handled by webpack.
 See [Custom Webpack](#custom-webpack) to customize the webpack config.
 
-An example of a page loading and using CSS, fonts, images and static assets:
+Example of a page loading and using CSS, fonts, images and static assets:
  - [/examples/basics/pages/glitter/](/examples/basics/pages/glitter/)
 
 !INLINE ./help.md --hide-source-path
@@ -96,12 +96,12 @@ An example of a page loading and using CSS, fonts, images and static assets:
 
 
 
-## Async Data
 
-A common React use case is to display data that is fetched over the network.
-The page config supports a `async getInitialProps()` property that Reframe calls every time and before the view is rendered.
+## Data Loading
+
+A page config can be set a function `async getInitialProps()` that Reframe calls every time before the view is rendered.
 (On both the server and in the browser.)
-By using `async getInitialProps()` you can fetch required by your page's React components.
+By using `async getInitialProps()` you can fetch data required by your page's React components.
 
 For example:
 
@@ -109,57 +109,18 @@ For example:
 !INLINE ../examples/basics/pages/got/GameOfThronesPage.config.js
 ~~~
 
-~~~js
-!INLINE ../examples/basics/pages/got/data/getCharacters.js
-~~~
-
-Because `aysnc getInitialProps()` is called and waited for prior to rendering the HTML, our page's HTML `view-source:http://localhost:3000/game-of-thrones` displays the data already.
-
-~~~html
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Game of Thrones Characters</title>
-        <meta name="description" content="List of GoT Characters">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <meta charset="utf-8">
-    </head>
-    <body>
-        <div id="react-root"><div><h3>Game of Thrones Characters</h3><table border="7" cellPadding="5"><tbody><tr><td>Daenerys Targaryen</td></tr><tr><td>Jon Snow</td></tr><tr><td>Cersei Lannister</td></tr><tr><td>Petyr Baelish</td></tr><tr><td>Bran Stark</td></tr><tr><td>Tyrion Lannister</td></tr><tr><td>Varys</td></tr><tr><td>Tormund</td></tr><tr><td>Samwell Tarly</td></tr></tbody></table></div></div>
-    </body>
-</html>
-~~~
-
-Alternatively, we can fetch data in a stateful component.
+Alternatively, you can fetch data in a stateful component.
+But in that case the data will not be rendered to HTML.
 
 ~~~js
 !INLINE ../examples/basics/pages/got/GameOfThronesPage2.config.js
 ~~~
 
-Note that,
-when using such stateful component,
-the server renders the HTML before the data is loaded.
-In our case,
- this means that the HTML `view-source:http://localhost:3000/game-of-thrones-2`
-displays the loading state `<div id="react-root"><div>Loading...</div></div>`.
-And the HTML returned by the server is:
-
-~~~html
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <meta charset="utf-8">
-    </head>
-    <body>
-        <div id="react-root"><div>Loading...</div></div>
-        <script src="/commons.hash_451146e5dbcfe0b09f80.js" type="text/javascript"></script>
-        <script src="/GameOfThrones2Page.entry.hash_2c79748d10c1e953f159.js" type="text/javascript"></script>
-    </body>
-</html>
-~~~
+Deeper explanation and example of pages loading data:
+ - [/examples/basics/pages/got/](/examples/basics/pages/got/)
 
 !INLINE ./help.md --hide-source-path
+
 
 
 
@@ -182,6 +143,10 @@ An example of basic page navigation:
 ~~~
 
 !INLINE ./help.md --hide-source-path
+
+
+
+
 
 
 
@@ -230,6 +195,8 @@ Interactive/stateful views are inherently more complex to implement than non-int
 we recommended to implement app requirements with non-interactive views whenever possible.
 
 !INLINE ./help.md --hide-source-path
+
+
 
 
 
