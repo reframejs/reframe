@@ -5,7 +5,7 @@ async function getCharacters() {
     const url = 'https://brillout-misc.github.io/game-of-thrones/characters/list.json';
     /*/
  // const url = 'https://api.myjson.com/bins/12ktoq';
-    const url = https://cors.io/?https://brillout-misc.github.io/game-of-thrones/characters/list.json
+    const url = 'https://cors.io/?https://brillout-misc.github.io/game-of-thrones/characters/list.json';
     //*/
     const characters = await (
         fetch(url)

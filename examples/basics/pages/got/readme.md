@@ -161,10 +161,7 @@ class Characters extends React.Component {
         return <CharacterList characters={this.state.characters}/>;
     }
     async componentDidMount() {
-        const characters = (
-            (await getCharacters())
-            .map(character => character.name)
-        );
+        const characters = await getCharacters();
         this.setState({characters});
     }
 }
