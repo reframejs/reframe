@@ -1,6 +1,6 @@
 {
   "name": "@reframe/path-to-regexp",
-  "version": "0.1.3",
+  "version": "0.1.5",
   "dependencies": {
     "react-router": "4.2.0",
     "reassert": "^1.1.8"

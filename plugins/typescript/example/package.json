@@ -4,7 +4,7 @@
   "version": "0.1.5",
   "dependencies": {
     "@reframe/react-kit": "0.1.5",
-    "@reframe/typescript": "0.1.4",
+    "@reframe/typescript": "0.1.5",
     "react": "^16.3.2"
   },
   "checkDeps": {

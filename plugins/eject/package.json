@@ -2,7 +2,7 @@
     "name": "@reframe/eject",
     "version": "0.1.5",
     "dependencies": {
-        "@brillout/cli-theme": "0.1.3",
+        "@brillout/cli-theme": "0.1.5",
         "@brillout/find-package-files": "^0.1.0",
         "@reframe/utils": "0.1.5",
         "builtins": "^2.0.0",

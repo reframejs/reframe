@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.5",
   "dependencies": {
-    "@reframe/postcss": "0.1.4",
+    "@reframe/postcss": "0.1.5",
     "@reframe/react-kit": "0.1.5",
     "postcss-cssnext": "^3.1.0",
     "react": "^16.3.2",
