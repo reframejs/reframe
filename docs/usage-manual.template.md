@@ -20,7 +20,8 @@
 ###### Customization & Eject
 
  - [Custom/Eject Server](#customeject-server)
- - [Custom Webpack Config](#custom-webpack-config)
+ - [Custom Webpack](#custom-webpack)
+ - [Custom Babel](#custom-babel)
  - [Custom &lt;head&gt;, &lt;script&gt;, ...](#custom-head-script-)
  - [Custom/Advanced Routing](#customadvanced-routing)
  - [Custom/Eject Build](#customeject-build)
@@ -276,7 +277,7 @@ to eject the `HapiPluginStaticAssets` plugin and to gain control over the servin
 
 
 
-## Custom Webpack Config
+## Custom Webpack
 
 Save a `reframe.config.js` file at your app root directory and use the `webpackBrowserConfig` and/or `webpackNodejsConfig` Reframe configs.
 
@@ -320,6 +321,21 @@ Examples:
  - Source code of [`@reframe/typescript`](/plugins/typescript)
 
 !INLINE ./help.md --hide-source-path
+
+
+
+
+
+
+## Custom Babel
+
+You can customize the babel config by creating a `.babelrc` file.
+
+Checkout the example at [/examples/custom-babel](https://github.com/reframejs/reframe/tree/master/examples/custom-babel).
+
+!INLINE ./help.md --hide-source-path
+
+
 
 
 
@@ -490,3 +506,5 @@ If you want your app to be deployed on both mobile and the web you can share cod
 
 [/examples/react-native-web-and-react-router](https://github.com/reframejs/reframe/tree/master/examples/react-native-web-and-react-router)
 
+
+##
