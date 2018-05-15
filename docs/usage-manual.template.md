@@ -33,6 +33,8 @@
 ###### Use Cases
 
  - [Serverless Deploy](#serverless-deploy)
+ - [React Native (Web)](#react-native-web)
+ - [React Native (Web) + React Router](#react-native-web--react-router)
 
 
 <br/>
@@ -515,6 +517,11 @@ Examples of Reframe + RNW apps:
 
 ## React Native (Web) + React Router
 
-[/examples/react-native-web-and-react-router](/examples/react-native-web-and-react-router)
+As mentioned in the previous section you can use Reframe + React Native Web to share code with your React Native mobile app.
+
+You can also share routing logic by using Reframe + React Native Web + [React Router Web](https://reacttraining.com/react-router/web) for your web app and React Native + [React Router Native](https://reacttraining.com/react-router/native) for your mobile app.
+
+For example:
+ - [/examples/react-native-web-and-react-router](/examples/react-native-web-and-react-router)
 
 !INLINE ./help.md --hide-source-path
