@@ -120,17 +120,17 @@ Reframe is universal, that is, you can create any type of web app:
  - **Modern interactive apps** <sup><sub>:sparkles:</sub></sup>
    <br/>
    Apps with interactive views.
-   (A realtime graph, an interactive table, a To-Do list, etc.)
+   (An interactive graph, an interactive table, a To-Do list, etc.)
  - **Good ol' 1998 websites** <sup><sub>:floppy_disk:</sub></sup> 
    <br/>
    Apps without interactive views.
-   (The browser loads no (or almost no) JavaScript and the DOM is static.)
- - **Serverless apps**
-   <br/>
-   Apps that don't need a Node.js server.
+   (The browser loads no JavaScript and the DOM is static.)
  - **Hybrid apps**
    <br/>
    Apps with interactive pages as well as non-interative pages.
+ - **Serverless apps**
+   <br/>
+   Apps that don't need a Node.js server.
 
 Choosing the type of your app is only a matter of setting `htmlStatic: true` and/or `domStatic: true` to your page configs.
 
