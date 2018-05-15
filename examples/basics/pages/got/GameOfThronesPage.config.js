@@ -1,20 +1,18 @@
 import React from 'react';
 import getCharacters from './data/getCharacters';
-import CharacterNames from './views/CharacterNames';
+import CharacterList from './views/CharacterList';
 
 export default {
     route: '/game-of-thrones',
-    title: 'Game of Thrones Characters',
-    description: 'List of GoT Characters',
-    view: props => (
-        <CharacterNames
-          names={props.characters.map(character => character.name)}
-        />
-    ),
+
     // Everything returned in `getInitialProps()` is be passed to the props of the view
     getInitialProps: async () => {
         const characters = await getCharacters();
         return {characters};
     },
+
+    // Our data is available at `props.characters`
+    view: props => <CharacterList characters={props.characters}/>,
+
     domStatic: true,
 };

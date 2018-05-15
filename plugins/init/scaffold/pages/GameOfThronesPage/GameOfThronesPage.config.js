@@ -5,7 +5,8 @@ import getJson from './getJson';
 
 // We load the list of characters from a remote server.
 const getInitialProps = async () => {
-    const characters = await getJson('https://api.myjson.com/bins/12ktoq');
+    const url = 'https://cors.io/?https://brillout-misc.github.io/game-of-thrones/characters/list.json';
+    const characters = await getJson(url);
     return {characters};
 };
 

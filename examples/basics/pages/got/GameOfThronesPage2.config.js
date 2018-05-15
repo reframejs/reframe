@@ -1,20 +1,20 @@
 import React from 'react';
 import getCharacters from './data/getCharacters';
-import CharacterNames from './views/CharacterNames';
+import CharacterList from './views/CharacterList';
 
 class Characters extends React.Component {
     render() {
-        if( ! this.state || ! this.state.names ) {
+        if( ! this.state || ! this.state.characters ) {
             return <div>Loading...</div>;
         }
-        return <CharacterNames names={this.state.names}/>;
+        return <CharacterList characters={this.state.characters}/>;
     }
     async componentDidMount() {
-        const names = (
+        const characters = (
             (await getCharacters())
             .map(character => character.name)
         );
-        this.setState({names});
+        this.setState({characters});
     }
 }
 

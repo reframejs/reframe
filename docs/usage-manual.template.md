@@ -14,7 +14,7 @@
  - [Getting Started](#getting-started)
  - [CSS & Static Assets](#css--static-assets)
  - [Async Data](#async-data)
- - [Links & Page Navigation](#links--page-navigation)
+ - [Page Navigation & Links](#page-navigation--links)
  - [`domStatic` & `htmlStatic`](#domstatic--htmlstatic)
 
 ###### Customization & Eject
@@ -101,7 +101,7 @@ An example of a page loading and using CSS, fonts, images and static assets:
 A common React use case is to display data that is fetched over the network.
 The page config supports a `async getInitialProps()` property that Reframe calls every time and before the view is rendered.
 (On both the server and in the browser.)
-We can therefore use `async getInitialProps()` to fetch the data that page's React components require.
+By using `async getInitialProps()` you can fetch required by your page's React components.
 
 For example:
 
@@ -166,7 +166,7 @@ And the HTML returned by the server is:
 
 
 
-## Links & Page Navigation
+## Page Navigation & Links
 
 The basic way to navigate between pages is to use link tags such as `<a href="/about">About</a>`.
 
