@@ -1,4 +1,4 @@
-This page shows code using CSS and static assets as described above.
+This page exhibits code that uses CSS and static assets.
 
 ~~~js
 !INLINE ./GlitterPage.config.js
