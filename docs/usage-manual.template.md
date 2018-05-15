@@ -74,27 +74,15 @@ In addition, static assets can be referenced in CSS files by using the CSS `url`
 }
 ~~~
 
-The following shows code using CSS and static assets as described above.
+CSS and static assets are handled by webpack.
+See [Custom Webpack](#custom-webpack) to customize the webpack config.
 
-~~~js
-!INLINE ../examples/basics/pages/glitter/GlitterPage.config.js
-~~~
-
-~~~js
-!INLINE ../examples/basics/pages/glitter/GlitterComponent.js
-~~~
-
-~~~css
-!INLINE ../examples/basics/pages/glitter/GlitterStyle.css
-~~~
-
-Note that CSS and static assets are handled by webpack,
-and that the webpack config is fully customizable.
-We referer to the Customization Manual for further information.
-
-Also note that all types of static assets are supported.
+An example of a page loading and using CSS, fonts, images and static assets:
+ - [/examples/basics/pages/glitter/](/examples/basics/pages/glitter/)
 
 !INLINE ./help.md --hide-source-path
+
+
 
 
 
