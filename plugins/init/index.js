@@ -75,43 +75,22 @@ async function scaffoldProject(projectRootDir) {
 
     await fs.copy(path.resolve(__dirname, './scaffold'), projectRootDir);
 
-    await changeFile(
-        path.resolve(projectRootDir, './package.json'),
-        (lines, {LINE_ERASER}) => (
-            lines
-            .map(line => {
-                if( line.includes('"name"') && line.includes('_sample-project') ) {
-                    return LINE_ERASER;
-                }
-                if( line.includes('"private": "true"') ) {
-                    return LINE_ERASER;
-                }
-                if( line.includes('"version": "') ) {
-                    return LINE_ERASER;
-                }
-                if( line.includes('"checkDeps"') ) {
-                    return LINE_ERASER;
-                }
-                return line;
-            })
-        )
-    );
+    await lopOffPackageJson(projectRootDir);
 }
 
-async function changeFile(filePath, changeAction) {
+async function lopOffPackageJson(projectRootDir) {
     const fs = require('fs-extra');
-    const assert_internal = require('reassert');
+    const path = require('path');
 
-    const LINE_ERASER = Symbol();
+    const packageJsonFile = path.resolve(projectRootDir, './package.json');
 
-    const contentOld = await fs.readFile(filePath, 'utf8');
-    const linesOld = contentOld.split('\n');
+    const packageJson = require(packageJsonFile);
+    delete packageJson.name;
+    delete packageJson.version;
+    delete packageJson.private;
+    delete packageJson.checkDeps;
 
-    const linesNew = changeAction(linesOld, {LINE_ERASER});
-    const contentNew = linesNew.filter(line => line!==LINE_ERASER).join('\n');
-
-    assert_internal(contentNew !== contentOld);
-    await fs.outputFile(filePath, contentNew);
+    await fs.outputFile(packageJsonFile, JSON.stringify(packageJson, null, 2));
 }
 
 function showUsageExample() {
