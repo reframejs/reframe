@@ -1,19 +1,15 @@
 import React from 'react';
 import Header from '../views/Header';
 
-const Button = ({onClick, children}) => (
-    <button onClick={onClick}>{children}</button>
-)
-
 class Counter extends React.Component {
     render() {
         return (
             <div>
                 Counter: {this.state.counter}
                 <br/>
-                <Button onClick={this.up}>+1</Button>
+                <button onClick={this.up}>+1</button>
                 {' '}
-                <Button onClick={this.down}>-1</Button>
+                <button onClick={this.down}>-1</button>
             </div>
         );
     }
