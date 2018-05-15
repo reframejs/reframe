@@ -7,14 +7,14 @@ const CharacterList = ({characters}) => {
         return (
             <div>
                 You are offline.
-                Can't retrieve list of Game of Thrones Characters.
+                Can't retrieve list of characters.
             </div>
         );
     }
     return (
-        <div>{
-            characters.map(character => <div>{character.name}</div>)
-        }</div>
+        <ul>{
+            characters.map(character => <li key={character.id}>{character.name}</li>)
+        }</ul>
     );
 };
 
@@ -28,6 +28,7 @@ export default {
         <div>
             <Header/>
             <div style={{margin: 'auto', maxWidth: 500}}>
+                List of characters loaded from remote server.
                 <CharacterList characters={props.characters}/>
             </div>
         </div>

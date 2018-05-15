@@ -5,18 +5,29 @@ const Welcome = () => (
     <div>
         <Header/>
         <div style={{margin: 'auto', maxWidth: 500}}>
-            <h2>
+            <h2 style={{fontWeight: 'normal'}}>
                 Welcome to Reframe
             </h2>
-            <div>Interactive pages</div>
-            <a href="/time">/time</a> - Display time
-            <br/>
-            <a href="/counter">/counter</a> - Counter
-            <br/><br/>
-            <div>Non-interactive pages</div>
-            <a href="/game-of-thrones">/game-of-thrones</a> - Load and display list of GoT Characters
-            <br/>
-            <a href="/">/</a> - This landing page
+
+            Interactive pages
+            <ul>
+                <li>
+                    <a href="/counter">/counter</a> - Counter
+                </li>
+                <li>
+                    <a href="/time">/time</a> - Display time
+                </li>
+            </ul>
+
+            Non-interactive pages
+            <ul>
+                <li>
+                    <a href="/game-of-thrones">/game-of-thrones</a> - Load and display list of GoT characters
+                </li>
+                <li>
+                    <a href="/">/</a> - This landing page
+                </li>
+            </ul>
         </div>
     </div>
 );
