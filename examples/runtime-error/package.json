@@ -1,9 +1,9 @@
 {
   "name": "_example-runtime-error",
   "private": true,
-  "version": "0.1.3",
+  "version": "0.1.4",
   "dependencies": {
-    "@reframe/react-kit": "0.1.3",
+    "@reframe/react-kit": "0.1.4",
     "react": "^16.3.2"
   },
   "checkDeps": {

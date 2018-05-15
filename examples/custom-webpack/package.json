@@ -2,7 +2,7 @@
   "name": "_example-custom-webpack",
   "private": true,
   "dependencies": {
-    "@reframe/react-kit": "0.1.3",
+    "@reframe/react-kit": "0.1.4",
     "css-loader": "^0.28.9",
     "postcss-cssnext": "^3.0.2",
     "postcss-loader": "^2.0.10",
@@ -13,5 +13,5 @@
   "checkDeps": {
     "skip": true
   },
-  "version": "0.1.3"
+  "version": "0.1.4"
 }
