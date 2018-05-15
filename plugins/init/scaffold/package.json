@@ -2,6 +2,7 @@
   "name": "_sample-project",
   "private": "true",
   "version": "0.1.5",
+  "checkDeps": { "skip": true },
   "dependencies": {
     "@brillout/fetch": "^0.0.2",
     "@reframe/react-kit": "0.1.5",

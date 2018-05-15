@@ -89,6 +89,9 @@ async function scaffoldProject(projectRootDir) {
                 if( line.includes('"version": "') ) {
                     return LINE_ERASER;
                 }
+                if( line.includes('"checkDeps"') ) {
+                    return LINE_ERASER;
+                }
                 return line;
             })
         )
