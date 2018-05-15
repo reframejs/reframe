@@ -469,10 +469,24 @@ And run `reframe eject build-browser-entries` to eject `getPageBrowserEntries()`
 
 ## Serverless Deploy
 
-If all pages are HTML-static,
+If you add `htmlStatic: true` to all your page configs,
 then all HTMLs are rendered at build-time,
 no server code is required,
-and the app can be deployed to a static website host
+and your app can be deployed to a static website host
 such as [GitHub Pages](https://pages.github.com/) or [Netlify](https://www.netlify.com/).
 
+Your app is composed exlusively of static assets which are located in the `dist/browser/` directory.
+(The `dist/` directory is located at the root directory of your app.)
+
 !INLINE ./help.md --hide-source-path
+
+
+
+## React Native (Web)
+
+If you want your app to be deployed on both mobile and the web you can share code between wanna consider using R
+
+## React Native (Web) + React Router
+
+[/examples/react-native-web-and-react-router](https://github.com/reframejs/reframe/tree/master/examples/react-native-web-and-react-router)
+
