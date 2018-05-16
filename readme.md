@@ -262,9 +262,10 @@ All of Reframe is ejectable and customizable.
 For example, the command `reframe eject server` ejects the server code:
 [Around 30 lines of code](/plugins/server/startServer.js)
 are copied from Reframe's codebase and added to your codebase.
-Allowing you to change the server code to add API endpoints, change the server config, change the server entirely, use a process manager, etc.
+Allowing you to modify the server code to add API endpoints, change server config, change server entirely, use a process manager, etc.
 
-There are several eject commands that you can apply one by one and progressively as the need arises.
+There are several eject commands that
+you can apply one by one and progressively as the need arises.
 
 If you run all eject commands then you effectively get rid of Reframe.
 
