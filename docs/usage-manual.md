@@ -105,7 +105,7 @@
     &nbsp;&nbsp;&nbsp;&nbsp;
     <a href="https://github.com/reframejs/reframe/blob/master/contributing.md">
         <img
-          src="https://github.com/reframejs/reframe/raw/master/docs/images/muscle.jpg?sanitize=true"
+          src="https://github.com/reframejs/reframe/raw/next/docs/images/muscle.jpg?sanitize=true"
           width="14"
           height="10"
         >
