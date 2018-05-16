@@ -284,7 +284,7 @@ Reframe is universal, that is, you can create any type of web app:
  - **Good ol' 1998 websites** <sup><sub>:floppy_disk:</sub></sup> 
    <br/>
    Apps without interactive views.
-   (The browser loads no JavaScript and the DOM is static.)
+   (The browser loads no JavaScript.)
  - **Hybrid apps**
    <br/>
    Apps with interactive pages and non-interative pages.
