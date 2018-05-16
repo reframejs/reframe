@@ -346,12 +346,11 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 ## `domStatic` & `htmlStatic`
 
-A page is rendered twice:
+By default, a page is rendered twice:
 On the server (to HTML) and in the browser (to the DOM).
 (React components can be rendered to the DOM as well as to HTML.)
 
-A page is "DOM-dynamic" and "HTML-dynamic" by default and
-you can configure it to be "DOM-static" and/or "HTML-static".
+A page can be "DOM-dynamic" or "DOM-static" and "HTML-dynamic" or "HTML-static".
 
  - **_HTML-static_**
    <br/>
@@ -389,8 +388,8 @@ By adding `domStatic: true` to its page config, the page is only rendered on the
 The browser loads no (or almost no) JavaScript and the DOM is static.
 
 By default a page is rendered to HTML at request-time.
-But some pages are static
-(a landing page, a blog post, a personal homepage, etc.) and it would be wasteful to re-render its HTML on every page request.
+But if a page is static
+(a landing page, a blog post, a personal homepage, etc.) it would be wasteful to re-render its HTML on every page request.
 By adding `htmlStatic: true` to its page config, the page is rendered to HTML at build-time instead.
 
 <br/>
