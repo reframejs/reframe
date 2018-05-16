@@ -1,4 +1,80 @@
-!OUTPUT ../contributing.md
+<!---
+
+
+
+
+
+
+    WARNING, READ THIS.
+    This is a computed file. Do not edit.
+    Edit `/docs/contributing.template.md` instead.
+
+
+
+
+
+
+
+
+
+
+
+
+    WARNING, READ THIS.
+    This is a computed file. Do not edit.
+    Edit `/docs/contributing.template.md` instead.
+
+
+
+
+
+
+
+
+
+
+
+
+    WARNING, READ THIS.
+    This is a computed file. Do not edit.
+    Edit `/docs/contributing.template.md` instead.
+
+
+
+
+
+
+
+
+
+
+
+
+    WARNING, READ THIS.
+    This is a computed file. Do not edit.
+    Edit `/docs/contributing.template.md` instead.
+
+
+
+
+
+
+
+
+
+
+
+
+    WARNING, READ THIS.
+    This is a computed file. Do not edit.
+    Edit `/docs/contributing.template.md` instead.
+
+
+
+
+
+
+-->
 
 Reframe is looking for co-maintainers and warmly welcomes contributions.
 
@@ -48,7 +124,12 @@ Why should I become a maintainer?
 The important thing is that you can imagine to commit long term.
 It doesn't matter whether you're junior or senior dev.
 
-!INLINE ./help.md --hide-source-path
+<br/>
+
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+
+<br/>
+<br/>
 
 
 
@@ -60,7 +141,12 @@ It doesn't matter whether you're junior or senior dev.
  - There is no code style. (We may use [prettier](https://github.com/prettier/prettier) soon.)
  - For bigger commits, get the approval of a Reframe maintainer beforehand.
 
-!INLINE ./help.md --hide-source-path
+<br/>
+
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+
+<br/>
+<br/>
 
 
 
@@ -73,4 +159,87 @@ This section is work-in-progress.
 
 Check out the `scripts` of the root `package.json` to see the Reframe development process.
 
-!INLINE ./help.md --hide-source-path
+<br/>
+
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+
+<br/>
+<br/>
+
+<!---
+
+
+
+
+
+
+    WARNING, READ THIS.
+    This is a computed file. Do not edit.
+    Edit `/docs/contributing.template.md` instead.
+
+
+
+
+
+
+
+
+
+
+
+
+    WARNING, READ THIS.
+    This is a computed file. Do not edit.
+    Edit `/docs/contributing.template.md` instead.
+
+
+
+
+
+
+
+
+
+
+
+
+    WARNING, READ THIS.
+    This is a computed file. Do not edit.
+    Edit `/docs/contributing.template.md` instead.
+
+
+
+
+
+
+
+
+
+
+
+
+    WARNING, READ THIS.
+    This is a computed file. Do not edit.
+    Edit `/docs/contributing.template.md` instead.
+
+
+
+
+
+
+
+
+
+
+
+
+    WARNING, READ THIS.
+    This is a computed file. Do not edit.
+    Edit `/docs/contributing.template.md` instead.
+
+
+
+
+
+
+-->

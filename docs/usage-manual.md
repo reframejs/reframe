@@ -128,6 +128,7 @@
 
 <br/>
 
+[Contributing](/contributing.md)<br/>
 [Overview](/../../)<br/>
 [**Usage Manual**](/docs/usage-manual.md)<br/>
 [Plugins](/docs/plugins.md)
