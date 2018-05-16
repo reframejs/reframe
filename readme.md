@@ -259,8 +259,9 @@ and read this overview.
 
 All of Reframe is ejectable and customizable.
 
-For example, the command `reframe eject server` ejects [~30 LOC of server code](/plugins/server/startServer.js):
-The server code is copied from Reframe's codebase to your codebase.
+For example, the command `reframe eject server` ejects server code:
+[Around 30 lines of server code](/plugins/server/startServer.js)
+is copied from Reframe's codebase to your codebase.
 This gives you control over the server allowing you to add API endpoints, change the server config, use a process manager, etc.
 
 There are several eject commands that you can apply one by one and progressively as the need arises.
@@ -290,7 +291,8 @@ Reframe is universal, that is, you can create any type of web app:
    <br/>
    Apps that don't need a Node.js server.
 
-Choosing the type of your app is only a matter of setting `htmlStatic: true` and/or `domStatic: true` to your page configs.
+Choosing the type of your app is only a matter of setting the page config options `htmlStatic` and `domStatic`.
+(Explanation at [Usage Manual - `domStatic` & `htmlStatic`](/docs/usage-manual.md#domstatic--htmlstatic).)
 
 <br/>
 
