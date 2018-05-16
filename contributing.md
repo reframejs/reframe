@@ -126,7 +126,7 @@ It doesn't matter whether you're junior or senior dev.
 
 <br/>
 
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+[Chat with Reframe authors on Discord](https://discord.gg/kqXf65G) for more infos.
 
 <br/>
 <br/>
@@ -143,7 +143,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 <br/>
 
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+[Chat with Reframe authors on Discord](https://discord.gg/kqXf65G) for more infos.
 
 <br/>
 <br/>
@@ -161,7 +161,7 @@ Check out the `scripts` of the root `package.json` to see the Reframe developmen
 
 <br/>
 
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+[Chat with Reframe authors on Discord](https://discord.gg/kqXf65G) for more infos.
 
 <br/>
 <br/>

@@ -48,7 +48,7 @@ Why should I become a maintainer?
 The important thing is that you can imagine to commit long term.
 It doesn't matter whether you're junior or senior dev.
 
-!INLINE ./help.md --hide-source-path
+!INLINE ./chat-with-authors.md --hide-source-path
 
 
 
@@ -60,7 +60,7 @@ It doesn't matter whether you're junior or senior dev.
  - There is no code style. (We may use [prettier](https://github.com/prettier/prettier) soon.)
  - For bigger commits, get the approval of a Reframe maintainer beforehand.
 
-!INLINE ./help.md --hide-source-path
+!INLINE ./chat-with-authors.md --hide-source-path
 
 
 
@@ -73,4 +73,4 @@ This section is work-in-progress.
 
 Check out the `scripts` of the root `package.json` to see the Reframe development process.
 
-!INLINE ./help.md --hide-source-path
+!INLINE ./chat-with-authors.md --hide-source-path
