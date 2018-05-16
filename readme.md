@@ -286,7 +286,7 @@ Reframe is universal, that is, you can create any type of web app:
    (The browser loads no JavaScript and the DOM is static.)
  - **Hybrid apps**
    <br/>
-   Apps with interactive pages as well as non-interative pages.
+   Apps with interactive pages and non-interative pages.
  - **Serverless apps**
    <br/>
    Apps that don't need a Node.js server.
