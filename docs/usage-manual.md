@@ -300,35 +300,37 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 ## Page Navigation & Links
 
-The standard way to navigate between pages in a Reframe app is to use HTML link tags such as `<a href="/about">About</a>`.
+The standard way to navigate between pages is to use the HTML link tag `<a>`.
 
 See [Custom/Advanced Routing](#customadvanced-routing) for alternative ways of navigating.
 
-Example of page navigation:
+Example:
 
 ~~~js
-// /examples/basics/pages/page-a.config.js
-
 import React from 'react';
 
-const pageA = {
+export default {
     route: '/page-a',
-    view: () => <div>This is page A. <a href='/page-b'>Link to page B</a>.</div>,
+    view: () => (
+        <div>
+            This is page A.
+            <a href='/page-b'>Page B</a>.
+        </div>,
+    ),
 };
-
-export default pageA;
 ~~~
 ~~~js
-// /examples/basics/pages/page-b.config.js
-
 import React from 'react';
 
-const pageB = {
+export default {
     route: '/page-b',
-    view: () => <div>This is page B. <a href='/page-a'>Link to page A</a>.</div>,
+    view: () => (
+        <div>
+            This is page B.
+            <a href='/page-a'>Page A</a>.
+        </div>,
+    ),
 };
-
-export default pageB;
 ~~~
 
 <br/>

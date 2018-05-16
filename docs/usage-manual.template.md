@@ -125,17 +125,17 @@ Deeper explanation and example of pages loading data:
 
 ## Page Navigation & Links
 
-The standard way to navigate between pages in a Reframe app is to use HTML link tags such as `<a href="/about">About</a>`.
+The standard way to navigate between pages is to use the HTML link tag `<a>`.
 
 See [Custom/Advanced Routing](#customadvanced-routing) for alternative ways of navigating.
 
-Example of page navigation:
+Example:
 
 ~~~js
-!INLINE ../examples/basics/pages/page-a.config.js
+!INLINE ../examples/basics/pages/page-a.config.js --hide-source-path
 ~~~
 ~~~js
-!INLINE ../examples/basics/pages/page-b.config.js
+!INLINE ../examples/basics/pages/page-b.config.js --hide-source-path
 ~~~
 
 !INLINE ./help.md --hide-source-path

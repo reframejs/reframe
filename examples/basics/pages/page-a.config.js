@@ -1,8 +1,11 @@
 import React from 'react';
 
-const pageA = {
+export default {
     route: '/page-a',
-    view: () => <div>This is page A. <a href='/page-b'>Link to page B</a>.</div>,
+    view: () => (
+        <div>
+            This is page A.
+            <a href='/page-b'>Page B</a>.
+        </div>,
+    ),
 };
-
-export default pageA;
