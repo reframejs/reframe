@@ -324,6 +324,9 @@ Choosing the type of your app is only a matter of setting the page config option
   no Node.js server is required and
   your app can be deployed to a static website host
   such as GitHub Pages or Netlify.
+- **Vue.js**
+  <br/>
+  You can use the `@reframe/vue` plugin and write your views with Vue (instead of React).
 - **React Router**
   <br/>
   The syntax of the page config's `route` string is the same than in React Router v4.
