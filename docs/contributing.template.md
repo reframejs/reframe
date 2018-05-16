@@ -6,7 +6,7 @@ Reframe is looking for co-maintainers and warmly welcomes contributions.
  - **_Maintainer_**: You (co-)own parts of Reframe's codebase.
  - **_Contributor_**: You do one or couple of commits to Reframe's codebase.
 
-
+<br/>
 
 #### Contents
 
