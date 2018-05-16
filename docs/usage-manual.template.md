@@ -33,6 +33,7 @@
 ###### Use Cases
 
  - [Static Deploy](#static-deploy)
+ - [Vue](#vue)
  - [React Native (Web)](#react-native-web)
  - [React Native (Web) + React Router](#react-native-web--react-router)
 
@@ -473,6 +474,22 @@ The static assets are located in the `dist/browser/` directory.
 
 
 
+## Vue
+
+You can also use Reframe with Vue instead of Reframe.
+
+Check out the [`@reframe/vue`](/plugins/vue) plugin.
+
+Example:
+ - [/plugins/vue/example](/plugins/vue/example)
+
+!INLINE ./help.md --hide-source-path
+
+
+
+
+
+
 ## React Native (Web)
 
 If you want an app on the web and on mobile,
@@ -503,3 +520,8 @@ For example:
  - [/examples/react-native-web-and-react-router](/examples/react-native-web-and-react-router)
 
 !INLINE ./help.md --hide-source-path
+
+
+
+
+

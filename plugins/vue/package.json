@@ -1,10 +1,16 @@
 {
   "name": "@reframe/vue",
   "version": "0.1.5",
+  "scripts": {
+    "docs": "mdocs"
+  },
   "dependencies": {
     "@brillout/html-crust": "^0.4.0",
     "vue": "^2.5.16",
     "vue-server-renderer": "^2.5.16"
+  },
+  "devDependencies": {
+    "@brillout/mdocs": "^0.1.15"
   },
   "publishConfig": {
     "access": "public"
