@@ -311,12 +311,11 @@ import React from 'react';
 
 export default {
     route: '/page-a',
-    view: () => (
+    view: () =>
         <div>
             This is page A.
             <a href='/page-b'>Page B</a>.
         </div>,
-    ),
 };
 ~~~
 ~~~js
@@ -324,12 +323,11 @@ import React from 'react';
 
 export default {
     route: '/page-b',
-    view: () => (
+    view: () =>
         <div>
             This is page B.
             <a href='/page-a'>Page A</a>.
         </div>,
-    ),
 };
 ~~~
 
