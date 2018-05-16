@@ -35,6 +35,8 @@
         "plugins/react-native-web/example",
         "plugins/react-router",
         "plugins/react-router/example",
+        "plugins/vue",
+        "plugins/vue/example",
         "plugins/start",
         "plugins/typescript",
         "plugins/typescript/example",

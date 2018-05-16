@@ -1,0 +1,13 @@
+{
+  "name": "_example-vue",
+  "version": "0.1.5",
+  "dependencies": {
+    "@reframe/react-kit": "0.1.5",
+    "@reframe/vue": "0.1.5",
+    "vue": "^2.5.16"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": "https://github.com/reframejs/reframe/tree/master/plugins/vue"
+}
