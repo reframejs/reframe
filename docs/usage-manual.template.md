@@ -458,7 +458,7 @@ And run `reframe eject build-browser-entries` to eject `getPageBrowserEntries()`
 
 If you add `htmlStatic: true` to all your page configs,
 then all HTMLs are rendered at build-time,
-no server code is required,
+no Node.js server is required,
 and your app can be deployed to a static website host
 such as [GitHub Pages](https://pages.github.com/) or [Netlify](https://www.netlify.com/).
 
