@@ -171,6 +171,7 @@
 ###### Use Cases
 
  - [Static Deploy](#static-deploy)
+ - [Vue](#vue)
  - [React Native (Web)](#react-native-web)
  - [React Native (Web) + React Router](#react-native-web--react-router)
 
@@ -786,6 +787,27 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
+## Vue
+
+You can also use Reframe with Vue instead of Reframe.
+
+Check out the [`@reframe/vue`](/plugins/vue) plugin.
+
+Example:
+ - [/plugins/vue/example](/plugins/vue/example)
+
+<br/>
+
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+
+<br/>
+<br/>
+
+
+
+
+
+
 ## React Native (Web)
 
 If you want an app on the web and on mobile,
@@ -826,6 +848,11 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 <br/>
 <br/>
+
+
+
+
+
 
 <!---
 
