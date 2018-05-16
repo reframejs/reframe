@@ -152,41 +152,41 @@ A page is rendered twice:
 On the server (to HTML) and in the browser (to the DOM).
 (React components can be rendered to the DOM as well as to HTML.)
 
-A page is "DOM-dynamic" and "HTML-dynamic" by default.
-You can configure it to be "DOM-static" and/or "HTML-static".
+A page is "DOM-dynamic" and "HTML-dynamic" by default and
+you can configure it to be "DOM-static" and/or "HTML-static".
 
- - *HTML-static*
+ - **_HTML-static_**
    <br/>
-   The page is rendered to HTML at build-time.
+   The page is rendered to **HTML at build-time**.
    <br/>
    (In other words, the page is rendered to HTML only once, when Reframe is building your app's pages.)
    <br/>
    Add `htmlStatic: true` to the page config.
- - *HTML-dynamic*
+ - **_HTML-dynamic_**
    <br/>
-   The page is rendered to HTML at request-time.
+   The page is rendered to **HTML at request-time**.
    <br/>
    (In other words, the page is (re-)rendered to HTML every time the user requests the page.)
    <br/>
    Default setting.
- - *DOM-static*
+ - **_DOM-static_**
    <br/>
-   The page is not hydrated.
+   The page is **not rendered to the DOM**.
    <br/>
-   (In other words, the page is not rendered to the DOM and the DOM will not change.)
+   (The DOM will not change.)
    <br/>
    Add `domStatic: true` to the page config.
- - *DOM-dynamic*
+ - **_DOM-dynamic_**
    <br/>
-   The page is hydrated.
+   The page **is rendered to the DOM**.
    <br/>
-   (In other words, the page is rendered to the DOM and the DOM will eventually be updated.)
+   (The DOM will eventually change.)
    <br/>
    Default setting.
 
 You want to add `htmlStatic: true` and/or `domStatic: true` to your page configs for performance reasons:
- - DOM-static pages are more performant as the browser doesn't load nor render the page in the browser.
- - HTML-static pages are more performant as the HTML is rendered only once at build-time instead of being re-rendered on every request.
+ - DOM-static pages are more performant as the browser doesn't load nor renders the page.
+ - HTML-static pages are more performant as the HTML is rendered only once at build-time instead of being re-rendered on every page request.
 
 Interactive/stateful views are inherently more complex to implement than non-interactive views and
 we recommended to implement app requirements with non-interactive views whenever possible.
