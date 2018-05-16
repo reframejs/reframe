@@ -97,7 +97,7 @@ Reframe is looking for co-maintainers and warmly welcomes contributions.
 
 # Maintainer
 
-Reframe is currently maintained by Romuald [twitter.com/brillout](https://twitter.com/brillout)
+Reframe is currently maintained by Romuald ([twitter.com/brillout](https://twitter.com/brillout))
 who is commited to the project for the years/decades to come.
 
 To expand the project's scope, Reframe is looking for co-maintainers.
@@ -106,20 +106,20 @@ There is a lot of unexplored territory: deployment/CI, databases/ORM, docs for b
 
 Why should I become a maintainer?
 
- - Because it's fun
+ - Because it's fun.
    <br/>
    Should be the first and most important reason.
- - Deepens your skills & mindset
+ - Deepens your skills & mindset.
    <br/>
    Reframe likes to push the boundary of what's possible with an ejectable, universal, webassembly, full-stack framework.
- - Opens new doors
+ - Opens new doors.
    <br/>
    Being a maintainer of a widely-used open source project is highly regarded by companies, startups, investors, etc.
  - Jobs: Cooperations with web dev agencies.
    <br/>
    Junior-dev freelance opportunites with agencies that do small projects.
    <br/>
-   High-skilled-dev high-paid freelance opportunies with agencies doing big projects for startups.
+   High-skilled high-paid freelance opportunies with agencies doing big projects for startups.
 
 The important thing is that you can imagine to commit long term.
 It doesn't matter whether you're junior or senior dev.
@@ -137,8 +137,8 @@ It doesn't matter whether you're junior or senior dev.
 
 # Contributor
 
- - Common sense is the main guideline :wink:.
- - There is no code style. (We may use [prettier](https://github.com/prettier/prettier) soon.)
+ - Common sense is the main guideline.
+ - There is no code style. (But [prettier](https://github.com/prettier/prettier) may be used soon.)
  - For bigger commits, get the approval of a Reframe maintainer beforehand.
 
 <br/>
