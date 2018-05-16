@@ -51,6 +51,14 @@
     find-up "^2.1.0"
     reassert "^1.1.8"
 
+"@brillout/mdocs@^0.1.16":
+  version "0.1.16"
+  resolved "https://registry.yarnpkg.com/@brillout/mdocs/-/mdocs-0.1.16.tgz#7a5d151b5ffcc2b00952fedc4af3916dcec13c53"
+  dependencies:
+    "@brillout/find-package-files" "^0.1.0"
+    find-up "^2.1.0"
+    reassert "^1.1.8"
+
 "@brillout/relative-to-homedir@^0.1.0":
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/@brillout/relative-to-homedir/-/relative-to-homedir-0.1.0.tgz#57e1d64423688787d29f3066ba374175574c1048"
@@ -6296,3 +6304,7 @@ yargs@~3.10.0:
     cliui "^2.1.0"
     decamelize "^1.0.0"
     window-size "0.1.0"
+
+yarn@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/yarn/-/yarn-1.6.0.tgz#9cec6f7986dc237d39ec705ce74d95155fe55d4b"
