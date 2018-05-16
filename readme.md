@@ -287,9 +287,6 @@ Reframe is universal, that is, you can create any type of web app:
  - **Hybrid apps**
    <br/>
    Apps with interactive pages and non-interative pages.
- - **Serverless apps**
-   <br/>
-   Apps that don't need a Node.js server.
 
 Choosing the type of your app is only a matter of setting the page config options `htmlStatic` and `domStatic`.
 (Explanation at [Usage Manual - `domStatic` & `htmlStatic`](/docs/usage-manual.md#domstatic--htmlstatic).)
@@ -310,11 +307,12 @@ Choosing the type of your app is only a matter of setting the page config option
   <br/>
   Instead of learning a framework to create a static app and a second framework to create a dynamic app,
   you only learn Reframe to be able to implement any type of web app.
-- **Serverless deploy**
+- **Static deploy**
   <br/>
   If your app is HTML-static
-  (if all your page configs have `htmlStatic: true`)
-  then it can be deployed to a static website host
+  (if all your page configs have `htmlStatic: true`),
+  no Node.js server is required and
+  your app can be deployed to a static website host
   such as GitHub Pages or Netlify.
 - **React Router**
   <br/>

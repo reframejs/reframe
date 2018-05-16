@@ -161,7 +161,7 @@
 
 ###### Use Cases
 
- - [Serverless Deploy](#serverless-deploy)
+ - [Static Deploy](#static-deploy)
  - [React Native (Web)](#react-native-web)
  - [React Native (Web) + React Router](#react-native-web--react-router)
 
@@ -754,7 +754,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-## Serverless Deploy
+## Static Deploy
 
 If you add `htmlStatic: true` to all your page configs,
 then all HTMLs are rendered at build-time,
