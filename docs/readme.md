@@ -5,5 +5,5 @@ $ yarn
 $ npm run docs
 ```
 
-Note that this generated documentation only gets committed by the maintainers when a stable version
+Note that the generated documentation only gets committed by the maintainers when a stable version
 gets released.
