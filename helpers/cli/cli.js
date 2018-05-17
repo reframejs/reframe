@@ -12,7 +12,10 @@ const {colorEmphasisLight, strTable, strDir, strFile, colorFile, colorPkg, color
 const getUserDir = require('@brillout/get-user-dir');
 const program = require('commander');
 const cliUtils = require('@reframe/utils/cliUtils');
+const checkNodejsVersion = require('@reframe/utils/checkNodejsVersion');
 const getProjectConfig = require('@reframe/utils/getProjectConfig');
+
+checkNodejsVersion();
 
 const cwd = process.cwd();
 getUserDir.userDir = cwd;
