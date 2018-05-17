@@ -1,6 +1,6 @@
 ### Future of Reframe
 
-
+<br/>
 
  - Third party library installation
    - Write a Google Anaylitics plugin `@reframe/google-analytics`
@@ -9,12 +9,15 @@
    - Easy to implement
 
 
+<br/>
 
 
  - Redux plugin
    - Should be easy
 
 
+
+<br/>
 
 
  - Deploy
@@ -26,11 +29,20 @@
    - Should be relatively easy to implement
 
 
+<br/>
 
 
  - Write docs for beginners
 
+<br/>
 
+ - Reframe Blog
+   - Plugin `@reframe/blog` to easily create a blog
+   - Themes are implement with React and hence fully customizable
+   - Able to write new pages by providing a markdown string instead of a React component
+     - Theme wraps the provided markdown. (In other words we use React+markdown to render a new blog post.)
+
+<br/>
 
  - ORM
    - Integrate with existing ORM?
