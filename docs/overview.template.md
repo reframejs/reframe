@@ -177,7 +177,7 @@ Choosing the type of your app is only a matter of setting the page config option
   <br/>
   Reframe uses webpack to build the app's pages.
   Webpack
-  is the state of the art to build browser assets.
+  is the state of the art tool to build browser assets.
 - **Hapi**
   <br/>
   Reframe uses hapi to create the server.
