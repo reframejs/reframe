@@ -1,4 +1,4 @@
-<div><p align="right"><sup>
+<div><span align="right"><sup>
     <a href="#">
         <img
           src="https://github.com/reframejs/reframe/raw/master/docs/images/star.svg?sanitize=true"
@@ -8,6 +8,10 @@
     </a>
     Star if you like
     &nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;
     <a href="https://github.com/reframejs/reframe/blob/master/contributing.md">
         <img
           src="https://github.com/reframejs/reframe/raw/master/docs/images/muscle.png?sanitize=true"
@@ -16,8 +20,8 @@
         >
         Co-maintain Reframe
     </a>
-</sup></p></div>
-<div><p align="right"><sup>
+</sup></span></div>
+<div><span align="right"><sup>
     <a href="https://twitter.com/reframejs">
         <img
           src="https://github.com/reframejs/reframe/raw/master/docs/images/twitter-logo.svg?sanitize=true"
@@ -35,7 +39,11 @@
         >
         Chat on Discord
     </a>
-</sup></p></div>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;
+</sup></span></div>
 
 [<p align="center"><img src="https://github.com/reframejs/reframe/raw/master/docs/images/logo-with-title.svg?sanitize=true" width=450 height=94 style="max-width:100%;" alt="Reframe"/></p>](https://github.com/reframejs/reframe)
 
