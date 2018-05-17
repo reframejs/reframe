@@ -84,24 +84,6 @@
         >
     </a>
     Star if you like
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <a href="https://twitter.com/reframejs">
-        <img
-          src="https://github.com/reframejs/reframe/raw/master/docs/images/twitter-logo.svg?sanitize=true"
-          width="15"
-          height="13"
-        >
-        Follow on Twitter
-    </a>
-    &nbsp;&nbsp;&nbsp;&nbsp;
-    <a href="https://discord.gg/kqXf65G">
-        <img
-          src="https://github.com/reframejs/reframe/raw/master/docs/images/online-icon.svg?sanitize=true"
-          width="14"
-          height="10"
-        >
-        Chat on Discord
-    </a>
     &nbsp;&nbsp;&nbsp;&nbsp;
     <a href="https://github.com/reframejs/reframe/blob/master/contributing.md">
         <img
@@ -110,6 +92,25 @@
           height="14"
         >
         Co-maintain Reframe
+    </a>
+</sup></p></div>
+<div><p align="right"><sup>
+    <a href="https://twitter.com/reframejs">
+        <img
+          src="https://github.com/reframejs/reframe/raw/master/docs/images/twitter-logo.svg?sanitize=true"
+          width="15"
+          height="13"
+        >
+        Follow on Twitter
+    </a>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="https://discord.gg/kqXf65G">
+        <img
+          src="https://github.com/reframejs/reframe/raw/master/docs/images/online-icon.svg?sanitize=true"
+          width="14"
+          height="10"
+        >
+        Chat on Discord
     </a>
 </sup></p></div>
 
