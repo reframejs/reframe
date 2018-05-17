@@ -75,7 +75,7 @@
 
 
 -->
-<div><span><p align="right"><sup>
+<span align="right"><sup>
     <a href="#">
         <img
           src="https://github.com/reframejs/reframe/raw/master/docs/images/star.svg?sanitize=true"
@@ -97,8 +97,9 @@
         >
         Co-maintain Reframe
     </a>
-</sup></p></span></div>
-<div><span><p align="right"><sup>
+</sup></span>
+<br/>
+<span align="right"><sup>
     <a href="https://twitter.com/reframejs">
         <img
           src="https://github.com/reframejs/reframe/raw/master/docs/images/twitter-logo.svg?sanitize=true"
@@ -120,7 +121,7 @@
     &nbsp;&nbsp;&nbsp;&nbsp;
     &nbsp;&nbsp;&nbsp;&nbsp;
     &nbsp;&nbsp;&nbsp;&nbsp;
-</sup></p></span></div>
+</sup></span>
 
 [<p align="center"><img src="https://github.com/reframejs/reframe/raw/master/docs/images/logo-with-title.svg?sanitize=true" width=450 height=94 style="max-width:100%;" alt="Reframe"/></p>](https://github.com/reframejs/reframe)
 
