@@ -155,12 +155,17 @@ function initProgram() {
         console.log();
         console.log(INDENT+'Plugins:');
         _rootPluginNames.forEach(pkgName => {
-            assert_internal(projectRootDir);
+            const resolveOptions = {};
+            if( projectRootDir ) {
+                resolveOptions.paths = [projectRootDir];
+            }
             let pluginPkgPath;
             try {
-                pluginPkgPath = require.resolve(pkgName+'/package.json', {paths: [projectRootDir]});
+                pluginPkgPath = require.resolve(pkgName+'/package.json', resolveOptions);
             } catch(err) {
+                console.log();
                 console.error(err);
+                console.log();
                 return;
             }
             const pluginPkg = require(pluginPkgPath);
