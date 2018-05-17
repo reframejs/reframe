@@ -83,7 +83,7 @@ function findPlugins({packageJsonFile}) {
     const foundPluginNames = (
         getDependencies({packageJsonFile})
         .filter(depPackageName =>
-            isReframePlugin({depPackageName, packageJsonFile, nodeModulesParentDir})
+            isReframePlugin({depPackageName, nodeModulesParentDir})
         )
     );
 
@@ -118,7 +118,7 @@ function loadReframePlugin({depPackageName, nodeModulesParentDir}) {
     const packageEntry = require.resolve(depPackageName, {paths: [nodeModulesParentDir]});
     return require(packageEntry)();
 }
-function isReframePlugin({packageJsonFile, depPackageName, nodeModulesParentDir}) {
+function isReframePlugin({depPackageName, nodeModulesParentDir}) {
     const depPackageJson = getDepPackageJson({depPackageName, nodeModulesParentDir});
     return depPackageJson && depPackageJson.reframePlugin;
 }
