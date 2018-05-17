@@ -42,7 +42,6 @@
         </a>
         &nbsp;&nbsp;&nbsp;&nbsp;
         &nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;
     </sup>
 </p>
 
