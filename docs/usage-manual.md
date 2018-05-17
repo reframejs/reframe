@@ -88,7 +88,7 @@
         &nbsp;&nbsp;&nbsp;&nbsp;
         &nbsp;&nbsp;&nbsp;&nbsp;
         &nbsp;&nbsp;
-        <a href="https://github.com/reframejs/reframe/blob/master/contributing.md">
+        <a href="https://github.com/reframejs/reframe/blob/master/docs/contributing.md">
             <img
               src="https://github.com/reframejs/reframe/raw/master/docs/images/muscle.png?sanitize=true"
               width="16"

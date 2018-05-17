@@ -1,4 +1,3 @@
-!OUTPUT ../contributing.md
 !MENU_SKIP
 
 Reframe is looking for co-maintainers and warmly welcomes contributions.
