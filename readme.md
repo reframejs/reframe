@@ -268,10 +268,11 @@ and read this overview.
 
 All of Reframe is ejectable and customizable.
 
-For example, the command `reframe eject server` ejects the server code:
+For example, the CLI command `$ reframe eject server` ejects the server code:
 [Around 30 lines of code](/plugins/server/startServer.js)
 are copied from Reframe's codebase and added to your codebase.
-Allowing you to modify the server code to add API endpoints, change server config, change server entirely, use a process manager, etc.
+Allowing you to modify the server code,
+so you can add API endpoints, change server config, change server entirely, use a process manager, etc.
 
 There are several eject commands that
 you can apply one by one and progressively as the need arises.
@@ -290,13 +291,13 @@ Reframe is universal, that is, you can create any type of web app:
    <br/>
    Apps with interactive views.
    (An interactive graph, an interactive table, a To-Do list, etc.)
- - **Good ol' 1998 websites** <sup><sub>:floppy_disk:</sub></sup> 
+ - **Good ol' 1998 websites** <sup><sub>:floppy_disk:</sub></sup>
    <br/>
    Apps without interactive views.
-   (The browser loads no JavaScript.)
+   (The DOM is static and the browser loads no JavaScript.)
  - **Hybrid apps**
    <br/>
-   Apps with interactive pages and non-interative pages.
+   Apps that have interactive pages as well as non-interative pages.
 
 Choosing the type of your app is only a matter of setting the page config options `htmlStatic` and `domStatic`.
 (Explanation at [Usage Manual - `domStatic` & `htmlStatic`](/docs/usage-manual.md#domstatic--htmlstatic).)
@@ -326,7 +327,7 @@ Choosing the type of your app is only a matter of setting the page config option
   such as GitHub Pages or Netlify.
 - **Vue.js**
   <br/>
-  You can use the `@reframe/vue` plugin and write your views with Vue (instead of React).
+  You can use the `@reframe/vue` plugin and write your views with Vue instead of React.
 - **React Router**
   <br/>
   The syntax of the page config's `route` string is the same than in React Router v4.
@@ -355,7 +356,7 @@ Choosing the type of your app is only a matter of setting the page config option
 
 - **Server-Side Rendering** (**SSR**)
   <br/>
-  By default, all pages' views are rendered to HTML giving you full control over SEO.
+  By default, pages are rendered to HTML giving you full control over SEO.
 
 ###### Performance
 
