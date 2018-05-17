@@ -3,8 +3,10 @@
 <br/>
 
  - Third party library installation
-   - Write a Google Anaylitics plugin `@reframe/google-analytics`
+   - Google Analytics plugin `@reframe/google-analytics`
+     - Automatically adds the GA snippet to all pages
    - Sentry plugin `@reframe/sentry`
+     - Automatically installs error tracker in the browser and on the server
    - etc.
    - Easy to implement
 
@@ -22,27 +24,30 @@
 
  - Deploy
    - Implement `@reframe/deploy-serverless` plugin
-     - Serverless deploy with up (https://github.com/apex/up)
-     - `reframe/deploy-severless` would be just a little wrapper around up
+     - Serverless deploy with `up` (https://github.com/apex/up)
+     - `@reframe/deploy-severless` would be just a little wrapper around `up`
    - Implement `@reframe/deploy-static` plugin
-     - Which static website host should be used? GitHub Pages, Netlify?
-   - Should be relatively easy to implement
+     - Which static website host should we use? GitHub Pages, Netlify?
+   - Serverless and static deploy should be relatively easy to implement
 
+
+<br/>
+
+
+ - Reframe Blog
+   - Plugin `@reframe/blog` to easily create a blog
+   - Themes are implemented with React and hence fully customizable
+   - Able to write new pages by providing a markdown string instead of a React component
+     - Theme wraps the provided markdown. (In other words we use React+markdown to render a new blog post.)
 
 <br/>
 
 
  - Write docs for beginners
 
-<br/>
-
- - Reframe Blog
-   - Plugin `@reframe/blog` to easily create a blog
-   - Themes are implement with React and hence fully customizable
-   - Able to write new pages by providing a markdown string instead of a React component
-     - Theme wraps the provided markdown. (In other words we use React+markdown to render a new blog post.)
 
 <br/>
+
 
  - ORM
    - Integrate with existing ORM?
@@ -52,11 +57,11 @@
      - etc.
    - Integrate with managed/serverless databases?
      - https://github.com/apex/up/wiki#databases
-   - Implement something like GraphQL but much easier usage and much simpler implementation? (GraphQL is overkill for a non-public API.)
+   - Implement something like GraphQL but much easier usage and much simpler implementation? (GraphQL is overkill for non-public APIs.)
      - So that the users uses the same API no matter what ORM/database is used.
    - Complex but very intersting
    - Full-stack API
-     - The user shouldn't have to create any enpdoints, she simply writes
+     - The user shouldn't have to create any enpdoint, she simply writes
         ~~~js
         // models.js
 
