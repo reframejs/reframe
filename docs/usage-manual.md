@@ -134,13 +134,17 @@
         -
         Create apps with page configs
     </nobr>
-    &nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;
+    &nbsp;&nbsp;
+    &nbsp;
     <nobr>
         <b>Progressive Eject</b>
         -
         No lock-in
     </nobr>
-    &nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;
+    &nbsp;&nbsp;
+    &nbsp;
     <nobr>
         <b>Universal</b>
         -
