@@ -23,7 +23,7 @@ Overview
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
-<nobr><a href="#quick-start">Quick&#160;Start</a>
+<a href="#quick-start">Quick&#160;Start</a>
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
