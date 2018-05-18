@@ -45,6 +45,7 @@ You can create an app with **no build configuration** and **no server configurat
 Yet you can **customize** and (progressively) **eject everything**.
 
 <br/>
+<br/>
 
 ### Example
 
@@ -64,6 +65,7 @@ Reframe does the rest:
 </p>
 
 <br/>
+<br/>
 
 ### Quick Start
 
@@ -74,6 +76,7 @@ read the source code of `my-app/`,
 check out the [Usage Manual](/docs/usage-manual.md),
 and read this overview.
 
+<br/>
 <br/>
 
 ### Progressive Eject
@@ -93,6 +96,7 @@ If you run all eject commands then you effectively get rid of Reframe.
 
 > Reframe doesn't lock you in: You can progressively and fully eject Reframe.
 
+<br/>
 <br/>
 
 ### Universal
@@ -114,6 +118,7 @@ Reframe is universal, that is, you can create any type of web app:
 Choosing the type of your app is only a matter of setting the page config options `htmlStatic` and `domStatic`.
 (Explanation at [Usage Manual - `domStatic` & `htmlStatic`](/docs/usage-manual.md#domstatic--htmlstatic).)
 
+<br/>
 <br/>
 
 ### Tech Specs
@@ -195,3 +200,7 @@ Choosing the type of your app is only a matter of setting the page config option
   When setting `htmlStatic: true` to a page config, the page is rendered to HTML at build-time (instead of request-time).
   The page's HTML is rendered only once and is served statically.
   Decreasing load time.
+
+<br/>
+<br/>
+
