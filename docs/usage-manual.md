@@ -146,7 +146,7 @@
 
 # Usage Manual
 
-###### Basics
+#### Basics
 
  - [Getting Started](#getting-started)
  - [CSS & Static Assets](#css--static-assets)
@@ -154,7 +154,7 @@
  - [Page Navigation & Links](#page-navigation--links)
  - [`domStatic` & `htmlStatic`](#domstatic--htmlstatic)
 
-###### Customization & Eject
+#### Customization & Eject
 
  - [Custom/Eject Server](#customeject-server)
  - [Custom Webpack](#custom-webpack)
@@ -167,12 +167,20 @@
  - [Custom/Eject Browser Code](#customeject-browser-code)
 -->
 
-###### Use Cases
+#### Use Cases
 
- - [Static Deploy](#static-deploy)
- - [Vue](#vue)
- - [React Native (Web)](#react-native-web)
- - [React Native (Web) + React Router](#react-native-web--react-router)
+
+ - Deploy
+    - [Static Deploy](#static-deploy)
+    - [Serverless Deploy](#serverless-deploy)
+
+ - Integrations
+    - [Vue](#vue)
+    - [React Router](#typescript)
+    - [TypeScript](#typescript)
+    - [PostCSS](#postcss)
+    - [React Native (Web)](#react-native-web)
+    - [React Native (Web) + React Router](#react-native-web--react-router)
 
 
 <br/>
@@ -782,6 +790,23 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 <br/>
 
 
+## Serverless Deploy
+
+If your app is stateless (no database, no background tasks, ...) then we recommand to do serverless deployment.
+
+Serverless deployment solutions:
+ - [Up](https://github.com/apex/up) - CLI tool to manage serverless deployement on AWS.
+ - [Now](https://zeit.co/now) - Serverless host.
+
+If you want to persist data, you may consider using a cloud database.
+ - [List of cloud databases](/docs/cloud-databases.md)
+
+<br/>
+
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+
+<br/>
+<br/>
 
 
 
@@ -802,7 +827,47 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 <br/>
 <br/>
 
+## React Router
 
+You can use the React Router components by adding the [@reframe/react-router](/plugins/react-router) plugin.
+
+Example:
+ - [/plugins/react-router/example](/plugins/react-router/example)
+
+<br/>
+
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+
+<br/>
+<br/>
+
+## TypeScript
+
+You can write your app with TypeScript by adding the [@reframe/typescript](/plugins/typescript) plugin.
+
+Example:
+ - [/plugins/typescript/example](/plugins/typescript/example)
+
+<br/>
+
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+
+<br/>
+<br/>
+
+## PostCSS
+
+You can write your styles with PostCSS by adding the [@reframe/postcss](/plugins/postcss) plugin.
+
+Example:
+ - [/plugins/postcss/example](/plugins/postcss/example)
+
+<br/>
+
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+
+<br/>
+<br/>
 
 
 
