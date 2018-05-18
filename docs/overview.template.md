@@ -5,38 +5,23 @@
 !MENU_LINK /../../
 !MENU_ORDER 10
 
-<h1>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Overview
-</h1>
+# Overview
 
 <br/>
 
-<div><p align="center">
-<a href="#introduction">Introduction</a>
-&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="#example">Example</a>
-&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="#quick-start">Quick&#160;Start</a>
-&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="#progressive-eject">Progressive&#160;Eject</a>
-&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="#universal">Universal</a>
-&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="#tech-specs">Tech&#160;Specs</a>
-</p></div>
+<div>
+    <a href="#introduction">Introduction</a>
+    <br/>
+    <a href="#example">Example</a>
+    <br/>
+    <a href="#quick-start">Quick&nbsp;Start</a>
+    <br/>
+    <a href="#progressive-eject">Progressive&nbsp;Eject</a>
+    <br/>
+    <a href="#universal">Universal</a>
+    <br/>
+    <a href="#tech-specs">Tech&nbsp;Specs</a>
+</div>
 
 &nbsp;
 
