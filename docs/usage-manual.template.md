@@ -37,7 +37,7 @@
 
  - Integrations
     - [Vue](#vue)
-    - [React Router](#typescript)
+    - [React Router](#react-router)
     - [TypeScript](#typescript)
     - [PostCSS](#postcss)
     - [React Native (Web)](#react-native-web)
@@ -494,12 +494,9 @@ If you want to persist data, you may consider using a cloud database.
 
 ## Vue
 
-You can also use Reframe with Vue instead of Reframe.
+You can also use Reframe with Vue instead of React.
 
 Check out the [`@reframe/vue`](/plugins/vue) plugin.
-
-Example:
- - [/plugins/vue/example](/plugins/vue/example)
 
 !INLINE ./help.md --hide-source-path
 
@@ -507,26 +504,17 @@ Example:
 
 You can use the React Router components by adding the [@reframe/react-router](/plugins/react-router) plugin.
 
-Example:
- - [/plugins/react-router/example](/plugins/react-router/example)
-
 !INLINE ./help.md --hide-source-path
 
 ## TypeScript
 
 You can write your app with TypeScript by adding the [@reframe/typescript](/plugins/typescript) plugin.
 
-Example:
- - [/plugins/typescript/example](/plugins/typescript/example)
-
 !INLINE ./help.md --hide-source-path
 
 ## PostCSS
 
 You can write your styles with PostCSS by adding the [@reframe/postcss](/plugins/postcss) plugin.
-
-Example:
- - [/plugins/postcss/example](/plugins/postcss/example)
 
 !INLINE ./help.md --hide-source-path
 

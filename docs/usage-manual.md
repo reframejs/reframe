@@ -176,7 +176,7 @@
 
  - Integrations
     - [Vue](#vue)
-    - [React Router](#typescript)
+    - [React Router](#react-router)
     - [TypeScript](#typescript)
     - [PostCSS](#postcss)
     - [React Native (Web)](#react-native-web)
@@ -813,12 +813,9 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 ## Vue
 
-You can also use Reframe with Vue instead of Reframe.
+You can also use Reframe with Vue instead of React.
 
 Check out the [`@reframe/vue`](/plugins/vue) plugin.
-
-Example:
- - [/plugins/vue/example](/plugins/vue/example)
 
 <br/>
 
@@ -831,9 +828,6 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 You can use the React Router components by adding the [@reframe/react-router](/plugins/react-router) plugin.
 
-Example:
- - [/plugins/react-router/example](/plugins/react-router/example)
-
 <br/>
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
@@ -845,9 +839,6 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 You can write your app with TypeScript by adding the [@reframe/typescript](/plugins/typescript) plugin.
 
-Example:
- - [/plugins/typescript/example](/plugins/typescript/example)
-
 <br/>
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
@@ -858,9 +849,6 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 ## PostCSS
 
 You can write your styles with PostCSS by adding the [@reframe/postcss](/plugins/postcss) plugin.
-
-Example:
- - [/plugins/postcss/example](/plugins/postcss/example)
 
 <br/>
 
