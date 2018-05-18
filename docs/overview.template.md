@@ -139,13 +139,11 @@ Choosing the type of your app is only a matter of setting the page config option
   such as GitHub Pages or Netlify.
 - **Vue.js**
   <br/>
-  You can use the `@reframe/vue` plugin and write your views with Vue instead of React.
+  Add the `@reframe/vue` plugin and write your views with Vue instead of React.
 - **React Router**
   <br/>
-  The syntax of the page config's `route` string is the same than in React Router v4.
-  <br/>
-  By adding the `@reframe/react-router` plugin
-  you can use React Router's components `<Route>`, `<Switch>`, etc.
+  Add the `@reframe/react-router` plugin
+  to use the React Router components `<Route>`, `<Switch>`, etc.
 - **TypeScript**
   <br/>
   Add the `@reframe/typescript` plugin and write your app in TypeScript.
