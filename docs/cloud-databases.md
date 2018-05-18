@@ -1,6 +1,6 @@
 # Cloud Databases
 
-This list was taken from https://github.com/apex/up/wiki#databases.
+This list is taken from https://github.com/apex/up/wiki#databases.
 
  - [Managed Databases](#managed-databases)
  - [Serverless Databases](#serverless-databases)

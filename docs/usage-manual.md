@@ -792,7 +792,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 ## Serverless Deploy
 
-If your app is stateless (no database, no background tasks, ...) then we recommand to do serverless deployment.
+If your app is stateless (no database, no background tasks, ...) we then recommand serverless deployment.
 
 Serverless deployment solutions:
  - [Up](https://github.com/apex/up) - CLI tool to manage serverless deployement on AWS.
