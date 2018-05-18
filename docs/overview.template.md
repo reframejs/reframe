@@ -9,21 +9,15 @@
 
 # Overview
 
-<div>
-    <a href="#introduction">Introduction</a>
-    <br/>
-    <a href="#example">Example</a>
-    <br/>
-    <a href="#quick-start">Quick&nbsp;Start</a>
-    <br/>
-    <a href="#progressive-eject">Progressive&nbsp;Eject</a>
-    <br/>
-    <a href="#universal">Universal</a>
-    <br/>
-    <a href="#tech-specs">Tech&nbsp;Specs</a>
-</div>
+ - [Introduction](#introduction)
+ - [Example](#example)
+ - [Quick Start](#quick-start)
+ - [Progressive Eject](#progressive-eject)
+ - [Universal](#universal)
+ - [Tech Specs](#tech-specs)
 
-&nbsp;
+<br/>
+<br/>
 
 ### Introduction
 

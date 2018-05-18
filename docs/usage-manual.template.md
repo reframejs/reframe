@@ -7,8 +7,6 @@
 
 # Usage Manual
 
-#### Contents
-
 ###### Basics
 
  - [Getting Started](#getting-started)
