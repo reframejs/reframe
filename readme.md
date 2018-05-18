@@ -129,19 +129,23 @@
 </p></div>
 
 <div><p align="center">
-    <b>Easy</b>
-    &nbsp;-&nbsp;
-    Create apps with page configs
-    &nbsp;&nbsp;
-    &nbsp;&nbsp;
-    <b>Progressive Eject</b>
-    &nbsp;-&nbsp;
-    No lock-in
-    &nbsp;&nbsp;
-    &nbsp;&nbsp;
-    <b>Universal</b>
-    &nbsp;-&nbsp;
-    Create static and dynamic apps
+    <nobr>
+        <b>Easy</b>
+        -
+        Create apps with page configs
+    </nobr>
+    &nbsp;&nbsp;&nbsp;
+    <nobr>
+        <b>Progressive Eject</b>
+        -
+        No lock-in
+    </nobr>
+    &nbsp;&nbsp;&nbsp;
+    <nobr>
+        <b>Universal</b>
+        -
+        Create static & dynamic apps
+    </nobr>
 </p></div>
 
 <br/>
@@ -168,11 +172,11 @@ Overview
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
-<a href="#quick-start">Quick Start</a>
+<nobr><a href="#quick-start">Quick&#160;Start</a>
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
-<a href="#progressive-eject">Progressive Eject</a>
+<a href="#progressive-eject">Progressive&#160;Eject</a>
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
@@ -180,7 +184,7 @@ Overview
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
-<a href="#tech-specs">Tech Specs</a>
+<a href="#tech-specs">Tech&#160;Specs</a>
 </p></div>
 
 &nbsp;
@@ -353,7 +357,7 @@ Choosing the type of your app is only a matter of setting the page config option
   <br/>
   Reframe uses webpack to build the app's pages.
   Webpack
-  is the state of the art to build browser assets.
+  is the state of the art tool to build browser assets.
 - **Hapi**
   <br/>
   Reframe uses hapi to create the server.

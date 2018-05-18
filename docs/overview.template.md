@@ -23,11 +23,11 @@ Overview
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
-<a href="#quick-start">Quick Start</a>
+<nobr><a href="#quick-start">Quick&#160;Start</a>
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
-<a href="#progressive-eject">Progressive Eject</a>
+<a href="#progressive-eject">Progressive&#160;Eject</a>
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
@@ -35,7 +35,7 @@ Overview
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;
-<a href="#tech-specs">Tech Specs</a>
+<a href="#tech-specs">Tech&#160;Specs</a>
 </p></div>
 
 &nbsp;

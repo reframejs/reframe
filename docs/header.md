@@ -52,19 +52,23 @@
 </p></div>
 
 <div><p align="center">
-    <b>Easy</b>
-    &nbsp;-&nbsp;
-    Create apps with page configs
-    &nbsp;&nbsp;
-    &nbsp;&nbsp;
-    <b>Progressive Eject</b>
-    &nbsp;-&nbsp;
-    No lock-in
-    &nbsp;&nbsp;
-    &nbsp;&nbsp;
-    <b>Universal</b>
-    &nbsp;-&nbsp;
-    Create static and dynamic apps
+    <nobr>
+        <b>Easy</b>
+        -
+        Create apps with page configs
+    </nobr>
+    &nbsp;&nbsp;&nbsp;
+    <nobr>
+        <b>Progressive Eject</b>
+        -
+        No lock-in
+    </nobr>
+    &nbsp;&nbsp;&nbsp;
+    <nobr>
+        <b>Universal</b>
+        -
+        Create static & dynamic apps
+    </nobr>
 </p></div>
 
 <br/>
