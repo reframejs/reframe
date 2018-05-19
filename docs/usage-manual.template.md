@@ -20,7 +20,7 @@
  - [Custom/Eject Server](#customeject-server)
  - [Custom Webpack](#custom-webpack)
  - [Custom Babel](#custom-babel)
- - [Custom &lt;head&gt;, &lt;script&gt;, ...](#custom-head-script-)
+ - [Custom &lt;html&gt;, &lt;head&gt;, &lt;script&gt;, ...](#custom-html-head-script-)
  - [Custom/Advanced Routing](#customadvanced-routing)
  - [Custom/Eject Build](#customeject-build)
 <!--- TODO
@@ -313,9 +313,27 @@ Example:
 
 
 
-## Custom &lt;head&gt;, &lt;script&gt;, ...
+## Custom &lt;html&gt;, &lt;head&gt;, &lt;script&gt;, ...
 
-Reframe handles the outer part of HTML (`<head>`, `<!DOCTYPE html`>, `<script>`, etc.) with `@brillout/index-html`.
+Reframe generates the HTML with [`@brillout/index-html`](https://github.com/brillout/index-html).
+
+You have full control over the HTML `<head>`, `<!DOCTYPE html`>, `<script>`, etc.
+
+There are two ways to alter the HTML:
+ - With the page configs
+ - By writing a `index.html` file at the root directory of your app
+
+~~~js
+!INLINE ../examples/custom-html/pages/landing.config.js
+~~~
+
+~~~js
+!INLINE ../examples/custom-html/pages/about.config.js
+~~~
+
+~~~js
+!INLINE ../examples/custom-html/index.html
+~~~
 
 All options of `@brillout/index-html` are available over the page config.
 Thus, the page config has full control over the outer part of HTML including the `<head>`.
