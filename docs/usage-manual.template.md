@@ -315,12 +315,12 @@ Example:
 
 ## Custom &lt;head&gt;, &lt;script&gt;, ...
 
-Reframe handles the outer part of HTML (including `<head>`, `<!DOCTYPE html`>, `<script>`, etc.) with `@brillout/html-crust`.
+Reframe handles the outer part of HTML (`<head>`, `<!DOCTYPE html`>, `<script>`, etc.) with `@brillout/index-html`.
 
-All options of `@brillout/html-crust` are available over the page config.
+All options of `@brillout/index-html` are available over the page config.
 Thus, the page config has full control over the outer part of HTML including the `<head>`.
 
-We refer to [`@brillout/html-crust`'s documentation](https://github.com/brillout/html-crust) for further information.
+See [`@brillout/index-html`'s documentation](https://github.com/brillout/index-html) for further information.
 
 !INLINE ./help.md --hide-source-path
 
