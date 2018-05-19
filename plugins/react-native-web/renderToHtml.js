@@ -1,6 +1,6 @@
 const React = require('react');
 const ReactDOMServer = require('react-dom/server');
-const HtmlCrust = require('@brillout/html-crust');
+const generateHtml = require('@brillout/index-html');
 const getProjectConfig = require('@reframe/utils/getProjectConfig');
 const {AppRegistry} = require('react-native-web');
 const containerId = 'root-react';
@@ -20,11 +20,11 @@ function renderToHtml({pageConfig, initialProps}) {
 
     const css = ReactDOMServer.renderToStaticMarkup(getStyleElement());
 
-    const htmlCrustOptions = Object.assign({headHtmls: [], bodyHtmls: []}, pageConfig);
-    htmlCrustOptions.bodyHtmls.push('<div id="'+containerId+'">'+div+'</div>');
-    htmlCrustOptions.headHtmls.push(css);
+    const htmlOptions = Object.assign({headHtmls: [], bodyHtmls: []}, pageConfig);
+    htmlOptions.bodyHtmls.push('<div id="'+containerId+'">'+div+'</div>');
+    htmlOptions.headHtmls.push(css);
 
-    const html = HtmlCrust(htmlCrustOptions);
+    const html = generateHtml(htmlOptions);
 
     return html;
 }

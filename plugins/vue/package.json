@@ -5,7 +5,7 @@
     "docs": "mdocs"
   },
   "dependencies": {
-    "@brillout/html-crust": "^0.4.0",
+    "@brillout/index-html": "^0.1.0",
     "vue": "^2.5.16",
     "vue-server-renderer": "^2.5.16"
   },

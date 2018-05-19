@@ -1,6 +1,6 @@
 const React = require('react');
 const ReactDOMServer = require('react-dom/server');
-const HtmlCrust = require('@brillout/html-crust');
+const generateHtml = require('@brillout/index-html');
 const containerId = 'root-react';
 const getProjectConfig = require('@reframe/utils/getProjectConfig');
 
@@ -19,10 +19,10 @@ function renderToHtml({pageConfig, initialProps}) {
 }
 
 function renderHtmlCrust(contentHtml, pageConfig) {
-    const htmlCrustOptions = Object.assign({bodyHtmls: []}, pageConfig);
-    htmlCrustOptions.bodyHtmls.push('<div id="'+containerId+'">'+contentHtml+'</div>');
+    const htmlOptions = Object.assign({bodyHtmls: []}, pageConfig);
+    htmlOptions.bodyHtmls.push('<div id="'+containerId+'">'+contentHtml+'</div>');
 
-    const html = HtmlCrust(htmlCrustOptions);
+    const html = generateHtml(htmlOptions);
 
     return html;
 }
