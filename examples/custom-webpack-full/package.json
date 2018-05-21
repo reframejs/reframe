@@ -2,7 +2,7 @@
   "name": "_example-custom-webpack-full",
   "private": true,
   "dependencies": {
-    "@reframe/react-kit": "0.1.5",
+    "@reframe/react-kit": "0.1.6",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
@@ -18,5 +18,5 @@
       "react"
     ]
   },
-  "version": "0.1.5"
+  "version": "0.1.6"
 }

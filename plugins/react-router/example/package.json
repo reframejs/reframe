@@ -1,10 +1,10 @@
 {
   "name": "_example-react-router",
   "private": true,
-  "version": "0.1.5",
+  "version": "0.1.6",
   "dependencies": {
-    "@reframe/react-kit": "0.1.5",
-    "@reframe/react-router": "0.1.5",
+    "@reframe/react-kit": "0.1.6",
+    "@reframe/react-router": "0.1.6",
     "react": "^16.3.2"
   },
   "checkDeps": {
