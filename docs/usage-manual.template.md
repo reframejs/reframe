@@ -20,7 +20,7 @@
  - [Custom/Eject Server](#customeject-server)
  - [Custom Webpack](#custom-webpack)
  - [Custom Babel](#custom-babel)
- - [Custom &lt;html&gt;, &lt;head&gt;, &lt;script&gt;, ...](#custom-html-head-script-)
+ - [Custom &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ...](#custom-head-meta-html-)
  - [Custom/Advanced Routing](#customadvanced-routing)
  - [Custom/Eject Build](#customeject-build)
 <!--- TODO
@@ -313,7 +313,7 @@ Example:
 
 
 
-## Custom &lt;html&gt;, &lt;head&gt;, &lt;script&gt;, ...
+## Custom &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ...
 
 Reframe generates the HTML with [`@brillout/index-html`](https://github.com/brillout/index-html).
 
@@ -327,24 +327,27 @@ There are two ways to alter the HTML:
 Over the page config:
 
 ~~~js
-!INLINE ../examples/custom-html/pages/landing.config.js
+!INLINE ../examples/custom-head/pages/landing.config.js
 ~~~
 
 Over a `index.html` file:
 
 ~~~js
-!INLINE ../examples/custom-html/index.html
+!INLINE ../examples/custom-head/index.html
 ~~~
 
 The `indexHtml` option allows to override the `index.html` file for a specific page:
 
 ~~~js
-!INLINE ../examples/custom-html/pages/about.config.js
+!INLINE ../examples/custom-head/pages/about.config.js
 ~~~
 
 All options of `@brillout/index-html` are available over the page config.
 
 See [`@brillout/index-html`'s documentation](https://github.com/brillout/index-html).
+
+Example:
+ - [/examples/custom-head](/examples/custom-head)
 
 !INLINE ./help.md --hide-source-path
 

@@ -159,7 +159,7 @@
  - [Custom/Eject Server](#customeject-server)
  - [Custom Webpack](#custom-webpack)
  - [Custom Babel](#custom-babel)
- - [Custom &lt;html&gt;, &lt;head&gt;, &lt;script&gt;, ...](#custom-html-head-script-)
+ - [Custom &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ...](#custom-head-meta-html-)
  - [Custom/Advanced Routing](#customadvanced-routing)
  - [Custom/Eject Build](#customeject-build)
 <!--- TODO
@@ -576,7 +576,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-## Custom &lt;html&gt;, &lt;head&gt;, &lt;script&gt;, ...
+## Custom &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ...
 
 Reframe generates the HTML with [`@brillout/index-html`](https://github.com/brillout/index-html).
 
@@ -590,7 +590,7 @@ There are two ways to alter the HTML:
 Over the page config:
 
 ~~~js
-// /examples/custom-html/pages/landing.config.js
+// /examples/custom-head/pages/landing.config.js
 
 import React from 'react';
 
@@ -612,7 +612,7 @@ export default {
 Over a `index.html` file:
 
 ~~~js
-// /examples/custom-html/index.html
+// /examples/custom-head/index.html
 
 <!DOCTYPE html>
 <html>
@@ -630,7 +630,7 @@ Over a `index.html` file:
 The `indexHtml` option allows to override the `index.html` file for a specific page:
 
 ~~~js
-// /examples/custom-html/pages/about.config.js
+// /examples/custom-head/pages/about.config.js
 
 import React from 'react';
 
@@ -658,6 +658,9 @@ export default {
 All options of `@brillout/index-html` are available over the page config.
 
 See [`@brillout/index-html`'s documentation](https://github.com/brillout/index-html).
+
+Example:
+ - [/examples/custom-head](/examples/custom-head)
 
 <br/>
 

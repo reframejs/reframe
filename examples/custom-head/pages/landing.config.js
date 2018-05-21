@@ -13,4 +13,3 @@ export default {
         'https://example.org/awesome-lib.css',
     ],
 };
-
