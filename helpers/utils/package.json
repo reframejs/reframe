@@ -4,7 +4,7 @@
   "dependencies": {
     "@brillout/cli-theme": "0.1.6",
     "@brillout/find-package-files": "^0.1.0",
-    "@brillout/get-user-dir": "^0.1.2",
+    "@brillout/get-user-dir": "^0.2.0",
     "cross-spawn": "^6.0.4",
     "find-up": "^2.1.0",
     "git-state": "^4.0.0",

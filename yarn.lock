@@ -38,6 +38,12 @@
   dependencies:
     callsites "^2.0.0"
 
+"@brillout/get-user-dir@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@brillout/get-user-dir/-/get-user-dir-0.2.0.tgz#dd47d442737f470a5734d1f2bcab6f7e5434e72f"
+  dependencies:
+    callsites "^2.0.0"
+
 "@brillout/index-html@^0.1.1":
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/@brillout/index-html/-/index-html-0.1.1.tgz#7dfd95fd1f08fae9514954f06b6ffca02da6d504"

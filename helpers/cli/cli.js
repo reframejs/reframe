@@ -18,7 +18,7 @@ const getProjectConfig = require('@reframe/utils/getProjectConfig');
 checkNodejsVersion();
 
 const cwd = process.cwd();
-getUserDir.userDir = cwd;
+getUserDir.setUserDir(cwd);
 
 const projectConfig = getProjectConfig({projectNotRequired: true, pluginRequired: true});
 
