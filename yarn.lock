@@ -38,7 +38,7 @@
   dependencies:
     callsites "^2.0.0"
 
-"@brillout/index-html@^0.1.0":
+"@brillout/index-html@^0.1.1":
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/@brillout/index-html/-/index-html-0.1.0.tgz#0e91ab72ca0b33945d3def8879e8efd89cd51a45"
   dependencies:

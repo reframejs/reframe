@@ -317,30 +317,41 @@ Example:
 
 Reframe generates the HTML with [`@brillout/index-html`](https://github.com/brillout/index-html).
 
-You have full control over the HTML `<head>`, `<!DOCTYPE html`>, `<script>`, etc.
+You have full control over the "outer-part" HTML tags.
+(`<meta>`, `<!DOCTYPE html`>, `<head>`, `<html>`, `<body>`, `<script>`, etc.)
 
 There are two ways to alter the HTML:
- - With the page configs
- - By writing a `index.html` file at the root directory of your app
+ - With the page config
+ - By writing an `index.html` file at your app's root directory
+
+Over the page config:
 
 ~~~js
 !INLINE ../examples/custom-html/pages/landing.config.js
 ~~~
 
-~~~js
-!INLINE ../examples/custom-html/pages/about.config.js
-~~~
+Over a `index.html` file:
 
 ~~~js
 !INLINE ../examples/custom-html/index.html
 ~~~
 
-All options of `@brillout/index-html` are available over the page config.
-Thus, the page config has full control over the outer part of HTML including the `<head>`.
+The `indexHtml` option allows to override the `index.html` file for a specific page:
 
-See [`@brillout/index-html`'s documentation](https://github.com/brillout/index-html) for further information.
+~~~js
+!INLINE ../examples/custom-html/pages/about.config.js
+~~~
+
+All options of `@brillout/index-html` are available over the page config.
+
+See [`@brillout/index-html`'s documentation](https://github.com/brillout/index-html).
 
 !INLINE ./help.md --hide-source-path
+
+
+
+
+
 
 
 <!--- TODO

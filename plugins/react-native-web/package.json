@@ -5,7 +5,7 @@
     "docs": "mdocs"
   },
   "dependencies": {
-    "@brillout/index-html": "^0.1.0",
+    "@brillout/index-html": "^0.1.1",
     "@reframe/react": "0.1.5",
     "@reframe/utils": "0.1.5",
     "babel-plugin-react-native-web": "^0.6.1",

@@ -5,9 +5,12 @@ export default {
     domStatic: true,
     view: () => <h1>Welcome</h1>,
 
-    // All options are passed down to `@brillout/index-html`
+    // All page config options are passed down to `@brillout/index-html`
     scripts: [
-        {src: 'https://example.org/third-party-lib.js'}
+        'https://example.org/awesome-lib.js',
+    ],
+    styles: [
+        'https://example.org/awesome-lib.css',
     ],
 };
 

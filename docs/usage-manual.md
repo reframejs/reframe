@@ -159,7 +159,7 @@
  - [Custom/Eject Server](#customeject-server)
  - [Custom Webpack](#custom-webpack)
  - [Custom Babel](#custom-babel)
- - [Custom &lt;head&gt;, &lt;script&gt;, ...](#custom-head-script-)
+ - [Custom &lt;html&gt;, &lt;head&gt;, &lt;script&gt;, ...](#custom-html-head-script-)
  - [Custom/Advanced Routing](#customadvanced-routing)
  - [Custom/Eject Build](#customeject-build)
 <!--- TODO
@@ -576,14 +576,88 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-## Custom &lt;head&gt;, &lt;script&gt;, ...
+## Custom &lt;html&gt;, &lt;head&gt;, &lt;script&gt;, ...
 
-Reframe handles the outer part of HTML (including `<head>`, `<!DOCTYPE html`>, `<script>`, etc.) with `@brillout/html-crust`.
+Reframe generates the HTML with [`@brillout/index-html`](https://github.com/brillout/index-html).
 
-All options of `@brillout/html-crust` are available over the page config.
-Thus, the page config has full control over the outer part of HTML including the `<head>`.
+You have full control over the "outer-part" HTML tags.
+(`<meta>`, `<!DOCTYPE html`>, `<head>`, `<html>`, `<body>`, `<script>`, etc.)
 
-We refer to [`@brillout/html-crust`'s documentation](https://github.com/brillout/html-crust) for further information.
+There are two ways to alter the HTML:
+ - With the page config
+ - By writing an `index.html` file at your app's root directory
+
+Over the page config:
+
+~~~js
+// /examples/custom-html/pages/landing.config.js
+
+import React from 'react';
+
+export default {
+    route: '/',
+    domStatic: true,
+    view: () => <h1>Welcome</h1>,
+
+    // All page config options are passed down to `@brillout/index-html`
+    scripts: [
+        'https://example.org/awesome-lib.js',
+    ],
+    styles: [
+        'https://example.org/awesome-lib.css',
+    ],
+};
+~~~
+
+Over a `index.html` file:
+
+~~~js
+// /examples/custom-html/index.html
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Default Title</title>
+        !HEAD
+    </head>
+    <body>
+        !BODY
+        <script src="https://example.org/some-lib.js" type="text/javascript"></script>
+    </body>
+</html>
+~~~
+
+The `indexHtml` option allows to override the `index.html` file for a specific page:
+
+~~~js
+// /examples/custom-html/pages/about.config.js
+
+import React from 'react';
+
+export default {
+    route: '/about',
+    domStatic: true,
+    view: () => <h1>About Page</h1>,
+
+    indexHtml: (
+`<!DOCTYPE html>
+<html>
+    <head>
+        <title>About</title>
+        !HEAD
+    </head>
+    <body>
+        !BODY
+    </body>
+</html>
+`
+    ),
+};
+~~~
+
+All options of `@brillout/index-html` are available over the page config.
+
+See [`@brillout/index-html`'s documentation](https://github.com/brillout/index-html).
 
 <br/>
 
@@ -591,6 +665,11 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 <br/>
 <br/>
+
+
+
+
+
 
 
 <!--- TODO
