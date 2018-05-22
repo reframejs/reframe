@@ -1,9 +1,9 @@
 {
   "name": "_example-dom-static",
   "private": true,
-  "version": "0.1.6",
+  "version": "0.1.7",
   "dependencies": {
-    "@reframe/react-kit": "0.1.6",
+    "@reframe/react-kit": "0.1.7",
     "react": "^16.3.2"
   },
   "checkDeps": {

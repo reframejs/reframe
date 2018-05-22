@@ -1,13 +1,13 @@
 {
   "name": "@reframe/react-native-web",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "scripts": {
     "docs": "mdocs"
   },
   "dependencies": {
     "@brillout/index-html": "^0.1.1",
-    "@reframe/react": "0.1.6",
-    "@reframe/utils": "0.1.6",
+    "@reframe/react": "0.1.7",
+    "@reframe/utils": "0.1.7",
     "babel-plugin-react-native-web": "^0.6.1",
     "react": "^16.1.1",
     "react-art": "^16.3.2",

@@ -1,8 +1,8 @@
 {
   "name": "@reframe/utils",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "dependencies": {
-    "@brillout/cli-theme": "0.1.6",
+    "@brillout/cli-theme": "0.1.7",
     "@brillout/find-package-files": "^0.1.0",
     "@brillout/get-user-dir": "^0.2.0",
     "cross-spawn": "^6.0.4",

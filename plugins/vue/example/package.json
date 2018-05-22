@@ -1,9 +1,9 @@
 {
   "name": "_example-vue",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "dependencies": {
-    "@reframe/react-kit": "0.1.6",
-    "@reframe/vue": "0.1.6",
+    "@reframe/react-kit": "0.1.7",
+    "@reframe/vue": "0.1.7",
     "vue": "^2.5.16"
   },
   "publishConfig": {

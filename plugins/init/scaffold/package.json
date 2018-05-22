@@ -1,13 +1,13 @@
 {
   "name": "_sample-project",
   "private": "true",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "checkDeps": {
     "skip": true
   },
   "dependencies": {
     "@brillout/fetch": "^0.0.2",
-    "@reframe/react-kit": "0.1.6",
+    "@reframe/react-kit": "0.1.7",
     "react": "^16.3.2"
   }
 }
