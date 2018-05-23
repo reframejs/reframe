@@ -315,14 +315,14 @@ Example:
 
 ## Custom &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ...
 
-Reframe generates the HTML with [`@brillout/index-html`](https://github.com/brillout/index-html).
+Reframe uses [`@brillout/index-html`](https://github.com/brillout/index-html) to generate HTML.
 
-You have full control over the "outer-part" HTML tags.
+You have full control over the "outer-part" HTML.
 (`<meta>`, `<!DOCTYPE html`>, `<head>`, `<html>`, `<body>`, `<script>`, etc.)
 
-There are two ways to alter the HTML:
- - With the page config
- - By writing an `index.html` file at your app's root directory
+There are two ways to define the HTML:
+ - With page configs
+ - By writing a `index.html` file
 
 Over the page config:
 
@@ -330,21 +330,21 @@ Over the page config:
 !INLINE ../examples/custom-head/pages/landing.config.js
 ~~~
 
-Over a `index.html` file:
+Over a `index.html` file saved in your app's root directory:
 
 ~~~js
 !INLINE ../examples/custom-head/index.html
 ~~~
 
-The `indexHtml` option allows to override the `index.html` file for a specific page:
+Also, the `indexHtml` page config option allows you to override the `index.html` file for a specific page:
 
 ~~~js
 !INLINE ../examples/custom-head/pages/about.config.js
 ~~~
 
-All options of `@brillout/index-html` are available over the page config.
+All options of `@brillout/index-html`'s `generateHtml({options})` function are available over the page config.
 
-See [`@brillout/index-html`'s documentation](https://github.com/brillout/index-html).
+All options are listed in [`@brillout/index-html`'s documentation](https://github.com/brillout/index-html).
 
 Example:
  - [/examples/custom-head](/examples/custom-head)

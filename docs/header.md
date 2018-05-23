@@ -52,11 +52,11 @@
 </p></div>
 
 <div><p align="center">
-    <b>Easy</b>&nbsp;&#8209;&nbsp;Create&nbsp;apps&nbsp;with&nbsp;page&nbsp;configs
+    <b>Easy</b>&nbsp;&#8209;&nbsp;Quickly&nbsp;implement&nbsp;apps
     &nbsp; &nbsp; &nbsp;
     <b>Progressive&nbsp;Eject</b>&nbsp;&#8209;&nbsp;No&nbsp;lock&#8209;in
     &nbsp; &nbsp; &nbsp;
-    <b>Universal</b>&nbsp;&#8209;&nbsp;Create&nbsp;static&nbsp;&&nbsp;dynamic&nbsp;apps
+    <b>Universal</b>&nbsp;&#8209;&nbsp;Create&nbsp;static&nbsp;/&nbsp;dynamic&nbsp;/&nbsp;hybrid&nbsp;apps
 </p></div>
 
 <br/>

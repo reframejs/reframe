@@ -96,6 +96,17 @@ If you run all eject commands then you effectively get rid of Reframe.
 
 > Reframe doesn't lock you in: You can progressively and fully eject Reframe.
 
+  as if you would implement your app from scratch on top of do-one-thing-and-do-it-well libraries.
+
+Giving as if you would write your app on top of do-one-thing-and-do-it-well libraries
+Allowing you 
+This allows you to
+> Quickly implement a prototype while keeping the same flexibility as if you write your app from scratch.
+
+> Quickly implement a prototype while keeping full flexbility
+
+You can think of Reframe as a tiny wrapper on top of rock-solid do-one-thing-and-do-it-well libraries that allows you to quickly implement a prototype and as your app matures you progressively eject Reframe to eventually get rid of Reframe entirely.
+
 <br/>
 <br/>
 
@@ -111,12 +122,33 @@ Reframe is universal, that is, you can create any type of web app:
    <br/>
    Apps without interactive views.
    (The DOM is static and the browser loads no JavaScript.)
- - **Hybrid apps**
+ - **Hybrid apps** :tm:
    <br/>
-   Apps that have interactive pages as well as non-interative pages.
+   Apps that have both: Modern interactive pages :sparkles: as well as good ol' 1998 non-interative pages :floppy_disk:.
 
 Choosing the type of your app is only a matter of setting the page config options `htmlStatic` and `domStatic`.
 (Explanation at [Usage Manual - `domStatic` & `htmlStatic`](/docs/usage-manual.md#domstatic--htmlstatic).)
+
+> Reframe is the only framework that supports every type of web app
+
+Instead of learning different frameworks for different types of apps, you learn Reframe once to be able to write any type of web app.
+
+> Learn Reframe once, write any type of app
+
+###### Hybrid apps :tm:
+
+Hybrid apps :tm: are the future because they allow you to implement apps that have only few interactive views while the rest .
+This is the future of web development.
+`non-interactive = easy to implement` and `interactive = difficult to implement but powerful`.
+
+> Hybrid apps :tm: allow you to create simple and easy non-interactive apps with only a couple of interacive views.
+
+  You can write an app that has only few interactive views while the rest is non-interactive.
+
+  <br/>
+  Following the approach "Whenever possible, implement features with non-interative views".
+  (Non-interactive views are considerably easier to implement.)
+
 
 <br/>
 <br/>
@@ -125,16 +157,23 @@ Choosing the type of your app is only a matter of setting the page config option
 
 ###### Developer Experience
 
-- **Mostly-non-interactive apps**
+- **Quick but flexible**
   <br/>
-  You can write an app that has only few interactive views while the rest is non-interactive.
+  Create an app simply by defining React components and page configs.
   <br/>
-  Following the approach "Whenever possible, implement features with non-interative views".
-  (Non-interactive views are considerably easier to implement.)
+  And thanks to progressive eject, you keep full flexibility.
+  More at [Progressive Eject](#progressive-eject).
+- **Hybrid apps** :tm:
+  <br/>
+  Implement apps with mostly easy-to-implement non-interactive pages and some difficult-to-implement-but-powerful interactive pages.
+  <br/>
+  More at [Universal](#universal).
 - **Learn once, write any app**
   <br/>
-  Instead of learning a framework to create a static app and a second framework to create a dynamic app,
-  you only learn Reframe to be able to implement any type of web app.
+  Instead of learning different frameworks to create different types of apps,
+  learn Reframe once to be able to implement any type of web app.
+  <br/>
+  More at [Universal](#universal).
 - **Static deploy**
   <br/>
   If your app is HTML-static
@@ -204,3 +243,17 @@ Choosing the type of your app is only a matter of setting the page config option
 <br/>
 <br/>
 
+
+> Reframe is the only framework that supports all types of web apps
+
+Instead of learning different frameworks for different types of apps,
+you learn Reframe once to be able to write any type of web app
+
+
+
+Quickly implement a prototype while progressively ejecting Reframe as your app matures
+Quickly implement a prototype and, as your app matures, progressively eject Reframe.
+
+Quickly implement a prototype. later as your app matures, progressively eject Reframe.
+
+Quickly implement a prototype. Progressively eject Reframe later as your app matures,
