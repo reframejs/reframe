@@ -1,0 +1,12 @@
+{
+  "name": "_example_github-pages",
+  "private": true,
+  "version": "0.1.7",
+  "dependencies": {
+    "@reframe/react-kit": "0.1.7",
+    "react": "^16.3.2"
+  },
+  "checkDeps": {
+    "skip": true
+  }
+}
