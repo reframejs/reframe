@@ -290,17 +290,17 @@ Reframe is universal, that is, you can create any type of web app:
    (The DOM is static and the browser loads no JavaScript.)
  - **Hybrid apps** :tm:
    <br/>
-   Apps that have both: Modern interactive pages :sparkles: as well as good ol' 1998 non-interative pages :floppy_disk:.
+   Apps that have both: Modern interactive pages <sup><sub>:sparkles:</sub></sup> as well as good ol' 1998 non-interative pages <sup><sub>:floppy_disk:</sub></sup>.
 
 Choosing the type of your app is only a matter of setting the page config options `htmlStatic` and `domStatic`.
 (Explanation at [Usage Manual - `domStatic` & `htmlStatic`](/docs/usage-manual.md#domstatic--htmlstatic).)
-
-> Reframe is the only framework that supports every type of web apps.
 
 Instead of learning different frameworks for different types of apps,
 learn Reframe to be able to write any type of web app.
 
 > Learn once, write any app.
+
+Reframe is the only framework that supports every type of web apps.
 
 ###### Hybrid apps :tm:
 
@@ -328,19 +328,16 @@ Reframe is the only framework that supports hybrid apps and they are the future 
 - **Quick but flexible**
   <br/>
   Create an app simply by defining React components and page configs.
-  <br/>
   And thanks to progressive eject, you have full flexibility.
   More at [Progressive Eject](#progressive-eject).
 - **Hybrid apps** :tm:
   <br/>
-  Implement apps with easy-to-implement non-interactive pages and only some difficult-to-implement-but-powerful interactive pages.
-  <br/>
+  Implement apps with mostly non-interactive pages (easy to implement) and only few interactive pages (difficult to implement but powerful).
   More at [Universal](#universal).
 - **Learn once, write any app**
   <br/>
   Instead of learning different frameworks to create different types of apps,
   learn Reframe once to be able to implement any type of web app.
-  <br/>
   More at [Universal](#universal).
 - **Static deploy**
   <br/>
