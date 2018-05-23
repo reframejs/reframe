@@ -129,26 +129,28 @@ Reframe is universal, that is, you can create any type of web app:
 Choosing the type of your app is only a matter of setting the page config options `htmlStatic` and `domStatic`.
 (Explanation at [Usage Manual - `domStatic` & `htmlStatic`](/docs/usage-manual.md#domstatic--htmlstatic).)
 
-> Reframe is the only framework that supports every type of web app
+> Reframe is the only framework that supports every type of web apps.
 
-Instead of learning different frameworks for different types of apps, you learn Reframe once to be able to write any type of web app.
+Instead of learning different frameworks for different types of apps,
+learn Reframe to be able to write any type of web app.
 
-> Learn Reframe once, write any type of app
+> Learn once, write any app.
 
 ###### Hybrid apps :tm:
 
-Hybrid apps :tm: are the future because they allow you to implement apps that have only few interactive views while the rest .
-This is the future of web development.
-`non-interactive = easy to implement` and `interactive = difficult to implement but powerful`.
+In general:
+ - **Interactive** views are **difficult** to implement **but powerful**.
+ - **Non-interactive** views are considerably **easier** to implement.
 
-> Hybrid apps :tm: allow you to create simple and easy non-interactive apps with only a couple of interacive views.
+This leads us to:
 
-  You can write an app that has only few interactive views while the rest is non-interactive.
+> The **non-interactive-by-default approach**: Whenever possible, implement features with non-interative views.
 
-  <br/>
-  Following the approach "Whenever possible, implement features with non-interative views".
-  (Non-interactive views are considerably easier to implement.)
+With Reframe you can write a hybrid app that has only few interactive views while the rest is non-interactive.
 
+> Hybrid apps allow you to follow the non-interactive-by-default approach.
+
+Reframe is the only framework that supports hybrid apps and they are the future of web development.
 
 <br/>
 <br/>
@@ -161,11 +163,11 @@ This is the future of web development.
   <br/>
   Create an app simply by defining React components and page configs.
   <br/>
-  And thanks to progressive eject, you keep full flexibility.
+  And thanks to progressive eject, you have full flexibility.
   More at [Progressive Eject](#progressive-eject).
 - **Hybrid apps** :tm:
   <br/>
-  Implement apps with mostly easy-to-implement non-interactive pages and some difficult-to-implement-but-powerful interactive pages.
+  Implement apps with easy-to-implement non-interactive pages and only some difficult-to-implement-but-powerful interactive pages.
   <br/>
   More at [Universal](#universal).
 - **Learn once, write any app**
