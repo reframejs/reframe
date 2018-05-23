@@ -96,16 +96,14 @@ If you run all eject commands then you effectively get rid of Reframe.
 
 > Reframe doesn't lock you in: You can progressively and fully eject Reframe.
 
-  as if you would implement your app from scratch on top of do-one-thing-and-do-it-well libraries.
+###### Quick but flexible
 
-Giving as if you would write your app on top of do-one-thing-and-do-it-well libraries
-Allowing you 
-This allows you to
-> Quickly implement a prototype while keeping the same flexibility as if you write your app from scratch.
+Once you fully eject Reframe, your app will not depend on Reframe anymore but only on state-of-the-art and do-one-thing-and-do-it-well libraries.
 
-> Quickly implement a prototype while keeping full flexbility
+Meaning that you have the same flexibility
+as if you would implement your app from scratch on top of these do-one-thing-and-do-it-well libraries.
 
-You can think of Reframe as a tiny wrapper on top of rock-solid do-one-thing-and-do-it-well libraries that allows you to quickly implement a prototype and as your app matures you progressively eject Reframe to eventually get rid of Reframe entirely.
+> Quickly implement a prototype. And, later as your app matures, progressively eject Reframe.
 
 <br/>
 <br/>
@@ -244,18 +242,3 @@ Reframe is the only framework that supports hybrid apps and they are the future 
 
 <br/>
 <br/>
-
-
-> Reframe is the only framework that supports all types of web apps
-
-Instead of learning different frameworks for different types of apps,
-you learn Reframe once to be able to write any type of web app
-
-
-
-Quickly implement a prototype while progressively ejecting Reframe as your app matures
-Quickly implement a prototype and, as your app matures, progressively eject Reframe.
-
-Quickly implement a prototype. later as your app matures, progressively eject Reframe.
-
-Quickly implement a prototype. Progressively eject Reframe later as your app matures,
