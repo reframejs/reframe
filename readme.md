@@ -129,11 +129,11 @@
 </p></div>
 
 <div><p align="center">
-    <b>Easy</b>&nbsp;&#8209;&nbsp;Create&nbsp;apps&nbsp;with&nbsp;page&nbsp;configs
+    <b>Easy</b>&nbsp;&#8209;&nbsp;Quickly&nbsp;implement&nbsp;apps
     &nbsp; &nbsp; &nbsp;
     <b>Progressive&nbsp;Eject</b>&nbsp;&#8209;&nbsp;No&nbsp;lock&#8209;in
     &nbsp; &nbsp; &nbsp;
-    <b>Universal</b>&nbsp;&#8209;&nbsp;Create&nbsp;static&nbsp;&&nbsp;dynamic&nbsp;apps
+    <b>Universal</b>&nbsp;&#8209;&nbsp;Create&nbsp;static&nbsp;/&nbsp;dynamic&nbsp;/&nbsp;hybrid&nbsp;apps
 </p></div>
 
 <br/>
@@ -264,6 +264,15 @@ If you run all eject commands then you effectively get rid of Reframe.
 
 > Reframe doesn't lock you in: You can progressively and fully eject Reframe.
 
+###### Quick but flexible
+
+Once you fully eject Reframe, your app will not depend on Reframe anymore but only on state-of-the-art and do-one-thing-and-do-it-well libraries.
+
+Meaning that you have the same flexibility
+as if you would implement your app from scratch on top of these do-one-thing-and-do-it-well libraries.
+
+> Quickly implement a prototype. And, later as your app matures, progressively eject Reframe.
+
 <br/>
 <br/>
 
@@ -279,12 +288,35 @@ Reframe is universal, that is, you can create any type of web app:
    <br/>
    Apps without interactive views.
    (The DOM is static and the browser loads no JavaScript.)
- - **Hybrid apps**
+ - **Hybrid apps** :tm:
    <br/>
-   Apps that have interactive pages as well as non-interative pages.
+   Apps that have both: Modern interactive pages :sparkles: as well as good ol' 1998 non-interative pages :floppy_disk:.
 
 Choosing the type of your app is only a matter of setting the page config options `htmlStatic` and `domStatic`.
 (Explanation at [Usage Manual - `domStatic` & `htmlStatic`](/docs/usage-manual.md#domstatic--htmlstatic).)
+
+> Reframe is the only framework that supports every type of web apps.
+
+Instead of learning different frameworks for different types of apps,
+learn Reframe to be able to write any type of web app.
+
+> Learn once, write any app.
+
+###### Hybrid apps :tm:
+
+In general:
+ - **Interactive** views are **difficult** to implement **but powerful**.
+ - **Non-interactive** views are considerably **easier** to implement.
+
+This leads us to:
+
+> The **non-interactive-by-default approach**: Whenever possible, implement features with non-interative views.
+
+With Reframe you can write a hybrid app that has only few interactive views while the rest is non-interactive.
+
+> Hybrid apps allow you to follow the non-interactive-by-default approach.
+
+Reframe is the only framework that supports hybrid apps and they are the future of web development.
 
 <br/>
 <br/>
@@ -293,16 +325,23 @@ Choosing the type of your app is only a matter of setting the page config option
 
 ###### Developer Experience
 
-- **Mostly-non-interactive apps**
+- **Quick but flexible**
   <br/>
-  You can write an app that has only few interactive views while the rest is non-interactive.
+  Create an app simply by defining React components and page configs.
   <br/>
-  Following the approach "Whenever possible, implement features with non-interative views".
-  (Non-interactive views are considerably easier to implement.)
+  And thanks to progressive eject, you have full flexibility.
+  More at [Progressive Eject](#progressive-eject).
+- **Hybrid apps** :tm:
+  <br/>
+  Implement apps with easy-to-implement non-interactive pages and only some difficult-to-implement-but-powerful interactive pages.
+  <br/>
+  More at [Universal](#universal).
 - **Learn once, write any app**
   <br/>
-  Instead of learning a framework to create a static app and a second framework to create a dynamic app,
-  you only learn Reframe to be able to implement any type of web app.
+  Instead of learning different frameworks to create different types of apps,
+  learn Reframe once to be able to implement any type of web app.
+  <br/>
+  More at [Universal](#universal).
 - **Static deploy**
   <br/>
   If your app is HTML-static
@@ -371,7 +410,6 @@ Choosing the type of your app is only a matter of setting the page config option
 
 <br/>
 <br/>
-
 
 <!---
 
