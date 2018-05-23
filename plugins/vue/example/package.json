@@ -9,5 +9,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "repository": "https://github.com/reframejs/reframe/tree/master/plugins/vue"
+  "checkDeps": {
+    "skip": true
+  }
 }

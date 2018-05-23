@@ -4,8 +4,7 @@
     "dependencies": {
         "@brillout/cli-theme": "0.1.7",
         "@reframe/utils": "0.1.7",
-        "fs-extra": "^6.0.1",
-        "reassert": "^1.1.8"
+        "fs-extra": "^6.0.1"
     },
     "publishConfig": {
         "access": "public"
