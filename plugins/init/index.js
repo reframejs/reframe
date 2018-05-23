@@ -1,8 +1,6 @@
 module.exports = initCommands;
 
 function initCommands() {
-    const path = require('path');
-
     return {
         name: require('./package.json').name,
         cliCommands: [

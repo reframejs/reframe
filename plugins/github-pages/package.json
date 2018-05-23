@@ -1,0 +1,11 @@
+{
+    "name": "@reframe/github-pages",
+    "version": "0.1.7",
+    "dependencies": {
+        "@reframe/utils": "0.1.7"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "repository": "github:reframejs/reframe"
+}

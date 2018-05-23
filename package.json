@@ -27,6 +27,8 @@
         "plugins/react-kit",
         "plugins/init",
         "plugins/init/scaffold",
+        "plugins/github-pages",
+        "plugins/github-pages/example",
         "plugins/path-to-regexp",
         "plugins/postcss",
         "plugins/postcss/example",
