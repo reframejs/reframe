@@ -164,7 +164,7 @@ Reframe is the only framework that supports hybrid apps and they are the future 
   More at [Progressive Eject](#progressive-eject).
 - **Hybrid apps** :tm:
   <br/>
-  Implement apps with mostly non-interactive pages (easy to implement) and only few interactive pages (difficult to implement but powerful).
+  Implement apps with mostly non-interactive pages (which easy to implement) and only few interactive pages (which are difficult to implement but powerful).
   More at [Universal](#universal).
 - **Learn once, write any app**
   <br/>
@@ -208,9 +208,16 @@ Reframe is the only framework that supports hybrid apps and they are the future 
 - **Server-Side Rendering** (**SSR**)
   <br/>
   By default, pages are rendered to HTML giving you full control over SEO.
+  <br/>
+  Google successfully crawls DOM-dynamic pages only to a limited extend. In practice you need SSR for reliable SEO.
 
 ###### Performance
 
+- **Static DOM**
+  <br/>
+  When setting `domStatic: true` to a page config, the page is not hydrated.
+  (In other words, the page is not loaded nor rendered in the browser, and is only rendered to HTML on the server.)
+  These pages are very performant as (almost) no JavaScript is loaded/executed in the browser.
 - **Code-splitting**
   <br/>
   By default a page loads two scripts:
@@ -218,11 +225,6 @@ Reframe is the only framework that supports hybrid apps and they are the future 
   (that includes common code such as React, polyfills, etc.)
   and a second script that includes the React components of the page.
   That way, a page only loads what it needs.
-- **Static DOM**
-  <br/>
-  When setting `domStatic: true` to a page config, the page is not hydrated.
-  (In other words, the page is not rendered to the DOM but only rendered to HTML.)
-  Not only is computational time saved by skipping rendering to the DOM but also load time is saved by skipping loading JavaScript code.
 - **Server-Side Rendering** (**SSR**)
   <br/>
   By default, a page is rendered to HTML on the server before being rendered to the DOM in the browser.
