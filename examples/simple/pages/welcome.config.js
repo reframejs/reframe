@@ -10,7 +10,8 @@ const WelcomePage = {
         <div>
             Props: <span>{JSON.stringify(props)}</span>
         </div>
-    </div>
+    </div>,
+    htmlStatic: true,
 };
 
 export default WelcomePage;

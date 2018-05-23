@@ -1,5 +1,6 @@
 const assert_warning = require('reassert/warning');
-const {getUrl, getInitialProps} = require('./common');
+const {getUrl} = require('./common');
+const {renderPageHtml} = require('./common-server');
 
 module.exports = getStaticPageHtmls;
 
@@ -29,9 +30,7 @@ async function getStaticPageHtmls({pageConfigs, router, renderToHtml}) {
 
                 const url = getUrl({uri});
 
-                const initialProps = await getInitialProps({pageConfig, url, router});
-
-                const html = await renderToHtml({pageConfig, initialProps});
+                const html = await renderPageHtml({renderToHtml, pageConfig, url, router});
 
                 return {url, html};
             })
