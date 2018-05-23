@@ -98,7 +98,7 @@ If you run all eject commands then you effectively get rid of Reframe.
 
 ###### Quick but flexible
 
-Once you fully eject Reframe, your app will not depend on Reframe anymore but only on state-of-the-art and do-one-thing-and-do-it-well libraries.
+Once you fully eject Reframe, your app will not depend on Reframe anymore, and will only depend on state-of-the-art and do-one-thing-and-do-it-well libraries.
 
 Meaning that you have the same flexibility
 as if you would implement your app from scratch on top of these do-one-thing-and-do-it-well libraries.
