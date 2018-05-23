@@ -10,6 +10,9 @@ async function renderPageHtml({renderToHtml, pageConfig, url, router}) {
     try {
         html = await renderToHtml({pageConfig, initialProps});
     } catch(err) {
+        if( isProduction() ) {
+            throw err;
+        }
         console.log();
         console.log();
         console.error(err);
@@ -23,13 +26,22 @@ async function renderPageHtml({renderToHtml, pageConfig, url, router}) {
 
 function renderHtmlError({pageConfig, err}) {
     const errHtml = (
-`<pre><code>${err.toString()}</code></pre>`
+`<div>
+    <h1>Internal Error 500</h1>
+    <div>
+        <pre><code>${err.stack}</code></pre>
+    </div>
+</div>
+`
 );
 
     const htmlOptions = Object.assign({bodyHtmls: []}, pageConfig);
-    htmlOptions.bodyHtmls.push('<div>'+errHtml+'</div>');
+    htmlOptions.bodyHtmls.push(errHtml);
     const html = generateHtml(htmlOptions);
 
     return html;
 }
 
+function isProduction() {
+   return process.env.NODE_ENV === 'production';
+}
