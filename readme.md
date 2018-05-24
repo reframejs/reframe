@@ -264,7 +264,7 @@ If you run all eject commands then you effectively get rid of Reframe.
 
 > Reframe doesn't lock you in: You can progressively and fully eject Reframe.
 
-&nbsp;
+<br/>
 
 ###### Quick but flexible
 
@@ -304,7 +304,7 @@ learn Reframe to be able to write any type of web app.
 
 Reframe is the only framework that supports every type of web apps.
 
-&nbsp;
+<br/>
 
 ###### Mixed apps :tm:
 
