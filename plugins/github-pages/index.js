@@ -129,6 +129,12 @@ module.exports = {
 
     const {commit: commitHash} = await git.commit({cwd, message: 'Built at '+buildTime.toString()});
 
+    if( ! commitHash ) {
+        console.log(symbolSuccess+"App already deployed. App live at "+githubPageUrl);
+        console.log();
+        return
+    }
+
     const commitInfo = await git.show({cwd, args: [commitHash, '--name-only']});
 
     console.log(symbolSuccess+'New commit:');

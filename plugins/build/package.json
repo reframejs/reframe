@@ -4,7 +4,7 @@
    "dependencies": {
       "@brillout/repage": "0.1.7",
       "@reframe/utils": "0.1.7",
-      "reassert": "^1.1.7",
+      "reassert": "^1.1.9",
       "webpack-ssr": "0.1.7"
    },
    "publishConfig": {

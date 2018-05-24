@@ -8,7 +8,7 @@
     "@brillout/get-user-dir": "^0.2.0",
     "find-up": "^2.1.0",
     "fork-ts-checker-webpack-plugin": "^0.4.0",
-    "reassert": "^1.1.8",
+    "reassert": "^1.1.9",
     "ts-loader": "^4.3.0",
     "typescript": "^2.8.3"
   },
