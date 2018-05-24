@@ -6,7 +6,7 @@ function deployStatic() {
         cliCommands: [
             {
                 name: 'deploy-static',
-                description: 'Deploy HTML-static app to GitHub Pages.',
+                description: 'Deploy to GitHub Pages.',
                 action: async () => {
                     runDeploy();
                 },
@@ -59,10 +59,12 @@ async function runDeploy() {
 
     await git.fetch({cwd, remote, branch});
 
-    await git.reset({cwd, options: ['FETCH_HEAD']});
+    await git.reset({cwd, args: ['FETCH_HEAD']});
+
+    await git.checkout({cwd, args: ['readme']});
 
  // TOOD get build timestamp
     await git.commit({cwd, message: 'Built at TODO'});
 
-    await git.push({cwd, remote, branch});
+ // await git.push({cwd, remote, branch});
 }

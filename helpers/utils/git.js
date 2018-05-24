@@ -14,6 +14,7 @@ module.exports = {
     push,
     fetch,
     reset,
+    checkout,
 };
 
 function hasDirtyOrUntrackedFiles({cwd}) {
@@ -115,11 +116,19 @@ async function fetch({cwd, remote, branch}) {
     assert_internal(remote);
     assert_internal(branch);
     const gitP = simple_git(cwd);
-    await gitP.fetch(remote, branch);
+    const ret = await gitP.fetch(remote, branch);
+    console.log(ret);
 }
 
-async function reset({cwd, options}) {
+async function reset({cwd, args}) {
     assert_internal(cwd);
     const gitP = simple_git(cwd);
-    await gitP.reset(options);
+    const ret = await gitP.reset(args);
+    console.log(ret);
+}
+
+async function checkout({cwd, args}) {
+    assert_internal(cwd);
+    const gitP = simple_git(cwd);
+    await gitP.checkout(args);
 }
