@@ -5,7 +5,7 @@ module.exports = {
         githubPages()
     ],
     githubPagesRepository: {
-        remote: 'git@github.com:brillout/reframe-github-pages-test',
+        repository: 'git@github.com:brillout/reframe-github-pages-test',
         branch: 'master', // optional, default is `master`
     },
 };
