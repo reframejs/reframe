@@ -164,7 +164,9 @@ Reframe is the only framework that supports hybrid apps and they are the future 
   More at [Progressive Eject](#progressive-eject).
 - **Hybrid apps** :tm:
   <br/>
-  Implement apps with mostly non-interactive pages (which easy to implement) and only few interactive pages (which are difficult to implement but powerful).
+  Implement apps with mostly non-interactive pages and only few interactive pages.
+  Following the non-interactive-by-default approach
+  (implement features with non-interative views whenever possible).
   More at [Universal](#universal).
 - **Learn once, write any app**
   <br/>
