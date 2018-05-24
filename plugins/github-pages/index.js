@@ -119,13 +119,13 @@ module.exports = {
 
     await git.fetch({cwd, remote: 'origin', branch});
 
-    await git.branch({cwd, args: ['-u', 'origin/'+branch]});
-
     await git.reset({cwd, args: ['FETCH_HEAD']});
+
+    await git.branch({cwd, args: ['-u', 'origin/'+branch]});
 
     const readmePath = await git.checkoutReadme({cwd});
     if( ! readmePath ) {
-        writeReadme({cwd, githubPageUrl});
+        writeReadme({cwd, githubPageUrl, githubPageUrl__without_protocol});
     }
 
     loadingSpinner.stop();
@@ -145,7 +145,6 @@ module.exports = {
     console.log(symbolSuccess+'New commit:');
     console.log();
     console.log(commitInfo);
-    console.log();
 
     const confirmText = 'Deploy app? (By pushing commit '+colorEmphasis(commitHash)+' to'+remoteText+'.)';
     const prompt = new Confirm(confirmText);
@@ -163,11 +162,14 @@ module.exports = {
         console.log();
     } else {
         console.log(colorError("App not deployed.")+" (Commit not pushed.)");
+        // TODO
+        // new aligned lines
+        // Tell about https://stackoverflow.com/questions/24851824/how-long-does-it-take-for-github-page-to-show-changes-after-changing-index-html
         console.log();
     }
 }
 
-function writeReadme({cwd, githubPageUrl}) {
+function writeReadme({cwd, githubPageUrl, githubPageUrl__without_protocol}) {
     const fs = require("fs");
     const path = require("path");
 
