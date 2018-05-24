@@ -132,15 +132,13 @@ learn Reframe to be able to write any type of web app.
 Reframe is the only framework that supports every type of web apps.
 
 And choosing the type of your app is only a matter of setting the page config options `htmlStatic` and `domStatic`.
-(Explanation at [Usage Manual - `domStatic` & `htmlStatic`](/docs/usage-manual.md#domstatic--htmlstatic).)
 So you can start writing your app and decide only later the type of your app.
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+(Explanation at [Usage Manual - `domStatic` & `htmlStatic`](/docs/usage-manual.md#domstatic--htmlstatic).)
 
 ###### Mixed apps :tm:
 
-Mixed apps allow you to implement apps that have interactive pages as well as non-interactive pages.
-
-For example an app that has a `/about` page that is static and non-interactive
+With Reframe you can write an app that has interactive pages and non-interactive pages.
+For example a `/about` page that is static and non-interactive
 (browser doesn't load any JavaScript and the DOM is static)
 and a `/search` page that is dynamic and interactive
 (browser loads React components and the DOM is dynamic).
