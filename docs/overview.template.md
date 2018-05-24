@@ -124,22 +124,19 @@ Reframe is universal, that is, you can create any type of web app:
    <br/>
    Apps that mix both: Modern interactive pages <sup><sub>:sparkles:</sub></sup> as well as good ol' 1998 non-interative pages <sup><sub>:floppy_disk:</sub></sup>.
 
-Choosing the type of your app is only a matter of setting the page config options `htmlStatic` and `domStatic`.
-(Explanation at [Usage Manual - `domStatic` & `htmlStatic`](/docs/usage-manual.md#domstatic--htmlstatic).)
-
 Instead of learning different frameworks for different types of apps,
 learn Reframe to be able to write any type of web app.
 
 > Learn once, write any app.
 
 Reframe is the only framework that supports every type of web apps.
+
+And choosing the type of your app is only a matter of setting the page config options `htmlStatic` and `domStatic`.
+(Explanation at [Usage Manual - `domStatic` & `htmlStatic`](/docs/usage-manual.md#domstatic--htmlstatic).)
+So you can start writing your app and decide only later the type of your app.
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 
 ###### Mixed apps :tm:
-
-Both interactive views and non-interactive views are important:
- - **Interactive** views are **difficult** to implement **but powerful**.
- - **Non-interactive** views are considerably **easier** to implement.
 
 Mixed apps allow you to implement apps that have interactive pages as well as non-interactive pages.
 
@@ -147,6 +144,10 @@ For example an app that has a `/about` page that is static and non-interactive
 (browser doesn't load any JavaScript and the DOM is static)
 and a `/search` page that is dynamic and interactive
 (browser loads React components and the DOM is dynamic).
+
+Both are important:
+ - **Interactive** views are **difficult** to implement **but powerful**.
+ - **Non-interactive** views are considerably **easier** to implement.
 
 In general, we recommand to follow the **non-interactive-by-default approach**:
 Whenever possible, implement features with non-interative views.
