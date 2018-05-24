@@ -3,7 +3,8 @@
   "version": "0.1.7",
   "dependencies": {
     "@brillout/relative-to-homedir": "^0.1.0",
-    "chalk": "^2.4.1"
+    "chalk": "^2.4.1",
+    "ora": "^2.0.0"
   },
   "repository": "https://github.com/reframejs/reframe/tree/master/helpers/cli-theme",
   "publishConfig": {

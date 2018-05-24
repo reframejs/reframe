@@ -10,7 +10,6 @@
     "@reframe/init": "0.1.7",
     "@reframe/utils": "0.1.7",
     "commander": "2.14.1",
-    "ora": "^2.0.0",
     "reassert": "^1.1.7"
   },
   "publishConfig": {

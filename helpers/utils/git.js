@@ -16,6 +16,7 @@ module.exports = {
     fetch,
     reset,
     checkoutReadme,
+    show,
 };
 
 function hasDirtyOrUntrackedFiles({cwd}) {
@@ -108,7 +109,7 @@ async function commit({cwd, message}) {
 async function show({cwd, args}) {
     assert_internal(cwd);
     const gitP = simple_git(cwd);
-    return await gitP.show();
+    return await gitP.show(args);
 }
 
 async function push({cwd, remote, branch}) {
@@ -139,11 +140,9 @@ async function checkoutReadme({cwd}) {
 
     for(readmePath of readmePaths) {
         try {
-            await git.checkout({cwd, args: [readmePath]});
+            await checkout({cwd, args: [readmePath]});
             return readmePath;
-        } catch( err ) {
-            console.log(err);
-        }
+        } catch( err ) {}
     }
 
     return null;

@@ -21,7 +21,7 @@ async function runDeploy() {
     const assert_usage = require('reassert/usage');
     const assert_internal = require('reassert/internal');
     const Confirm = require('prompt-confirm');
-    const {colorError} = require('@brillout/cli-theme');
+    const {colorError, colorEmphasis, strDir, loadingSpinner, symbolSuccess} = require('@brillout/cli-theme');
 
     const projectConfig = getProjectConfig();
 
@@ -85,7 +85,9 @@ module.exports = {
 
     const {remote, branch='master'} = githubPagesRepository;
 
-    ora
+    const remoteText = ' '+colorEmphasis(branch)+' of '+colorEmphasis(remote);
+    const loadingText = remoteText;
+    loadingSpinner.start({text: 'Loading'+loadingText});
 
     await git.fetch({cwd, remote, branch});
 
@@ -96,20 +98,37 @@ module.exports = {
         writeReadme({cwd});
     }
 
+    loadingSpinner.stop();
+    console.log(symbolSuccess+' Loaded'+loadingText+' at '+colorEmphasis(strDir(cwd)));
+    console.log();
+
     const {commit: commitHash} = await git.commit({cwd, message: 'Built at '+buildTime.toString()});
 
     const commitInfo = await git.show({cwd, args: [commitHash, '--name-only']});
 
-    const prompt = new Confirm('Push commit to '+remote+'?');
+    console.log(symbolSuccess+' New commit:');
+    console.log();
+    console.log(commitInfo);
+    console.log();
+
+    const confirmText = 'Deploy app?\n(By pushing commit '+colorEmphasis(commitHash)+' to'+remoteText+'.)\n';
+    const prompt = new Confirm(confirmText);
 
     const answer = await prompt.run();
     assert_internal([true, false].includes(answer));
 
+    console.log();
+
     if( answer ) {
+        loadingSpinner.start({text: 'Deploying'});
         await git.push({cwd, remote, branch});
+        loadingSpinner.stop();
+        console.log('App deployed. (Commit '+colorEmphasis(commitHash)+' pushed).');
+        console.log();
     } else {
         console.log("Commit not pushed.");
         console.log(colorError("App not deployed."));
+        console.log();
     }
 }
 

@@ -2,13 +2,12 @@
 
 process.on('unhandledRejection', err => {throw err});
 
-const ora = require('ora');
-const loading_spinner = ora();
-loading_spinner.start();
+const {colorEmphasisLight, strTable, strDir, strFile, colorFile, colorPkg, colorDir, colorError, loadingSpinner} = require('@brillout/cli-theme');
+
+loadingSpinner.start();
 
 const assert_usage = require('reassert/usage');
 const assert_internal = require('reassert/internal');
-const {colorEmphasisLight, strTable, strDir, strFile, colorFile, colorPkg, colorDir, colorError} = require('@brillout/cli-theme');
 const getUserDir = require('@brillout/get-user-dir');
 const program = require('commander');
 const cliUtils = require('@reframe/utils/cliUtils');
@@ -34,7 +33,7 @@ assert_at_least_one_command();
 
 const {runProgram} = initProgram();
 
-loading_spinner.stop();
+loadingSpinner.stop();
 
 runProgram();
 

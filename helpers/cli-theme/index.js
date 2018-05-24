@@ -1,8 +1,8 @@
 const chalk = require('chalk');
-const relativeToHomedir = require('@brillout/relative-to-homedir');
-const path = require('path');
 
 const symbols = getSymbols();
+
+let currentLoadingSpinner = null;
 
 const cliTheme = {
     /*
@@ -29,14 +29,60 @@ const cliTheme = {
     indent: '   ',
 
     strDir: dirPath => {
+        const path = require('path');
         dirPath = dirPath + (dirPath.endsWith(path.sep) ? '' : path.sep)
         return cliTheme.strFile(dirPath);
     },
-    strFile: filePath => relativeToHomedir(filePath),
+    strFile: filePath => {
+        const relativeToHomedir = require('@brillout/relative-to-homedir');
+        return relativeToHomedir(filePath);
+    },
     strTable,
+    loadingSpinner: {
+        start: startLoadingSpinner,
+        stop: stopLoadingSpinner,
+    },
 };
 
 module.exports = cliTheme;
+
+function startLoadingSpinner({text}={}) {
+    const ora = require('ora');
+    const assert_usage = require('reassert/usage');
+
+    /*
+    assert_usage(
+        currentLoadingSpinner===null,
+        "Trying to start the loading spinner but it already started"
+    );
+    */
+
+    if( currentLoadingSpinner ) {
+        return;
+    }
+
+    currentLoadingSpinner = ora({text});
+    currentLoadingSpinner.start();
+}
+
+function stopLoadingSpinner() {
+    const assert_usage = require('reassert/usage');
+
+    /*
+    assert_usage(
+        currentLoadingSpinner,
+        "Trying to end the loading spinner but it hasn't started"
+    );
+    */
+
+    if( ! currentLoadingSpinner ) {
+        return;
+    }
+
+    currentLoadingSpinner.stop();
+
+    currentLoadingSpinner = null;
+}
 
 function strTable(rows, {padding=2, indent}) {
     const columnWidths = [];

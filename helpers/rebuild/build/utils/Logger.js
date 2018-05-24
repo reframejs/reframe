@@ -1,16 +1,13 @@
 const assert_internal = require('reassert/internal');
 const assert_tmp = assert_internal;
-const ora = require('ora');
 const log = require('reassert/log');
 const log_title = require('../utils/log_title');
 const commondir = require('commondir');
-const {colorEmphasis, strDir, colorWarning, colorError, symbolSuccess, symbolError} = require('@brillout/cli-theme');
+const {colorEmphasis, strDir, colorWarning, colorError, symbolSuccess, symbolError, loadingSpinner} = require('@brillout/cli-theme');
 
 module.exports = {Logger};
 
 function Logger(opts) {
-    let current_spinner;
-
     Object.assign(
         this, {
             onNewBuildState: new BuildStateManager(this),
@@ -128,22 +125,10 @@ function Logger(opts) {
     }
 
     function start_spinner(text) {
-        assert_internal(!current_spinner);
-        current_spinner = ora({
-            text,
-         // spinner: 'line',
-        });
-        current_spinner.start();
+        loadingSpinner.start({text});
     }
     function stop_spinner() {
-        spinner_run('stop');
-    }
-    function spinner_run(fn_name) {
-        if( ! current_spinner ) {
-            return;
-        }
-        current_spinner[fn_name]();
-        current_spinner = null;
+        loadingSpinner.stop();
     }
 }
 
