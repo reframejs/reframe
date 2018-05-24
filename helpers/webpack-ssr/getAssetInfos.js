@@ -40,13 +40,14 @@ function readAssetMap({outputDir, requireProductionBuild}) {
     const assetMapContent = readFile(assetMapPath);
     assert_usage(
         assetMapContent!==null,
-        colorError("You need to build your app. (E.g. by running `$ reframe build`.)"),
+        colorError("You need to build your app")+". (E.g. by running `$ reframe build`.)",
         "(No asset information file `"+assetMapPath+"` found which should be generated when building.)"
     );
     const assetInfos = JSON.parse(assetMapContent)
     assert_usage(
-        assetInfos.buildEnv==='production',
-        "You need to "+colorError("build your app for production")+". (E.g. by running `$ reframe build`.)",
+        !requireProductionBuild || assetInfos.buildEnv==='production',
+        'Your app has been built for "'+assetInfos.buildEnv+'" but you need to '+colorError("build your app for production")+".",
+        "(E.g. by running `$ reframe build`.)",
         "(The asset information file `"+assetMapPath+"` has `buildEnv` set to `"+assetInfos.buildEnv+"` but it should be `production`.)"
     );
     return assetInfos;
