@@ -140,7 +140,7 @@ async function checkoutReadme({cwd}) {
 
     for(readmePath of readmePaths) {
         try {
-            await checkout({cwd, args: [readmePath]});
+            await checkout({cwd, args: [readmePath], silent: true});
             return readmePath;
         } catch( err ) {}
     }
@@ -148,8 +148,11 @@ async function checkoutReadme({cwd}) {
     return null;
 }
 
-async function checkout({cwd, args}) {
+async function checkout({cwd, args, silent}) {
     assert_internal(cwd);
-    const gitP = simple_git(cwd);
+    let gitP = simple_git(cwd);
+    if( silent ) {
+        gitP = gitP.silent(true);
+    }
     await gitP.checkout(args);
 }

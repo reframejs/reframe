@@ -99,14 +99,14 @@ module.exports = {
     }
 
     loadingSpinner.stop();
-    console.log(symbolSuccess+' Loaded'+loadingText+' at '+colorEmphasis(strDir(cwd)));
+    console.log(symbolSuccess+'Loaded'+loadingText+' at '+colorEmphasis(strDir(cwd)));
     console.log();
 
     const {commit: commitHash} = await git.commit({cwd, message: 'Built at '+buildTime.toString()});
 
     const commitInfo = await git.show({cwd, args: [commitHash, '--name-only']});
 
-    console.log(symbolSuccess+' New commit:');
+    console.log(symbolSuccess+'New commit:');
     console.log();
     console.log(commitInfo);
     console.log();
@@ -123,7 +123,7 @@ module.exports = {
         loadingSpinner.start({text: 'Deploying'});
         await git.push({cwd, remote, branch});
         loadingSpinner.stop();
-        console.log('App deployed. (Commit '+colorEmphasis(commitHash)+' pushed).');
+        console.log(symbolSuccess+'App deployed. (Commit '+colorEmphasis(commitHash)+' pushed).');
         console.log();
     } else {
         console.log("Commit not pushed.");
