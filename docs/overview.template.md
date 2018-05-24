@@ -137,7 +137,7 @@ So you can start writing your app and decide only later the type of your app.
 
 ###### Mixed apps :tm:
 
-With Reframe you can write an app that has both interactive and non-interactive pages.
+With Reframe you can mix interactive pages and non-interactive pages.
 For example a `/about` page that is static and non-interactive
 (browser doesn't load any JavaScript and the DOM is static)
 and a `/search` page that is dynamic and interactive
