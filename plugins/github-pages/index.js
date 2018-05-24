@@ -20,6 +20,8 @@ async function runDeploy() {
     const git = require('@reframe/utils/git');
     const assert_usage = require('reassert/usage');
     const assert_internal = require('reassert/internal');
+    const Confirm = require('prompt-confirm');
+    const {colorError} = require('@brillout/cli-theme');
 
     const projectConfig = getProjectConfig();
 
@@ -49,8 +51,6 @@ module.exports = {
     assert_internal(buildEnv==='production');
     assert_internal(buildTime);
 
-    console.log(buildInfo);
-
     const htmlDynamicPages = (
         pageConfigs
         .filter(pageConfig => !pageConfig.htmlStatic)
@@ -62,7 +62,7 @@ module.exports = {
         htmlDynamicPages
         .map(pageConfig => {
             console.log(pageConfig);
-            return "  "+pageConfig.pageName+" ("+pageConfig.pageConfigFile+")";
+            return "  "+pageConfig.pageName+" ("+pageConfig.pageFile+")";
         })
         .join('\n')
     );
@@ -85,6 +85,8 @@ module.exports = {
 
     const {remote, branch='master'} = githubPagesRepository;
 
+    ora
+
     await git.fetch({cwd, remote, branch});
 
     await git.reset({cwd, args: ['FETCH_HEAD']});
@@ -94,9 +96,21 @@ module.exports = {
         writeReadme({cwd});
     }
 
-    await git.commit({cwd, message: 'Built at '+buildTime.toString()});
+    const {commit: commitHash} = await git.commit({cwd, message: 'Built at '+buildTime.toString()});
 
- // await git.push({cwd, remote, branch});
+    const commitInfo = await git.show({cwd, args: [commitHash, '--name-only']});
+
+    const prompt = new Confirm('Push commit to '+remote+'?');
+
+    const answer = await prompt.run();
+    assert_internal([true, false].includes(answer));
+
+    if( answer ) {
+        await git.push({cwd, remote, branch});
+    } else {
+        console.log("Commit not pushed.");
+        console.log(colorError("App not deployed."));
+    }
 }
 
 function writeReadme({cwd}) {

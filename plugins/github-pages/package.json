@@ -2,7 +2,8 @@
     "name": "@reframe/github-pages",
     "version": "0.1.7",
     "dependencies": {
-        "@reframe/utils": "0.1.7"
+        "@reframe/utils": "0.1.7",
+        "prompt-confirm": "^1.2.0"
     },
     "publishConfig": {
         "access": "public"

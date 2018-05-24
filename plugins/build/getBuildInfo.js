@@ -8,16 +8,15 @@ function getBuildInfo({requireProductionBuild}={}) {
     const outputDir = projectConfig.projectFiles.buildOutputDir;
     const assetInfos = getAssetInfos({outputDir, requireProductionBuild});
 
-    const {staticAssetsDir, buildEnv} = assetInfos;
-    const pageConfigs = getPageConfigs({assetInfos});
+    const {pageAssets, ...assetInfos__rest} = assetInfos;
+    const pageConfigs = getPageConfigs({pageAssets});
 
-    return {pageConfigs, staticAssetsDir, buildEnv};
+    return {...assetInfos__rest, pageConfigs};
 }
 
-function getPageConfigs({assetInfos}) {
+function getPageConfigs({pageAssets}) {
     const pageConfigs = (
-        assetInfos
-        .pageAssets
+        pageAssets
         .map(({pageName, pageExport, styles, scripts}) => {
             const pageConfig = pageExport;
 

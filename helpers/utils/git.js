@@ -101,7 +101,14 @@ async function commit({cwd, message}) {
     assert_internal(cwd);
     const gitP = simple_git(cwd);
     await gitP.add('./*');
-    await gitP.commit(message);
+    const ret = await gitP.commit(message);
+    return ret;
+}
+
+async function show({cwd, args}) {
+    assert_internal(cwd);
+    const gitP = simple_git(cwd);
+    return await gitP.show();
 }
 
 async function push({cwd, remote, branch}) {
@@ -118,21 +125,19 @@ async function fetch({cwd, remote, branch}) {
     assert_internal(branch);
     const gitP = simple_git(cwd);
     const ret = await gitP.fetch(remote, branch);
-    console.log(ret);
 }
 
 async function reset({cwd, args}) {
     assert_internal(cwd);
     const gitP = simple_git(cwd);
     const ret = await gitP.reset(args);
-    console.log(ret);
 }
 
 async function checkoutReadme({cwd}) {
     assert_internal(cwd);
     const readmePaths = ['readme.md', 'README.md'].map(filename => path.resolve(cwd, './'+filename));
 
-    for(readmePath of readmePath) {
+    for(readmePath of readmePaths) {
         try {
             await git.checkout({cwd, args: [readmePath]});
             return readmePath;
