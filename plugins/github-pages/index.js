@@ -54,10 +54,15 @@ async function runDeploy() {
         "You need to add your user name and email to git."
     );
 
- // TOOD get build timestamp
- // await git.commit({cwd, message: 'boostrap Reframe app'});
-
     const remote = 'git@github.com:brillout/reframe-github-pages-test';
     const branch = 'master';
- // await git.push({cwd, remote, branch});
+
+    await git.fetch({cwd, remote, branch});
+
+    await git.reset({cwd, options: ['FETCH_HEAD']});
+
+ // TOOD get build timestamp
+    await git.commit({cwd, message: 'Built at TODO'});
+
+    await git.push({cwd, remote, branch});
 }
