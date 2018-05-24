@@ -271,7 +271,7 @@ Once you fully eject Reframe, your app will not depend on Reframe anymore, and w
 Meaning that you have the same flexibility
 as if you would implement your app from scratch on top of these do-one-thing-and-do-it-well libraries.
 
-> Quickly implement a prototype. And, later as your app matures, you can gain full flexibility by progressively ejecting Reframe.
+> Quickly implement a prototype. You can later then gain full flexibility by progressively ejecting Reframe.
 
 <br/>
 <br/>
@@ -305,7 +305,7 @@ So you can start writing your app and decide only later the type of your app.
 
 ###### Mixed apps :tm:
 
-With Reframe you can write an app that has interactive pages and non-interactive pages.
+With Reframe you can write an app that has both interactive and non-interactive pages.
 For example a `/about` page that is static and non-interactive
 (browser doesn't load any JavaScript and the DOM is static)
 and a `/search` page that is dynamic and interactive
@@ -332,13 +332,13 @@ Mixed apps are the future of web development and Reframe is the only framework s
 - **Quick but flexible**
   <br/>
   Create an app simply by defining React components and page configs.
-  And thanks to progressive eject, you have full flexibility.
+  And thanks to progressive eject, you stay fully in control of your app.
   More at [Progressive Eject](#progressive-eject).
 - **Mixed apps** :tm:
   <br/>
   Implement apps with mostly non-interactive pages and only few interactive pages.
-  Following the non-interactive-by-default approach
-  (implement features with non-interative views whenever possible).
+  Following the non-interactive-by-default approach.
+  (Implement features with non-interative views whenever possible.)
   More at [Universal](#universal).
 - **Learn once, write any app**
   <br/>
