@@ -1,7 +1,7 @@
 const assert_internal = require('reassert/internal');
 const assert_tmp = assert_internal;
 const log = require('reassert/log');
-const log_title = require('../utils/log_title');
+const {titleFormat} = require('@brillout/format-text');
 const commondir = require('commondir');
 const {colorEmphasis, strDir, colorWarning, colorError, symbolSuccess, symbolError, loadingSpinner} = require('@brillout/cli-theme');
 
@@ -295,4 +295,8 @@ function assert_compilation_info({compilation_info, is_compiling, is_failure}) {
         assert_internal(comp_info.output, comp_info);
         assert_internal(comp_info.output.dist_root_directory, comp_info);
     });
+}
+
+function log_title(title, {color=s=>s}={}) {
+    console.log(color(titleFormat(title)));
 }

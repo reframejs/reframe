@@ -2,7 +2,7 @@
 
 process.on('unhandledRejection', err => {throw err});
 
-const {colorEmphasisLight, strTable, strDir, strFile, colorFile, colorPkg, colorDir, colorError, loadingSpinner} = require('@brillout/cli-theme');
+const {colorEmphasisLight, strDir, strFile, colorFile, colorPkg, colorDir, colorError, loadingSpinner} = require('@brillout/cli-theme');
 
 loadingSpinner.start();
 
@@ -13,6 +13,7 @@ const program = require('commander');
 const cliUtils = require('@reframe/utils/cliUtils');
 const checkNodejsVersion = require('@reframe/utils/checkNodejsVersion');
 const getProjectConfig = require('@reframe/utils/getProjectConfig');
+const {tableFormat} = require('@brillout/format-text');
 
 checkNodejsVersion();
 
@@ -218,7 +219,7 @@ function initProgram() {
 
             optionsLog += '\n';
             optionsLog += INDENT+'Options:\n';
-            optionsLog += strTable(
+            optionsLog += tableFormat(
                 optionsSpec
                 .map(opt => [opt.name, opt.description]),
                 {indent: INDENT+INDENT}
@@ -241,7 +242,7 @@ function initProgram() {
         console.log(INDENT+'Usage: reframe [command]');
         console.log();
         console.log(INDENT+'Commands:');
-        console.log(strTable(
+        console.log(tableFormat(
             Object.entries(commandSpecs)
             .map(([commandName, cmdSpec]) => [commandName, cmdSpec.description]),
             {indent: INDENT+INDENT}

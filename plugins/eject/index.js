@@ -426,12 +426,13 @@ function getEjectables() {
 }
 
 function printEjectables(tabbing=2) {
-    const {colorEmphasisLight, strTable} = require('@brillout/cli-theme');
+    const {colorEmphasisLight} = require('@brillout/cli-theme');
+    const {tableFormat} = require('@brillout/format-text');
 
     const ejectables = getEjectables();
     const tab = new Array(tabbing).fill(' ').join('');
     console.log(tab+'Ejectables:');
-    console.log(strTable(
+    console.log(tableFormat(
         Object.values(ejectables)
         .map(ejectable => {
             const {name, description} = ejectable;

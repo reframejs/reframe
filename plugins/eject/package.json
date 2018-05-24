@@ -3,6 +3,7 @@
     "version": "0.1.7",
     "dependencies": {
         "@brillout/cli-theme": "0.1.7",
+        "@brillout/format-text": "^0.1.0",
         "@brillout/find-package-files": "^0.1.0",
         "@reframe/utils": "0.1.7",
         "builtins": "^2.0.0",

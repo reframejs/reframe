@@ -10,7 +10,7 @@ const path_module = require('path');
 const fs = require('fs');
 const mkdirp = require('mkdirp');
 const deep_copy = require('./utils/deep_copy');
-const log_title = require('./utils/log_title');
+const {titleFormat} = require('@brillout/format-text');
 const forceRequire = require('./utils/forceRequire');
 
 /*
@@ -339,7 +339,7 @@ function call_webpack(webpack_config) {
 
 function log_config(config) {
     assert_internal(config);
-    log_title('Webpack Config');
+    console.log(titleFormat('Webpack Config'));
     log(config);
 }
 
@@ -380,7 +380,7 @@ function get_output_info({config, webpack_stats, loadEntryPoints}) {
 }
 
 function debug_webpack_stats(webpack_stats) {
-    log_title('Webpack Compilation Info');
+    console.log(titleFormat('Webpack Compilation Info'));
     // The two intersting objects are
     //  - webpack_stats.toJson().entrypoints
     //  - webpack_stats.toJson().assetsByChunkName

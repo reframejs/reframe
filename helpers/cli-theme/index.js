@@ -37,7 +37,6 @@ const cliTheme = {
         const relativeToHomedir = require('@brillout/relative-to-homedir');
         return relativeToHomedir(filePath);
     },
-    strTable,
     loadingSpinner: {
         start: startLoadingSpinner,
         stop: stopLoadingSpinner,
@@ -82,36 +81,6 @@ function stopLoadingSpinner() {
     currentLoadingSpinner.stop();
 
     currentLoadingSpinner = null;
-}
-
-function strTable(rows, {padding=2, indent}) {
-    const columnWidths = [];
-
-    rows.forEach(cells => {
-        cells.forEach((cell, columnNumber) => {
-            columnWidths[columnNumber] = (
-                Math.max(
-                    cell.length,
-                    columnWidths[columnNumber]||0
-                )
-            );
-        });
-    });
-
-    const lines = [];
-
-    rows.forEach(cells => {
-        let line = indent;
-        cells.forEach((cell, columnNumber) => {
-            const colWidth = columnWidths[columnNumber];
-            let cellStr = new Array(colWidth+padding).fill(' ').join('');
-            cellStr = cell + cellStr.slice(cell.length);
-            line += cellStr;
-        });
-        lines.push(line);
-    });
-
-    return lines.join('\n');
 }
 
 // Copied and adapted from https://www.npmjs.com/package/log-symbols

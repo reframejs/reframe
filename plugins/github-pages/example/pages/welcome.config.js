@@ -5,10 +5,10 @@ const WelcomePage = {
     view: () => (
         <div>
             Welcome to Reframe.
-            <br/>
-            <div>
+            <br/><br/>
+            <small>
                 Built at {new Date().toString()}
-            </div>
+            </small>
         </div>
     ),
     htmlStatic: true,
