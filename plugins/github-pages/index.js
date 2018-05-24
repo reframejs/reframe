@@ -19,23 +19,23 @@ async function runDeploy() {
     const getProjectConfig = require('@reframe/utils/getProjectConfig');
     const git = require('@reframe/utils/git');
     const assert_usage = require('reassert/usage');
+    const assert_internal = require('reassert/internal');
 
     const projectConfig = getProjectConfig();
-    const buildInfo = require(projectConfig.build.getBuildInfo)();
-    const {staticAssetsDir, buildEnv, pageConfigs} = buildInfo;
+    const buildInfo = require(projectConfig.build.getBuildInfo)({requireProductionBuild: true});
+    const {staticAssetsDir, buildEnv, pageConfigs, buildTime} = buildInfo;
+    assert_internal(buildEnv==='production');
+    assert_internal(buildTime);
 
     console.log(buildInfo);
 
-    assert_usage(
+    const htmlDynamicPages = (
         pageConfigs
-        .every(pageConfig => pageConfig.htmlStatic),
-        "TODO"
+        .filter(pageConfig => !pageConfig.htmlStatic)
     );
-
     assert_usage(
-        buildEnv === 'production',
-        "You are trying to deploy a ",
-        "The build TODO"
+        htmlDynamicPages.length===0,
+        "TODO"
     );
 
     assert_usage(
@@ -61,10 +61,28 @@ async function runDeploy() {
 
     await git.reset({cwd, args: ['FETCH_HEAD']});
 
-    await git.checkout({cwd, args: ['readme']});
+    const readmePath = await git.checkoutReadme({cwd});
+    if( ! readmePath ) {
+        writeReadme({cwd});
+    }
 
  // TOOD get build timestamp
-    await git.commit({cwd, message: 'Built at TODO'});
+    await git.commit({cwd, message: 'Built at '+buildTime.toString()});
 
  // await git.push({cwd, remote, branch});
+}
+
+function writeReadme({cwd}) {
+    const fs = require("fs");
+    const path = require("path");
+
+    const filePath = path.resolve(cwd, './readme.md');
+    const fileContent = (
+`This website/webapp is
+ - Written with Reframe ([github.com/reframejs/reframe](https://github.com/reframejs/reframe)).
+ - Deployed with the Reframe plugin [@reframe/github-pages](https://github.com/reframejs/reframe/tree/master/plugins/github-pages).
+`
+    );
+
+    fs.writeFileSync(filePath, fileContent);
 }

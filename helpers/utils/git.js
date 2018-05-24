@@ -1,6 +1,7 @@
 const assert_internal = require('reassert/internal');
 const simple_git = require('simple-git/promise');
 const git_state = require('git-state');
+const path = require('path');
 
 module.exports = {
     hasDirtyOrUntrackedFiles,
@@ -14,7 +15,7 @@ module.exports = {
     push,
     fetch,
     reset,
-    checkout,
+    checkoutReadme,
 };
 
 function hasDirtyOrUntrackedFiles({cwd}) {
@@ -125,6 +126,22 @@ async function reset({cwd, args}) {
     const gitP = simple_git(cwd);
     const ret = await gitP.reset(args);
     console.log(ret);
+}
+
+async function checkoutReadme({cwd}) {
+    assert_internal(cwd);
+    const readmePaths = ['readme.md', 'README.md'].map(filename => path.resolve(cwd, './'+filename));
+
+    for(readmePath of readmePath) {
+        try {
+            await git.checkout({cwd, args: [readmePath]});
+            return readmePath;
+        } catch( err ) {
+            console.log(err);
+        }
+    }
+
+    return null;
 }
 
 async function checkout({cwd, args}) {

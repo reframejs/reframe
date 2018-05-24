@@ -3,13 +3,14 @@ const assert_usage = require('reassert/usage');
 const forceRequire = require('@rebuild/build/utils/forceRequire');
 const fs = require('fs');
 const pathModule = require('path');
+const {colorError} = require('@brillout/cli-theme');
 
 let cache;
 
 module.exports = getAssetInfos;
 
-function getAssetInfos({outputDir}) {
-    const assetInfos = readAssetMap({outputDir});
+function getAssetInfos({outputDir, requireProductionBuild}) {
+    const assetInfos = readAssetMap({outputDir, requireProductionBuild});
 
     if( cache && cache.buildTime === assetInfos.buildTime ) {
         return cache;
@@ -34,16 +35,21 @@ function getAssetInfos({outputDir}) {
     return assetInfos;
 }
 
-function readAssetMap({outputDir}) {
+function readAssetMap({outputDir, requireProductionBuild}) {
     const assetMapPath = pathModule.resolve(outputDir, 'assetInfos.json');
     const assetMapContent = readFile(assetMapPath);
     assert_usage(
         assetMapContent!==null,
-        "The asset information file `"+assetMapPath+"` is missing.",
-        "The build needs to have been run previously.",
-        "(The build generates `"+assetMapPath+"`.)"
+        colorError("You need to build your app. (E.g. by running `$ reframe build`.)"),
+        "(No asset information file `"+assetMapPath+"` found which should be generated when building.)"
     );
-    return JSON.parse(assetMapContent);
+    const assetInfos = JSON.parse(assetMapContent)
+    assert_usage(
+        assetInfos.buildEnv==='production',
+        "You need to "+colorError("build your app for production")+". (E.g. by running `$ reframe build`.)",
+        "(The asset information file `"+assetMapPath+"` has `buildEnv` set to `"+assetInfos.buildEnv+"` but it should be `production`.)"
+    );
+    return assetInfos;
 }
 
 function readFile(filepath) {

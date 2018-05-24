@@ -3,10 +3,10 @@ const getProjectConfig = require('@reframe/utils/getProjectConfig');
 
 module.exports = getBuildInfo;
 
-function getBuildInfo() {
+function getBuildInfo({requireProductionBuild}={}) {
     const projectConfig = getProjectConfig();
     const outputDir = projectConfig.projectFiles.buildOutputDir;
-    const assetInfos = getAssetInfos({outputDir});
+    const assetInfos = getAssetInfos({outputDir, requireProductionBuild});
 
     const {staticAssetsDir, buildEnv} = assetInfos;
     const pageConfigs = getPageConfigs({assetInfos});
