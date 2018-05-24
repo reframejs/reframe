@@ -96,6 +96,8 @@ If you run all eject commands then you effectively get rid of Reframe.
 
 > Reframe doesn't lock you in: You can progressively and fully eject Reframe.
 
+&nbsp;
+
 ###### Quick but flexible
 
 Once you fully eject Reframe, your app will not depend on Reframe anymore, and will only depend on state-of-the-art and do-one-thing-and-do-it-well libraries.
@@ -103,7 +105,7 @@ Once you fully eject Reframe, your app will not depend on Reframe anymore, and w
 Meaning that you have the same flexibility
 as if you would implement your app from scratch on top of these do-one-thing-and-do-it-well libraries.
 
-> Quickly implement a prototype. And, later as your app matures, progressively eject Reframe.
+> Quickly implement a prototype. And, later as your app matures, you can gain full flexibility by progressively ejecting Reframe.
 
 <br/>
 <br/>
@@ -120,9 +122,9 @@ Reframe is universal, that is, you can create any type of web app:
    <br/>
    Apps without interactive views.
    (The DOM is static and the browser loads no JavaScript.)
- - **Hybrid apps** :tm:
+ - **Mixed apps** :tm:
    <br/>
-   Apps that have both: Modern interactive pages <sup><sub>:sparkles:</sub></sup> as well as good ol' 1998 non-interative pages <sup><sub>:floppy_disk:</sub></sup>.
+   Apps that mix both: Modern interactive pages <sup><sub>:sparkles:</sub></sup> as well as good ol' 1998 non-interative pages <sup><sub>:floppy_disk:</sub></sup>.
 
 Choosing the type of your app is only a matter of setting the page config options `htmlStatic` and `domStatic`.
 (Explanation at [Usage Manual - `domStatic` & `htmlStatic`](/docs/usage-manual.md#domstatic--htmlstatic).)
@@ -134,21 +136,27 @@ learn Reframe to be able to write any type of web app.
 
 Reframe is the only framework that supports every type of web apps.
 
-###### Hybrid apps :tm:
+&nbsp;
 
-In general:
+###### Mixed apps :tm:
+
+Both interactive views and non-interactive views are important:
  - **Interactive** views are **difficult** to implement **but powerful**.
  - **Non-interactive** views are considerably **easier** to implement.
 
-This leads us to:
+Mixed apps allow you to implement apps that have interactive pages as well as non-interactive pages.
 
-> The **non-interactive-by-default approach**: Whenever possible, implement features with non-interative views.
+For example an app that has a `/about` page that is static and non-interactive
+(browser doesn't load any JavaScript and the DOM is static)
+and a `/search` page that is dynamic and interactive
+(browser loads React components and the DOM is dynamic).
 
-With Reframe you can write a hybrid app that has only few interactive views while the rest is non-interactive.
+In general, we recommand to follow the **non-interactive-by-default approach**:
+Whenever possible, implement features with non-interative views.
 
-> Hybrid apps allow you to follow the non-interactive-by-default approach.
+> Mixed apps allow you to follow the non-interactive-by-default approach.
 
-Reframe is the only framework that supports hybrid apps and they are the future of web development.
+Mixed apps are the future of web development and Reframe is the only framework supporting them.
 
 <br/>
 <br/>
@@ -162,7 +170,7 @@ Reframe is the only framework that supports hybrid apps and they are the future 
   Create an app simply by defining React components and page configs.
   And thanks to progressive eject, you have full flexibility.
   More at [Progressive Eject](#progressive-eject).
-- **Hybrid apps** :tm:
+- **Mixed apps** :tm:
   <br/>
   Implement apps with mostly non-interactive pages and only few interactive pages.
   Following the non-interactive-by-default approach

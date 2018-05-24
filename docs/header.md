@@ -56,7 +56,7 @@
     &nbsp; &nbsp; &nbsp;
     <b>Progressive&nbsp;Eject</b>&nbsp;&#8209;&nbsp;No&nbsp;lock&#8209;in
     &nbsp; &nbsp; &nbsp;
-    <b>Universal</b>&nbsp;&#8209;&nbsp;Create&nbsp;static&nbsp;/&nbsp;dynamic&nbsp;/&nbsp;hybrid&nbsp;apps
+    <b>Universal</b>&nbsp;&#8209;&nbsp;Create&nbsp;static&nbsp;/&nbsp;dynamic&nbsp;/&nbsp;mixed&nbsp;apps
 </p></div>
 
 <br/>
