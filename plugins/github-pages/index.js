@@ -33,7 +33,11 @@ async function runDeploy() {
     const {githubPagesRepository} = projectConfig;
     assert_usage(
         githubPagesRepository && githubPagesRepository.repository,
-        "You need to defined the `githubPagesRepository.repository` option in your `reframe.config.js`",
+        "Reframe config `githubPagesRepository.repository` missing.",
+        "",
+        "Create a new GitHub repository at https://github.com/new",
+        "",
+        "Then add the repository's address to `githubPagesRepository.repository` in your `reframe.config.js`",
         "",
         "Example: ",
         (
@@ -49,6 +53,10 @@ module.exports = {
 `
         )
 
+    );
+
+    assert_usage(
+        projectConfig.build.getBuildInfo
     );
 
     const buildInfo = require(projectConfig.build.getBuildInfo)({requireProductionBuild: true});
@@ -99,7 +107,7 @@ module.exports = {
     const repoShort = 'github:'+repoInfo.owner+'/'+repoInfo.name;
     const githubPageUrl = (
         'https://'+repoInfo.owner+'.github.io' +
-        (repoInfo.name === repoInfo.owner+'.github.io' ? '' : repoInfo.name)
+        (repoInfo.name === repoInfo.owner+'.github.io' ? '' : ('/'+repoInfo.name))
     );
 
     const remoteText = ' '+colorEmphasis(branch)+' of '+colorEmphasis(repoShort);
