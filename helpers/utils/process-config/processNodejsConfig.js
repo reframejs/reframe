@@ -155,6 +155,8 @@ function get_cli_commands(_processed, r_objects) {
 }
 
 function get_transparent_fields(_processed, r_objects) {
+    const transparentKeys = ['serverEntryFile', 'browserEntryFile', 'renderToHtml', 'router', 'githubPagesRepository'];
+
     _processed.build = {};
     r_objects
     .reverse()
@@ -167,18 +169,11 @@ function get_transparent_fields(_processed, r_objects) {
                 }
             });
         }
-        if (r_object.serverEntryFile) {
-            _processed.serverEntryFile = r_object.serverEntryFile;
-        }
-        if (r_object.browserEntryFile) {
-            _processed.browserEntryFile = r_object.browserEntryFile;
-        }
-        if (r_object.renderToHtml) {
-            _processed.renderToHtml = r_object.renderToHtml;
-        }
-        if (r_object.router) {
-            _processed.router = r_object.router;
-        }
+        transparentKeys.forEach(key => {
+            if (r_object[key]) {
+                _processed[key] = r_object[key];
+            }
+        });
     });
 }
 

@@ -22,6 +22,28 @@ async function runDeploy() {
     const assert_internal = require('reassert/internal');
 
     const projectConfig = getProjectConfig();
+
+    const {githubPagesRepository} = projectConfig;
+    assert_usage(
+        githubPagesRepository && githubPagesRepository.remote,
+        "You need to defined the `githubPagesRepository.remote` option in your `reframe.config.js`",
+        "",
+        "Example: ",
+        (
+`
+// reframe.config.js
+
+module.exports = {
+    githubPagesRepository: {
+        remote: 'git@github.com:username/repo',
+        branch: 'master', // optional, default is \`master\`
+    },
+};
+`
+        )
+
+    );
+
     const buildInfo = require(projectConfig.build.getBuildInfo)({requireProductionBuild: true});
     const {staticAssetsDir, buildEnv, pageConfigs, buildTime} = buildInfo;
     assert_internal(buildEnv==='production');
@@ -35,7 +57,14 @@ async function runDeploy() {
     );
     assert_usage(
         htmlDynamicPages.length===0,
-        "TODO"
+        "To be able to statically deploy to GitHub Pages, all your page configs need to have `htmlStatic: true`.",
+        "But the following pages don't have `htmlStatic: true`:",
+        htmlDynamicPages
+        .map(pageConfig => {
+            console.log(pageConfig);
+            return "  "+pageConfig.pageName+" ("+pageConfig.pageConfigFile+")";
+        })
+        .join('\n')
     );
 
     assert_usage(
@@ -54,8 +83,7 @@ async function runDeploy() {
         "You need to add your user name and email to git."
     );
 
-    const remote = 'git@github.com:brillout/reframe-github-pages-test';
-    const branch = 'master';
+    const {remote, branch='master'} = githubPagesRepository;
 
     await git.fetch({cwd, remote, branch});
 
@@ -66,7 +94,6 @@ async function runDeploy() {
         writeReadme({cwd});
     }
 
- // TOOD get build timestamp
     await git.commit({cwd, message: 'Built at '+buildTime.toString()});
 
  // await git.push({cwd, remote, branch});
