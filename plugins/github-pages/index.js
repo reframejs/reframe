@@ -105,16 +105,21 @@ module.exports = {
     );
 
     const repoShort = 'github:'+repoInfo.owner+'/'+repoInfo.name;
-    const githubPageUrl = (
-        'https://'+repoInfo.owner+'.github.io' +
+    const githubPageUrl__without_protocol = (
+        repoInfo.owner+'.github.io' +
         (repoInfo.name === repoInfo.owner+'.github.io' ? '' : ('/'+repoInfo.name))
     );
+    const githubPageUrl = 'https://'+githubPageUrl__without_protocol;
 
     const remoteText = ' '+colorEmphasis(branch)+' of '+colorEmphasis(repoShort);
     const loadingText = remoteText;
     loadingSpinner.start({text: 'Loading'+loadingText});
 
-    await git.fetch({cwd, remote: repository, branch});
+    await git.addRemote({cwd, remote: repository, name: 'origin'});
+
+    await git.fetch({cwd, remote: 'origin', branch});
+
+    await git.branch({cwd, args: ['-u', 'origin/'+branch]});
 
     await git.reset({cwd, args: ['FETCH_HEAD']});
 
@@ -142,7 +147,7 @@ module.exports = {
     console.log(commitInfo);
     console.log();
 
-    const confirmText = 'Deploy app?\n(By pushing commit '+colorEmphasis(commitHash)+' to'+remoteText+'.)\n';
+    const confirmText = 'Deploy app? (By pushing commit '+colorEmphasis(commitHash)+' to'+remoteText+'.)';
     const prompt = new Confirm(confirmText);
 
     const answer = await prompt.run();
@@ -152,13 +157,12 @@ module.exports = {
 
     if( answer ) {
         loadingSpinner.start({text: 'Deploying'});
-        await git.push({cwd, remote: repository, branch});
+        await git.push({cwd, remote: 'origin', branch});
         loadingSpinner.stop();
         console.log(symbolSuccess+'App deployed. (Commit '+colorEmphasis(commitHash)+' pushed.) App live at '+githubPageUrl);
         console.log();
     } else {
-        console.log("Commit not pushed.");
-        console.log(colorError("App not deployed."));
+        console.log(colorError("App not deployed.")+" (Commit not pushed.)");
         console.log();
     }
 }
@@ -169,10 +173,10 @@ function writeReadme({cwd, githubPageUrl}) {
 
     const filePath = path.resolve(cwd, './readme.md');
     const fileContent = (
-`This is the source code of [${githubPageUrl}](${githubPageUrl}).
+`Source code of [${githubPageUrl__without_protocol}](${githubPageUrl}).
 
-It has been written with Reframe ([github.com/reframejs/reframe](https://github.com/reframejs/reframe)) and
-deployed with the Reframe plugin [@reframe/github-pages](https://github.com/reframejs/reframe/tree/master/plugins/github-pages).
+Written with [Reframe](https://github.com/reframejs/reframe) and
+deployed with [@reframe/github-pages](https://github.com/reframejs/reframe/tree/master/plugins/github-pages).
 `
     );
 

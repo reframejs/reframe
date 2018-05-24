@@ -13,9 +13,11 @@ module.exports = {
     init,
     commit,
     push,
+    addRemote,
     fetch,
     reset,
     checkoutReadme,
+    branch,
     show,
 };
 
@@ -120,6 +122,18 @@ async function push({cwd, remote, branch}) {
     await gitP.push(remote, branch);
 }
 
+async function addRemote({cwd, name, remote}) {
+    assert_internal(cwd);
+    assert_internal(remote);
+    assert_internal(name);
+    const gitP = simple_git(cwd);
+    const remotes = await gitP.getRemotes();
+    if( remotes.find(remote => remote.name===name) ) {
+        return;
+    }
+    const ret = await gitP.addRemote(name, remote);
+}
+
 async function fetch({cwd, remote, branch}) {
     assert_internal(cwd);
     assert_internal(remote);
@@ -132,6 +146,12 @@ async function reset({cwd, args}) {
     assert_internal(cwd);
     const gitP = simple_git(cwd);
     const ret = await gitP.reset(args);
+}
+
+async function branch({cwd, args}) {
+    assert_internal(cwd);
+    const gitP = simple_git(cwd);
+    const ret = await gitP.branch(args);
 }
 
 async function checkoutReadme({cwd}) {
