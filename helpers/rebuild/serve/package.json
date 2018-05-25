@@ -1,8 +1,8 @@
 {
   "name": "@rebuild/serve",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "dependencies": {
-    "@rebuild/build": "0.1.10",
+    "@rebuild/build": "0.1.11",
     "chokidar": "^1.7.0",
     "parent-module": "^0.1.0",
     "reassert": "^1.1.9",

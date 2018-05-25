@@ -1,12 +1,12 @@
 {
   "name": "@reframe/vue",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "scripts": {
     "docs": "mdocs"
   },
   "dependencies": {
     "@brillout/index-html": "^0.1.1",
-    "@reframe/react": "0.1.10",
+    "@reframe/react": "0.1.11",
     "vue-server-renderer": "^2.5.16"
   },
   "devDependencies": {

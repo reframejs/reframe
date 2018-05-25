@@ -1,11 +1,11 @@
 {
     "name": "@reframe/eject",
-    "version": "0.1.10",
+    "version": "0.1.11",
     "dependencies": {
-        "@brillout/cli-theme": "0.1.10",
+        "@brillout/cli-theme": "0.1.11",
         "@brillout/find-package-files": "^0.1.0",
         "@brillout/format-text": "^0.1.0",
-        "@reframe/utils": "0.1.10",
+        "@reframe/utils": "0.1.11",
         "builtins": "^2.0.0",
         "detective": "^5.1.0",
         "mkdirp": "^0.5.1",
