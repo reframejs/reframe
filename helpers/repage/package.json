@@ -1,6 +1,6 @@
 {
   "name": "@brillout/repage",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "dependencies": {
     "@atto/parse-uri": "0.0.1",
     "@brillout/index-html": "^0.1.1",

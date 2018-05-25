@@ -1,6 +1,6 @@
 {
   "name": "@brillout/file-sets",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "dependencies": {
     "mkdirp": "^0.5.1",
     "reassert": "^1.1.9",
