@@ -1,9 +1,9 @@
 {
   "name": "_example_github-pages",
   "private": true,
-  "version": "0.1.7",
+  "version": "0.1.8",
   "dependencies": {
-    "@reframe/react-kit": "0.1.7",
+    "@reframe/react-kit": "0.1.8",
     "react": "^16.3.2"
   },
   "checkDeps": {

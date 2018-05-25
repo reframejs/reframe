@@ -1,6 +1,6 @@
 {
   "name": "@rebuild/config",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "dependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
