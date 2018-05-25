@@ -3,7 +3,7 @@
     "scripts": {
         "install-all": "npm install yarn --no-save && yarn",
         "i": "yarn",
-        "clean": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +",
+        "clean": "git clean -xdff",
         "docs": "mdocs ./docs/",
         "docs-all": "npm run docs && lerna run docs",
         "deps": "check-deps",
