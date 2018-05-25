@@ -6,6 +6,7 @@
     "@reframe/browser": "0.1.8",
     "@reframe/build": "0.1.8",
     "@reframe/eject": "0.1.8",
+    "@reframe/github-pages": "0.1.8",
     "@reframe/path-to-regexp": "0.1.8",
     "@reframe/react": "0.1.8",
     "@reframe/server": "0.1.8",
