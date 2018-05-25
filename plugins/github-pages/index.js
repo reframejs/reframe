@@ -16,10 +16,6 @@ function deployStatic() {
 }
 
 async function runDeploy() {
-    console.log();
-    console.log(cmdDescription);
-    console.log();
-
     const getProjectConfig = require('@reframe/utils/getProjectConfig');
     const path = require("path");
     const git = require('@reframe/utils/git');
@@ -27,6 +23,7 @@ async function runDeploy() {
     const assert_internal = require('reassert/internal');
     const Confirm = require('prompt-confirm');
     const GitUrlParse = require("git-url-parse");
+    const moment = require('moment');
     const {colorError, colorEmphasis, strDir, loadingSpinner, symbolSuccess, indent} = require('@brillout/cli-theme');
 
     const projectConfig = getProjectConfig();
@@ -42,19 +39,29 @@ async function runDeploy() {
     assert_internal(buildEnv==='production');
     assert_internal(buildTime);
 
+    const buildText = "build "+colorEmphasis('from '+moment(buildTime).fromNow())+" to GitHub Pages.";
+    console.log();
+    console.log("Deploying "+buildText);
+    console.log();
+
     const htmlDynamicPages = (
         pageConfigs
         .filter(pageConfig => !pageConfig.htmlStatic)
     );
     assert_usage(
         htmlDynamicPages.length===0,
-        "To statically deploy to GitHub Pages, all your page configs need to have `htmlStatic` set to `true`.",
-        "But the following pages aren't:",
+        "Trying to deploy "+buildText,
+        "",
+        "But GitHub Pages only supports HTML-static apps.",
+        "",
+        "All your page configs need `htmlStatic: true` but the following built pages don't:",
         htmlDynamicPages
         .map(pageConfig => {
             return "  "+pageConfig.pageName+" ("+pageConfig.pageFile+")";
         })
-        .join('\n')
+        .join('\n'),
+        "",
+        "Change your page configs accordingly and rebuild."
     );
 
     const {githubPagesRepository} = projectConfig;
