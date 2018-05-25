@@ -4,6 +4,7 @@ const serverPlugin = require('@reframe/server');
 const buildPlugin = require('@reframe/build');
 const browserPlugin = require('@reframe/browser');
 const startCommands = require('@reframe/start');
+const githubPages = require('@reframe/github-pages');
 const ejectCommands = require('@reframe/eject');
 
 module.exports = reactKit;
@@ -18,6 +19,7 @@ function reactKit() {
             buildPlugin(),
             browserPlugin(),
             startCommands(),
+            githubPages(),
             ejectCommands(),
         ],
     };

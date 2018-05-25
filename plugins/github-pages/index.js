@@ -37,7 +37,7 @@ async function runDeploy() {
         "",
         "Create a new GitHub repository at https://github.com/new",
         "",
-        "Then add the repository's address to `githubPagesRepository.remote` in your `reframe.config.js`",
+        "Then add the repository's address to `githubPagesRepository.remote` in your `reframe.config.js`.",
         "",
         "Example: ",
         (
