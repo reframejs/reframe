@@ -26,30 +26,30 @@ async function runDeploy() {
     const assert_internal = require('reassert/internal');
     const Confirm = require('prompt-confirm');
     const GitUrlParse = require("git-url-parse");
-    const {colorError, colorEmphasis, strDir, loadingSpinner, symbolSuccess} = require('@brillout/cli-theme');
+    const {colorError, colorEmphasis, strDir, loadingSpinner, symbolSuccess, indent} = require('@brillout/cli-theme');
 
     const projectConfig = getProjectConfig();
 
     const {githubPagesRepository} = projectConfig;
     assert_usage(
-        githubPagesRepository && githubPagesRepository.repository,
-        "Reframe config `githubPagesRepository.repository` missing.",
+        githubPagesRepository && githubPagesRepository.remote,
+        "Config `githubPagesRepository.remote` missing.",
         "",
         "Create a new GitHub repository at https://github.com/new",
         "",
-        "Then add the repository's address to `githubPagesRepository.repository` in your `reframe.config.js`",
+        "Then add the repository's address to `githubPagesRepository.remote` in your `reframe.config.js`",
         "",
         "Example: ",
         (
 `
-// reframe.config.js
+    // reframe.config.js
 
-module.exports = {
-    githubPagesRepository: {
-        repository: 'git@github.com:username/repo',
-        branch: 'master', // optional, default is \`master\`
-    },
-};
+    module.exports = {
+        githubPagesRepository: {
+            remote: 'git@github.com:username/repo',
+            branch: 'master', // optional, default is \`master\`
+        },
+    };
 `
         )
 
@@ -96,12 +96,12 @@ module.exports = {
         "You need to add your user name and email to git."
     );
 
-    const {repository, branch='master'} = githubPagesRepository;
+    const {remote, branch='master'} = githubPagesRepository;
 
-    const repoInfo = GitUrlParse(repository);
+    const repoInfo = GitUrlParse(remote);
     assert_usage(
         repoInfo.source==='github.com',
-        "The repository `"+repository+"` isn't a GitHub repository but it should be."
+        "The repository `"+remote+"` isn't a GitHub repository but it should be."
     );
 
     const repoShort = 'github:'+repoInfo.owner+'/'+repoInfo.name;
@@ -115,7 +115,7 @@ module.exports = {
     const loadingText = remoteText;
     loadingSpinner.start({text: 'Loading'+loadingText});
 
-    await git.addRemote({cwd, remote: repository, name: 'origin'});
+    await git.addRemote({cwd, remote, name: 'origin'});
 
     await git.fetch({cwd, remote: 'origin', branch});
 
@@ -156,15 +156,22 @@ module.exports = {
 
     if( answer ) {
         loadingSpinner.start({text: 'Deploying'});
+
         await git.push({cwd, remote: 'origin', branch});
+
+        const commits = await git.log({cwd, args: ['--max-count=2']});
+        const isNew = commits.all.length===1;
+
         loadingSpinner.stop();
-        console.log(symbolSuccess+'App deployed. (Commit '+colorEmphasis(commitHash)+' pushed.) App live at '+githubPageUrl);
+
+        console.log(symbolSuccess+'App deployed.');
+        console.log(indent+'(Commit '+colorEmphasis(commitHash)+' pushed.)');
+        console.log(indent+'App live at '+githubPageUrl);
+        // Source: https://stackoverflow.com/questions/24851824/how-long-does-it-take-for-github-page-to-show-changes-after-changing-index-html
+        console.log(indent+'(It can take GitHub Pages a while to update your app. For newly created apps it can take up to ~10 minutes.)');
         console.log();
     } else {
         console.log(colorError("App not deployed.")+" (Commit not pushed.)");
-        // TODO
-        // new aligned lines
-        // Tell about https://stackoverflow.com/questions/24851824/how-long-does-it-take-for-github-page-to-show-changes-after-changing-index-html
         console.log();
     }
 }

@@ -16,6 +16,7 @@ module.exports = {
     addRemote,
     fetch,
     reset,
+    log,
     checkoutReadme,
     branch,
     show,
@@ -152,6 +153,13 @@ async function branch({cwd, args}) {
     assert_internal(cwd);
     const gitP = simple_git(cwd);
     const ret = await gitP.branch(args);
+}
+
+async function log({cwd, args}) {
+    assert_internal(cwd);
+    const gitP = simple_git(cwd);
+    const ret = await gitP.log(args);
+    return ret;
 }
 
 async function checkoutReadme({cwd}) {
