@@ -375,10 +375,12 @@ function writeAssetMap({browserEntryPoints, fileSets, autoReloadEnabled, pageFil
 }
 function addPageFileTranspiled({assetInfos, pageModules}) {
     pageModules
-    .forEach(({pageName, pageFileTranspiled}) => {
+    .forEach(({pageName, pageFileTranspiled, pageFile}) => {
         assert_internal(!assetInfos.pageAssets[pageName]);
-        assetInfos.pageAssets[pageName] = {
+        assetInfos
+        .pageAssets[pageName] = {
             pageFileTranspiled,
+            pageFile,
         };
     });
 }

@@ -21,6 +21,7 @@ async function runDeploy() {
     console.log();
 
     const getProjectConfig = require('@reframe/utils/getProjectConfig');
+    const path = require("path");
     const git = require('@reframe/utils/git');
     const assert_usage = require('reassert/usage');
     const assert_internal = require('reassert/internal');
@@ -29,31 +30,8 @@ async function runDeploy() {
     const {colorError, colorEmphasis, strDir, loadingSpinner, symbolSuccess, indent} = require('@brillout/cli-theme');
 
     const projectConfig = getProjectConfig();
-
-    const {githubPagesRepository} = projectConfig;
-    assert_usage(
-        githubPagesRepository && githubPagesRepository.remote,
-        "Config `githubPagesRepository.remote` missing.",
-        "",
-        "Create a new GitHub repository at https://github.com/new",
-        "",
-        "Then add the repository's address to `githubPagesRepository.remote` in your `reframe.config.js`.",
-        "",
-        "Example: ",
-        (
-`
-    // reframe.config.js
-
-    module.exports = {
-        githubPagesRepository: {
-            remote: 'git@github.com:username/repo',
-            branch: 'master', // optional, default is \`master\`
-        },
-    };
-`
-        )
-
-    );
+    const {projectRootDir} = projectConfig.projectFiles;
+    assert_internal(projectRootDir);
 
     assert_usage(
         projectConfig.build.getBuildInfo
@@ -70,14 +48,37 @@ async function runDeploy() {
     );
     assert_usage(
         htmlDynamicPages.length===0,
-        "To be able to statically deploy to GitHub Pages, all your page configs need to have `htmlStatic: true`.",
-        "But the following pages don't have `htmlStatic: true`:",
+        "To statically deploy to GitHub Pages, all your page configs need to have `htmlStatic` set to `true`.",
+        "But the following pages aren't:",
         htmlDynamicPages
         .map(pageConfig => {
-            console.log(pageConfig);
             return "  "+pageConfig.pageName+" ("+pageConfig.pageFile+")";
         })
         .join('\n')
+    );
+
+    const {githubPagesRepository} = projectConfig;
+    assert_usage(
+        githubPagesRepository && githubPagesRepository.remote,
+        "Config `githubPagesRepository.remote` missing.",
+        "",
+        "Create a new GitHub repository at https://github.com/new",
+        "",
+        "Then add the repository's address to "+colorEmphasis("githubPagesRepository.remote")+" in your "+colorEmphasis(path.resolve(projectRootDir, "./reframe.config.js"))+".",
+        "",
+        "Example: ",
+        (
+`
+    // reframe.config.js
+
+    module.exports = {
+        githubPagesRepository: {
+            remote: 'git@github.com:username/repo',
+            branch: 'master', // optional, default is \`master\`
+        },
+    };
+`
+        )
     );
 
     assert_usage(

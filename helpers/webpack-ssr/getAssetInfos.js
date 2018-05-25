@@ -19,14 +19,14 @@ function getAssetInfos({outputDir, requireProductionBuild}) {
     assetInfos.pageAssets = (
         Object.entries(assetInfos.pageAssets)
         .map(([pageName, assets]) => {
-            const {pageFileTranspiled, styles, scripts} = assets;
+            const {pageFileTranspiled, pageFile, styles, scripts} = assets;
             assert_internal(pageFileTranspiled);
             assert_internal(styles.length>=0);
             assert_internal(scripts.length>=0);
 
             const pageExport = forceRequire(pageFileTranspiled);
 
-            return {...assets, pageName, pageExport};
+            return {...assets, pageName, pageFileTranspiled, pageFile, pageExport};
         })
     );
 

@@ -17,7 +17,7 @@ function getBuildInfo({requireProductionBuild}={}) {
 function getPageConfigs({pageAssets}) {
     const pageConfigs = (
         pageAssets
-        .map(({pageName, pageExport, styles, scripts}) => {
+        .map(({pageName, pageFile, pageFileTranspiled, pageExport, styles, scripts}) => {
             const pageConfig = pageExport;
 
             pageConfig.scripts = makeUnique([
@@ -31,6 +31,8 @@ function getPageConfigs({pageAssets}) {
             ]);
 
             pageConfig.pageName = pageName;
+            pageConfig.pageFile = pageFile;
+            pageConfig.pageFileTranspiled = pageFileTranspiled;
 
             return pageConfig;
         })
