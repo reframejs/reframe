@@ -1,16 +1,16 @@
 {
   "name": "@reframe/react-kit",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "reframePlugin": true,
   "dependencies": {
-    "@reframe/browser": "0.1.8",
-    "@reframe/build": "0.1.8",
-    "@reframe/eject": "0.1.8",
-    "@reframe/github-pages": "0.1.8",
-    "@reframe/path-to-regexp": "0.1.8",
-    "@reframe/react": "0.1.8",
-    "@reframe/server": "0.1.8",
-    "@reframe/start": "0.1.8"
+    "@reframe/browser": "0.1.9",
+    "@reframe/build": "0.1.9",
+    "@reframe/eject": "0.1.9",
+    "@reframe/github-pages": "0.1.9",
+    "@reframe/path-to-regexp": "0.1.9",
+    "@reframe/react": "0.1.9",
+    "@reframe/server": "0.1.9",
+    "@reframe/start": "0.1.9"
   },
   "publishConfig": {
     "access": "public"
