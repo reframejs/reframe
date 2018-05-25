@@ -39,7 +39,8 @@ async function runDeploy() {
     assert_internal(buildEnv==='production');
     assert_internal(buildTime);
 
-    const buildText = "build "+colorEmphasis('from '+moment(buildTime).fromNow())+" to GitHub Pages.";
+    const buildTimeText = 'from '+moment(buildTime).fromNow();
+    const buildText = "build "+colorEmphasis(buildTimeText)+' to GitHub Pages.';
     console.log();
     console.log("Deploying "+buildText);
     console.log();
@@ -146,7 +147,8 @@ async function runDeploy() {
     const {commit: commitHash} = await git.commit({cwd, message: 'Built at '+buildTime.toString()});
 
     if( ! commitHash ) {
-        console.log(symbolSuccess+"App already deployed. App live at "+githubPageUrl);
+        console.log(symbolSuccess+"Already deployed.");
+        console.log(indent+"Live at "+githubPageUrl);
         console.log();
         return
     }
@@ -157,7 +159,7 @@ async function runDeploy() {
     console.log();
     console.log(commitInfo);
 
-    const confirmText = 'Deploy app? (By pushing commit '+colorEmphasis(commitHash)+' to'+remoteText+'.)';
+    const confirmText = 'Deploy build '+buildTimeText+'? (By pushing commit '+colorEmphasis(commitHash)+' to'+remoteText+'.)';
     const prompt = new Confirm(confirmText);
 
     const answer = await prompt.run();
@@ -175,14 +177,14 @@ async function runDeploy() {
 
         loadingSpinner.stop();
 
-        console.log(symbolSuccess+'App deployed.');
+        console.log(symbolSuccess+'Deployed.');
         console.log(indent+'(Commit '+colorEmphasis(commitHash)+' pushed.)');
-        console.log(indent+'App live at '+githubPageUrl);
+        console.log(indent+'Will be live at '+githubPageUrl);
         // Source: https://stackoverflow.com/questions/24851824/how-long-does-it-take-for-github-page-to-show-changes-after-changing-index-html
-        console.log(indent+'(It can take GitHub Pages a while to update your app. For newly created apps it can take up to ~10 minutes.)');
+        console.log(indent+'(It can take GitHub Pages a while to make the deploy live. For newly created apps it can take up to ~10 minutes.)');
         console.log();
     } else {
-        console.log(colorError("App not deployed.")+" (Commit not pushed.)");
+        console.log(colorError("Not deployed.")+" (Commit not pushed.)");
         console.log();
     }
 }
