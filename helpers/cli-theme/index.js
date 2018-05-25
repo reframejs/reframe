@@ -60,7 +60,13 @@ function startLoadingSpinner({text}={}) {
         return;
     }
 
-    currentLoadingSpinner = ora({text});
+    const oraOpts = {};
+    if( text ) {
+        oraOpts.text = text;
+    }
+
+    currentLoadingSpinner = ora(oraOpts);
+
     currentLoadingSpinner.start();
 }
 
