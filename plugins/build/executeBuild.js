@@ -5,7 +5,7 @@ const getPageBrowserEntries = require('./getPageBrowserEntries');
 const getPageHTMLs = require('./getPageHTMLs');
 
 const globalConfig = require('@brillout/global-config');
-require('@reframe/utils/global-config-getters/webpack-config-modifier');
+require('@reframe/utils/global-config-getters/webpack-config-modifiers');
 
 const outputDir = globalConfig.projectFiles.buildOutputDir;
 const getPageFiles = () => globalConfig.getPageConfigFiles();

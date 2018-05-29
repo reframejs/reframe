@@ -30,7 +30,7 @@ globalConfig.$addConfig({
                     description: "Build for development.",
                 },
             ],
-            action: runBuild,
+            action: startBuild,
         },
         {
             name: 'server',
@@ -41,7 +41,7 @@ globalConfig.$addConfig({
                     description: "Start for development.",
                 },
             ],
-            action: runServer,
+            action: startServer,
         },
     ],
 });
@@ -53,14 +53,14 @@ async function runStart({options}) {
     await startServer(globalConfig);
 }
 
-async function runBuild({options}) {
+async function startBuild({options}) {
     const globalConfig = init({...options, doNotWatchBuildFiles: true});
     log_found_stuff({globalConfig, log_page_configs: true});
     await buildAssets(globalConfig);
     log_server_start_hint();
 }
 
-async function runServer({options}) {
+async function startServer({options}) {
     const globalConfig = init(options);
     log_found_stuff({globalConfig, log_built_pages: true});
     await startServer(globalConfig, true);
@@ -69,7 +69,7 @@ async function runServer({options}) {
 
 async function buildAssets(globalConfig) {
     assert_build(globalConfig);
-    await require(globalConfig.executeBuild);
+    await globalConfig.runBuild();
 }
 
 async function startServer(globalConfig) {
@@ -113,22 +113,22 @@ function init({dev, log, doNotWatchBuildFiles, _description}) {
 }
 
 function assert_build(globalConfig) {
-    assert_config(globalConfig.executeBuild, globalConfig, 'executeBuild', 'build');
+    assert_config(globalConfig.runBuild, globalConfig, 'runBuild', 'build');
 }
 function assert_server(globalConfig) {
     assert_config(globalConfig.serverEntryFile, globalConfig, 'serverEntryFile', 'server');
 }
-function assert_config(bool, globalConfig, path, name) {
+function assert_config(bool, globalConfig, configOpt, name) {
     const assert_usage = require('reassert/usage');
     const assert_internal = require('reassert/internal');
-    /* TODO
-    assert_internal(globalConfig._rootPluginNames);
-    assert_internal(globalConfig._packageJsonFile);
     assert_usage(
         bool,
         "Can't find "+name+".",
-        "More precisely: The project config is missing a `globalConfig."+path+"`.",
-        "Either add a "+name+" plugin or define `globalConfig."+path+"` yourself in your `reframe.config.js`.",
+        "More precisely: The global config is missing a `"+configOpt+"`.",
+        "Either add a "+name+" plugin or define `globalConfig."+configOpt+"` yourself in your `reframe.config.js`.",
+    /* TODO
+    assert_internal(globalConfig._rootPluginNames);
+    assert_internal(globalConfig._packageJsonFile);
         (
             globalConfig._rootPluginNames.length === 0 ? (
                 "No Reframe plugins found in the `dependencies` field of `"+globalConfig._packageJsonFile+"` nor in the `reframe.config.js`."
@@ -136,8 +136,8 @@ function assert_config(bool, globalConfig, path, name) {
                 "Plugins loaded: "+globalConfig._rootPluginNames.join(', ')+"."
             )
         )
-    );
     */
+    );
 }
 
 function prettify_error(err) {
@@ -162,7 +162,7 @@ function log_server(server, globalConfig) {
     console.log();
 }
 function log_routes(globalConfig, server) {
-    const {pageConfigs} = require(globalConfig.getBuildInfo)();
+    const {pageConfigs} = globalConfig.getBuildInfo();
     const {colorPkg, colorDim, indent} = require('@brillout/cli-theme');
 
     const serverUrl = server && server.info && server.info.uri || '';

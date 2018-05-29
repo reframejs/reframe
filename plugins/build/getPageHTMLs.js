@@ -2,13 +2,16 @@ const assert_internal = require('reassert/internal');
 const assert_usage = require('reassert/usage');
 const assert_pageConfig = require('@reframe/utils/assert_pageConfig');
 const globalConfig = require('@brillout/global-config');
+const {eagerRequireFileGetter} = require('@brillout/global-config/utils');
 const getStaticPageHtmls = require('@brillout/repage/getStaticPageHtmls');
 
 module.exports = getPageHTMLs;
 
 async function getPageHTMLs() {
-    const {pageConfigs} = require(globalConfig.build.getBuildInfo)();
+    const {pageConfigs} = globalConfig.getBuildInfo();
 
+    // TODO move
+    globalConfig.$addGetter(eagerRequireFileGetter('routerFile', 'router'));
     const {router, renderToHtml} = globalConfig;
     assert_usage(router);
     assert_usage(renderToHtml);

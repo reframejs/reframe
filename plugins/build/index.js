@@ -1,12 +1,13 @@
 const globalConfig = require('@brillout/global-config');
-const {transparentGetter} = require('@brillout/global-config/utils');
+const {transparentGetter, requireFileGetter} = require('@brillout/global-config/utils');
 
 const packageName = require('./package.json').name;
 
-const executeBuild = require.resolve('./executeBuild');
-const executeBuild_ejectedPath = 'PROJECT_ROOT/build/index.js';
+const buildFile = require.resolve('./executeBuild');
+const buildFile__ejected = 'PROJECT_ROOT/build/index.js';
 
-const getBuildInfo = require.resolve('./getBuildInfo');
+const getBuildInfo = require('./getBuildInfo');
+const getBuildInfoFile = require.resolve('./getBuildInfo');
 const getBuildInfo_ejectedPath = 'PROJECT_ROOT/build/getBuildInfo.js';
 
 const buildEjectName = 'build';
@@ -15,11 +16,12 @@ const browserEntriesEjectName = 'build-browser-entries';
 
 globalConfig.$addConfig({
     $name: packageName,
-    executeBuild,
+    buildFile,
     getBuildInfo,
     ejectables: getEjectables(),
 });
-globalConfig.$addGetter(transparentGetter('executeBuild'));
+// remove requireFileGetter because overkill?
+globalConfig.$addGetter(requireFileGetter('buildFile', 'runBuild'));
 globalConfig.$addGetter(transparentGetter('getBuildInfo'));
 
 function getEjectables() {
@@ -29,23 +31,23 @@ function getEjectables() {
             description: 'Eject build code.',
             configChanges: [
                 {
-                    configPath: 'build.executeBuild',
-                    newConfigValue: executeBuild_ejectedPath,
+                    configPath: 'buildFile',
+                    newConfigValue: buildFile__ejected,
                 },
                 {
-                    configPath: 'build.getBuildInfo',
+                    configPath: 'getBuildInfo',
                     newConfigValue: getBuildInfo_ejectedPath,
                 },
             ],
             fileCopies: [
                 {
                     noDependerRequired: true,
-                    oldPath: executeBuild,
-                    newPath: executeBuild_ejectedPath,
+                    oldPath: buildFile,
+                    newPath: buildFile__ejected,
                 },
                 {
                     noDependerRequired: true,
-                    oldPath: getBuildInfo,
+                    oldPath: getBuildInfoFile,
                     newPath: getBuildInfo_ejectedPath,
                 },
             ],

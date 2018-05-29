@@ -6,17 +6,17 @@ const {transparentGetter} = require('@brillout/global-config/utils');
     // TODO move because also required for nodejs?
     'routerFile',
 ].forEach(prop => {
-    globalConfig.$addGetters(transparentGetter(prop));
+    globalConfig.$addGetter(transparentGetter(prop));
 });
 
-globalConfig.$addGetters({
-    'browserViewWrapperFiles',
+globalConfig.$addGetter({
+    prop: 'browserViewWrapperFiles',
     getter: configParts => configParts.map(configPart => configPart['browserViewWrapperFile']).filter(Boolean),
 });
 
 // TODO move somewhere else
-globalConfig.$addGetters({
-    'nodejsViewWrapperFiles',
+globalConfig.$addGetter({
+    prop: 'nodejsViewWrapperFiles',
     getter: configParts => configParts.map(configPart => configPart['nodejsViewWrapperFile']).filter(Boolean),
 });
 

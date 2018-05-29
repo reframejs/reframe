@@ -1,4 +1,5 @@
 const globalConfig = require('@brillout/global-config');
+const {transparentGetter} = require('@brillout/global-config/utils');
 
 const renderToHtml = require('./renderToHtml');
 const webpackBrowserConfig = require('./webpackBrowserConfig');
@@ -11,3 +12,5 @@ globalConfig.$addConfig({
     webpackNodejsConfig,
     renderToHtml,
 });
+// TODO move
+globalConfig.$addGetter(transparentGetter('renderToHtml'));

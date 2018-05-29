@@ -31,10 +31,10 @@ async function runDeploy() {
     assert_internal(projectRootDir);
 
     assert_usage(
-        projectConfig.build.getBuildInfo
+        projectConfig.getBuildInfo
     );
 
-    const buildInfo = require(projectConfig.build.getBuildInfo)({requireProductionBuild: true});
+    const buildInfo = projectConfig.getBuildInfo({requireProductionBuild: true});
     const {staticAssetsDir, buildEnv, pageConfigs, buildTime} = buildInfo;
     assert_internal(buildEnv==='production');
     assert_internal(buildTime);

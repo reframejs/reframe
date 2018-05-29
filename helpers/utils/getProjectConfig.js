@@ -1,4 +1,6 @@
 const assert_internal = require('reassert/internal');
+assert_internal(false);
+throw new Error("euwih");
 const assert_usage = require('reassert/usage');
 const findProjectFiles = require('./findProjectFiles');
 const pathModule = require('path');

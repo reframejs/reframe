@@ -1,11 +1,10 @@
 const getAssetInfos = require('webpack-ssr/getAssetInfos');
-const getProjectConfig = require('@reframe/utils/getProjectConfig');
+const globalConfig = require('@brillout/global-config');
 
 module.exports = getBuildInfo;
 
 function getBuildInfo({requireProductionBuild}={}) {
-    const projectConfig = getProjectConfig();
-    const outputDir = projectConfig.projectFiles.buildOutputDir;
+    const outputDir = globalConfig.projectFiles.buildOutputDir;
     const assetInfos = getAssetInfos({outputDir, requireProductionBuild});
 
     const {pageAssets, ...assetInfos__rest} = assetInfos;
