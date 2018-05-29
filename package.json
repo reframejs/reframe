@@ -42,6 +42,7 @@
         "plugins/start",
         "plugins/typescript",
         "plugins/typescript/example",
+        "plugins/project-files",
         "examples/basics",
         "examples/simple",
         "examples/partial-dom-dynamic",

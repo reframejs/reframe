@@ -1,0 +1,14 @@
+{
+    "name": "@reframe/project-files",
+    "version": "0.1.11",
+    "dependencies": {
+        "@brillout/cli-theme": "0.1.11",
+        "@reframe/utils": "0.1.11",
+        "reassert": "^1.1.9",
+        "string-width": "^2.1.1"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "repository": "github:reframejs/reframe"
+}

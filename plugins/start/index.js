@@ -1,53 +1,52 @@
+const globalConfig = require('@brillout/global-config');
+
 module.exports = startCommands;
 
-function startCommands() {
+const optLog = {
+    name: "-l, --log",
+    description: "Print build and page information.",
+};
 
-    const optLog = {
-        name: "-l, --log",
-        description: "Print build and page information.",
-    };
-
-    return {
-        name: require('./package.json').name,
-        cliCommands: [
-            {
-                name: 'start',
-                description: 'Build pages and start server for development.',
-                options: [
-                    optLog,
-                    {
-                        name: "-d, --dev",
-                        description: "Start for development.",
-                    },
-                ],
-                action: runStart,
-            },
-            {
-                name: 'build',
-                description: 'Build pages for production.',
-                options: [
-                    optLog,
-                    {
-                        name: "-d, --dev",
-                        description: "Build for development.",
-                    },
-                ],
-                action: runBuild,
-            },
-            {
-                name: 'server',
-                description: 'Start server for production.',
-                options: [
-                    {
-                        name: "-d, --dev",
-                        description: "Start for development.",
-                    },
-                ],
-                action: runServer,
-            },
-        ],
-    };
-}
+globalConfig.$addConfig({
+    $name: require('./package.json').name,
+    cliCommands: [
+        {
+            name: 'start',
+            description: 'Build pages and start server for development.',
+            options: [
+                optLog,
+                {
+                    name: "-d, --dev",
+                    description: "Start for development.",
+                },
+            ],
+            action: runStart,
+        },
+        {
+            name: 'build',
+            description: 'Build pages for production.',
+            options: [
+                optLog,
+                {
+                    name: "-d, --dev",
+                    description: "Build for development.",
+                },
+            ],
+            action: runBuild,
+        },
+        {
+            name: 'server',
+            description: 'Start server for production.',
+            options: [
+                {
+                    name: "-d, --dev",
+                    description: "Start for development.",
+                },
+            ],
+            action: runServer,
+        },
+    ],
+});
 
 async function runStart({options}) {
     const projectConfig = init({dev: true, ...options});

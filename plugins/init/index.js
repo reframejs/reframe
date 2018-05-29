@@ -1,27 +1,25 @@
-module.exports = initCommands;
+const globalConfig = require('@brillout/global-config');
 
-function initCommands() {
-    return {
-        name: require('./package.json').name,
-        cliCommands: [
-            {
-                name: 'init',
-                param: '[project-directory]',
-                description: 'Create a new Reframe project.',
-                options: [],
-                action: async ({inputs: [projectDir]}) => {
-                    if( ! projectDir ) {
-                        showUsageInfo();
-                        showUsageExample();
-                        return;
-                    }
-                    await runInit(projectDir);
-                },
-                showUsageExample,
-            }
-        ],
-    };
-}
+globalConfig.$addConfig({
+    $name: require('./package.json').name,
+    cliCommands: [
+        {
+            name: 'init',
+            param: '[project-directory]',
+            description: 'Create a new Reframe project.',
+            options: [],
+            action: async ({inputs: [projectDir]}) => {
+                if( ! projectDir ) {
+                    showUsageInfo();
+                    showUsageExample();
+                    return;
+                }
+                await runInit(projectDir);
+            },
+            showUsageExample,
+        }
+    ],
+});
 
 async function runInit(projectDir) {
     const path = require('path');

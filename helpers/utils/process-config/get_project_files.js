@@ -5,7 +5,6 @@ const getPageConfigFiles = require('../getPageConfigFiles');
 module.exports = get_project_files;
 
 let projectFiles__cache;
-let source_map_installed;
 
 function get_project_files(_processed/*, r_objects*/) {
     projectFiles__cache = null;

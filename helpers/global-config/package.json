@@ -3,7 +3,8 @@
   "version": "0.1.11",
   "dependencies": {
     "@brillout/get-user-dir": "^0.2.1",
-    "find-up": "^2.1.0"
+    "find-up": "^2.1.0",
+    "reassert": "^1.1.9"
   },
   "publishConfig": {
     "access": "public"

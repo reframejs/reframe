@@ -1,14 +1,21 @@
+const assert_internal = require('reassert/internal');
+
 const config = {};
-Object.defineProperty(config, '$addConfig', {get: () => $addConfig});
-Object.defineProperty(config, '$addGetter', {get: () => $addGetter});
+Object.defineProperty(config, '$addConfig', {value: $addConfig});
+Object.defineProperty(config, '$addGetter', {value: $addGetter});
+Object.defineProperty(config, '$pluginNames', {get: getPluginNames});
 
 const configParts = [];
+const pluginNames = [];
 
 module.exports = config;
 
 loadGlobalConfig();
 
 function $addConfig(configPart) {
+    if( configPart.$name ) {
+        pluginNames.push(configPart.$name);
+    }
     configParts.push(configPart);
 }
 
@@ -19,10 +26,22 @@ function $addGetter({prop, getter}) {
 function loadGlobalConfig() {
     const getUserDir = require('@brillout/get-user-dir');
     const findUp = require('find-up');
+    const pathModule = require('path');
 
     const userDir = getUserDir();
 
-    const globalConfigPath = findUp.sync('global.config.js', {cwd: userDir});
+    const globalConfigFile = findUp.sync('global.config.js', {cwd: userDir});
+    assert_internal(globalConfigFile===null || path.isAbsolute(globalConfigFile));
 
-    require(globalConfigPath);
+    Object.defineProperty(config, '$globalConfigFile', {value: globalConfigFile});
+
+    if( ! globalConfigFile ) {
+        return;
+    }
+
+    require(globalConfigFile);
+}
+
+function getPluginNames() {
+    return pluginNames;
 }

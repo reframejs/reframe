@@ -4,8 +4,8 @@ const {colorEmphasis, strDir} = require('@brillout/cli-theme');
 
 module.exports = {getProjectRootLog, getRootPluginsLog};
 
-function getProjectRootLog(projectConfig, emphasize=colorEmphasis) {
-    const {projectRootDir} = projectConfig.projectFiles;
+function getProjectRootLog(globalConfig, emphasize=colorEmphasis) {
+    const {projectRootDir} = globalConfig.projectFiles;
 
     if( ! projectRootDir ) {
         return null;
@@ -22,11 +22,11 @@ function getProjectRootLog(projectConfig, emphasize=colorEmphasis) {
     return 'project '+project_root;
 }
 
-function getRootPluginsLog(projectConfig, emphasize=colorEmphasis) {
-    const {_rootPluginNames} = projectConfig;
-    if( _rootPluginNames.length===0 ) {
+function getRootPluginsLog(globalConfig, emphasize=colorEmphasis) {
+    const {$pluginNames} = globalConfig;
+    if( $pluginNames.length===0 ) {
         return null;
     }
-    const pluginList__str = _rootPluginNames.map(s => emphasize(s)).join(', ');
-    return 'plugin'+(_rootPluginNames.length===1?'':'s')+' '+pluginList__str;
+    const pluginList__str = $pluginNames.map(s => emphasize(s)).join(', ');
+    return 'plugin'+($pluginNames.length===1?'':'s')+' '+pluginList__str;
 }

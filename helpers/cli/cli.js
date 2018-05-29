@@ -12,7 +12,7 @@ const getUserDir = require('@brillout/get-user-dir');
 const program = require('commander');
 const cliUtils = require('@reframe/utils/cliUtils');
 const checkNodejsVersion = require('@reframe/utils/checkNodejsVersion');
-const getProjectConfig = require('@reframe/utils/getProjectConfig');
+const globalConfig = require('@brillout/global-config');
 const {tableFormat} = require('@brillout/format-text');
 
 checkNodejsVersion();
@@ -20,14 +20,27 @@ checkNodejsVersion();
 const cwd = process.cwd();
 getUserDir.setUserDir(cwd);
 
-const projectConfig = getProjectConfig({projectNotRequired: true, pluginRequired: true});
+globalConfig.$addGetter({
+    prop: 'allCliCommands',
+    getter: configs => {
+        const commands = [];
+        configs
+        .forEach(conf => {
+            if( !conf.cliCommands ) return;
+            commands.push(...conf.cliCommands);
+        });
+        return commands;
+    },
+});
+// TODO
+//const projectConfig = getProjectConfig({projectNotRequired: true, pluginRequired: true});
 
-const isProject = !!projectConfig.projectFiles.projectRootDir;
+require('@reframe/project-files');
+
+const isProject = !!globalConfig.projectFiles.projectRootDir;
 
 if( ! isProject ) {
-    projectConfig.addPlugins([
-        require('@reframe/init')()
-    ]);
+    require('@reframe/init');
 }
 
 assert_at_least_one_command();
@@ -72,7 +85,7 @@ function initProgram() {
     };
 
     function addPluginCommands() {
-        commandArray.push(...projectConfig.allCliCommands);
+        commandArray.push(...globalConfig.allCliCommands);
     }
 
     function getCommandSpecs() {
@@ -151,13 +164,13 @@ function initProgram() {
             console.log(INDENT+INDENT+cliPkg.name+'@'+cliPkg.version);
         }
 
-        const {_rootPluginNames, projectFiles: {projectRootDir}} = projectConfig;
-        if( _rootPluginNames.length === 0 ) {
+        const {$pluginNames, projectFiles: {projectRootDir}} = globalConfig;
+        if( $pluginNames.length === 0 ) {
             return;
         }
         console.log();
         console.log(INDENT+'Plugins:');
-        _rootPluginNames.forEach(pkgName => {
+        $pluginNames.forEach(pkgName => {
             const resolveOptions = {};
             if( projectRootDir ) {
                 resolveOptions.paths = [projectRootDir];
@@ -251,9 +264,9 @@ function initProgram() {
      // const emphasize = colorEmphasisLight;
         const emphasize = s => s;
         console.log(
-            INDENT+'Commands provided by '+cliUtils.getRootPluginsLog(projectConfig, emphasize)+(
+            INDENT+'Commands provided by '+cliUtils.getRootPluginsLog(globalConfig, emphasize)+(
                 isProject ? (
-                    ' of '+cliUtils.getProjectRootLog(projectConfig, emphasize)+'.'
+                    ' of '+cliUtils.getProjectRootLog(globalConfig, emphasize)+'.'
                 ) : (
                     '. (No project found at '+strDir(cwd)+'.)'
                 )
@@ -278,7 +291,7 @@ function initProgram() {
 }
 
 function assert_at_least_one_command() {
-    const {_rootPluginNames, allCliCommands, projectFiles: {reframeConfigFile}} = projectConfig;
+    const {$pluginNames, allCliCommands, $globalConfigFile} = globalConfig;
 
     if( ! isProject ) {
         assert_internal(allCliCommands.length>0);
@@ -286,13 +299,14 @@ function assert_at_least_one_command() {
         assert_usage(
             allCliCommands.length>0,
             colorError("No commands found."),
-            "Project found at "+colorDir(strDir(projectConfig.projectFiles.projectRootDir))+".",
-            reframeConfigFile ? (
-                "Reframe config found at "+colorFile(strFile(reframeConfigFile))+"."
+            "Project found at "+colorDir(strDir(globalConfig.projectFiles.projectRootDir))+".",
+            $globalConfigFile ? (
+                "Global config found at "+colorFile(strFile($globalConfigFile))+"."
             ) : (
                 "No Reframe config file found."
             ),
-            "Loaded plugins: "+_rootPluginNames.map(pluginName => colorPkg(pluginName)).join(', ')+'.',
+            // TODO explicitly complain if not plugin are added
+            "Loaded plugins: "+$pluginNames.map(pluginName => colorPkg(pluginName)).join(', ')+'.',
             "None of the loaded plugins are adding commands."
         );
     }
