@@ -1,19 +1,29 @@
 const config = require('..');
+const assert = require('reassert');
 
-require('./plugins/server');
-require('./plugins/webpack');
+require('./server-plugin');
 
 config.$addConfig({
-    webpackConfigModifier: config
+    routes: [
+        {url: '/', body: '<div>Landing Page</div>'},
+        {url: '/about', body: '<div>About Page</div>'},
+    ],
 });
-
-config.$addGetter({
-    prop: 'serverPort',
-    getter: configs => {
-        return configs.find(serverPort
-    },
-});
-
 
 assert(config.serverPort===3000);
-assert(config.webpackConfigModifier.serverPort===3000);
+assert(config.routes[0].url==='/');
+assert(config.routes[1].url==='/about');
+assert(config.routes.length===2);
+
+config.$addConfig({
+    serverPort: 8000,
+    routes: [
+        {url: '/test', body: '<div>Test Page</div>'},
+    ],
+});
+
+assert(config.serverPort===8000);
+assert(config.routes[0].url==='/');
+assert(config.routes[1].url==='/about');
+assert(config.routes[2].url==='/test');
+assert(config.routes.length===3);
