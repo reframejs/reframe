@@ -1,14 +1,12 @@
 const globalConfig = require('@brillout/global-config');
+const {transparentGetter} = require('@brillout/global-config/utils');
 
 [
-    'browserEntryFile',
     'renderToDomFile',
+    // TODO move because also required for nodejs?
     'routerFile',
 ].forEach(prop => {
-    globalConfig.$addGetters({
-        prop,
-        getter: configParts => configParts.find(configPart => configPart[prop]),
-    });
+    globalConfig.$addGetters(transparentGetter(prop));
 });
 
 globalConfig.$addGetters({

@@ -1,11 +1,6 @@
-module.exports = crossroads;
+const globalConfig = require('@brillout/global-config');
 
-function crossroads() {
-    const router = require('./router');
-
-    return {
-        name: require('./package.json').name,
-        browserConfigFile: require.resolve('./browser.js'),
-        router,
-    };
-}
+globalConfig.$addConfig({
+    $name: require('./package.json').name,
+    routerFile: require.resolve('./router'),
+});
