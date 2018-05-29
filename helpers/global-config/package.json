@@ -1,0 +1,11 @@
+{
+  "name": "@brillout/global-config",
+  "version": "0.1.11",
+  "dependencies": {
+    "@brillout/get-user-dir": "^0.2.1",
+    "find-up": "^2.1.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
