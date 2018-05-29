@@ -53,19 +53,19 @@ function BuildInstance() {
     isoBuilder.builder = (function* ({buildForNodejs, buildForBrowser}) {
         const pageFiles__by_interface = that.getPageFiles();
 
-        const nodejsConfig = getNodejsConfig.call(that, {pageFiles__by_interface});
-        const nodejsEntryPoints = yield buildForNodejs(nodejsConfig);
+        const configNodejs = getNodejsConfig.call(that, {pageFiles__by_interface});
+        const nodejsEntryPoints = yield buildForNodejs(configNodejs);
         assert_internal(Object.keys(nodejsEntryPoints).length>0, nodejsEntryPoints);
 
-        const pageFiles = getPageFiles.call(that, {nodejsConfig, pageFiles__by_interface});
+        const pageFiles = getPageFiles.call(that, {configNodejs, pageFiles__by_interface});
         assert_internal(Object.keys(pageFiles).length>0);
 
         that.pageModules = loadPageModules.call(that, {nodejsEntryPoints, pageFiles});
 
         that.pageBrowserEntries = getPageBrowserEntries.call(that);
 
-        const browserConfig = getBrowserConfig.call(that, {fileSets, autoReloadEnabled});
-        const browserEntryPoints = yield buildForBrowser(browserConfig);
+        const configBrowser = getBrowserConfig.call(that, {fileSets, autoReloadEnabled});
+        const browserEntryPoints = yield buildForBrowser(configBrowser);
         assert_internal(Object.values(browserEntryPoints).length>0, browserEntryPoints);
 
         writeAssetMap.call(that, {browserEntryPoints, fileSets, autoReloadEnabled, pageFiles});
@@ -84,10 +84,10 @@ function getNodejsConfig({pageFiles__by_interface}) {
     const nodejsEntries = getNodejsEntries.call(this, {pageFiles__by_interface});
     const nodejsOutputPath = pathModule.resolve(this.outputDir, NODEJS_OUTPUT);
     const defaultNodejsConfig = getDefaultNodejsConfig({entries: nodejsEntries, outputPath: nodejsOutputPath, filename: '[name]-nodejs.js'});
-    const nodejsConfig = this.getWebpackNodejsConfig({config: defaultNodejsConfig, entries: nodejsEntries, outputPath: nodejsOutputPath, ...webpackConfigMod});
-    assert_config({config: nodejsConfig, webpackEntries: nodejsEntries, outputPath: nodejsOutputPath, getterName: 'getWebpackNodejsConfig'});
-    addContext(nodejsConfig);
-    return nodejsConfig;
+    const configNodejs = this.getWebpackNodejsConfig({config: defaultNodejsConfig, entries: nodejsEntries, outputPath: nodejsOutputPath, ...webpackConfigMod});
+    assert_config({config: configNodejs, webpackEntries: nodejsEntries, outputPath: nodejsOutputPath, getterName: 'getWebpackNodejsConfig'});
+    addContext(configNodejs);
+    return configNodejs;
 }
 
 function getBrowserConfig({fileSets, autoReloadEnabled}) {
@@ -96,10 +96,10 @@ function getBrowserConfig({fileSets, autoReloadEnabled}) {
     const browserOutputPath = pathModule.resolve(this.outputDir, BROWSER_OUTPUT);
     const defaultBrowserConfig = getDefaultBrowserConfig({entries: browserEntries, outputPath: browserOutputPath});
     assert_internal(Object.keys(browserEntries).length>0);
-    const browserConfig = this.getWebpackBrowserConfig({config: defaultBrowserConfig, entries: browserEntries, outputPath: browserOutputPath, ...webpackConfigMod});
-    assert_config({config: browserConfig, webpackEntries: browserEntries, outputPath: browserOutputPath, getterName: 'getWebpackBrowserConfig'});
-    addContext(browserConfig);
-    return browserConfig;
+    const configBrowser = this.getWebpackBrowserConfig({config: defaultBrowserConfig, entries: browserEntries, outputPath: browserOutputPath, ...webpackConfigMod});
+    assert_config({config: configBrowser, webpackEntries: browserEntries, outputPath: browserOutputPath, getterName: 'getWebpackBrowserConfig'});
+    addContext(configBrowser);
+    return configBrowser;
 }
 
 function getPageBrowserEntries() {
@@ -140,8 +140,8 @@ function getNodejsEntries({pageFiles__by_interface}) {
     return server_entries;
 }
 
-function getPageFiles({nodejsConfig, pageFiles__by_interface}) {
-    const nodejsEntries = webpackConfigMod.getEntries(nodejsConfig);
+function getPageFiles({configNodejs, pageFiles__by_interface}) {
+    const nodejsEntries = webpackConfigMod.getEntries(configNodejs);
     const nodejsEntryNames = Object.keys(nodejsEntries);
     assert_internal(nodejsEntryNames.length>0);
 

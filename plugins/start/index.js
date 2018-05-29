@@ -98,12 +98,11 @@ function init({dev, log, doNotWatchBuildFiles, _description}) {
         process.env['NODE_ENV'] = 'production';
     }
 
-    const getProjectConfig = require('@reframe/utils/getProjectConfig');
+    const globalConfig = require('@brillout/global-config');
 
-    const projectConfig = getProjectConfig();
-
+    // TODO
     Object.assign(
-        projectConfig,
+        globalConfig,
         {
             log: {
                 verbose: !!log,
@@ -112,7 +111,7 @@ function init({dev, log, doNotWatchBuildFiles, _description}) {
         }
     );
 
-    return projectConfig;
+    return globalConfig;
 }
 
 function assert_build(projectConfig) {

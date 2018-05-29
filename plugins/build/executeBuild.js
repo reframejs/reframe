@@ -1,18 +1,18 @@
-const getProjectConfig = require('@reframe/utils/getProjectConfig');
-
 const Build = require('webpack-ssr/Build');
 const watchDir = require('webpack-ssr/watchDir');
 
 const getPageBrowserEntries = require('./getPageBrowserEntries');
 const getPageHTMLs = require('./getPageHTMLs');
 
-const projectConfig = getProjectConfig();
-const outputDir = projectConfig.projectFiles.buildOutputDir;
-const getPageFiles = () => projectConfig.getPageConfigFiles();
-const getWebpackBrowserConfig = ({config, ...utils}) => projectConfig.webpackBrowserConfigModifier({config, ...utils});
-const getWebpackNodejsConfig = ({config, ...utils}) => projectConfig.webpackNodejsConfigModifier({config, ...utils});
-const {log, doNotWatchBuildFiles} = projectConfig;
-const {pagesDir} = projectConfig.projectFiles;
+const globalConfig = require('@brillout/global-config');
+require('@reframe/utils/global-config-getters/webpack-config-modifier');
+
+const outputDir = globalConfig.projectFiles.buildOutputDir;
+const getPageFiles = () => globalConfig.getPageConfigFiles();
+const getWebpackBrowserConfig = ({config, ...utils}) => globalConfig.webpackBrowserConfigModifier({config, ...utils});
+const getWebpackNodejsConfig = ({config, ...utils}) => globalConfig.webpackNodejsConfigModifier({config, ...utils});
+const {log, doNotWatchBuildFiles} = globalConfig;
+const {pagesDir} = globalConfig.projectFiles;
 
 const build = new Build({
     outputDir,

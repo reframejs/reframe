@@ -1,6 +1,6 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
-const getProjectBrowserConfig = require('@reframe/utils/process-config/getProjectBrowserConfig');
+const getBrowserConfig = require('@reframe/browser/getBrowserConfig');
 const containerId = 'root-react';
 
 module.exports = renderToDom;
@@ -16,9 +16,9 @@ async function renderToDom({pageConfig, initialProps}) {
 }
 
 function applyViewWrappers(reactElement, initialProps) {
-    const projectBrowserConfig = getProjectBrowserConfig();
+    const browserConfig = getBrowserConfig();
 
-    const {viewWrappers} = projectBrowserConfig;
+    const {viewWrappers} = browserConfig;
 
     viewWrappers
     .forEach(viewWrapper => {

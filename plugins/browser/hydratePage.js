@@ -1,12 +1,10 @@
-const getProjectBrowserConfig = require('@reframe/utils/process-config/getProjectBrowserConfig');
+const browserConfig = require('./browserConfig');
 const hydratePage__repage = require('@brillout/repage/hydratePage');
 
 module.exports = hydratePage;
 
 async function hydratePage(pageConfig) {
-    const projectBrowserConfig = getProjectBrowserConfig();
-
-    const {renderToDom, router, currentPageConfig} = projectBrowserConfig;
+    const {renderToDom, router, currentPageConfig} = browserConfig;
 
     await (
         hydratePage__repage({

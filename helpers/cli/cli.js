@@ -15,10 +15,10 @@ const checkNodejsVersion = require('@reframe/utils/checkNodejsVersion');
 const globalConfig = require('@brillout/global-config');
 const {tableFormat} = require('@brillout/format-text');
 
-checkNodejsVersion();
-
 const cwd = process.cwd();
 getUserDir.setUserDir(cwd);
+
+checkNodejsVersion();
 
 globalConfig.$addGetter({
     prop: 'allCliCommands',
@@ -26,24 +26,27 @@ globalConfig.$addGetter({
         const commands = [];
         configs
         .forEach(conf => {
-            if( !conf.cliCommands ) return;
+            if( ! conf.cliCommands ) return;
             commands.push(...conf.cliCommands);
         });
         return commands;
     },
 });
+
 // TODO
 //const projectConfig = getProjectConfig({projectNotRequired: true, pluginRequired: true});
 
-require('@reframe/project-files');
-
-const isProject = !!globalConfig.projectFiles.projectRootDir;
+const isProject =  !! globalConfig.$globalConfigFile;
 
 if( ! isProject ) {
+    assert_internal(globalConfig.$pluginNames.length===0);
+    assert_internal(globalConfig.allCliCommands.length===0);
     require('@reframe/init');
 }
 
-assert_at_least_one_command();
+assert_internal(globalConfig.allCliCommands.length>0);
+
+///assert_at_least_one_command();
 
 const {runProgram} = initProgram();
 
@@ -290,6 +293,7 @@ function initProgram() {
     }
 }
 
+/* TODO
 function assert_at_least_one_command() {
     const {$pluginNames, allCliCommands, $globalConfigFile} = globalConfig;
 
@@ -311,3 +315,4 @@ function assert_at_least_one_command() {
         );
     }
 }
+*/
