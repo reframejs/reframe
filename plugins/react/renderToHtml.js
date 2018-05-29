@@ -2,7 +2,7 @@ const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 const generateHtml = require('@brillout/index-html');
 const containerId = 'root-react';
-const getProjectConfig = require('@reframe/utils/getProjectConfig');
+const globalConfig = require('@brillout/global-config');
 
 module.exports = renderToHtml;
 
@@ -27,14 +27,13 @@ function renderHtmlCrust(contentHtml, pageConfig) {
     return html;
 }
 
+// TODO move comment
 // We only need this for plugins that add view wrapper.
 // E.g. the `@reframe/react-router` plugin adds a view wrapper to add
 // the provider-components `<BrowserRouter>` and `<StaticRouter>`.
-// You can remove this code if `getProjectConfig().viewWrappers.length===0`.
 function applyViewWrappers(reactElement, initialProps) {
-    const projectConfig = getProjectConfig();
-
-    projectConfig.viewWrappers
+    globalConfig
+    .nodejsViewWrappers
     .forEach(viewWrapper => {
         reactElement = viewWrapper(reactElement, initialProps);
     });

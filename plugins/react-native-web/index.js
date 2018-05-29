@@ -1,17 +1,13 @@
-module.exports = reactNativeWeb;
+const globalConfig = require('@brillout/global-config');
 
-function reactNativeWeb() {
-    const renderToHtml = require('./renderToHtml');
-    const webpackBrowserConfig = require('./webpackBrowserConfig');
-    const webpackNodejsConfig = require('./webpackNodejsConfig');
+const renderToHtml = require('./renderToHtml');
+const webpackBrowserConfig = require('./webpackBrowserConfig');
+const webpackNodejsConfig = require('./webpackNodejsConfig');
 
-    return {
-        name: require('./package.json').name,
-        browserConfigFile: require.resolve('./browser.js'),
-        webpackBrowserConfig,
-        webpackNodejsConfig,
-        renderToHtml,
-    };
-
-}
-
+globalConfig.$addConfig({
+    $name: require('./package.json').name,
+    renderToDomFile: require.resolve('./renderToDom'),
+    webpackBrowserConfig,
+    webpackNodejsConfig,
+    renderToHtml,
+});

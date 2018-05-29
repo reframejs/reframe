@@ -1,7 +1,7 @@
 const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 const generateHtml = require('@brillout/index-html');
-const getProjectConfig = require('@reframe/utils/getProjectConfig');
+const globalConfig = require('@brillout/global-config');
 const {AppRegistry} = require('react-native-web');
 const containerId = 'root-react';
 
@@ -30,9 +30,8 @@ function renderToHtml({pageConfig, initialProps}) {
 }
 
 function applyViewWrappers(App, initialProps) {
-    const projectConfig = getProjectConfig();
-
-    projectConfig.viewWrappers
+    globalConfig
+    .nodejsViewWrappers
     .forEach(viewWrapper => {
         const wrappee = App;
         App = () => viewWrapper(React.createElement(wrappee, initialProps), initialProps);

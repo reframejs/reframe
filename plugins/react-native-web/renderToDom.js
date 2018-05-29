@@ -1,6 +1,6 @@
 const React = require('react');
 const {AppRegistry} = require('react-native-web');
-const getProjectBrowserConfig = require('@reframe/utils/process-config/getProjectBrowserConfig');
+const browserConfig = require('@reframe/browser/browserConfig');
 const containerId = 'root-react';
 
 module.exports = renderToDom;
@@ -19,9 +19,9 @@ async function renderToDom({pageConfig, initialProps}) {
 }
 
 function applyViewWrappers(App, initialProps) {
-    const projectBrowserConfig = getProjectBrowserConfig();
+    const {browserViewWrappers} = browserConfig;
 
-    projectBrowserConfig.viewWrappers
+    browserViewWrappers
     .forEach(viewWrapper => {
         const wrappee = App;
         App = () => viewWrapper(React.createElement(wrappee, initialProps), initialProps);

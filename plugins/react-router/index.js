@@ -1,21 +1,7 @@
-const React = require('react');
-const {StaticRouter} = require('react-router');
+const globalConfig = require('@brillout/global-config');
 
-module.exports = react_router;
-
-function react_router() {
-    return {
-        name: require('./package.json').name,
-        browserConfigFile: require.resolve('./browser.js'),
-        viewWrapper: (viewElement, {route}) => {
-            const loc = {
-                pathname: route.url.pathname,
-                search: route.url.search,
-                hash: route.url.hash,
-                state: undefined
-            };
-            const context = {};
-            return React.createElement(StaticRouter, {location: loc, context}, viewElement);
-        },
-    };
-}
+globalConfig.$addConfig({
+    $name: require('./package.json').name,
+    browserViewWrapperFile: require.resolve('./browserViewWrapper'),
+    nodejsViewWrapperFile: require.resolve('./nodejsViewWrapper'),
+});
