@@ -1,7 +1,5 @@
 const globalConfig = require('@brillout/global-config');
 
-module.exports = startCommands;
-
 const optLog = {
     name: "-l, --log",
     description: "Print build and page information.",

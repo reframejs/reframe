@@ -1,3 +1,4 @@
+const pathModule = require('path');
 const globalConfig = require('@brillout/global-config');
 const findProjectFiles = require('@reframe/utils/findProjectFiles');
 const getPageConfigFiles = require('@reframe/utils/getPageConfigFiles');
@@ -17,12 +18,12 @@ globalConfig.$addGetter({
 });
 
 function getProjectFiles() {
-    if( ! cache ) {
+    if( ! projectFiles ) {
         const {reframeConfigFile, pagesDir, projectRootDir, packageJsonFile} = findProjectFiles({projectNotRequired: true});
 
         const buildOutputDir = projectRootDir && pathModule.resolve(projectRootDir, './dist');
 
-        const projectFiles = {
+        projectFiles = {
             reframeConfigFile,
             packageJsonFile,
             pagesDir,

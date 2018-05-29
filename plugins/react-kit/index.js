@@ -1,3 +1,4 @@
+require('@reframe/project-files');
 require('@reframe/react');
 require('@reframe/path-to-regexp');
 require('@reframe/server');

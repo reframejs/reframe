@@ -8,15 +8,16 @@ loadingSpinner.start();
 
 const assert_usage = require('reassert/usage');
 const assert_internal = require('reassert/internal');
-const getUserDir = require('@brillout/get-user-dir');
 const program = require('commander');
 const cliUtils = require('@reframe/utils/cliUtils');
 const checkNodejsVersion = require('@reframe/utils/checkNodejsVersion');
-const globalConfig = require('@brillout/global-config');
 const {tableFormat} = require('@brillout/format-text');
 
+const getUserDir = require('@brillout/get-user-dir');
 const cwd = process.cwd();
 getUserDir.setUserDir(cwd);
+
+const globalConfig = require('@brillout/global-config');
 
 checkNodejsVersion();
 
@@ -45,6 +46,7 @@ if( ! isProject ) {
 }
 
 assert_internal(globalConfig.allCliCommands.length>0);
+assert_usage(globalConfig.projectFiles.projectRootDir);
 
 ///assert_at_least_one_command();
 

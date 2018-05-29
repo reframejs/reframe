@@ -10,7 +10,7 @@ const pluginNames = [];
 
 module.exports = config;
 
-loadGlobalConfig();
+loadConfigFile();
 
 function $addConfig(configPart) {
     if( configPart.$name ) {
@@ -23,7 +23,7 @@ function $addGetter({prop, getter}) {
     Object.defineProperty(config, prop, {get: () => getter(configParts), enumerable: true});
 }
 
-function loadGlobalConfig() {
+function loadConfigFile() {
     const getUserDir = require('@brillout/get-user-dir');
     const findUp = require('find-up');
     const pathModule = require('path');
@@ -31,7 +31,7 @@ function loadGlobalConfig() {
     const userDir = getUserDir();
 
     const globalConfigFile = findUp.sync('global.config.js', {cwd: userDir});
-    assert_internal(globalConfigFile===null || path.isAbsolute(globalConfigFile));
+    assert_internal(globalConfigFile===null || pathModule.isAbsolute(globalConfigFile));
 
     Object.defineProperty(config, '$globalConfigFile', {value: globalConfigFile});
 
