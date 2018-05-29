@@ -16,7 +16,12 @@ globalConfig.$addGetter({
 
 // TODO move somewhere else
 globalConfig.$addGetter({
-    prop: 'nodejsViewWrapperFiles',
-    getter: configParts => configParts.map(configPart => configPart['nodejsViewWrapperFile']).filter(Boolean),
+    prop: 'nodejsViewWrappers',
+    getter: configParts => (
+        configParts
+        .map(configPart => configPart['nodejsViewWrapperFile'])
+        .filter(Boolean)
+        .map(filePath => require(filePath))
+    ),
 });
 

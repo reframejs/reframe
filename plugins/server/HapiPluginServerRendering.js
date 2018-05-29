@@ -38,8 +38,8 @@ async function getHtml(request) {
     const {pageConfigs} = globalConfig.getBuildInfo();
 
     // TODO move
-    globalConfig.$addGetter(eagerRequireFileGetter('routerFile', 'router'));
-    const {renderToHtml, router} = projectConfig;
+  //globalConfig.$addGetter(eagerRequireFileGetter('routerFile', 'router'));
+    const {renderToHtml, router} = globalConfig;
 
     const html = await getPageHtml({pageConfigs, uri, renderToHtml, router});
     return html;
