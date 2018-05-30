@@ -5525,6 +5525,12 @@ reassert@^1.0.4, reassert@^1.1.8:
   version "1.1.8"
   resolved "https://registry.yarnpkg.com/reassert/-/reassert-1.1.8.tgz#d0e70085d70af9c6d93c80425d6468b8bbb31246"
 
+reassert@^1.1.10:
+  version "1.1.10"
+  resolved "https://registry.yarnpkg.com/reassert/-/reassert-1.1.10.tgz#9a211f5b8ab90ef6a8c5420a0fc50cb767db0412"
+  dependencies:
+    "@brillout/format-text" "^0.1.0"
+
 reassert@^1.1.9:
   version "1.1.9"
   resolved "https://registry.yarnpkg.com/reassert/-/reassert-1.1.9.tgz#70e3cfaad2d552e4ad1f359f0e2d659e13185e28"
