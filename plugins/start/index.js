@@ -1,13 +1,15 @@
-const globalConfig = require('@brillout/global-config');
-
-const optLog = {
-    name: "-l, --log",
-    description: "Print build and page information.",
+module.exports = {
+    $name: require('./package.json').name,
+    cliCommands: getCliCommands(),
 };
 
-globalConfig.$addConfig({
-    $name: require('./package.json').name,
-    cliCommands: [
+function getCliCommands() {
+    const optLog = {
+        name: "-l, --log",
+        description: "Print build and page information.",
+    };
+
+    return [
         {
             name: 'start',
             description: 'Build pages and start server for development.',
@@ -43,8 +45,8 @@ globalConfig.$addConfig({
             ],
             action: startServer,
         },
-    ],
-});
+    ];
+}
 
 async function runStart({options}) {
     const globalConfig = init({dev: true, ...options});

@@ -1,5 +1,4 @@
-const globalConfig = require('@brillout/global-config');
-const {transparentGetter, requireFileGetter} = require('@brillout/global-config/utils');
+const {transparentGetter, requireFileGetter} = require('@brillout/reconfig/utils');
 
 const packageName = require('./package.json').name;
 
@@ -14,15 +13,17 @@ const buildEjectName = 'build';
 const staticRenderingEjectName = 'build-static-rendering';
 const browserEntriesEjectName = 'build-browser-entries';
 
-globalConfig.$addConfig({
+module.exports = {
     $name: packageName,
+    $getters: [
+        // TODO - remove requireFileGetter because overkill?
+        requireFileGetter('buildFile', 'runBuild'),
+        transparentGetter('getBuildInfo'),
+    ],
     buildFile,
     getBuildInfo,
     ejectables: getEjectables(),
-});
-// remove requireFileGetter because overkill?
-globalConfig.$addGetter(requireFileGetter('buildFile', 'runBuild'));
-globalConfig.$addGetter(transparentGetter('getBuildInfo'));
+};
 
 function getEjectables() {
     return [

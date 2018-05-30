@@ -2,7 +2,7 @@ const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 const generateHtml = require('@brillout/index-html');
 const containerId = 'root-react';
-const globalConfig = require('@brillout/global-config');
+const reconfig = require('@brillout/reconfig');
 
 module.exports = renderToHtml;
 
@@ -32,7 +32,8 @@ function renderHtmlCrust(contentHtml, pageConfig) {
 // E.g. the `@reframe/react-router` plugin adds a view wrapper to add
 // the provider-components `<BrowserRouter>` and `<StaticRouter>`.
 function applyViewWrappers(reactElement, initialProps) {
-    globalConfig
+    const reframeConfig = reconfig.getConfig({configFileName: 'reframe.config.js'});
+    reframeConfig
     .nodejsViewWrappers
     .forEach(viewWrapper => {
         reactElement = viewWrapper(reactElement, initialProps);

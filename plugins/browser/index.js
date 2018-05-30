@@ -1,8 +1,11 @@
-const globalConfig = require('@brillout/global-config');
-const {transparentGetter} = require('@brillout/global-config/utils');
+const {transparentGetter} = require('@brillout/reconfig/utils');
+const $name = require('./package.json').name;
+const $getters = [
+    transparentGetter('browserEntryFile'),
+];
 
-globalConfig.$addConfig({
-    $name: require('./package.json').name,
+module.exports = {
+    $name,
+    $getters,
     browserEntryFile: require.resolve('./browserEntry'),
-});
-globalConfig.$addGetter(transparentGetter('browserEntryFile'));
+};

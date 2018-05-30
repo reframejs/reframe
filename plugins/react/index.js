@@ -1,16 +1,15 @@
-const globalConfig = require('@brillout/global-config');
-const {transparentGetter} = require('@brillout/global-config/utils');
-
 const renderToHtml = require('./renderToHtml');
 const webpackBrowserConfig = require('./webpackBrowserConfig');
 const webpackNodejsConfig = require('./webpackNodejsConfig');
+const $getters = require('./getters');
+const renderToDomFile = require.resolve('./renderToDom');
+const $name = require('./package.json').name;
 
-globalConfig.$addConfig({
-    $name: require('./package.json').name,
-    renderToDomFile: require.resolve('./renderToDom'),
+module.exports = {
+    $name,
+    $getters,
+    renderToDomFile,
     webpackBrowserConfig,
     webpackNodejsConfig,
     renderToHtml,
-});
-// TODO move
-globalConfig.$addGetter(transparentGetter('renderToHtml'));
+};

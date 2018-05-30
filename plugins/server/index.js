@@ -1,5 +1,4 @@
-const globalConfig = require('@brillout/global-config');
-const {transparentGetter} = require('@brillout/global-config/utils');
+const {transparentGetter} = require('@brillout/reconfig/utils');
 
 const packageName = require('./package.json').name;
 
@@ -10,12 +9,15 @@ const serverEjectName = 'server';
 const ssrEjectName = 'server-rendering';
 const assetsEjectName = 'server-assets';
 
-globalConfig.$addConfig({
+module.exports = {
     $name: packageName,
+    $getters: [
+        transparentGetter('serverEntryFile'),
+    ],
     serverEntryFile,
     ejectables: getEjectables(),
-});
-globalConfig.$addGetter(transparentGetter('serverEntryFile'));
+};
+
 
 function getEjectables() {
     return [

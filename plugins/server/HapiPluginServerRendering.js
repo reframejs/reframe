@@ -2,8 +2,7 @@ const assert_usage = require('reassert/usage');
 const assert_internal = require('reassert/internal');
 const {compute_file_hash} = require('@reframe/utils/compute_file_hash');
 const getPageHtml = require('@brillout/repage/getPageHtml');
-const globalConfig = require('@brillout/global-config');
-const {eagerRequireFileGetter} = require('@brillout/global-config/utils');
+const reconfig = require('@brillout/reconfig');
 
 const HapiPluginServerRendering = {
     name: 'HapiPluginServerRendering',
@@ -35,11 +34,11 @@ async function getHtml(request) {
     const uri = request.url.href;
     assert_internal(uri && uri.constructor===String, uri);
 
-    const {pageConfigs} = globalConfig.getBuildInfo();
+    const reframeConfig = reconfig.getConfig({configFileName: 'reframe.config.js'});
 
-    // TODO move
-  //globalConfig.$addGetter(eagerRequireFileGetter('routerFile', 'router'));
-    const {renderToHtml, router} = globalConfig;
+    const {pageConfigs} = reframeConfig.getBuildInfo();
+
+    const {renderToHtml, router} = reframeConfig;
 
     const html = await getPageHtml({pageConfigs, uri, renderToHtml, router});
     return html;

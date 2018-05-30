@@ -1,6 +1,9 @@
-const globalConfig = require('@brillout/global-config');
+const $name = require('./package.json').name;
+const $getters = require('./getters');
+const routerFile = require.resolve('./router');
 
-globalConfig.$addConfig({
-    $name: require('./package.json').name,
-    routerFile: require.resolve('./router'),
-});
+module.exports = {
+    $name,
+    $getters,
+    routerFile,
+};

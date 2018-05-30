@@ -12,12 +12,12 @@ const program = require('commander');
 const cliUtils = require('@reframe/utils/cliUtils');
 const checkNodejsVersion = require('@reframe/utils/checkNodejsVersion');
 const {tableFormat} = require('@brillout/format-text');
-
+const reconfig = require('@brillout/reconfig');
 const getUserDir = require('@brillout/get-user-dir');
+
+
 const cwd = process.cwd();
 getUserDir.setUserDir(cwd);
-
-const reconfig = require('@brillout/reconfig');
 
 const reframeConfig = reconfig.getConfig({configFileName: 'reframe.config.js'});
 
