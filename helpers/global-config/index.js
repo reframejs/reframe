@@ -1,47 +1,107 @@
 const assert_internal = require('reassert/internal');
+const assert_usage = require('reassert/usage');
 
 const config = {};
-Object.defineProperty(config, '$addConfig', {value: $addConfig});
-Object.defineProperty(config, '$addGetter', {value: $addGetter});
-Object.defineProperty(config, '$pluginNames', {get: getPluginNames});
-
 const configParts = [];
-const pluginNames = [];
+const pluginList = [];
+Object.defineProperty(config, '$getPluginList', {value: getPluginList});
+Object.defineProperty(config, '$addPlugin', {value: addPlugin});
+let rootConfigLoaded = false;
 
-module.exports = config;
+module.exports = {getConfig};
 
-loadConfigFile();
+function getConfig({configFileName}={}) {
+    assert_usage(
+        configFileName
+    );
 
-function $addConfig(configPart) {
-    if( configPart.$name ) {
-        pluginNames.push(configPart.$name);
+    if( ! rootConfigLoaded ) {
+        loadRootConfig({configFileName});
+        rootConfigLoaded = true;
     }
-    configParts.push(configPart);
+
+    return config;
 }
 
-function $addGetter({prop, getter}) {
-    Object.defineProperty(config, prop, {get: () => getter(configParts), enumerable: true});
+function getPluginList() {
+    return pluginList;
 }
 
-function loadConfigFile() {
+function loadRootConfig({configFileName}) {
+    const rootConfigObject = loadConfigFile({configFileName});
+    if( ! rootConfigObject ) {
+        return null;
+    }
+    rootConfigObject.$name = rootConfigObject.$name || configFileName;
+    parseConfigObject(rootConfigObject, {isRoot: true});
+}
+
+function parseConfigObject(configObject, {isRoot=false}={}) {
+    assert_internal(configObject.$name);
+
+    configParts.push(configObject);
+
+    if( configObject.$plugins ) {
+        addPlugins(configObject.$plugins, {isRoot});
+    }
+
+    if( configObject.$getters ) {
+        addGetters(configObject.$getters);
+    }
+}
+
+function addPlugins($plugins, {isRoot}) {
+    $plugins.forEach(configObject => addPlugin(configObject, {isRoot}));
+}
+
+function addPlugin(configObject, {isRoot=true}) {
+    assert_usage(
+        configObject.$name
+    );
+
+    pluginList.push({
+        $name: configObject.$name,
+        $isRootPlugin: isRoot,
+    });
+
+    parseConfigObject(configObject);
+}
+
+function addGetters($getters) {
+    $getters
+    .forEach(({prop, getter}) => {
+        Object.defineProperty(
+            config,
+            prop,
+            {
+                get: () => getter(configParts),
+                enumerable: true,
+            }
+        );
+    });
+}
+
+function loadConfigFile({configFileName}) {
     const getUserDir = require('@brillout/get-user-dir');
     const findUp = require('find-up');
     const pathModule = require('path');
 
     const userDir = getUserDir();
 
-    const globalConfigFile = findUp.sync('global.config.js', {cwd: userDir});
-    assert_internal(globalConfigFile===null || pathModule.isAbsolute(globalConfigFile));
+    const configFile = findUp.sync(configFileName, {cwd: userDir});
+    assert_internal(configFile===null || pathModule.isAbsolute(configFile));
 
-    Object.defineProperty(config, '$globalConfigFile', {value: globalConfigFile});
+    Object.defineProperty(config, '$configFile', {value: configFile});
 
-    if( ! globalConfigFile ) {
-        return;
+    if( ! configFile ) {
+        return null;
     }
 
-    require(globalConfigFile);
-}
+    const rootConfigObject = require(configFile);
 
-function getPluginNames() {
-    return pluginNames;
+    assert_usage(
+        rootConfigObject && rootConfigObject.constructor===Object
+    );
+
+    return rootConfigObject;
 }
