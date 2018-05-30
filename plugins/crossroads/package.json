@@ -2,6 +2,7 @@
   "name": "@reframe/crossroads",
   "version": "0.1.11",
   "dependencies": {
+    "@reframe/path-to-regexp": "0.1.11",
     "crossroads": "^0.12.2",
     "reassert": "^1.1.10"
   },

@@ -1,24 +1,52 @@
-module.exports = ejectCommands;
+module.exports = {
+    $name: require('./package.json').name,
+    $getters: [
+        {
+            prop: 'ejectables',
+            getter: ejectableGetter,
+        }
+    ],
+    cliCommands: [
+        {
+            name: 'eject',
+            param: '[ejectable]',
+            description: 'Eject an "ejectable".',
+            action: runEject,
+            options: [
+                {
+                    name: "--skip-git",
+                    description: "Skip checking if the repository has untracked/dirty files.",
+                }
+            ],
+            getHelp,
+        },
+    ],
+};
 
-function ejectCommands() {
-    return {
-        name: require('./package.json').name,
-        cliCommands: [
-            {
-                name: 'eject',
-                param: '[ejectable]',
-                description: 'Eject an "ejectable".',
-                action: runEject,
-                options: [
-                    {
-                        name: "--skip-git",
-                        description: "Skip checking if the repository has untracked/dirty files.",
-                    }
-                ],
-                getHelp,
-            },
-        ],
-    };
+function ejectableGetter(configParts) {
+    const assert_usage = require('reassert/usage');
+    const assert_internal = require('reassert/internal');
+    const assert_plugin = assert_usage;
+
+    const ejectables = {};
+    configParts
+    .forEach(config => {
+        if( config.ejectables ) {
+            config.ejectables.forEach(ejectable => {
+                const {name} = ejectable;
+                assert_plugin(name);
+                assert_plugin(!ejectables[name], configParts, ejectables, name);
+
+                const ejectableSpec = {...ejectable};
+
+                assert_internal(config.$name);
+                ejectableSpec.packageName = config.$name;
+
+                ejectables[name] = ejectableSpec;
+            });
+        }
+    });
+    return ejectables;
 }
 
 async function runEject({inputs: [ejectableName], options: {skipGit}, printHelp}) {
@@ -30,7 +58,7 @@ async function runEject({inputs: [ejectableName], options: {skipGit}, printHelp}
     const builtins = require('builtins')();
     const assert_usage = require('reassert/usage');
     const assert_internal = require('reassert/internal');
-    const getProjectConfig = require('@reframe/utils/getProjectConfig');
+    const reconfig = require('@brillout/reconfig');
     const {symbolSuccess, strFile} = require('@brillout/cli-theme');
     const runNpmInstall = require('@reframe/utils/runNpmInstall');
     const gitUtils = require('@reframe/utils/git');
@@ -53,9 +81,9 @@ async function runEject({inputs: [ejectableName], options: {skipGit}, printHelp}
             return;
         }
 
-        const projectConfig = getProjectConfig();
+        const reframeConfig = reconfig.getConfig({configFileName: 'reframe.config.js'});
 
-        const {projectRootDir, packageJsonFile: projectPackageJsonFile} = projectConfig.projectFiles;
+        const {projectRootDir, packageJsonFile: projectPackageJsonFile} = reframeConfig.projectFiles;
 
         const gitIsInstalled = gitUtils.gitIsAvailable();
 
@@ -80,20 +108,20 @@ async function runEject({inputs: [ejectableName], options: {skipGit}, printHelp}
 
         let configChanges = ejectableSpec.configChanges||[];
         assert_plugin(configChanges.forEach, configChanges);
-        changeConfig({configChanges, actions, deps, ejectablePackageName, projectConfig})
+        changeConfig({configChanges, actions, deps, ejectablePackageName, reframeConfig})
 
         let fileCopies = ejectableSpec.fileCopies||[];
         assert_plugin(fileCopies.forEach, fileCopies);
         fileCopies
         .forEach(fileCopy =>
-            copyFile({fileCopy, actions, deps, ejectablePackageName, projectConfig})
+            copyFile({fileCopy, actions, deps, ejectablePackageName, reframeConfig})
         )
 
         assert_plugin(actions.length>0);
 
         console.log();
 
-        await updateDependencies({deps, ejectableSpec, projectConfig});
+        await updateDependencies({deps, ejectableSpec, reframeConfig});
 
         actions.forEach(action => action());
 
@@ -101,10 +129,10 @@ async function runEject({inputs: [ejectableName], options: {skipGit}, printHelp}
         console.log();
     }
 
-    function copyFile({fileCopy, actions, deps, ejectablePackageName, projectConfig}) {
+    function copyFile({fileCopy, actions, deps, ejectablePackageName, reframeConfig}) {
         const findPackageFiles = require('@brillout/find-package-files');
 
-        const {projectRootDir} = projectConfig.projectFiles;
+        const {projectRootDir} = reframeConfig.projectFiles;
 
         const {oldPath, noDependerRequired, noDependerMessage} = fileCopy;
         let {newPath} = fileCopy;
@@ -161,13 +189,13 @@ async function runEject({inputs: [ejectableName], options: {skipGit}, printHelp}
         actions.push(copyDependencyAction, ...replaceActions);
     }
 
-    function changeConfig({configChanges, actions, deps, ejectablePackageName, projectConfig}) {
+    function changeConfig({configChanges, actions, deps, ejectablePackageName, reframeConfig}) {
 
         if( configChanges.length===0 ) {
             return;
         }
 
-        const {projectRootDir, reframeConfigFile} = projectConfig.projectFiles;
+        const {projectRootDir, reframeConfigFile} = reframeConfig.projectFiles;
 
         const reframeConfigPath = reframeConfigFile || pathModule.resolve(projectRootDir, './reframe.config.js');
 
@@ -297,8 +325,8 @@ async function runEject({inputs: [ejectableName], options: {skipGit}, printHelp}
         return pathRelative;
     }
 
-    async function updateDependencies({deps, ejectableSpec, projectConfig}) {
-        const {projectRootDir, packageJsonFile: projectPackageJsonFile} = projectConfig.projectFiles;
+    async function updateDependencies({deps, ejectableSpec, reframeConfig}) {
+        const {projectRootDir, packageJsonFile: projectPackageJsonFile} = reframeConfig.projectFiles;
 
         const {packageName: ejectablePackageName} = ejectableSpec;
         assert_internal(ejectablePackageName);
@@ -419,10 +447,9 @@ function getHelp() {
 }
 
 function getEjectables() {
-    const getProjectConfig = require('@reframe/utils/getProjectConfig');
-    const projectConfig = getProjectConfig();
-
-    return projectConfig.ejectables;
+    const reconfig = require('@brillout/reconfig');
+    const reframeConfig = reconfig.getConfig({configFileName: 'reframe.config.js'});
+    return reframeConfig.ejectables;
 }
 
 function printEjectables(tabbing=2) {

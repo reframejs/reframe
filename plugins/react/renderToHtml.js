@@ -28,7 +28,7 @@ function renderHtmlCrust(contentHtml, pageConfig) {
 }
 
 // TODO move comment
-// We only need this for plugins that add view wrapper.
+// We need this for plugins that add view wrapper.
 // E.g. the `@reframe/react-router` plugin adds a view wrapper to add
 // the provider-components `<BrowserRouter>` and `<StaticRouter>`.
 function applyViewWrappers(reactElement, initialProps) {

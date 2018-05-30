@@ -1,22 +1,23 @@
-module.exports = deployStatic;
+const {transparentGetter} = require('@brillout/reconfig/utils');
 
 const cmdDescription = 'Deploy to GitHub Pages.';
 
-function deployStatic() {
-    return {
-        name: require('./package.json').name,
-        cliCommands: [
-            {
-                name: 'deploy-static',
-                description: cmdDescription,
-                action: runDeploy,
-            }
-        ],
-    };
-}
+module.exports = {
+    $name: require('./package.json').name,
+    $getters: [
+        transparentGetter('githubPagesRepository'),
+    ],
+    cliCommands: [
+        {
+            name: 'deploy-static',
+            description: cmdDescription,
+            action: runDeploy,
+        }
+    ],
+};
 
 async function runDeploy() {
-    const getProjectConfig = require('@reframe/utils/getProjectConfig');
+    const reconfig = require('@brillout/reconfig');
     const path = require("path");
     const git = require('@reframe/utils/git');
     const assert_usage = require('reassert/usage');
@@ -26,15 +27,15 @@ async function runDeploy() {
     const moment = require('moment');
     const {colorError, colorEmphasis, strDir, loadingSpinner, symbolSuccess, indent} = require('@brillout/cli-theme');
 
-    const projectConfig = getProjectConfig();
-    const {projectRootDir} = projectConfig.projectFiles;
+    const reframeConfig = reconfig.getConfig({configFileName: 'reframe.config.js'});
+    const {projectRootDir} = reframeConfig.projectFiles;
     assert_internal(projectRootDir);
 
     assert_usage(
-        projectConfig.getBuildInfo
+        reframeConfig.getBuildInfo
     );
 
-    const buildInfo = projectConfig.getBuildInfo({requireProductionBuild: true});
+    const buildInfo = reframeConfig.getBuildInfo({requireProductionBuild: true});
     const {staticAssetsDir, buildEnv, pageConfigs, buildTime} = buildInfo;
     assert_internal(buildEnv==='production');
     assert_internal(buildTime);
@@ -65,7 +66,7 @@ async function runDeploy() {
         "Change your page configs accordingly and rebuild."
     );
 
-    const {githubPagesRepository} = projectConfig;
+    const {githubPagesRepository} = reframeConfig;
     assert_usage(
         githubPagesRepository && githubPagesRepository.remote,
         "Config `githubPagesRepository.remote` missing.",

@@ -58,7 +58,9 @@ function addPlugins($plugins, {isRoot}) {
 function addPlugin(configObject, {isRoot=true}={}) {
     assert_usage(
         configObject.$name,
-        "A plugin is missing a `$name` but it is required."
+        "A plugin is missing a `$name` but it is required.",
+        // TODO move into a reassert details section
+        configObject
     );
 
     pluginList.push({
