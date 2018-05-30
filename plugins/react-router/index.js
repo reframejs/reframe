@@ -1,7 +1,9 @@
-const globalConfig = require('@brillout/global-config');
+const $name = require('./package.json').name;
+const $getters = require('./getters');
 
 globalConfig.$addConfig({
-    $name: require('./package.json').name,
+    $name,
+    $getters,
     browserViewWrapperFile: require.resolve('./browserViewWrapper'),
     nodejsViewWrapperFile: require.resolve('./nodejsViewWrapper'),
 });

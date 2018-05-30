@@ -49,43 +49,43 @@ function getCliCommands() {
 }
 
 async function runStart({options}) {
-    const globalConfig = init({dev: true, ...options});
-    log_found_stuff({globalConfig, log_page_configs: true});
-    await buildAssets(globalConfig);
-    await startServer(globalConfig);
+    const reframeConfig = init({dev: true, ...options});
+    log_found_stuff({reframeConfig, log_page_configs: true});
+    await buildAssets(reframeConfig);
+    await startServer(reframeConfig);
 }
 
 async function startBuild({options}) {
-    const globalConfig = init({...options, doNotWatchBuildFiles: true});
-    log_found_stuff({globalConfig, log_page_configs: true});
-    await buildAssets(globalConfig);
+    const reframeConfig = init({...options, doNotWatchBuildFiles: true});
+    log_found_stuff({reframeConfig, log_page_configs: true});
+    await buildAssets(reframeConfig);
     log_server_start_hint();
 }
 
 async function startServer({options}) {
-    const globalConfig = init(options);
-    log_found_stuff({globalConfig, log_built_pages: true});
-    await startServer(globalConfig, true);
+    const reframeConfig = init(options);
+    log_found_stuff({reframeConfig, log_built_pages: true});
+    await startServer(reframeConfig, true);
 }
 
 
-async function buildAssets(globalConfig) {
-    assert_build(globalConfig);
-    await globalConfig.runBuild();
+async function buildAssets(reframeConfig) {
+    assert_build(reframeConfig);
+    await reframeConfig.runBuild();
 }
 
-async function startServer(globalConfig) {
-    assert_server(globalConfig);
+async function startServer(reframeConfig) {
+    assert_server(reframeConfig);
 
     let server;
     try {
-        server = await require(globalConfig.serverEntryFile);
+        server = await require(reframeConfig.serverEntryFile);
     } catch(err) {
         prettify_error(err);
         return;
     }
 
-    log_server(server, globalConfig);
+    log_server(server, reframeConfig);
 }
 function init({dev, log, doNotWatchBuildFiles, _description}) {
     if( _description ) {
@@ -98,11 +98,12 @@ function init({dev, log, doNotWatchBuildFiles, _description}) {
         process.env['NODE_ENV'] = 'production';
     }
 
-    const globalConfig = require('@brillout/global-config');
+    const reconfig = require('@brillout/reconfig');
+    const reframeConfig = reconfig.getConfig({configFileName: 'reframe.config.js'});
 
     // TODO
     Object.assign(
-        globalConfig,
+        reframeConfig,
         {
             log: {
                 verbose: !!log,
@@ -111,23 +112,25 @@ function init({dev, log, doNotWatchBuildFiles, _description}) {
         }
     );
 
-    return globalConfig;
+    return reframeConfig;
 }
 
-function assert_build(globalConfig) {
-    assert_config(globalConfig.runBuild, globalConfig, 'runBuild', 'build');
+function assert_build(reframeConfig) {
+    assert_config(reframeConfig.runBuild, reframeConfig, 'runBuild', 'build');
 }
-function assert_server(globalConfig) {
-    assert_config(globalConfig.serverEntryFile, globalConfig, 'serverEntryFile', 'server');
+function assert_server(reframeConfig) {
+    assert_config(reframeConfig.serverEntryFile, reframeConfig, 'serverEntryFile', 'server');
 }
-function assert_config(bool, globalConfig, configOpt, name) {
+function assert_config(bool, reframeConfig, configOpt, name) {
     const assert_usage = require('reassert/usage');
     const assert_internal = require('reassert/internal');
+    const {strFile} = require('@brillout/cli-theme');
+    const reframeConfigFile = getReframeConfigFile(reframeConfig);
     assert_usage(
         bool,
         "Can't find "+name+".",
         "More precisely: The global config is missing a `"+configOpt+"`.",
-        "Either add a "+name+" plugin or define `globalConfig."+configOpt+"` yourself in your `reframe.config.js`.",
+        "Either add a "+name+" plugin or define `"+configOpt+"` yourself in your `"+strFile(reframeConfigFile)+"`.",
     /* TODO
     assert_internal(globalConfig._rootPluginNames);
     assert_internal(globalConfig._packageJsonFile);
@@ -140,6 +143,13 @@ function assert_config(bool, globalConfig, configOpt, name) {
         )
     */
     );
+}
+
+function getReframeConfigFile(reframeConfig) {
+    const assert_internal = require('reassert/internal');
+    const reframeConfigFile = reframeConfig.$configFile;
+    assert_internal(reframeConfigFile);
+    return reframeConfigFile;
 }
 
 function prettify_error(err) {
@@ -157,14 +167,14 @@ function prettify_error(err) {
     console.error();
 }
 
-function log_server(server, globalConfig) {
+function log_server(server, reframeConfig) {
  // const {symbolSuccess} = require('@brillout/cli-theme');
  // console.log(symbolSuccess+'Server running '+server.info.uri);
-    log_routes(globalConfig, server);
+    log_routes(reframeConfig, server);
     console.log();
 }
-function log_routes(globalConfig, server) {
-    const {pageConfigs} = globalConfig.getBuildInfo();
+function log_routes(reframeConfig, server) {
+    const {pageConfigs} = reframeConfig.getBuildInfo();
     const {colorPkg, colorDim, indent} = require('@brillout/cli-theme');
 
     const serverUrl = server && server.info && server.info.uri || '';
@@ -186,7 +196,7 @@ function log_server_start_hint() {
     console.log();
 }
 
-function log_found_stuff({globalConfig, log_page_configs, log_built_pages}) {
+function log_found_stuff({reframeConfig, log_page_configs, log_built_pages}) {
     const {colorError, symbolSuccess, strDir, strFile, colorPkg, colorEmphasis} = require('@brillout/cli-theme');
     const pathModule = require('path');
     const assert_usage = require('reassert/usage');
@@ -194,8 +204,8 @@ function log_found_stuff({globalConfig, log_page_configs, log_built_pages}) {
 
     let lines = [];
 
-    lines.push(cliUtils.getProjectRootLog(globalConfig));
-    lines.push(cliUtils.getRootPluginsLog(globalConfig));
+    lines.push(cliUtils.getProjectRootLog(reframeConfig));
+    lines.push(cliUtils.getRootPluginsLog(reframeConfig));
     lines.push(log_reframe_config());
     log_built_pages && lines.push(...log_built_pages_found());
     log_page_configs && lines.push(...log_found_page_configs());
@@ -210,11 +220,11 @@ function log_found_stuff({globalConfig, log_page_configs, log_built_pages}) {
     return;
 
     function log_built_pages_found() {
-        const {buildOutputDir} = globalConfig.projectFiles;
+        const {buildOutputDir} = reframeConfig.projectFiles;
 
         let buildInfo;
         try {
-            buildInfo = require(globalConfig.getBuildInfo)();
+            buildInfo = reframeConfig.getBuildInfo();
         } catch(err) {
             if( ((err||{}).message||'').includes('The build needs to have been run previously') ) {
                 assert_usage(
@@ -231,7 +241,7 @@ function log_found_stuff({globalConfig, log_page_configs, log_built_pages}) {
     }
 
     function log_reframe_config() {
-        const {reframeConfigFile} = globalConfig.projectFiles;
+        const reframeConfigFile = getReframeConfigFile(reframeConfig);
         return (
             reframeConfigFile ? (
                 'Reframe config '+strFile(reframeConfigFile)
@@ -242,8 +252,8 @@ function log_found_stuff({globalConfig, log_page_configs, log_built_pages}) {
     }
 
     function log_found_page_configs() {
-        const configFiles = Object.entries(globalConfig.getPageConfigFiles());
-        const {projectRootDir} = globalConfig.projectFiles;
+        const configFiles = Object.entries(reframeConfig.getPageConfigFiles());
+        const {projectRootDir} = reframeConfig.projectFiles;
 
         const numberOfPages = configFiles.length;
         if( numberOfPages===0 ) {

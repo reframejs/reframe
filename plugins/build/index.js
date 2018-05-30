@@ -19,11 +19,61 @@ module.exports = {
         // TODO - remove requireFileGetter because overkill?
         requireFileGetter('buildFile', 'runBuild'),
         transparentGetter('getBuildInfo'),
+        {
+            prop: 'webpackBrowserConfigModifier',
+            getter: configParts => assemble_modifiers('webpackBrowserConfig', configParts),
+        },
+        {
+            prop: 'webpackNodejsConfigModifier',
+            getter: configParts => assemble_modifiers('webpackNodejsConfig', configParts),
+        },
     ],
     buildFile,
     getBuildInfo,
     ejectables: getEjectables(),
 };
+
+
+// We assemble several webpack config modifiers into one supra modifier
+function assemble_modifiers(modifier_name, configParts) {
+    const assert_usage = require('reassert/usage');
+
+    // `configParts` holds all globalConfig parts
+    // `config` holds a webpack config
+    let supra_modifier = ({config}) => config;
+
+    // We assemble all `configParts`'s config modifiers into one `supra_modifier`
+    configParts
+    .forEach(configPart => {
+        const modifier = configPart[modifier_name];
+        if( ! modifier ) {
+            return;
+        }
+        assert_usage(configPart[modifier_name] instanceof Function);
+        const previous_modifier = supra_modifier;
+        supra_modifier = (
+            args => {
+                const config = previous_modifier(args);
+                const config__new = modifier({...args, config});
+                assert_usage(
+                    config__new,
+                    (
+                        configPart.$name ? (
+                            "The `"+modifier_name+"` of `"+configPart.$name+"`"
+                        ) : (
+                            "A `"+modifier_name+"`"
+                        )
+                    ) + (
+                        " is returning `"+config__new+"` but it should be returning a webpack config instead."
+                    )
+                );
+                return config__new;
+            }
+        );
+    });
+
+    return supra_modifier;
+}
 
 function getEjectables() {
     return [
