@@ -57,7 +57,7 @@
         "helpers/webpack-ssr",
         "helpers/webpack-config-mod",
         "helpers/file-sets",
-        "helpers/global-config",
+        "helpers/reconfig",
         "helpers/repage",
         "helpers/rebuild/config",
         "helpers/rebuild/build",

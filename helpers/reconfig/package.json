@@ -1,5 +1,5 @@
 {
-  "name": "@brillout/global-config",
+  "name": "@brillout/reconfig",
   "version": "0.1.11",
   "dependencies": {
     "@brillout/get-user-dir": "^0.2.1",

@@ -1,6 +1,4 @@
-const globalConfig = require('@brillout/global-config');
-
-globalConfig.$addConfig({
+module.exports = {
     $name: require('./package.json').name,
     cliCommands: [
         {
@@ -19,7 +17,7 @@ globalConfig.$addConfig({
             showUsageExample,
         }
     ],
-});
+};
 
 async function runInit(projectDir) {
     const path = require('path');

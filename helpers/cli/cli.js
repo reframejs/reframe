@@ -17,11 +17,13 @@ const getUserDir = require('@brillout/get-user-dir');
 const cwd = process.cwd();
 getUserDir.setUserDir(cwd);
 
-const globalConfig = require('@brillout/global-config');
+const reconfig = require('@brillout/reconfig');
+
+const reframeConfig = reconfig.getConfig({configFileName: 'reframe.config.js'});
 
 checkNodejsVersion();
 
-globalConfig.$addGetter({
+reframeConfig.$addGetter({
     prop: 'allCliCommands',
     getter: configs => {
         const commands = [];
@@ -37,17 +39,19 @@ globalConfig.$addGetter({
 // TODO
 //const projectConfig = getProjectConfig({projectNotRequired: true, pluginRequired: true});
 
-const isProject =  !! globalConfig.$globalConfigFile;
+const isProject =  !! reframeConfig.$configFile;
 
 if( ! isProject ) {
-    assert_internal(globalConfig.$pluginNames.length===0);
-    assert_internal(globalConfig.allCliCommands.length===0);
-    require('@reframe/init');
+    assert_internal(reframeConfig.$getPluginList().length===0);
+    assert_internal(reframeConfig.allCliCommands.length===0);
+    reframeConfig.$addPlugin(require('@reframe/init'));
+    reframeConfig.$addPlugin(require('@reframe/project-files'), {isRoot: false});
 }
 
-assert_internal(globalConfig.allCliCommands.length>0);
-assert_usage(globalConfig.projectFiles.projectRootDir);
+assert_internal(reframeConfig.allCliCommands.length>0);
 
+// TODO
+//assert_usage(reframeConfig.projectFiles.projectRootDir);
 ///assert_at_least_one_command();
 
 const {runProgram} = initProgram();
@@ -90,7 +94,7 @@ function initProgram() {
     };
 
     function addPluginCommands() {
-        commandArray.push(...globalConfig.allCliCommands);
+        commandArray.push(...reframeConfig.allCliCommands);
     }
 
     function getCommandSpecs() {
@@ -169,13 +173,18 @@ function initProgram() {
             console.log(INDENT+INDENT+cliPkg.name+'@'+cliPkg.version);
         }
 
-        const {$pluginNames, projectFiles: {projectRootDir}} = globalConfig;
-        if( $pluginNames.length === 0 ) {
+        const {$getPluginList, projectFiles: {projectRootDir}} = reframeConfig;
+        const rootPluginNames = (
+            $getPluginList()
+            .filter(plugin => plugin.$isRootPlugin)
+            .map(plugin => plugin.$name)
+        );
+        if( rootPluginNames.length === 0 ) {
             return;
         }
         console.log();
         console.log(INDENT+'Plugins:');
-        $pluginNames.forEach(pkgName => {
+        rootPluginNames.forEach(pkgName => {
             const resolveOptions = {};
             if( projectRootDir ) {
                 resolveOptions.paths = [projectRootDir];
@@ -269,9 +278,9 @@ function initProgram() {
      // const emphasize = colorEmphasisLight;
         const emphasize = s => s;
         console.log(
-            INDENT+'Commands provided by '+cliUtils.getRootPluginsLog(globalConfig, emphasize)+(
+            INDENT+'Commands provided by '+cliUtils.getRootPluginsLog(reframeConfig, emphasize)+(
                 isProject ? (
-                    ' of '+cliUtils.getProjectRootLog(globalConfig, emphasize)+'.'
+                    ' of '+cliUtils.getProjectRootLog(reframeConfig, emphasize)+'.'
                 ) : (
                     '. (No project found at '+strDir(cwd)+'.)'
                 )

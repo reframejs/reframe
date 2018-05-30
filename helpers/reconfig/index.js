@@ -6,6 +6,7 @@ const configParts = [];
 const pluginList = [];
 Object.defineProperty(config, '$getPluginList', {value: getPluginList});
 Object.defineProperty(config, '$addPlugin', {value: addPlugin});
+Object.defineProperty(config, '$addGetter', {value: addGetter});
 let rootConfigLoaded = false;
 
 module.exports = {getConfig};
@@ -54,9 +55,10 @@ function addPlugins($plugins, {isRoot}) {
     $plugins.forEach(configObject => addPlugin(configObject, {isRoot}));
 }
 
-function addPlugin(configObject, {isRoot=true}) {
+function addPlugin(configObject, {isRoot=true}={}) {
     assert_usage(
-        configObject.$name
+        configObject.$name,
+        "A plugin is missing a `$name` but it is required."
     );
 
     pluginList.push({
@@ -68,17 +70,19 @@ function addPlugin(configObject, {isRoot=true}) {
 }
 
 function addGetters($getters) {
-    $getters
-    .forEach(({prop, getter}) => {
-        Object.defineProperty(
-            config,
-            prop,
-            {
-                get: () => getter(configParts),
-                enumerable: true,
-            }
-        );
-    });
+    $getters.forEach(addGetter);
+}
+
+function addGetter(getterSpec) {
+    const {prop, getter} = getterSpec;
+    Object.defineProperty(
+        config,
+        prop,
+        {
+            get: () => getter(configParts),
+            enumerable: true,
+        }
+    );
 }
 
 function loadConfigFile({configFileName}) {
