@@ -33,8 +33,7 @@ function renderHtmlCrust(contentHtml, pageConfig) {
 // the provider-components `<BrowserRouter>` and `<StaticRouter>`.
 function applyViewWrappers(reactElement, initialProps) {
     const reframeConfig = reconfig.getConfig({configFileName: 'reframe.config.js'});
-    reframeConfig
-    .nodejsViewWrappers
+    (reframeConfig.nodejsViewWrappers||[])
     .forEach(viewWrapper => {
         reactElement = viewWrapper(reactElement, initialProps);
     });

@@ -9,7 +9,8 @@ const HapiPluginStaticAssets = {
 module.exports = HapiPluginStaticAssets;
 
 async function register(server) {
-    const globalConfig = require('@brillout/global-config');
+    const reconfig = require('@brillout/reconfig');
+    const reframeConfig = reconfig.getConfig({configFileName: 'reframe.config.js'});
     const Inert = require('inert');
     const path = require('path');
     const fs = require('fs');
@@ -23,7 +24,7 @@ async function register(server) {
     return;
 
     function getStaticAssetsDir() {
-        const {staticAssetsDir} = globalConfig.getBuildInfo();
+        const {staticAssetsDir} = reframeConfig.getBuildInfo();
         return staticAssetsDir;
     }
 

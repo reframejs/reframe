@@ -4,8 +4,8 @@ const pathModule = require('path');
 
 const assert_pageConfig = require('@reframe/utils/assert_pageConfig');
 
-const globalConfig = require('@brillout/global-config');
-require('@reframe/utils/global-config-getters/browser');
+const reconfig = require('@brillout/reconfig');
+const reframeConfig = reconfig.getConfig({configFileName: 'reframe.config.js'});
 
 
 module.exports = getPageBrowserEntries;
@@ -62,7 +62,7 @@ function generateConfigCode() {
         'routerFile',
     ].forEach(propFile => {
         const prop = propFile.slice(0, -1*'File'.length);
-        const filePath = globalConfig[propFile];
+        const filePath = reframeConfig[propFile];
         if( ! filePath ) return;
         lines.push(
             "",
@@ -70,12 +70,13 @@ function generateConfigCode() {
         );
     });
 
-    const {browserViewWrapperFiles} = globalConfig;
+    const {browserViewWrapperFiles} = reframeConfig;
     lines.push(
         "",
         "  browserConfig['browserViewWrappers'] = [",
         ...(
-            browserViewWrapperFiles.map((browserViewWrapperFile, i) => {
+            (browserViewWrapperFiles||[])
+            .map((browserViewWrapperFile, i) => {
                 let line = "    require('"+browserViewWrapperFile+"')";
                 if( i !== browserViewWrapperFiles.length-1 ) {
                     line += ",";
@@ -122,9 +123,9 @@ function getBrowserEntrySpec({pageConfig, pageFile, pageName}) {
         browserEntryPath = pathModule.resolve(pageDir, pathToEntry);
         assert_browserEntryPath({browserEntryPath, pathToEntry, pageName, pageDir});
     } else {
-        assert_usage(globalConfig.browserEntryFile);
-        assert_usage(pathModule.isAbsolute(globalConfig.browserEntryFile));
-        browserEntryPath = globalConfig.browserEntryFile;
+        assert_usage(reframeConfig.browserEntryFile);
+        assert_usage(pathModule.isAbsolute(reframeConfig.browserEntryFile));
+        browserEntryPath = reframeConfig.browserEntryFile;
     }
 
     const browserEntrySpec = {
