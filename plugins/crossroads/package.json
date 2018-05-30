@@ -3,7 +3,7 @@
   "version": "0.1.11",
   "dependencies": {
     "crossroads": "^0.12.2",
-    "reassert": "^1.1.9"
+    "reassert": "^1.1.10"
   },
   "publishConfig": {
     "access": "public"

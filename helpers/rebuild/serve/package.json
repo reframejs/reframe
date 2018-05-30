@@ -5,7 +5,7 @@
     "@rebuild/build": "0.1.11",
     "chokidar": "^1.7.0",
     "parent-module": "^0.1.0",
-    "reassert": "^1.1.9",
+    "reassert": "^1.1.10",
     "ws": "^5.1.0"
   },
   "publishConfig": {

@@ -6,6 +6,6 @@
     "@rebuild/build": "0.1.11",
     "@rebuild/config": "0.1.11",
     "@rebuild/serve": "0.1.11",
-    "reassert": "^1.1.9"
+    "reassert": "^1.1.10"
   }
 }

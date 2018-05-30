@@ -19,7 +19,7 @@
     "lodash": "^4.17.4",
     "mini-css-extract-plugin": "^0.4.0",
     "parent-module": "^0.1.0",
-    "reassert": "^1.1.9",
+    "reassert": "^1.1.10",
     "style-loader": "^0.21.0",
     "webpack": "^4.6.0"
   },

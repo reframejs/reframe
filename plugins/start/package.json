@@ -4,7 +4,7 @@
     "dependencies": {
         "@brillout/cli-theme": "0.1.11",
         "@reframe/utils": "0.1.11",
-        "reassert": "^1.1.9",
+        "reassert": "^1.1.10",
         "string-width": "^2.1.1"
     },
     "publishConfig": {

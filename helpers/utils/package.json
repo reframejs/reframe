@@ -8,7 +8,7 @@
     "cross-spawn": "^6.0.4",
     "find-up": "^2.1.0",
     "git-state": "^4.0.0",
-    "reassert": "^1.1.9",
+    "reassert": "^1.1.10",
     "semver": "^5.5.0",
     "simple-git": "^1.95.0"
   },
