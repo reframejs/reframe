@@ -1,0 +1,1 @@
+require('@reframe/react-kit');

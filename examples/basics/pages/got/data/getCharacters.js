@@ -11,7 +11,7 @@ async function getCharacters() {
         fetch(url)
         .then(response => response.json())
         .catch(err => {
-            if( err.code === 'EAI_AGAIN' ) {
+            if( err.code === 'EAI_AGAIN' || err.message === 'Failed to fetch' ) {
                 return null;
             }
             console.error(url);

@@ -4,7 +4,7 @@ import CharacterList from './views/CharacterList';
 
 class Characters extends React.Component {
     render() {
-        if( ! this.state || ! this.state.characters ) {
+        if( ! this.state || this.state.characters===undefined ) {
             return <div>Loading...</div>;
         }
         return <CharacterList characters={this.state.characters}/>;

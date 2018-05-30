@@ -1,22 +1,23 @@
 import React from 'react';
 
-const CharacterList = props => (
-    <div>
-        <h3>Game of Thrones Characters</h3>
-        <table border="7" cellPadding="5">
-            <tbody>{
-                props
-                .characters
-                .map(character => character.name)
-                .map(name => (
-                    <tr key={name}><td>
-                        {name}
-                    </td></tr>
-                ))
-            }</tbody>
-        </table>
-    </div>
-);
+const CharacterList = ({characters}) => {
+    const content = (
+        characters === null ? (
+            <div>You are offline. Can't retrieve list of characters.</div>
+        ) : (
+            <div>
+                List of characters loaded from remote server.
+                <ul>
+                  { characters.map(character =>
+                    <li key={character.id}>{character.name}</li>
+                  )}
+                </ul>
+            </div>
+        )
+    );
+    return (
+        <div style={{margin: 'auto', maxWidth: 500}}>{content}</div>
+    );
+};
 
 export default CharacterList;
-
