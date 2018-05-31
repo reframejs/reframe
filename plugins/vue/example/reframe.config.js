@@ -1,7 +1,6 @@
-const vue = require('..');
-
 module.exports = {
-    plugins: [
-        vue()
+    $plugins: [
+        require('@reframe/react-kit'),
+        require('..')
     ],
 };

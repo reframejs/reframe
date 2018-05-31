@@ -104,6 +104,7 @@ function addGetter(getterSpec) {
         {
             get: () => getter(configParts),
             enumerable: true,
+            configurable: true,
         }
     );
 }

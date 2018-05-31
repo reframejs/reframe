@@ -1,15 +1,15 @@
-module.exports = vue;
+const renderToDomFile = require.resolve('./renderToDom');
+const renderToHtmlFile = require.resolve('./renderToHtml');
+const webpackBrowserConfig = require('./webpackBrowserConfig');
+const webpackNodejsConfig = require('./webpackNodejsConfig');
+const $getters = require('@reframe/react/getters');
+const $name = require('./package.json').name;
 
-function vue() {
-    const renderToHtml = require('./renderToHtml');
-    const webpackBrowserConfig = require('./webpackBrowserConfig');
-    const webpackNodejsConfig = require('./webpackNodejsConfig');
-
-    return {
-        name: require('./package.json').name,
-        browserConfigFile: require.resolve('./browser.js'),
-        webpackBrowserConfig,
-        webpackNodejsConfig,
-        renderToHtml,
-    };
-}
+module.exports = {
+    $name,
+    $getters,
+    webpackBrowserConfig,
+    webpackNodejsConfig,
+    renderToHtmlFile,
+    renderToDomFile,
+};
