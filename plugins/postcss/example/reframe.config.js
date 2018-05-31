@@ -1,14 +1,12 @@
-const postcss = require('..');
-
 module.exports = {
-    plugins: [
-        postcss({
-            loaderOptions: {
-                plugins: [
-                    require('postcss-cssnext')(),
-                ],
-                parser: 'sugarss',
-            },
-        })
+    $plugins: [
+        require('@reframe/react-kit'),
+        require('..')
     ],
+    postcss: {
+        plugins: [
+            require('postcss-cssnext')()
+        ],
+        parser: 'sugarss',
+    }
 };

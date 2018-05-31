@@ -1,19 +1,24 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-module.exports = postcss;
+const {transparentGetter} = require('@brillout/reconfig/utils');
+const reconfig = require('@brillout/reconfig');
 
-function postcss({loaderOptions}={}) {
-    return {
-        name: require('./package.json').name,
-        // We modify only the browser config and not the server config
-        // The server doesn't load any CSS
-        webpackBrowserConfig: ({config, setRule}) => {
-            add_postcss_rule({config, loaderOptions, setRule});
-            return config;
-        },
-    };
-}
+const $name = require('./package.json').name;
+const $getters = [
+    transparentGetter('postcss')
+];
 
-function add_postcss_rule({config, loaderOptions={}, setRule}) {
+module.exports = {
+    $name,
+    $getters,
+    // The server doesn't load any CSS
+    // Thus we modify only the browser config and not the server config
+    webpackBrowserConfig,
+};
+
+function webpackBrowserConfig({config, setRule}) {
+    const reframeConfig = reconfig.getConfig({configFileName: 'reframe.config.js'});
+    const loaderOptions = reframeConfig.postcss;
+
     const use = [
         require.resolve('css-loader'),
         {
@@ -27,4 +32,6 @@ function add_postcss_rule({config, loaderOptions={}, setRule}) {
     }
 
     setRule(config, '.css', {use});
+
+    return config;
 }

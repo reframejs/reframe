@@ -125,10 +125,12 @@ function BuildManager({buildName, buildFunction, onSuccessfullWatchChange, onBui
 
         await _compiler.waitSuccessfullCompilation();
         if( runIsOutdated() ) return abortRun();
+        const compilationInfo = _compiler.getInfo();
+        if( compilationInfo.is_compiling ) return abortRun();
 
         global.DEBUG_WATCH && console.log(chalk.bold.blue('RUN-END ')+buildName+' '+_compiler.getCompilerId());
 
-        const entryPoints = getEntryPoints(_compiler.getInfo());
+        const entryPoints = getEntryPoints(compilationInfo);
         return entryPoints;
 
         function compilationStateChangeListener(compilationInfo) {
