@@ -2,6 +2,7 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const assert_usage = require('reassert/usage');
 const find_up = require('find-up');
 const getUserDir = require('@brillout/get-user-dir');
+const reconfig = require('@brillout/reconfig');
 const {transparentGetter} = require('@brillout/reconfig/utils');
 
 const $name = require('./package.json').name;

@@ -1,7 +1,6 @@
-const ts = require('..');
-
 module.exports = {
-    plugins: [
-        ts(),
-    ],
+    $plugins: [
+        require('@reframe/react-kit'),
+        require('..')
+    ]
 };
