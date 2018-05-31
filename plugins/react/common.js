@@ -1,3 +1,4 @@
+Error.stackTraceLimit = Infinity;
 const React = require('react');
 
 module.exports = {
@@ -6,7 +7,16 @@ module.exports = {
 };
 
 function getReactElement({pageConfig, initialProps, viewWrappers}) {
-    let reactElement = React.createElement(pageConfig.view, initialProps);
+    let reactElement;
+        console.log(11111111);
+        console.log(pageConfig.view);
+    try {
+        reactElement = React.createElement(pageConfig.view, initialProps);
+    } catch(err) {
+        console.log('Error while creating element from:')
+        console.log(pageConfig.view);
+        throw err;
+    }
     reactElement = applyViewWrappers({reactElement, initialProps, viewWrappers});
     return reactElement;
 }

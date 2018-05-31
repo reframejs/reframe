@@ -1,7 +1,6 @@
-const reactNativeWeb = require('..'); // npm install @reframe/react-native-web
-
 module.exports = {
-    plugins: [
-        reactNativeWeb()
-    ],
+    $plugins: [
+        require('@reframe/react-kit'),
+        require('..') // npm install @reframe/react-native-web
+    ]
 };

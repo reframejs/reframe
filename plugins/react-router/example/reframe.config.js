@@ -1,7 +1,6 @@
-const reactRouter = require('..');
-
 module.exports = {
-    plugins: [
-        reactRouter()
-    ],
+    $plugins: [
+        require('@reframe/react-kit'),
+        require('..')
+    ]
 };

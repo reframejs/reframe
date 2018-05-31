@@ -2,21 +2,28 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const assert_usage = require('reassert/usage');
 const find_up = require('find-up');
 const getUserDir = require('@brillout/get-user-dir');
+const {transparentGetter} = require('@brillout/reconfig/utils');
 
-module.exports = ts;
+const $name = require('./package.json').name;
+const $getters = [
+    transparentGetter('typescript')
+];
 
-function ts({loaderOptions={transpileOnly: true}, dontUseForkChecker=false, forkCheckerOptions={silent: true}}={}) {
-    return {
-        name: require('./package.json').name,
-        webpackBrowserConfig: webpackMod,
-        webpackNodejsConfig: webpackMod,
-    };
-    function webpackMod({config, getRule, setRule, addExtension}) {
-        add_typescript({config, getRule, setRule, addExtension, loaderOptions, dontUseForkChecker, forkCheckerOptions});
-        return config;
-    }
+module.exports = {
+    $name,
+    $getters,
+    webpackBrowserConfig: webpackMod,
+    webpackNodejsConfig: webpackMod,
+};
+
+function webpackMod({config, getRule, setRule, addExtension}) {
+    const reframeConfig = reconfig.getConfig({configFileName: 'reframe.config.js'});
+    const {loaderOptions={transpileOnly: true}, dontUseForkChecker=false, forkCheckerOptions={silent: true}} = reframeConfig.typescript || {};
+
+    add_typescript({config, getRule, setRule, addExtension, loaderOptions, dontUseForkChecker, forkCheckerOptions});
+
+    return config;
 }
-
 function add_typescript({config, getRule, setRule, addExtension, loaderOptions, dontUseForkChecker, forkCheckerOptions}) {
     const jsRule = getRule(config, '.js');
 
