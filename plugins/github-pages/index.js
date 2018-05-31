@@ -25,11 +25,11 @@ async function runDeploy() {
     const Confirm = require('prompt-confirm');
     const GitUrlParse = require("git-url-parse");
     const moment = require('moment');
-    const {colorError, colorEmphasis, strDir, loadingSpinner, symbolSuccess, indent} = require('@brillout/cli-theme');
+    const {colorError, colorEmphasis, strDir, strDir_emphasisFile, loadingSpinner, symbolSuccess, indent} = require('@brillout/cli-theme');
 
     const reframeConfig = reconfig.getConfig({configFileName: 'reframe.config.js'});
-    const {projectRootDir} = reframeConfig.projectFiles;
-    assert_internal(projectRootDir);
+    const configFile = reconfig.$configFile;
+    assert_internal(configFile);
 
     assert_usage(
         reframeConfig.getBuildInfo
@@ -76,7 +76,7 @@ async function runDeploy() {
         "Then add the repository's address to "+
         colorEmphasis("githubPagesRepository.remote")+
         " in "+
-        strDir(projectRootDir)+colorEmphasis("reframe.config.js")+
+        strDir_emphasisFile(configFile)+
         ".",
         "",
         "Example: ",

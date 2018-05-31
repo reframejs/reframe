@@ -33,6 +33,12 @@ const cliTheme = {
         dirPath = dirPath + (dirPath.endsWith(path.sep) ? '' : path.sep)
         return cliTheme.strFile(dirPath);
     },
+    strDir_emphasisFile: dirPath => {
+        const path = require('path');
+        const parts = dirPath.split(path.sep);
+        const dirStr = cliTheme.strDir(parts.slice(0, -1).join(path.sep));
+        return dirStr + cliTheme.colorEmphasis(parts.slice(-1));
+    },
     strFile: filePath => {
         const relativeToHomedir = require('@brillout/relative-to-homedir');
         return relativeToHomedir(filePath);

@@ -14,6 +14,7 @@ const checkNodejsVersion = require('@reframe/utils/checkNodejsVersion');
 const {tableFormat} = require('@brillout/format-text');
 const reconfig = require('@brillout/reconfig');
 const getUserDir = require('@brillout/get-user-dir');
+const pathModule = require('path');
 
 
 const cwd = process.cwd();
@@ -39,7 +40,7 @@ reframeConfig.$addGetter({
 // TODO
 //const projectConfig = getProjectConfig({projectNotRequired: true, pluginRequired: true});
 
-const isProject =  !! reframeConfig.$configFile;
+const isProject = !! reframeConfig.$configFile;
 
 if( ! isProject ) {
     assert_internal(reframeConfig.$getPluginList().length===0);
@@ -173,7 +174,7 @@ function initProgram() {
             console.log(INDENT+INDENT+cliPkg.name+'@'+cliPkg.version);
         }
 
-        const {$getPluginList, projectFiles: {projectRootDir}} = reframeConfig;
+        const {$getPluginList, $configFile: configFile} = reframeConfig;
         const rootPluginNames = (
             $getPluginList()
             .filter(plugin => plugin.$isRootPlugin)
@@ -186,8 +187,9 @@ function initProgram() {
         console.log(INDENT+'Plugins:');
         rootPluginNames.forEach(pkgName => {
             const resolveOptions = {};
-            if( projectRootDir ) {
-                resolveOptions.paths = [projectRootDir];
+            if( configFile ) {
+                const resolvePath = pathModule.dirname(configFile);
+                resolveOptions.paths = [resolvePath];
             }
             let pluginPkgPath;
             try {
