@@ -15,10 +15,6 @@ function getCliCommands() {
             description: 'Build pages and start server for development.',
             options: [
                 optLog,
-                {
-                    name: "-d, --dev",
-                    description: "Start for development.",
-                },
             ],
             action: runStart,
         },
@@ -101,16 +97,13 @@ function init({dev, log, doNotWatchBuildFiles, _description}) {
     const reconfig = require('@brillout/reconfig');
     const reframeConfig = reconfig.getConfig({configFileName: 'reframe.config.js'});
 
-    // TODO
-    Object.assign(
-        reframeConfig,
-        {
-            log: {
-                verbose: !!log,
-            },
-            doNotWatchBuildFiles,
-        }
-    );
+    reframeConfig.$addConfig({
+        $name: 'cli-arguments',
+        log: {
+            verbose: !!log,
+        },
+        doNotWatchBuildFiles,
+    });
 
     return reframeConfig;
 }

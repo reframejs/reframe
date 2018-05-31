@@ -7,6 +7,7 @@ const pluginList = [];
 Object.defineProperty(config, '$getPluginList', {value: getPluginList});
 Object.defineProperty(config, '$addPlugin', {value: addPlugin});
 Object.defineProperty(config, '$addGetter', {value: addGetter});
+Object.defineProperty(config, '$addConfig', {value: addConfig});
 let rootConfigLoaded = false;
 
 module.exports = {getConfig};
@@ -59,8 +60,13 @@ function addPlugin(configObject, {isRoot=true}={}) {
     assert_usage(
         configObject.$name,
         "A plugin is missing a `$name` but it is required.",
-        // TODO move into a reassert details section
-        configObject
+        {
+           IS_REASSERT_OPTS: true,
+           details: [
+                "The plugin in question is:",
+                configObject
+           ],
+        }
     );
 
     pluginList.push({
@@ -68,6 +74,21 @@ function addPlugin(configObject, {isRoot=true}={}) {
         $isRootPlugin: isRoot,
     });
 
+    parseConfigObject(configObject);
+}
+
+function addConfig(configObject) {
+    assert_usage(
+        configObject.$name,
+        "A added config is missing a `$name` but it is required.",
+        {
+           IS_REASSERT_OPTS: true,
+           details: [
+                "The config in question is:",
+                configObject
+           ],
+        }
+    );
     parseConfigObject(configObject);
 }
 

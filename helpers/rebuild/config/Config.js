@@ -1,5 +1,5 @@
-const assert = require('reassert/hard');
-const assert_usage = assert;
+const assert = require('reassert');
+const assert_usage = require('reassert/usage');
 const merge_configs = require('./utils/webpack_config_mod');
 
 module.exports = Config;

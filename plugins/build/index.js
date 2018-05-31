@@ -19,6 +19,8 @@ module.exports = {
         // TODO - remove requireFileGetter because overkill?
         requireFileGetter('buildFile', 'runBuild'),
         transparentGetter('getBuildInfo'),
+        transparentGetter('doNotWatchBuildFiles'),
+        transparentGetter('log'),
         {
             prop: 'webpackBrowserConfigModifier',
             getter: configParts => assemble_modifiers('webpackBrowserConfig', configParts),

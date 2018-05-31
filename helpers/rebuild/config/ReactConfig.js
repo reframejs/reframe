@@ -1,5 +1,4 @@
-const assert = require('reassert/hard');
-const assert_internal = assert;
+const assert_internal = require('reassert/internal');
 
 module.exports = ReactConfig;
 

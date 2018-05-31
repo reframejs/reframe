@@ -1,7 +1,7 @@
-const assert = require('reassert/hard');
+const assert = require('reassert');
 const log = require('reassert/log');
-const assert_usage = assert;
-const assert_warning = assert;
+const assert_usage = require('reassert/usage');
+const assert_warning = require('reassert/warning');
 const _ = require('lodash');
 
 module.exports = merge_configs;
