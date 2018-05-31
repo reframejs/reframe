@@ -1,7 +1,6 @@
-const crossroads = require('..');
-
 module.exports = {
-    plugins: [
-        crossroads()
-    ],
+    $plugins: [
+        require('@reframe/react-kit'),
+        require('..')
+    ]
 };
