@@ -9,12 +9,12 @@ async function renderToHtml({pageConfig, initialProps}) {
 
     const contentHtml = await renderer.renderToString(pageConfig.view);
 
-    const html = renderHtmlCrust(contentHtml, pageConfig);
+    const html = renderHtmlDocument(contentHtml, pageConfig);
 
     return html;
 }
 
-function renderHtmlCrust(contentHtml, pageConfig) {
+function renderHtmlDocument(contentHtml, pageConfig) {
     const htmlOptions = Object.assign({bodyHtmls: []}, pageConfig);
     htmlOptions.bodyHtmls.push('<div id="'+containerId+'">'+contentHtml+'</div>');
 
