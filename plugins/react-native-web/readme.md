@@ -86,14 +86,11 @@ Implement views for the web and for native mobile using [React Native Web](https
 Add `@reframe/react-native-web` to your `reframe.config.js`:
 
 ~~~js
-// reframe.config.js
-
-const reactNativeWeb = require('@reframe/react-native-web'); // npm install @reframe/react-native-web
-
 module.exports = {
-    plugins: [
-        reactNativeWeb()
-    ],
+    $plugins: [
+        require('@reframe/react-kit'),
+        require('@reframe/react-native-web') // npm install @reframe/react-native-web
+    ]
 };
 ~~~
 
@@ -102,12 +99,11 @@ module.exports = {
 ~~~js
 // /plugins/react-native-web/example/reframe.config.js
 
-const reactNativeWeb = require('@reframe/react-native-web'); // npm install @reframe/react-native-web
-
 module.exports = {
-    plugins: [
-        reactNativeWeb()
-    ],
+    $plugins: [
+        require('@reframe/react-kit'),
+        require('@reframe/react-native-web') // npm install @reframe/react-native-web
+    ]
 };
 ~~~
 

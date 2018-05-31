@@ -86,14 +86,11 @@ Use React Router's components.
 Add `@reframe/react-router` to your `reframe.config.js`:
 
 ~~~js
-// reframe.config.js
-
-const reactRouter = require('@reframe/react-router'); // npm install @reframe/react-router
-
 module.exports = {
-    plugins: [
-        reactRouter()
-    ],
+    $plugins: [
+        require('@reframe/react-kit'),
+        require('@reframe/react-router') // npm install @reframe/react-router
+    ]
 };
 ~~~
 
@@ -102,12 +99,11 @@ module.exports = {
 ~~~js
 // /plugins/react-router/example/reframe.config.js
 
-const reactRouter = require('@reframe/react-router');
-
 module.exports = {
-    plugins: [
-        reactRouter()
-    ],
+    $plugins: [
+        require('@reframe/react-kit'),
+        require('@reframe/react-router') // npm install @reframe/react-router
+    ]
 };
 ~~~
 

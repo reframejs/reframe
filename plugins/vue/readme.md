@@ -83,18 +83,26 @@ Use Reframe with Vue.
 
 ### Usage
 
-Add `@reframe/vue` to your `reframe.config.js` to use Reframe with Vue.
+Add `@reframe/vue` to your `reframe.config.js`:
+
+~~~js
+module.exports = {
+    $plugins: [
+        require('@reframe/react-kit'),
+        require('@reframe/vue') // npm install @reframe/vue
+    ],
+};
+~~~
 
 ### Example
 
 ~~~js
 // /plugins/vue/example/reframe.config.js
 
-const vue = require('@reframe/vue');
-
 module.exports = {
-    plugins: [
-        vue()
+    $plugins: [
+        require('@reframe/react-kit'),
+        require('@reframe/vue') // npm install @reframe/vue
     ],
 };
 ~~~
@@ -105,7 +113,7 @@ module.exports = {
 import Vue from 'vue';
 
 const app = new Vue({
-    template: `<div>Hello from Vue</div>`
+    render: createElement => createElement('div', 'Hello from Vue'),
 });
 
 export default {
