@@ -83,43 +83,27 @@ Use Reframe with PostCSS.
 
 ### Usage
 
-Add `@reframe/postcss` to your `reframe.config.js` to use Reframe with PostCSS:
-
-~~~js
-// reframe.config.js
-
-const postcss = require('@reframe/postcss'); // npm install @reframe/postcss
-
-module.exports = {
-    plugins: [
-        postcss({
-            loaderOptions: {
-                // All options defined here are passed down as options for `postcss-loader`.
-                // This is where you add PostCSS plugins, a PostCSS parser, etc.
-            },
-        })
-    ],
-};
-~~~
+Add `@reframe/postcss` to your `reframe.config.js` to use Reframe with PostCSS.
 
 ### Example
 
 ~~~js
 // /plugins/postcss/example/reframe.config.js
 
-const postcss = require('@reframe/postcss');
-
 module.exports = {
-    plugins: [
-        postcss({
-            loaderOptions: {
-                plugins: [
-                    require('postcss-cssnext')(),
-                ],
-                parser: 'sugarss',
-            },
-        })
+    $plugins: [
+        require('@reframe/react-kit'),
+        require('@reframe/postcss') // npm install @reframe/postcss
     ],
+
+    // All options defined here are passed down as options for `postcss-loader`.
+    // Thus, this is where you add PostCSS plugins, a PostCSS parser, etc.
+    postcss: {
+        plugins: [
+            require('postcss-cssnext')()
+        ],
+        parser: 'sugarss',
+    }
 };
 ~~~
 

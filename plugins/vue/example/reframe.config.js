@@ -1,6 +1,6 @@
 module.exports = {
     $plugins: [
         require('@reframe/react-kit'),
-        require('..')
+        require('..') // npm install @reframe/vue
     ],
 };

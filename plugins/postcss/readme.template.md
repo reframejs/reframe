@@ -6,23 +6,10 @@ Use Reframe with PostCSS.
 
 ### Usage
 
-Add `@reframe/postcss` to your `reframe.config.js` to use Reframe with PostCSS:
+Add `@reframe/postcss` to your `reframe.config.js`:
 
 ~~~js
-// reframe.config.js
-
-const postcss = require('@reframe/postcss'); // npm install @reframe/postcss
-
-module.exports = {
-    plugins: [
-        postcss({
-            loaderOptions: {
-                // All options defined here are passed down as options for `postcss-loader`.
-                // This is where you add PostCSS plugins, a PostCSS parser, etc.
-            },
-        })
-    ],
-};
+!INLINE ./example/reframe.config.js --hide-source-path
 ~~~
 
 ### Example

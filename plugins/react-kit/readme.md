@@ -9,18 +9,14 @@ The React-Kit includes:
 
 ### Usage
 
-The React-Kit is automatically included when listed as dependency in your `dependencies` field of your `package.json`.
-
-You can also add the React-Kit over the `reframe.config.js`:
+Add `@reframe/react-kit` to your `reframe.config.js`:
 
 ~~~js
 // reframe.config.js
 
-const defaultKit = require('@reframe/react-kit'); // npm install @reframe/react-kit
-
 module.exports = {
-    plugins: [
-        defaultKit()
-    ],
+    $plugins: [
+        require('@reframe/react-kit') // npm install @reframe/react-kit
+    ]
 };
 ~~~

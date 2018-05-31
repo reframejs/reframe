@@ -14,11 +14,9 @@ The React Kit already includes this plugin.
 ~~~js
 // reframe.config.js
 
-const react = require('@reframe/react'); // npm install @reframe/react
-
 module.exports = {
-    plugins: [
-        react()
-    ],
+    $plugins: [
+        require('@reframe/react') // npm install @reframe/react
+    ]
 };
 ~~~

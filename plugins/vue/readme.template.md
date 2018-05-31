@@ -6,7 +6,11 @@ Use Reframe with Vue.
 
 ### Usage
 
-Add `@reframe/vue` to your `reframe.config.js` to use Reframe with Vue.
+Add `@reframe/vue` to your `reframe.config.js`:
+
+~~~js
+!INLINE ./example/reframe.config.js  --hide-source-path
+~~~
 
 ### Example
 

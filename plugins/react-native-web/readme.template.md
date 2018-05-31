@@ -9,8 +9,6 @@ Implement views for the web and for native mobile using [React Native Web](https
 Add `@reframe/react-native-web` to your `reframe.config.js`:
 
 ~~~js
-// reframe.config.js
-
 !INLINE ./example/reframe.config.js --hide-source-path
 ~~~
 

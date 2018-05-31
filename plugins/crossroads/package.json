@@ -1,13 +1,19 @@
 {
   "name": "@reframe/crossroads",
   "version": "0.1.11",
+  "scripts": {
+    "docs": "mdocs"
+  },
   "dependencies": {
     "@reframe/path-to-regexp": "0.1.11",
     "crossroads": "^0.12.2",
     "reassert": "^1.1.10"
   },
+  "devDependencies": {
+    "@brillout/mdocs": "^0.1.15"
+  },
+  "repository": "https://github.com/reframejs/reframe/tree/master/plugins/crossroads",
   "publishConfig": {
     "access": "public"
-  },
-  "repository": "https://github.com/reframejs/reframe/tree/master/plugins/crossroads"
+  }
 }
