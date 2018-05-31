@@ -2,20 +2,20 @@ const ReactDOMServer = require('react-dom/server');
 const generateHtml = require('@brillout/index-html');
 const reconfig = require('@brillout/reconfig');
 const {AppRegistry} = require('react-native-web');
-const {CONTAINER_ID, getReactElement} = require('@reframe/react/common');
+const {CONTAINER_ID, getReactComponent} = require('./common');
 
 module.exports = renderToHtml;
 
 async function renderToHtml({pageConfig, initialProps}) {
     const reframeConfig = reconfig.getConfig({configFileName: 'reframe.config.js'});
     const viewWrappers = reframeConfig.nodejsViewWrappers;
-    const reactElement = getReactElement({
+    const App = getReactComponent({
         pageConfig,
         initialProps,
         viewWrappers,
     });
 
-    AppRegistry.registerComponent('App', () => reactElement);
+    AppRegistry.registerComponent('App', () => App);
 
     const { element, getStyleElement } = AppRegistry.getApplication('App', { initialProps });
 
