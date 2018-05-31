@@ -7,7 +7,7 @@
    ~~~shell
    $ reframe init my-app
    ~~~
-   A `my-app/` directory is created and populated with a Reframe app scaffold.
+   A `my-app/` directory is created and populated with a scaffold.
 
 3. Build the pages and start the server.
    ~~~shell
