@@ -2,7 +2,7 @@
 
 process.on('unhandledRejection', err => {throw err});
 
-const {colorEmphasisLight, strDir, strFile, colorFile, colorPkg, colorDir, colorError, loadingSpinner} = require('@brillout/cli-theme');
+const {colorEmphasisLight, colorEmphasis, strDir, strDir_emphasisFile, strFile, colorFile, colorPkg, colorDir, colorError, loadingSpinner} = require('@brillout/cli-theme');
 
 loadingSpinner.start();
 
@@ -37,23 +37,14 @@ reframeConfig.$addGetter({
     },
 });
 
-// TODO
-//const projectConfig = getProjectConfig({projectNotRequired: true, pluginRequired: true});
+assert_config(reframeConfig);
 
 const isProject = !! reframeConfig.$configFile;
 
 if( ! isProject ) {
-    assert_internal(reframeConfig.$getPluginList().length===0);
-    assert_internal(reframeConfig.allCliCommands.length===0);
     reframeConfig.$addPlugin(require('@reframe/init'));
     reframeConfig.$addPlugin(require('@reframe/project-files'), {isRoot: false});
 }
-
-assert_internal(reframeConfig.allCliCommands.length>0);
-
-// TODO
-//assert_usage(reframeConfig.projectFiles.projectRootDir);
-///assert_at_least_one_command();
 
 const {runProgram} = initProgram();
 
@@ -306,26 +297,27 @@ function initProgram() {
     }
 }
 
-/* TODO
-function assert_at_least_one_command() {
-    const {$pluginNames, allCliCommands, $globalConfigFile} = globalConfig;
-
-    if( ! isProject ) {
-        assert_internal(allCliCommands.length>0);
-    } else {
-        assert_usage(
-            allCliCommands.length>0,
-            colorError("No commands found."),
-            "Project found at "+colorDir(strDir(globalConfig.projectFiles.projectRootDir))+".",
-            $globalConfigFile ? (
-                "Global config found at "+colorFile(strFile($globalConfigFile))+"."
-            ) : (
-                "No Reframe config file found."
-            ),
-            // TODO explicitly complain if not plugin are added
-            "Loaded plugins: "+$pluginNames.map(pluginName => colorPkg(pluginName)).join(', ')+'.',
-            "None of the loaded plugins are adding commands."
-        );
+function assert_config(reframeConfig) {
+    const pluginList = reframeConfig.$getPluginList();
+    const cliCmds = reframeConfig.allCliCommands;
+    const configFile = reframeConfig.$configFile;
+    if( ! configFile ) {
+        assert_internal(pluginList.length===0);
+        assert_internal(cliCmds.length===0);
+        return;
     }
+
+    assert_usage(
+        pluginList.length>0,
+        "Your "+strDir_emphasisFile(configFile)+" is not adding any plugins but it should."
+    );
+
+    assert_usage(
+        cliCmds.length>0,
+        "No CLI commands found.",
+        "",
+        "None of the plugins added by your "+strDir_emphasisFile(configFile)+" are defining a CLI command.",
+        '',
+        'Loaded '+cliUtils.getRootPluginsLog(reframeConfig, colorEmphasis)+"."
+    );
 }
-*/
