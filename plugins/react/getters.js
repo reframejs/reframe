@@ -1,6 +1,6 @@
-const {transparentGetter} = require('@brillout/reconfig/utils');
+const {transparentGetter, eagerRequireFileGetter} = require('@brillout/reconfig/utils');
 
 module.exports = [
-    transparentGetter('renderToHtml'),
+    eagerRequireFileGetter('renderToHtmlFile', 'renderToHtml'),
     transparentGetter('renderToDomFile'),
 ];

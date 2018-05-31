@@ -1,7 +1,11 @@
 module.exports = [
     {
         prop: 'browserViewWrapperFiles',
-        getter: configParts => configParts.map(configPart => configPart['browserViewWrapperFile']).filter(Boolean),
+        getter: configParts => (
+            configParts
+            .map(configPart => configPart['browserViewWrapperFile'])
+            .filter(Boolean)
+        ),
     },
     {
         prop: 'nodejsViewWrappers',
