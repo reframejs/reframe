@@ -4,6 +4,9 @@ module.exports = {
     eagerRequireFileGetter,
 };
 
+// TODO-LATER - show usage error when trying to access a missing config
+//  - tell the user what is the plugin that defines the getter
+
 function transparentGetter(prop) {
     return {
         prop,

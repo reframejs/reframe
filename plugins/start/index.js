@@ -117,24 +117,19 @@ function assert_server(reframeConfig) {
 function assert_config(bool, reframeConfig, configOpt, name) {
     const assert_usage = require('reassert/usage');
     const assert_internal = require('reassert/internal');
-    const {strFile} = require('@brillout/cli-theme');
+    const {strFile, colorEmphasis} = require('@brillout/cli-theme');
+    const cliUtils = require('@reframe/utils/cliUtils');
     const reframeConfigFile = getReframeConfigFile(reframeConfig);
+    // TODO-LATER this error is actually wrong as configOpt is a config getter and not a config option
+    //  - automatically print errors in the `reconfig/utils` getters instead
     assert_usage(
         bool,
         "Can't find "+name+".",
-        "More precisely: The global config is missing a `"+configOpt+"`.",
+        "More precisely: The config is missing a `"+configOpt+"`.",
+        '',
         "Either add a "+name+" plugin or define `"+configOpt+"` yourself in your `"+strFile(reframeConfigFile)+"`.",
-    /* TODO
-    assert_internal(globalConfig._rootPluginNames);
-    assert_internal(globalConfig._packageJsonFile);
-        (
-            globalConfig._rootPluginNames.length === 0 ? (
-                "No Reframe plugins found in the `dependencies` field of `"+globalConfig._packageJsonFile+"` nor in the `reframe.config.js`."
-            ) : (
-                "Plugins loaded: "+globalConfig._rootPluginNames.join(', ')+"."
-            )
-        )
-    */
+        '',
+        'Loaded '+cliUtils.getRootPluginsLog(reframeConfig, colorEmphasis)+"."
     );
 }
 

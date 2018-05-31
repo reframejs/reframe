@@ -16,7 +16,7 @@ const browserEntriesEjectName = 'build-browser-entries';
 module.exports = {
     $name: packageName,
     $getters: [
-        // TODO - remove requireFileGetter because overkill?
+        // TODO-LATER - remove requireFileGetter because overkill?
         requireFileGetter('buildFile', 'runBuild'),
         transparentGetter('getBuildInfo'),
         transparentGetter('doNotWatchBuildFiles'),

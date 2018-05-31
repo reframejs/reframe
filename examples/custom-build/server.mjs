@@ -1,7 +1,7 @@
 import Hapi from 'hapi';
 import buildAll from './build-all.mjs';
 import getHapiPlugins from '@reframe/server/getHapiPlugins';
-/* TODO
+/* TODO-LATER
 import getProjectConfig from '@reframe/utils/getProjectConfig';
 import HapiPluginServerRendering from '@reframe/server/HapiPluginServerRendering';
 import HapiPluginStaticAssets from '@reframe/server/HapiPluginStaticAssets';
