@@ -1,12 +1,13 @@
 const Hapi = require('hapi');
-const getProjectConfig = require('@reframe/utils/getProjectConfig');
 const HapiPluginServerRendering = require('@reframe/server/HapiPluginServerRendering');
 const HapiPluginStaticAssets = require('@reframe/server/HapiPluginStaticAssets');
+const reconfig = require('@brillout/reconfig');
 const path = require('path');
 
 (async () => {
-    const projectConfig = getProjectConfig();
-    await projectConfig.build();
+    const reframeConfig = reconfig.getConfig({configFileName: 'reframe.config.js'});
+
+    await reframeConfig.runBuild();
 
     const server = Hapi.Server({port: 3000});
 

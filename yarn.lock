@@ -3005,6 +3005,28 @@ hapi@^17.3.1:
     teamwork "3.x.x"
     topo "3.x.x"
 
+hapi@^17.5.1:
+  version "17.5.1"
+  resolved "https://registry.yarnpkg.com/hapi/-/hapi-17.5.1.tgz#0e6ca5d3d908c4c96203221c9c246e23fce4b49b"
+  dependencies:
+    accept "3.x.x"
+    ammo "3.x.x"
+    boom "7.x.x"
+    bounce "1.x.x"
+    call "5.x.x"
+    catbox "10.x.x"
+    catbox-memory "3.x.x"
+    heavy "6.x.x"
+    hoek "5.x.x"
+    joi "13.x.x"
+    mimos "4.x.x"
+    podium "3.x.x"
+    shot "4.x.x"
+    statehood "6.x.x"
+    subtext "6.x.x"
+    teamwork "3.x.x"
+    topo "3.x.x"
+
 has-ansi@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/has-ansi/-/has-ansi-2.0.0.tgz#34f5049ce1ecdf2b0649af3ef24e45ed35416d91"

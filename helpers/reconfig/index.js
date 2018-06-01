@@ -2,7 +2,8 @@ const assert_internal = require('reassert/internal');
 const assert_usage = require('reassert/usage');
 
 const config = {};
-const configParts = [];
+const configs__plugins = [];
+const configs__plain = [];
 const pluginList = [];
 Object.defineProperty(config, '$getPluginList', {value: getPluginList});
 Object.defineProperty(config, '$addPlugin', {value: addPlugin});
@@ -35,13 +36,13 @@ function loadRootConfig({configFileName}) {
         return null;
     }
     rootConfigObject.$name = rootConfigObject.$name || configFileName;
+
+    configs__plain.push(rootConfigObject);
     parseConfigObject(rootConfigObject, {isRoot: true});
 }
 
 function parseConfigObject(configObject, {isRoot=false}={}) {
     assert_internal(configObject.$name);
-
-    configParts.push(configObject);
 
     if( configObject.$plugins ) {
         addPlugins(configObject.$plugins, {isRoot});
@@ -74,6 +75,7 @@ function addPlugin(configObject, {isRoot=true}={}) {
         $isRootPlugin: isRoot,
     });
 
+    configs__plugins.push(configObject);
     parseConfigObject(configObject);
 }
 
@@ -89,6 +91,8 @@ function addConfig(configObject) {
            ],
         }
     );
+
+    configs__plain.push(configObject);
     parseConfigObject(configObject);
 }
 
@@ -102,7 +106,7 @@ function addGetter(getterSpec) {
         config,
         prop,
         {
-            get: () => getter(configParts),
+            get: () => getter([...configs__plugins, ...configs__plain]),
             enumerable: true,
             configurable: true,
         }

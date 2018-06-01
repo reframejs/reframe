@@ -125,11 +125,14 @@ function assert_config(bool, reframeConfig, configOpt, name) {
     assert_usage(
         bool,
         "Can't find "+name+".",
-        "More precisely: The config is missing a `"+configOpt+"`.",
+        '',
+        "More precisely: The config is missing `"+configOpt+"`.",
         '',
         "Either add a "+name+" plugin or define `"+configOpt+"` yourself in your `"+strFile(reframeConfigFile)+"`.",
         '',
-        'Loaded '+cliUtils.getRootPluginsLog(reframeConfig, colorEmphasis)+"."
+        'Loaded '+cliUtils.getRootPluginsLog(reframeConfig, colorEmphasis)+".",
+        '',
+        'Loaded config '+colorEmphasis(strFile(reframeConfigFile))+"."
     );
 }
 
