@@ -119,7 +119,7 @@ Because `aysnc getInitialProps()` is called and waited for prior to rendering th
         <meta charset="utf-8">
     </head>
     <body>
-        <div id="react-root">
+        <div id="root-react">
             <div>
                 <h3>Game of Thrones Characters</h3>
                 <table border="7" cellPadding="5"><tbody>
@@ -176,7 +176,7 @@ When using such stateful component,
 the server renders the HTML before the data is loaded.
 In our case,
  this means that the HTML `view-source:http://localhost:3000/game-of-thrones-2`
-displays the loading state `<div id="react-root"><div>Loading...</div></div>`.
+displays the loading state `<div id="root-react"><div>Loading...</div></div>`.
 And the HTML returned by the server is:
 
 ~~~html
@@ -187,7 +187,7 @@ And the HTML returned by the server is:
         <meta charset="utf-8">
     </head>
     <body>
-        <div id="react-root"><div>Loading...</div></div>
+        <div id="root-react"><div>Loading...</div></div>
         <script src="/commons.hash_451146e5dbcfe0b09f80.js" type="text/javascript"></script>
         <script src="/GameOfThronesPage2.entry.hash_2c79748d10c1e953f159.js" type="text/javascript"></script>
     </body>
