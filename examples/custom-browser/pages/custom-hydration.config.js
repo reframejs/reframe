@@ -1,10 +1,10 @@
 import React from 'react';
-import TimeComponent from '../../../basics/views/TimeComponent';
+import TimeComponent from '../../basics/views/TimeComponent';
 
 export default {
     route: '/custom-hydration',
     browserEntry: {
-        pathToEntry: './custom-hydration.entry.js',
+        pathToEntry: './custom-hydration.js',
         doNotIncludePageConfig: true,
         doNotInlcudeBrowserConfig: true,
     },

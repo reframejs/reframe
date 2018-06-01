@@ -1,6 +1,6 @@
 import React from 'react';
-import PageCommon from './PageCommon.mixin';
-import TimeComponent from '../../../basics/views/TimeComponent';
+import CommonConfig from './common-config';
+import TimeComponent from '../../basics/views/TimeComponent';
 
 export default {
     route: '/terms',
@@ -14,5 +14,5 @@ export default {
             Current Time: <TimeComponent/>
         </div>
     ),
-    ...PageCommon,
+    ...CommonConfig,
 };

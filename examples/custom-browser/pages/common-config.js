@@ -1,7 +1,5 @@
 const PageCommon = {
-    title: 'My Web App',
-    description: 'This Web App helps you with everything',
-    browserEntry: './PageCommon.entry.js',
+    browserEntry: './browser-entry.js',
     scripts: [
         {
             async: true,
