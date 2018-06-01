@@ -8,7 +8,7 @@
     "commondir": "^1.0.1",
     "lodash": "^4.17.4",
     "mkdirp": "^0.5.1",
-    "reassert": "^1.1.10",
+    "reassert": "^1.1.11",
     "source-map-support": "^0.5.4",
     "webpack": "^4.6.0"
   },

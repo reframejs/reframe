@@ -5534,9 +5534,15 @@ readline-utils@^2.2.1, readline-utils@^2.2.3:
     strip-color "^0.1.0"
     window-size "^1.1.0"
 
-reassert@^1.0.4, reassert@^1.1.10, reassert@^1.1.8, reassert@^1.1.9:
+reassert@^1.0.4, reassert@^1.1.8, reassert@^1.1.9:
   version "1.1.10"
   resolved "https://registry.yarnpkg.com/reassert/-/reassert-1.1.10.tgz#9a211f5b8ab90ef6a8c5420a0fc50cb767db0412"
+  dependencies:
+    "@brillout/format-text" "^0.1.0"
+
+reassert@^1.1.11:
+  version "1.1.11"
+  resolved "https://registry.yarnpkg.com/reassert/-/reassert-1.1.11.tgz#40846c93d3b1e153ef177e284207eafd42628a8e"
   dependencies:
     "@brillout/format-text" "^0.1.0"
 

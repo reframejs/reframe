@@ -6,7 +6,7 @@
     "@rebuild/serve": "0.1.11",
     "chalk": "^2.3.0",
     "deep-equal": "^1.0.1",
-    "reassert": "^1.1.10"
+    "reassert": "^1.1.11"
   },
   "publishConfig": {
     "access": "public"

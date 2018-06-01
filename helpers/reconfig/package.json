@@ -4,7 +4,7 @@
   "dependencies": {
     "@brillout/get-user-dir": "^0.2.1",
     "find-up": "^2.1.0",
-    "reassert": "^1.1.10"
+    "reassert": "^1.1.11"
   },
   "publishConfig": {
     "access": "public"

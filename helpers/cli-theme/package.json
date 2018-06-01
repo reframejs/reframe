@@ -5,7 +5,7 @@
     "@brillout/relative-to-homedir": "^0.1.0",
     "chalk": "^2.4.1",
     "ora": "^2.0.0",
-    "reassert": "^1.1.10"
+    "reassert": "^1.1.11"
   },
   "repository": "https://github.com/reframejs/reframe/tree/master/helpers/cli-theme",
   "publishConfig": {
