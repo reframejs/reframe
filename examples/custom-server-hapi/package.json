@@ -1,5 +1,5 @@
 {
-  "name": "examples_custom-server",
+  "name": "examples_custom-server-hapi",
   "private": true,
   "version": "0.1.11",
   "dependencies": {

@@ -18,12 +18,12 @@ const path = require('path');
 
     server.route({
         method: 'GET',
-        path:'/custom-route',
+        path:'/hello-from-hapi',
         handler: function (request, h) {
-            return 'This is a custom route. This could for example be an API endpoint.'
+            return 'This is a route defined with Hapi. This could be an API endpoint.'
         }
     });
 
     await server.start();
-    console.log(`Server running at ${server.info.uri}`);
+    console.log(`Hapi server running at ${server.info.uri}`);
 })();

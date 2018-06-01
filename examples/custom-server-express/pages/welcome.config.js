@@ -4,7 +4,7 @@ const WelcomePage = {
     route: '/',
     view: () => (
         <div>
-            Custom Route: <a href="/custom-route">/custom-route</a>
+            Route defined with Express: <a href="/hello-from-express">/hello-from-express</a>
         </div>
     ),
 };
