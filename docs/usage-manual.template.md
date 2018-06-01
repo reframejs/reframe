@@ -320,9 +320,9 @@ Reframe uses [`@brillout/index-html`](https://github.com/brillout/index-html) to
 You have full control over the "outer-part" HTML.
 (`<meta>`, `<!DOCTYPE html`>, `<head>`, `<html>`, `<body>`, `<script>`, etc.)
 
-There are two ways to define the HTML:
- - With page configs
- - By writing a `index.html` file
+There are two ways to define the outer-part HTML:
+ - By creating a `index.html` file
+ - Over the page configs
 
 Over the page config:
 
@@ -342,9 +342,9 @@ Also, the `indexHtml` page config option allows you to override the `index.html`
 !INLINE ../examples/custom-head/pages/about.config.js
 ~~~
 
-All options of `@brillout/index-html`'s `generateHtml({options})` function are available over the page config.
+All `@brillout/index-html` options are available over the page config.
 
-All options are listed in [`@brillout/index-html`'s documentation](https://github.com/brillout/index-html).
+See [`@brillout/index-html`'s documentation](https://github.com/brillout/index-html).
 
 Example:
  - [/examples/custom-head](/examples/custom-head)

@@ -48,7 +48,7 @@ async function runStart({options}) {
     const reframeConfig = init({dev: true, ...options});
     log_found_stuff({reframeConfig, log_page_configs: true});
     await buildAssets(reframeConfig);
-    await startServer(reframeConfig);
+    await runServer(reframeConfig);
 }
 
 async function startBuild({options}) {
@@ -61,7 +61,7 @@ async function startBuild({options}) {
 async function startServer({options}) {
     const reframeConfig = init(options);
     log_found_stuff({reframeConfig, log_built_pages: true});
-    await startServer(reframeConfig, true);
+    await runServer(reframeConfig);
 }
 
 
@@ -70,7 +70,7 @@ async function buildAssets(reframeConfig) {
     await reframeConfig.runBuild();
 }
 
-async function startServer(reframeConfig) {
+async function runServer(reframeConfig) {
     assert_server(reframeConfig);
 
     let server;

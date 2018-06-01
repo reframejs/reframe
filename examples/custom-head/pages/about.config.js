@@ -1,10 +1,7 @@
 import React from 'react';
 
 export default {
-    route: '/about',
-    domStatic: true,
-    view: () => <h1>About Page</h1>,
-
+    // Set a different outer-part HTML for the `/about` page
     indexHtml: (
 `<!DOCTYPE html>
 <html>
@@ -18,4 +15,8 @@ export default {
 </html>
 `
     ),
+
+    route: '/about',
+    view: () => <h1>About Page</h1>,
+    domStatic: true,
 };

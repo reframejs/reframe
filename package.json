@@ -47,6 +47,7 @@
         "examples/simple",
         "examples/partial-dom-dynamic",
         "examples/custom-babel",
+        "examples/custom-head",
         "examples/custom-webpack",
         "examples/custom-webpack-full",
         "examples/dom-static",

@@ -1,9 +1,7 @@
-const reactRouter = require('@reframe/react-router');
-const reactNativeWeb = require('@reframe/react-native-web');
-
 module.exports = {
-    plugins: [
-        reactRouter(),
-        reactNativeWeb(),
+    $plugins: [
+        require('@reframe/react-kit'),
+        require('@reframe/react-router'),
+        require('@reframe/react-native-web'),
     ],
 };

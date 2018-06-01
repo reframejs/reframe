@@ -42,4 +42,10 @@ const webpackNodejsConfig = () => ({
     module: {rules},
 });
 
-module.exports = {webpackBrowserConfig, webpackNodejsConfig};
+module.exports = {
+    $plugins: [
+        require('@reframe/react-kit')
+    ],
+    webpackBrowserConfig,
+    webpackNodejsConfig,
+};

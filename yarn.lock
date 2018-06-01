@@ -36,12 +36,6 @@
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/@brillout/format-text/-/format-text-0.1.0.tgz#90ba0b92a0fc8c5866f6749892acfc6293e93c7a"
 
-"@brillout/get-user-dir@^0.1.2":
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/@brillout/get-user-dir/-/get-user-dir-0.1.2.tgz#c3c91b1575d3c3f4fe90f834841a653afbc5fc98"
-  dependencies:
-    callsites "^2.0.0"
-
 "@brillout/get-user-dir@^0.2.1":
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/@brillout/get-user-dir/-/get-user-dir-0.2.1.tgz#37ebc8b8dc70ac094c0463f531caa037096dff6d"
@@ -49,11 +43,11 @@
     callsites "^2.0.0"
     reassert "^1.1.9"
 
-"@brillout/index-html@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@brillout/index-html/-/index-html-0.1.1.tgz#7dfd95fd1f08fae9514954f06b6ffca02da6d504"
+"@brillout/index-html@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@brillout/index-html/-/index-html-0.1.2.tgz#d6074ce030698e1d3749a2042155a9fda9638789"
   dependencies:
-    "@brillout/get-user-dir" "^0.1.2"
+    "@brillout/get-user-dir" "^0.2.1"
     find-up "^2.1.0"
     reassert "^1.1.8"
 
