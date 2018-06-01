@@ -212,8 +212,21 @@ function assert_config({config, webpackEntries, outputPath, getterName}) {
     Object.entries(webpackEntries)
     .forEach(([pageName]) => {
         assert_usage(
-            config.entry[pageName],
-            "The config returned by `"+getterName+"` is missing the `"+pageName+"` entry: `config.entry['"+pageName+"']=="+config.entry[pageName]+"`."
+            configEntries.includes(pageName) || pageName===AUTORELOAD_ENTRY_NAME,
+            "The config returned by `"+getterName+"` is missing the `"+pageName+"` entry: `config.entry['"+pageName+"']=="+config.entry[pageName]+"`.",
+            {
+                IS_REASSERT_OPTS: true,
+                details: [
+                    "`webpackEntries`: ",
+                    webpackEntries,
+                    "",
+                    "`configEntries`: ",
+                    configEntries,
+                    "",
+                    "`config.entry`: ",
+                    config.entry,
+                ],
+            }
         );
     });
     assert_usage(
