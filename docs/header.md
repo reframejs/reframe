@@ -48,15 +48,12 @@
 [<p align="center"><img src="https://github.com/reframejs/reframe/raw/master/docs/images/logo-with-title.svg?sanitize=true" width=450 height=94 style="max-width:100%;" alt="Reframe"/></p>](https://github.com/reframejs/reframe)
 
 <div><p align="center">
-        Framework to create web apps with React
+        Framework to create web apps.
 </p></div>
 
 <div><p align="center">
-    <b>Easy</b>&nbsp;&#8209;&nbsp;Quickly&nbsp;implement&nbsp;apps
-    &nbsp; &nbsp; &nbsp;
-    <b>Progressive&nbsp;Eject</b>&nbsp;&#8209;&nbsp;No&nbsp;lock&#8209;in
-    &nbsp; &nbsp; &nbsp;
-    <b>Universal</b>&nbsp;&#8209;&nbsp;Create&nbsp;static&nbsp;/&nbsp;dynamic&nbsp;/&nbsp;mixed&nbsp;apps
+    <b>Rapid Dev</b>&nbsp;&#8209;&nbsp;Quickly implement prototypes.
+    <b>Fully Flexible</b>&nbsp;&#8209;&nbsp;Progressively eject. Create any type of apps.
 </p></div>
 
 <br/>
