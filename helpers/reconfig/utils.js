@@ -1,3 +1,5 @@
+// TODO rename this file `standard-getters`
+
 module.exports = {
     transparentGetter,
     requireFileGetter,
