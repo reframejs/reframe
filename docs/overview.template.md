@@ -41,7 +41,9 @@ You can create an app with **no build configuration** and **no server configurat
 
 > All you need to create a web app is one React component and one page config per page.
 
-Yet you can **customize** and (progressively) **eject everything**.
+Yet, Reframe is **fully flexible**:
+Thanks to its "Progressive Eject" feature and its simple design
+**you can gain control and customize every part of Reframe**.
 
 <br/>
 <br/>
@@ -82,13 +84,13 @@ and read this overview.
 
 Reframe is designed from the ground up to be as flexible as possible.
 
-The goal is to give you the same flexibility as if you would implement your app on top of do-one-thing-do-it-well libraries.
+The goal is to give you the same flexibility as if you would implement your app with do-one-thing-do-it-well libraries.
 
 At the core of Reframe's flexibility is the "Progressive Eject" feature
-which allows you to progressively gain full control over your app.
+which allows you to progressively and fully gain control over your app.
 
 Also, Reframe supports every type of apps.
-(Modern apps with interactive views, goold ol' 1998 websites where the DOM is static, serverless apps, static sites, etc.)
+(Modern apps with interactive views, goold ol' 1998 websites where the DOM is static, serverless apps, static websites, etc.)
 
 
 ###### Progressive Eject
@@ -112,7 +114,8 @@ Once you fully eject Reframe, your app will not depend on Reframe anymore but wi
 At that point you have the same flexibility
 as if you would have implemented your app on top of these do-one-thing-and-do-it-well libraries.
 
-Quickly implement a prototype and when your app turns into something big then get rid of Reframe by progressively ejecting it.
+So you can quickly implement a prototype and
+when your app turns into something big you can get rid of Reframe by progressively ejecting it.
 
 > With Reframe you can quickly implement a prototype while staying fully flexible down the road.
 
@@ -133,8 +136,8 @@ You can create
    <br/>
    Apps that mix both: Modern interactive pages <sup><sub>:sparkles:</sub></sup> as well as good ol' 1998 non-interative pages <sup><sub>:floppy_disk:</sub></sup>.
 
-And the cherry on the cake is that choosing the type of your app is only a matter of setting the page config options `htmlStatic` and `domStatic`.
-Meaning that you can quickly start writing your prototype and only at a later point decide the type of your app.
+The cherry on the cake is that choosing the type of your app is only a matter of setting the page config options `htmlStatic` and `domStatic`.
+Meaning that you can start writing your prototype and only at a later point decide the type of your app.
 
 <br/>
 <br/>

@@ -52,8 +52,8 @@
 </p></div>
 
 <div><p align="center">
-    <b>Rapid Dev</b>&nbsp;&#8209;&nbsp;Quickly implement prototypes.
-    <b>Fully Flexible</b>&nbsp;&#8209;&nbsp;Progressively eject. Create any type of apps.
+    <b>Rapid&nbsp;Dev</b>&nbsp;&#8209;&nbsp;Quickly&nbsp;implement&nbsp;apps.
+    <b>Fully&nbsp;Flexible</b>&nbsp;&#8209;&nbsp;As&nbsp;flexible&nbsp;as&nbsp;using&nbsp;do-one-thing-do-it-well&nbsp;libraries.
 </p></div>
 
 <br/>
