@@ -148,20 +148,21 @@ Meaning that you can start writing your prototype and only at a later point deci
 
 - **Quick but flexible**
   <br/>
-  Create an app simply by defining React components and page configs.
-  And thanks to progressive eject, you stay fully in control of your app.
-  More at [Progressive Eject](#progressive-eject).
-- **Mixed apps** :tm:
+  Quickly implement apps while staying fully flexible.
+  The sections above go into details.
+- **Mixed Apps** :tm:
   <br/>
+  Reframe introduces a new type of apps we call "Mixed Apps".
+  A mixed app is an app that mixes interactive pages and non-interactive pages.
+
+  For example a `/about` page that is static and non-interactive
+  (browser doesn't load any JavaScript and the DOM is static)
+  and a `/search` page that is dynamic and interactive
+  (browser loads React components and the DOM is dynamic).
   Implement apps with mostly non-interactive pages and only few interactive pages.
   Following the non-interactive-by-default approach.
   (Implement features with non-interative views whenever possible.)
 
-With Reframe you can mix interactive pages and non-interactive pages.
-For example a `/about` page that is static and non-interactive
-(browser doesn't load any JavaScript and the DOM is static)
-and a `/search` page that is dynamic and interactive
-(browser loads React components and the DOM is dynamic).
 
 Both are important:
  - **Interactive** views are **difficult** to implement **but powerful**.
@@ -173,52 +174,26 @@ Whenever possible, implement features with non-interative views.
 > Mixed apps allow you to follow the non-interactive-by-default approach.
 
 Mixed apps are the future of web development and Reframe is the only framework supporting them.
-  More at [Universal](#universal).
 
 - **Learn once, write any app**
   <br/>
   Instead of learning different frameworks to create different types of apps,
   learn Reframe once to be able to implement any type of web app.
-
-Instead of learning different frameworks for different types of apps,
-learn Reframe to be able to write any type of web app.
-
-> Learn once, write any app.
-
-Reframe is the only framework that supports every type of web apps.
-
-  More at [Universal](#universal).
-- **Static deploy**
   <br/>
+  Reframe is the only framework that supports every type of web apps.
+- **ORM** [WIP]
+  <br/>
+  To use an ORM you will have to manually add  manually add such as [TypeORM](https://github.com/typeorm/typeorm).
+  But the Reframe devS are currently designing ways to create
+- **Easy Deploy** [WIP]
+  <br/>
+  Serverless deploy
   If your app is HTML-static
   (if all your page configs have `htmlStatic: true`),
   no Node.js server is required and
   your app can be deployed to a static website host
   such as GitHub Pages or Netlify.
-- **Vue.js**
-  <br/>
-  Add the `@reframe/vue` plugin and write your views with Vue instead of React.
-- **React Router**
-  <br/>
-  Add the `@reframe/react-router` plugin
-  to use the React Router components `<Route>`, `<Switch>`, etc.
-- **TypeScript**
-  <br/>
-  Add the `@reframe/typescript` plugin and write your app in TypeScript.
-- **PostCSS**
-  <br/>
-  Add the `@reframe/postcss` plugin and write modern CSS.
-- **Webpack**
-  <br/>
-  Reframe uses webpack to build the app's pages.
-  Webpack
-  is the state of the art tool to build browser assets.
-- **Hapi**
-  <br/>
-  Reframe uses hapi to create the server.
-  Hapi
-  ([hapijs.com](https://hapijs.com/))
-  is known for its robustness and scalability.
+
 
 ###### SEO
 
@@ -227,6 +202,36 @@ Reframe is the only framework that supports every type of web apps.
   By default, pages are rendered to HTML giving you full control over SEO.
   <br/>
   Google successfully crawls DOM-dynamic pages only to a limited extend. In practice you need SSR for reliable SEO.
+
+###### Integrations
+
+- **React Router**
+  <br/>
+  Add the `@reframe/react-router` plugin
+  to use the React Router components `<Route>`, `<Switch>`, etc.
+- **React**
+  <br/>
+  By default, you define your page's views with React.
+- **Vue.js**
+  <br/>
+  Add the `@reframe/vue` plugin and write your views with Vue instead of React.
+- **TypeScript**
+  <br/>
+  Add the `@reframe/typescript` plugin and write your app in TypeScript.
+- **PostCSS**
+  <br/>
+  Add the `@reframe/postcss` plugin and write modern CSS.
+- **Webpack**
+  <br/>
+  By default, Reframe uses webpack to build the app's pages.
+  Webpack
+  is the state of the art tool to build browser assets.
+- **Hapi**
+  <br/>
+  By default, Reframe uses hapi to create the server.
+  Hapi
+  ([hapijs.com](https://hapijs.com/))
+  is known for its robustness and scalability.
 
 ###### Performance
 
