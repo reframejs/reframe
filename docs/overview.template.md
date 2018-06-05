@@ -149,32 +149,25 @@ Meaning that you can start writing your prototype and only at a later point deci
 - **Quick but flexible**
   <br/>
   Quickly implement apps while staying fully flexible.
-  The sections above go into details.
+  The section above goes into details.
 - **Mixed Apps** :tm:
   <br/>
   Reframe introduces a new type of apps we call "Mixed Apps".
-  A mixed app is an app that mixes interactive pages and non-interactive pages.
-
+  A *mixed app* is an app that has interactive pages as well as non-interactive pages.
+  <br/>
   For example a `/about` page that is static and non-interactive
   (browser doesn't load any JavaScript and the DOM is static)
   and a `/search` page that is dynamic and interactive
   (browser loads React components and the DOM is dynamic).
-  Implement apps with mostly non-interactive pages and only few interactive pages.
-  Following the non-interactive-by-default approach.
-  (Implement features with non-interative views whenever possible.)
-
-
-Both are important:
- - **Interactive** views are **difficult** to implement **but powerful**.
- - **Non-interactive** views are considerably **easier** to implement.
-
-In general, we recommand to follow the **non-interactive-by-default approach**:
-Whenever possible, implement features with non-interative views.
-
-> Mixed apps allow you to follow the non-interactive-by-default approach.
-
-Mixed apps are the future of web development and Reframe is the only framework supporting them.
-
+  <br/>
+  Both are important:
+   - **Interactive** views are **difficult** to implement **but powerful**.
+   - **Non-interactive** views are considerably **easier** to implement.
+  <br/>
+  Mixed apps allow you to follow the **non-interactive-by-default approach**:
+  Whenever possible, implement features with non-interative views.
+  <br/>
+  Mixed apps will be the future of web development and Reframe is the only framework supporting them.
 - **Learn once, write any app**
   <br/>
   Instead of learning different frameworks to create different types of apps,
@@ -183,16 +176,24 @@ Mixed apps are the future of web development and Reframe is the only framework s
   Reframe is the only framework that supports every type of web apps.
 - **ORM** [WIP]
   <br/>
-  To use an ORM you will have to manually add  manually add such as [TypeORM](https://github.com/typeorm/typeorm).
-  But the Reframe devS are currently designing ways to create
+  To use an ORM (such as [TypeORM](https://github.com/typeorm/typeorm)) you will have to create API endpoints yourself.
+  But the Reframe devS are currently designing ways to automatically create these.
+  All you have to do then is define your data models and insert/fetch data.
+  <br/>
+  Also, Reframe is studying ways of being able to create data models on your behalf, so that things like user auth can be fully taken care of.
+  <br/>
+  [Follow Reframe on Twitter](https://twitter.com/reframejs) to get updates.
 - **Easy Deploy** [WIP]
   <br/>
-  Serverless deploy
-  If your app is HTML-static
-  (if all your page configs have `htmlStatic: true`),
-  no Node.js server is required and
-  your app can be deployed to a static website host
-  such as GitHub Pages or Netlify.
+  If your app is static then you can easily deploy it by using the command `$ reframe deploy-static`.
+  (Which supports all hosts that integrate with git such as GitHub Pages, Netlify, etc.)
+  <br/>
+  Also, Reframe is exploring ways to easily deploy stateless apps to serverless services such as AWS Lambda.
+  This is powerful when combined with ORMs that support "serverless databases" such as AWS DynamoDB or Google Cloud Datastore.
+  This would eventually mean that the entire deployment and scaling is done for you.
+  (This will take a long time until Reframe gets there though.)
+  <br/>
+  [Follow Reframe on Twitter](https://twitter.com/reframejs) to get updates.
 
 
 ###### SEO
@@ -201,7 +202,8 @@ Mixed apps are the future of web development and Reframe is the only framework s
   <br/>
   By default, pages are rendered to HTML giving you full control over SEO.
   <br/>
-  Google successfully crawls DOM-dynamic pages only to a limited extend. In practice you need SSR for reliable SEO.
+  Google successfully crawls DOM-dynamic pages only to a limited extend.
+  In practice you need SSR for reliable SEO.
 
 ###### Integrations
 
@@ -232,6 +234,10 @@ Mixed apps are the future of web development and Reframe is the only framework s
   Hapi
   ([hapijs.com](https://hapijs.com/))
   is known for its robustness and scalability.
+- **WebAssembly**
+  <br/>
+  WebAssembly is incredibly promising and may very well make decades-long dreams come true.
+  Reframe, being based on JavaScript and Node.js, embraces the WebAssembly future.
 
 ###### Performance
 
