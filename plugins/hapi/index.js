@@ -3,16 +3,11 @@ const {transparentGetter} = require('@brillout/reconfig/utils');
 const packageName = require('./package.json').name;
 
 const serverStartFile = require.resolve('./start');
-const serverStartFile_ejectedPath = 'PROJECT_ROOT/server/index.js';
 
 module.exports = {
     $name: packageName,
     $getters: [
         transparentGetter('serverStartFile'),
-    ],
-    requestHandlers: [
-        StaticAssets,
-        serverRendering,
     ],
     serverStartFile,
     ejectables: getEjectables(),
@@ -20,21 +15,38 @@ module.exports = {
 
 
 function getEjectables() {
+    const ejectNameServer = 'server';
+    const ejectNameHapi = 'hapi';
+    const ejectedPathServerStart = 'PROJECT_ROOT/server/index.js';
+
     return [
         {
-            name: 'server',
+            name: ejectNameServer,
             description: 'Eject the hapi server code.',
             configChanges: [
                 {
                     configPath: 'serverStartFile',
-                    newConfigValue: serverStartFile_ejectedPath,
+                    newConfigValue: ejectedPathServerStart,
                 },
             ],
             fileCopies: [
                 {
                     noDependerRequired: true,
-                    oldPath: serverStartFile,
-                    newPath: serverStartFile_ejectedPath,
+                    newPath: ejectedPathServerStart,
+                },
+            ],
+        },
+        {
+            name: ejectNameHapi,
+            description: 'Eject the `ConfigHandlers` hapi plugin that does the Reframe <-> hapi integration.',
+            fileCopies: [
+                {
+                    oldPath: packageName+'/ConfigHandlers',
+                    newPath: 'PROJECT_ROOT/server/ConfigHandlers.js',
+                    noDependerMessage: (
+                        'Did you eject the server before running `$ reframe eject '+ejectNameHapi+'`?\n'+
+                        'In other words: Did you run `$ reframe eject '+ejectNameServer+'` already?'
+                    ),
                 },
             ],
         },

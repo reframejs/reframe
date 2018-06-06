@@ -1,97 +1,82 @@
-const assert_usage = require('reassert/usage');
-const {transparentGetter} = require('@brillout/reconfig/utils');
-const parseUri = require('@brillout/parse-uri');
-
-const packageName = require('./package.json').name;
-
-const serverStartFile = require.resolve('./start');
-const serverEntryFile_ejectedPath = 'PROJECT_ROOT/server/index.js';
-
 const ServerRendering = require('./ServerRendering');
 const StaticAssets = require('./StaticAssets');
-
-const serverEjectName = 'server';
-const ssrEjectName = 'server-rendering';
-const assetsEjectName = 'server-assets';
+const packageName = require('./package.json').name;
 
 module.exports = {
     $name: packageName,
     $getters: [
-        transparentGetter('serverStartFile'),
         {
             prop: 'applyRequestHandlers',
-            getter: configParts => {
-                return async ({req}={}) => {
-                    assert_usage(req);
-                    assert_usage(req.url);
-                    assert_usage(req.headers);
-                    const url = parseUri(req.url);
-
-                    for(configPart of configParts) {
-                        for(reqHanlder of (configPart.requestHandlers||[])) {
-                            const response = await reqHanlder({url, req});
-                            if( response ) {
-                                return response;
-                            }
-                        }
-                    }
-                    return {body: null, headers: null};
-                };
-            },
+            getter: applyRequestHandlers_getter,
         },
     ],
     requestHandlers: [
         StaticAssets,
-        serverRendering,
+        ServerRendering,
     ],
     ejectables: getEjectables(),
 };
 
+function applyRequestHandlers_getter(configParts) {
+    const assert_usage = require('reassert/usage');
+    const parseUri = require('@brillout/parse-uri');
+
+    return async ({req}={}) => {
+        assert_usage(req);
+        assert_usage(req.url);
+        assert_usage(req.headers);
+        const url = parseUri(req.url);
+
+        for(configPart of configParts) {
+            for(reqHanlder of (configPart.requestHandlers||[])) {
+                const response = await reqHanlder({url, req});
+                if( response ) {
+                    return response;
+                }
+            }
+        }
+
+        return {body: null, headers: null};
+    };
+}
+
 
 function getEjectables() {
+    const ejectedPath_ServerRendering = 'PROJECT_ROOT/server/ServerRendering.js';
+    const ejectedPath_StaticAssets = 'PROJECT_ROOT/server/StaticAssets.js';
+
     return [
         {
-            name: serverEjectName,
-            description: 'Eject the hapi server code.',
+            name: 'server-rendering',
+            description: 'Eject the code responsible for server-side rendering (SSR) your pages to HTML.',
             configChanges: [
                 {
-                    configPath: 'serverStartFile',
-                    newConfigValue: serverEntryFile_ejectedPath,
+                    configPath: 'requestHandlers',
+                    configIsList: true,
+                    newConfigValue: ejectedPath_ServerRendering,
                 },
             ],
             fileCopies: [
                 {
+                    newPath: ejectedPath_ServerRendering,
                     noDependerRequired: true,
-                    oldPath: serverStartFile,
-                    newPath: serverEntryFile_ejectedPath,
                 },
             ],
         },
         {
-            name: ssrEjectName,
-            description: 'Eject the hapi plugin `HapiPluginServerRendering` responsible for server-side rendering.',
-            fileCopies: [
+            name: 'server-assets',
+            description: 'Eject the code responsible for serving static assets.',
+            configChanges: [
                 {
-                    oldPath: packageName+'/HapiPluginServerRendering',
-                    newPath: 'PROJECT_ROOT/server/HapiPluginServerRendering.js',
-                    noDependerMessage: (
-                        'Did you run `eject '+serverEjectName+'` before running `eject '+ssrEjectName+'`?\n'+
-                        'Did you run `eject '+ssrEjectName+'` already?'
-                    ),
+                    configPath: 'requestHandlers',
+                    configIsList: true,
+                    newConfigValue: ejectedPath_StaticAssets,
                 },
             ],
-        },
-        {
-            name: assetsEjectName,
-            description: 'Eject the hapi plugin `HapiPluginStaticAssets` responsible for serving static assets.',
             fileCopies: [
                 {
-                    oldPath: packageName+'/HapiPluginStaticAssets',
-                    newPath: 'PROJECT_ROOT/server/HapiPluginStaticAssets.js',
-                    noDependerMessage: (
-                        'Did you run `eject '+serverEjectName+'` before running `eject '+assetsEjectName+'`?\n'+
-                        'Did you run `eject '+assetsEjectName+'` already?'
-                    ),
+                    newPath: ejectedPath_StaticAssets,
+                    noDependerRequired: true,
                 },
             ],
         },

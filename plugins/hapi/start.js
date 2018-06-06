@@ -13,6 +13,8 @@ async function start() {
     // `ConfigHandlers` applies the request handlers defined in the config.
     // (E.g. the `@reframe/server` plugin adds request handlers to the config
     // that serve your pages' HTMLs and that serve your static assets.)
+    // Run the eject command `$ reframe eject hapi` to eject the entire hapi code.
+    // You will then be able to use any other web framework such as Express.
     await server.register(ConfigHandlers);
 
     await server.start();
