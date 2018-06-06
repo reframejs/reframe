@@ -1,4 +1,3 @@
-const assert_usage = require('reassert/usage');
 const {transparentGetter} = require('@brillout/reconfig/utils');
 
 const packageName = require('./package.json').name;
@@ -22,11 +21,9 @@ module.exports = {
         {
             prop: 'applyRequestHandlers',
             getter: configParts => {
-                return async ({req}={}) => {
-                    assert_usage(req);
-                    assert_usage(req.url);
-                    assert_usage(req.headers);
-                    const url = parseUri(req.url);
+                return async ({req}) => {
+                    const uri = req.url;
+                    const url = parseUri(uri);
 
                     for(configPart of configParts) {
                         for(reqHanlder of (configPart.requestHandlers||[])) {

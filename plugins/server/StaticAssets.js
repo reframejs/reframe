@@ -1,6 +1,4 @@
 const reconfig = require('@brillout/reconfig');
-const reframeConfig = reconfig.getConfig({configFileName: 'reframe.config.js'});
-const Inert = require('inert');
 const pathModule = require('path');
 const fs = require('fs-extra');
 const Mimos = require('mimos');
@@ -61,7 +59,8 @@ function getCacheControlHeader(filePath) {
 }
 
 function getFilePath({url}) {
-    const {staticAssetsDir} = reframeConfig.getBuildInfo();
+    const config = reconfig.getConfig({configFileName: 'reframe.config.js'});
+    const {staticAssetsDir} = config.getBuildInfo();
 
     const {pathname} = url;
     const filename = (

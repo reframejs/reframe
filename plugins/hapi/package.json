@@ -1,13 +1,10 @@
 {
-  "name": "@reframe/server",
+  "name": "@reframe/hapi",
   "version": "0.1.11",
   "dependencies": {
     "@brillout/cli-theme": "0.1.11",
     "@brillout/reconfig": "0.1.11",
-    "@brillout/repage": "0.1.11",
-    "fs-extra": "^6.0.1",
-    "mimos": "^4.0.0",
-    "reassert": "^1.1.11"
+    "hapi": "^17.3.1"
   },
   "publishConfig": {
     "access": "public"

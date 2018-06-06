@@ -1,7 +1,5 @@
-// TODO move
-const {compute_file_hash} = require('@reframe/utils/compute_file_hash');
-
 const assert_internal = require('reassert/internal');
+const crypto = require('crypto');
 const getPageHtml = require('@brillout/repage/getPageHtml');
 const reconfig = require('@brillout/reconfig');
 
@@ -14,10 +12,9 @@ async function serverRendering({url}) {
         return null;
     }
 
+    const hash = computeHash(html);
+
     const headers = [];
-
-    const hash = compute_file_hash(html);
-
     headers.push({name: 'content-type', value: 'text/html'});
     headers.push({name: 'etag', value: '"'+hash+'"'});
 
@@ -36,6 +33,17 @@ async function getHtml(uri) {
     const {renderToHtml, router} = config;
 
     const html = await getPageHtml({pageConfigs, uri, renderToHtml, router});
+    assert_internal(str.constructor===String, str);
 
     return html;
+}
+
+function computeHash(str) {
+    return (
+        crypto
+        .createHash('md5')
+        .update(str, 'utf8')
+        .digest('base64')
+        .replace(/=+$/, '')
+    );
 }

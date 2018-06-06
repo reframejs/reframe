@@ -21,6 +21,7 @@
         "plugins/build",
         "plugins/server",
         "plugins/browser",
+        "plugins/hapi",
         "plugins/eject",
         "plugins/crossroads",
         "plugins/crossroads/example",
