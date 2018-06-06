@@ -1,4 +1,4 @@
-const {transparentGetter} = require('@brillout/reconfig/utils');
+const {transparentGetter} = require('@brillout/reconfig/getters');
 
 const packageName = require('./package.json').name;
 

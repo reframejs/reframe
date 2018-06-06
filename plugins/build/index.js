@@ -1,4 +1,4 @@
-const {transparentGetter, requireFileGetter} = require('@brillout/reconfig/utils');
+const {transparentGetter, lazyRequireFileGetter, requireFileGetter} = require('@brillout/reconfig/getters');
 
 const packageName = require('./package.json').name;
 
@@ -16,9 +16,8 @@ const browserEntriesEjectName = 'build-browser-entries';
 module.exports = {
     $name: packageName,
     $getters: [
-        // TODO-LATER - remove requireFileGetter because overkill?
-        requireFileGetter('buildFile', 'runBuild'),
-        transparentGetter('getBuildInfo'),
+        lazyRequireFileGetter('buildFile', 'runBuild'),
+        requireFileGetter('getBuildInfoFile', 'getBuildInfo'),
         transparentGetter('doNotWatchBuildFiles'),
         transparentGetter('log'),
         {
@@ -31,7 +30,7 @@ module.exports = {
         },
     ],
     buildFile,
-    getBuildInfo,
+    getBuildInfoFile,
     ejectables: getEjectables(),
 };
 

@@ -3,7 +3,7 @@ const assert_usage = require('reassert/usage');
 const find_up = require('find-up');
 const getUserDir = require('@brillout/get-user-dir');
 const reconfig = require('@brillout/reconfig');
-const {transparentGetter} = require('@brillout/reconfig/utils');
+const {transparentGetter} = require('@brillout/reconfig/getters');
 
 const $name = require('./package.json').name;
 const $getters = [

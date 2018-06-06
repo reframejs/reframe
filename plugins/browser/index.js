@@ -1,4 +1,4 @@
-const {transparentGetter} = require('@brillout/reconfig/utils');
+const {transparentGetter} = require('@brillout/reconfig/getters');
 const $name = require('./package.json').name;
 const $getters = [
     transparentGetter('browserEntryFile'),

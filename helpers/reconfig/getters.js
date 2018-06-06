@@ -2,8 +2,8 @@
 
 module.exports = {
     transparentGetter,
+    lazyRequireFileGetter,
     requireFileGetter,
-    eagerRequireFileGetter,
 };
 
 // TODO-LATER - show usage error when trying to access a missing config
@@ -18,7 +18,7 @@ function transparentGetter(prop) {
     };
 }
 
-function requireFileGetter(propOld, prop) {
+function lazyRequireFileGetter(propOld, prop) {
     return {
         prop,
         getter: configParts => {
@@ -28,7 +28,7 @@ function requireFileGetter(propOld, prop) {
     };
 }
 
-function eagerRequireFileGetter(propOld, prop) {
+function requireFileGetter(propOld, prop) {
     return {
         prop,
         getter: configParts => {

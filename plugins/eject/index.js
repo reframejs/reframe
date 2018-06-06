@@ -209,14 +209,15 @@ async function runEject({inputs: [ejectableName], options: {skipGit}, printHelp}
 
         configChanges
         .forEach(configChange => {
-            const {configPath} = configChange;
+            const {configPath, configIsList} = configChange;
+
             let {newConfigValue} = configChange;
             assert_plugin(configPath, configChange);
             assert_plugin(newConfigValue, configChange);
             newConfigValue = apply_PROJECT_ROOT(newConfigValue, projectRootDir)
 
-            checkConfigPath({reframeConfigFile, configPath});
-            const newConfigContent = applyConfigChange({configPath, newConfigValue, reframeConfigPath});
+            checkConfigPath({reframeConfigFile, configPath, configIsList});
+            const newConfigContent = applyConfigChange({configPath, newConfigValue, reframeConfigPath, configIsList});
             assert_internal(newConfigContent);
             reframeConfigContent += '\n' + newConfigContent + '\n';
         });
@@ -268,7 +269,7 @@ async function runEject({inputs: [ejectableName], options: {skipGit}, printHelp}
 
         return configContentAppend;
     }
-    function checkConfigPath({reframeConfigFile, configPath}) {
+    function checkConfigPath({reframeConfigFile, configPath, configIsList}) {
         if( ! reframeConfigFile ) {
             return;
         }

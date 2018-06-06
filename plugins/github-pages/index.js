@@ -1,4 +1,4 @@
-const {transparentGetter} = require('@brillout/reconfig/utils');
+const {transparentGetter} = require('@brillout/reconfig/getters');
 
 const cmdDescription = 'Deploy to GitHub Pages.';
 

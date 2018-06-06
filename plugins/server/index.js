@@ -1,5 +1,5 @@
-const ServerRendering = require('./ServerRendering');
-const StaticAssets = require('./StaticAssets');
+const ServerRenderingFile = require.resolve('./ServerRendering');
+const StaticAssetsFile = require.resolve('./StaticAssets');
 const packageName = require('./package.json').name;
 
 module.exports = {
@@ -10,7 +10,7 @@ module.exports = {
             getter: applyRequestHandlers_getter,
         },
     ],
-    requestHandlers: [
+    httpRequestHandlerFiles: [
         StaticAssets,
         ServerRendering,
     ],
@@ -28,8 +28,9 @@ function applyRequestHandlers_getter(configParts) {
         const url = parseUri(req.url);
 
         for(configPart of configParts) {
-            for(reqHanlder of (configPart.requestHandlers||[])) {
-                const response = await reqHanlder({url, req});
+            for(reqHanlderFile of (configPart.httpRequestHandlerFiles||[])) {
+                const reqHandler = require(reqHanlderFile);
+                const response = await reqHandler({url, req});
                 if( response ) {
                     return response;
                 }
@@ -51,7 +52,7 @@ function getEjectables() {
             description: 'Eject the code that renders your pages to HTML at request-time.',
             configChanges: [
                 {
-                    configPath: 'requestHandlers',
+                    configPath: 'httpRequestHandlerFiles',
                     configIsList: true,
                     newConfigValue: ejectedPath_ServerRendering,
                 },
@@ -68,7 +69,7 @@ function getEjectables() {
             description: 'Eject the code responsible for serving static assets.',
             configChanges: [
                 {
-                    configPath: 'requestHandlers',
+                    configPath: 'httpRequestHandlerFiles',
                     configIsList: true,
                     newConfigValue: ejectedPath_StaticAssets,
                 },

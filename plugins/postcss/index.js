@@ -1,5 +1,5 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const {transparentGetter} = require('@brillout/reconfig/utils');
+const {transparentGetter} = require('@brillout/reconfig/getters');
 const reconfig = require('@brillout/reconfig');
 
 const $name = require('./package.json').name;

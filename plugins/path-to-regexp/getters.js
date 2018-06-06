@@ -1,6 +1,6 @@
-const {transparentGetter, eagerRequireFileGetter} = require('@brillout/reconfig/utils');
+const {transparentGetter, requireFileGetter} = require('@brillout/reconfig/getters');
 
 module.exports = [
     transparentGetter('routerFile'),
-    eagerRequireFileGetter('routerFile', 'router'),
+    requireFileGetter('routerFile', 'router'),
 ];

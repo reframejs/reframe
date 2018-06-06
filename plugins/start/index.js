@@ -121,7 +121,7 @@ function assert_config(bool, reframeConfig, configOpt, name) {
     const cliUtils = require('@reframe/utils/cliUtils');
     const reframeConfigFile = getReframeConfigFile(reframeConfig);
     // TODO-LATER this error is actually wrong as configOpt is a config getter and not a config option
-    //  - automatically print errors in the `reconfig/utils` getters instead
+    //  - automatically print errors in the `reconfig/getters` getters instead
     assert_usage(
         bool,
         "Can't find "+name+".",
