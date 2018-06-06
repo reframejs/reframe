@@ -231,7 +231,7 @@ async function runEject({inputs: [ejectableName], options: {skipGit}, printHelp}
 
         actions.push(action);
     }
-    function applyConfigChange({configPath, newConfigValue, reframeConfigPath}) {
+    function applyConfigChange({configPath, newConfigValue, reframeConfigPath, configIsList}) {
         const newValue = (
             stringIsAbsolutePath(newConfigValue) ? (
                 "require.resolve('"+getRelativePath(reframeConfigPath, newConfigValue)+"')"

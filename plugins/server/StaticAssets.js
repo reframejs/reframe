@@ -1,6 +1,7 @@
 const assert_internal = require('reassert/internal');
 const reconfig = require('@brillout/reconfig');
 const pathModule = require('path');
+const crypto = require('crypto');
 const fs = require('fs-extra');
 const Mimos = require('mimos');
 const mimos = new Mimos();
@@ -17,17 +18,14 @@ async function StaticAssets({url}) {
     }
 
     const contentTypeHeader = getContentTypeHeader(filePath);
-    const headers = [
-        contentTypeHeader,
-    ];
-    const cacheControlHeader = getCacheControlHeader(filePath);
-    if( cacheControlHeader ) {
-        headers.push(cacheControlHeader);
-    }
+    const cacheHeader = getCacheHeader(filePath, fileContent);
 
     return {
         body: fileContent,
-        headers,
+        headers: [
+            contentTypeHeader,
+            cacheHeader,
+        ],
     };
 }
 
@@ -42,21 +40,24 @@ function getContentTypeHeader(filePath) {
     return contentTypeHeader;
 }
 
-function getCacheControlHeader(filePath) {
-    if( ! /\.hash_[a-zA-Z0-9]+\./.test(filePath) ) {
-        return null;
+function getCacheHeader(filePath, fileContent) {
+    const urlCtonainsHash = /\.hash_[a-zA-Z0-9]+\./.test(filePath);
+
+    if( ! urlCtonainsHash ) {
+        return {
+            name: 'etag',
+            value: '"'+computeHash(fileContent)+'"',
+        };
+    } else {
+        // Max value for `max-age` is one year:
+        //   - http://stackoverflow.com/questions/7071763/max-value-for-cache-control-header-in-http
+        // Support for `immutable`:
+        //   - http://stackoverflow.com/questions/41936772/which-browsers-support-cache-control-immutable
+        return {
+            name: 'Cache-control',
+            value: 'public, max-age=31536000, immutable',
+        };
     }
-
-    // Max value for `max-age` is one year:
-    //   - http://stackoverflow.com/questions/7071763/max-value-for-cache-control-header-in-http
-    // Support for `immutable`:
-    //   - http://stackoverflow.com/questions/41936772/which-browsers-support-cache-control-immutable
-    const cacheControlHeader = {
-        name: 'Cache-control',
-        value: 'public, max-age=31536000, immutable'
-    };
-
-    return cacheControlHeader;
 }
 
 function getFilePath({url}) {
@@ -94,4 +95,14 @@ async function getFileContent(filePath) {
         }
         throw err;
     }
+}
+
+function computeHash(str) {
+    return (
+        crypto
+        .createHash('md5')
+        .update(str, 'utf8')
+        .digest('base64')
+        .replace(/=+$/, '')
+    );
 }

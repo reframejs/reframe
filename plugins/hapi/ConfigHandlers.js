@@ -3,6 +3,7 @@
 // (Plugins add request handlers over the config)
 
 const reconfig = require('@brillout/reconfig');
+const assert_internal = require('reassert/internal');
 
 module.exports = {
     name: 'ConfigHandlers',
@@ -46,6 +47,8 @@ async function getResponse(request) {
         .filter(header => {
             if( header.name==='etag' ) {
                 etag = header.value;
+                assert_internal(etag[0]==='"' && etag.slice(-1)[0]==='"', etag);
+                etag = etag.slice(1, -1);
                 return false;
             }
             return true;
