@@ -63,6 +63,10 @@
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/@brillout/relative-to-homedir/-/relative-to-homedir-0.1.0.tgz#57e1d64423688787d29f3066ba374175574c1048"
 
+"@brillout/trace-logs@^0.1.3":
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/@brillout/trace-logs/-/trace-logs-0.1.3.tgz#2e005254b0409a22ab7ace1070399384138cd75c"
+
 "@sindresorhus/is@^0.7.0":
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/@sindresorhus/is/-/is-0.7.0.tgz#9a06f4f137ee84d7df0460c1fdb1135ffa6c50fd"
