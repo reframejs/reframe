@@ -10,10 +10,10 @@ module.exports = {
             getter: applyRequestHandlers_getter,
         },
     ],
-    httpRequestHandlerFiles: [
-        StaticAssetsFile,
-        ServerRenderingFile,
-    ],
+    httpRequestHandlerFiles: {
+        StaticAssets: StaticAssetsFile,
+        ServerRendering: ServerRenderingFile,
+    },
     ejectables: getEjectables(),
 };
 
@@ -28,8 +28,9 @@ function applyRequestHandlers_getter(configParts) {
         const url = parseUri(req.url);
 
         for(configPart of configParts) {
-            for(reqHanlderFile of (configPart.httpRequestHandlerFiles||[])) {
-                const reqHandler = require(reqHanlderFile);
+            const reqHandlerFiles = Object.values(configPart.httpRequestHandlerFiles||{});
+            for(reqHandlerFile of reqHandlerFiles) {
+                const reqHandler = require(reqHandlerFile);
                 const response = await reqHandler({url, req});
                 if( response ) {
                     return response;
@@ -52,8 +53,7 @@ function getEjectables() {
             description: 'Eject the code that renders your pages to HTML at request-time.',
             configChanges: [
                 {
-                    configPath: 'httpRequestHandlerFiles',
-                    configIsList: true,
+                    configPath: 'httpRequestHandlerFiles.ServerRendering',
                     newConfigValue: ejectedPath_ServerRendering,
                 },
             ],
@@ -70,8 +70,7 @@ function getEjectables() {
             description: 'Eject the code responsible for serving static assets.',
             configChanges: [
                 {
-                    configPath: 'httpRequestHandlerFiles',
-                    configIsList: true,
+                    configPath: 'httpRequestHandlerFiles.StaticAssets',
                     newConfigValue: ejectedPath_StaticAssets,
                 },
             ],
