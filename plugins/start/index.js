@@ -75,7 +75,7 @@ async function runServer(reframeConfig) {
 
     let server;
     try {
-        server = await require(reframeConfig.serverEntryFile);
+        server = await require(reframeConfig.serverStartFile);
     } catch(err) {
         prettify_error(err);
         return;
@@ -112,7 +112,7 @@ function assert_build(reframeConfig) {
     assert_config(reframeConfig.runBuild, reframeConfig, 'runBuild', 'build');
 }
 function assert_server(reframeConfig) {
-    assert_config(reframeConfig.serverEntryFile, reframeConfig, 'serverEntryFile', 'server');
+    assert_config(reframeConfig.serverStartFile, reframeConfig, 'serverStartFile', 'server');
 }
 function assert_config(bool, reframeConfig, configOpt, name) {
     const assert_usage = require('reassert/usage');

@@ -6,7 +6,7 @@
     "docs": "mdocs"
   },
   "dependencies": {
-    "@brillout/fetch": "^0.0.2",
+    "@brillout/fetch": "^0.1.0",
     "@reframe/browser": "0.1.11",
     "@reframe/react-kit": "0.1.11",
     "react": "^16.3.2"

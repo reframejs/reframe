@@ -1,2 +1,2 @@
-//require('@atto/track-logs')();
+//require('@brillout/track-logs')();
 require('./serve');

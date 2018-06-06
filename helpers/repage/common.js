@@ -1,4 +1,4 @@
-const parseUri = require('@atto/parse-uri');
+const parseUri = require('@brillout/parse-uri');
 
 module.exports = {getUrl, getInitialProps};
 

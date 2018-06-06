@@ -1,14 +1,13 @@
 const assert_usage = require('reassert/usage');
 const {transparentGetter} = require('@brillout/reconfig/utils');
+const parseUri = require('@brillout/parse-uri');
 
 const packageName = require('./package.json').name;
 
-const serverEntryFile = require.resolve('./startServer');
+const serverStartFile = require.resolve('./start');
 const serverEntryFile_ejectedPath = 'PROJECT_ROOT/server/index.js';
-const parseUri = require('@atto/parse-uri');
 
-// TODO rename
-const serverRendering = require('./server-rendering');
+const ServerRendering = require('./ServerRendering');
 const StaticAssets = require('./StaticAssets');
 
 const serverEjectName = 'server';
@@ -18,7 +17,7 @@ const assetsEjectName = 'server-assets';
 module.exports = {
     $name: packageName,
     $getters: [
-        transparentGetter('serverEntryFile'),
+        transparentGetter('serverStartFile'),
         {
             prop: 'applyRequestHandlers',
             getter: configParts => {
@@ -45,7 +44,6 @@ module.exports = {
         StaticAssets,
         serverRendering,
     ],
-    serverEntryFile,
     ejectables: getEjectables(),
 };
 
@@ -57,14 +55,14 @@ function getEjectables() {
             description: 'Eject the hapi server code.',
             configChanges: [
                 {
-                    configPath: 'serverEntryFile',
+                    configPath: 'serverStartFile',
                     newConfigValue: serverEntryFile_ejectedPath,
                 },
             ],
             fileCopies: [
                 {
                     noDependerRequired: true,
-                    oldPath: serverEntryFile,
+                    oldPath: serverStartFile,
                     newPath: serverEntryFile_ejectedPath,
                 },
             ],
