@@ -48,7 +48,7 @@ function getEjectables() {
     return [
         {
             name: 'server-rendering',
-            description: 'Eject the code responsible for server-side rendering (SSR) your pages to HTML.',
+            description: 'Eject the code that renders your pages to HTML at request-time.',
             configChanges: [
                 {
                     configPath: 'requestHandlers',

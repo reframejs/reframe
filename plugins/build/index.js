@@ -81,7 +81,7 @@ function getEjectables() {
     return [
         {
             name: buildEjectName,
-            description: 'Eject build code.',
+            description: 'Eject the build code.',
             configChanges: [
                 {
                     configPath: 'buildFile',
@@ -107,7 +107,7 @@ function getEjectables() {
         },
         {
             name: staticRenderingEjectName,
-            description: 'Eject code that renders static HTMLs.',
+            description: 'Eject the code that renders your pages to HTML at build-time.',
             fileCopies: [
                 {
                     oldPath: packageName+'/getPageHTMLs',
@@ -121,7 +121,7 @@ function getEjectables() {
         },
         {
             name: browserEntriesEjectName,
-            description: 'Eject code that generates the browser entry of each page.',
+            description: 'Eject the code that generates the browser entry of each page.',
             fileCopies: [
                 {
                     oldPath: packageName+'/getPageBrowserEntries',

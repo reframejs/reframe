@@ -36,7 +36,7 @@ async function handleRequest(request, h) {
 }
 
 async function getResponse(request) {
-    const {body, headers} = applyConfigHandlers(request);
+    let {body, headers} = await applyConfigHandlers(request);
 
     if( body === null ) return {body: null};
 

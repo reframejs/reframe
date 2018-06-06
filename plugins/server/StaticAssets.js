@@ -1,3 +1,4 @@
+const assert_internal = require('reassert/internal');
 const reconfig = require('@brillout/reconfig');
 const pathModule = require('path');
 const fs = require('fs-extra');
@@ -21,7 +22,7 @@ async function StaticAssets({url}) {
     ];
     const cacheControlHeader = getCacheControlHeader(filePath);
     if( cacheControlHeader ) {
-        headers.puhs(cacheControlHeader);
+        headers.push(cacheControlHeader);
     }
 
     return {
@@ -68,7 +69,7 @@ function getFilePath({url}) {
         pathname.split('/').slice(-1)[0].split('.').length===1 && pathname+'.html' ||
         pathname
     );
-    assert_internal(pathname.startsWith('/');
+    assert_internal(pathname.startsWith('/'));
 
     const filePath = pathModule.join(staticAssetsDir, filename);
 
