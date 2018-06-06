@@ -135,6 +135,7 @@ async function runEject({inputs: [ejectableName], options: {skipGit}, printHelp}
         const {projectRootDir} = reframeConfig.projectFiles;
 
         const {oldPath, noDependerRequired, noDependerMessage} = fileCopy;
+        assert_usage(oldPath, "Ejectable is missing `oldPath`");
         let {newPath} = fileCopy;
         newPath = apply_PROJECT_ROOT(newPath, projectRootDir);
 

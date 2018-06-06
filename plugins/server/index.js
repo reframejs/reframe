@@ -60,6 +60,7 @@ function getEjectables() {
             fileCopies: [
                 {
                     newPath: ejectedPath_ServerRendering,
+                    oldPath: ServerRenderingFile,
                     noDependerRequired: true,
                 },
             ],
@@ -77,6 +78,7 @@ function getEjectables() {
             fileCopies: [
                 {
                     newPath: ejectedPath_StaticAssets,
+                    oldPath: StaticAssetsFile,
                     noDependerRequired: true,
                 },
             ],
