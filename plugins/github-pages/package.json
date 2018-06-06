@@ -7,7 +7,7 @@
         "git-url-parse": "^9.0.0",
         "moment": "^2.22.1",
         "prompt-confirm": "^1.2.0",
-        "reassert": "^1.1.11"
+        "reassert": "^1.1.12"
     },
     "publishConfig": {
         "access": "public"

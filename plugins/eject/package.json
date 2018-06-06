@@ -9,7 +9,7 @@
         "builtins": "^2.0.0",
         "detective": "^5.1.0",
         "mkdirp": "^0.5.1",
-        "reassert": "^1.1.11"
+        "reassert": "^1.1.12"
     },
     "publishConfig": {
         "access": "public"

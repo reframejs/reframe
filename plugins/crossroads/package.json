@@ -7,7 +7,7 @@
   "dependencies": {
     "@reframe/path-to-regexp": "0.1.11",
     "crossroads": "^0.12.2",
-    "reassert": "^1.1.11"
+    "reassert": "^1.1.12"
   },
   "devDependencies": {
     "@brillout/mdocs": "^0.1.15"
