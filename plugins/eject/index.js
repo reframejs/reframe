@@ -216,7 +216,7 @@ async function runEject({inputs: [ejectableName], options: {skipGit}, printHelp}
             assert_plugin(newConfigValue, configChange);
             newConfigValue = apply_PROJECT_ROOT(newConfigValue, projectRootDir)
 
-            checkConfigPath({reframeConfigFile, configPath, configIsList});
+            checkConfigPath({reframeConfigFile, configPath, configIsList, newConfigValue});
             const newConfigContent = applyConfigChange({configPath, newConfigValue, reframeConfigPath, configIsList});
             assert_internal(newConfigContent);
             reframeConfigContent += '\n' + newConfigContent + '\n';
@@ -233,7 +233,7 @@ async function runEject({inputs: [ejectableName], options: {skipGit}, printHelp}
     }
     function applyConfigChange({configPath, newConfigValue, reframeConfigPath}) {
         const newValue = (
-            pathModule.isAbsolute(newConfigValue) ? (
+            stringIsAbsolutePath(newConfigValue) ? (
                 "require.resolve('"+getRelativePath(reframeConfigPath, newConfigValue)+"')"
             ) : (
                 newConfigValue
@@ -242,43 +242,61 @@ async function runEject({inputs: [ejectableName], options: {skipGit}, printHelp}
 
         const props = getProps(configPath);
 
-        const configContentAppend = (
+        const lines = [];
+        props.forEach((lastProp, i) => {
+            let assignee = "module.exports";
             props
-            .map((lastProp, i) => {
-                let object_prop = "module.exports";
-                props
-                .slice(0, i+1)
-                .forEach(prop => {
-                    object_prop += "['"+prop+"']";
-                })
-                const line = (
-                    object_prop +
-                    " = " + (
-                        (i===props.length-1) ? (
-                            newValue
-                        ) : (
-                            object_prop+" || {}"
-                        )
-                    ) +
-                    ";"
-                );
-                return line;
-            })
-            .join('\n')
-        );
+            .slice(0, i+1)
+            .forEach(prop => {
+                assignee += "['"+prop+"']";
+            });
+
+            if( i<props.length-1 ) {
+                const assign_value = assignee+" || {}";
+                lines.push(assignee+' = '+assign_value+';');
+                return;
+            }
+
+            if( configIsList ) {
+                const assign_value = assignee+" || []";
+                lines.push(assignee+' = '+assign_value+';');
+                lines.push(assignee+'.push('+newValue+');');
+                return;
+            }
+
+            lines.push(assignee+' = '+newValue+';');
+        })
+
+        const configContentAppend = lines.join('\n');
 
         return configContentAppend;
     }
-    function checkConfigPath({reframeConfigFile, configPath, configIsList}) {
+    function stringIsAbsolutePath(str) {
+        return pathModule.isAbsolute(str);
+    }
+    function checkConfigPath({reframeConfigFile, configPath, configIsList, newConfigValue}) {
         if( ! reframeConfigFile ) {
             return;
         }
         const reframeConfig = require(reframeConfigFile);
-        assert_usage(
-            !getPath(reframeConfig, configPath),
-            "The config at `"+reframeConfigFile+"` already defines a `"+configPath+"`.",
-            "Remove `"+configPath+"` before ejecting."
-        );
+        const oldConfigValue = getPath(reframeConfig, configPath);
+        if( configIsList ) {
+            assert_usage(
+                !oldConfigValue || oldConfigValue.includes,
+                "The config `"+configPath+"` defined at `"+reframeConfigFile+"` should be an array but it isn't."
+            );
+            assert_usage(
+                !oldConfigValue || !oldConfigValue.includes(newConfigValue),
+                "The config `"+configPath+"` defined at `"+reframeConfigFile+"` already includes `"+newConfigValue+"`.",
+                "Did you already eject previously?"
+            );
+        } else {
+            assert_usage(
+                !oldConfigValue,
+                "Your config file `"+reframeConfigFile+"` already defines a `"+configPath+"`.",
+                "Remove `"+configPath+"` before ejecting."
+            );
+        }
     }
 
     function handleDeps({fileContentOld, ejectablePackageName}) {

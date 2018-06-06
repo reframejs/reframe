@@ -11,8 +11,8 @@ module.exports = {
         },
     ],
     httpRequestHandlerFiles: [
-        StaticAssets,
-        ServerRendering,
+        StaticAssetsFile,
+        ServerRenderingFile,
     ],
     ejectables: getEjectables(),
 };

@@ -31,8 +31,9 @@ function getEjectables() {
             ],
             fileCopies: [
                 {
-                    noDependerRequired: true,
+                    oldPath: serverStartFile,
                     newPath: ejectedPathServerStart,
+                    noDependerRequired: true,
                 },
             ],
         },

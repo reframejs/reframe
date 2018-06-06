@@ -33,7 +33,7 @@ async function getHtml(uri) {
     const {renderToHtml, router} = config;
 
     const html = await getPageHtml({pageConfigs, uri, renderToHtml, router});
-    assert_internal(html.constructor===String, html);
+    assert_internal(html===null || html.constructor===String, html);
 
     return html;
 }
