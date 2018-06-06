@@ -6,7 +6,7 @@ const reconfig = require('@brillout/reconfig');
 module.exports = serverRendering;
 
 async function serverRendering({url}) {
-    const html = await getHtml(url.url);
+    const html = await getHtml(url.uri);
 
     if( html === null ) {
         return null;
@@ -33,7 +33,7 @@ async function getHtml(uri) {
     const {renderToHtml, router} = config;
 
     const html = await getPageHtml({pageConfigs, uri, renderToHtml, router});
-    assert_internal(str.constructor===String, str);
+    assert_internal(html.constructor===String, html);
 
     return html;
 }

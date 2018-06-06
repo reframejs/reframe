@@ -2,7 +2,7 @@
   "name": "@brillout/repage",
   "version": "0.1.11",
   "dependencies": {
-    "@brillout/parse-uri": "^0.1.0",
+    "@brillout/parse-uri": "^0.1.1",
     "@brillout/index-html": "^0.1.2",
     "reassert": "^1.1.11"
   },
