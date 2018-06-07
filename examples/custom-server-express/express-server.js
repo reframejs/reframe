@@ -1,6 +1,7 @@
 const express = require('express');
 
 const reconfig = require('@brillout/reconfig');
+const {symbolSuccess} = require('@brillout/cli-theme');
 const getPageHtml = require('@brillout/repage/getPageHtml');
 
 const reframeConfig = reconfig.getConfig({configFileName: 'reframe.config.js'});
@@ -30,7 +31,7 @@ async function startExpressServer() {
     });
 
     app.listen(3000, function () {
-        console.log('   Express server listening on port 3000');
+        console.log(symbolSuccess+'Express server listening on port 3000');
     });
 }
 

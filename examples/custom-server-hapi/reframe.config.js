@@ -4,5 +4,5 @@ module.exports = {
     ],
 
     // Instead of running `reframe server` we run `server.js` directly
-    serverEntryFile: null
+    serverStartFile: null
 };

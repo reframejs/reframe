@@ -1,6 +1,5 @@
 const Hapi = require('hapi');
-const HapiPluginServerRendering = require('@reframe/server/HapiPluginServerRendering');
-const HapiPluginStaticAssets = require('@reframe/server/HapiPluginStaticAssets');
+const ConfigHandlers = require('@reframe/hapi/ConfigHandlers');
 const reconfig = require('@brillout/reconfig');
 const path = require('path');
 
@@ -11,10 +10,7 @@ const path = require('path');
 
     const server = Hapi.Server({port: 3000});
 
-    await server.register([
-        HapiPluginStaticAssets,
-        HapiPluginServerRendering,
-    ]);
+    await server.register(ConfigHandlers);
 
     server.route({
         method: 'GET',
