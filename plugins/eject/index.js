@@ -16,6 +16,10 @@ module.exports = {
                 {
                     name: "--skip-git",
                     description: "Skip checking if the repository has untracked/dirty files.",
+                },
+                {
+                    name: "--skip-npm",
+                    description: "Skip installing packages with npm. You will have to run `npm install` / `yarn` yourself. Do this if you use Yarn.",
                 }
             ],
             getHelp,
@@ -49,24 +53,25 @@ function ejectableGetter(configParts) {
     return ejectables;
 }
 
-async function runEject({inputs: [ejectableName], options: {skipGit}, printHelp}) {
+async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, printHelp}) {
     if( !ejectableName ) {
         printHelp();
         return;
     }
     const detective = require('detective');
     const builtins = require('builtins')();
-    const assert_usage = require('reassert/usage');
     const assert_internal = require('reassert/internal');
+    const assert_usage = require('reassert/usage');
+    const assert_plugin = assert_usage;
     const reconfig = require('@brillout/reconfig');
-    const {symbolSuccess, strFile} = require('@brillout/cli-theme');
+    const {symbolSuccess, strFile, colorEmphasisLight} = require('@brillout/cli-theme');
     const runNpmInstall = require('@reframe/utils/runNpmInstall');
     const gitUtils = require('@reframe/utils/git');
     const pathModule = require('path');
     const fs = require('fs');
     const os = require('os');
     const mkdirp = require('mkdirp');
-    const assert_plugin = assert_usage;
+    const writeJsonFile = require('write-json-file');
 
     await run();
 
@@ -121,12 +126,24 @@ async function runEject({inputs: [ejectableName], options: {skipGit}, printHelp}
 
         console.log();
 
-        await updateDependencies({deps, ejectableSpec, reframeConfig});
+        const {newDeps, newDepsStr} = getNewDeps({deps, ejectableSpec, reframeConfig});
+
+        if( newDeps.length>0 ) {
+            await addNewDeps({newDeps, projectPackageJsonFile});
+        }
 
         actions.forEach(action => action());
-
-        console.log(symbolSuccess+'Eject done.');
+        console.log(symbolSuccess+'Added new dependencies '+newDepsStr+' to '+strFile(projectPackageJsonFile)+'.');
+        console.log(symbolSuccess+'Code ejected.');
         console.log();
+
+        if( newDeps.length>0 && !skipNpm ) {
+            console.log('Installing new dependencies '+newDepsStr+'.');
+            console.log();
+            await runNpmInstall(projectRootDir);
+            console.log(symbolSuccess+'Installation done.');
+            console.log();
+        }
     }
 
     function copyFile({fileCopy, actions, deps, ejectablePackageName, reframeConfig}) {
@@ -365,7 +382,18 @@ async function runEject({inputs: [ejectableName], options: {skipGit}, printHelp}
         return pathRelative;
     }
 
-    async function updateDependencies({deps, ejectableSpec, reframeConfig}) {
+    async function addNewDeps({newDeps, projectPackageJsonFile}) {
+        const projectPackageJson = require(projectPackageJsonFile);
+
+        projectPackageJson.dependencies = projectPackageJson.dependencies || {};
+        newDeps.forEach(dep => {
+            projectPackageJson.dependencies[dep.name] = dep.version;
+        });
+
+        await writeJsonFile(projectPackageJsonFile, projectPackageJson, {detectIndent: true});
+    }
+
+    function getNewDeps({deps, ejectableSpec, reframeConfig}) {
         const {projectRootDir, packageJsonFile: projectPackageJsonFile} = reframeConfig.projectFiles;
 
         const {packageName: ejectablePackageName} = ejectableSpec;
@@ -374,8 +402,7 @@ async function runEject({inputs: [ejectableName], options: {skipGit}, printHelp}
         const ejectablePackageJson = require(pathModule.join(ejectablePackageName, './package.json'));
         const projectPackageJson = require(projectPackageJsonFile);
 
-        let hasNewDeps = false;
-        const depsWithVersion = (
+        const newDeps = (
             Object.keys(deps)
             .map(depName => {
                 assert_internal(depName);
@@ -386,18 +413,22 @@ async function runEject({inputs: [ejectableName], options: {skipGit}, printHelp}
                     return null;
                 }
 
-                hasNewDeps = true;
-
-                return depName+'@'+version;
+                return {name: depName, version};
             })
             .filter(Boolean)
-        )
+        );
 
-        if( hasNewDeps ) {
-            console.log('Installing new dependencies '+depsWithVersion.join(', ')+'.');
-            console.log();
-            await runNpmInstall(projectRootDir, {packages: depsWithVersion});
-        }
+        const newDepsStr = (
+            newDeps
+            .map((dep, i) => (
+                (i<newDeps.length-1?'':'and ')+
+             // colorEmphasisLight(dep.name)+'@'+dep.version
+                dep.name+'@'+dep.version
+            ))
+            .join(', ')
+        );
+
+        return {newDeps, newDepsStr};
     }
     function getPackageVersion({ejectablePackageJson, depName}) {
         assert_internal(ejectablePackageJson.name, ejectablePackageJson);
