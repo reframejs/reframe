@@ -1,10 +1,10 @@
 {
   "name": "examples_custom-server-express",
   "private": true,
-  "version": "0.1.11",
+  "version": "0.1.12-next.0",
   "dependencies": {
-    "@brillout/reconfig": "0.1.11",
-    "@reframe/react-kit": "0.1.11",
+    "@brillout/reconfig": "0.1.12-next.0",
+    "@reframe/react-kit": "0.1.12-next.0",
     "express": "^4.16.3",
     "react": "^16.3.2"
   },

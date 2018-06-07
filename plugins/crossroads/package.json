@@ -1,11 +1,11 @@
 {
   "name": "@reframe/crossroads",
-  "version": "0.1.11",
+  "version": "0.1.12-next.0",
   "scripts": {
     "docs": "mdocs"
   },
   "dependencies": {
-    "@reframe/path-to-regexp": "0.1.11",
+    "@reframe/path-to-regexp": "0.1.12-next.0",
     "crossroads": "^0.12.2",
     "reassert": "^1.1.12"
   },

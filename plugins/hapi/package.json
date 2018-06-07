@@ -1,9 +1,9 @@
 {
   "name": "@reframe/hapi",
-  "version": "0.1.11",
+  "version": "0.1.12-next.0",
   "dependencies": {
-    "@brillout/cli-theme": "0.1.11",
-    "@brillout/reconfig": "0.1.11",
+    "@brillout/cli-theme": "0.1.12-next.0",
+    "@brillout/reconfig": "0.1.12-next.0",
     "hapi": "^17.3.1",
     "reassert": "^1.1.12"
   },

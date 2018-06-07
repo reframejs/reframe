@@ -1,9 +1,9 @@
 {
   "name": "_example-simple",
   "private": true,
-  "version": "0.1.11",
+  "version": "0.1.12-next.0",
   "dependencies": {
-    "@reframe/react-kit": "0.1.11",
+    "@reframe/react-kit": "0.1.12-next.0",
     "react": "^16.3.2"
   },
   "checkDeps": {
