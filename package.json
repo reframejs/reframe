@@ -7,9 +7,10 @@
         "docs": "mdocs ./docs/",
         "docs-all": "npm run docs && lerna run docs",
         "deps": "check-deps",
-        "publish": "lerna publish --force-publish=*",
-        "publish-test": "lerna publish --skip-git --skip-npm --force-publish=*",
-        "publish-npm": "lerna publish --skip-git --force-publish=*"
+        "publish": "lerna publish --cd-version=prerelease --preid=next --npm-tag=next --force-publish=*",
+        "publish-force": "lerna publish --skip-git --force-publish=*",
+        "release": "lerna publish --force-publish=*",
+        "release-test": "lerna publish --skip-git --skip-npm --force-publish=*"
     },
     "devDependencies": {
         "@brillout/check-deps": "^0.1.3",
