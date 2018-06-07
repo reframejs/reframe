@@ -258,6 +258,8 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
             newConfigValue = newConfigValue({makePathRelative});
         }
 
+        assert_usage(newConfigValue.constructor!==String || !newConfigValue.includes('PROJECT_ROOT'));
+
         return newConfigValue;
 
         function makePathRelative(pathFromRoot) {

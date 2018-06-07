@@ -1,17 +1,7 @@
 const {transparentGetter, lazyRequireFileGetter, requireFileGetter} = require('@brillout/reconfig/getters');
-
-const packageName = require('./package.json').name;
-
 const buildFile = require.resolve('./executeBuild');
-const buildFile__ejected = 'PROJECT_ROOT/build/index.js';
-
-const getBuildInfo = require('./getBuildInfo');
 const getBuildInfoFile = require.resolve('./getBuildInfo');
-const getBuildInfo_ejectedPath = 'PROJECT_ROOT/build/getBuildInfo.js';
-
-const buildEjectName = 'build';
-const staticRenderingEjectName = 'build-static-rendering';
-const browserEntriesEjectName = 'build-browser-entries';
+const packageName = require('./package.json').name;
 
 module.exports = {
     $name: packageName,
@@ -33,7 +23,6 @@ module.exports = {
     getBuildInfoFile,
     ejectables: getEjectables(),
 };
-
 
 // We assemble several webpack config modifiers into one supra modifier
 function assemble_modifiers(modifier_name, configParts) {
@@ -77,20 +66,17 @@ function assemble_modifiers(modifier_name, configParts) {
 }
 
 function getEjectables() {
+    const buildFile__ejected = 'PROJECT_ROOT/build/index.js';
+    const getBuildInfoFile__ejected = 'PROJECT_ROOT/build/getBuildInfo.js';
+
+    const buildEjectName = 'build';
+    const staticRenderingEjectName = 'build-static-rendering';
+    const browserEntriesEjectName = 'build-browser-entries';
+
     return [
         {
             name: buildEjectName,
             description: 'Eject the build code.',
-            configChanges: [
-                {
-                    configPath: 'buildFile',
-                    newConfigValue: buildFile__ejected,
-                },
-                {
-                    configPath: 'getBuildInfo',
-                    newConfigValue: getBuildInfo_ejectedPath,
-                },
-            ],
             fileCopies: [
                 {
                     noDependerRequired: true,
@@ -100,7 +86,17 @@ function getEjectables() {
                 {
                     noDependerRequired: true,
                     oldPath: getBuildInfoFile,
-                    newPath: getBuildInfo_ejectedPath,
+                    newPath: getBuildInfoFile__ejected,
+                },
+            ],
+            configChanges: [
+                {
+                    configPath: 'buildFile',
+                    newConfigValue: ({makePathRelative}) => makePathRelative(buildFile__ejected),
+                },
+                {
+                    configPath: 'getBuildInfo',
+                    newConfigValue: ({makePathRelative}) => makePathRelative(getBuildInfoFile__ejected),
                 },
             ],
         },

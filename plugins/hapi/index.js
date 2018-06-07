@@ -16,17 +16,17 @@ module.exports = {
 
 function getEjectables() {
     const ejectNameServer = 'server';
-    const ejectNameHapi = 'hapi';
+    const ejectNameHapi = 'server-hapi';
     const ejectedPathServerStart = 'PROJECT_ROOT/server/index.js';
 
     return [
         {
             name: ejectNameServer,
-            description: 'Eject the hapi server code.',
+            description: 'Eject the code that creates the Node.js/hapi server.',
             configChanges: [
                 {
                     configPath: 'serverStartFile',
-                    newConfigValue: ejectedPathServerStart,
+                    newConfigValue: ({makePathRelative}) => makePathRelative(ejectedPathServerStart),
                 },
             ],
             fileCopies: [
@@ -39,7 +39,7 @@ function getEjectables() {
         },
         {
             name: ejectNameHapi,
-            description: 'Eject the `ConfigHandlers` hapi plugin that does the Reframe <-> hapi integration.',
+            description: 'Eject the `ConfigHandlers` hapi plugin that integrates hapi with Reframe.',
             fileCopies: [
                 {
                     oldPath: packageName+'/ConfigHandlers',
