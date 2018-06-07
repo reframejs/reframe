@@ -9,7 +9,7 @@ module.exports = {
         require('@reframe/react'),
         require('@reframe/path-to-regexp'),
         require('@reframe/start'),
-        require('@reframe/github-pages'),
+        require('@reframe/deploy-git'),
         require('@reframe/eject'),
     ],
 };

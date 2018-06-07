@@ -1,11 +1,11 @@
 const {transparentGetter} = require('@brillout/reconfig/getters');
 
-const cmdDescription = 'Deploy to GitHub Pages.';
+const cmdDescription = 'Deploy to a Git build repository.';
 
 module.exports = {
     $name: require('./package.json').name,
     $getters: [
-        transparentGetter('githubPagesRepository'),
+        transparentGetter('buildRepository'),
     ],
     cliCommands: [
         {
@@ -23,12 +23,11 @@ async function runDeploy() {
     const assert_usage = require('reassert/usage');
     const assert_internal = require('reassert/internal');
     const Confirm = require('prompt-confirm');
-    const GitUrlParse = require("git-url-parse");
     const moment = require('moment');
-    const {colorError, colorEmphasis, strDir, strDir_emphasisFile, loadingSpinner, symbolSuccess, indent} = require('@brillout/cli-theme');
+    const {colorError, colorEmphasisLight, strDir, strDir_emphasisFile, loadingSpinner, symbolSuccess, indent} = require('@brillout/cli-theme');
 
     const reframeConfig = reconfig.getConfig({configFileName: 'reframe.config.js'});
-    const configFile = reconfig.$configFile;
+    const configFile = reframeConfig.$configFile;
     assert_internal(configFile);
 
     assert_usage(
@@ -41,10 +40,7 @@ async function runDeploy() {
     assert_internal(buildTime);
 
     const buildTimeText = 'from '+moment(buildTime).fromNow();
-    const buildText = "build "+colorEmphasis(buildTimeText)+' to GitHub Pages.';
-    console.log();
-    console.log("Deploying "+buildText);
-    console.log();
+    const buildText = "build "+colorEmphasisLight(buildTimeText);
 
     const htmlDynamicPages = (
         pageConfigs
@@ -52,9 +48,9 @@ async function runDeploy() {
     );
     assert_usage(
         htmlDynamicPages.length===0,
-        "Trying to deploy "+buildText,
+        "Trying to statically deploy "+buildText,
         "",
-        "But GitHub Pages only supports HTML-static apps.",
+        "But static deploy only works with HTML-static apps.",
         "",
         "All your page configs need `htmlStatic: true` but the following built pages don't:",
         htmlDynamicPages
@@ -66,15 +62,15 @@ async function runDeploy() {
         "Change your page configs accordingly and rebuild."
     );
 
-    const {githubPagesRepository} = reframeConfig;
+    const {buildRepository} = reframeConfig;
     assert_usage(
-        githubPagesRepository && githubPagesRepository.remote,
-        "Config `githubPagesRepository.remote` missing.",
+        buildRepository && buildRepository.remote,
+        "Config `buildRepository.remote` missing.",
         "",
-        "Create a new GitHub repository at https://github.com/new",
+        "Create a new Git repository.",
         "",
         "Then add the repository's address to "+
-        colorEmphasis("githubPagesRepository.remote")+
+        colorEmphasisLight("buildRepository.remote")+
         " in "+
         strDir_emphasisFile(configFile)+
         ".",
@@ -85,13 +81,20 @@ async function runDeploy() {
     // reframe.config.js
 
     module.exports = {
-        githubPagesRepository: {
+        $plugins [
+            require('@reframe/react-kit'),
+        ],
+        buildRepository: {
             remote: 'git@github.com:username/repo',
             branch: 'master', // optional, default is \`master\`
         },
     };`
         )
     );
+
+    console.log();
+    console.log("Deploying "+buildText+".");
+    console.log();
 
     assert_usage(
         await git.gitIsAvailable(),
@@ -109,22 +112,9 @@ async function runDeploy() {
         "You need to add your user name and email to git."
     );
 
-    const {remote, branch='master'} = githubPagesRepository;
+    const {remote, branch='master'} = buildRepository;
 
-    const repoInfo = GitUrlParse(remote);
-    assert_usage(
-        repoInfo.source==='github.com',
-        "The repository `"+remote+"` isn't a GitHub repository but it should be."
-    );
-
-    const repoShort = 'github:'+repoInfo.owner+'/'+repoInfo.name;
-    const githubPageUrl__without_protocol = (
-        repoInfo.owner+'.github.io' +
-        (repoInfo.name === repoInfo.owner+'.github.io' ? '' : ('/'+repoInfo.name))
-    );
-    const githubPageUrl = 'https://'+githubPageUrl__without_protocol;
-
-    const remoteText = ' '+colorEmphasis(branch)+' of '+colorEmphasis(repoShort);
+    const remoteText = ' '+colorEmphasisLight(branch)+' of '+colorEmphasisLight(remote);
     const loadingText = remoteText;
     loadingSpinner.start({text: 'Loading'+loadingText});
 
@@ -138,20 +128,20 @@ async function runDeploy() {
 
     const readmePath = await git.checkoutReadme({cwd});
     if( ! readmePath ) {
-        writeReadme({cwd, githubPageUrl, githubPageUrl__without_protocol});
+        writeReadme({cwd});
     }
 
     loadingSpinner.stop();
-    console.log(symbolSuccess+'Loaded'+loadingText+' at '+colorEmphasis(strDir(cwd)));
+    console.log(symbolSuccess+'Loaded'+loadingText+' at '+colorEmphasisLight(strDir(cwd)));
     console.log();
 
-    const {commit: commitHash} = await git.commit({cwd, message: 'Built at '+buildTime.toString()});
+    const {commit: commitHash} = await git.commit({cwd, message: 'Build from '+buildTime.toString()});
 
     if( ! commitHash ) {
         console.log(symbolSuccess+"Already deployed.");
-        console.log(indent+"Live at "+githubPageUrl);
+        console.log(indent+"(No new commits to push to "+remoteText+".)");
         console.log();
-        return
+        return;
     }
 
     const commitInfo = await git.show({cwd, args: [commitHash, '--name-only']});
@@ -160,7 +150,7 @@ async function runDeploy() {
     console.log();
     console.log(commitInfo);
 
-    const confirmText = 'Deploy build '+buildTimeText+'? (By pushing commit '+colorEmphasis(commitHash)+' to'+remoteText+'.)';
+    const confirmText = 'Deploy build '+buildTimeText+'? (By pushing commit '+colorEmphasisLight(commitHash)+' to'+remoteText+'.)';
     const prompt = new Confirm(confirmText);
 
     const answer = await prompt.run();
@@ -179,10 +169,7 @@ async function runDeploy() {
         loadingSpinner.stop();
 
         console.log(symbolSuccess+'Deployed.');
-        console.log(indent+'(Commit '+colorEmphasis(commitHash)+' pushed.)');
-        console.log(indent+'Will be live at '+githubPageUrl);
-        // Source: https://stackoverflow.com/questions/24851824/how-long-does-it-take-for-github-page-to-show-changes-after-changing-index-html
-        console.log(indent+'(It can take GitHub Pages a while to make the deploy live. For newly created apps it can take up to ~10 minutes.)');
+        console.log(indent+'(Commit '+colorEmphasisLight(commitHash)+' pushed.)');
         console.log();
     } else {
         console.log(colorError("Not deployed.")+" (Commit not pushed.)");
@@ -190,18 +177,12 @@ async function runDeploy() {
     }
 }
 
-function writeReadme({cwd, githubPageUrl, githubPageUrl__without_protocol}) {
+function writeReadme({cwd}) {
     const fs = require("fs");
     const path = require("path");
 
     const filePath = path.resolve(cwd, './readme.md');
-    const fileContent = (
-`Source code of [${githubPageUrl__without_protocol}](${githubPageUrl}).
-
-Written with [Reframe](https://github.com/reframejs/reframe) and
-deployed with [@reframe/github-pages](https://github.com/reframejs/reframe/tree/master/plugins/github-pages).
-`
-    );
+    const fileContent = "App written and deployed with [Reframe](https://github.com/reframejs/reframe)."
 
     fs.writeFileSync(filePath, fileContent);
 }

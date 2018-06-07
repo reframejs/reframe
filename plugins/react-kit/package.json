@@ -6,10 +6,12 @@
     "@reframe/browser": "0.1.11",
     "@reframe/build": "0.1.11",
     "@reframe/eject": "0.1.11",
-    "@reframe/github-pages": "0.1.11",
+    "@reframe/deploy-git": "0.1.11",
     "@reframe/path-to-regexp": "0.1.11",
+    "@reframe/project-files": "0.1.11",
     "@reframe/react": "0.1.11",
     "@reframe/server": "0.1.11",
+    "@reframe/hapi": "0.1.11",
     "@reframe/start": "0.1.11"
   },
   "publishConfig": {

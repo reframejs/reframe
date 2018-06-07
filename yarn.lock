@@ -53,9 +53,9 @@
     find-up "^2.1.0"
     reassert "^1.1.8"
 
-"@brillout/parse-uri@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@brillout/parse-uri/-/parse-uri-0.1.0.tgz#9c0fca4a59fc17122a8229847c5888e5242e1e49"
+"@brillout/parse-uri@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@brillout/parse-uri/-/parse-uri-0.1.1.tgz#d4f765af19ae0da4b5b80fae19a4e40ec4cc6541"
   dependencies:
     reassert "^1.1.11"
 
@@ -5972,6 +5972,12 @@ readline-utils@^2.2.1, readline-utils@^2.2.3:
 reassert@^1.1.11, reassert@^1.1.8, reassert@^1.1.9:
   version "1.1.11"
   resolved "https://registry.yarnpkg.com/reassert/-/reassert-1.1.11.tgz#40846c93d3b1e153ef177e284207eafd42628a8e"
+  dependencies:
+    "@brillout/format-text" "^0.1.0"
+
+reassert@^1.1.12:
+  version "1.1.12"
+  resolved "https://registry.yarnpkg.com/reassert/-/reassert-1.1.12.tgz#b34e30696cd0321773756ae94b40ea7f75a99c8e"
   dependencies:
     "@brillout/format-text" "^0.1.0"
 
