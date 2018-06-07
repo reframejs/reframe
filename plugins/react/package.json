@@ -3,7 +3,8 @@
   "version": "0.1.11",
   "dependencies": {
     "@brillout/index-html": "^0.1.2",
-    "@reframe/utils": "0.1.11",
+    "@brillout/reconfig": "0.1.11",
+    "@reframe/browser": "0.1.11",
     "react": "^16.1.1",
     "react-dom": "^16.1.1"
   },

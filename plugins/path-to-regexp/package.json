@@ -2,6 +2,7 @@
   "name": "@reframe/path-to-regexp",
   "version": "0.1.11",
   "dependencies": {
+    "@brillout/reconfig": "0.1.11",
     "react-router": "4.2.0",
     "reassert": "^1.1.12"
   },

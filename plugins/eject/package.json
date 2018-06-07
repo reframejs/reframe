@@ -5,11 +5,13 @@
         "@brillout/cli-theme": "0.1.11",
         "@brillout/find-package-files": "^0.1.0",
         "@brillout/format-text": "^0.1.0",
+        "@brillout/reconfig": "0.1.11",
         "@reframe/utils": "0.1.11",
         "builtins": "^2.0.0",
         "detective": "^5.1.0",
         "mkdirp": "^0.5.1",
-        "reassert": "^1.1.12"
+        "reassert": "^1.1.12",
+        "write-json-file": "^2.3.0"
     },
     "publishConfig": {
         "access": "public"

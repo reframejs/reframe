@@ -8,7 +8,9 @@
     "@brillout/cli-theme": "0.1.11",
     "@brillout/format-text": "^0.1.0",
     "@brillout/get-user-dir": "^0.2.1",
+    "@brillout/reconfig": "0.1.11",
     "@reframe/init": "0.1.11",
+    "@reframe/project-files": "0.1.11",
     "@reframe/utils": "0.1.11",
     "commander": "2.14.1",
     "reassert": "^1.1.12"

@@ -3,7 +3,7 @@
   "version": "0.1.11",
   "dependencies": {
     "@brillout/repage": "0.1.11",
-    "@reframe/utils": "0.1.11"
+    "@brillout/reconfig": "0.1.11"
   },
   "publishConfig": {
     "access": "public"
