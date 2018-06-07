@@ -64,7 +64,7 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
     const assert_usage = require('reassert/usage');
     const assert_plugin = assert_usage;
     const reconfig = require('@brillout/reconfig');
-    const {symbolSuccess, strFile, colorEmphasisLight} = require('@brillout/cli-theme');
+    const {symbolSuccess, strFile, colorEmphasisLight, colorError} = require('@brillout/cli-theme');
     const runNpmInstall = require('@reframe/utils/runNpmInstall');
     const gitUtils = require('@reframe/utils/git');
     const pathModule = require('path');
@@ -81,8 +81,11 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
         const ejectables = getEjectables();
         const ejectableSpec = ejectables[ejectableName];
         if( ! ejectableSpec ) {
-            console.log('No ejectable `'+ejectableName+'` found.');
+            console.log();
+            console.log(colorError('No ejectable `'+ejectableName+'` found.'));
+            console.log();
             printEjectables(0);
+            console.log();
             return;
         }
 
@@ -134,14 +137,13 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
 
         actions.forEach(action => action());
         console.log(symbolSuccess+'Added new dependencies '+newDepsStr+' to '+strFile(projectPackageJsonFile)+'.');
-        console.log(symbolSuccess+'Code ejected.');
+        console.log(symbolSuccess+'All code ejected.');
         console.log();
 
         if( newDeps.length>0 && !skipNpm ) {
             console.log('Installing new dependencies '+newDepsStr+'.');
-            console.log();
             await runNpmInstall(projectRootDir);
-            console.log(symbolSuccess+'Installation done.');
+            console.log(symbolSuccess+'Eject done.');
             console.log();
         }
     }
@@ -187,7 +189,7 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
 
                 const action = () => {
                     fs__write(projectFile, fileContentNew);
-                    console.log(symbolSuccess+'Modified '+strFile(projectFile));
+                    console.log(symbolSuccess+'Modified '+strFile(projectFile)+'.');
                 };
 
                 return action;
@@ -421,7 +423,7 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
         const newDepsStr = (
             newDeps
             .map((dep, i) => (
-                (i<newDeps.length-1?'':'and ')+
+                (i<newDeps.length-1||i===0?'':'and ')+
              // colorEmphasisLight(dep.name)+'@'+dep.version
                 dep.name+'@'+dep.version
             ))
@@ -490,7 +492,7 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
         );
         return () => {
             fs__write(filePath, fileContent);
-            console.log(symbolSuccess+'New file '+strFile(filePath));
+            console.log(symbolSuccess+'New file '+strFile(filePath)+'.');
         };
     }
     function fs__write(filePath, fileContent) {

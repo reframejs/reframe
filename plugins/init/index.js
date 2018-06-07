@@ -5,21 +5,26 @@ module.exports = {
             name: 'init',
             param: '[project-directory]',
             description: 'Create a new Reframe project.',
-            options: [],
-            action: async ({inputs: [projectDir]}) => {
+            options: [
+                {
+                    name: "--skip-npm",
+                    description: "Skip installing packages with npm. You will have to run `npm install` / `yarn` yourself. Do this if you use Yarn.",
+                }
+            ],
+            action: async ({inputs: [projectDir], options: {skipNpm}}) => {
                 if( ! projectDir ) {
                     showUsageInfo();
                     showUsageExample();
                     return;
                 }
-                await runInit(projectDir);
+                await runInit(projectDir, {skipNpm});
             },
             showUsageExample,
         }
     ],
 };
 
-async function runInit(projectDir) {
+async function runInit(projectDir, {skipNpm}) {
     const path = require('path');
     const runNpmInstall = require('@reframe/utils/runNpmInstall');
 
@@ -28,17 +33,7 @@ async function runInit(projectDir) {
     const projectRootDir = path.resolve(process.cwd(), projectDir);
     const projectRootDir__pretty = colorDir(strDir(projectRootDir))
 
-    console.log(
-`Creating a new Reframe app in ${projectRootDir__pretty}.
-
-Installing ${colorPkg('react')} and ${colorPkg('@reframe/react-kit')}.
-This might take a couple of minutes.
-`
-    );
-
     await scaffoldProject(projectRootDir);
-
-    await runNpmInstall(projectRootDir);
 
     console.log(
 `
@@ -57,10 +52,21 @@ Inside that directory, you can run commands such as
 
   ${colorCmd('reframe eject')}
     List all ejectables.
+`);
 
-Run ${colorCmd('cd '+projectDir+' && reframe start')} and go to ${colorUrl('http://localhost:3000')} to open your new app.
-`
-    );
+    if( ! skipNpm ) {
+        console.log(`Installing ${colorPkg('react')} and ${colorPkg('@reframe/react-kit')}.`);
+        console.log(`This might take a couple of minutes.`);
+        console.log();
+
+        await runNpmInstall(projectRootDir);
+
+        console.log(`${symbolSuccess}Packages installed.`);
+        console.log();
+    }
+
+    console.log(`Run ${colorCmd('cd '+projectDir+' && reframe start')} and go to ${colorUrl('http://localhost:3000')} to open your new app.`);
+    console.log();
 }
 
 async function scaffoldProject(projectRootDir) {
