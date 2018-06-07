@@ -210,14 +210,14 @@ async function runEject({inputs: [ejectableName], options: {skipGit}, printHelp}
 
         configChanges
         .forEach(configChange => {
-            const {configPath, configIsList} = configChange;
+            const {configPath, configIsList, configElementKey} = configChange;
 
             let {newConfigValue} = configChange;
             assert_plugin(configPath, configChange);
             assert_plugin(newConfigValue, configChange);
             newConfigValue = apply_PROJECT_ROOT(newConfigValue, projectRootDir)
 
-            checkConfigPath({reframeConfigFile, configPath, configIsList, newConfigValue});
+            checkConfigPath({reframeConfigFile, configPath, configIsList, configElementKey, newConfigValue});
             const newConfigContent = applyConfigChange({configPath, newConfigValue, reframeConfigPath, configIsList});
             assert_internal(newConfigContent);
             reframeConfigContent += '\n' + newConfigContent + '\n';
@@ -275,20 +275,22 @@ async function runEject({inputs: [ejectableName], options: {skipGit}, printHelp}
     function stringIsAbsolutePath(str) {
         return pathModule.isAbsolute(str);
     }
-    function checkConfigPath({reframeConfigFile, configPath, configIsList, newConfigValue}) {
+    function checkConfigPath({reframeConfigFile, configPath, configIsList, configElementKey, newConfigValue}) {
         if( ! reframeConfigFile ) {
             return;
         }
         const reframeConfig = require(reframeConfigFile);
         const oldConfigValue = getPath(reframeConfig, configPath);
         if( configIsList ) {
+            assert_usage(configElementKey);
             assert_usage(
-                !oldConfigValue || oldConfigValue.includes,
+                !oldConfigValue || oldConfigValue.find,
                 "The config `"+configPath+"` defined at `"+reframeConfigFile+"` should be an array but it isn't."
             );
+            const elementKey = newConfigValue[configElementKey];
             assert_usage(
-                !oldConfigValue || !oldConfigValue.includes(newConfigValue),
-                "The config `"+configPath+"` defined at `"+reframeConfigFile+"` already includes `"+newConfigValue+"`.",
+                !oldConfigValue || !oldConfigValue.find(c1 => c1[configElementKey]===elementKey)),
+                "The config `"+configPath+"` defined at `"+reframeConfigFile+"` already includes `"+elementKey+"`.",
                 "Did you already eject previously?"
             );
         } else {
