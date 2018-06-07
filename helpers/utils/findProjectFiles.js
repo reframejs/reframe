@@ -7,6 +7,7 @@ const getUserDir = require('@brillout/get-user-dir');
 
 module.exports = findProjectFiles;
 
+// TODO - move to find-project-files plugin
 function findProjectFiles({projectNotRequired}) {
     assert_internal([true, false].includes(projectNotRequired));
 
@@ -17,7 +18,10 @@ function findProjectFiles({projectNotRequired}) {
     const packageJsonFile = find_up.sync('package.json', {cwd: userDir});
     assert_internal(packageJsonFile===null || pathModule.isAbsolute(packageJsonFile));
 
-    if( ! packageJsonFile && projectNotRequired ) {
+    const reframeConfigFile = find_up.sync('reframe.config.js', {cwd: userDir});
+    assert_internal(reframeConfigFile===null || pathModule.isAbsolute(reframeConfigFile));
+
+    if( projectNotRequired && (!packageJsonFile || !reframeConfigFile) ) {
         return {};
     }
 
@@ -25,14 +29,21 @@ function findProjectFiles({projectNotRequired}) {
         packageJsonFile,
         "Can't find project because no `package.json` file has been found between `"+userDir+"` and `/`."
     );
+    assert_usage(
+        reframeConfigFile,
+        "Can't find project because no `reframe.config.js` file has been found between `"+userDir+"` and `/`."
+    );
+
+    assert_usage(
+        pathModule.dirname(packageJsonFile)===pathModule.dirname(reframeConfigFile),
+        "Your `reframe.config.js` and `package.json` should be located in the same directory.",
+        "This is not the case: `"+packageJsonFile+"`, `"+reframeConfigFile+"`."
+    );
 
     const projectRootDir = pathModule.dirname(packageJsonFile);
 
     const pagesDir = find('pages/', {anchorFiles: ['package.json'], canBeMissing: true, cwd: userDir});
     assert_internal(pagesDir===null || pathModule.isAbsolute(pagesDir));
-
-    const reframeConfigFile = find('reframe.config.js', {anchorFiles: ['package.json'], canBeMissing: true, cwd: userDir});
-    assert_internal(reframeConfigFile===null || pathModule.isAbsolute(reframeConfigFile));
 
     return {packageJsonFile, reframeConfigFile, pagesDir, projectRootDir};
 }

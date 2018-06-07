@@ -1,3 +1,5 @@
+// TODO rename to find-project-files
+
 const pathModule = require('path');
 const findProjectFiles = require('@reframe/utils/findProjectFiles');
 const getPageConfigFiles = require('@reframe/utils/getPageConfigFiles');

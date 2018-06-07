@@ -62,7 +62,7 @@ function applyRequestHandlers_getter(configParts) {
             const {httpRequestHandlerFiles: handlers=[]} = configPart;
             handlers.forEach(handler => {
                 assert_usage(handler.name, handler);
-                assert_usage((handler.prio||'').contructor===Number, handler);
+                assert_usage((handler.prio||'').constructor===Number, handler);
                 assert_usage(pathModule.isAbsolute(handler.handlerFile||''), handler);
                 handlers_all[handler.name] = handler;
             });
@@ -100,10 +100,10 @@ function getEjectables() {
                     configPath: 'httpRequestHandlerFiles',
                     configIsList: true,
                     configElementKey,
-                    newConfigValue: {
+                    newConfigValue: ({makePathRelative}) => ({
                         ...ServerRenderingHandler,
-                        handlerFile: ServerRenderingFile__ejected,
-                    },
+                        handlerFile: makePathRelative(ServerRenderingFile__ejected),
+                    }),
                 },
             ],
         },
@@ -122,10 +122,10 @@ function getEjectables() {
                     configPath: 'httpRequestHandlerFiles',
                     configIsList: true,
                     configElementKey,
-                    newConfigValue: {
+                    newConfigValue: ({makePathRelative}) => ({
                         ...StaticAssetsHandler,
-                        handlerFile: StaticAssetsFile__ejected,
-                    },
+                        handlerFile: makePathRelative(StaticAssetsFile__ejected),
+                    }),
                 },
             ],
         },

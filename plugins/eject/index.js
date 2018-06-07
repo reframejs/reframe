@@ -197,7 +197,6 @@ async function runEject({inputs: [ejectableName], options: {skipGit}, printHelp}
         }
 
         const {projectRootDir, reframeConfigFile} = reframeConfig.projectFiles;
-
         const reframeConfigPath = reframeConfigFile || pathModule.resolve(projectRootDir, './reframe.config.js');
 
         let reframeConfigContent = (
@@ -211,15 +210,15 @@ async function runEject({inputs: [ejectableName], options: {skipGit}, printHelp}
         configChanges
         .forEach(configChange => {
             const {configPath, configIsList, configElementKey} = configChange;
-
-            let {newConfigValue} = configChange;
             assert_plugin(configPath, configChange);
-            assert_plugin(newConfigValue, configChange);
-            newConfigValue = apply_PROJECT_ROOT(newConfigValue, projectRootDir)
 
-            checkConfigPath({reframeConfigFile, configPath, configIsList, configElementKey, newConfigValue});
-            const newConfigContent = applyConfigChange({configPath, newConfigValue, reframeConfigPath, configIsList});
+            const newValue = getNewValue({configChange, reframeConfigPath, projectRootDir});
+
+            checkConfigPath({reframeConfigFile, configPath, configIsList, configElementKey, newValue});
+
+            const newConfigContent = applyConfigChange({configPath, newValue, reframeConfigPath, configIsList});
             assert_internal(newConfigContent);
+
             reframeConfigContent += '\n' + newConfigContent + '\n';
         });
 
@@ -232,14 +231,33 @@ async function runEject({inputs: [ejectableName], options: {skipGit}, printHelp}
 
         actions.push(action);
     }
-    function applyConfigChange({configPath, newConfigValue, reframeConfigPath, configIsList}) {
-        const newValue = (
-            stringIsAbsolutePath(newConfigValue) ? (
-                "require.resolve('"+getRelativePath(reframeConfigPath, newConfigValue)+"')"
-            ) : (
-                newConfigValue
-            )
-        );
+    function getNewValue({configChange, reframeConfigPath, projectRootDir}) {
+        let {newConfigValue} = configChange;
+        assert_plugin(newConfigValue, configChange);
+
+        if( newConfigValue.constructor === Function ) {
+            newConfigValue = newConfigValue({makePathRelative});
+        }
+
+        return newConfigValue;
+
+        function makePathRelative(pathFromRoot) {
+            assert_internal(pathModule.dirname(reframeConfigPath)===projectRootDir);
+            assert_usage(pathFromRoot.startsWith('PROJECT_ROOT'));
+            return "-EVAL_START-require.resolve('"+pathFromRoot.replace('PROJECT_ROOT', '.')+"')-EVAL_END-";
+        }
+    }
+
+    function getValString(val) {
+        let valString = JSON.stringify(val);
+
+        valString = valString.replace(/"-EVAL_START-(.*)-EVAL_END-"/g, '$1');
+
+        return valString;
+    }
+
+    function applyConfigChange({configPath, newValue, reframeConfigPath, configIsList}) {
+        const valString = getValString(newValue);
 
         const props = getProps(configPath);
 
@@ -261,11 +279,11 @@ async function runEject({inputs: [ejectableName], options: {skipGit}, printHelp}
             if( configIsList ) {
                 const assign_value = assignee+" || []";
                 lines.push(assignee+' = '+assign_value+';');
-                lines.push(assignee+'.push('+newValue+');');
+                lines.push(assignee+'.push('+valString+');');
                 return;
             }
 
-            lines.push(assignee+' = '+newValue+';');
+            lines.push(assignee+' = '+valString+';');
         })
 
         const configContentAppend = lines.join('\n');
@@ -275,7 +293,7 @@ async function runEject({inputs: [ejectableName], options: {skipGit}, printHelp}
     function stringIsAbsolutePath(str) {
         return pathModule.isAbsolute(str);
     }
-    function checkConfigPath({reframeConfigFile, configPath, configIsList, configElementKey, newConfigValue}) {
+    function checkConfigPath({reframeConfigFile, configPath, configIsList, configElementKey, newValue}) {
         if( ! reframeConfigFile ) {
             return;
         }
@@ -287,11 +305,11 @@ async function runEject({inputs: [ejectableName], options: {skipGit}, printHelp}
                 !oldConfigValue || oldConfigValue.find,
                 "The config `"+configPath+"` defined at `"+reframeConfigFile+"` should be an array but it isn't."
             );
-            const elementKey = newConfigValue[configElementKey];
+            const elementKey = newValue[configElementKey];
             assert_usage(
-                !oldConfigValue || !oldConfigValue.find(c1 => c1[configElementKey]===elementKey)),
+                !oldConfigValue || !oldConfigValue.find(c1 => c1[configElementKey]===elementKey),
                 "The config `"+configPath+"` defined at `"+reframeConfigFile+"` already includes `"+elementKey+"`.",
-                "Did you already eject previously?"
+                "Did you already eject?"
             );
         } else {
             assert_usage(
@@ -397,13 +415,13 @@ async function runEject({inputs: [ejectableName], options: {skipGit}, printHelp}
     function getPath(obj, pathString) {
         return setGetPath(obj, pathString);
     }
-    function setPath(obj, pathString, newVal) {
-        return setGetPath(obj, pathString, newVal);
+    function setPath(obj, pathString, new_val) {
+        return setGetPath(obj, pathString, new_val);
     }
-    function setGetPath(obj, pathString, newVal) {
+    function setGetPath(obj, pathString, new_val) {
         assert_internal(obj instanceof Object, obj, pathString);
 
-        const isGetter = newVal === undefined;
+        const isGetter = new_val === undefined;
         let nestedObj = obj;
 
         const props = getProps(pathString);
@@ -426,7 +444,7 @@ async function runEject({inputs: [ejectableName], options: {skipGit}, printHelp}
             return lastObj[lastProp];
         }
 
-        lastObj[lastProp] = newVal;
+        lastObj[lastProp] = new_val;
     }
     function getProps(pathString) {
         assert_internal(pathString);
