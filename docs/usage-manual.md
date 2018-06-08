@@ -130,7 +130,7 @@
 
 <div><p align="center">
     <b>Rapid&nbsp;Dev</b>&nbsp;&#8209;&nbsp;Quickly&nbsp;implement&nbsp;apps.
-    &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+    &nbsp; &nbsp; &nbsp;
     <b>Fully&nbsp;Flexible</b>&nbsp;&#8209;&nbsp;As&nbsp;flexible&nbsp;as&nbsp;using&nbsp;do-one-thing-do-it-well&nbsp;libraries.
 </p></div>
 

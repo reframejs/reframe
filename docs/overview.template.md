@@ -41,21 +41,15 @@ You can create an app with **no build configuration** and **no server configurat
 
 > All you need to create a web app is one React component and one page config per page.
 
-&nbsp;
-
 Yet, thanks to its "Progressive Eject" feature and its simple architecture,
 **you can gain control and customize every single part of Reframe**.
 
-&nbsp;
 
 Reframe is a "Universal Framework":
 You can create any type of app including **modern dynamic apps**
 as well as **old school apps** where the browser doesn't load any JavaScript.
 
-&nbsp;
-
 The goal of Reframe is to become the **modern Django / Ruby on Rails**:
- - Full-stack: Frontend+Backend+ORM/database.
  - Modern: Interactive views (with React, Vue.js, etc.) as first class citizen.
  - Ejectabe: Gain full control over your app by progressively ejecting the framework.
  - Full-stack ORM: You don't have to create API endpoints to access your data from the frontend. (Work-in-progress.)
@@ -109,7 +103,7 @@ Also, Reframe is universal: It supports every type of apps.
  - [Universal Framework](#universal-framework)
  - [Progressive Eject](#progressive-eject)
 
-##### Progressive Eject
+#### Progressive Eject
 
 All of Reframe can be progressively ejected.
 
@@ -136,7 +130,7 @@ when your app turns into something big you can get rid of Reframe by progressive
 > With Reframe you can quickly implement a prototype while staying fully flexible down the road.
 
 
-##### Universal Framework
+#### Universal Framework
 
 Reframe is universal, that is, you can create any type of web app:
 
@@ -176,19 +170,18 @@ Meaning that you can start writing your prototype and only at a later point deci
   <br/>
   Reframe introduces a new type of apps we call "Mixed Apps".
   A *mixed app* is an app that has interactive pages as well as non-interactive pages.
-  <br/>
   For example a `/about` page that is static and non-interactive
   (browser doesn't load any JavaScript and the DOM is static)
   and a `/search` page that is dynamic and interactive
   (browser loads React components and the DOM is dynamic).
   <br/>
   Both are important:
-   - Interactive views are difficult to implement but powerful.
-   - Non-interactive views are considerably easier to implement.
-  Mixed apps allow you to follow the **non-interactive-by-default approach**:
+    - Interactive views are difficult to implement but powerful.
+    - Non-interactive views are considerably easier to implement.
+  Mixed apps allow you to follow the non-interactive-by-default approach:
   Whenever possible, implement features with non-interative views.
   <br/>
-  Mixed apps will be the future of web development and Reframe is the only framework supporting them.
+  Mixed apps is the future and Reframe is the only framework supporting them.
 - **Learn once, write any app**
   <br/>
   Instead of learning different frameworks to create different types of apps,
@@ -259,8 +252,7 @@ Meaning that you can start writing your prototype and only at a later point deci
   is known for its robustness and scalability.
 - **WebAssembly**
   <br/>
-  WebAssembly is incredibly promising and may very well make decades-long dreams come true.
-  Reframe, being based on JavaScript and Node.js, embraces the WebAssembly future.
+  WebAssembly is immensely promising and Reframe, being based on JavaScript and Node.js, embraces the WebAssembly future.
 
 ###### Performance
 
@@ -280,6 +272,7 @@ Meaning that you can start writing your prototype and only at a later point deci
   <br/>
   By default, a page is rendered to HTML on the server before being rendered to the DOM in the browser.
   Improving the user-perceived load time.
+test
 - **Optimal HTTP caching**
   <br/>
   Every dynamic server response is cached with a ETag header.
@@ -289,6 +282,7 @@ Meaning that you can start writing your prototype and only at a later point deci
   When setting `htmlStatic: true` to a page config, the page is rendered to HTML at build-time (instead of request-time).
   The page's HTML is rendered only once and is served statically.
   Decreasing load time.
+test2
 
 <br/>
 <br/>
