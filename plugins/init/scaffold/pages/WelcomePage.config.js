@@ -36,17 +36,12 @@ const WelcomePage = {
     route: '/',
     view: Welcome,
 
-    // <title>
-    title: 'Welcome',
-    // <meta name="description">
-    description: 'This is a Reframe App.',
+    title: 'Welcome', // <title>
+    description: 'This is a Reframe App.', // <meta name="description">
 
-    // The WelcomePage's HTML doesn't need to be re-rendered on every page request.
-    // Hence, we set `htmlStatic` to `true` to render the HTML at build-time instead of request-time.
+    // Set the "static-ness" of the page.
+    // (See the usage manual's "domStatic & htmlStatic" section.)
     htmlStatic: true,
-
-    // This page contains no interactive/stateful views.
-    // Thus, we set `domStatic` to `true` to avoid loading unnecessary JavaScript code.
     domStatic: true,
 };
 

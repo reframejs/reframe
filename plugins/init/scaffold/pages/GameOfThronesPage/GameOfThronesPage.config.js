@@ -22,10 +22,9 @@ export default {
     route: '/game-of-thrones',
     getInitialProps,
     view: GameOfThronesView,
-    // Because we set `htmlStatic` to `false`, the page's HTML is re-rendered on every page request.
-    // Hence the list of characters is re-loaded on every page request.
-    // If we set `htmlStatic` to `true` then the list is loaded only once at build-time.
+
+    // Set the "static-ness" of the page.
+    // (See the usage manual's "domStatic & htmlStatic" section.)
     htmlStatic: false,
-    // This page has no interactive/stateful views.
     domStatic: true,
 };

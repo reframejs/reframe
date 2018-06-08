@@ -36,12 +36,8 @@ export default {
     route: "/time",
     view: TimeView,
 
-    // If we set `domStatic` to `true` then the DOM is static and the page
-    // shows the time when the server received the page request.
-    // domStatic: true,
-
-    // If we also set `htmlStatic` to `true` then the page shows the time
-    // when the page was built. (When `reframe start` / `reframe build` was run.)
-    // htmlStatic: true,
-    // domStatic: true,
+    // Set the "static-ness" of the page.
+    // (See the usage manual's "domStatic & htmlStatic" section.)
+    htmlStatic: false,
+    domStatic: false,
 };

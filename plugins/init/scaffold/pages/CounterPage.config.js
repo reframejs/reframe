@@ -41,9 +41,9 @@ export default {
     route: "/counter",
     view: CounterView,
 
-    // Only the DOM needs to be dynamic.
+    // We set the "static-ness" of the page.
+    // (See the usage manual's "domStatic & htmlStatic" section.)
     htmlStatic: true,
-
-    // The default value of `domStatic` is `false`.
+    domStatic: false,
 };
 
