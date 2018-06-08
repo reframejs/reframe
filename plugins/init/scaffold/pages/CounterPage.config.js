@@ -20,7 +20,6 @@ class Counter extends React.Component {
         this.down = this.down.bind(this);
     }
     up() {
-        console.log('u');
         this.setState({counter: this.state.counter+1});
     }
     down() {
