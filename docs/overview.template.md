@@ -33,7 +33,7 @@ const WelcomePage = {
 ~~~
 
 A *page config* is a plain JavaScript object that configures a page by assigning it
- - a React component,
+ - a React component (or a Vue.js component),
  - a route, and
  - further optional page configurations
 
@@ -41,9 +41,25 @@ You can create an app with **no build configuration** and **no server configurat
 
 > All you need to create a web app is one React component and one page config per page.
 
-Yet, Reframe is **fully flexible**:
-Thanks to its "Progressive Eject" feature and its simple design
-**you can gain control and customize every part of Reframe**.
+&nbsp;
+
+Yet, thanks to its "Progressive Eject" feature and its simple architecture,
+**you can gain control and customize every single part of Reframe**.
+
+&nbsp;
+
+Reframe is a "Universal Framework":
+You can create any type of app including **modern dynamic apps**
+as well as **old school apps** where the browser doesn't load any JavaScript.
+
+&nbsp;
+
+The goal of Reframe is to become the **modern Django / Ruby on Rails**:
+ - Full-stack: Frontend+Backend+ORM/database
+ - Modern: Interactive views (with React, Vue.js, etc.) as first class citizen.
+ - Ejectabe: Gain full control over your app by progressively ejecting the framework.
+ - Full-stack ORM: You don't have to create API endpoints to access your data from the frontend. (Work-in-progress.)
+ - Easy deploy: Stragegy for serverless Node.js and serverless database deployment. (Work-in-progress.)
 
 <br/>
 <br/>
@@ -92,8 +108,10 @@ which allows you to progressively and fully gain control over your app.
 Also, Reframe supports every type of apps.
 (Modern apps with interactive views, goold ol' 1998 websites where the DOM is static, serverless apps, static websites, etc.)
 
+ - [Universal Framework](#universal-framework)
+ - [Progressive Eject](#progressive-eject)
 
-###### Progressive Eject
+##### Progressive Eject
 
 All of Reframe can be progressively ejected.
 
@@ -120,9 +138,9 @@ when your app turns into something big you can get rid of Reframe by progressive
 > With Reframe you can quickly implement a prototype while staying fully flexible down the road.
 
 
-###### Create any type of app
+##### Universal Framework
 
-You can create
+Reframe is a universal framework: You can create
 
  - **Modern interactive apps** <sup><sub>:sparkles:</sub></sup>
    <br/>
@@ -144,12 +162,18 @@ Meaning that you can start writing your prototype and only at a later point deci
 
 ### Tech Specs
 
+ - [Developer Experience](#developer-experience)
+ - [SEO](#seo)
+ - [Integrations](#integrations)
+ - [Performance](#performance)
+
 ###### Developer Experience
 
 - **Quick but flexible**
   <br/>
   Quickly implement apps while staying fully flexible.
   The section above goes into details.
+  <br/>
 - **Mixed Apps** :tm:
   <br/>
   Reframe introduces a new type of apps we call "Mixed Apps".
@@ -161,8 +185,8 @@ Meaning that you can start writing your prototype and only at a later point deci
   (browser loads React components and the DOM is dynamic).
   <br/>
   Both are important:
-   - **Interactive** views are **difficult** to implement **but powerful**.
-   - **Non-interactive** views are considerably **easier** to implement.
+   - Interactive views are difficult to implement but powerful.
+   - Non-interactive views are considerably easier to implement.
   <br/>
   Mixed apps allow you to follow the **non-interactive-by-default approach**:
   Whenever possible, implement features with non-interative views.
@@ -174,6 +198,7 @@ Meaning that you can start writing your prototype and only at a later point deci
   learn Reframe once to be able to implement any type of web app.
   <br/>
   Reframe is the only framework that supports every type of web apps.
+  <br/>
 - **ORM** [WIP]
   <br/>
   To use an ORM (such as [TypeORM](https://github.com/typeorm/typeorm)) you will have to create API endpoints yourself.
@@ -183,6 +208,7 @@ Meaning that you can start writing your prototype and only at a later point deci
   Also, Reframe is studying ways of being able to create data models on your behalf, so that things like user auth can be fully taken care of.
   <br/>
   [Follow Reframe on Twitter](https://twitter.com/reframejs) to get updates.
+  <br/>
 - **Easy Deploy** [WIP]
   <br/>
   If your app is static then you can easily deploy it by using the command `$ reframe deploy-static`.

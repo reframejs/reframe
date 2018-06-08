@@ -1,5 +1,5 @@
 // By default Reframe uses React.
-// But you can use Vue.js or any other view library instead.
+// You can as well use another view library such as Vue.js.
 import React from 'react';
 
 const HelloPage = {
