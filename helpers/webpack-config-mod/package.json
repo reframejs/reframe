@@ -1,6 +1,6 @@
 {
   "name": "@brillout/webpack-config-mod",
-  "version": "0.1.12-next.0",
+  "version": "0.1.12",
   "scripts": {
     "docs": "mdocs"
   },

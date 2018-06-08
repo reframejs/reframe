@@ -1,6 +1,6 @@
 {
   "name": "@brillout/reconfig",
-  "version": "0.1.12-next.0",
+  "version": "0.1.12",
   "dependencies": {
     "@brillout/get-user-dir": "^0.2.1",
     "find-up": "^2.1.0",

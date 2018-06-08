@@ -1,12 +1,12 @@
 {
     "name": "@reframe/eject",
-    "version": "0.1.12-next.0",
+    "version": "0.1.12",
     "dependencies": {
-        "@brillout/cli-theme": "0.1.12-next.0",
+        "@brillout/cli-theme": "0.1.12",
         "@brillout/find-package-files": "^0.1.0",
         "@brillout/format-text": "^0.1.0",
-        "@brillout/reconfig": "0.1.12-next.0",
-        "@reframe/utils": "0.1.12-next.0",
+        "@brillout/reconfig": "0.1.12",
+        "@reframe/utils": "0.1.12",
         "builtins": "^2.0.0",
         "detective": "^5.1.0",
         "mkdirp": "^0.5.1",

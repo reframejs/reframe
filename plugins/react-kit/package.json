@@ -1,18 +1,18 @@
 {
   "name": "@reframe/react-kit",
-  "version": "0.1.12-next.0",
+  "version": "0.1.12",
   "reframePlugin": true,
   "dependencies": {
-    "@reframe/browser": "0.1.12-next.0",
-    "@reframe/build": "0.1.12-next.0",
-    "@reframe/deploy-git": "0.1.12-next.0",
-    "@reframe/eject": "0.1.12-next.0",
-    "@reframe/hapi": "0.1.12-next.0",
-    "@reframe/path-to-regexp": "0.1.12-next.0",
-    "@reframe/project-files": "0.1.12-next.0",
-    "@reframe/react": "0.1.12-next.0",
-    "@reframe/server": "0.1.12-next.0",
-    "@reframe/start": "0.1.12-next.0"
+    "@reframe/browser": "0.1.12",
+    "@reframe/build": "0.1.12",
+    "@reframe/deploy-git": "0.1.12",
+    "@reframe/eject": "0.1.12",
+    "@reframe/hapi": "0.1.12",
+    "@reframe/path-to-regexp": "0.1.12",
+    "@reframe/project-files": "0.1.12",
+    "@reframe/react": "0.1.12",
+    "@reframe/server": "0.1.12",
+    "@reframe/start": "0.1.12"
   },
   "publishConfig": {
     "access": "public"
