@@ -99,8 +99,8 @@ which allows you to progressively and fully gain control over your app.
 
 Also, Reframe is universal: It supports every type of apps.
 
- - [Universal Framework](#universal-framework)
  - [Progressive Eject](#progressive-eject)
+ - [Universal Framework](#universal-framework)
 
 #### Progressive Eject
 
