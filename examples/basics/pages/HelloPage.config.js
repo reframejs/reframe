@@ -1,4 +1,4 @@
-// By default Reframe uses React.
+// Reframe uses React by default.
 // You can as well use another view library such as Vue.js.
 import React from 'react';
 

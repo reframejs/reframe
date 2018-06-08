@@ -181,9 +181,9 @@ Yet, thanks to its "Progressive Eject" feature and its simple architecture,
 
 Reframe is a "Universal Framework":
 You can create any type of app including **modern interactive apps**
-as well as **old school non-interactive apps** where the browser doesn't load any JavaScript.
+as well as **old-school non-interactive apps** where the browser doesn't load any JavaScript.
 
-The goal of Reframe is to become the **modern Django / Ruby on Rails**:
+Reframe aims to become the **modern Django / Ruby on Rails**:
  - Modern: First-class support for interactive views with React, Vue.js, etc.
  - Ejectabe: Gain full control by progressively ejecting the framework.
  - Full-stack ORM: No need to create API endpoints to access your data from the frontend. (Work-in-progress.)
@@ -200,7 +200,7 @@ by defining a page config `HelloPage`:
 ~~~jsx
 // ~/my-app/pages/HelloPage.config.js
 
-// By default Reframe uses React.
+// Reframe uses React by default.
 // You can as well use another view library such as Vue.js.
 import React from 'react';
 
@@ -250,9 +250,9 @@ Reframe does the rest:
 4. Open [http://localhost:3000](http://localhost:3000).
 
 To familiarize yourself with Reframe,
-read the source code of `my-app/`,
-check out the [Usage Manual](/docs/usage-manual.md),
-and read this overview.
+read the source code in `my-app/`,
+read this overview, and
+check out the [Usage Manual](/docs/usage-manual.md).
 
 <br/>
 <br/>
