@@ -125,15 +125,12 @@
 [<p align="center"><img src="https://github.com/reframejs/reframe/raw/master/docs/images/logo-with-title.svg?sanitize=true" width=450 height=94 style="max-width:100%;" alt="Reframe"/></p>](https://github.com/reframejs/reframe)
 
 <div><p align="center">
-        Framework to create web apps with React
+        Framework to create web apps.
 </p></div>
 
 <div><p align="center">
-    <b>Easy</b>&nbsp;&#8209;&nbsp;Quickly&nbsp;implement&nbsp;apps
-    &nbsp; &nbsp; &nbsp;
-    <b>Progressive&nbsp;Eject</b>&nbsp;&#8209;&nbsp;No&nbsp;lock&#8209;in
-    &nbsp; &nbsp; &nbsp;
-    <b>Universal</b>&nbsp;&#8209;&nbsp;Create&nbsp;static&nbsp;/&nbsp;dynamic&nbsp;/&nbsp;mixed&nbsp;apps
+    <b>Rapid&nbsp;Dev</b>&nbsp;&#8209;&nbsp;Quickly&nbsp;implement&nbsp;apps.
+    <b>Fully&nbsp;Flexible</b>&nbsp;&#8209;&nbsp;As&nbsp;flexible&nbsp;as&nbsp;using&nbsp;do-one-thing-do-it-well&nbsp;libraries.
 </p></div>
 
 <br/>
@@ -433,39 +430,31 @@ $ reframe eject server
 will copy the following file to your codebase.
 
 ~~~js
-// /plugins/server/startServer.js
+// /plugins/hapi/start.js
 
 const Hapi = require('hapi');
-const HapiPluginServerRendering = require('./HapiPluginServerRendering');
-const HapiPluginStaticAssets = require('./HapiPluginStaticAssets');
+const ConfigHandlers = require('./ConfigHandlers');
 const {symbolSuccess, colorEmphasis} = require('@brillout/cli-theme');
 
-module.exports = startServer();
+module.exports = start();
 
-async function startServer() {
-    // By default, Reframe uses the hapi framework (https://hapijs.com/) to create a server.
-    // You can as well use Reframe with another server framework such as Express.
+async function start() {
     const server = Hapi.Server({
         port: 3000,
         debug: {request: ['internal']},
     });
 
-    await server.register([
-        // This plugin serves all static assets such as JavaScript, (static) HTMLs, images, etc.
-        // Run `reframe eject server-assets` to customize this plugin.
-        HapiPluginStaticAssets,
-        // This plugin serves the dynamic HTMLs.
-        // Run `reframe eject server-ssr` to customize this plugin.
-        HapiPluginServerRendering,
-    ]);
+    // `ConfigHandlers` applies the request handlers defined in the config.
+    // (E.g. the `@reframe/server` plugin adds request handlers to the config
+    // that serve your pages' HTMLs and that serve your static assets.)
+    // Run the eject command `$ reframe eject hapi` to eject the entire hapi code.
+    // You will then be able to use any other web framework such as Express.
+    await server.register(ConfigHandlers);
 
     await server.start();
 
-    console.log([
-        symbolSuccess,
-        'Server running ',
-        '(for '+colorEmphasis(process.env.NODE_ENV||'development')+')',
-    ].join(''));
+    const env = colorEmphasis(process.env.NODE_ENV||'development');
+    console.log(symbolSuccess+'Server running (for '+env+')');
 
     return server;
 }
@@ -504,12 +493,15 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 ## Custom Webpack
 
-Save a `reframe.config.js` file at your app root directory and use the `webpackBrowserConfig` and/or `webpackNodejsConfig` Reframe configs.
+Save a `reframe.config.js` file at your app's root directory and use the `webpackBrowserConfig` and/or `webpackNodejsConfig` configurations.
 
 ~~~js
 // reframe.config.js
 
 module.exports = {
+    $plugins: [
+        require('@reframe/react-kit')
+    ],
     webpackBrowserConfig: webpackConfig,
     webpackNodejsConfig: webpackConfig,
 };
@@ -536,10 +528,10 @@ function webpackConfig({
 }
 ~~~
 
-Docs of the `@brillout/webpack-config-mod` config modifiers at [/helpers/webpack-config-mod](/helpers/webpack-config-mod).
+All `@brillout/webpack-config-mod` config modifiers are listed at [/helpers/webpack-config-mod](/helpers/webpack-config-mod).
 
 Examples:
- - Using modifiers [/examples/custom-webpack](/examples/custom-webpack)
+ - Using config modifiers [/examples/custom-webpack](/examples/custom-webpack)
  - Fully custom config [/examples/custom-webpack-full](/examples/custom-webpack-full)
  - Source code of [`@reframe/postcss`](/plugins/postcss)
  - Source code of [`@reframe/react`](/plugins/react)
@@ -583,9 +575,9 @@ Reframe uses [`@brillout/index-html`](https://github.com/brillout/index-html) to
 You have full control over the "outer-part" HTML.
 (`<meta>`, `<!DOCTYPE html`>, `<head>`, `<html>`, `<body>`, `<script>`, etc.)
 
-There are two ways to define the HTML:
- - With page configs
- - By writing a `index.html` file
+There are two ways to define the outer-part HTML:
+ - By creating a `index.html` file
+ - Over the page configs
 
 Over the page config:
 
@@ -595,17 +587,31 @@ Over the page config:
 import React from 'react';
 
 export default {
-    route: '/',
-    domStatic: true,
-    view: () => <h1>Welcome</h1>,
+    // Add <title>Welcome<title>
+    title: 'Welcome',
 
-    // All page config options are passed down to `@brillout/index-html`
+    // Add <meta name="description" content="A welcome page.">
+    description: 'A welcome page.',
+
+    // Add <script src="https://example.org/awesome-lib.js" type="text/javascript"></script>
     scripts: [
         'https://example.org/awesome-lib.js',
     ],
+
+    // Add <link href="https://example.org/awesome-lib.css" rel="stylesheet">
     styles: [
         'https://example.org/awesome-lib.css',
     ],
+
+    // ...
+    // ...
+    // Every `@brillout/index-html` option is available over the page config
+    // ...
+    // ...
+
+    route: '/',
+    view: () => <h1>Welcome</h1>,
+    domStatic: true,
 };
 ~~~
 
@@ -617,7 +623,7 @@ Over a `index.html` file saved in your app's root directory:
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Default Title</title>
+        <link rel="manifest" href="/manifest.json">
         !HEAD
     </head>
     <body>
@@ -635,10 +641,7 @@ Also, the `indexHtml` page config option allows you to override the `index.html`
 import React from 'react';
 
 export default {
-    route: '/about',
-    domStatic: true,
-    view: () => <h1>About Page</h1>,
-
+    // Set a different outer-part HTML for the `/about` page
     indexHtml: (
 `<!DOCTYPE html>
 <html>
@@ -652,12 +655,16 @@ export default {
 </html>
 `
     ),
+
+    route: '/about',
+    view: () => <h1>About Page</h1>,
+    domStatic: true,
 };
 ~~~
 
-All options of `@brillout/index-html`'s `generateHtml({options})` function are available over the page config.
+All `@brillout/index-html` options are available over the page config.
 
-All options are listed in [`@brillout/index-html`'s documentation](https://github.com/brillout/index-html).
+See [`@brillout/index-html`'s documentation](https://github.com/brillout/index-html).
 
 Example:
  - [/examples/custom-head](/examples/custom-head)

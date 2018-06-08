@@ -220,7 +220,7 @@ $ reframe eject server
 will copy the following file to your codebase.
 
 ~~~js
-!INLINE ../plugins/server/startServer.js
+!INLINE ../plugins/hapi/start.js
 ~~~
 
 At this point you can:

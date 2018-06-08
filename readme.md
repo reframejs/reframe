@@ -125,15 +125,12 @@
 [<p align="center"><img src="https://github.com/reframejs/reframe/raw/master/docs/images/logo-with-title.svg?sanitize=true" width=450 height=94 style="max-width:100%;" alt="Reframe"/></p>](https://github.com/reframejs/reframe)
 
 <div><p align="center">
-        Framework to create web apps with React
+        Framework to create web apps.
 </p></div>
 
 <div><p align="center">
-    <b>Easy</b>&nbsp;&#8209;&nbsp;Quickly&nbsp;implement&nbsp;apps
-    &nbsp; &nbsp; &nbsp;
-    <b>Progressive&nbsp;Eject</b>&nbsp;&#8209;&nbsp;No&nbsp;lock&#8209;in
-    &nbsp; &nbsp; &nbsp;
-    <b>Universal</b>&nbsp;&#8209;&nbsp;Create&nbsp;static&nbsp;/&nbsp;dynamic&nbsp;/&nbsp;mixed&nbsp;apps
+    <b>Rapid&nbsp;Dev</b>&nbsp;&#8209;&nbsp;Quickly&nbsp;implement&nbsp;apps.
+    <b>Fully&nbsp;Flexible</b>&nbsp;&#8209;&nbsp;As&nbsp;flexible&nbsp;as&nbsp;using&nbsp;do-one-thing-do-it-well&nbsp;libraries.
 </p></div>
 
 <br/>
@@ -149,8 +146,7 @@
  - [Introduction](#introduction)
  - [Example](#example)
  - [Quick Start](#quick-start)
- - [Progressive Eject](#progressive-eject)
- - [Universal](#universal)
+ - [Fully Flexible](#fully-flexible)
  - [Tech Specs](#tech-specs)
 
 <br/>
@@ -179,7 +175,9 @@ You can create an app with **no build configuration** and **no server configurat
 
 > All you need to create a web app is one React component and one page config per page.
 
-Yet you can **customize** and (progressively) **eject everything**.
+Yet, Reframe is **fully flexible**:
+Thanks to its "Progressive Eject" feature and its simple design
+**you can gain control and customize every part of Reframe**.
 
 <br/>
 <br/>
@@ -192,6 +190,8 @@ by defining a page config `HelloPage`.
 ~~~jsx
 // ~/my-app/pages/HelloPage.config.js
 
+// By default Reframe uses React.
+// But you can use Vue.js or any other view library instead.
 import React from 'react';
 
 const HelloPage = {
@@ -247,9 +247,22 @@ and read this overview.
 <br/>
 <br/>
 
-### Progressive Eject
+### Fully Flexible
 
-All of Reframe is ejectable and customizable.
+Reframe is designed from the ground up to be as flexible as possible.
+
+The goal is to give you the same flexibility as if you would implement your app with do-one-thing-do-it-well libraries.
+
+At the core of Reframe's flexibility is the "Progressive Eject" feature
+which allows you to progressively and fully gain control over your app.
+
+Also, Reframe supports every type of apps.
+(Modern apps with interactive views, goold ol' 1998 websites where the DOM is static, serverless apps, static websites, etc.)
+
+
+###### Progressive Eject
+
+All of Reframe can be progressively ejected.
 
 For example, the CLI command `$ reframe eject server` ejects the server code:
 [Around 30 lines of code](/plugins/server/startServer.js)
@@ -264,21 +277,19 @@ If you run all eject commands then you effectively get rid of Reframe.
 
 > Reframe doesn't lock you in: You can progressively and fully eject Reframe.
 
-###### Quick but flexible
+Once you fully eject Reframe, your app will not depend on Reframe anymore but will only depend on state-of-the-art and do-one-thing-and-do-it-well libraries.
+At that point you have the same flexibility
+as if you would have implemented your app on top of these do-one-thing-and-do-it-well libraries.
 
-Once you fully eject Reframe, your app will not depend on Reframe anymore, and will only depend on state-of-the-art and do-one-thing-and-do-it-well libraries.
+So you can quickly implement a prototype and
+when your app turns into something big you can get rid of Reframe by progressively ejecting it.
 
-Meaning that you have the same flexibility
-as if you would implement your app from scratch on top of these do-one-thing-and-do-it-well libraries.
+> With Reframe you can quickly implement a prototype while staying fully flexible down the road.
 
-> Quickly implement a prototype. You can later then gain full flexibility by progressively ejecting Reframe.
 
-<br/>
-<br/>
+###### Create any type of app
 
-### Universal
-
-Reframe is universal, that is, you can create any type of web app:
+You can create
 
  - **Modern interactive apps** <sup><sub>:sparkles:</sub></sup>
    <br/>
@@ -292,35 +303,8 @@ Reframe is universal, that is, you can create any type of web app:
    <br/>
    Apps that mix both: Modern interactive pages <sup><sub>:sparkles:</sub></sup> as well as good ol' 1998 non-interative pages <sup><sub>:floppy_disk:</sub></sup>.
 
-Instead of learning different frameworks for different types of apps,
-learn Reframe to be able to write any type of web app.
-
-> Learn once, write any app.
-
-Reframe is the only framework that supports every type of web apps.
-
-And choosing the type of your app is only a matter of setting the page config options `htmlStatic` and `domStatic`.
-So you can start writing your app and decide only later the type of your app.
-(Explanation at [Usage Manual - `domStatic` & `htmlStatic`](/docs/usage-manual.md#domstatic--htmlstatic).)
-
-###### Mixed apps :tm:
-
-With Reframe you can mix interactive pages and non-interactive pages.
-For example a `/about` page that is static and non-interactive
-(browser doesn't load any JavaScript and the DOM is static)
-and a `/search` page that is dynamic and interactive
-(browser loads React components and the DOM is dynamic).
-
-Both are important:
- - **Interactive** views are **difficult** to implement **but powerful**.
- - **Non-interactive** views are considerably **easier** to implement.
-
-In general, we recommand to follow the **non-interactive-by-default approach**:
-Whenever possible, implement features with non-interative views.
-
-> Mixed apps allow you to follow the non-interactive-by-default approach.
-
-Mixed apps are the future of web development and Reframe is the only framework supporting them.
+The cherry on the cake is that choosing the type of your app is only a matter of setting the page config options `htmlStatic` and `domStatic`.
+Meaning that you can start writing your prototype and only at a later point decide the type of your app.
 
 <br/>
 <br/>
@@ -331,34 +315,75 @@ Mixed apps are the future of web development and Reframe is the only framework s
 
 - **Quick but flexible**
   <br/>
-  Create an app simply by defining React components and page configs.
-  And thanks to progressive eject, you stay fully in control of your app.
-  More at [Progressive Eject](#progressive-eject).
-- **Mixed apps** :tm:
+  Quickly implement apps while staying fully flexible.
+  The section above goes into details.
+- **Mixed Apps** :tm:
   <br/>
-  Implement apps with mostly non-interactive pages and only few interactive pages.
-  Following the non-interactive-by-default approach.
-  (Implement features with non-interative views whenever possible.)
-  More at [Universal](#universal).
+  Reframe introduces a new type of apps we call "Mixed Apps".
+  A *mixed app* is an app that has interactive pages as well as non-interactive pages.
+  <br/>
+  For example a `/about` page that is static and non-interactive
+  (browser doesn't load any JavaScript and the DOM is static)
+  and a `/search` page that is dynamic and interactive
+  (browser loads React components and the DOM is dynamic).
+  <br/>
+  Both are important:
+   - **Interactive** views are **difficult** to implement **but powerful**.
+   - **Non-interactive** views are considerably **easier** to implement.
+  <br/>
+  Mixed apps allow you to follow the **non-interactive-by-default approach**:
+  Whenever possible, implement features with non-interative views.
+  <br/>
+  Mixed apps will be the future of web development and Reframe is the only framework supporting them.
 - **Learn once, write any app**
   <br/>
   Instead of learning different frameworks to create different types of apps,
   learn Reframe once to be able to implement any type of web app.
-  More at [Universal](#universal).
-- **Static deploy**
   <br/>
-  If your app is HTML-static
-  (if all your page configs have `htmlStatic: true`),
-  no Node.js server is required and
-  your app can be deployed to a static website host
-  such as GitHub Pages or Netlify.
-- **Vue.js**
+  Reframe is the only framework that supports every type of web apps.
+- **ORM** [WIP]
   <br/>
-  Add the `@reframe/vue` plugin and write your views with Vue instead of React.
+  To use an ORM (such as [TypeORM](https://github.com/typeorm/typeorm)) you will have to create API endpoints yourself.
+  But the Reframe devS are currently designing ways to automatically create these.
+  All you have to do then is define your data models and insert/fetch data.
+  <br/>
+  Also, Reframe is studying ways of being able to create data models on your behalf, so that things like user auth can be fully taken care of.
+  <br/>
+  [Follow Reframe on Twitter](https://twitter.com/reframejs) to get updates.
+- **Easy Deploy** [WIP]
+  <br/>
+  If your app is static then you can easily deploy it by using the command `$ reframe deploy-static`.
+  (Which supports all hosts that integrate with git such as GitHub Pages, Netlify, etc.)
+  <br/>
+  Also, Reframe is exploring ways to easily deploy stateless apps to serverless services such as AWS Lambda.
+  This is powerful when combined with ORMs that support "serverless databases" such as AWS DynamoDB or Google Cloud Datastore.
+  This would eventually mean that the entire deployment and scaling is done for you.
+  (This will take a long time until Reframe gets there though.)
+  <br/>
+  [Follow Reframe on Twitter](https://twitter.com/reframejs) to get updates.
+
+
+###### SEO
+
+- **Server-Side Rendering** (**SSR**)
+  <br/>
+  By default, pages are rendered to HTML giving you full control over SEO.
+  <br/>
+  Google successfully crawls DOM-dynamic pages only to a limited extend.
+  In practice you need SSR for reliable SEO.
+
+###### Integrations
+
 - **React Router**
   <br/>
   Add the `@reframe/react-router` plugin
   to use the React Router components `<Route>`, `<Switch>`, etc.
+- **React**
+  <br/>
+  By default, you define your page's views with React.
+- **Vue.js**
+  <br/>
+  Add the `@reframe/vue` plugin and write your views with Vue instead of React.
 - **TypeScript**
   <br/>
   Add the `@reframe/typescript` plugin and write your app in TypeScript.
@@ -367,23 +392,19 @@ Mixed apps are the future of web development and Reframe is the only framework s
   Add the `@reframe/postcss` plugin and write modern CSS.
 - **Webpack**
   <br/>
-  Reframe uses webpack to build the app's pages.
+  By default, Reframe uses webpack to build the app's pages.
   Webpack
   is the state of the art tool to build browser assets.
 - **Hapi**
   <br/>
-  Reframe uses hapi to create the server.
+  By default, Reframe uses hapi to create the server.
   Hapi
   ([hapijs.com](https://hapijs.com/))
   is known for its robustness and scalability.
-
-###### SEO
-
-- **Server-Side Rendering** (**SSR**)
+- **WebAssembly**
   <br/>
-  By default, pages are rendered to HTML giving you full control over SEO.
-  <br/>
-  Google successfully crawls DOM-dynamic pages only to a limited extend. In practice you need SSR for reliable SEO.
+  WebAssembly is incredibly promising and may very well make decades-long dreams come true.
+  Reframe, being based on JavaScript and Node.js, embraces the WebAssembly future.
 
 ###### Performance
 
