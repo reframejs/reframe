@@ -862,15 +862,20 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 ## Static Deploy
 
-If you add `htmlStatic: true` to all your page configs,
-then all HTMLs are rendered at build-time,
-no Node.js server is required,
-and your app can be deployed to a static website host
-such as [GitHub Pages](https://pages.github.com/) or [Netlify](https://www.netlify.com/).
+If you are app is html-static then you can deploy it to a static host.
 
-Your app then consists of static assets only.
+The `$ reframe deploy-static` command will automatically deploy your app.
+The command works with any static host that integrates with git such as
+[Netlify](https://www.netlify.com/) or
+[GitHub Pages](https://pages.github.com/).
+
+Your app is html-static and can be statically deployed if all your page configs have `htmlStatic: true`:
+In that case,
+all HTMLs are rendered at build-time,
+your app consists of static assets only,
+and no Node.js server is required.
+
 The static assets are located in the `dist/browser/` directory.
-(The `dist/` directory is located at your app's root directory.)
 
 <br/>
 
@@ -878,6 +883,8 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 <br/>
 <br/>
+
+
 
 
 ## Serverless Deploy
