@@ -864,12 +864,12 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 If you are app is html-static then you can deploy it to a static host.
 
-The `$ reframe deploy-static` command will automatically deploy your app.
-The command works with any static host that integrates with git such as
+The `$ reframe deploy-static` command will then automatically deploy your app.
+It works with any static host that integrates with Git such as
 [Netlify](https://www.netlify.com/) or
 [GitHub Pages](https://pages.github.com/).
 
-Your app is html-static and can be statically deployed if all your page configs have `htmlStatic: true`:
+Your app is html-static and can be statically deployed if all your page configs have `htmlStatic: true`.
 In that case,
 all HTMLs are rendered at build-time,
 your app consists of static assets only,
@@ -889,7 +889,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 ## Serverless Deploy
 
-If your app is stateless (no database, no background tasks, ...) we then recommand serverless deployment.
+If your app is stateless we then recommand serverless deployment.
 
 Serverless deployment solutions:
  - [Up](https://github.com/apex/up) - CLI tool to manage serverless deployement on AWS.

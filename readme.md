@@ -156,7 +156,7 @@
 ### Introduction
 
 Reframe allows you to create web apps by defining so-called "page configs".
-Reframe takes care of the rest:
+Reframe then takes care of the rest:
 It automatically transpiles, bundles, routes, renders, and serves your pages.
 
 ~~~jsx
@@ -194,8 +194,8 @@ The goal of Reframe is to become the **modern Django / Ruby on Rails**:
 
 ### Example
 
-In the following we create a web app
-by defining a page config `HelloPage`.
+We create a web app
+by defining a page config `HelloPage`:
 
 ~~~jsx
 // ~/my-app/pages/HelloPage.config.js
@@ -260,12 +260,11 @@ and read this overview.
 ### Fully Flexible
 
 Reframe is designed from the ground up to be flexible.
-The goal is to give you the same flexibility as if you would implement your app with do-one-thing-do-it-well libraries.
+The goal is to give you the same flexibility as if you would use do-one-thing-do-it-well libraries.
 
 At the core of Reframe's flexibility is the "Progressive Eject" feature
 which allows you to progressively and fully gain control over your app.
-
-Also, Reframe is universal: It supports every type of apps.
+Also, Reframe is a universal framework: It supports every type of apps.
 
  - [Progressive Eject](#progressive-eject)
  - [Universal Framework](#universal-framework)
@@ -275,7 +274,7 @@ Also, Reframe is universal: It supports every type of apps.
 All of Reframe can be progressively ejected.
 
 For example, the CLI command `$ reframe eject server` ejects the server code:
-[Around 30 lines of code](/plugins/server/startServer.js)
+[Around 30 lines of code](/plugins/hapi/start.js)
 are copied from Reframe's codebase and added to your codebase.
 Allowing you to modify the server code,
 so you can add API endpoints, change server config, change server entirely, use a process manager, etc.
@@ -287,14 +286,14 @@ If you run all eject commands then you effectively get rid of Reframe.
 
 > Reframe doesn't lock you in: You can progressively and fully eject Reframe.
 
-Once you fully eject Reframe, your app will not depend on Reframe anymore but will only depend on state-of-the-art and do-one-thing-and-do-it-well libraries.
+Once you fully eject Reframe, your app will not depend on Reframe anymore but will only depend on state-of-the-art and do-one-thing-do-it-well libraries.
 At that point you have the same flexibility
-as if you would have implemented your app on top of these do-one-thing-and-do-it-well libraries.
+as if you would have implemented your app on top of these do-one-thing-do-it-well libraries.
 
-So you can quickly implement a prototype and
+You can quickly implement a prototype and
 when your app turns into something big you can get rid of Reframe by progressively ejecting it.
 
-> With Reframe you can quickly implement a prototype while staying fully flexible down the road.
+> Quickly implement a prototype while staying fully flexible down the road.
 
 
 #### Universal Framework
@@ -308,13 +307,13 @@ Reframe is universal, that is, you can create any type of web app:
  - **Good ol' 1998 websites** <sup><sub>:floppy_disk:</sub></sup>
    <br/>
    Apps without interactive views.
-   (The DOM is static and the browser loads no JavaScript.)
+   (The DOM is static and the browser doesn't load any JavaScript.)
  - **Mixed apps** :tm:
    <br/>
    Apps that mix both: Modern interactive pages <sup><sub>:sparkles:</sub></sup> as well as good ol' 1998 non-interative pages <sup><sub>:floppy_disk:</sub></sup>.
 
 The cherry on the cake is that choosing the type of your app is only a matter of setting the page config options `htmlStatic` and `domStatic`.
-Meaning that you can start writing your prototype and only at a later point decide the type of your app.
+So you can start writing your prototype and only at a later point decide the type of your app.
 
 <br/>
 <br/>
@@ -331,11 +330,11 @@ Meaning that you can start writing your prototype and only at a later point deci
 - **Quick but flexible**
   <br/>
   Quickly implement apps while staying fully flexible.
-  See the "Fully Flexible" section for details.
+  See the "Fully Flexible" section.
   <br/>
 - **Mixed Apps** :tm:
   <br/>
-  Reframe introduces a new type of apps we call "Mixed Apps".
+  Reframe introduces a new type of apps we call "mixed apps".
   A *mixed app* is an app that has interactive pages as well as non-interactive pages.
   For example a `/about` page that is static and non-interactive
   (browser doesn't load any JavaScript and the DOM is static)
@@ -364,7 +363,7 @@ Meaning that you can start writing your prototype and only at a later point deci
   <br/>
   Work-in-progress. ([Follow Reframe on Twitter](https://twitter.com/reframejs) to get updates.)
   <br/>
-- **User Mangement**
+- **User Mangement** [WIP]
   <br/>
   Once Reframe integrates with ORMs, Reframe will be able to fully manage user management for you.
   <br/>
@@ -372,11 +371,11 @@ Meaning that you can start writing your prototype and only at a later point deci
 - **Easy Deploy** [WIP]
   <br/>
   If your app is static you can easily deploy it by using `$ reframe deploy-static`.
-  (Supports all static hosts with a git integration such as GitHub Pages, Netlify, Firebase, etc.)
+  (Supports all static hosts that have a git integration such as GitHub Pages, Netlify, Firebase, etc.)
   <br/>
-  Also, Reframe is exploring ways to deploy apps
-  to serverless services such as AWS Lambda and
-  to serverless databases AWS DynamoDB or Google Cloud Datastore.
+  Also, Reframe is exploring ways to automatically deploy apps
+  with serverless services such as AWS Lambda and
+  serverless databases such as AWS DynamoDB or Google Cloud Datastore.
   <br/>
   This would mean that the entire deployment and scaling is done for you.
   <br/>
@@ -387,40 +386,42 @@ Meaning that you can start writing your prototype and only at a later point deci
 
 - **Server-Side Rendering** (**SSR**)
   <br/>
-  By default, pages are rendered to HTML giving you full control over SEO.
+  By default, all pages are rendered to HTML which gives you full control over SEO.
   <br/>
-  Google successfully crawls DOM-dynamic pages only to a limited extend.
-  In practice you need SSR for reliable SEO.
+  (Google successfully crawls DOM-dynamic pages only to a limited extend, and
+  in practice you need SSR for reliable SEO.)
 
 ###### Integrations
 
-- **React Router**
-  <br/>
-  Add the `@reframe/react-router` plugin
-  to use the React Router components `<Route>`, `<Switch>`, etc.
 - **React**
   <br/>
   By default, you define your page's views with React.
 - **Vue.js**
   <br/>
-  Add the `@reframe/vue` plugin and write your views with Vue instead of React.
+  You can write your views with Vue instead of React by adding the `@reframe/vue` plugin.
+- **React Router**
+  <br/>
+  Use the React Router components (`<Route>`, `<Switch>`, etc.) by adding the `@reframe/react-router` plugin.
 - **TypeScript**
   <br/>
-  Add the `@reframe/typescript` plugin and write your app in TypeScript.
+  Write your app in TypeScript by adding the `@reframe/typescript` plugin.
 - **PostCSS**
   <br/>
-  Add the `@reframe/postcss` plugin and write modern CSS.
+  Add the `@reframe/postcss` plugin and write modern CSS with PostCSS.
 - **Webpack**
   <br/>
   By default, Reframe uses webpack to build the app's pages.
   Webpack
-  is the state of the art tool to build browser assets.
+  is the state-of-the-art tool to build browser assets.
 - **Hapi**
   <br/>
   By default, Reframe uses hapi to create the server.
   Hapi
   ([hapijs.com](https://hapijs.com/))
   is known for its robustness and scalability.
+- **Express**
+  <br/>
+  Add the `@reframe/express` plugin and write your backend with Express instead of hapi.
 - **WebAssembly**
   <br/>
   WebAssembly is immensely promising and Reframe, being based on JavaScript and Node.js, embraces the WebAssembly future.
