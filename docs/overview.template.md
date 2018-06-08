@@ -55,7 +55,7 @@ as well as **old school apps** where the browser doesn't load any JavaScript.
 &nbsp;
 
 The goal of Reframe is to become the **modern Django / Ruby on Rails**:
- - Full-stack: Frontend+Backend+ORM/database
+ - Full-stack: Frontend+Backend+ORM/database.
  - Modern: Interactive views (with React, Vue.js, etc.) as first class citizen.
  - Ejectabe: Gain full control over your app by progressively ejecting the framework.
  - Full-stack ORM: You don't have to create API endpoints to access your data from the frontend. (Work-in-progress.)
@@ -98,15 +98,13 @@ and read this overview.
 
 ### Fully Flexible
 
-Reframe is designed from the ground up to be as flexible as possible.
-
+Reframe is designed from the ground up to be flexible.
 The goal is to give you the same flexibility as if you would implement your app with do-one-thing-do-it-well libraries.
 
 At the core of Reframe's flexibility is the "Progressive Eject" feature
 which allows you to progressively and fully gain control over your app.
 
-Also, Reframe supports every type of apps.
-(Modern apps with interactive views, goold ol' 1998 websites where the DOM is static, serverless apps, static websites, etc.)
+Also, Reframe is universal: It supports every type of apps.
 
  - [Universal Framework](#universal-framework)
  - [Progressive Eject](#progressive-eject)
@@ -140,7 +138,7 @@ when your app turns into something big you can get rid of Reframe by progressive
 
 ##### Universal Framework
 
-Reframe is a universal framework: You can create
+Reframe is universal, that is, you can create any type of web app:
 
  - **Modern interactive apps** <sup><sub>:sparkles:</sub></sup>
    <br/>
@@ -187,7 +185,6 @@ Meaning that you can start writing your prototype and only at a later point deci
   Both are important:
    - Interactive views are difficult to implement but powerful.
    - Non-interactive views are considerably easier to implement.
-  <br/>
   Mixed apps allow you to follow the **non-interactive-by-default approach**:
   Whenever possible, implement features with non-interative views.
   <br/>
