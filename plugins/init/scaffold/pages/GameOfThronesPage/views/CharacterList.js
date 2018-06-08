@@ -10,7 +10,7 @@ const CharacterList = ({characters}) => {
                 <ul>{
                     characters.map(character => <li key={character.id}>{character.name}</li>)
                 }</ul>
-                (This page doesn't load any JavaScript in production. A auto-reload script is loaded in dev mode.)
+                (This page doesn't load any JavaScript in production. A auto-reload script is loaded in development.)
             </div>
         )
     );

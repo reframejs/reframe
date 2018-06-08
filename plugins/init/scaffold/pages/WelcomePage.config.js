@@ -9,7 +9,7 @@ const Welcome = () => (
                 Welcome to Reframe
             </h2>
 
-            Interactive/stateful pages
+            Interactive/stateful pages:
             <ul>
                 <li>
                     <a href="/counter">/counter</a> - Counter
@@ -19,7 +19,7 @@ const Welcome = () => (
                 </li>
             </ul>
 
-            Non-interactive pages
+            Non-interactive pages:
             <ul>
                 <li>
                     <a href="/game-of-thrones">/game-of-thrones</a> - Load and display list of GoT characters
