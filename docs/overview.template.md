@@ -38,22 +38,21 @@ A *page config* is a plain JavaScript object that configures a page by assigning
  - further optional page configurations
 
 You can create an app with **no build configuration** and **no server configuration**.
-
-> All you need to create a web app is one React component and one page config per page.
+All you need to create a web app is one React component and one page config per page.
 
 Yet, thanks to its "Progressive Eject" feature and its simple architecture,
-**you can gain control and customize every single part of Reframe**.
+**you can customize and gain control over every single part of Reframe**.
 
 
 Reframe is a "Universal Framework":
-You can create any type of app including **modern dynamic apps**
-as well as **old school apps** where the browser doesn't load any JavaScript.
+You can create any type of app including **modern interactive apps**
+as well as **old school non-interactive apps** where the browser doesn't load any JavaScript.
 
 The goal of Reframe is to become the **modern Django / Ruby on Rails**:
- - Modern: Interactive views (with React, Vue.js, etc.) as first class citizen.
- - Ejectabe: Gain full control over your app by progressively ejecting the framework.
- - Full-stack ORM: You don't have to create API endpoints to access your data from the frontend. (Work-in-progress.)
- - Easy deploy: Stragegy for serverless Node.js and serverless database deployment. (Work-in-progress.)
+ - Modern: First-class support for interactive views with React, Vue.js, etc.
+ - Ejectabe: Gain full control by progressively ejecting the framework.
+ - Full-stack ORM: No need to create API endpoints to access your data from the frontend. (Work-in-progress.)
+ - Easy deploy: "Serverless deploy" with serverless Node.js and serverless database. (Work-in-progress.)
 
 <br/>
 <br/>
@@ -164,7 +163,7 @@ Meaning that you can start writing your prototype and only at a later point deci
 - **Quick but flexible**
   <br/>
   Quickly implement apps while staying fully flexible.
-  The section above goes into details.
+  See the "Fully Flexible" section for details.
   <br/>
 - **Mixed Apps** :tm:
   <br/>
@@ -176,12 +175,13 @@ Meaning that you can start writing your prototype and only at a later point deci
   (browser loads React components and the DOM is dynamic).
   <br/>
   Both are important:
-    - Interactive views are difficult to implement but powerful.
-    - Non-interactive views are considerably easier to implement.
+  Interactive views are difficult to implement but powerful while
+  non-interactive views are considerably easier to implement.
+  <br/>
   Mixed apps allow you to follow the non-interactive-by-default approach:
   Whenever possible, implement features with non-interative views.
   <br/>
-  Mixed apps is the future and Reframe is the only framework supporting them.
+  Mixed apps are the future and Reframe is the only framework supporting them.
 - **Learn once, write any app**
   <br/>
   Instead of learning different frameworks to create different types of apps,
@@ -193,23 +193,26 @@ Meaning that you can start writing your prototype and only at a later point deci
   <br/>
   To use an ORM (such as [TypeORM](https://github.com/typeorm/typeorm)) you will have to create API endpoints yourself.
   But the Reframe devS are currently designing ways to automatically create these.
-  All you have to do then is define your data models and insert/fetch data.
   <br/>
-  Also, Reframe is studying ways of being able to create data models on your behalf, so that things like user auth can be fully taken care of.
+  Work-in-progress. ([Follow Reframe on Twitter](https://twitter.com/reframejs) to get updates.)
   <br/>
-  [Follow Reframe on Twitter](https://twitter.com/reframejs) to get updates.
+- **User Mangement**
   <br/>
+  Once Reframe integrates with ORMs, Reframe will be able to fully manage user management for you.
+  <br/>
+  Work-in-progress. ([Follow Reframe on Twitter](https://twitter.com/reframejs) to get updates.)
 - **Easy Deploy** [WIP]
   <br/>
-  If your app is static then you can easily deploy it by using the command `$ reframe deploy-static`.
-  (Which supports all hosts that integrate with git such as GitHub Pages, Netlify, etc.)
+  If your app is static you can easily deploy it by using `$ reframe deploy-static`.
+  (Supports all static hosts with a git integration such as GitHub Pages, Netlify, Firebase, etc.)
   <br/>
-  Also, Reframe is exploring ways to easily deploy stateless apps to serverless services such as AWS Lambda.
-  This is powerful when combined with ORMs that support "serverless databases" such as AWS DynamoDB or Google Cloud Datastore.
-  This would eventually mean that the entire deployment and scaling is done for you.
-  (This will take a long time until Reframe gets there though.)
+  Also, Reframe is exploring ways to deploy apps
+  to serverless services such as AWS Lambda and
+  to serverless databases AWS DynamoDB or Google Cloud Datastore.
   <br/>
-  [Follow Reframe on Twitter](https://twitter.com/reframejs) to get updates.
+  This would mean that the entire deployment and scaling is done for you.
+  <br/>
+  Work-in-progress. ([Follow Reframe on Twitter](https://twitter.com/reframejs) to get updates.)
 
 
 ###### SEO
@@ -272,7 +275,6 @@ Meaning that you can start writing your prototype and only at a later point deci
   <br/>
   By default, a page is rendered to HTML on the server before being rendered to the DOM in the browser.
   Improving the user-perceived load time.
-test
 - **Optimal HTTP caching**
   <br/>
   Every dynamic server response is cached with a ETag header.
@@ -282,7 +284,6 @@ test
   When setting `htmlStatic: true` to a page config, the page is rendered to HTML at build-time (instead of request-time).
   The page's HTML is rendered only once and is served statically.
   Decreasing load time.
-test2
 
 <br/>
 <br/>
