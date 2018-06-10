@@ -125,7 +125,7 @@
 [<p align="center"><img src="https://github.com/reframejs/reframe/raw/master/docs/images/logo-with-title.svg?sanitize=true" width=450 height=94 style="max-width:100%;" alt="Reframe"/></p>](https://github.com/reframejs/reframe)
 
 <div><p align="center">
-        Framework to create web apps. (The modern Django / Ruby on Rails.)
+        Framework to create web apps. The modern Django / Ruby on Rails.
 </p></div>
 
 <div><p align="center">
@@ -155,9 +155,8 @@
 
 ### Introduction
 
-Reframe allows you to create web apps by defining so-called "page configs".
-Reframe then takes care of the rest:
-It automatically transpiles, bundles, routes, renders, and serves your pages.
+With Reframe you can create web apps by simply defining your app's pages with so-called "page configs".
+Your pages are then automatically transpiled, bundled, routed, rendered, and served.
 
 ~~~jsx
 // A page config
@@ -173,18 +172,18 @@ A *page config* is a plain JavaScript object that configures a page by assigning
  - further optional page configurations
 
 You can create an app with **no build configuration** and **no server configuration**.
-All you need to create a web app is one React component and one page config per page.
+
+> All you need to create a web app is one React component and one page config per page.
 
 Yet, thanks to its "Progressive Eject" feature and its simple architecture,
-**you can customize and gain control over every single part of Reframe**.
-
+**you can customize and gain control over everything**.
 
 Reframe is a "Universal Framework":
-You can create any type of app including **modern interactive apps**
-as well as **old-school non-interactive apps** where the browser doesn't load any JavaScript.
+You can create any type of apps such as **modern interactive apps**
+as well as **old-school non-interactive apps**.
 
-Reframe aims to become the **modern Django / Ruby on Rails**:
- - Modern: First-class support for interactive views with React, Vue.js, etc.
+Reframe aims to be the **"modern Django / Ruby on Rails"**:
+ - Interactive views: First-class support for interactive views with React, Vue.js, etc.
  - Ejectabe: Gain full control by progressively ejecting the framework.
  - Full-stack ORM: No need to create API endpoints to access your data from the frontend. (Work-in-progress.)
  - Easy deploy: "Serverless deploy" with serverless Node.js and serverless database. (Work-in-progress.)
@@ -276,8 +275,12 @@ All of Reframe can be progressively ejected.
 For example, the CLI command `$ reframe eject server` ejects the server code:
 [Around 30 lines of code](/plugins/hapi/start.js)
 are copied from Reframe's codebase and added to your codebase.
-Allowing you to modify the server code,
-so you can add API endpoints, change server config, change server entirely, use a process manager, etc.
+Allowing you to modify the server code
+so that you can for example
+add API endpoints,
+change the server config,
+change the whole server implementation,
+etc.
 
 There are several eject commands that
 you can apply one by one and progressively as the need arises.
@@ -286,12 +289,10 @@ If you run all eject commands then you effectively get rid of Reframe.
 
 > Reframe doesn't lock you in: You can progressively and fully eject Reframe.
 
-Once you fully eject Reframe, your app will not depend on Reframe anymore but will only depend on state-of-the-art and do-one-thing-do-it-well libraries.
+Once you fully eject Reframe, your app will not depend on Reframe anymore.
+Instead it will depend on state-of-the-art and do-one-thing-do-it-well libraries only.
 At that point you have the same flexibility
 as if you would have implemented your app on top of these do-one-thing-do-it-well libraries.
-
-You can quickly implement a prototype and
-when your app turns into something big you can get rid of Reframe by progressively ejecting it.
 
 > Quickly implement a prototype while staying fully flexible down the road.
 
@@ -312,8 +313,10 @@ Reframe is universal, that is, you can create any type of web app:
    <br/>
    Apps that mix both: Modern interactive pages <sup><sub>:sparkles:</sub></sup> as well as good ol' 1998 non-interative pages <sup><sub>:floppy_disk:</sub></sup>.
 
-The cherry on the cake is that choosing the type of your app is only a matter of setting the page config options `htmlStatic` and `domStatic`.
-So you can start writing your prototype and only at a later point decide the type of your app.
+The cherry on the cake is that choosing the type of your app is simply a matter of setting the page config options `htmlStatic` and `domStatic`.
+This means that you can start writing your prototype and decide only at a later point what type of app is right for you.
+
+> Reframe is the only framework that supports every type of web apps.
 
 <br/>
 <br/>
@@ -396,23 +399,18 @@ So you can start writing your prototype and only at a later point decide the typ
 - **React**
   <br/>
   By default, you define your page's views with React.
-- **Vue.js**
-  <br/>
-  You can write your views with Vue instead of React by adding the `@reframe/vue` plugin.
 - **React Router**
   <br/>
   Use the React Router components (`<Route>`, `<Switch>`, etc.) by adding the `@reframe/react-router` plugin.
+- **Vue.js**
+  <br/>
+  You can write your views with Vue instead of React by adding the `@reframe/vue` plugin.
 - **TypeScript**
   <br/>
   Write your app in TypeScript by adding the `@reframe/typescript` plugin.
 - **PostCSS**
   <br/>
   Add the `@reframe/postcss` plugin and write modern CSS with PostCSS.
-- **Webpack**
-  <br/>
-  By default, Reframe uses webpack to build the app's pages.
-  Webpack
-  is the state-of-the-art tool to build browser assets.
 - **Hapi**
   <br/>
   By default, Reframe uses hapi to create the server.
@@ -422,6 +420,11 @@ So you can start writing your prototype and only at a later point decide the typ
 - **Express**
   <br/>
   Add the `@reframe/express` plugin and write your backend with Express instead of hapi.
+- **Webpack**
+  <br/>
+  By default, Reframe uses webpack to build the app's pages.
+  Webpack
+  is the state-of-the-art tool to build browser assets.
 - **WebAssembly**
   <br/>
   WebAssembly is immensely promising and Reframe, being based on JavaScript and Node.js, embraces the WebAssembly future.
