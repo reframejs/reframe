@@ -389,7 +389,8 @@ This means that you can start writing your prototype and decide only at a later 
 
 - **Server-Side Rendering** (**SSR**)
   <br/>
-  By default, all pages are rendered to HTML which gives you full control over SEO.
+  By default, all pages are rendered to HTML.
+  This gives you full control over SEO.
   <br/>
   (Google successfully crawls DOM-dynamic pages only to a limited extend.
   In practice you need SSR for reliable SEO.)
