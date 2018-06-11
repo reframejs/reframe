@@ -20,8 +20,8 @@
 
 ### Introduction
 
-With Reframe you can create web apps by simply defining your app's pages with so-called "page configs".
-Your pages are then automatically transpiled, bundled, routed, rendered, and served.
+With Reframe you can create web apps by simply defining so-called "page configs".
+Your pages are then automatically built and served.
 
 ~~~jsx
 // A page config
