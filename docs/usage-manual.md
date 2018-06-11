@@ -152,7 +152,7 @@
  - [Page Navigation & Links](#page-navigation--links)
  - [`domStatic` & `htmlStatic`](#domstatic--htmlstatic)
 
-#### Customization & Eject
+#### Customization
 
  - [Server](#server)
  - [Webpack](#webpack)
@@ -244,7 +244,7 @@ In addition, static assets can be referenced in CSS by using the `url` data type
 ~~~
 
 CSS and static assets are handled by webpack.
-See [Customization & Eject - Webpack](#webpack) to customize the webpack config.
+See [Customization - Webpack](#webpack) to customize the webpack config.
 
 Example of a page loading and using CSS, fonts, images and static assets:
  - [/examples/basics/pages/glitter/](/examples/basics/pages/glitter/)
@@ -317,7 +317,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 The standard way to navigate between pages is to use the HTML link tag `<a>`.
 
-See [Customization & Eject - Routing](#customadvanced-routing) for alternative ways of navigating.
+See [Customization - Routing](#customadvanced-routing) for alternative ways of navigating.
 
 Example:
 
