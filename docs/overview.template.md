@@ -41,7 +41,7 @@ You can create an app with **no build configuration** and **no server configurat
 > All you need to create a web app is one React component and one page config per page.
 
 Yet, thanks to its "Progressive Eject" feature and its simple architecture,
-**you can customize and gain control over everything**.
+**you can easily customize and gain control over everything**.
 
 Reframe is a "Universal Framework":
 You can create any type of apps such as **modern interactive apps**
