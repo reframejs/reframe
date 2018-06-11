@@ -8,6 +8,7 @@ module.exports = {
     $name: packageName,
     $getters: [
         transparentGetter('serverStartFile'),
+        transparentGetter('hapiIntegrationPluginFile'),
     ],
     serverStartFile,
     ejectables: getEjectables(),
@@ -23,6 +24,11 @@ function getEjectables() {
         {
             name: ejectNameServer,
             description: 'Eject the code that creates the Node.js/hapi server.',
+            configPaths: [
+                'serverStartFile',
+            ],
+            targetDir: 'server/',
+            /*
             configChanges: [
                 {
                     configPath: 'serverStartFile',
@@ -36,10 +42,16 @@ function getEjectables() {
                     noDependerRequired: true,
                 },
             ],
+            */
         },
         {
             name: ejectNameHapi,
             description: 'Eject the `ConfigHandlers` hapi plugin that integrates hapi with Reframe.',
+            configPaths: [
+                'hapiIntegrationPluginFile',
+            ],
+            targetDir: 'server/',
+            /*
             fileCopies: [
                 {
                     oldPath: packageName+'/ConfigHandlers',
@@ -50,6 +62,7 @@ function getEjectables() {
                     ),
                 },
             ],
+            */
         },
     ];
 }

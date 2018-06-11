@@ -7,9 +7,11 @@ module.exports = {
     $name: packageName,
     $getters: [
         lazyRequireFileGetter('buildFile', 'runBuild'),
-        requireFileGetter('getBuildInfoFile', 'getBuildInfo'),
+        requireFileGetter('getBuildInfoFile'),
         transparentGetter('doNotWatchBuildFiles'),
         transparentGetter('log'),
+        requireFileGetter('getPageHTMLsFile'),
+        requireFileGetter('getPageBrowserEntriesFile'),
         {
             prop: 'webpackBrowserConfigModifier',
             getter: configParts => assemble_modifiers('webpackBrowserConfig', configParts),
@@ -77,6 +79,12 @@ function getEjectables() {
         {
             name: buildEjectName,
             description: 'Eject the build code.',
+            configPaths: [
+                'buildFile',
+                'getBuildInfoFile',
+            ],
+            targetDir: 'build/',
+            /*
             fileCopies: [
                 {
                     noDependerRequired: true,
@@ -99,10 +107,16 @@ function getEjectables() {
                     newConfigValue: ({makePathRelative}) => makePathRelative(getBuildInfoFile__ejected),
                 },
             ],
+            */
         },
         {
             name: staticRenderingEjectName,
             description: 'Eject the code that renders your pages to HTML at build-time.',
+            configPaths: [
+                'getPageHTMLsFile',
+            ],
+            targetDir: 'build/',
+            /*
             fileCopies: [
                 {
                     oldPath: packageName+'/getPageHTMLs',
@@ -113,10 +127,16 @@ function getEjectables() {
                     ),
                 },
             ],
+            */
         },
         {
             name: browserEntriesEjectName,
             description: 'Eject the code that generates the browser entry of each page.',
+            configPaths: [
+                'getPageBrowserEntriesFile',
+            ],
+            targetDir: 'build/',
+            /*
             fileCopies: [
                 {
                     oldPath: packageName+'/getPageBrowserEntries',
@@ -127,6 +147,7 @@ function getEjectables() {
                     ),
                 },
             ],
+            */
         },
     ];
 }

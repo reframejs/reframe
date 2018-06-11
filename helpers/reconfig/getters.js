@@ -1,4 +1,4 @@
-// TODO rename this file `standard-getters`
+const assert_usage = require('reassert/usage');
 
 module.exports = {
     transparentGetter,
@@ -29,6 +29,11 @@ function lazyRequireFileGetter(propOld, prop) {
 }
 
 function requireFileGetter(propOld, prop) {
+    if( ! prop ) {
+        const suffix = 'File';
+        assert_usage(propOld.endsWith(suffix));
+        prop = propOld.slice(0, -suffix.length);
+    }
     return {
         prop,
         getter: configParts => {
