@@ -319,7 +319,7 @@ async function writeHtmlFiles({fileSets}) {
     const {pageModules} = this;
     assert_internal(pageModules);
 
-    const htmlStrings = await this.getPageHTMLs();
+    const htmlStrings = await this.getPageHtmls();
     assert_usage(htmlStrings && htmlStrings.constructor===Array);
 
     fileSets.startFileSet('html_files');

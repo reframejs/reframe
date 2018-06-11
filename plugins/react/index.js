@@ -13,19 +13,21 @@ module.exports = {
     webpackBrowserConfig,
     webpackNodejsConfig,
     ejectables: [
-        name: 'renderer',
-        description: 'TODO',
-        actions: [
-            {
-                targetDir: 'renderer/',
-                configIsFilePath: true,
-                configPath: 'renderToDomFile',
-            },
-            {
-                targetDir: 'renderer/',
-                configIsFilePath: true,
-                configPath: 'renderToHtmlFile',
-            },
-        ],
+        {
+            name: 'renderer',
+            description: 'TODO',
+            actions: [
+                {
+                    targetDir: 'renderer/',
+                    configIsFilePath: true,
+                    configPath: 'renderToDomFile',
+                },
+                {
+                    targetDir: 'renderer/',
+                    configIsFilePath: true,
+                    configPath: 'renderToHtmlFile',
+                },
+            ],
+        }
     ],
 };

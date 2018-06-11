@@ -1,6 +1,7 @@
-// This is where we integrate Reframe with hapi
-// In other words: We apply the request handlers defined in the config.
-// (Plugins add request handlers over the config)
+// This is where we integrate Reframe with hapi.
+// More precisely: We apply all request handlers defined in the config.
+// (E.g. the `@reframe/server` plugin adds two request handlers to the config.
+// One that serves the pages' HTMLs and another one that serves the static assets.)
 
 const reconfig = require('@brillout/reconfig');
 const assert_internal = require('reassert/internal');
@@ -58,9 +59,6 @@ async function getResponse(request) {
     return {body, headers, etag};
 }
 
-// Plugins add request handlers over the config.
-// E.g. the  `@reframe/server` adds request handlers to the config
-// to do SSR and to serve static assets.
 async function applyConfigHandlers(request) {
     const config = reconfig.getConfig({configFileName: 'reframe.config.js'});
     const {req} = request.raw;

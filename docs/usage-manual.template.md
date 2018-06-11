@@ -484,7 +484,7 @@ It will copy the following file to your codebase.
 !INLINE ../plugins/build/executeBuild.js
 ~~~
 
-Run `reframe eject build-static-rendering` to eject `getPageHTMLs()` to gain control over the HTML rendering of your HTML-static pages. (That is pages with `htmlStatic: true` in their page configs.)
+Run `reframe eject build-static-rendering` to eject `getPageHtmls()` to gain control over the HTML rendering of your HTML-static pages. (That is pages with `htmlStatic: true` in their page configs.)
 
 And run `reframe eject build-browser-entries` to eject `getPageBrowserEntries()` to gain control over the browser entry code of your pages.
 

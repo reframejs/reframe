@@ -1,6 +1,8 @@
 const {transparentGetter, lazyRequireFileGetter, requireFileGetter} = require('@brillout/reconfig/getters');
 const buildFile = require.resolve('./executeBuild');
 const getBuildInfoFile = require.resolve('./getBuildInfo');
+const getPageBrowserEntriesFile = require.resolve('./getPageBrowserEntries');
+const getPageHtmlsFile = require.resolve('./getPageHtmls');
 const packageName = require('./package.json').name;
 
 module.exports = {
@@ -8,10 +10,10 @@ module.exports = {
     $getters: [
         lazyRequireFileGetter('buildFile', 'runBuild'),
         requireFileGetter('getBuildInfoFile'),
+        requireFileGetter('getPageHtmlsFile'),
+        requireFileGetter('getPageBrowserEntriesFile'),
         transparentGetter('doNotWatchBuildFiles'),
         transparentGetter('log'),
-        requireFileGetter('getPageHTMLsFile'),
-        requireFileGetter('getPageBrowserEntriesFile'),
         {
             prop: 'webpackBrowserConfigModifier',
             getter: configParts => assemble_modifiers('webpackBrowserConfig', configParts),
@@ -23,6 +25,8 @@ module.exports = {
     ],
     buildFile,
     getBuildInfoFile,
+    getPageHtmlsFile,
+    getPageBrowserEntriesFile,
     ejectables: getEjectables(),
 };
 
@@ -125,7 +129,7 @@ function getEjectables() {
                 {
                     targetDir: 'build/',
                     configIsFilePath: true,
-                    configPath: 'getPageHTMLsFile',
+                    configPath: 'getPageHtmlsFile',
                 },
             ],
             /*

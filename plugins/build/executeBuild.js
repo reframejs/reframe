@@ -1,24 +1,21 @@
 const Build = require('webpack-ssr/Build');
 const watchDir = require('webpack-ssr/watchDir');
 
-const getPageBrowserEntries = require('./getPageBrowserEntries');
-const getPageHTMLs = require('./getPageHTMLs');
+const projectConfig = require('@brillout/reconfig').getConfig({configFileName: 'reframe.config.js'});
 
-const reconfig = require('@brillout/reconfig');
-const reframeConfig = reconfig.getConfig({configFileName: 'reframe.config.js'});
-
-const outputDir = reframeConfig.projectFiles.buildOutputDir;
-const getPageFiles = () => reframeConfig.getPageConfigFiles();
-const getWebpackBrowserConfig = ({config, ...utils}) => reframeConfig.webpackBrowserConfigModifier({config, ...utils});
-const getWebpackNodejsConfig = ({config, ...utils}) => reframeConfig.webpackNodejsConfigModifier({config, ...utils});
-const {log, doNotWatchBuildFiles} = reframeConfig;
-const {pagesDir} = reframeConfig.projectFiles;
+const outputDir = projectConfig.projectFiles.buildOutputDir;
+const getPageFiles = () => projectConfig.getPageConfigFiles();
+const getWebpackBrowserConfig = ({config, ...utils}) => projectConfig.webpackBrowserConfigModifier({config, ...utils});
+const getWebpackNodejsConfig = ({config, ...utils}) => projectConfig.webpackNodejsConfigModifier({config, ...utils});
+const {log, doNotWatchBuildFiles} = projectConfig;
+const {pagesDir} = projectConfig.projectFiles;
+const {getPageHtmls, getPageBrowserEntries} = projectConfig;
 
 const build = new Build({
     outputDir,
     getPageFiles,
     getPageBrowserEntries,
-    getPageHTMLs,
+    getPageHtmls,
     getWebpackBrowserConfig,
     getWebpackNodejsConfig,
     log,

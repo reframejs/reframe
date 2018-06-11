@@ -1,4 +1,4 @@
-const {transparentGetter} = require('@brillout/reconfig/getters');
+const {transparentGetter, requireFileGetter} = require('@brillout/reconfig/getters');
 
 const packageName = require('./package.json').name;
 
@@ -9,7 +9,7 @@ module.exports = {
     $name: packageName,
     $getters: [
         transparentGetter('serverStartFile'),
-        transparentGetter('hapiIntegrationPluginFile'),
+        requireFileGetter('hapiIntegrationPluginFile'),
     ],
     serverStartFile,
     hapiIntegrationPluginFile,

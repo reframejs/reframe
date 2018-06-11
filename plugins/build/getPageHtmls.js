@@ -4,9 +4,9 @@ const assert_pageConfig = require('@reframe/utils/assert_pageConfig');
 const reconfig = require('@brillout/reconfig');
 const getStaticPageHtmls = require('@brillout/repage/getStaticPageHtmls');
 
-module.exports = getPageHTMLs;
+module.exports = getPageHtmls;
 
-async function getPageHTMLs() {
+async function getPageHtmls() {
     const reframeConfig = reconfig.getConfig({configFileName: 'reframe.config.js'});
     const {pageConfigs} = reframeConfig.getBuildInfo();
 
