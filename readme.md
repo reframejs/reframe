@@ -199,8 +199,8 @@ by defining a page config `HelloPage`.
 ~~~jsx
 // ~/my-app/pages/HelloPage.config.js
 
-// Reframe uses React by default.
-// You can as well use another view library such as Vue.js.
+// By default you write your views with React
+// But you can as well use another view library such as Vue.js
 import React from 'react';
 
 const HelloPage = {
