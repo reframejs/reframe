@@ -684,7 +684,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 <!--- TODO
-## Custom/Eject Browser Code
+## Browser Code
 
 TODO
 -->
@@ -776,7 +776,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 <!--- TODO
-## Custom Error Pages (404, 5xx, ...)
+## Error Pages (404, 5xx, ...)
 
 TODO
 

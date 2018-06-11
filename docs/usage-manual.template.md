@@ -361,7 +361,7 @@ Example:
 
 
 <!--- TODO
-## Custom/Eject Browser Code
+## Browser Code
 
 TODO
 -->
@@ -448,7 +448,7 @@ We refer to the source code of the plugin [`@reframe/crossroads`](/plugins/cross
 
 
 <!--- TODO
-## Custom Error Pages (404, 5xx, ...)
+## Error Pages (404, 5xx, ...)
 
 TODO
 
