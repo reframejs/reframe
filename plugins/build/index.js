@@ -68,22 +68,29 @@ function assemble_modifiers(modifier_name, configParts) {
 }
 
 function getEjectables() {
+    /*
     const buildFile__ejected = 'PROJECT_ROOT/build/index.js';
     const getBuildInfoFile__ejected = 'PROJECT_ROOT/build/getBuildInfo.js';
 
     const buildEjectName = 'build';
     const staticRenderingEjectName = 'build-static-rendering';
     const browserEntriesEjectName = 'build-browser-entries';
+    */
 
     return [
         {
-            name: buildEjectName,
+            name: 'build',
             description: 'Eject the build code.',
-            configPaths: [
-                'buildFile',
-                'getBuildInfoFile',
+            actions: [
+                {
+                    configPath: 'buildFile',
+                    targetDir: 'build/',
+                },
+                {
+                    configPath: 'getBuildInfoFile',
+                    targetDir: 'build/',
+                },
             ],
-            targetDir: 'build/',
             /*
             fileCopies: [
                 {
@@ -110,12 +117,14 @@ function getEjectables() {
             */
         },
         {
-            name: staticRenderingEjectName,
+            name: 'build-static-rendering',
             description: 'Eject the code that renders your pages to HTML at build-time.',
-            configPaths: [
-                'getPageHTMLsFile',
+            actions: [
+                {
+                    configPath: 'getPageHTMLsFile',
+                    targetDir: 'build/',
+                },
             ],
-            targetDir: 'build/',
             /*
             fileCopies: [
                 {
@@ -130,12 +139,14 @@ function getEjectables() {
             */
         },
         {
-            name: browserEntriesEjectName,
+            name: 'build-browser-entries',
             description: 'Eject the code that generates the browser entry of each page.',
-            configPaths: [
-                'getPageBrowserEntriesFile',
+            actions: [
+                {
+                    configPath: 'getPageBrowserEntriesFile',
+                    targetDir: 'build/',
+                },
             ],
-            targetDir: 'build/',
             /*
             fileCopies: [
                 {

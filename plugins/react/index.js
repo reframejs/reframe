@@ -12,4 +12,18 @@ module.exports = {
     renderToHtmlFile,
     webpackBrowserConfig,
     webpackNodejsConfig,
+    ejectables: [
+        name: 'renderer',
+        description: 'TODO',
+        actions: [
+            {
+                configPath: 'renderToDomFile',
+                targetDir: 'renderer/',
+            },
+            {
+                configPath: 'renderToHtmlFile',
+                targetDir: 'renderer/',
+            },
+        ],
+    ],
 };

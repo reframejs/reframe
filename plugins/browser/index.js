@@ -8,4 +8,16 @@ module.exports = {
     $name,
     $getters,
     browserEntryFile: require.resolve('./browserEntry'),
+    ejectables: [
+        {
+            name: 'browser-entry',
+            description: 'TODO',
+            actions: [
+                {
+                    configPath: 'browserEntryFile',
+                    targetDir: 'browser/',
+                },
+            ],
+        }
+    ],
 };

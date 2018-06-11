@@ -79,15 +79,20 @@ function applyRequestHandlers_getter(configParts) {
 }
 
 function getEjectables() {
+    /*
     const ServerRenderingFile__ejected = 'PROJECT_ROOT/server/ServerRendering.js';
     const StaticAssetsFile__ejected = 'PROJECT_ROOT/server/StaticAssets.js';
-
     const configElementKey = 'name';
+    */
 
     return [
         {
             name: 'server-rendering',
             description: 'Eject the code that renders your pages to HTML at request-time.',
+            actions: [
+                getAction('StaticAssets'),
+            ],
+            /*
             fileCopies: [
                 {
                     oldPath: ServerRenderingFile,
@@ -106,10 +111,15 @@ function getEjectables() {
                     }),
                 },
             ],
+            */
         },
         {
             name: 'server-assets',
             description: 'Eject the code responsible for serving static assets.',
+            actions: [
+                getAction('StaticAssets'),
+            ],
+            /*
             fileCopies: [
                 {
                     oldPath: StaticAssetsFile,
@@ -128,6 +138,21 @@ function getEjectables() {
                     }),
                 },
             ],
+            */
         },
     ];
+
+    function getAction(httpRequestHandlerName) {
+        return {
+            targetDir: 'server/',
+            configPath: 'httpRequestHandlerFiles',
+            configIsList: true,
+            listElementKeyProp: 'name',
+            listElementKey: httpRequestHandlerName,
+            newConfigValue: ({copyFile, oldConfigValue}) => ({
+                ...oldConfigValue,
+                handlerFile: copyFile(oldConfigValue.handlerFile),
+            }),
+        };
+    }
 }

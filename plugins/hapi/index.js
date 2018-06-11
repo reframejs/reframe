@@ -3,6 +3,7 @@ const {transparentGetter} = require('@brillout/reconfig/getters');
 const packageName = require('./package.json').name;
 
 const serverStartFile = require.resolve('./start');
+const hapiIntegrationPluginFile = require.resolve('./ConfigHandlers');
 
 module.exports = {
     $name: packageName,
@@ -10,24 +11,29 @@ module.exports = {
         transparentGetter('serverStartFile'),
         transparentGetter('hapiIntegrationPluginFile'),
     ],
+    hapiIntegrationPluginFile,
     serverStartFile,
     ejectables: getEjectables(),
 };
 
 
 function getEjectables() {
+    /*
     const ejectNameServer = 'server';
     const ejectNameHapi = 'server-hapi';
     const ejectedPathServerStart = 'PROJECT_ROOT/server/index.js';
+    */
 
     return [
         {
-            name: ejectNameServer,
+            name: 'server',
             description: 'Eject the code that creates the Node.js/hapi server.',
-            configPaths: [
-                'serverStartFile',
+            actions: [
+                {
+                    configPath: 'serverStartFile',
+                    targetDir: 'server/',
+                },
             ],
-            targetDir: 'server/',
             /*
             configChanges: [
                 {
@@ -45,12 +51,14 @@ function getEjectables() {
             */
         },
         {
-            name: ejectNameHapi,
-            description: 'Eject the `ConfigHandlers` hapi plugin that integrates hapi with Reframe.',
-            configPaths: [
-                'hapiIntegrationPluginFile',
+            name: 'server-hapi',
+            description: 'Eject the hapi plugin that integrates hapi with Reframe.',
+            actions: [
+                {
+                    configPath: 'hapiIntegrationPluginFile',
+                    targetDir: 'server/',
+                },
             ],
-            targetDir: 'server/',
             /*
             fileCopies: [
                 {
