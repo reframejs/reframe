@@ -83,12 +83,14 @@ function getEjectables() {
             description: 'Eject the build code.',
             actions: [
                 {
-                    configPath: 'buildFile',
                     targetDir: 'build/',
+                    configIsFilePath: true,
+                    configPath: 'buildFile',
                 },
                 {
-                    configPath: 'getBuildInfoFile',
                     targetDir: 'build/',
+                    configIsFilePath: true,
+                    configPath: 'getBuildInfoFile',
                 },
             ],
             /*
@@ -121,8 +123,9 @@ function getEjectables() {
             description: 'Eject the code that renders your pages to HTML at build-time.',
             actions: [
                 {
-                    configPath: 'getPageHTMLsFile',
                     targetDir: 'build/',
+                    configIsFilePath: true,
+                    configPath: 'getPageHTMLsFile',
                 },
             ],
             /*
@@ -143,8 +146,9 @@ function getEjectables() {
             description: 'Eject the code that generates the browser entry of each page.',
             actions: [
                 {
-                    configPath: 'getPageBrowserEntriesFile',
                     targetDir: 'build/',
+                    configIsFilePath: true,
+                    configPath: 'getPageBrowserEntriesFile',
                 },
             ],
             /*

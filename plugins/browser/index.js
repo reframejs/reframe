@@ -14,8 +14,9 @@ module.exports = {
             description: 'TODO',
             actions: [
                 {
-                    configPath: 'browserEntryFile',
                     targetDir: 'browser/',
+                    configIsFilePath: true,
+                    configPath: 'browserEntryFile',
                 },
             ],
         }

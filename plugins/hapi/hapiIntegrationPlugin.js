@@ -1,4 +1,4 @@
-// This is where we integrate Reframe with Hapi
+// This is where we integrate Reframe with hapi
 // In other words: We apply the request handlers defined in the config.
 // (Plugins add request handlers over the config)
 
@@ -6,7 +6,7 @@ const reconfig = require('@brillout/reconfig');
 const assert_internal = require('reassert/internal');
 
 module.exports = {
-    name: 'ConfigHandlers',
+    name: 'hapiIntegrationPlugin',
     multiple: false,
     register: server => server.ext('onPreResponse', handleRequest),
 };

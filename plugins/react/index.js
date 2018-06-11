@@ -17,12 +17,14 @@ module.exports = {
         description: 'TODO',
         actions: [
             {
-                configPath: 'renderToDomFile',
                 targetDir: 'renderer/',
+                configIsFilePath: true,
+                configPath: 'renderToDomFile',
             },
             {
-                configPath: 'renderToHtmlFile',
                 targetDir: 'renderer/',
+                configIsFilePath: true,
+                configPath: 'renderToHtmlFile',
             },
         ],
     ],
