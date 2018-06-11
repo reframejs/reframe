@@ -13,7 +13,7 @@
         &nbsp;&nbsp;
         <a href="https://github.com/reframejs/reframe/blob/master/docs/contributing.md">
             <img
-              src="https://github.com/reframejs/reframe/raw/master/docs/images/muscle.png?sanitize=true"
+              src="https://github.com/reframejs/reframe/raw/master/docs/images/biceps.min.svg?sanitize=true"
               width="16"
               height="14"
             >
@@ -34,7 +34,7 @@
         &nbsp;&nbsp;
         <a href="https://discord.gg/kqXf65G">
             <img
-              src="https://github.com/reframejs/reframe/raw/master/docs/images/online-icon.svg?sanitize=true"
+              src="https://github.com/reframejs/reframe/raw/master/docs/images/chat.svg?sanitize=true"
               width="14"
               height="10"
             >
@@ -45,7 +45,7 @@
     </sup>
 </p>
 
-[<p align="center"><img src="https://github.com/reframejs/reframe/raw/master/docs/images/logo-with-title.svg?sanitize=true" width=450 height=94 style="max-width:100%;" alt="Reframe"/></p>](https://github.com/reframejs/reframe)
+[<p align="center"><img src="https://github.com/reframejs/reframe/raw/master/docs/images/logo-with-title.min.svg?sanitize=true" width=450 height=94 style="max-width:100%;" alt="Reframe"/></p>](https://github.com/reframejs/reframe)
 
 <div><p align="center">
         Framework to create web apps. The modern Django / Ruby on Rails.
