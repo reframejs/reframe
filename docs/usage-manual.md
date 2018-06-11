@@ -154,15 +154,15 @@
 
 #### Customization & Eject
 
- - [Custom/Eject Server](#customeject-server)
- - [Custom Webpack](#custom-webpack)
- - [Custom Babel](#custom-babel)
- - [Custom &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ...](#custom-head-meta-html-)
- - [Custom/Advanced Routing](#customadvanced-routing)
- - [Custom/Eject Build](#customeject-build)
+ - [Server](#server)
+ - [Webpack](#webpack)
+ - [Babel](#babel)
+ - [HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ...](#html-head-meta-html-)
+ - [Routing](#routing)
+ - [Build](#build)
 <!--- TODO
- - [Custom Error Pages (404, 5xx, ...)](#custom-error-pages-404-5xx-)
- - [Custom/Eject Browser Code](#customeject-browser-code)
+ - [Error Pages (404, 5xx, ...)](#error-pages-404-5xx-)
+ - [Browser Code](#browser-code)
 -->
 
 #### Use Cases
@@ -244,7 +244,7 @@ In addition, static assets can be referenced in CSS by using the `url` data type
 ~~~
 
 CSS and static assets are handled by webpack.
-See [Custom Webpack](#custom-webpack) to customize the webpack config.
+See [Customization & Eject - Webpack](#webpack) to customize the webpack config.
 
 Example of a page loading and using CSS, fonts, images and static assets:
  - [/examples/basics/pages/glitter/](/examples/basics/pages/glitter/)
@@ -317,7 +317,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 The standard way to navigate between pages is to use the HTML link tag `<a>`.
 
-See [Custom/Advanced Routing](#customadvanced-routing) for alternative ways of navigating.
+See [Customization & Eject - Routing](#customadvanced-routing) for alternative ways of navigating.
 
 Example:
 
@@ -420,7 +420,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-## Custom/Eject Server
+## Server
 
 Running the command
 
@@ -492,7 +492,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-## Custom Webpack
+## Webpack
 
 Save a `reframe.config.js` file at your app's root directory and use the `webpackBrowserConfig` and/or `webpackNodejsConfig` configurations.
 
@@ -550,7 +550,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-## Custom Babel
+## Babel
 
 You can customize the babel config by creating a `.babelrc` file.
 
@@ -569,7 +569,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-## Custom &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ...
+## HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ...
 
 Reframe uses [`@brillout/index-html`](https://github.com/brillout/index-html) to generate HTML.
 
@@ -695,7 +695,7 @@ TODO
 
 
 
-## Custom/Advanced Routing
+## Routing
 
 ###### Reframe's default router
 
@@ -802,7 +802,7 @@ export default {
 
 
 
-## Custom/Eject Build
+## Build
 
 Run `reframe eject build` to eject the overall build code.
 
