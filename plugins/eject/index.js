@@ -34,17 +34,17 @@ function ejectableGetter(configParts) {
 
     const ejectables = {};
     configParts
-    .forEach(config => {
-        if( config.ejectables ) {
-            config.ejectables.forEach(ejectable => {
+    .forEach(configPart => {
+        if( configPart.ejectables ) {
+            configPart.ejectables.forEach(ejectable => {
                 const {name} = ejectable;
                 assert_plugin(name);
                 assert_plugin(!ejectables[name], configParts, ejectables, name);
 
                 const ejectableSpec = {...ejectable};
 
-                assert_internal(config.$name);
-                ejectableSpec.packageName = config.$name;
+                assert_internal(configPart.$name);
+                ejectableSpec.packageName = configPart.$name;
 
                 ejectables[name] = ejectableSpec;
             });
@@ -63,7 +63,8 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
     const assert_internal = require('reassert/internal');
     const assert_usage = require('reassert/usage');
     const assert_plugin = assert_usage;
-    const reconfig = require('@brillout/reconfig');
+    // TODO rename to config
+    const reframeConfig = require('@brillout/reconfig').getConfig({configFileName: 'reframe.config.js'});
     const {symbolSuccess, strFile, colorEmphasisLight, colorError} = require('@brillout/cli-theme');
     const runNpmInstall = require('@reframe/utils/runNpmInstall');
     const gitUtils = require('@reframe/utils/git');
@@ -89,9 +90,13 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
             return;
         }
 
-        const reframeConfig = reconfig.getConfig({configFileName: 'reframe.config.js'});
-
         const {projectRootDir, packageJsonFile: projectPackageJsonFile} = reframeConfig.projectFiles;
+
+        const {packageName: ejectablePackageName} = ejectableSpec;
+        assert_internal(ejectablePackageName);
+        const ejecteeRootDir = require.resolve(ejectablePackageName);
+        assert_internal(ejecteeRootDir);
+        const ejecteePackageJsonFile = pathModule.join(ejecteeRootDir, './package.json');
 
         const gitIsInstalled = gitUtils.gitIsAvailable();
 
@@ -99,44 +104,44 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
             skipGit || gitIsInstalled && await gitUtils.isRepository({cwd: projectRootDir}),
             "The project is not checked into a Git repository.",
             "Initialize a Git repository before ejecting.",
-            "Or run the command with the `--skip-git` flag"
+            "Or run the command with the `--skip-git` flag."
         );
         assert_usage(
             skipGit || gitIsInstalled && !(await gitUtils.hasDirtyOrUntrackedFiles({cwd: projectRootDir})),
             "The project's repository has untracked/dirty files.",
             "Commit them before ejecting.",
-            "Or run the command with the `--skip-git` flag"
+            "Or run the command with the `--skip-git` flag."
         );
 
         const {packageName: ejectablePackageName} = ejectableSpec;
         assert_internal(ejectablePackageName, ejectableSpec);
 
-        const actions = [];
-        const deps = {};
+        const operations = [];
 
         let configChanges = ejectableSpec.configChanges||[];
-        assert_plugin(configChanges.forEach, configChanges);
-        changeConfig({configChanges, actions, deps, ejectablePackageName, reframeConfig})
+        changeConfig({configChanges, operations, ejecteeRootDir})
 
+        const deps = {};
         let fileCopies = ejectableSpec.fileCopies||[];
-        assert_plugin(fileCopies.forEach, fileCopies);
         fileCopies
         .forEach(fileCopy =>
-            copyFile({fileCopy, actions, deps, ejectablePackageName, reframeConfig})
+            copyFile({fileCopy, operations, deps, ejectablePackageName})
         )
 
-        assert_plugin(actions.length>0);
+        assert_internal(operations.length>0);
 
         console.log();
 
-        const {newDeps, newDepsStr} = getNewDeps({deps, ejectableSpec, reframeConfig});
+        const {newDeps, newDepsStr} = getNewDeps({deps, ejecteePackageJsonFile});
 
         if( newDeps.length>0 ) {
             await addNewDeps({newDeps, projectPackageJsonFile});
         }
 
-        actions.forEach(action => action());
-        console.log(symbolSuccess+'Added new dependencies '+newDepsStr+' to '+strFile(projectPackageJsonFile)+'.');
+        operations.forEach(op => op());
+        if( newDeps.length>0 ) {
+            console.log(symbolSuccess+'Added new dependencies '+newDepsStr+' to '+strFile(projectPackageJsonFile)+'.');
+        }
         console.log(symbolSuccess+'All code ejected.');
         console.log();
 
@@ -148,7 +153,7 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
         }
     }
 
-    function copyFile({fileCopy, actions, deps, ejectablePackageName, reframeConfig}) {
+    function copyFile({fileCopy, operations, deps, ejectablePackageName}) {
         const findPackageFiles = require('@brillout/find-package-files');
 
         const {projectRootDir} = reframeConfig.projectFiles;
@@ -171,7 +176,7 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
 
         const copyDependencyAction = writeFile(newPath, fileContentNew);
 
-        const replaceActions = (
+        const replaceOperations = (
             allProjectFiles
             .map(projectFile => {
                 const fileContentOld = fs__read(projectFile);
@@ -187,18 +192,18 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
                     .join(relPath)
                 );
 
-                const action = () => {
+                const op = () => {
                     fs__write(projectFile, fileContentNew);
                     console.log(symbolSuccess+'Modified '+strFile(projectFile)+'.');
                 };
 
-                return action;
+                return op;
             })
             .filter(Boolean)
         );
 
         assert_usage(
-            noDependerRequired || replaceActions.length>0,
+            noDependerRequired || replaceOperations.length>0,
             "Project files:",
             JSON.stringify(allProjectFiles, null, 2),
             "No project file found that requires `"+oldPath+"`.",
@@ -206,15 +211,16 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
             ...(noDependerMessage ? [noDependerMessage] : [])
         );
 
-        actions.push(copyDependencyAction, ...replaceActions);
+        operations.push(copyDependencyAction, ...replaceOperations);
     }
 
-    function changeConfig({configChanges, actions, deps, ejectablePackageName, reframeConfig}) {
+    function changeConfig({configChanges, operations, ejecteeRootDir}) {
 
         if( configChanges.length===0 ) {
             return;
         }
 
+        // TODO rename to configFile
         const {projectRootDir, reframeConfigFile} = reframeConfig.projectFiles;
         const reframeConfigPath = reframeConfigFile || pathModule.resolve(projectRootDir, './reframe.config.js');
 
@@ -228,44 +234,55 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
 
         configChanges
         .forEach(configChange => {
-            const {configPath, configIsList, configElementKey} = configChange;
-            assert_plugin(configPath, configChange);
+            const {configPath, outputDir, configIsList, configIsFilePath, listElementKey, listElementKeyProp, newConfigValue} = configChange;
+            assert_internal(configPath);
+            assert_internal(outputDir);
+            assert_internal(configIsList || configIsFilePath);
+            assert_internal(!configIsList || listElementKey && listElementKeyProp);
+            assert_internal(newConfigValue);
 
-            const newValue = getNewValue({configChange, reframeConfigPath, projectRootDir});
+            const oldValue = getPath(config, configPath);
+            const newValue = getNewValue({newConfigValue, outputDir, oldValue, reframeConfigPath, projectRootDir, ejecteeRootDir});
 
-            checkConfigPath({reframeConfigFile, configPath, configIsList, configElementKey, newValue});
+            checkConfig({configPath, configIsList, configIsFilePath, listElementKey, listElementKeyProp, oldValue, reframeConfigFile});
 
-            const newConfigContent = applyConfigChange({configPath, newValue, reframeConfigPath, configIsList});
-            assert_internal(newConfigContent);
-
+            const newConfigContent = applyConfigChange({configPath, newValue, configIsList, configIsFilePath});
             reframeConfigContent += '\n' + newConfigContent + '\n';
         });
 
         reframeConfigContent = reframeConfigContent.replace(/\s?$/, os.EOL);
 
-        const action = () => {
+        const op = () => {
             fs__write(reframeConfigPath, reframeConfigContent);
             console.log(symbolSuccess+'Modified '+strFile(reframeConfigFile));
         };
 
-        actions.push(action);
+        operations.push(op);
     }
-    function getNewValue({configChange, reframeConfigPath, projectRootDir}) {
-        let {newConfigValue} = configChange;
-        assert_plugin(newConfigValue, configChange);
+    function getNewValue({newConfigValue, outputDir, oldValue, reframeConfigPath, projectRootDir, ejecteeRootDir}) {
+        assert_internal(newConfigValue.constructor === Function);
 
-        if( newConfigValue.constructor === Function ) {
-            newConfigValue = newConfigValue({makePathRelative});
-        }
+        let oldFilePath;
+        let newFilePath;
+        const newVal = newConfigValue({copyFile, oldConfigValue: oldValue});
+        assert_internal(pathModule.isAbsolute(oldFilePath));
 
         assert_usage(newConfigValue.constructor!==String || !newConfigValue.includes('PROJECT_ROOT'));
 
         return newConfigValue;
 
-        function makePathRelative(pathFromRoot) {
+        function copyFile(oldFilePath_) {
+            oldFilePath = oldFilePath_;
+            assert_usage(oldFilePath && oldFilePath.constructor===String && pathModule.isAbsolute(oldFilePath));
+            const newFilePathRelative = (
+                pathModule.join(
+                    outputDir,
+                    pathModule.relative(ejecteeRootDir, require.resolve(oldFilePath))
+                )
+            );
+            newFilePath = pathModule.resolve(projectRootDir, newFilePathRelative);
             assert_internal(pathModule.dirname(reframeConfigPath)===projectRootDir);
-            assert_usage(pathFromRoot.startsWith('PROJECT_ROOT'));
-            return "-EVAL_START-require.resolve('"+pathFromRoot.replace('PROJECT_ROOT', '.')+"')-EVAL_END-";
+            return "-EVAL_START-require.resolve('./"+newFilePathRelative+"')-EVAL_END-";
         }
     }
 
@@ -277,7 +294,7 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
         return valString;
     }
 
-    function applyConfigChange({configPath, newValue, reframeConfigPath, configIsList}) {
+    function applyConfigChange({configPath, newValue, configIsList, configIsFilePath}) {
         const valString = getValString(newValue);
 
         const props = getProps(configPath);
@@ -304,8 +321,13 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
                 return;
             }
 
-            lines.push(assignee+' = '+valString+';');
-        })
+            if( configIsFilePath ) {
+                lines.push(assignee+' = '+valString+';');
+                return;
+            }
+
+            assert_internal(false);
+        });
 
         const configContentAppend = lines.join('\n');
 
@@ -314,30 +336,57 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
     function stringIsAbsolutePath(str) {
         return pathModule.isAbsolute(str);
     }
-    function checkConfigPath({reframeConfigFile, configPath, configIsList, configElementKey, newValue}) {
-        if( ! reframeConfigFile ) {
-            return;
+    function checkConfig({reframeConfigFile, configPath, configIsList, configIsFilePath, listElementKey, listElementKeyProp, oldValue}) {
+
+        assert_internal(configIsFilePath || configIsList);
+        checkConfigFile();
+        checkGlobalConfig();
+
+        return;
+
+        function checkGlobalConfig() {
+            assert_plugin(oldValue);
+            if( configIsList ) {
+                assert_plugin(oldValue.find);
+            }
+            if( configIsFilePath ) {
+                assert_plugin(require.resolve(oldValue));
+            }
         }
-        const reframeConfig = require(reframeConfigFile);
-        const oldConfigValue = getPath(reframeConfig, configPath);
-        if( configIsList ) {
-            assert_usage(configElementKey);
-            assert_usage(
-                !oldConfigValue || oldConfigValue.find,
-                "The config `"+configPath+"` defined at `"+reframeConfigFile+"` should be an array but it isn't."
-            );
-            const elementKey = newValue[configElementKey];
-            assert_usage(
-                !oldConfigValue || !oldConfigValue.find(c1 => c1[configElementKey]===elementKey),
-                "The config `"+configPath+"` defined at `"+reframeConfigFile+"` already includes `"+elementKey+"`.",
-                "Did you already eject?"
-            );
-        } else {
-            assert_usage(
-                !oldConfigValue,
-                "Your config file `"+reframeConfigFile+"` already defines a `"+configPath+"`.",
-                "Remove `"+configPath+"` before ejecting."
-            );
+
+        function checkConfigFile() {
+            const configFileObject = require(reframeConfigFile);
+            const configFileValue = getPath(configFileObject, configPath);
+
+            if( configIsList ) {
+                assert_usage(listElementKeyProp);
+                assert_usage(listElementKey);
+                assert_usage(
+                    !configFileValue || configFileValue.find,
+                    "The config `"+configPath+"` defined at `"+reframeConfigFile+"` should be an array but it isn't."
+                );
+                (configFileValue||[])
+                .forEach(configElement => {
+                    assert_usage(
+                        configElement[listElementKeyProp],
+                        configElement,
+                        "The config printed above is missing the key `"+listElementKeyProp+"`"
+                    );
+                });
+                assert_usage(
+                    !configFileValue || !configFileValue.find(c1 => c1[listElementKeyProp]===listElementKey),
+                    "The config `"+configPath+"` defined at `"+reframeConfigFile+"` already includes `"+elementKey+"`.",
+                    "Did you already eject?"
+                );
+            }
+
+            if( configIsFilePath ) {
+                assert_usage(
+                    !configFileValue,
+                    "Your config file `"+reframeConfigFile+"` already defines a `"+configPath+"`.",
+                    "Remove `"+configPath+"` before ejecting."
+                );
+            }
         }
     }
 
@@ -397,13 +446,10 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
         await writeJsonFile(projectPackageJsonFile, projectPackageJson, {detectIndent: true});
     }
 
-    function getNewDeps({deps, ejectableSpec, reframeConfig}) {
-        const {projectRootDir, packageJsonFile: projectPackageJsonFile} = reframeConfig.projectFiles;
+    function getNewDeps({deps, ejecteePackageJsonFile}) {
+        const {projectRootDir, packageJsonFile: projectPackageJsonFile} = config.projectFiles;
 
-        const {packageName: ejectablePackageName} = ejectableSpec;
-        assert_internal(ejectablePackageName);
-
-        const ejectablePackageJson = require(pathModule.join(ejectablePackageName, './package.json'));
+        const ejecteePackageJson = require(ejecteePackageJsonFile);
         const projectPackageJson = require(projectPackageJsonFile);
 
         const newDeps = (
@@ -411,7 +457,7 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
             .map(depName => {
                 assert_internal(depName);
 
-                const version = getPackageVersion({ejectablePackageJson, depName});
+                const version = getPackageVersion({ejecteePackageJson, depName});
 
                 if( projectPackageJson.dependencies[depName] ) {
                     return null;
@@ -434,16 +480,16 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
 
         return {newDeps, newDepsStr};
     }
-    function getPackageVersion({ejectablePackageJson, depName}) {
-        assert_internal(ejectablePackageJson.name, ejectablePackageJson);
+    function getPackageVersion({ejecteePackageJson, depName}) {
+        assert_internal(ejecteePackageJson.name, ejecteePackageJson);
         const version = (
-            depName === ejectablePackageJson.name ? (
-                '^'+ejectablePackageJson.version
+            depName === ejecteePackageJson.name ? (
+                '^'+ejecteePackageJson.version
             ) : (
-                ejectablePackageJson.dependencies[depName]
+                ejecteePackageJson.dependencies[depName]
             )
         );
-        assert_internal(version, depName, ejectablePackageJson);
+        assert_internal(version, depName, ejecteePackageJson);
         return version;
     }
 
@@ -523,8 +569,8 @@ function getHelp() {
 
 function getEjectables() {
     const reconfig = require('@brillout/reconfig');
-    const reframeConfig = reconfig.getConfig({configFileName: 'reframe.config.js'});
-    return reframeConfig.ejectables;
+    const config = reconfig.getConfig({configFileName: 'reframe.config.js'});
+    return config.ejectables;
 }
 
 function printEjectables(tabbing=2) {
