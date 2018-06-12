@@ -22,6 +22,10 @@ module.exports = {
             prop: 'webpackNodejsConfigModifier',
             getter: configParts => assemble_modifiers('webpackNodejsConfig', configParts),
         },
+        {
+            prop: 'browserConfigs',
+            getter: getBrowserConfigs,
+        },
     ],
     buildFile,
     getBuildInfoFile,
@@ -69,6 +73,61 @@ function assemble_modifiers(modifier_name, configParts) {
     });
 
     return supra_modifier;
+}
+
+function getBrowserConfigs(configParts) {
+    const assert_plugin = require('reassert/usage');
+
+    const configPaths = {};
+    configParts.forEach(configPart => {
+        (configPart.browserConfigFiles||[])
+        .forEach(browserConfigSpec => {
+            if( browserConfigSpec.constructor === String ) {
+                browserConfigSpec = {
+                    configPath = browserConfigSpec,
+                };
+            }
+            assert_plugin(spec.configPath);
+            configPaths[spec.configPath] = spec;
+        });
+    });
+
+    const browserConfigs = (
+        Object.values(configPaths)
+        .forEach(({configPath, configIsList}) => {
+            const suffix = 'File';
+            assert_plugin(spec.configPath.endsWith(suffix));
+            const configName = spec.configPath.slice(0, -suffix.length) + (configIsList ? 's' : '');
+
+            assert_plugin(!spec.configPath.includes('.'));
+
+            const configFile = (() => {
+                if( configIsList ) return null;
+                let filePath = configParts.slice().reverse().find(configPart => configPart[configPath])[configPath];
+                assert_plugin(filePath);
+                filePath = require.resolve(filePath);
+                assert_plugin(filePath);
+                return filePath;
+            })();
+
+            const configFiles = (() => {
+                if( ! configIsList ) return null;
+                const filePaths = [];
+                configParts.forEach(configPart => {
+                    let filePath = configPart[configPath];
+                    if( ! filePath ) return;
+                    filePath = require.resolve(filePath);
+                    assert_plugin(filePath);
+                    filePaths.push(filePath);
+                });
+                return filePaths;
+            })();
+
+            return {configName, configFile, configFiles};
+        })
+    );
+
+    return browserConfigs;
 }
 
 function getEjectables() {

@@ -4,6 +4,14 @@ const $getters = require('./getters');
 module.exports = {
     $name,
     $getters,
-    browserViewWrapperFile: require.resolve('./browserViewWrapper'),
+
     nodejsViewWrapperFile: require.resolve('./nodejsViewWrapper'),
+
+    browserViewWrapperFile: require.resolve('./browserViewWrapper'),
+    browserConfigFiles: [
+        {
+            configPath: 'browserViewWrapperFile',
+            configIsList: true,
+        }
+    ],
 };

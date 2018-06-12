@@ -4,8 +4,7 @@ const pathModule = require('path');
 
 const assert_pageConfig = require('@reframe/utils/assert_pageConfig');
 
-const reconfig = require('@brillout/reconfig');
-const reframeConfig = reconfig.getConfig({configFileName: 'reframe.config.js'});
+const config = require('@brillout/reconfig').getConfig({configFileName: 'reframe.config.js'});
 
 
 module.exports = getPageBrowserEntries;
@@ -57,12 +56,39 @@ function generateConfigCode() {
         "  const browserConfig = require('"+require.resolve('@reframe/browser/browserConfig')+"');",
     ];
 
+    config
+    .browserConfigs
+    .forEach(({configName, configFile, configFiles}) => {
+        assert_internal(!configFiles === !!configFile);
+        lines.push("");
+        if( configFile ) {
+            lines.push(
+                "  browserConfig['"+configName+"'] = require('"+configFile+"');",
+            );
+        }
+        if( configFiles ) {
+            lines.push(
+                "  browserConfig['"+configName+"'] = [",
+                ...(
+                    configFiles
+                    .map((configFile, i) => {
+                        let line = "    require('"+configFile+"')";
+                        line += i===configFiles.length-1 ? "" : ",";
+                        return line;
+                    })
+                ),
+                "  ];",
+            );
+        }
+    });
+
+    /*
     [
         'renderToDomFile',
         'routerFile',
     ].forEach(propFile => {
         const prop = propFile.slice(0, -1*'File'.length);
-        const filePath = reframeConfig[propFile];
+        const filePath = config[propFile];
         if( ! filePath ) return;
         lines.push(
             "",
@@ -70,7 +96,7 @@ function generateConfigCode() {
         );
     });
 
-    const {browserViewWrapperFiles} = reframeConfig;
+    const {browserViewWrapperFiles} = config;
     lines.push(
         "",
         "  browserConfig['browserViewWrappers'] = [",
@@ -86,6 +112,7 @@ function generateConfigCode() {
         ),
         "  ];",
     );
+    */
 
     lines.push(
         "",
@@ -123,9 +150,9 @@ function getBrowserEntrySpec({pageConfig, pageFile, pageName}) {
         browserEntryPath = pathModule.resolve(pageDir, pathToEntry);
         assert_browserEntryPath({browserEntryPath, pathToEntry, pageName, pageDir});
     } else {
-        assert_usage(reframeConfig.browserEntryFile);
-        assert_usage(pathModule.isAbsolute(reframeConfig.browserEntryFile));
-        browserEntryPath = reframeConfig.browserEntryFile;
+        assert_usage(config.browserEntryFile);
+        assert_usage(pathModule.isAbsolute(config.browserEntryFile));
+        browserEntryPath = config.browserEntryFile;
     }
 
     const browserEntrySpec = {

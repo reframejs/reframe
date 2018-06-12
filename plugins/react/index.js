@@ -8,10 +8,15 @@ const $name = require('./package.json').name;
 module.exports = {
     $name,
     $getters,
-    renderToDomFile,
+
     renderToHtmlFile,
+
+    renderToDomFile,
+    browserConfig: ['renderToDomFile'],
+
     webpackBrowserConfig,
     webpackNodejsConfig,
+
     ejectables: [
         {
             name: 'renderer',
