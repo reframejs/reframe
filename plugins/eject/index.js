@@ -123,10 +123,7 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
         changeConfig({configChanges, operations, fileCopies, ejecteeRootDir})
 
         const deps = {};
-        fileCopies
-        .forEach(fileCopy =>
-            copy({fileCopy, operations, deps, ejecteePackageName})
-        )
+        copyFiles({fileCopies, operations, deps, ejecteePackageName});
 
         assert_internal(operations.length>0);
 
@@ -153,65 +150,26 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
         }
     }
 
-    function copy({fileCopy, operations, deps, ejecteePackageName}) {
-        const findPackageFiles = require('@brillout/find-package-files');
-
+    function copyFiles({fileCopies, operations, deps, ejecteePackageName}) {
+        const copySpecs = [];
+        fileCopies(({oldFilePath, newFilePath}) => {
+            assert_internal(oldFilePath);
+            assert_internal(newFilePath);
+            addCopySpec({oldFilePath, newFilePath, copySpecs});
+        });
+    }
+    function addCopySpec({oldFilePath, newFilePath, operations, deps, ejecteePackageName}) {
         const {projectRootDir} = reframeConfig.projectFiles;
 
-        const {oldPath, noDependerRequired, noDependerMessage} = fileCopy;
-        assert_usage(oldPath, "Ejectable is missing `oldPath`");
-        let {newPath} = fileCopy;
-        newPath = apply_PROJECT_ROOT(newPath, projectRootDir);
-
-        const allProjectFiles = [
-            ...findPackageFiles('*.js', {cwd: projectRootDir, no_dir: true}),
-            ...findPackageFiles('*.jsx', {cwd: projectRootDir, no_dir: true}),
-        ];
-
-        const fileContentOld = fs__read(require.resolve(oldPath, {paths: [projectRootDir]}));
+        const fileContent = fs__read(require.resolve(oldPath, {paths: [projectRootDir]}));
 
         const {fileDeps, fileContentNew} = handleDeps({fileContentOld, ejecteePackageName});
 
         Object.assign(deps, fileDeps);
 
-        const copyDependencyAction = writeFile(newPath, fileContentNew);
+        const copyDependencyAction = writeFile(newFilePath, fileContentNew);
 
-        const replaceOperations = (
-            allProjectFiles
-            .map(projectFile => {
-                const fileContentOld = fs__read(projectFile);
-                if( ! fileContentOld.includes(oldPath) ) {
-                    return null;
-                }
-
-                const relPath = getRelativePath(projectFile, newPath);
-
-                const fileContentNew = (
-                    fileContentOld
-                    .split(oldPath)
-                    .join(relPath)
-                );
-
-                const op = () => {
-                    fs__write(projectFile, fileContentNew);
-                    console.log(symbolSuccess+'Modified '+strFile(projectFile)+'.');
-                };
-
-                return op;
-            })
-            .filter(Boolean)
-        );
-
-        assert_usage(
-            noDependerRequired || replaceOperations.length>0,
-            "Project files:",
-            JSON.stringify(allProjectFiles, null, 2),
-            "No project file found that requires `"+oldPath+"`.",
-            "Searched in all project files which are printed above.",
-            ...(noDependerMessage ? [noDependerMessage] : [])
-        );
-
-        operations.push(copyDependencyAction, ...replaceOperations);
+        operations.push(copyDependencyAction);
     }
 
     function getConfigChanges(ejectableSpec) {
