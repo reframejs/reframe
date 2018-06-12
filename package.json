@@ -64,6 +64,7 @@
         "helpers/webpack-config-mod",
         "helpers/file-sets",
         "helpers/reconfig",
+        "helpers/browser-config",
         "helpers/repage",
         "helpers/rebuild/config",
         "helpers/rebuild/build",

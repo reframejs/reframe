@@ -1,4 +1,4 @@
-const browserConfig = require('./browserConfig');
+const browserConfig = require('@brillout/browser-config');
 const hydratePage__repage = require('@brillout/repage/hydratePage');
 
 module.exports = hydratePage;

@@ -7,8 +7,12 @@ const $getters = require('@reframe/react/getters');
 module.exports = {
     $name: require('./package.json').name,
     $getters,
-    renderToDomFile,
+
     renderToHtmlFile,
+
+    renderToDomFile,
+    browserConfigs: ['renderToDomFile'],
+
     webpackBrowserConfig,
     webpackNodejsConfig,
 };

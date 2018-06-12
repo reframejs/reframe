@@ -1,5 +1,5 @@
 const {AppRegistry} = require('react-native-web');
-const browserConfig = require('@reframe/browser/browserConfig');
+const browserConfig = require('@brillout/browser-config');
 const {CONTAINER_ID, getReactElement} = require('@reframe/react/common');
 
 module.exports = renderToDom;

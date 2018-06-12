@@ -2,6 +2,7 @@
   "name": "@reframe/browser",
   "version": "0.1.12",
   "dependencies": {
+    "@brillout/browser-config": "0.1.12",
     "@brillout/reconfig": "0.1.12",
     "@brillout/repage": "0.1.12"
   },

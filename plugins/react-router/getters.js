@@ -1,14 +1,4 @@
 module.exports = [
-    /* TODO
-    {
-        prop: 'browserViewWrapperFiles',
-        getter: configParts => (
-            configParts
-            .map(configPart => configPart['browserViewWrapperFile'])
-            .filter(Boolean)
-        ),
-    },
-    */
     {
         prop: 'nodejsViewWrappers',
         getter: configParts => (

@@ -20,7 +20,7 @@ module.exports = {
     ejectables: [
         {
             name: 'renderer',
-            description: 'Eject the react rendered. In other words the code that runs `ReactDOM.hydrate` and `ReactDOMServer.renderToStaticMarkup`.',
+            description: 'Eject the react rendered. In other words the code that runs `ReactDOM.hydrate` and `ReactDOMServer.renderToStaticMarkup`',
             actions: [
                 {
                     targetDir: 'renderer/',

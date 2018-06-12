@@ -1,0 +1,14 @@
+{
+  "name": "@brillout/browser-config",
+  "version": "0.1.12",
+  "dependencies": {},
+  "scripts": {
+    "docs": "mdocs"
+  },
+  "devDependencies": {
+    "@brillout/mdocs": "^0.1.15"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -53,7 +53,7 @@ function getBrowserEntryString({pageConfig, pageFile, pageName}) {
 function generateConfigCode() {
     const lines = [
         "(() => {",
-        "  const browserConfig = require('"+require.resolve('@reframe/browser/browserConfig')+"');",
+        "  const browserConfig = require('"+require.resolve('@brillout/browser-config')+"');",
     ];
 
     config
@@ -82,38 +82,6 @@ function generateConfigCode() {
         }
     });
 
-    /*
-    [
-        'renderToDomFile',
-        'routerFile',
-    ].forEach(propFile => {
-        const prop = propFile.slice(0, -1*'File'.length);
-        const filePath = config[propFile];
-        if( ! filePath ) return;
-        lines.push(
-            "",
-            "  browserConfig['"+prop+"'] = require('"+require.resolve(filePath)+"');",
-        );
-    });
-
-    const {browserViewWrapperFiles} = config;
-    lines.push(
-        "",
-        "  browserConfig['browserViewWrappers'] = [",
-        ...(
-            (browserViewWrapperFiles||[])
-            .map((browserViewWrapperFile, i) => {
-                let line = "    require('"+browserViewWrapperFile+"')";
-                if( i !== browserViewWrapperFiles.length-1 ) {
-                    line += ",";
-                }
-                return line;
-            })
-        ),
-        "  ];",
-    );
-    */
-
     lines.push(
         "})();",
     );
@@ -126,7 +94,7 @@ function generateConfigCode() {
 function generatePageConfigCode(pageFile) {
     const sourceCode = [
         "(() => {",
-        "  const browserConfig = require('"+require.resolve('@reframe/browser/browserConfig')+"');",
+        "  const browserConfig = require('"+require.resolve('@brillout/browser-config')+"');",
         "",
         "  let pageConfig = require('"+pageFile+"');",
         "  pageConfig = (pageConfig||{}).__esModule===true ? pageConfig.default : pageConfig;",

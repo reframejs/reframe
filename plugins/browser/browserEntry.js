@@ -1,10 +1,7 @@
-import hydratePage from './hydratePage';
+import browserConfig from '@brillout/browser-config';
 
-(async () => {
-    // Include code here that needs to run before the hydration
+runBrowserCode();
 
-    await hydratePage();
-
-    // Include code here that needs to run after the hydration
-})();
-
+async function runBrowserCode() {
+    await browserConfig.hydratePage();
+}

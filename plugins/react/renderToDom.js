@@ -1,5 +1,5 @@
 const ReactDOM = require('react-dom');
-const browserConfig = require('@reframe/browser/browserConfig');
+const browserConfig = require('@brillout/browser-config');
 const {CONTAINER_ID, getReactElement} = require('./common');
 
 module.exports = renderToDom;

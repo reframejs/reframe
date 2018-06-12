@@ -2,6 +2,7 @@
   "name": "@reframe/react",
   "version": "0.1.12",
   "dependencies": {
+    "@brillout/browser-config": "0.1.12",
     "@brillout/index-html": "^0.1.2",
     "@brillout/reconfig": "0.1.12",
     "@reframe/browser": "0.1.12",

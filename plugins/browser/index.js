@@ -3,15 +3,22 @@ const $name = require('./package.json').name;
 const $getters = [
     transparentGetter('browserEntryFile'),
 ];
+const browserEntryFile = require.resolve('./browserEntry');
+const hydratePageFile = require.resolve('./hydratePage');
 
 module.exports = {
     $name,
     $getters,
-    browserEntryFile: require.resolve('./browserEntry'),
+
+    browserEntryFile,
+
+    hydratePageFile,
+    browserConfigs: ['hydratePageFile'],
+
     ejectables: [
         {
-            name: 'browser-entry',
-            description: 'TODO',
+            name: 'browser',
+            description: 'Eject the default browser entry code.',
             actions: [
                 {
                     targetDir: 'browser/',
@@ -19,6 +26,17 @@ module.exports = {
                     configPath: 'browserEntryFile',
                 },
             ],
-        }
+        },
+        {
+            name: 'browser-hydration',
+            description: 'Eject hydration code.',
+            actions: [
+                {
+                    targetDir: 'browser/',
+                    configIsFilePath: true,
+                    configPath: 'hydratePageFile',
+                },
+            ],
+        },
     ],
 };
