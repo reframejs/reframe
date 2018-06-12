@@ -94,9 +94,10 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
 
         const {packageName: ejecteePackageName} = ejectableSpec;
         assert_internal(ejecteePackageName);
-        const ejecteeRootDir = require.resolve(ejecteePackageName);
+        const ejecteePackageJsonFile = require.resolve(pathModule.join(ejecteePackageName, './package.json'));
+        assert_internal(ejecteePackageJsonFile);
+        const ejecteeRootDir = pathModule.dirname(ejecteePackageJsonFile);
         assert_internal(ejecteeRootDir);
-        const ejecteePackageJsonFile = pathModule.join(ejecteeRootDir, './package.json');
 
         const gitIsInstalled = gitUtils.gitIsAvailable();
 
@@ -112,9 +113,6 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
             "Commit them before ejecting.",
             "Or run the command with the `--skip-git` flag."
         );
-
-        const {packageName: ejecteePackageName} = ejectableSpec;
-        assert_internal(ejecteePackageName, ejectableSpec);
 
         const configChanges = getConfigChanges(ejectableSpec);
         const operations = [];
@@ -151,7 +149,7 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
 
     function copyFiles({fileCopies, operations, deps}) {
         const copySpecs = [];
-        fileCopies(({oldFilePath, newFilePath}) => {
+        fileCopies.forEach(({oldFilePath, newFilePath}) => {
             assert_internal(oldFilePath);
             assert_internal(newFilePath);
             addCopySpec({oldFilePath, newFilePath, copySpecs, deps});
@@ -189,12 +187,14 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
         assert_usage(ejectableSpec.actions);
 
         const configChanges = [];
-        ejectableSpec.actions(spec => {
-            assert_usage(spec.outputDir);
+        ejectableSpec
+        .actions
+        .forEach(spec => {
+            assert_usage(spec.targetDir);
             assert_usage(spec.configPath);
             assert_usage(spec.configIsFilePath || spec.configIsList);
             assert_usage(!spec.configIsList || spec.listElementKey && spec.listElementKeyProp);
-            let newConfigValue = spec.newConfigValue || ({copyCode, oldConfigValue}) => copyCode(oldConfigValue);
+            let newConfigValue = spec.newConfigValue || (({copyCode, oldConfigValue}) => copyCode(oldConfigValue));
             configChanges.push({...spec, newConfigValue});
         });
 
@@ -215,15 +215,15 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
 
         configChanges
         .forEach(configChange => {
-            const {configPath, outputDir, configIsList, configIsFilePath, listElementKey, listElementKeyProp, newConfigValue} = configChange;
+            const {configPath, targetDir, configIsList, configIsFilePath, listElementKey, listElementKeyProp, newConfigValue} = configChange;
             assert_internal(configPath);
-            assert_internal(outputDir);
+            assert_internal(targetDir);
             assert_internal(configIsList || configIsFilePath);
             assert_internal(!configIsList || listElementKey && listElementKeyProp);
             assert_internal(newConfigValue);
 
             const oldValue = getOldValue({configPath, ejecteePackageName});
-            const {newValue, fileCopy} = getNewValue({newConfigValue, outputDir, oldValue, reframeConfigPath, projectRootDir, ejecteeRootDir});
+            const {newValue, fileCopy} = getNewValue({newConfigValue, targetDir, oldValue, reframeConfigPath, projectRootDir, ejecteeRootDir});
 
             fileCopies.push(fileCopy);
 
@@ -242,7 +242,7 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
 
         operations.push(op);
     }
-    function getNewValue({newConfigValue, outputDir, oldValue, reframeConfigPath, projectRootDir, ejecteeRootDir}) {
+    function getNewValue({newConfigValue, targetDir, oldValue, reframeConfigPath, projectRootDir, ejecteeRootDir}) {
         assert_internal(newConfigValue.constructor === Function);
 
         let oldFilePath;
@@ -258,7 +258,7 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
             assert_usage(oldFilePath && oldFilePath.constructor===String && pathModule.isAbsolute(oldFilePath));
             const newFilePathRelative = (
                 pathModule.join(
-                    outputDir,
+                    targetDir,
                     pathModule.relative(ejecteeRootDir, require.resolve(oldFilePath))
                 )
             );
@@ -269,7 +269,7 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
     }
     function getOldValue({configPath, ejecteePackageName}) {
         const ejecteePackageExport = require(ejecteePackageName);
-        assert_iternal(ejecteePackageExport.constructor===Object);
+        assert_internal(ejecteePackageExport.constructor===Object);
 
         const oldValue = getPath(ejecteePackageExport, configPath);
         assert_plugin(oldValue);
@@ -415,7 +415,7 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
     }
 
     function getNewDeps({deps, ejecteePackageJsonFile}) {
-        const {projectRootDir, packageJsonFile: projectPackageJsonFile} = config.projectFiles;
+        const {projectRootDir, packageJsonFile: projectPackageJsonFile} = reframeConfig.projectFiles;
 
         const ejecteePackageJson = require(ejecteePackageJsonFile);
         const projectPackageJson = require(projectPackageJsonFile);
