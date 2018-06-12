@@ -116,16 +116,15 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
         const {packageName: ejecteePackageName} = ejectableSpec;
         assert_internal(ejecteePackageName, ejectableSpec);
 
-
         const configChanges = getConfigChanges(ejectableSpec);
         const operations = [];
         const fileCopies = [];
-        changeConfig({configChanges, operations, fileCopies, ejecteeRootDir})
+        changeConfig({configChanges, operations, fileCopies, ejecteeRootDir, ejecteePackageName})
+        assert_internal(operations.length>0);
+        assert_internal(fileCopies.length>0);
 
         const deps = {};
-        copyFiles({fileCopies, operations, deps, ejecteePackageName});
-
-        assert_internal(operations.length>0);
+        copyFiles({fileCopies, operations, deps});
 
         console.log();
 
@@ -150,26 +149,40 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
         }
     }
 
-    function copyFiles({fileCopies, operations, deps, ejecteePackageName}) {
+    function copyFiles({fileCopies, operations, deps}) {
         const copySpecs = [];
         fileCopies(({oldFilePath, newFilePath}) => {
             assert_internal(oldFilePath);
             assert_internal(newFilePath);
-            addCopySpec({oldFilePath, newFilePath, copySpecs});
+            addCopySpec({oldFilePath, newFilePath, copySpecs, deps});
         });
+        operations.push(...(
+            copySpecs
+            .map(({newFilePath, fileContent}) => writeFile(newFilePath, fileContent))
+        ));
+
     }
-    function addCopySpec({oldFilePath, newFilePath, operations, deps, ejecteePackageName}) {
-        const {projectRootDir} = reframeConfig.projectFiles;
+    function addCopySpec({oldFilePath, newFilePath, copySpecs, deps}) {
+        assert_internal(pathModule.isAbsolute(oldFilePath));
+        const fileContent = fs__read(oldFilePath);
 
-        const fileContent = fs__read(require.resolve(oldPath, {paths: [projectRootDir]}));
+        detective(fileContent)
+        .forEach(requireString => {
+            if( requireString.startsWith('.') ) {
+                const oldFilePath__dependee = require.resolve(pathModule.resolve(oldFilePath, requireString));
+                const newFilePath__dependee = pathModule.resolve(newFilePath, path.relative(oldFilePath, oldFilePath__dependee));
 
-        const {fileDeps, fileContentNew} = handleDeps({fileContentOld, ejecteePackageName});
+                addCopySpec({oldFilePath: oldFilePath__dependee, newFilePath: newFilePath__dependee, copySpecs, deps});
+            } else {
+                const pkgName = getPackageName(requireString);
+                if( builtins.includes(pkgName) ) {
+                    return;
+                }
+                deps[pkgName] = true;
+            }
+        });
 
-        Object.assign(deps, fileDeps);
-
-        const copyDependencyAction = writeFile(newFilePath, fileContentNew);
-
-        operations.push(copyDependencyAction);
+        copySpecs.push({newFilePath, fileContent});
     }
 
     function getConfigChanges(ejectableSpec) {
@@ -187,7 +200,7 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
 
         return configChanges;
     }
-    function changeConfig({configChanges, operations, fileCopies, ejecteeRootDir}) {
+    function changeConfig({configChanges, operations, fileCopies, ejecteeRootDir, ejecteePackageName}) {
         // TODO rename to configFile
         const {projectRootDir, reframeConfigFile} = reframeConfig.projectFiles;
         const reframeConfigPath = reframeConfigFile || pathModule.resolve(projectRootDir, './reframe.config.js');
@@ -368,29 +381,6 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
         }
     }
 
-    function handleDeps({fileContentOld, ejecteePackageName}) {
-        let fileContentNew = fileContentOld;
-        const fileDeps = {};
-
-        detective(fileContentOld)
-        .map(requireString => {
-            if( ! requireString.startsWith('.') ) {
-                return requireString;
-            }
-            const requireString__new = pathModule.join(ejecteePackageName, requireString);
-            fileContentNew = fileContentNew.replace(requireString, requireString__new);
-            return requireString__new;
-        })
-        .forEach(requireString => {
-            const pkgName = getPackageName(requireString);
-            if( builtins.includes(pkgName) ) {
-                return;
-            }
-            fileDeps[pkgName] = true;
-        });
-
-        return {fileDeps, fileContentNew};
-    }
     function getPackageName(requireString) {
         const parts = requireString.split(pathModule.sep);
         if( parts[0].startsWith('@') && pathModule.sep==='/' ) {
