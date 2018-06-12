@@ -115,7 +115,6 @@ function generateConfigCode() {
     */
 
     lines.push(
-        "",
         "})();",
     );
 

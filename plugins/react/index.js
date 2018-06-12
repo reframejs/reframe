@@ -12,7 +12,7 @@ module.exports = {
     renderToHtmlFile,
 
     renderToDomFile,
-    browserConfig: ['renderToDomFile'],
+    browserConfigs: ['renderToDomFile'],
 
     webpackBrowserConfig,
     webpackNodejsConfig,

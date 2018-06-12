@@ -8,7 +8,7 @@ module.exports = {
     nodejsViewWrapperFile: require.resolve('./nodejsViewWrapper'),
 
     browserViewWrapperFile: require.resolve('./browserViewWrapper'),
-    browserConfigFiles: [
+    browserConfigs: [
         {
             configPath: 'browserViewWrapperFile',
             configIsList: true,

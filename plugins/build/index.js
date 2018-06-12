@@ -80,26 +80,26 @@ function getBrowserConfigs(configParts) {
 
     const configPaths = {};
     configParts.forEach(configPart => {
-        (configPart.browserConfigFiles||[])
+        (configPart.browserConfigs||[])
         .forEach(browserConfigSpec => {
             if( browserConfigSpec.constructor === String ) {
                 browserConfigSpec = {
-                    configPath = browserConfigSpec,
+                    configPath: browserConfigSpec,
                 };
             }
-            assert_plugin(spec.configPath);
-            configPaths[spec.configPath] = spec;
+            assert_plugin(browserConfigSpec.configPath);
+            configPaths[browserConfigSpec.configPath] = browserConfigSpec;
         });
     });
 
     const browserConfigs = (
         Object.values(configPaths)
-        .forEach(({configPath, configIsList}) => {
+        .map(({configPath, configIsList}) => {
             const suffix = 'File';
-            assert_plugin(spec.configPath.endsWith(suffix));
-            const configName = spec.configPath.slice(0, -suffix.length) + (configIsList ? 's' : '');
+            assert_plugin(configPath.endsWith(suffix));
+            const configName = configPath.slice(0, -suffix.length) + (configIsList ? 's' : '');
 
-            assert_plugin(!spec.configPath.includes('.'));
+            assert_plugin(!configPath.includes('.'));
 
             const configFile = (() => {
                 if( configIsList ) return null;

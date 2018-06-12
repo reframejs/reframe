@@ -6,4 +6,5 @@ module.exports = {
     $name,
     $getters,
     routerFile,
+    browserConfigs: ['routerFile'],
 };

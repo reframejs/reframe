@@ -2,5 +2,6 @@ const {transparentGetter, requireFileGetter} = require('@brillout/reconfig/gette
 
 module.exports = [
     requireFileGetter('renderToHtmlFile', 'renderToHtml'),
+    // TODO remove browser config file transparent getters
     transparentGetter('renderToDomFile'),
 ];
