@@ -167,8 +167,8 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
         detective(fileContent)
         .forEach(requireString => {
             if( requireString.startsWith('.') ) {
-                const oldFilePath__dependee = require.resolve(pathModule.resolve(oldFilePath, requireString));
-                const newFilePath__dependee = pathModule.resolve(newFilePath, path.relative(oldFilePath, oldFilePath__dependee));
+                const oldFilePath__dependee = require.resolve(pathModule.resolve(pathModule.dirname(oldFilePath), requireString));
+                const newFilePath__dependee = pathModule.resolve(newFilePath, pathModule.relative(oldFilePath, oldFilePath__dependee));
 
                 addCopySpec({oldFilePath: oldFilePath__dependee, newFilePath: newFilePath__dependee, copySpecs, deps});
             } else {
@@ -180,7 +180,9 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
             }
         });
 
-        copySpecs.push({newFilePath, fileContent});
+        if( ! copySpecs.find(copySpec => copySpec.newFilePath===newFilePath) ) {
+            copySpecs.push({newFilePath, fileContent});
+        }
     }
 
     function getConfigChanges(ejectableSpec) {
