@@ -149,9 +149,9 @@ function getEjectables() {
             configIsList: true,
             listElementKeyProp: 'name',
             listElementKey: httpRequestHandlerName,
-            newConfigValue: ({copyFile, oldConfigValue}) => ({
+            newConfigValue: ({copyCode, oldConfigValue}) => ({
                 ...oldConfigValue,
-                handlerFile: copyFile(oldConfigValue.handlerFile),
+                handlerFile: copyCode(oldConfigValue.handlerFile),
             }),
         };
     }

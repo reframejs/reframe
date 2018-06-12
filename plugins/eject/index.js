@@ -264,14 +264,14 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
 
         let oldFilePath;
         let newFilePath;
-        const newVal = newConfigValue({copyFile, oldConfigValue: oldValue});
+        const newVal = newConfigValue({copyCode, oldConfigValue: oldValue});
         assert_internal(pathModule.isAbsolute(oldFilePath));
 
         assert_usage(newConfigValue.constructor!==String || !newConfigValue.includes('PROJECT_ROOT'));
 
         return newConfigValue;
 
-        function copyFile(oldFilePath_) {
+        function copyCode(oldFilePath_) {
             oldFilePath = oldFilePath_;
             assert_usage(oldFilePath && oldFilePath.constructor===String && pathModule.isAbsolute(oldFilePath));
             const newFilePathRelative = (
