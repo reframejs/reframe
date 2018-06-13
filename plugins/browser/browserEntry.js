@@ -1,7 +1,7 @@
 import browserConfig from '@brillout/browser-config';
 
-runBrowserCode();
+initBrowser();
 
-async function runBrowserCode() {
+async function initBrowser() {
     await browserConfig.hydratePage();
 }
