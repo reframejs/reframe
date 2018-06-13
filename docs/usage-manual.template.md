@@ -26,8 +26,9 @@
     - [Renderer](#customization-rendering-renderer)
 
  - Browser
-    - [Default Browser Entry]()
+    - [Default Browser Entry](#customization-browser-default-browser-entry)
     - [Page Browser Entry]()
+    - [Full]()
 
  - Routing
     - [Routing](#routing)
@@ -425,9 +426,22 @@ Running `$reframe eject browser` ejects the following code.
 
 ## Customization - Browser - Page Browser Entry
 
+You can customize the browser entry code for a single page
+without affecting the browser entry code of the other pages.
+
+You do this by setting the page config option `browserEntry`.
+For example:
+
+~~~js
+!INLINE ../examples/custom-browser/pages/custom-hydration.config.js
+~~~
+
+You can see the example in full and other examples at [/examples/custom-browser](/examples/custom-browser).
+
 ## Customization - Browser - Full
 
-You can as well eject the code that hydrates the page by running `$reframe eject browser-hydration`.
+You can as well eject the code that orchestrates the hydration of the page by running `$ reframe eject browser-hydration`.
+Note that if you want to customize the rendering process itself you should run `$ reframe eject renderer` instead.
 
 You can also eject the code that generates the browser entry for each page when building by running `$ reframe eject build-entries`.
 
@@ -512,7 +526,7 @@ We refer to the source code of the plugin [`@reframe/crossroads`](/plugins/cross
 
 
 
-## Build
+## Customization - Build - Full
 
 Run `reframe eject build` to eject the overall build code.
 
