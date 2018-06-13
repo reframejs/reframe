@@ -385,10 +385,7 @@ See the [Customization - Rendering - Renderer](#customization-rendering-renderer
 
 
 
-<h2>Customization - Rendering - Renderer &nbsp; &nbsp; [<sup>:top:</sup>](#customization)</h2>
-
-
-## Customization - Rendering - Renderer &nbsp; &nbsp; [<sup>:top:</sup>](#customization)
+## Customization - Rendering - Renderer &nbsp; [<sup><sub>:top:</sub></sup>](#customization)
 
 By default Reframe renders the `view` property of your page configs with React.
 
