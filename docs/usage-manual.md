@@ -434,7 +434,7 @@ will copy the following file to your codebase.
 // /plugins/hapi/start.js
 
 const Hapi = require('hapi');
-const ConfigHandlers = require('./ConfigHandlers');
+const config = require('@brillout/reconfig').getConfig({configFileName: 'reframe.config.js'});
 const {symbolSuccess, colorEmphasis} = require('@brillout/cli-theme');
 
 module.exports = start();
@@ -445,12 +445,8 @@ async function start() {
         debug: {request: ['internal']},
     });
 
-    // `ConfigHandlers` applies the request handlers defined in the config.
-    // (E.g. the `@reframe/server` plugin adds request handlers to the config
-    // that serve your pages' HTMLs and that serve your static assets.)
-    // Run the eject command `$ reframe eject hapi` to eject the entire hapi code.
-    // You will then be able to use any other web framework such as Express.
-    await server.register(ConfigHandlers);
+    // Run `$ reframe eject hapi` to eject the integration plugin.
+    await server.register(config.hapiIntegrationPlugin);
 
     await server.start();
 
@@ -814,24 +810,21 @@ It will copy the following file to your codebase.
 const Build = require('webpack-ssr/Build');
 const watchDir = require('webpack-ssr/watchDir');
 
-const getPageBrowserEntries = require('./getPageBrowserEntries');
-const getPageHTMLs = require('./getPageHTMLs');
+const projectConfig = require('@brillout/reconfig').getConfig({configFileName: 'reframe.config.js'});
 
-const reconfig = require('@brillout/reconfig');
-const reframeConfig = reconfig.getConfig({configFileName: 'reframe.config.js'});
-
-const outputDir = reframeConfig.projectFiles.buildOutputDir;
-const getPageFiles = () => reframeConfig.getPageConfigFiles();
-const getWebpackBrowserConfig = ({config, ...utils}) => reframeConfig.webpackBrowserConfigModifier({config, ...utils});
-const getWebpackNodejsConfig = ({config, ...utils}) => reframeConfig.webpackNodejsConfigModifier({config, ...utils});
-const {log, doNotWatchBuildFiles} = reframeConfig;
-const {pagesDir} = reframeConfig.projectFiles;
+const outputDir = projectConfig.projectFiles.buildOutputDir;
+const getPageFiles = () => projectConfig.getPageConfigFiles();
+const getWebpackBrowserConfig = ({config, ...utils}) => projectConfig.webpackBrowserConfigModifier({config, ...utils});
+const getWebpackNodejsConfig = ({config, ...utils}) => projectConfig.webpackNodejsConfigModifier({config, ...utils});
+const {log, doNotWatchBuildFiles} = projectConfig;
+const {pagesDir} = projectConfig.projectFiles;
+const {getPageHtmls, getPageBrowserEntries} = projectConfig;
 
 const build = new Build({
     outputDir,
     getPageFiles,
     getPageBrowserEntries,
-    getPageHTMLs,
+    getPageHtmls,
     getWebpackBrowserConfig,
     getWebpackNodejsConfig,
     log,
@@ -843,7 +836,7 @@ watchDir(pagesDir, () => {build()});
 module.exports = build();
 ~~~
 
-Run `reframe eject build-static-rendering` to eject `getPageHTMLs()` to gain control over the HTML rendering of your HTML-static pages. (That is pages with `htmlStatic: true` in their page configs.)
+Run `reframe eject build-static-rendering` to eject `getPageHtmls()` to gain control over the HTML rendering of your HTML-static pages. (That is pages with `htmlStatic: true` in their page configs.)
 
 And run `reframe eject build-browser-entries` to eject `getPageBrowserEntries()` to gain control over the browser entry code of your pages.
 
@@ -862,18 +855,19 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 ## Static Deploy
 
-If you are app is html-static then you can deploy it to a static host.
+If you are app is html-static, you can deploy it to a static host.
 
-The `$ reframe deploy-static` command will then automatically deploy your app.
+The `$ reframe deploy-static` command will automatically deploy your app.
 It works with any static host that integrates with Git such as
 [Netlify](https://www.netlify.com/) or
 [GitHub Pages](https://pages.github.com/).
 
-Your app is html-static and can be statically deployed if all your page configs have `htmlStatic: true`.
+Your app is html-static when all your page configs have `htmlStatic: true`.
 In that case,
 all HTMLs are rendered at build-time,
 your app consists of static assets only,
-and no Node.js server is required.
+no Node.js server is required,
+and your app can be statically deployed.
 
 The static assets are located in the `dist/browser/` directory.
 

@@ -196,25 +196,25 @@ This means that you can start writing your prototype and decide only at a later 
   To use an ORM (such as [TypeORM](https://github.com/typeorm/typeorm)) you will have to create API endpoints yourself.
   But the Reframe devS are currently designing ways so that you can access your data from the frontend without having to create API endpoints yourself.
   <br/>
-  Work-in-progress. ([Follow Reframe on Twitter](https://twitter.com/reframejs) to get updates.)
+  Work-in-progress. (Follow [twitter.com/reframejs](https://twitter.com/reframejs) to get updates.)
   <br/>
 - **User Mangement** [WIP]
   <br/>
   Once Reframe integrates with ORMs, Reframe will be able to take care of user management.
   <br/>
-  Work-in-progress. ([Follow Reframe on Twitter](https://twitter.com/reframejs) to get updates.)
+  Work-in-progress. (Follow [twitter.com/reframejs](https://twitter.com/reframejs) to get updates.)
 - **Easy Deploy** [WIP]
   <br/>
   If your app is static you can easily deploy it by using `$ reframe deploy-static`.
   (Supports all static hosts that have git integration such as GitHub Pages, Netlify, Firebase, etc.)
   <br/>
-  Also, Reframe is exploring ways to automatically deploy apps
-  with serverless services such as AWS Lambda and
+  Also, Reframe is exploring ways to deploy
+  to serverless services such as AWS Lambda and
   serverless databases such as AWS DynamoDB or Google Cloud Datastore.
   <br/>
   This will eventually mean that the entire deployment and scaling is done for you.
   <br/>
-  Work-in-progress. ([Follow Reframe on Twitter](https://twitter.com/reframejs) to get updates.)
+  Work-in-progress. (Follow [twitter.com/reframejs](https://twitter.com/reframejs) to get updates.)
 
 
 ###### SEO

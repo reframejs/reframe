@@ -498,18 +498,19 @@ And run `reframe eject build-browser-entries` to eject `getPageBrowserEntries()`
 
 ## Static Deploy
 
-If you are app is html-static then you can deploy it to a static host.
+If you are app is html-static, you can deploy it to a static host.
 
-The `$ reframe deploy-static` command will then automatically deploy your app.
+The `$ reframe deploy-static` command will automatically deploy your app.
 It works with any static host that integrates with Git such as
 [Netlify](https://www.netlify.com/) or
 [GitHub Pages](https://pages.github.com/).
 
-Your app is html-static and can be statically deployed if all your page configs have `htmlStatic: true`.
+Your app is html-static when all your page configs have `htmlStatic: true`.
 In that case,
 all HTMLs are rendered at build-time,
 your app consists of static assets only,
-and no Node.js server is required.
+no Node.js server is required,
+and your app can be statically deployed.
 
 The static assets are located in the `dist/browser/` directory.
 
