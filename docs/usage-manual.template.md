@@ -409,7 +409,7 @@ Ejecting the React renderer will copy the following code to your codebase.
 
 
 
-## Customization - Browser - Default Browser Entry
+## Customization - Browser - Default Browser Entry !INLINE ./top-link.md #customization
 
 You can customize the browser entry code by running `$reframe eject browser`.
 
@@ -424,7 +424,7 @@ Running `$reframe eject browser` ejects the following code.
 !INLINE ../plugins/browser/browserEntry.js
 ~~~
 
-## Customization - Browser - Page Browser Entry
+## Customization - Browser - Page Browser Entry !INLINE ./top-link.md #customization
 
 You can customize the browser entry code for a single page
 without affecting the browser entry code of the other pages.
@@ -438,7 +438,7 @@ For example:
 
 You can see the example in full and other examples at [/examples/custom-browser](/examples/custom-browser).
 
-## Customization - Browser - Full
+## Customization - Browser - Full !INLINE ./top-link.md #customization
 
 You can as well eject the code that orchestrates the hydration of the page by running `$ reframe eject browser-hydration`.
 Note that if you want to customize the rendering process itself you should run `$ reframe eject renderer` instead.
@@ -528,7 +528,7 @@ We refer to the source code of the plugin [`@reframe/crossroads`](/plugins/cross
 
 
 
-## Customization - Build - Full
+## Customization - Build - Full !INLINE ./top-link.md #customization
 
 Run `reframe eject build` to eject the overall build code.
 

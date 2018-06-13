@@ -197,7 +197,7 @@
 
 
 
-## Getting Started &nbsp; [<sub><sup>:top:</sup></sub>](#basics)
+## Getting Started &nbsp; [<sup><sub>:top:</sub></sup>](#basics)
 
 1. Install the Reframe CLI.
    ~~~shell
@@ -225,7 +225,7 @@
 
 
 
-## CSS & Static Assets &nbsp; [<sub><sup>:top:</sup></sub>](#basics)
+## CSS & Static Assets &nbsp; [<sup><sub>:top:</sub></sup>](#basics)
 
 A CSS file can be loaded and applied by importing it.
 
@@ -272,7 +272,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-## Data Loading &nbsp; [<sub><sup>:top:</sup></sub>](#basics)
+## Data Loading &nbsp; [<sup><sub>:top:</sub></sup>](#basics)
 
 A page config can be set a function `async getInitialProps()` that Reframe calls every time before the view is rendered.
 (On both the server and in the browser.)
@@ -322,7 +322,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-## Page Navigation & Links &nbsp; [<sub><sup>:top:</sup></sub>](#basics)
+## Page Navigation & Links &nbsp; [<sup><sub>:top:</sub></sup>](#basics)
 
 The standard way to navigate between pages is to use the HTML link tag `<a>`.
 
@@ -368,7 +368,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-## `domStatic` & `htmlStatic` &nbsp; [<sub><sup>:top:</sup></sub>](#basics)
+## `domStatic` & `htmlStatic` &nbsp; [<sup><sub>:top:</sub></sup>](#basics)
 
 By default, a page is rendered twice:
 On the server (to HTML) and in the browser (to the DOM).
@@ -429,7 +429,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-## Customization - Server - Basic &nbsp; [<sub><sup>:top:</sup></sub>](#customization)
+## Customization - Server - Basic &nbsp; [<sup><sub>:top:</sub></sup>](#customization)
 
 By default, Reframe creates a server with the web framework hapi ([hapijs.com](https://hapijs.com/)).
 
@@ -483,7 +483,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-## Customization - Server - Full &nbsp; [<sub><sup>:top:</sup></sub>](#customization)
+## Customization - Server - Full &nbsp; [<sup><sub>:top:</sub></sup>](#customization)
 
 ###### Custom web framework
 
@@ -518,7 +518,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-## Webpack &nbsp; [<sub><sup>:top:</sup></sub>](#customization)
+## Webpack &nbsp; [<sup><sub>:top:</sub></sup>](#customization)
 
 Save a `reframe.config.js` file at your app's root directory and use the `webpackBrowserConfig` and/or `webpackNodejsConfig` configurations.
 
@@ -576,7 +576,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-## Babel &nbsp; [<sub><sup>:top:</sup></sub>](#customization)
+## Babel &nbsp; [<sup><sub>:top:</sub></sup>](#customization)
 
 You can customize the babel config by creating a `.babelrc` file.
 
@@ -595,7 +595,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-## Customization - Rendering - HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ... &nbsp; [<sub><sup>:top:</sup></sub>](#customization)
+## Customization - Rendering - HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ... &nbsp; [<sup><sub>:top:</sub></sup>](#customization)
 
 Reframe uses [`@brillout/index-html`](https://github.com/brillout/index-html) to generate HTML.
 
@@ -709,7 +709,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-## Customization - Rendering - Renderer &nbsp; [<sub><sup>:top:</sup></sub>](#customization)
+## Customization - Rendering - Renderer &nbsp; [<sup><sub>:top:</sub></sup>](#customization)
 
 By default Reframe renders the `view` property of your page configs with React.
 
@@ -806,7 +806,7 @@ function applyViewWrappers({reactElement, initialProps, viewWrappers=[]}) {
 
 
 
-## Customization - Browser - Default Browser Entry
+## Customization - Browser - Default Browser Entry &nbsp; [<sup><sub>:top:</sub></sup>](#customization)
 
 You can customize the browser entry code by running `$reframe eject browser`.
 
@@ -829,7 +829,7 @@ async function initBrowser() {
 }
 ~~~
 
-## Customization - Browser - Page Browser Entry
+## Customization - Browser - Page Browser Entry &nbsp; [<sup><sub>:top:</sub></sup>](#customization)
 
 You can customize the browser entry code for a single page
 without affecting the browser entry code of the other pages.
@@ -868,7 +868,7 @@ export default {
 
 You can see the example in full and other examples at [/examples/custom-browser](/examples/custom-browser).
 
-## Customization - Browser - Full
+## Customization - Browser - Full &nbsp; [<sup><sub>:top:</sub></sup>](#customization)
 
 You can as well eject the code that orchestrates the hydration of the page by running `$ reframe eject browser-hydration`.
 Note that if you want to customize the rendering process itself you should run `$ reframe eject renderer` instead.
@@ -963,7 +963,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-## Customization - Build - Full
+## Customization - Build - Full &nbsp; [<sup><sub>:top:</sub></sup>](#customization)
 
 Run `reframe eject build` to eject the overall build code.
 
@@ -1018,7 +1018,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-## Static Deploy &nbsp; [<sub><sup>:top:</sup></sub>](#use-cases)
+## Static Deploy &nbsp; [<sup><sub>:top:</sub></sup>](#use-cases)
 
 If you are app is html-static, you can deploy it to a static host.
 
@@ -1046,7 +1046,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-## Serverless Deploy &nbsp; [<sub><sup>:top:</sup></sub>](#use-cases)
+## Serverless Deploy &nbsp; [<sup><sub>:top:</sub></sup>](#use-cases)
 
 If your app is stateless we then recommand serverless deployment.
 
@@ -1067,7 +1067,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-## Vue &nbsp; [<sub><sup>:top:</sup></sub>](#use-cases)
+## Vue &nbsp; [<sup><sub>:top:</sub></sup>](#use-cases)
 
 You can also use Reframe with Vue instead of React.
 
@@ -1080,7 +1080,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 <br/>
 <br/>
 
-## React Router &nbsp; [<sub><sup>:top:</sup></sub>](#use-cases)
+## React Router &nbsp; [<sup><sub>:top:</sub></sup>](#use-cases)
 
 You can use the React Router components by adding the [@reframe/react-router](/plugins/react-router) plugin.
 
@@ -1091,7 +1091,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 <br/>
 <br/>
 
-## TypeScript &nbsp; [<sub><sup>:top:</sup></sub>](#use-cases)
+## TypeScript &nbsp; [<sup><sub>:top:</sub></sup>](#use-cases)
 
 You can write your app with TypeScript by adding the [@reframe/typescript](/plugins/typescript) plugin.
 
@@ -1102,7 +1102,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 <br/>
 <br/>
 
-## PostCSS &nbsp; [<sub><sup>:top:</sup></sub>](#use-cases)
+## PostCSS &nbsp; [<sup><sub>:top:</sub></sup>](#use-cases)
 
 You can write your styles with PostCSS by adding the [@reframe/postcss](/plugins/postcss) plugin.
 
@@ -1116,7 +1116,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-## React Native (Web) &nbsp; [<sub><sup>:top:</sup></sub>](#use-cases)
+## React Native (Web) &nbsp; [<sup><sub>:top:</sub></sup>](#use-cases)
 
 If you want an app on the web and on mobile,
 you may consider create a web app with Reframe and [React Native Web](https://github.com/necolas/react-native-web)
@@ -1141,7 +1141,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-## React Native (Web) + React Router &nbsp; [<sub><sup>:top:</sup></sub>](#use-cases)
+## React Native (Web) + React Router &nbsp; [<sup><sub>:top:</sub></sup>](#use-cases)
 
 As mentioned in the previous section you can use Reframe + React Native Web to share code with your React Native mobile app.
 

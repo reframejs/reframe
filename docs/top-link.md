@@ -1,1 +1,1 @@
-&nbsp; [<sub><sup>:top:</sup></sub>](!ARGUMENT-1)
+&nbsp; [<sup><sub>:top:</sub></sup>](!ARGUMENT-1)
