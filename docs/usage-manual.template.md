@@ -450,6 +450,10 @@ For example:
 !INLINE ../examples/custom-browser/pages/custom-hydration.config.js
 ~~~
 
+~~~js
+!INLINE ../examples/custom-browser/pages/custom-hydration.js
+~~~
+
 You can see the example in full and other examples at [/examples/custom-browser](/examples/custom-browser).
 
 !INLINE ./help.md --hide-source-path

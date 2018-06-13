@@ -890,6 +890,17 @@ export default {
 };
 ~~~
 
+~~~js
+// /examples/custom-browser/pages/custom-hydration.js
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+import TimeComponent from '../../basics/views/TimeComponent';
+
+ReactDOM.hydrate(<TimeComponent/>, document.getElementById('time-hook'));
+~~~
+
 You can see the example in full and other examples at [/examples/custom-browser](/examples/custom-browser).
 
 <br/>
