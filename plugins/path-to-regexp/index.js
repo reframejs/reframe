@@ -7,4 +7,17 @@ module.exports = {
     $getters,
     routerFile,
     browserConfigs: ['routerFile'],
+    ejectables: [
+        {
+            name: 'router',
+            description: 'Eject the `@reframe/path-to-regepx` router.',
+            actions: [
+                {
+                    targetDir: 'router/',
+                    configIsFilePath: true,
+                    configPath: 'routerFile',
+                },
+            ],
+        },
+    ],
 };
