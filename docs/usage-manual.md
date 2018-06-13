@@ -154,19 +154,28 @@
 
 #### Customization
 
- - [Server](#server)
- - [Webpack](#webpack)
- - [Babel](#babel)
- - [HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ...](#html-head-meta-html-)
- - [Routing](#routing)
- - [Build](#build)
-<!--- TODO
- - [Error Pages (404, 5xx, ...)](#error-pages-404-5xx-)
- - [Browser Code](#browser-code)
--->
+ - Server
+    - [Basic](#customization-server-basic)
+    - [Full](#customization-server-full)
+
+ - Rendering
+    - [HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ...](#customization-rendering-html-head-meta-html-)
+    - [Renderer](#customization-rendering-renderer)
+
+ - Browser
+    - [Default Browser Entry](#customization-browser-default-browser-entry)
+    - [Page Browser Entry]()
+    - [Full]()
+
+ - Routing
+    - [Routing](#routing)
+
+ - Build
+    - [Webpack](#webpack)
+    - [Babel](#babel)
+    - [Full](#customization-build-full)
 
 #### Use Cases
-
 
  - Deploy
     - [Static Deploy](#static-deploy)
@@ -420,15 +429,22 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-## Server
+## Customization - Server - Basic
 
-Running the command
+By default, Reframe creates a server with the web framework hapi ([hapijs.com](https://hapijs.com/)).
 
-~~~shell
-$ reframe eject server
-~~~
+You can customize the hapi server by ejecting it with `$ reframe eject server`.
 
-will copy the following file to your codebase.
+We encourage you to eject the server and you should if you want to
+ - Add custom routes
+ - Add API endpoints
+ - Add authentication endpoints
+ - Use a process manager such as PM2
+ - etc.
+
+See [Customization - Server - Advanced](#customization-server-basic) if you want to further customize the server.
+
+Running `$ reframe eject server` will copy the following code to your codebase.
 
 ~~~js
 // /plugins/hapi/start.js
@@ -457,26 +473,39 @@ async function start() {
 }
 ~~~
 
-At this point you can:
- - Add custom routes
- - Add API endpoints
- - Add authentication endpoints
- - Use another server framework such as Express
- - Use a process manager such as PM2
+<br/>
 
-The following command ejects the `HapiPluginServerRendering` plugin to gain control over the Server Side Rendering (the dynamic generation of the pages' HTML)
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 
-~~~shell
-$ reframe eject server-rendering
-~~~
+<br/>
+<br/>
 
-And run
 
-~~~shell
-$ reframe eject server-assets
-~~~
 
-to eject the `HapiPluginStaticAssets` plugin and to gain control over the serving of static browser assets. (JavaScript files, CSS files, images, fonts, etc.)
+
+## Customization - Server - Full
+
+###### Custom web framework
+
+The code ejected by `$ reframe eject server`
+creates the hapi server and adds a
+hapi plugin that is responsible for the hapi <-> Reframe integration.
+This plugin can be ejected with `$ reframe eject server-integration`.
+Ejecting it is uncommon and chances are that you will never have to.
+But if you want to use another web framework instead of hapi then you'll need to eject it.
+
+###### Full control
+
+The server-side rendering (the dynamic generation of the pages' HTMLs)
+and the serving of static browser assets (JavaScript files, CSS files, images, fonts, etc.)
+are implemented by the `@reframe/server` plugin.
+The plugin is agnostic and can be used with any web framework.
+
+You can take full control the server-side rendering by running `$ reframe eject server-rendering`.
+
+And you can take full control over the static assets servering by running `$ reframe eject server-assets`.
+
+If you eject all server ejectables then every server LOC is in your codebase and you have full control over the server logic.
 
 <br/>
 
@@ -484,6 +513,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 <br/>
 <br/>
+
 
 
 
@@ -565,7 +595,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-## HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ...
+## Customization - Rendering - HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ...
 
 Reframe uses [`@brillout/index-html`](https://github.com/brillout/index-html) to generate HTML.
 
@@ -666,6 +696,9 @@ See [`@brillout/index-html`'s documentation](https://github.com/brillout/index-h
 Example:
  - [/examples/custom-head](/examples/custom-head)
 
+If you want to use something else than `@brillout/index-html`, then you can eject the renderer.
+See the [Customization - Rendering - Renderer](#customization-rendering-renderer) section.
+
 <br/>
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
@@ -676,19 +709,171 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
+## Customization - Rendering - Renderer [:top:](#usage-manual)
+
+By default Reframe renders the `view` property of your page configs with React.
+
+But you can fully customize how your views are rendered.
+
+Either use another plugin in the [list of renderer plugins](/docs/plugins.md#renderers) or eject the renderer with `$ reframe eject renderer`.
+
+When ejecting the renderer, you have full control over the rendering of your views.
+
+Ejecting the React renderer will copy the following code to your codebase.
+
+~~~js
+// /plugins/react/renderToHtml.js
+
+const React = require('react');
+const ReactDOMServer = require('react-dom/server');
+const generateHtml = require('@brillout/index-html');
+const config = require('@brillout/reconfig').getConfig({configFileName: 'reframe.config.js'});
+const {CONTAINER_ID, getReactElement} = require('./common');
+
+module.exports = renderToHtml;
+
+async function renderToHtml({pageConfig, initialProps}) {
+    const reactElement = getReactElement({
+        pageConfig,
+        initialProps,
+        viewWrappers: config.nodejsViewWrappers,
+    });
+
+    const contentHtml = ReactDOMServer.renderToStaticMarkup(reactElement);
+
+    const html = renderHtmlDocument(contentHtml, pageConfig);
+
+    return html;
+}
+
+function renderHtmlDocument(contentHtml, pageConfig) {
+    const htmlOptions = Object.assign({bodyHtmls: []}, pageConfig);
+    htmlOptions.bodyHtmls.push('<div id="'+CONTAINER_ID+'">'+contentHtml+'</div>');
+
+    const html = generateHtml(htmlOptions);
+
+    return html;
+}
+~~~
+~~~js
+// /plugins/react/renderToDom.js
+
+const ReactDOM = require('react-dom');
+const browserConfig = require('@brillout/browser-config');
+const {CONTAINER_ID, getReactElement} = require('./common');
+
+module.exports = renderToDom;
+
+async function renderToDom({pageConfig, initialProps}) {
+    const reactElement = getReactElement({
+        pageConfig,
+        initialProps,
+        viewWrappers: browserConfig.browserViewWrappers,
+    });
+
+    const container = document.getElementById(CONTAINER_ID);
+
+    ReactDOM.hydrate(reactElement, container);
+}
+~~~
+~~~js
+// /plugins/react/common.js
+
+const React = require('react');
+
+module.exports = {
+    CONTAINER_ID: 'root-react',
+    getReactElement,
+};
+
+function getReactElement({pageConfig, initialProps, viewWrappers}) {
+    let reactElement = React.createElement(pageConfig.view, initialProps);
+    reactElement = applyViewWrappers({reactElement, initialProps, viewWrappers});
+    return reactElement;
+}
+
+// Apply view wrappers.
+// E.g. the `@reframe/react-router` plugin adds a view wrapper to add
+// the provider-components `<BrowserRouter>` and `<StaticRouter>`.
+function applyViewWrappers({reactElement, initialProps, viewWrappers=[]}) {
+    viewWrappers
+    .forEach(viewWrapper => {
+        reactElement = viewWrapper(reactElement, initialProps);
+    });
+    return reactElement;
+}
+~~~
 
 
 
-<!--- TODO
-## Browser Code
+## Customization - Browser - Default Browser Entry
 
-TODO
--->
+You can customize the browser entry code by running `$reframe eject browser`.
 
+We encourage you to do so and you should if you want to:
+  - Initialize user tracking such as Google Analytics
+  - Initialize error tracking such as Sentry
+  - etc.
 
+Running `$reframe eject browser` ejects the following code.
 
+~~~js
+// /plugins/browser/browserEntry.js
 
+import browserConfig from '@brillout/browser-config';
 
+initBrowser();
+
+async function initBrowser() {
+    await browserConfig.hydratePage();
+}
+~~~
+
+## Customization - Browser - Page Browser Entry
+
+You can customize the browser entry code for a single page
+without affecting the browser entry code of the other pages.
+
+You do this by setting the page config option `browserEntry`.
+For example:
+
+~~~js
+// /examples/custom-browser/pages/custom-hydration.config.js
+
+import React from 'react';
+import TimeComponent from '../../basics/views/TimeComponent';
+
+export default {
+    route: '/custom-hydration',
+    browserEntry: {
+        pathToEntry: './custom-hydration.js',
+        doNotIncludePageConfig: true,
+        doNotInlcudeBrowserConfig: true,
+    },
+    view: () => (
+        <div>
+            <div>
+                Some static stuff.
+            </div>
+            <div>
+                Current Time:
+                <span id="time-hook">
+                    <TimeComponent/>
+                </span>
+            </div>
+        </div>
+    ),
+};
+~~~
+
+You can see the example in full and other examples at [/examples/custom-browser](/examples/custom-browser).
+
+## Customization - Browser - Full
+
+You can as well eject the code that orchestrates the hydration of the page by running `$ reframe eject browser-hydration`.
+Note that if you want to customize the rendering process itself you should run `$ reframe eject renderer` instead.
+
+You can also eject the code that generates the browser entry for each page when building by running `$ reframe eject build-entries`.
 
 
 ## Routing
@@ -771,34 +956,12 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-<!--- TODO
-## Error Pages (404, 5xx, ...)
-
-TODO
-
-A 404 page can be implemented by using a catch-all route:
-
-~~~js
-import React from 'react';
-
-export default {
-    route: '/:params*',
-    title: 'Not Found',
-    view: props => (
-        <div>
-            The page {props.route.url.pathname} does not seem to exist.
-        </div>
-    ),
-};
-~~~
--->
 
 
 
 
 
-
-## Build
+## Customization - Build - Full
 
 Run `reframe eject build` to eject the overall build code.
 
