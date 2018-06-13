@@ -385,7 +385,7 @@ See the [Customization - Rendering - Renderer](#customization-rendering-renderer
 
 
 
-## Customization - Rendering - Renderer &nbsp; [<sub><sup>:top:</sup></sub>](#customization)
+## Customization - Rendering - Renderer !INLINE ./top-link.md
 
 By default Reframe renders the `view` property of your page configs with React.
 
