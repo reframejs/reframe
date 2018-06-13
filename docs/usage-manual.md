@@ -717,6 +717,10 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 ## Customization - Rendering - Renderer &nbsp; [<sup><sub>:top:</sub></sup>](#customization)
 
+## Customization - Rendering - Renderer &nbsp; [<sup><sub><sub>:top:</sub></sub></sup>](#customization)
+
+## Customization - Rendering - Renderer &nbsp; [<sup>:top:</sup>](#customization)
+
 By default Reframe renders the `view` property of your page configs with React.
 
 But you can fully customize how your views are rendered.
