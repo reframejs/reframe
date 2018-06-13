@@ -17,19 +17,27 @@
 
 #### Customization
 
- - [Server](#server)
- - [Webpack](#webpack)
- - [Babel](#babel)
- - [HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ...](#html-head-meta-html-)
- - [Routing](#routing)
- - [Build](#build)
-<!--- TODO
- - [Error Pages (404, 5xx, ...)](#error-pages-404-5xx-)
- - [Browser Code](#browser-code)
--->
+ - Server
+    - [Basic](#customization-server-basic)
+    - [Full](#customization-server-basic)
+
+ - Rendering
+    - [HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ...](#html-head-meta-html-)
+    - [Renderer](#renderer)
+
+ - Browser
+    - [Default Browser Entry]()
+    - [Page Browser Entry]()
+
+ - Routing
+    - [Routing](#routing)
+
+ - Build
+    - [Webpack](#webpack)
+    - [Babel](#babel)
+    - [Full](#customization-build-full)
 
 #### Use Cases
-
 
  - Deploy
     - [Static Deploy](#static-deploy)
@@ -209,42 +217,45 @@ By adding `htmlStatic: true` to its page config, the page is rendered to HTML at
 
 
 
-## Server
+## Customization - Server - Basic
 
-Running the command
+By default, Reframe creates a server with the web framework hapi ([hapijs.com](https://hapijs.com/)).
 
-~~~shell
-$ reframe eject server
-~~~
+You can customize the hapi server by ejecting it with `$ reframe eject server`.
 
-will copy the following file to your codebase.
-
-~~~js
-!INLINE ../plugins/hapi/start.js
-~~~
-
-At this point you can:
+We encourage you eject the server and you should do so if you want to
  - Add custom routes
  - Add API endpoints
  - Add authentication endpoints
  - Use another server framework such as Express
  - Use a process manager such as PM2
+ - etc.
 
-The following command ejects the `HapiPluginServerRendering` plugin to gain control over the Server Side Rendering (the dynamic generation of the pages' HTML)
+See [Customization - Server - Advanced](#customization-server-basic) if you want to further customize the server.
 
-~~~shell
-$ reframe eject server-rendering
+Ejecting the server will copy the following code to your codebase.
+
+~~~js
+!INLINE ../plugins/hapi/start.js
 ~~~
-
-And run
-
-~~~shell
-$ reframe eject server-assets
-~~~
-
-to eject the `HapiPluginStaticAssets` plugin and to gain control over the serving of static browser assets. (JavaScript files, CSS files, images, fonts, etc.)
 
 !INLINE ./help.md --hide-source-path
+
+
+
+
+## Customization - Server - Full
+
+If you need further control over the server you can also eject the hapi plugin responsible for the hapi <-> Reframe integration with `$ reframe eject server-integration`.
+Ejecting the server integration is uncommon and chances are that you will never have to.
+But if you want to use another web framework instead of hapi then you'll need to eject it.
+
+You can also take control
+over the Server Side Rendering (the dynamic generation of the pages' HTML) with `$ reframe eject server-rendering` and
+over the serving of static browser assets (JavaScript files, CSS files, images, fonts, etc.) with `$ reframe eject server-assets`.
+
+!INLINE ./help.md --hide-source-path
+
 
 
 
@@ -352,24 +363,35 @@ See [`@brillout/index-html`'s documentation](https://github.com/brillout/index-h
 Example:
  - [/examples/custom-head](/examples/custom-head)
 
+If you want to use something else than `@brillout/index-html`, then you can eject the renderer.
+See the [Customization - Rendering - Renderer](#renderer) section.
+
 !INLINE ./help.md --hide-source-path
 
 
 
 
+## Renderer [:top:](#usage-manual)
 
+By default Reframe renders the `view` property of your page configs with React.
 
+But you can fully customize how your views are rendered.
 
-<!--- TODO
-## Browser Code
+Either use another plugin in the [list of renderer plugins](/docs/plugins.md#renderers) or eject the renderer with `$ reframe eject renderer`.
 
-TODO
--->
+When ejecting the renderer, you have full control over the rendering of your views.
 
+Ejecting the React renderer will copy the following code to your codebase.
 
-
-
-
+~~~js
+!INLINE ../plugins/react/renderToHtml.js
+~~~
+~~~js
+!INLINE ../plugins/react/renderToDom.js
+~~~
+~~~js
+!INLINE ../plugins/react/common.js
+~~~
 
 
 ## Routing
@@ -446,28 +468,6 @@ We refer to the source code of the plugin [`@reframe/crossroads`](/plugins/cross
 !INLINE ./help.md --hide-source-path
 
 
-
-<!--- TODO
-## Error Pages (404, 5xx, ...)
-
-TODO
-
-A 404 page can be implemented by using a catch-all route:
-
-~~~js
-import React from 'react';
-
-export default {
-    route: '/:params*',
-    title: 'Not Found',
-    view: props => (
-        <div>
-            The page {props.route.url.pathname} does not seem to exist.
-        </div>
-    ),
-};
-~~~
--->
 
 
 
