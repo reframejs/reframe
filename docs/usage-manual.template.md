@@ -26,7 +26,7 @@
     - [Renderer](#customization-rendering-renderer)
 
  - Browser
-    - [Default Browser Entry](#customization-browser-default-browser-entry)
+    - [Default Browser Entry](#customization---browser---default-browser-entry)
     - [Page Browser Entry]()
     - [Full]()
 
@@ -385,7 +385,7 @@ See the [Customization - Rendering - Renderer](#customization-rendering-renderer
 
 
 
-## Customization - Rendering - Renderer [:top:](#usage-manual)
+## Customization - Rendering - Renderer &nbsp; &nbsp; [:top:](#customization)
 
 By default Reframe renders the `view` property of your page configs with React.
 
