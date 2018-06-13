@@ -19,11 +19,11 @@
 
  - Server
     - [Basic](#customization-server-basic)
-    - [Full](#customization-server-basic)
+    - [Full](#customization-server-full)
 
  - Rendering
-    - [HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ...](#html-head-meta-html-)
-    - [Renderer](#renderer)
+    - [HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ...](#customization-rendering-html-head-meta-html-)
+    - [Renderer](#customization-rendering-renderer)
 
  - Browser
     - [Default Browser Entry]()
@@ -223,17 +223,16 @@ By default, Reframe creates a server with the web framework hapi ([hapijs.com](h
 
 You can customize the hapi server by ejecting it with `$ reframe eject server`.
 
-We encourage you eject the server and you should do so if you want to
+We encourage you to eject the server and you should if you want to
  - Add custom routes
  - Add API endpoints
  - Add authentication endpoints
- - Use another server framework such as Express
  - Use a process manager such as PM2
  - etc.
 
 See [Customization - Server - Advanced](#customization-server-basic) if you want to further customize the server.
 
-Ejecting the server will copy the following code to your codebase.
+Running `$ reframe eject server` will copy the following code to your codebase.
 
 ~~~js
 !INLINE ../plugins/hapi/start.js
@@ -246,13 +245,27 @@ Ejecting the server will copy the following code to your codebase.
 
 ## Customization - Server - Full
 
-If you need further control over the server you can also eject the hapi plugin responsible for the hapi <-> Reframe integration with `$ reframe eject server-integration`.
-Ejecting the server integration is uncommon and chances are that you will never have to.
+###### Custom web framework
+
+The code ejected by `$ reframe eject server`
+creates the hapi server and adds a
+hapi plugin that is responsible for the hapi <-> Reframe integration.
+This plugin can be ejected with `$ reframe eject server-integration`.
+Ejecting it is uncommon and chances are that you will never have to.
 But if you want to use another web framework instead of hapi then you'll need to eject it.
 
-You can also take control
-over the Server Side Rendering (the dynamic generation of the pages' HTML) with `$ reframe eject server-rendering` and
-over the serving of static browser assets (JavaScript files, CSS files, images, fonts, etc.) with `$ reframe eject server-assets`.
+###### Full control
+
+The server-side rendering (the dynamic generation of the pages' HTMLs)
+and the serving of static browser assets (JavaScript files, CSS files, images, fonts, etc.)
+are implemented by the `@reframe/server` plugin.
+The plugin is agnostic and can be used with any web framework.
+
+You can take full control the server-side rendering by running `$ reframe eject server-rendering`.
+
+And you can take full control over the static assets servering by running `$ reframe eject server-assets`.
+
+If you eject all server ejectables then every server LOC is in your codebase and you have full control over the server logic.
 
 !INLINE ./help.md --hide-source-path
 
@@ -327,7 +340,7 @@ Example:
 
 
 
-## HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ...
+## Customization - Rendering - HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ...
 
 Reframe uses [`@brillout/index-html`](https://github.com/brillout/index-html) to generate HTML.
 
@@ -364,14 +377,14 @@ Example:
  - [/examples/custom-head](/examples/custom-head)
 
 If you want to use something else than `@brillout/index-html`, then you can eject the renderer.
-See the [Customization - Rendering - Renderer](#renderer) section.
+See the [Customization - Rendering - Renderer](#customization-rendering-renderer) section.
 
 !INLINE ./help.md --hide-source-path
 
 
 
 
-## Renderer [:top:](#usage-manual)
+## Customization - Rendering - Renderer [:top:](#usage-manual)
 
 By default Reframe renders the `view` property of your page configs with React.
 
@@ -392,6 +405,31 @@ Ejecting the React renderer will copy the following code to your codebase.
 ~~~js
 !INLINE ../plugins/react/common.js
 ~~~
+
+
+
+## Customization - Browser - Default Browser Entry
+
+You can customize the browser entry code by running `$reframe eject browser`.
+
+We encourage you to do so and you should if you want to:
+  - Initialize user tracking such as Google Analytics
+  - Initialize error tracking such as Sentry
+  - etc.
+
+Running `$reframe eject browser` ejects the following code.
+
+~~~js
+!INLINE ../plugins/browser/browserEntry.js
+~~~
+
+## Customization - Browser - Page Browser Entry
+
+## Customization - Browser - Full
+
+You can as well eject the code that hydrates the page by running `$reframe eject browser-hydration`.
+
+You can also eject the code that generates the browser entry for each page when building by running `$ reframe eject build-entries`.
 
 
 ## Routing

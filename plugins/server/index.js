@@ -82,7 +82,7 @@ function getEjectables() {
     return [
         {
             name: 'server-rendering',
-            description: 'Eject the code that renders the pages to HTML at request-time.',
+            description: 'Eject the code that renders the pages to HTML at request-time. (Server-Side Rendering.)',
             actions: [
                 getAction('ServerRendering'),
             ],

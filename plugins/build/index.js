@@ -150,7 +150,7 @@ function getEjectables() {
         },
         {
             name: 'build-rendering',
-            description: 'Eject the code that renders the pages to HTML at build-time.',
+            description: 'Eject the code that renders the pages to HTML at build-time. (Static Rendering.)',
             actions: [
                 {
                     targetDir: 'build/',
@@ -160,7 +160,7 @@ function getEjectables() {
             ],
         },
         {
-            name: 'build-entries',
+            name: 'build-browser-entries',
             description: 'Eject the code that generates the browser entry of each page.',
             actions: [
                 {
