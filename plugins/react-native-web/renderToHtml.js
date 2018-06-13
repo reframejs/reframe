@@ -7,7 +7,6 @@ const {CONTAINER_ID, getReactElement} = require('@reframe/react/common');
 module.exports = renderToHtml;
 
 async function renderToHtml({pageConfig, initialProps}) {
-    const viewWrappers = ;
     const reactElement = getReactElement({
         pageConfig,
         initialProps,

@@ -39,7 +39,6 @@ function ejectableGetter(configParts) {
             configPart.ejectables.forEach(ejectable => {
                 const {name} = ejectable;
                 assert_plugin(name);
-                assert_plugin(!ejectables[name], configParts, ejectables, name);
 
                 const ejectableSpec = {...ejectable};
 
