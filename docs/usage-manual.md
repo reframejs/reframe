@@ -509,7 +509,7 @@ and the serving of static browser assets (JavaScript files, CSS files, images, f
 are implemented by the `@reframe/server` plugin.
 The plugin is agnostic and can be used with any web framework.
 
-You can take full control the server-side rendering by running `$ reframe eject server-rendering`.
+You can take full control over the server-side rendering by running `$ reframe eject server-rendering`.
 
 And you can take full control over the static assets servering by running `$ reframe eject server-assets`.
 
@@ -1075,9 +1075,18 @@ watchDir(pagesDir, () => {build()});
 module.exports = build();
 ~~~
 
-Run `$ reframe eject build-rendering` to eject `getPageHtmls()` to gain control over the HTML rendering of your HTML-static pages. (That is pages with `htmlStatic: true` in their page configs.)
+Run `$ reframe eject build-rendering` to eject `getPageHtmls()` to gain control over the rendering of pages to HTML at build-time.
+(That is the HTML rendering of pages with `htmlStatic: true` in their page configs.)
+Note that, most of the time, you should eject the renderer instead.
+See the sections at Custom > Rendering.
+Use `$ reframe eject build-rendering` as last resort.
 
-And run `$ reframe eject build-browser-entries` to eject `getPageBrowserEntries()` to gain control over the browser entry code of your pages.
+Run `$ reframe eject build-browser-entries` to eject `getPageBrowserEntries()` to gain control over the generation of the browser entry codes of each page.
+Note that, most of the time, you should eject the browser ejectables instead.
+See the sections at Custom > Browser.
+Use `$ reframe eject build-browser-entries` as last resort.
+
+If you eject all build ejectables, then you have full control over the build logic.
 
 <br/>
 

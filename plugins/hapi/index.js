@@ -23,7 +23,7 @@ function getEjectables() {
     return [
         {
             name: ejectName_server,
-            description: '[basic] Eject the code that creates the Node.js/hapi server.',
+            description: 'Eject the code that creates the Node.js/hapi server.',
             descriptionLong: [
                 'Ejects the code that creates a hapi server instance.',
                 '',
