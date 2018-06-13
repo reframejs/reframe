@@ -18,25 +18,25 @@
 #### Custom
 
  - Server
-    - [Basic](#custom---server---basic--top)
-    - [Full](#custom---server---full--top)
+    - [Basic](#custom-server---basic--top)
+    - [Full](#custom-server---full--top)
 
  - Rendering
-    - [HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ...](#custom---rendering---html-head-meta-html---top)
-    - [Renderer](#custom---rendering---renderer---top)
+    - [HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ...](#custom-html-head-meta-html---top)
+    - [Renderer](#custom-renderer--top)
 
  - Browser
-    - [Default Browser Entry](#custom---browser---default-browser-entry--top)
-    - [Page Browser Entry](#custom---browser---page-browser-entry--top)
-    - [Full](#custom---browser---full--top)
+    - [Default Browser Entry](#custom-default-browser-entry--top)
+    - [Page Browser Entry](#custom-page-browser-entry--top)
+    - [Full](#custom-browser---full--top)
 
  - Routing
     - [Routing](#routing--top)
 
  - Build
-    - [Babel](#custom---build---babel--top)
-    - [Webpack](#custom---build---webpack--top)
-    - [Full](#custom---build---full--top)
+    - [Babel](#custom-babel--top)
+    - [Webpack](#custom-webpack--top)
+    - [Full](#custom-build---full--top)
 
 #### Use Cases
 
@@ -220,7 +220,7 @@ By adding `htmlStatic: true` to its page config, the page is rendered to HTML at
 
 
 
-## Custom - Server - Basic !INLINE ./top-link.md #custom
+## Custom Server - Basic !INLINE ./top-link.md #custom
 
 By default, Reframe creates a server with the web framework hapi ([hapijs.com](https://hapijs.com/)).
 
@@ -247,7 +247,7 @@ Running `$ reframe eject server` will copy the following code to your codebase.
 
 
 
-## Custom - Server - Full !INLINE ./top-link.md #custom
+## Custom Server - Full !INLINE ./top-link.md #custom
 
 ###### Custom web framework
 
@@ -278,7 +278,7 @@ If you eject all server ejectables then every server LOC is in your codebase and
 
 
 
-## Custom - Build - Babel !INLINE ./top-link.md #custom
+## Custom Babel !INLINE ./top-link.md #custom
 
 You can customize the babel config by creating a `.babelrc` file.
 
@@ -292,7 +292,7 @@ Example:
 
 
 
-## Custom - Build - Webpack !INLINE ./top-link.md #custom
+## Custom Webpack !INLINE ./top-link.md #custom
 
 Save a `reframe.config.js` file at your app's root directory and use the `webpackBrowserConfig` and/or `webpackNodejsConfig` configurations.
 
@@ -347,7 +347,7 @@ Examples:
 
 
 
-## Custom - Rendering - HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ... !INLINE ./top-link.md #custom
+## Custom HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ... !INLINE ./top-link.md #custom
 
 Reframe uses [`@brillout/index-html`](https://github.com/brillout/index-html) to generate HTML.
 
@@ -392,7 +392,7 @@ See the [Custom - Rendering - Renderer](#custom-rendering-renderer) section.
 
 
 
-## Custom - Rendering - Renderer !INLINE ./top-link.md #custom
+## Custom Renderer !INLINE ./top-link.md #custom
 
 By default Reframe renders the `view` property of your page configs with React.
 
@@ -419,7 +419,7 @@ Ejecting the React renderer will copy the following code to your codebase.
 
 
 
-## Custom - Browser - Default Browser Entry !INLINE ./top-link.md #custom
+## Custom Default Browser Entry !INLINE ./top-link.md #custom
 
 You can customize the browser entry code by running `$reframe eject browser`.
 
@@ -438,7 +438,7 @@ Running `$reframe eject browser` ejects the following code.
 
 
 
-## Custom - Browser - Page Browser Entry !INLINE ./top-link.md #custom
+## Custom Page Browser Entry !INLINE ./top-link.md #custom
 
 You can customize the browser entry code for a single page
 without affecting the browser entry code of the other pages.
@@ -456,7 +456,7 @@ You can see the example in full and other examples at [/examples/custom-browser]
 
 
 
-## Custom - Browser - Full !INLINE ./top-link.md #custom
+## Custom Browser - Full !INLINE ./top-link.md #custom
 
 You can as well eject the code that orchestrates the hydration of the page by running `$ reframe eject browser-hydration`.
 Note that if you want to customize the rendering process itself you should run `$ reframe eject renderer` instead.
@@ -548,7 +548,7 @@ We refer to the source code of the plugin [`@reframe/crossroads`](/plugins/cross
 
 
 
-## Custom - Build - Full !INLINE ./top-link.md #custom
+## Custom Build - Full !INLINE ./top-link.md #custom
 
 Run `$ reframe eject build` to eject the overall build code.
 

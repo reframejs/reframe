@@ -155,25 +155,25 @@
 #### Custom
 
  - Server
-    - [Basic](#custom---server---basic--top)
-    - [Full](#custom---server---full--top)
+    - [Basic](#custom-server---basic--top)
+    - [Full](#custom-server---full--top)
 
  - Rendering
-    - [HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ...](#custom---rendering---html-head-meta-html---top)
-    - [Renderer](#custom---rendering---renderer---top)
+    - [HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ...](#custom-html-head-meta-html---top)
+    - [Renderer](#custom-renderer--top)
 
  - Browser
-    - [Default Browser Entry](#custom---browser---default-browser-entry--top)
-    - [Page Browser Entry](#custom---browser---page-browser-entry--top)
-    - [Full](#custom---browser---full--top)
+    - [Default Browser Entry](#custom-default-browser-entry--top)
+    - [Page Browser Entry](#custom-page-browser-entry--top)
+    - [Full](#custom-browser---full--top)
 
  - Routing
     - [Routing](#routing--top)
 
  - Build
-    - [Babel](#custom---build---babel--top)
-    - [Webpack](#custom---build---webpack--top)
-    - [Full](#custom---build---full--top)
+    - [Babel](#custom-babel--top)
+    - [Webpack](#custom-webpack--top)
+    - [Full](#custom-build---full--top)
 
 #### Use Cases
 
@@ -431,7 +431,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-## Custom - Server - Basic &nbsp; [<sup><sub>:top:</sub></sup>](#custom)
+## Custom Server - Basic &nbsp; [<sup><sub>:top:</sub></sup>](#custom)
 
 By default, Reframe creates a server with the web framework hapi ([hapijs.com](https://hapijs.com/)).
 
@@ -486,7 +486,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-## Custom - Server - Full &nbsp; [<sup><sub>:top:</sub></sup>](#custom)
+## Custom Server - Full &nbsp; [<sup><sub>:top:</sub></sup>](#custom)
 
 ###### Custom web framework
 
@@ -522,7 +522,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-## Custom - Build - Babel &nbsp; [<sup><sub>:top:</sub></sup>](#custom)
+## Custom Babel &nbsp; [<sup><sub>:top:</sub></sup>](#custom)
 
 You can customize the babel config by creating a `.babelrc` file.
 
@@ -541,7 +541,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-## Custom - Build - Webpack &nbsp; [<sup><sub>:top:</sub></sup>](#custom)
+## Custom Webpack &nbsp; [<sup><sub>:top:</sub></sup>](#custom)
 
 Save a `reframe.config.js` file at your app's root directory and use the `webpackBrowserConfig` and/or `webpackNodejsConfig` configurations.
 
@@ -601,7 +601,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-## Custom - Rendering - HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ... &nbsp; [<sup><sub>:top:</sub></sup>](#custom)
+## Custom HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ... &nbsp; [<sup><sub>:top:</sub></sup>](#custom)
 
 Reframe uses [`@brillout/index-html`](https://github.com/brillout/index-html) to generate HTML.
 
@@ -716,7 +716,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-## Custom - Rendering - Renderer &nbsp; [<sup><sub>:top:</sub></sup>](#custom)
+## Custom Renderer &nbsp; [<sup><sub>:top:</sub></sup>](#custom)
 
 By default Reframe renders the `view` property of your page configs with React.
 
@@ -821,7 +821,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-## Custom - Browser - Default Browser Entry &nbsp; [<sup><sub>:top:</sub></sup>](#custom)
+## Custom Default Browser Entry &nbsp; [<sup><sub>:top:</sub></sup>](#custom)
 
 You can customize the browser entry code by running `$reframe eject browser`.
 
@@ -853,7 +853,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-## Custom - Browser - Page Browser Entry &nbsp; [<sup><sub>:top:</sub></sup>](#custom)
+## Custom Page Browser Entry &nbsp; [<sup><sub>:top:</sub></sup>](#custom)
 
 You can customize the browser entry code for a single page
 without affecting the browser entry code of the other pages.
@@ -901,7 +901,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-## Custom - Browser - Full &nbsp; [<sup><sub>:top:</sub></sup>](#custom)
+## Custom Browser - Full &nbsp; [<sup><sub>:top:</sub></sup>](#custom)
 
 You can as well eject the code that orchestrates the hydration of the page by running `$ reframe eject browser-hydration`.
 Note that if you want to customize the rendering process itself you should run `$ reframe eject renderer` instead.
@@ -1003,7 +1003,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-## Custom - Build - Full &nbsp; [<sup><sub>:top:</sub></sup>](#custom)
+## Custom Build - Full &nbsp; [<sup><sub>:top:</sub></sup>](#custom)
 
 Run `$ reframe eject build` to eject the overall build code.
 
