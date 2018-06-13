@@ -9,48 +9,48 @@
 
 #### Basics
 
- - [Getting Started](#getting-started)
- - [CSS & Static Assets](#css--static-assets)
- - [Data Loading](#data-loading)
- - [Page Navigation & Links](#page-navigation--links)
- - [`domStatic` & `htmlStatic`](#domstatic--htmlstatic)
+ - [Getting Started](#getting-started--top)
+ - [CSS & Static Assets](#css--static-assets--top)
+ - [Data Loading](#data-loading--top)
+ - [Page Navigation & Links](#page-navigation--links--top)
+ - [`domStatic` & `htmlStatic`](#domstatic--htmlstatic--top)
 
 #### Customization
 
  - Server
-    - [Basic](#customization-server-basic)
-    - [Full](#customization-server-full)
+    - [Basic](#customization---server---basic--top)
+    - [Full](#customization---server---full--top)
 
  - Rendering
-    - [HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ...](#customization-rendering-html-head-meta-html-)
-    - [Renderer](#customization-rendering-renderer)
+    - [HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ...](#customization---rendering---html-head-meta-html---top)
+    - [Renderer](#customization---rendering---renderer---top)
 
  - Browser
-    - [Default Browser Entry](#customization---browser---default-browser-entry)
-    - [Page Browser Entry]()
-    - [Full]()
+    - [Default Browser Entry](#customization---browser---default-browser-entry--top)
+    - [Page Browser Entry](#customization---browser---page-browser-entry--top)
+    - [Full](#customization---browser---full--top)
 
  - Routing
-    - [Routing](#routing)
+    - [Routing](#routing--top)
 
  - Build
-    - [Webpack](#webpack)
-    - [Babel](#babel)
-    - [Full](#customization-build-full)
+    - [Webpack](#customization--build--webpack--top)
+    - [Babel](#customization--build--babel--top)
+    - [Full](#customization--build--full--top)
 
 #### Use Cases
 
  - Deploy
-    - [Static Deploy](#static-deploy)
-    - [Serverless Deploy](#serverless-deploy)
+    - [Static Deploy](#static-deploy--top)
+    - [Serverless Deploy](#serverless-deploy--top)
 
  - Integrations
-    - [Vue](#vue)
-    - [React Router](#react-router)
-    - [TypeScript](#typescript)
-    - [PostCSS](#postcss)
-    - [React Native (Web)](#react-native-web)
-    - [React Native (Web) + React Router](#react-native-web--react-router)
+    - [Vue](#vue--top)
+    - [React Router](#react-router--top)
+    - [TypeScript](#typescript--top)
+    - [PostCSS](#postcss--top)
+    - [React Native (Web)](#react-native-web--top)
+    - [React Native (Web) + React Router](#react-native-web--react-router--top)
 
 
 <br/>
@@ -60,7 +60,7 @@
 
 
 
-## Getting Started
+## Getting Started !INLINE ./top-link.md #basics
 
 !INLINE ./start.md --hide-source-path
 
@@ -71,7 +71,7 @@
 
 
 
-## CSS & Static Assets
+## CSS & Static Assets !INLINE ./top-link.md #basics
 
 A CSS file can be loaded and applied by importing it.
 
@@ -113,7 +113,7 @@ Example of a page loading and using CSS, fonts, images and static assets:
 
 
 
-## Data Loading
+## Data Loading !INLINE ./top-link.md #basics
 
 A page config can be set a function `async getInitialProps()` that Reframe calls every time before the view is rendered.
 (On both the server and in the browser.)
@@ -139,7 +139,7 @@ Deeper explanation and example of pages loading data:
 
 
 
-## Page Navigation & Links
+## Page Navigation & Links !INLINE ./top-link.md #basics
 
 The standard way to navigate between pages is to use the HTML link tag `<a>`.
 
@@ -162,7 +162,7 @@ Example:
 
 
 
-## `domStatic` & `htmlStatic`
+## `domStatic` & `htmlStatic` !INLINE ./top-link.md #basics
 
 By default, a page is rendered twice:
 On the server (to HTML) and in the browser (to the DOM).
@@ -218,7 +218,7 @@ By adding `htmlStatic: true` to its page config, the page is rendered to HTML at
 
 
 
-## Customization - Server - Basic
+## Customization - Server - Basic !INLINE ./top-link.md #customization
 
 By default, Reframe creates a server with the web framework hapi ([hapijs.com](https://hapijs.com/)).
 
@@ -244,7 +244,7 @@ Running `$ reframe eject server` will copy the following code to your codebase.
 
 
 
-## Customization - Server - Full
+## Customization - Server - Full !INLINE ./top-link.md #customization
 
 ###### Custom web framework
 
@@ -274,7 +274,7 @@ If you eject all server ejectables then every server LOC is in your codebase and
 
 
 
-## Webpack
+## Webpack !INLINE ./top-link.md #customization
 
 Save a `reframe.config.js` file at your app's root directory and use the `webpackBrowserConfig` and/or `webpackNodejsConfig` configurations.
 
@@ -327,7 +327,7 @@ Examples:
 
 
 
-## Babel
+## Babel !INLINE ./top-link.md #customization
 
 You can customize the babel config by creating a `.babelrc` file.
 
@@ -341,7 +341,7 @@ Example:
 
 
 
-## Customization - Rendering - HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ...
+## Customization - Rendering - HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ... !INLINE ./top-link.md #customization
 
 Reframe uses [`@brillout/index-html`](https://github.com/brillout/index-html) to generate HTML.
 
@@ -385,7 +385,7 @@ See the [Customization - Rendering - Renderer](#customization-rendering-renderer
 
 
 
-## Customization - Rendering - Renderer !INLINE ./top-link.md
+## Customization - Rendering - Renderer !INLINE ./top-link.md #customization
 
 By default Reframe renders the `view` property of your page configs with React.
 
@@ -444,6 +444,8 @@ You can as well eject the code that orchestrates the hydration of the page by ru
 Note that if you want to customize the rendering process itself you should run `$ reframe eject renderer` instead.
 
 You can also eject the code that generates the browser entry for each page when building by running `$ reframe eject build-entries`.
+
+
 
 
 ## Routing
@@ -548,7 +550,7 @@ And run `reframe eject build-browser-entries` to eject `getPageBrowserEntries()`
 
 
 
-## Static Deploy
+## Static Deploy !INLINE ./top-link.md #use-cases
 
 If you are app is html-static, you can deploy it to a static host.
 
@@ -571,7 +573,7 @@ The static assets are located in the `dist/browser/` directory.
 
 
 
-## Serverless Deploy
+## Serverless Deploy !INLINE ./top-link.md #use-cases
 
 If your app is stateless we then recommand serverless deployment.
 
@@ -587,7 +589,7 @@ If you want to persist data, you may consider using a cloud database.
 
 
 
-## Vue
+## Vue !INLINE ./top-link.md #use-cases
 
 You can also use Reframe with Vue instead of React.
 
@@ -595,19 +597,19 @@ Check out the [`@reframe/vue`](/plugins/vue) plugin.
 
 !INLINE ./help.md --hide-source-path
 
-## React Router
+## React Router !INLINE ./top-link.md #use-cases
 
 You can use the React Router components by adding the [@reframe/react-router](/plugins/react-router) plugin.
 
 !INLINE ./help.md --hide-source-path
 
-## TypeScript
+## TypeScript !INLINE ./top-link.md #use-cases
 
 You can write your app with TypeScript by adding the [@reframe/typescript](/plugins/typescript) plugin.
 
 !INLINE ./help.md --hide-source-path
 
-## PostCSS
+## PostCSS !INLINE ./top-link.md #use-cases
 
 You can write your styles with PostCSS by adding the [@reframe/postcss](/plugins/postcss) plugin.
 
@@ -616,7 +618,7 @@ You can write your styles with PostCSS by adding the [@reframe/postcss](/plugins
 
 
 
-## React Native (Web)
+## React Native (Web) !INLINE ./top-link.md #use-cases
 
 If you want an app on the web and on mobile,
 you may consider create a web app with Reframe and [React Native Web](https://github.com/necolas/react-native-web)
@@ -636,7 +638,7 @@ Examples of apps using Reframe + RNW:
 
 
 
-## React Native (Web) + React Router
+## React Native (Web) + React Router !INLINE ./top-link.md #use-cases
 
 As mentioned in the previous section you can use Reframe + React Native Web to share code with your React Native mobile app.
 
