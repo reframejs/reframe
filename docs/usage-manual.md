@@ -168,7 +168,8 @@
     - [Full](#custom-browser---full--top)
 
  - Routing
-    - [Routing](#routing--top)
+    - [Advanced Routing](#advanced-routing--top)
+    - [Router](#custom-router--top)
 
  - Build
     - [Babel](#custom-babel--top)
@@ -431,6 +432,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
+
 ## Custom Server - Basic &nbsp; [<sup><sub>:top:</sub></sup>](#custom)
 
 By default, Reframe creates a server with the web framework hapi ([hapijs.com](https://hapijs.com/)).
@@ -486,6 +488,9 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
+
+
+
 ## Custom Server - Full &nbsp; [<sup><sub>:top:</sub></sup>](#custom)
 
 ###### Custom web framework
@@ -517,82 +522,6 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 <br/>
 <br/>
 
-
-
-
-
-
-## Custom Babel &nbsp; [<sup><sub>:top:</sub></sup>](#custom)
-
-You can customize the babel config by creating a `.babelrc` file.
-
-Example:
- - [/examples/custom-babel](/examples/custom-babel)
-
-<br/>
-
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
-
-<br/>
-<br/>
-
-
-
-
-
-
-## Custom Webpack &nbsp; [<sup><sub>:top:</sub></sup>](#custom)
-
-Save a `reframe.config.js` file at your app's root directory and use the `webpackBrowserConfig` and/or `webpackNodejsConfig` configurations.
-
-~~~js
-// reframe.config.js
-
-module.exports = {
-    $plugins: [
-        require('@reframe/react-kit')
-    ],
-    webpackBrowserConfig: webpackConfig,
-    webpackNodejsConfig: webpackConfig,
-};
-
-function webpackConfig({
-    config,
-
-    // Webpack entries
-    // For `webpackNodejsConfig` this is the list of found page config paths
-    // For `webpackBrowserConfig` this is the list of (generated) browser entry files
-    entries,
-
-    // The directory where the built assets are expected to be
-    outputPath,
-
-    // Config modifiers provided by the package `@brillout/webpack-config-mod`
-    setRule, getRule, getEntries, addBabelPreset, addBabelPlugin, modifyBabelOptions
-}) {
-    // Either
-    //  - apply modifications to `config` (by using modifiers or manually), or
-    //  - return an entirely new config object (by using `entries` and `outputPath`)
-
-    return config;
-}
-~~~
-
-All `@brillout/webpack-config-mod` config modifiers are listed at [/helpers/webpack-config-mod](/helpers/webpack-config-mod).
-
-Examples:
- - Using config modifiers [/examples/custom-webpack](/examples/custom-webpack)
- - Fully custom config [/examples/custom-webpack-full](/examples/custom-webpack-full)
- - Source code of [`@reframe/postcss`](/plugins/postcss)
- - Source code of [`@reframe/react`](/plugins/react)
- - Source code of [`@reframe/typescript`](/plugins/typescript)
-
-<br/>
-
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
-
-<br/>
-<br/>
 
 
 
@@ -716,6 +645,9 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
+
+
+
 ## Custom Renderer &nbsp; [<sup><sub>:top:</sub></sup>](#custom)
 
 By default Reframe renders the `view` property of your page configs with React.
@@ -821,6 +753,9 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
+
+
+
 ## Custom Default Browser Entry &nbsp; [<sup><sub>:top:</sub></sup>](#custom)
 
 You can customize the browser entry code by running `$reframe eject browser`.
@@ -850,6 +785,9 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 <br/>
 <br/>
+
+
+
 
 
 
@@ -912,6 +850,9 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
+
+
+
 ## Custom Browser - Full &nbsp; [<sup><sub>:top:</sub></sup>](#custom)
 
 You can as well eject the code that orchestrates the hydration of the page by running `$ reframe eject browser-hydration`.
@@ -929,7 +870,9 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-## Routing
+
+
+## Advanced Routing &nbsp; [<sup><sub>:top:</sub></sup>](#custom)
 
 ###### Reframe's default router
 
@@ -992,13 +935,18 @@ we still speak of two pages because these two views have two different URLs.
 Also note that the broswer-side code is splitted only between pages defined with page configs,
 and pages defined with React Router components will share the same browser-side code bundle.
 
-###### Custom router
+
+
+
+
+
+## Custom router &nbsp; [<sup><sub>:top:</sub></sup>](#custom)
 
 Reframe can be used with any routing library.
 
-It can, for example, be used with [Crossroads.js](https://github.com/millermedeiros/crossroads.js).
+Either use another plugin in the [list of router plugins](/docs/plugins.md#routers) or eject the router with `$ reframe eject router`.
 
-We refer to the source code of the plugin [`@reframe/crossroads`](/plugins/crossroads) for further information about how to use Reframe with another routing library.
+When ejecting the router, you have full control over how your pages are routed.
 
 <br/>
 
@@ -1008,6 +956,81 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 <br/>
 
 
+
+
+
+
+## Custom Babel &nbsp; [<sup><sub>:top:</sub></sup>](#custom)
+
+You can customize the babel config by creating a `.babelrc` file.
+
+Example:
+ - [/examples/custom-babel](/examples/custom-babel)
+
+<br/>
+
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+
+<br/>
+<br/>
+
+
+
+
+
+
+## Custom Webpack &nbsp; [<sup><sub>:top:</sub></sup>](#custom)
+
+Save a `reframe.config.js` file at your app's root directory and use the `webpackBrowserConfig` and/or `webpackNodejsConfig` configurations.
+
+~~~js
+// reframe.config.js
+
+module.exports = {
+    $plugins: [
+        require('@reframe/react-kit')
+    ],
+    webpackBrowserConfig: webpackConfig,
+    webpackNodejsConfig: webpackConfig,
+};
+
+function webpackConfig({
+    config,
+
+    // Webpack entries
+    // For `webpackNodejsConfig` this is the list of found page config paths
+    // For `webpackBrowserConfig` this is the list of (generated) browser entry files
+    entries,
+
+    // The directory where the built assets are expected to be
+    outputPath,
+
+    // Config modifiers provided by the package `@brillout/webpack-config-mod`
+    setRule, getRule, getEntries, addBabelPreset, addBabelPlugin, modifyBabelOptions
+}) {
+    // Either
+    //  - apply modifications to `config` (by using modifiers or manually), or
+    //  - return an entirely new config object (by using `entries` and `outputPath`)
+
+    return config;
+}
+~~~
+
+All `@brillout/webpack-config-mod` config modifiers are listed at [/helpers/webpack-config-mod](/helpers/webpack-config-mod).
+
+Examples:
+ - Using config modifiers [/examples/custom-webpack](/examples/custom-webpack)
+ - Fully custom config [/examples/custom-webpack-full](/examples/custom-webpack-full)
+ - Source code of [`@reframe/postcss`](/plugins/postcss)
+ - Source code of [`@reframe/react`](/plugins/react)
+ - Source code of [`@reframe/typescript`](/plugins/typescript)
+
+<br/>
+
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+
+<br/>
+<br/>
 
 
 

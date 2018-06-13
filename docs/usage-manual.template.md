@@ -31,7 +31,8 @@
     - [Full](#custom-browser---full--top)
 
  - Routing
-    - [Routing](#routing--top)
+    - [Advanced Routing](#advanced-routing--top)
+    - [Router](#custom-router--top)
 
  - Build
     - [Babel](#custom-babel--top)
@@ -220,6 +221,7 @@ By adding `htmlStatic: true` to its page config, the page is rendered to HTML at
 
 
 
+
 ## Custom Server - Basic !INLINE ./top-link.md #custom
 
 By default, Reframe creates a server with the web framework hapi ([hapijs.com](https://hapijs.com/)).
@@ -247,6 +249,9 @@ Running `$ reframe eject server` will copy the following code to your codebase.
 
 
 
+
+
+
 ## Custom Server - Full !INLINE ./top-link.md #custom
 
 ###### Custom web framework
@@ -270,6 +275,231 @@ You can take full control the server-side rendering by running `$ reframe eject 
 And you can take full control over the static assets servering by running `$ reframe eject server-assets`.
 
 If you eject all server ejectables then every server LOC is in your codebase and you have full control over the server logic.
+
+!INLINE ./help.md --hide-source-path
+
+
+
+
+
+
+
+
+
+## Custom HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ... !INLINE ./top-link.md #custom
+
+Reframe uses [`@brillout/index-html`](https://github.com/brillout/index-html) to generate HTML.
+
+You have full control over the "outer-part" HTML.
+(`<meta>`, `<!DOCTYPE html`>, `<head>`, `<html>`, `<body>`, `<script>`, etc.)
+
+There are two ways to define the outer-part HTML:
+ - By creating a `index.html` file
+ - Over the page configs
+
+Over the page config:
+
+~~~js
+!INLINE ../examples/custom-head/pages/landing.config.js
+~~~
+
+Over a `index.html` file saved in your app's root directory:
+
+~~~js
+!INLINE ../examples/custom-head/index.html
+~~~
+
+Also, the `indexHtml` page config option allows you to override the `index.html` file for a specific page:
+
+~~~js
+!INLINE ../examples/custom-head/pages/about.config.js
+~~~
+
+All `@brillout/index-html` options are available over the page config.
+
+See [`@brillout/index-html`'s documentation](https://github.com/brillout/index-html).
+
+Example:
+ - [/examples/custom-head](/examples/custom-head)
+
+If you want to use something else than `@brillout/index-html`, then you can eject the renderer.
+TODO
+See the [Custom - Rendering - Renderer](#custom-rendering-renderer) section.
+
+!INLINE ./help.md --hide-source-path
+
+
+
+
+
+
+
+## Custom Renderer !INLINE ./top-link.md #custom
+
+By default Reframe renders the `view` property of your page configs with React.
+
+But you can fully customize how your views are rendered.
+
+Either use another plugin in the [list of renderer plugins](/docs/plugins.md#renderers) or eject the renderer with `$ reframe eject renderer`.
+
+When ejecting the renderer, you have full control over the rendering of your views.
+
+Ejecting the React renderer will copy the following code to your codebase.
+
+~~~js
+!INLINE ../plugins/react/renderToHtml.js
+~~~
+~~~js
+!INLINE ../plugins/react/renderToDom.js
+~~~
+~~~js
+!INLINE ../plugins/react/common.js
+~~~
+
+!INLINE ./help.md --hide-source-path
+
+
+
+
+
+
+
+## Custom Default Browser Entry !INLINE ./top-link.md #custom
+
+You can customize the browser entry code by running `$reframe eject browser`.
+
+We encourage you to do so and you should if you want to:
+  - Initialize user tracking such as Google Analytics
+  - Initialize error tracking such as Sentry
+  - etc.
+
+Running `$reframe eject browser` ejects the following code.
+
+~~~js
+!INLINE ../plugins/browser/browserEntry.js
+~~~
+
+!INLINE ./help.md --hide-source-path
+
+
+
+
+
+
+## Custom Page Browser Entry !INLINE ./top-link.md #custom
+
+You can customize the browser entry code for a single page
+without affecting the browser entry code of the other pages.
+
+You do this by setting the page config option `browserEntry`.
+For example:
+
+~~~js
+!INLINE ../examples/custom-browser/pages/custom-hydration.config.js
+~~~
+
+~~~js
+!INLINE ../examples/custom-browser/pages/custom-hydration.js
+~~~
+
+You can see the example in full and other examples at [/examples/custom-browser](/examples/custom-browser).
+
+!INLINE ./help.md --hide-source-path
+
+
+
+
+
+
+## Custom Browser - Full !INLINE ./top-link.md #custom
+
+You can as well eject the code that orchestrates the hydration of the page by running `$ reframe eject browser-hydration`.
+Note that if you want to customize the rendering process itself you should run `$ reframe eject renderer` instead.
+
+You can also eject the code that generates the browser entry for each page when building by running `$ reframe eject build-entries`.
+
+!INLINE ./help.md --hide-source-path
+
+
+
+
+
+
+## Advanced Routing !INLINE ./top-link.md #custom
+
+###### Reframe's default router
+
+By default, Reframe uses [`path-to-regexp`](https://github.com/pillarjs/path-to-regexp) to match URLs with a the page config's `route`.
+(React Router uses `path-to-regexp` as well.)
+
+For example, in the following page config, Reframe will use `path-to-regexp` to determine if a URL matches the page's route `'/hello/:name'`.
+
+~~~jsx
+const HelloPage = {
+    route: '/hello/:name',
+    view: ({route: {args: {name}}}) => <div>Welcome {name}</div>,
+};
+~~~
+
+See [`path-to-regexp`'s docs](https://github.com/pillarjs/path-to-regexp) for further information about the route string syntax.
+
+###### Advanced routing with React Router
+
+You can use React Router's components by adding the plugin [`@reframe/react-router`](/react-router).
+
+Using React Router components allow you to implement:
+ - **pushState-navigation**
+   <br/>
+   To navigate to a new page by manipulating the DOM instead of loading the new page's HTML.
+   (A detailed explanation of "pushState-navigation" follows below.)
+   Such navigation make sense for route changes that cause only small changes on the page.
+   It would for example be prohibitive to reload the entire page for a URL change that causes only minor changes to a little box on the page.
+ - **Nested Routes**
+   <br/>
+ - **SPAs**
+   <br/>
+   Apps where the app's entire browser-side code is bundled in one script and loaded at once.
+ - **URL hash**
+   <br/>
+   URLs with a `window.location.hash`.
+
+###### Html-navigation VS pushState-navigation
+
+There are two ways of navigating between pages:
+ - *HTML-navigation*
+   <br/>
+   When clicking a link, the new page's HTML is loaded.
+   (In other words, the browser discards the current DOM and builds a new DOM upon the new page's HTML.)
+ - *pushState-navigation*
+   <br/>
+   When clicking a link, the URL is changed by `history.pushState()` and the DOM is manipulated (instead of loading the new page's HTML).
+
+By default, Reframe does HTML-navigation when using `<a>` links between pages defined with page configs.
+
+###### pushState-navigation
+
+By using React Router's components you can do pushState-navigation.
+Pages are then defined by React Router's component instead of page configs.
+
+Note that with *page* we denote any view that is identified with a URL:
+If two URLs have similar views that differ in only in a small way,
+we still speak of two pages because these two views have two different URLs.
+
+Also note that the broswer-side code is splitted only between pages defined with page configs,
+and pages defined with React Router components will share the same browser-side code bundle.
+
+
+
+
+
+
+## Custom router !INLINE ./top-link.md #custom
+
+Reframe can be used with any routing library.
+
+Either use another plugin in the [list of router plugins](/docs/plugins.md#routers) or eject the router with `$ reframe eject router`.
+
+When ejecting the router, you have full control over how your pages are routed.
 
 !INLINE ./help.md --hide-source-path
 
@@ -339,213 +569,6 @@ Examples:
  - Source code of [`@reframe/typescript`](/plugins/typescript)
 
 !INLINE ./help.md --hide-source-path
-
-
-
-
-
-
-
-
-## Custom HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ... !INLINE ./top-link.md #custom
-
-Reframe uses [`@brillout/index-html`](https://github.com/brillout/index-html) to generate HTML.
-
-You have full control over the "outer-part" HTML.
-(`<meta>`, `<!DOCTYPE html`>, `<head>`, `<html>`, `<body>`, `<script>`, etc.)
-
-There are two ways to define the outer-part HTML:
- - By creating a `index.html` file
- - Over the page configs
-
-Over the page config:
-
-~~~js
-!INLINE ../examples/custom-head/pages/landing.config.js
-~~~
-
-Over a `index.html` file saved in your app's root directory:
-
-~~~js
-!INLINE ../examples/custom-head/index.html
-~~~
-
-Also, the `indexHtml` page config option allows you to override the `index.html` file for a specific page:
-
-~~~js
-!INLINE ../examples/custom-head/pages/about.config.js
-~~~
-
-All `@brillout/index-html` options are available over the page config.
-
-See [`@brillout/index-html`'s documentation](https://github.com/brillout/index-html).
-
-Example:
- - [/examples/custom-head](/examples/custom-head)
-
-If you want to use something else than `@brillout/index-html`, then you can eject the renderer.
-TODO
-See the [Custom - Rendering - Renderer](#custom-rendering-renderer) section.
-
-!INLINE ./help.md --hide-source-path
-
-
-
-
-## Custom Renderer !INLINE ./top-link.md #custom
-
-By default Reframe renders the `view` property of your page configs with React.
-
-But you can fully customize how your views are rendered.
-
-Either use another plugin in the [list of renderer plugins](/docs/plugins.md#renderers) or eject the renderer with `$ reframe eject renderer`.
-
-When ejecting the renderer, you have full control over the rendering of your views.
-
-Ejecting the React renderer will copy the following code to your codebase.
-
-~~~js
-!INLINE ../plugins/react/renderToHtml.js
-~~~
-~~~js
-!INLINE ../plugins/react/renderToDom.js
-~~~
-~~~js
-!INLINE ../plugins/react/common.js
-~~~
-
-!INLINE ./help.md --hide-source-path
-
-
-
-
-## Custom Default Browser Entry !INLINE ./top-link.md #custom
-
-You can customize the browser entry code by running `$reframe eject browser`.
-
-We encourage you to do so and you should if you want to:
-  - Initialize user tracking such as Google Analytics
-  - Initialize error tracking such as Sentry
-  - etc.
-
-Running `$reframe eject browser` ejects the following code.
-
-~~~js
-!INLINE ../plugins/browser/browserEntry.js
-~~~
-
-!INLINE ./help.md --hide-source-path
-
-
-
-## Custom Page Browser Entry !INLINE ./top-link.md #custom
-
-You can customize the browser entry code for a single page
-without affecting the browser entry code of the other pages.
-
-You do this by setting the page config option `browserEntry`.
-For example:
-
-~~~js
-!INLINE ../examples/custom-browser/pages/custom-hydration.config.js
-~~~
-
-~~~js
-!INLINE ../examples/custom-browser/pages/custom-hydration.js
-~~~
-
-You can see the example in full and other examples at [/examples/custom-browser](/examples/custom-browser).
-
-!INLINE ./help.md --hide-source-path
-
-
-
-## Custom Browser - Full !INLINE ./top-link.md #custom
-
-You can as well eject the code that orchestrates the hydration of the page by running `$ reframe eject browser-hydration`.
-Note that if you want to customize the rendering process itself you should run `$ reframe eject renderer` instead.
-
-You can also eject the code that generates the browser entry for each page when building by running `$ reframe eject build-entries`.
-
-!INLINE ./help.md --hide-source-path
-
-
-
-
-## Routing
-
-###### Reframe's default router
-
-By default, Reframe uses [`path-to-regexp`](https://github.com/pillarjs/path-to-regexp) to match URLs with a the page config's `route`.
-(React Router uses `path-to-regexp` as well.)
-
-For example, in the following page config, Reframe will use `path-to-regexp` to determine if a URL matches the page's route `'/hello/:name'`.
-
-~~~jsx
-const HelloPage = {
-    route: '/hello/:name',
-    view: ({route: {args: {name}}}) => <div>Welcome {name}</div>,
-};
-~~~
-
-See [`path-to-regexp`'s docs](https://github.com/pillarjs/path-to-regexp) for further information about the route string syntax.
-
-###### Advanced routing with React Router
-
-You can use React Router's components by adding the plugin [`@reframe/react-router`](/react-router).
-
-Using React Router components allow you to implement:
- - **pushState-navigation**
-   <br/>
-   To navigate to a new page by manipulating the DOM instead of loading the new page's HTML.
-   (A detailed explanation of "pushState-navigation" follows below.)
-   Such navigation make sense for route changes that cause only small changes on the page.
-   It would for example be prohibitive to reload the entire page for a URL change that causes only minor changes to a little box on the page.
- - **Nested Routes**
-   <br/>
- - **SPAs**
-   <br/>
-   Apps where the app's entire browser-side code is bundled in one script and loaded at once.
- - **URL hash**
-   <br/>
-   URLs with a `window.location.hash`.
-
-###### Html-navigation VS pushState-navigation
-
-There are two ways of navigating between pages:
- - *HTML-navigation*
-   <br/>
-   When clicking a link, the new page's HTML is loaded.
-   (In other words, the browser discards the current DOM and builds a new DOM upon the new page's HTML.)
- - *pushState-navigation*
-   <br/>
-   When clicking a link, the URL is changed by `history.pushState()` and the DOM is manipulated (instead of loading the new page's HTML).
-
-By default, Reframe does HTML-navigation when using `<a>` links between pages defined with page configs.
-
-###### pushState-navigation
-
-By using React Router's components you can do pushState-navigation.
-Pages are then defined by React Router's component instead of page configs.
-
-Note that with *page* we denote any view that is identified with a URL:
-If two URLs have similar views that differ in only in a small way,
-we still speak of two pages because these two views have two different URLs.
-
-Also note that the broswer-side code is splitted only between pages defined with page configs,
-and pages defined with React Router components will share the same browser-side code bundle.
-
-###### Custom router
-
-Reframe can be used with any routing library.
-
-It can, for example, be used with [Crossroads.js](https://github.com/millermedeiros/crossroads.js).
-
-We refer to the source code of the plugin [`@reframe/crossroads`](/plugins/crossroads) for further information about how to use Reframe with another routing library.
-
-!INLINE ./help.md --hide-source-path
-
-
 
 
 
