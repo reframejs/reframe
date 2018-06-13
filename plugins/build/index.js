@@ -131,15 +131,6 @@ function getBrowserConfigs(configParts) {
 }
 
 function getEjectables() {
-    /*
-    const buildFile__ejected = 'PROJECT_ROOT/build/index.js';
-    const getBuildInfoFile__ejected = 'PROJECT_ROOT/build/getBuildInfo.js';
-
-    const buildEjectName = 'build';
-    const staticRenderingEjectName = 'build-static-rendering';
-    const browserEntriesEjectName = 'build-browser-entries';
-    */
-
     return [
         {
             name: 'build',
@@ -156,34 +147,10 @@ function getEjectables() {
                     configPath: 'getBuildInfoFile',
                 },
             ],
-            /*
-            fileCopies: [
-                {
-                    noDependerRequired: true,
-                    oldPath: buildFile,
-                    newPath: buildFile__ejected,
-                },
-                {
-                    noDependerRequired: true,
-                    oldPath: getBuildInfoFile,
-                    newPath: getBuildInfoFile__ejected,
-                },
-            ],
-            configChanges: [
-                {
-                    configPath: 'buildFile',
-                    newConfigValue: ({makePathRelative}) => makePathRelative(buildFile__ejected),
-                },
-                {
-                    configPath: 'getBuildInfo',
-                    newConfigValue: ({makePathRelative}) => makePathRelative(getBuildInfoFile__ejected),
-                },
-            ],
-            */
         },
         {
-            name: 'build-static-rendering',
-            description: 'Eject the code that renders your pages to HTML at build-time.',
+            name: 'build-rendering',
+            description: 'Eject the code that renders the pages to HTML at build-time.',
             actions: [
                 {
                     targetDir: 'build/',
@@ -191,21 +158,9 @@ function getEjectables() {
                     configPath: 'getPageHtmlsFile',
                 },
             ],
-            /*
-            fileCopies: [
-                {
-                    oldPath: packageName+'/getPageHTMLs',
-                    newPath: 'PROJECT_ROOT/build/getPageHTMLs.js',
-                    noDependerMessage: (
-                        'Did you run `eject '+buildEjectName+'` before running `eject '+staticRenderingEjectName+'`?\n'+
-                        'Did you run `eject '+staticRenderingEjectName+'` already?'
-                    ),
-                },
-            ],
-            */
         },
         {
-            name: 'build-browser-entries',
+            name: 'build-entries',
             description: 'Eject the code that generates the browser entry of each page.',
             actions: [
                 {
@@ -214,18 +169,6 @@ function getEjectables() {
                     configPath: 'getPageBrowserEntriesFile',
                 },
             ],
-            /*
-            fileCopies: [
-                {
-                    oldPath: packageName+'/getPageBrowserEntries',
-                    newPath: 'PROJECT_ROOT/build/getPageBrowserEntries.js',
-                    noDependerMessage: (
-                        'Did you run `eject '+buildEjectName+'` before running `eject '+browserEntriesEjectName+'`?\n'+
-                        'Did you run `eject '+browserEntriesEjectName+'` already?'
-                    ),
-                },
-            ],
-            */
         },
     ];
 }

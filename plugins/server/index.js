@@ -79,66 +79,20 @@ function applyRequestHandlers_getter(configParts) {
 }
 
 function getEjectables() {
-    /*
-    const ServerRenderingFile__ejected = 'PROJECT_ROOT/server/ServerRendering.js';
-    const StaticAssetsFile__ejected = 'PROJECT_ROOT/server/StaticAssets.js';
-    const configElementKey = 'name';
-    */
-
     return [
         {
             name: 'server-rendering',
-            description: 'Eject the code that renders your pages to HTML at request-time.',
+            description: 'Eject the code that renders the pages to HTML at request-time.',
             actions: [
-                getAction('StaticAssets'),
+                getAction('ServerRendering'),
             ],
-            /*
-            fileCopies: [
-                {
-                    oldPath: ServerRenderingFile,
-                    newPath: ServerRenderingFile__ejected,
-                    noDependerRequired: true,
-                },
-            ],
-            configChanges: [
-                {
-                    configPath: 'httpRequestHandlerFiles',
-                    configIsList: true,
-                    configElementKey,
-                    newConfigValue: ({makePathRelative}) => ({
-                        ...ServerRenderingHandler,
-                        handlerFile: makePathRelative(ServerRenderingFile__ejected),
-                    }),
-                },
-            ],
-            */
         },
         {
             name: 'server-assets',
-            description: 'Eject the code responsible for serving static assets.',
+            description: 'Eject the code that serves the static assets.',
             actions: [
                 getAction('StaticAssets'),
             ],
-            /*
-            fileCopies: [
-                {
-                    oldPath: StaticAssetsFile,
-                    newPath: StaticAssetsFile__ejected,
-                    noDependerRequired: true,
-                },
-            ],
-            configChanges: [
-                {
-                    configPath: 'httpRequestHandlerFiles',
-                    configIsList: true,
-                    configElementKey,
-                    newConfigValue: ({makePathRelative}) => ({
-                        ...StaticAssetsHandler,
-                        handlerFile: makePathRelative(StaticAssetsFile__ejected),
-                    }),
-                },
-            ],
-            */
         },
     ];
 
