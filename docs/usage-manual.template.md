@@ -15,28 +15,28 @@
  - [Page Navigation & Links](#page-navigation--links--top)
  - [`domStatic` & `htmlStatic`](#domstatic--htmlstatic--top)
 
-#### Customization
+#### Custom
 
  - Server
-    - [Basic](#customization---server---basic--top)
-    - [Full](#customization---server---full--top)
+    - [Basic](#custom---server---basic--top)
+    - [Full](#custom---server---full--top)
 
  - Rendering
-    - [HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ...](#customization---rendering---html-head-meta-html---top)
-    - [Renderer](#customization---rendering---renderer---top)
+    - [HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ...](#custom---rendering---html-head-meta-html---top)
+    - [Renderer](#custom---rendering---renderer---top)
 
  - Browser
-    - [Default Browser Entry](#customization---browser---default-browser-entry--top)
-    - [Page Browser Entry](#customization---browser---page-browser-entry--top)
-    - [Full](#customization---browser---full--top)
+    - [Default Browser Entry](#custom---browser---default-browser-entry--top)
+    - [Page Browser Entry](#custom---browser---page-browser-entry--top)
+    - [Full](#custom---browser---full--top)
 
  - Routing
     - [Routing](#routing--top)
 
  - Build
-    - [Webpack](#customization--build--webpack--top)
-    - [Babel](#customization--build--babel--top)
-    - [Full](#customization--build--full--top)
+    - [Babel](#custom---build---babel--top)
+    - [Webpack](#custom---build---webpack--top)
+    - [Full](#custom---build---full--top)
 
 #### Use Cases
 
@@ -99,6 +99,7 @@ In addition, static assets can be referenced in CSS by using the `url` data type
 ~~~
 
 CSS and static assets are handled by webpack.
+TODO
 See [Customization - Webpack](#webpack) to customize the webpack config.
 
 Example of a page loading and using CSS, fonts, images and static assets:
@@ -143,7 +144,8 @@ Deeper explanation and example of pages loading data:
 
 The standard way to navigate between pages is to use the HTML link tag `<a>`.
 
-See [Customization - Routing](#customadvanced-routing) for alternative ways of navigating.
+TODO
+See [Customization - Routing](#custom-advanced-routing) for alternative ways of navigating.
 
 Example:
 
@@ -218,7 +220,7 @@ By adding `htmlStatic: true` to its page config, the page is rendered to HTML at
 
 
 
-## Customization - Server - Basic !INLINE ./top-link.md #customization
+## Custom - Server - Basic !INLINE ./top-link.md #custom
 
 By default, Reframe creates a server with the web framework hapi ([hapijs.com](https://hapijs.com/)).
 
@@ -231,7 +233,8 @@ We encourage you to eject the server and you should if you want to
  - Use a process manager such as PM2
  - etc.
 
-See [Customization - Server - Advanced](#customization-server-basic) if you want to further customize the server.
+TODO
+See [Customization - Server - Advanced](#custom-server-basic) if you want to further customize the server.
 
 Running `$ reframe eject server` will copy the following code to your codebase.
 
@@ -244,7 +247,7 @@ Running `$ reframe eject server` will copy the following code to your codebase.
 
 
 
-## Customization - Server - Full !INLINE ./top-link.md #customization
+## Custom - Server - Full !INLINE ./top-link.md #custom
 
 ###### Custom web framework
 
@@ -274,7 +277,22 @@ If you eject all server ejectables then every server LOC is in your codebase and
 
 
 
-## Webpack !INLINE ./top-link.md #customization
+
+## Custom - Build - Babel !INLINE ./top-link.md #custom
+
+You can customize the babel config by creating a `.babelrc` file.
+
+Example:
+ - [/examples/custom-babel](/examples/custom-babel)
+
+!INLINE ./help.md --hide-source-path
+
+
+
+
+
+
+## Custom - Build - Webpack !INLINE ./top-link.md #custom
 
 Save a `reframe.config.js` file at your app's root directory and use the `webpackBrowserConfig` and/or `webpackNodejsConfig` configurations.
 
@@ -327,21 +345,9 @@ Examples:
 
 
 
-## Babel !INLINE ./top-link.md #customization
-
-You can customize the babel config by creating a `.babelrc` file.
-
-Example:
- - [/examples/custom-babel](/examples/custom-babel)
-
-!INLINE ./help.md --hide-source-path
 
 
-
-
-
-
-## Customization - Rendering - HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ... !INLINE ./top-link.md #customization
+## Custom - Rendering - HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ... !INLINE ./top-link.md #custom
 
 Reframe uses [`@brillout/index-html`](https://github.com/brillout/index-html) to generate HTML.
 
@@ -378,14 +384,15 @@ Example:
  - [/examples/custom-head](/examples/custom-head)
 
 If you want to use something else than `@brillout/index-html`, then you can eject the renderer.
-See the [Customization - Rendering - Renderer](#customization-rendering-renderer) section.
+TODO
+See the [Custom - Rendering - Renderer](#custom-rendering-renderer) section.
 
 !INLINE ./help.md --hide-source-path
 
 
 
 
-## Customization - Rendering - Renderer !INLINE ./top-link.md #customization
+## Custom - Rendering - Renderer !INLINE ./top-link.md #custom
 
 By default Reframe renders the `view` property of your page configs with React.
 
@@ -407,9 +414,12 @@ Ejecting the React renderer will copy the following code to your codebase.
 !INLINE ../plugins/react/common.js
 ~~~
 
+!INLINE ./help.md --hide-source-path
 
 
-## Customization - Browser - Default Browser Entry !INLINE ./top-link.md #customization
+
+
+## Custom - Browser - Default Browser Entry !INLINE ./top-link.md #custom
 
 You can customize the browser entry code by running `$reframe eject browser`.
 
@@ -424,7 +434,11 @@ Running `$reframe eject browser` ejects the following code.
 !INLINE ../plugins/browser/browserEntry.js
 ~~~
 
-## Customization - Browser - Page Browser Entry !INLINE ./top-link.md #customization
+!INLINE ./help.md --hide-source-path
+
+
+
+## Custom - Browser - Page Browser Entry !INLINE ./top-link.md #custom
 
 You can customize the browser entry code for a single page
 without affecting the browser entry code of the other pages.
@@ -438,12 +452,18 @@ For example:
 
 You can see the example in full and other examples at [/examples/custom-browser](/examples/custom-browser).
 
-## Customization - Browser - Full !INLINE ./top-link.md #customization
+!INLINE ./help.md --hide-source-path
+
+
+
+## Custom - Browser - Full !INLINE ./top-link.md #custom
 
 You can as well eject the code that orchestrates the hydration of the page by running `$ reframe eject browser-hydration`.
 Note that if you want to customize the rendering process itself you should run `$ reframe eject renderer` instead.
 
 You can also eject the code that generates the browser entry for each page when building by running `$ reframe eject build-entries`.
+
+!INLINE ./help.md --hide-source-path
 
 
 
@@ -528,9 +548,9 @@ We refer to the source code of the plugin [`@reframe/crossroads`](/plugins/cross
 
 
 
-## Customization - Build - Full !INLINE ./top-link.md #customization
+## Custom - Build - Full !INLINE ./top-link.md #custom
 
-Run `reframe eject build` to eject the overall build code.
+Run `$ reframe eject build` to eject the overall build code.
 
 It will copy the following file to your codebase.
 
@@ -538,9 +558,9 @@ It will copy the following file to your codebase.
 !INLINE ../plugins/build/executeBuild.js
 ~~~
 
-Run `reframe eject build-static-rendering` to eject `getPageHtmls()` to gain control over the HTML rendering of your HTML-static pages. (That is pages with `htmlStatic: true` in their page configs.)
+Run `$ reframe eject build-rendering` to eject `getPageHtmls()` to gain control over the HTML rendering of your HTML-static pages. (That is pages with `htmlStatic: true` in their page configs.)
 
-And run `reframe eject build-browser-entries` to eject `getPageBrowserEntries()` to gain control over the browser entry code of your pages.
+And run `$ reframe eject build-browser-entries` to eject `getPageBrowserEntries()` to gain control over the browser entry code of your pages.
 
 !INLINE ./help.md --hide-source-path
 
