@@ -10,10 +10,10 @@
 # Overview
 
  - [Introduction](#introduction)
- - [Example](#example)
- - [Quick Start](#quick-start)
- - [Fully Flexible](#fully-flexible)
- - [Tech Specs](#tech-specs)
+ - [Example](#example--top)
+ - [Quick Start](#quick-start--top)
+ - [Fully Flexible](#fully-flexible--top)
+ - [Tech Specs](#tech-specs--top)
 
 <br/>
 <br/>
@@ -56,7 +56,7 @@ Reframe aims to be the **"modern Django / Ruby on Rails"**:
 <br/>
 <br/>
 
-### Example
+### Example !INLINE ./top-link.md #overview
 
 We create a web app
 by defining a page config `HelloPage`.
@@ -76,7 +76,7 @@ Reframe does the rest:
 <br/>
 <br/>
 
-### Quick Start
+### Quick Start !INLINE ./top-link.md #overview
 
 !INLINE ./start.md --hide-source-path
 
@@ -88,7 +88,7 @@ check out the [Usage Manual](/docs/usage-manual.md).
 <br/>
 <br/>
 
-### Fully Flexible
+### Fully Flexible !INLINE ./top-link.md #overview
 
 Reframe is designed from the ground up to be flexible.
 The goal is to give you the same flexibility as if you would use do-one-thing-do-it-well libraries.
@@ -153,7 +153,7 @@ This means that you can start writing your prototype and decide only at a later 
 <br/>
 <br/>
 
-### Tech Specs
+### Tech Specs !INLINE ./top-link.md #overview
 
  - [Developer Experience](#developer-experience)
  - [SEO](#seo)
