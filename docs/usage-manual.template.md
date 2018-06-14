@@ -9,25 +9,26 @@
 
 #### Basics
 
- - [Getting Started](#getting-started--top)
- - [CSS & Static Assets](#css--static-assets--top)
- - [Data Loading](#data-loading--top)
- - [Page Navigation & Links](#page-navigation--links--top)
- - [`domStatic` & `htmlStatic`](#domstatic--htmlstatic--top)
+&nbsp; &nbsp; &nbsp; &nbsp; [Getting Started](#getting-started--top)<br>
+&nbsp; &nbsp; &nbsp; &nbsp; [CSS & Static Assets](#css--static-assets--top)<br>
+&nbsp; &nbsp; &nbsp; &nbsp; [Data Loading](#data-loading--top)<br>
+&nbsp; &nbsp; &nbsp; &nbsp; [Page Navigation & Links](#page-navigation--links--top)<br>
+&nbsp; &nbsp; &nbsp; &nbsp; [`domStatic` & `htmlStatic`](#domstatic--htmlstatic--top)<br>
 
 #### Custom
-&nbsp; &nbsp; &nbsp; Server<br/>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Basic](#custom-server---basic--top)<br/>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Full](#custom-server---full--top)<br/>
-&nbsp; &nbsp; &nbsp; Server<br/>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Basic](#custom-server---basic--top)<br/>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Full](#custom-server---full--top)<br/>
-&nbsp; &nbsp; &nbsp; Server<br/>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Basic](#custom-server---basic--top)<br/>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Full](#custom-server---full--top)<br/>
-&nbsp; &nbsp; &nbsp; Server<br/>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Basic](#custom-server---basic--top)<br/>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Full](#custom-server---full--top)<br/>
+
+&nbsp; &nbsp; &nbsp; &nbsp; Server<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Basic](#custom-server---basic--top)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Full](#custom-server---full--top)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; Server<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Basic](#custom-server---basic--top)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Full](#custom-server---full--top)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; Server<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Basic](#custom-server---basic--top)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Full](#custom-server---full--top)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; Server<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Basic](#custom-server---basic--top)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Full](#custom-server---full--top)<br/>
 
 <b><a href="#custom">Custom</a></b>
 &nbsp; &nbsp; &nbsp; Server<br/>
