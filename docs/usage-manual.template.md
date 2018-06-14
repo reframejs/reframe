@@ -68,6 +68,8 @@
   <br/>
   &nbsp; &nbsp; &nbsp; &nbsp; [Full](#custom-server---full--top)
 
+###### Performance
+
 - **Server-Side Rendering** (**SSR**)
   <br/>
   By default, a page is rendered to HTML on the server before being rendered to the DOM in the browser.
@@ -81,6 +83,11 @@
   When setting `htmlStatic: true` to a page config, the page is rendered to HTML at build-time (instead of request-time).
   The page's HTML is rendered only once and is served statically.
   Decreasing load time.
+
+<br/>
+<br/>
+
+bla
 
  - Server
     - [Basic](#custom-server---basic--top)
