@@ -229,41 +229,36 @@ euwh
 
 bla
 
- - Server
-    - [Basic](#custom-server---basic--top)
-    - [Full](#custom-server---full--top)
-
- - Rendering
-    - [HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ...](#custom-html-head-meta-html---top)
-    - [Custom Renderer](#custom-renderer--top)
-
- - Browser
-    - [Default Browser Entry](#custom-default-browser-entry--top)
-    - [Page Browser Entry](#custom-page-browser-entry--top)
-    - [Custom Browser Code - Full](#custom-browser---full--top)
-
- - Routing
-    - [Advanced Routing](#advanced-routing--top)
-    - [Custom Router](#custom-router--top)
-
- - Build
-    - [Custom Babel](#custom-babel--top)
-    - [Custom Webpack](#custom-webpack--top)
-    - [Custom Build](#custom-build---full--top)
+- Server
+  - [Basic](#custom-server---basic--top)
+  - [Full](#custom-server---full--top)
+- Rendering
+  - [HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ...](#custom-html-head-meta-html---top)
+  - [Custom Renderer](#custom-renderer--top)
+- Browser
+  - [Default Browser Entry](#custom-default-browser-entry--top)
+  - [Page Browser Entry](#custom-page-browser-entry--top)
+  - [Custom Browser Code - Full](#custom-browser---full--top)
+- Routing
+  - [Advanced Routing](#advanced-routing--top)
+  - [Custom Router](#custom-router--top)
+- Build
+  - [Custom Babel](#custom-babel--top)
+  - [Custom Webpack](#custom-webpack--top)
+  - [Custom Build](#custom-build---full--top)
 
 #### Use Cases
 
- - Deploy
-    - [Static Deploy](#static-deploy--top)
-    - [Serverless Deploy](#serverless-deploy--top)
-
- - Integrations
-    - [Vue](#vue--top)
-    - [React Router](#react-router--top)
-    - [TypeScript](#typescript--top)
-    - [PostCSS](#postcss--top)
-    - [React Native (Web)](#react-native-web--top)
-    - [React Native (Web) + React Router](#react-native-web--react-router--top)
+- Deploy
+  - [Static Deploy](#static-deploy--top)
+  - [Serverless Deploy](#serverless-deploy--top)
+- Integrations
+  - [Vue](#vue--top)
+  - [React Router](#react-router--top)
+  - [TypeScript](#typescript--top)
+  - [PostCSS](#postcss--top)
+  - [React Native (Web)](#react-native-web--top)
+  - [React Native (Web) + React Router](#react-native-web--react-router--top)
 
 
 <br/>
