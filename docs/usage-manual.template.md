@@ -26,6 +26,25 @@
 &nbsp; &nbsp; &bull; [Full](#custom-server---full--top)
 
  - Server
+   <br/>
+   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9702; [Basic](#custom-server---basic--top)<br/>
+   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9702; [Full](#custom-server---full--top)
+
+
+ - Server
+   <br/>
+   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9702; [Basic](#custom-server---basic--top)<br/>
+   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9702; [Full](#custom-server---full--top)
+
+
+ - Server
+   <br/>
+   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9702; [Basic](#custom-server---basic--top)<br/>
+   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9702; [Full](#custom-server---full--top)
+
+
+
+ - Server
     - [Basic](#custom-server---basic--top)
     - [Full](#custom-server---full--top)
 
