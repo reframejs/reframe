@@ -9,88 +9,13 @@
 
 #### Basics
 
-&nbsp; &nbsp; &nbsp; &nbsp; [Getting Started](#getting-started--top)<br>
-&nbsp; &nbsp; &nbsp; &nbsp; [CSS & Static Assets](#css--static-assets--top)<br>
-&nbsp; &nbsp; &nbsp; &nbsp; [Data Loading](#data-loading--top)<br>
-&nbsp; &nbsp; &nbsp; &nbsp; [Page Navigation & Links](#page-navigation--links--top)<br>
-&nbsp; &nbsp; &nbsp; &nbsp; [`domStatic` & `htmlStatic`](#domstatic--htmlstatic--top)<br>
+- [Getting Started](#getting-started--top)<br>
+- [CSS & Static Assets](#css--static-assets--top)<br>
+- [Data Loading](#data-loading--top)<br>
+- [Page Navigation & Links](#page-navigation--links--top)<br>
+- [`domStatic` & `htmlStatic`](#domstatic--htmlstatic--top)<br>
 
 #### Custom
-
-bla
-
-- Server<br/>
-  &nbsp; &nbsp; &nbsp; &nbsp; [Basic](#custom-server---basic--top)<br/>
-  &nbsp; &nbsp; &nbsp; &nbsp; [Full](#custom-server---full--top)
-- Server<br/>
-  &nbsp; &nbsp; &nbsp; &nbsp; [Basic](#custom-server---basic--top)<br/>
-  &nbsp; &nbsp; &nbsp; &nbsp; [Full](#custom-server---full--top)
-- Server<br/>
-  &nbsp; &nbsp; &nbsp; &nbsp; [Basic](#custom-server---basic--top)<br/>
-  &nbsp; &nbsp; &nbsp; &nbsp; [Full](#custom-server---full--top)
-- Server<br/>
-  &nbsp; &nbsp; &nbsp; &nbsp; [Basic](#custom-server---basic--top)<br/>
-  &nbsp; &nbsp; &nbsp; &nbsp; [Full](#custom-server---full--top)
-- Server
-  <br/>
-  &nbsp; &nbsp; &nbsp; &nbsp; [Basic](#custom-server---basic--top)
-  &nbsp; &nbsp; &nbsp; &nbsp; [Full](#custom-server---full--top)
-
-bla
-
-- Server
-  <br/>
-  &nbsp; &nbsp; &nbsp; &nbsp; [Basic](#custom-server---basic--top)
-  &nbsp; &nbsp; &nbsp; &nbsp; [Full](#custom-server---full--top)
-- Server
-  <br/>
-  &nbsp; &nbsp; &nbsp; &nbsp; [Basic](#custom-server---basic--top)
-  &nbsp; &nbsp; &nbsp; &nbsp; [Full](#custom-server---full--top)
-- Server
-  <br/>
-  &nbsp; &nbsp; &nbsp; &nbsp; [Basic](#custom-server---basic--top)
-  &nbsp; &nbsp; &nbsp; &nbsp; [Full](#custom-server---full--top)
-
-bla
-
-- Server
-  <br/>
-  &nbsp; &nbsp; &nbsp; &nbsp; [Basic](#custom-server---basic--top)
-  <br/>
-  &nbsp; &nbsp; &nbsp; &nbsp; [Full](#custom-server---full--top)
-- Server
-  <br/>
-  &nbsp; &nbsp; &nbsp; &nbsp; [Basic](#custom-server---basic--top)
-  <br/>
-  &nbsp; &nbsp; &nbsp; &nbsp; [Full](#custom-server---full--top)
-- Server
-  <br/>
-  &nbsp; &nbsp; &nbsp; &nbsp; [Basic](#custom-server---basic--top)
-  <br/>
-  &nbsp; &nbsp; &nbsp; &nbsp; [Full](#custom-server---full--top)
-- Server
-  <br/>
-  &nbsp; &nbsp; &nbsp; &nbsp; [Basic](#custom-server---basic--top)
-  <br/>
-  &nbsp; &nbsp; &nbsp; &nbsp; [Full](#custom-server---full--top)
-
-euwh
-
-- **Server-Side Rendering** (**SSR**)
-  <br/>
-  By default, a page is rendered to HTML on the server before being rendered to the DOM in the browser.
-  Improving the user-perceived load time.
-- **Optimal HTTP caching**
-  <br/>
-  Every dynamic server response is cached with a ETag header.
-  And every static server response is indefinitely cached.
-- **Static Rendering**
-  <br/>
-  When setting `htmlStatic: true` to a page config, the page is rendered to HTML at build-time (instead of request-time).
-  The page's HTML is rendered only once and is served statically.
-  Decreasing load time.
-
-bla
 
 - Server
   - [Basic](#custom-server---basic--top)
