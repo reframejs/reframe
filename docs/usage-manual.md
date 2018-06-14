@@ -968,7 +968,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 ## Custom Webpack &nbsp; [<sup><sub>:top:</sub></sup>](#custom)
 
-Save a `reframe.config.js` file at your app's root directory and use the `webpackBrowserConfig` and/or `webpackNodejsConfig` configurations.
+You can customize the webpack config by using `webpackBrowserConfig` and/or `webpackNodejsConfig`.
 
 ~~~js
 // reframe.config.js

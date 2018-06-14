@@ -511,7 +511,7 @@ Example:
 
 ## Custom Webpack !INLINE ./top-link.md #custom
 
-Save a `reframe.config.js` file at your app's root directory and use the `webpackBrowserConfig` and/or `webpackNodejsConfig` configurations.
+You can customize the webpack config by using `webpackBrowserConfig` and/or `webpackNodejsConfig`.
 
 ~~~js
 // reframe.config.js
