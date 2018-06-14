@@ -200,7 +200,7 @@ by defining a page config `HelloPage`.
 // ~/my-app/pages/HelloPage.config.js
 
 // By default you write your views with React.
-// But you can as well use another view library such as Vue.
+// You can use another view library such as Vue.
 import React from 'react';
 
 const HelloPage = {
