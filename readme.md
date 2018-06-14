@@ -179,7 +179,7 @@ Yet, thanks to its "Progressive Eject" feature and its simple architecture,
 **you can easily customize and gain control over everything**.
 
 Reframe is a "Universal Framework":
-You can create any type of apps such as a **modern interactive apps**
+You can create any type of apps such as **modern interactive apps**
 as well as **old-school non-interactive apps**.
 
 Reframe aims to be the **"modern Django / Ruby on Rails"**:

@@ -33,7 +33,7 @@
 - Build
   - [Custom Babel](#custom-babel--top)
   - [Custom Webpack](#custom-webpack--top)
-  - [Fully Custom Build](#fully-custom-build---full--top)
+  - [Fully Custom Build](#fully-custom-build--top)
 
 #### Use Cases
 
