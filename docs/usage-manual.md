@@ -154,6 +154,8 @@
 
 #### Custom
 
+bla
+
 - Server<br/>
   &nbsp; &nbsp; &nbsp; &nbsp; [Basic](#custom-server---basic--top)<br/>
   &nbsp; &nbsp; &nbsp; &nbsp; [Full](#custom-server---full--top)
@@ -171,6 +173,8 @@
   &nbsp; &nbsp; &nbsp; &nbsp; [Basic](#custom-server---basic--top)
   &nbsp; &nbsp; &nbsp; &nbsp; [Full](#custom-server---full--top)
 
+bla
+
 - Server
   <br/>
   &nbsp; &nbsp; &nbsp; &nbsp; [Basic](#custom-server---basic--top)
@@ -183,6 +187,8 @@
   <br/>
   &nbsp; &nbsp; &nbsp; &nbsp; [Basic](#custom-server---basic--top)
   &nbsp; &nbsp; &nbsp; &nbsp; [Full](#custom-server---full--top)
+
+bla
 
 - Server
   <br/>
@@ -205,7 +211,7 @@
   <br/>
   &nbsp; &nbsp; &nbsp; &nbsp; [Full](#custom-server---full--top)
 
-###### Performance
+euwh
 
 - **Server-Side Rendering** (**SSR**)
   <br/>
@@ -220,9 +226,6 @@
   When setting `htmlStatic: true` to a page config, the page is rendered to HTML at build-time (instead of request-time).
   The page's HTML is rendered only once and is served statically.
   Decreasing load time.
-
-<br/>
-<br/>
 
 bla
 
