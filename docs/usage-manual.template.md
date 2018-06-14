@@ -16,7 +16,6 @@
  - [`domStatic` & `htmlStatic`](#domstatic--htmlstatic--top)
 
 #### Custom
-
 &nbsp; &nbsp; &nbsp; Server<br/>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Basic](#custom-server---basic--top)<br/>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Full](#custom-server---full--top)<br/>
@@ -30,6 +29,10 @@
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Basic](#custom-server---basic--top)<br/>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Full](#custom-server---full--top)<br/>
 
+<b><a href="#custom">Custom</a></b>
+&nbsp; &nbsp; &nbsp; Server<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Basic](#custom-server---basic--top)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Full](#custom-server---full--top)<br/>
 
  - Server
     - [Basic](#custom-server---basic--top)
