@@ -17,41 +17,18 @@
 
 #### Custom
 
-&bull; Server<br/>
-&nbsp; &nbsp; &bull; [Basic](#custom-server---basic--top)<br/>
-&nbsp; &nbsp; &bull; [Full](#custom-server---full--top)
-
-&bull; Server<br/>
-&nbsp; &nbsp; &bull; [Basic](#custom-server---basic--top)<br/>
-&nbsp; &nbsp; &bull; [Full](#custom-server---full--top)
-
- - Server
-   <br/>
-   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9702; [Basic](#custom-server---basic--top)<br/>
-   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9702; [Full](#custom-server---full--top)
-
-
- - Server
-   <br/>
-   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9702; [Basic](#custom-server---basic--top)<br/>
-   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9702; [Full](#custom-server---full--top)
-
-&nbsp; &nbsp; &nbsp;&bull;&nbsp;&nbsp;Server<br/>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&#9702;&nbsp;&nbsp;[Basic](#custom-server---basic--top)<br/>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&#9702;&nbsp;&nbsp;[Full](#custom-server---full--top)<br/>
-&nbsp; &nbsp; &nbsp;&bull;&nbsp;&nbsp;Server<br/>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&#9702;&nbsp;&nbsp;[Basic](#custom-server---basic--top)<br/>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&#9702;&nbsp;&nbsp;[Full](#custom-server---full--top)<br/>
-&nbsp; &nbsp; &nbsp;&bull;&nbsp;&nbsp;Server<br/>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&#9702;&nbsp;&nbsp;[Basic](#custom-server---basic--top)<br/>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&#9702;&nbsp;&nbsp;[Full](#custom-server---full--top)<br/>
-&nbsp; &nbsp; &nbsp;&bull;&nbsp;&nbsp;Server<br/>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&#9702;&nbsp;&nbsp;[Basic](#custom-server---basic--top)<br/>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&#9702;&nbsp;&nbsp;[Full](#custom-server---full--top)<br/>
-
-
-
-
+&nbsp; &nbsp; &nbsp; Server<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Basic](#custom-server---basic--top)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Full](#custom-server---full--top)<br/>
+&nbsp; &nbsp; &nbsp; Server<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Basic](#custom-server---basic--top)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Full](#custom-server---full--top)<br/>
+&nbsp; &nbsp; &nbsp; Server<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Basic](#custom-server---basic--top)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Full](#custom-server---full--top)<br/>
+&nbsp; &nbsp; &nbsp; Server<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Basic](#custom-server---basic--top)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Full](#custom-server---full--top)<br/>
 
 
  - Server
