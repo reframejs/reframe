@@ -166,11 +166,58 @@
 - Server<br/>
   &nbsp; &nbsp; &nbsp; &nbsp; [Basic](#custom-server---basic--top)<br/>
   &nbsp; &nbsp; &nbsp; &nbsp; [Full](#custom-server---full--top)
-- Server<br/>
-  &nbsp; &nbsp; &nbsp; &nbsp; [Basic](#custom-server---basic--top)<br/>
+- Server
+  <br/>
+  &nbsp; &nbsp; &nbsp; &nbsp; [Basic](#custom-server---basic--top)
   &nbsp; &nbsp; &nbsp; &nbsp; [Full](#custom-server---full--top)
 
+- Server
+  <br/>
+  &nbsp; &nbsp; &nbsp; &nbsp; [Basic](#custom-server---basic--top)
+  &nbsp; &nbsp; &nbsp; &nbsp; [Full](#custom-server---full--top)
+- Server
+  <br/>
+  &nbsp; &nbsp; &nbsp; &nbsp; [Basic](#custom-server---basic--top)
+  &nbsp; &nbsp; &nbsp; &nbsp; [Full](#custom-server---full--top)
+- Server
+  <br/>
+  &nbsp; &nbsp; &nbsp; &nbsp; [Basic](#custom-server---basic--top)
+  &nbsp; &nbsp; &nbsp; &nbsp; [Full](#custom-server---full--top)
 
+- Server
+  <br/>
+  &nbsp; &nbsp; &nbsp; &nbsp; [Basic](#custom-server---basic--top)
+  <br/>
+  &nbsp; &nbsp; &nbsp; &nbsp; [Full](#custom-server---full--top)
+- Server
+  <br/>
+  &nbsp; &nbsp; &nbsp; &nbsp; [Basic](#custom-server---basic--top)
+  <br/>
+  &nbsp; &nbsp; &nbsp; &nbsp; [Full](#custom-server---full--top)
+- Server
+  <br/>
+  &nbsp; &nbsp; &nbsp; &nbsp; [Basic](#custom-server---basic--top)
+  <br/>
+  &nbsp; &nbsp; &nbsp; &nbsp; [Full](#custom-server---full--top)
+- Server
+  <br/>
+  &nbsp; &nbsp; &nbsp; &nbsp; [Basic](#custom-server---basic--top)
+  <br/>
+  &nbsp; &nbsp; &nbsp; &nbsp; [Full](#custom-server---full--top)
+
+- **Server-Side Rendering** (**SSR**)
+  <br/>
+  By default, a page is rendered to HTML on the server before being rendered to the DOM in the browser.
+  Improving the user-perceived load time.
+- **Optimal HTTP caching**
+  <br/>
+  Every dynamic server response is cached with a ETag header.
+  And every static server response is indefinitely cached.
+- **Static Rendering**
+  <br/>
+  When setting `htmlStatic: true` to a page config, the page is rendered to HTML at build-time (instead of request-time).
+  The page's HTML is rendered only once and is served statically.
+  Decreasing load time.
 
  - Server
     - [Basic](#custom-server---basic--top)
