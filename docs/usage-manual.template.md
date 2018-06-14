@@ -36,11 +36,21 @@
    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9702; [Basic](#custom-server---basic--top)<br/>
    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9702; [Full](#custom-server---full--top)
 
+&nbsp; &nbsp; &nbsp; &bull; Server<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9679; [Basic](#custom-server---basic--top)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9679; [Full](#custom-server---full--top)<br/>
+&nbsp; &nbsp; &nbsp; &bull; Server<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9679; [Basic](#custom-server---basic--top)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9679; [Full](#custom-server---full--top)<br/>
+&nbsp; &nbsp; &nbsp; &bull; Server<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9679; [Basic](#custom-server---basic--top)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9679; [Full](#custom-server---full--top)<br/>
+&nbsp; &nbsp; &nbsp; &bull; Server<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9679; [Basic](#custom-server---basic--top)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9679; [Full](#custom-server---full--top)<br/>
 
- - Server
-   <br/>
-   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9702; [Basic](#custom-server---basic--top)<br/>
-   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &#9702; [Full](#custom-server---full--top)
+
+
 
 
 
