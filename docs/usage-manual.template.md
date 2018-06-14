@@ -18,11 +18,11 @@
 #### Custom
 
 - Server
-  - [Custom Server](#custom-server---basic--top)
-  - [Fully Custom Server](#custom-server---full--top)
+  - [Custom Server](#custom-server--top)
+  - [Fully Custom Server](#fully-custom-server--top)
 - Rendering
   - [Custom HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ...](#custom-html-head-meta-html---top)
-  - [Fully Custom Renderer](#custom-renderer--top)
+  - [Fully Custom Renderer](#fully-custom-renderer--top)
 - Browser
   - [Custom Default Browser Entry](#custom-default-browser-entry--top)
   - [Custom Page Browser Entry](#custom-page-browser-entry--top)
@@ -94,10 +94,6 @@ In addition, static assets can be referenced in CSS by using the `url` data type
 }
 ~~~
 
-CSS and static assets are handled by webpack.
-TODO
-See [Customization - Webpack](#webpack) to customize the webpack config.
-
 Example of a page loading and using CSS, fonts, images and static assets:
  - [/examples/basics/pages/glitter/](/examples/basics/pages/glitter/)
 
@@ -112,9 +108,8 @@ Example of a page loading and using CSS, fonts, images and static assets:
 
 ## Data Loading !INLINE ./top-link.md #basics
 
-A page config can be set a function `async getInitialProps()` that Reframe calls every time before the view is rendered.
-(On both the server and in the browser.)
-By using `async getInitialProps()` you can fetch data required by your page's React components.
+The page config `async getInitialProps()` can be used to fetch data before your page's view is rendered.
+The value returned by `async getInitialProps()` is then available to your page's view.
 
 For example:
 
@@ -166,7 +161,8 @@ By default, a page is rendered twice:
 On the server (to HTML) and in the browser (to the DOM).
 (React components can be rendered to the DOM as well as to HTML.)
 
-A page can be "DOM-dynamic" or "DOM-static" and "HTML-dynamic" or "HTML-static".
+By default, a page is "DOM-dynamic" and "HTML-dynamic".
+But it can be set to be "DOM-static" and/or "HTML-static":
 
  - **_HTML-static_**
    <br/>
@@ -333,7 +329,7 @@ See the [Custom - Rendering - Renderer](#custom-rendering-renderer) section.
 
 By default Reframe renders the `view` property of your page configs with React.
 
-But you can fully customize how your views are rendered.
+But you can customize how your views are rendered.
 
 Either use another plugin in the [list of renderer plugins](/docs/plugins.md#renderers) or eject the renderer with `$ reframe eject renderer`.
 
