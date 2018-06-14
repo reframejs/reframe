@@ -155,22 +155,22 @@
 #### Custom
 
 - Server
-  - [Basic](#custom-server---basic--top)
-  - [Full](#custom-server---full--top)
+  - [Custom Server](#custom-server---basic--top)
+  - [Fully Custom Server](#custom-server---full--top)
 - Rendering
-  - [HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ...](#custom-html-head-meta-html---top)
-  - [Custom Renderer](#custom-renderer--top)
+  - [Custom HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ...](#custom-html-head-meta-html---top)
+  - [Fully Custom Renderer](#custom-renderer--top)
 - Browser
-  - [Default Browser Entry](#custom-default-browser-entry--top)
-  - [Page Browser Entry](#custom-page-browser-entry--top)
-  - [Custom Browser Code - Full](#custom-browser---full--top)
+  - [Custom Default Browser Entry](#custom-default-browser-entry--top)
+  - [Custom Page Browser Entry](#custom-page-browser-entry--top)
+  - [Fully Custom Browser Entry](#custom-browser---full--top)
 - Routing
   - [Advanced Routing](#advanced-routing--top)
-  - [Custom Router](#custom-router--top)
+  - [Fully Custom Router](#custom-router--top)
 - Build
   - [Custom Babel](#custom-babel--top)
   - [Custom Webpack](#custom-webpack--top)
-  - [Custom Build](#custom-build---full--top)
+  - [Fully Custom Build](#custom-build---full--top)
 
 #### Use Cases
 
