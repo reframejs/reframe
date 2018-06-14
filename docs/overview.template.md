@@ -20,7 +20,7 @@
 
 ### Introduction
 
-With Reframe you can create a web app by simply defining so-called "page configs".
+With Reframe you can create a web app simply by defining "page configs".
 Your pages are automatically built and served.
 
 ~~~jsx
@@ -32,7 +32,7 @@ const WelcomePage = {
 ~~~
 
 A *page config* is a plain JavaScript object that configures a page by assigning it
- - a React component (or a Vue.js component),
+ - a React component (or a Vue component),
  - a route, and
  - further optional page configurations.
 
@@ -48,7 +48,7 @@ You can create any type of apps such as a **modern interactive apps**
 as well as **old-school non-interactive apps**.
 
 Reframe aims to be the **"modern Django / Ruby on Rails"**:
- - Interactive views: First-class support for interactive views with React, Vue.js, etc.
+ - Interactive views: First-class support for interactive views with React, Vue, etc.
  - Ejectabe: Gain full control by progressively ejecting the framework.
  - Full-stack ORM: No need to create API endpoints to access your data from the frontend. (Work-in-progress.)
  - Easy deploy: "Serverless deploy" with serverless Node.js and serverless database. (Work-in-progress.)
