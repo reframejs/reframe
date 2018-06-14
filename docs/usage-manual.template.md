@@ -23,21 +23,21 @@
 
  - Rendering
     - [HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ...](#custom-html-head-meta-html---top)
-    - [Renderer](#custom-renderer--top)
+    - [Custom Renderer](#custom-renderer--top)
 
  - Browser
     - [Default Browser Entry](#custom-default-browser-entry--top)
     - [Page Browser Entry](#custom-page-browser-entry--top)
-    - [Full](#custom-browser---full--top)
+    - [Custom Browser Code - Full](#custom-browser---full--top)
 
  - Routing
     - [Advanced Routing](#advanced-routing--top)
-    - [Router](#custom-router--top)
+    - [Custom Router](#custom-router--top)
 
  - Build
-    - [Babel](#custom-babel--top)
-    - [Webpack](#custom-webpack--top)
-    - [Full](#custom-build---full--top)
+    - [Custom Babel](#custom-babel--top)
+    - [Custom Webpack](#custom-webpack--top)
+    - [Custom Build](#custom-build---full--top)
 
 #### Use Cases
 

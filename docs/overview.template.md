@@ -107,8 +107,8 @@ All of Reframe can be progressively ejected.
 For example, the CLI command `$ reframe eject server` ejects the server code:
 [Around 30 lines of code](/plugins/hapi/start.js)
 are copied from Reframe's codebase and added to your codebase.
-Allowing you to modify the server code
-so that you can for example
+Allowing you to modify the server code.
+You can then
 add API endpoints,
 change the server config,
 change the whole server implementation,
@@ -136,11 +136,11 @@ Reframe is universal, that is, you can create any type of web app:
  - **Modern interactive apps** <sup><sub>:sparkles:</sub></sup>
    <br/>
    Apps with interactive views.
-   (An interactive graph, an interactive table, a To-Do list, etc. The browser loads JavaScript. The DOM is dynamic.)
+   (An interactive graph, a like button, a To-Do list, etc.) (The browser loads the page's view and renders it to the DOM &em; the DOM is dynamic.)
  - **Good ol' 1998 websites** <sup><sub>:floppy_disk:</sub></sup>
    <br/>
    Apps without interactive views.
-   (The browser doesn't load any JavaScript. The DOM is static.)
+   (The browser doesn't load any JavaScript. The DOM is static. The page's view is rendered to HTML.)
  - **Mixed apps** :tm:
    <br/>
    Apps that mix both: Modern interactive pages <sup><sub>:sparkles:</sub></sup> as well as good ol' 1998 non-interative pages <sup><sub>:floppy_disk:</sub></sup>.
