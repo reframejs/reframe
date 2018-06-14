@@ -22,18 +22,18 @@
   - [Fully Custom Server](#fully-custom-server--top)
 - Rendering
   - [Custom HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ...](#custom-html-head-meta-html---top)
-  - [Fully Custom Renderer](#fully-custom-renderer--top)
+  - [Custom Renderer](#custom-renderer--top)
 - Browser
   - [Custom Default Browser Entry](#custom-default-browser-entry--top)
   - [Custom Page Browser Entry](#custom-page-browser-entry--top)
-  - [Fully Custom Browser Entry](#custom-browser---full--top)
+  - [Fully Custom Browser Entry](#fully-custom-browser-entry--top)
 - Routing
   - [Advanced Routing](#advanced-routing--top)
-  - [Fully Custom Router](#custom-router--top)
+  - [Custom Router](#custom-router--top)
 - Build
   - [Custom Babel](#custom-babel--top)
   - [Custom Webpack](#custom-webpack--top)
-  - [Fully Custom Build](#custom-build---full--top)
+  - [Fully Custom Build](#fully-custom-build---full--top)
 
 #### Use Cases
 
@@ -135,8 +135,7 @@ Deeper explanation and example of pages loading data:
 
 The standard way to navigate between pages is to use the HTML link tag `<a>`.
 
-TODO
-See [Customization - Routing](#custom-advanced-routing) for alternative ways of navigating.
+See [Advanced Routing](#advanced-routing--top) for alternative ways of navigating.
 
 Example:
 
@@ -161,8 +160,7 @@ By default, a page is rendered twice:
 On the server (to HTML) and in the browser (to the DOM).
 (React components can be rendered to the DOM as well as to HTML.)
 
-By default, a page is "DOM-dynamic" and "HTML-dynamic".
-But it can be set to be "DOM-static" and/or "HTML-static":
+A page can be "DOM-dynamic" or "DOM-static" and "HTML-dynamic" or "HTML-static".
 
  - **_HTML-static_**
    <br/>
@@ -213,7 +211,7 @@ By adding `htmlStatic: true` to its page config, the page is rendered to HTML at
 
 
 
-## Custom Server - Basic !INLINE ./top-link.md #custom
+## Custom Server !INLINE ./top-link.md #custom
 
 By default, Reframe creates a server with the web framework hapi ([hapijs.com](https://hapijs.com/)).
 
@@ -225,9 +223,6 @@ We encourage you to eject the server and you should if you want to
  - Add authentication endpoints
  - Use a process manager such as PM2
  - etc.
-
-TODO
-See [Customization - Server - Advanced](#custom-server-basic) if you want to further customize the server.
 
 Running `$ reframe eject server` will copy the following code to your codebase.
 
@@ -243,7 +238,7 @@ Running `$ reframe eject server` will copy the following code to your codebase.
 
 
 
-## Custom Server - Full !INLINE ./top-link.md #custom
+## Fully Custom Server !INLINE ./top-link.md #custom
 
 ###### Custom web framework
 
@@ -252,18 +247,18 @@ creates the hapi server and adds a
 hapi plugin that is responsible for the hapi <-> Reframe integration.
 This plugin can be ejected with `$ reframe eject server-integration`.
 Ejecting it is uncommon and chances are that you will never have to.
-But if you want to use another web framework instead of hapi then you'll need to eject it.
+But if you want to use another web framework instead of hapi then you may want to eject it.
 
 ###### Full control
 
-The server-side rendering (the dynamic generation of the pages' HTMLs)
+The server-side rendering (the generation of the pages' HTMLs at request-time)
 and the serving of static browser assets (JavaScript files, CSS files, images, fonts, etc.)
 are implemented by the `@reframe/server` plugin.
 The plugin is agnostic and can be used with any web framework.
 
-You can take full control over the server-side rendering by running `$ reframe eject server-rendering`.
+You can take control over the server-side rendering by running `$ reframe eject server-rendering`.
 
-And you can take full control over the static assets servering by running `$ reframe eject server-assets`.
+And you can take control over the static assets servering by running `$ reframe eject server-assets`.
 
 If you eject all server ejectables then every server LOC is in your codebase and you have full control over the server logic.
 
@@ -284,9 +279,9 @@ Reframe uses [`@brillout/index-html`](https://github.com/brillout/index-html) to
 You have full control over the "outer-part" HTML.
 (`<meta>`, `<!DOCTYPE html`>, `<head>`, `<html>`, `<body>`, `<script>`, etc.)
 
-There are two ways to define the outer-part HTML:
+There are two ways to change the outer-part HTML:
  - By creating a `index.html` file
- - Over the page configs
+ - Over the page config
 
 Over the page config:
 
@@ -308,14 +303,13 @@ Also, the `indexHtml` page config option allows you to override the `index.html`
 
 All `@brillout/index-html` options are available over the page config.
 
-See [`@brillout/index-html`'s documentation](https://github.com/brillout/index-html).
+See [`@brillout/index-html`'s documentation](https://github.com/brillout/index-html) for the list of options.
 
 Example:
  - [/examples/custom-head](/examples/custom-head)
 
-If you want to use something else than `@brillout/index-html`, then you can eject the renderer.
-TODO
-See the [Custom - Rendering - Renderer](#custom-rendering-renderer) section.
+If you want to use something else than `@brillout/index-html`, then you can eject the renderer,
+see [Custom Renderer](#custom-renderer--top).
 
 !INLINE ./help.md --hide-source-path
 
@@ -329,19 +323,17 @@ See the [Custom - Rendering - Renderer](#custom-rendering-renderer) section.
 
 By default Reframe renders the `view` property of your page configs with React.
 
-But you can customize how your views are rendered.
+You can customize how your views are rendered.
 
 Either use another plugin in the [list of renderer plugins](/docs/plugins.md#renderers) or eject the renderer with `$ reframe eject renderer`.
-
-When ejecting the renderer, you have full control over the rendering of your views.
 
 Ejecting the React renderer will copy the following code to your codebase.
 
 ~~~js
-!INLINE ../plugins/react/renderToHtml.js
+!INLINE ../plugins/react/renderToDom.js
 ~~~
 ~~~js
-!INLINE ../plugins/react/renderToDom.js
+!INLINE ../plugins/react/renderToHtml.js
 ~~~
 ~~~js
 !INLINE ../plugins/react/common.js
@@ -380,9 +372,9 @@ Running `$reframe eject browser` ejects the following code.
 ## Custom Page Browser Entry !INLINE ./top-link.md #custom
 
 You can customize the browser entry code for a single page
-without affecting the browser entry code of the other pages.
+without affecting the browser entry code of other pages.
 
-You do this by setting the page config option `browserEntry`.
+You do this by setting the page config `browserEntry`.
 For example:
 
 ~~~js
@@ -402,12 +394,18 @@ You can see the example in full and other examples at [/examples/custom-browser]
 
 
 
-## Custom Browser - Full !INLINE ./top-link.md #custom
+## Fully Custom Browser Entry !INLINE ./top-link.md #custom
 
 You can as well eject the code that orchestrates the hydration of the page by running `$ reframe eject browser-hydration`.
-Note that if you want to customize the rendering process itself you should run `$ reframe eject renderer` instead.
+Note that
+if you want to customize the rendering process itself
+you should run `$ reframe eject renderer` instead,
+see [Custom Renderer](#custom-renderer--top).
 
-You can also eject the code that generates the browser entry for each page when building by running `$ reframe eject build-entries`.
+Note that the browser entry of each page are generated at build-time.
+You can take control over the generation of browser entries by running `$ reframe eject build-browser-entries`.
+We recommand to use the previously mentioned ejectables instead.
+Use this ejectable as last resort.
 
 !INLINE ./help.md --hide-source-path
 
@@ -484,13 +482,11 @@ and pages defined with React Router components will share the same browser-side 
 
 
 
-## Custom router !INLINE ./top-link.md #custom
+## Custom Router !INLINE ./top-link.md #custom
 
 Reframe can be used with any routing library.
 
 Either use another plugin in the [list of router plugins](/docs/plugins.md#routers) or eject the router with `$ reframe eject router`.
-
-When ejecting the router, you have full control over how your pages are routed.
 
 !INLINE ./help.md --hide-source-path
 
@@ -566,7 +562,7 @@ Examples:
 
 
 
-## Custom Build - Full !INLINE ./top-link.md #custom
+## Fully Custom Build !INLINE ./top-link.md #custom
 
 Run `$ reframe eject build` to eject the overall build code.
 
@@ -576,16 +572,17 @@ It will copy the following file to your codebase.
 !INLINE ../plugins/build/executeBuild.js
 ~~~
 
-Run `$ reframe eject build-rendering` to eject `getPageHtmls()` to gain control over the rendering of pages to HTML at build-time.
-(That is the HTML rendering of pages with `htmlStatic: true` in their page configs.)
-Note that, most of the time, you should eject the renderer instead.
-See the sections at Custom > Rendering.
-Use `$ reframe eject build-rendering` as last resort.
+Run `$ reframe eject build-rendering` to eject `getPageHtmls()` to gain control over the static rendering.
+(That is the rendering of pages to HTML that happens at build-time.
+In other words, the HTML rendering of pages that have `htmlStatic: true` in their page configs.)
+Note that, most of the time, you should eject the renderer instead,
+see [Custom Renderer](#custom-renderer--top).
+Use this ejectable as last resort.
 
-Run `$ reframe eject build-browser-entries` to eject `getPageBrowserEntries()` to gain control over the generation of the browser entry codes of each page.
-Note that, most of the time, you should eject the browser ejectables instead.
-See the sections at Custom > Browser.
-Use `$ reframe eject build-browser-entries` as last resort.
+Run `$ reframe eject build-browser-entries` to eject `getPageBrowserEntries()` to gain control over the generation of the browser entry source code of each page.
+Note that, most of the time, you should use the browser ejectables instead,
+see the sections under "Custom > Browser".
+Use this ejectable as last resort.
 
 If you eject all build ejectables, then you have full control over the build logic.
 
