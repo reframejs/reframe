@@ -177,8 +177,10 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm, dr
 
     function log_new_lines(filePath, newContent) {
         console.log();
-        console.log(chalk.bold(filePath));
-        console.log(newContent.split('\n').map(l => chalk.green('+'+l)).join('\n'));
+        console.log(chalk.bold(strFile(filePath)));
+        const lines = newContent.split('\n');
+        assert_internal(lines.slice(-1)[0]==='');
+        console.log(lines.slice(0,-1).map(l => chalk.green('+'+l)).join('\n'));
         console.log();
     }
 
@@ -263,12 +265,13 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm, dr
             assert_internal(!configIsList || listElementKey && listElementKeyProp);
             assert_internal(newConfigValue);
 
-            const oldValue = getOldValue({configPath, ejecteePackageName});
-            const {newValue, fileCopy} = getNewValue({newConfigValue, targetDir, oldValue, reframeConfigPath, projectRootDir, ejecteeRootDir});
+            checkUserConfig({reframeConfigFile, configPath, configIsList, configIsFilePath, listElementKey, listElementKeyProp});
+
+            const ejecteeConfig = getEjecteeConfig({ejecteePackageName, configPath, configIsList, configIsFilePath, listElementKey, listElementKeyProp});
+
+            const {newValue, fileCopy} = getNewValue({newConfigValue, targetDir, reframeConfigPath, projectRootDir, ejecteeRootDir, ejecteeConfig});
 
             fileCopies.push(fileCopy);
-
-            checkConfig({configPath, configIsList, configIsFilePath, listElementKey, listElementKeyProp, oldValue, reframeConfigFile});
 
             const newContent = applyConfigChange({configPath, newValue, configIsList, configIsFilePath});
             newConfigContent += '\n' + newContent + '\n';
@@ -287,12 +290,13 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm, dr
             reframeConfigContentNew,
         });
     }
-    function getNewValue({newConfigValue, targetDir, oldValue, reframeConfigPath, projectRootDir, ejecteeRootDir}) {
+    function getNewValue({newConfigValue, targetDir, reframeConfigPath, projectRootDir, ejecteeRootDir, ejecteeConfig}) {
         assert_internal(newConfigValue.constructor === Function);
+        assert_internal(ejecteeConfig);
 
         let oldFilePath;
         let newFilePath;
-        const newValue = newConfigValue({copyCode, oldConfigValue: oldValue});
+        const newValue = newConfigValue({copyCode, oldConfigValue: ejecteeConfig});
         assert_internal(pathModule.isAbsolute(oldFilePath));
         assert_internal(pathModule.isAbsolute(newFilePath));
 
@@ -300,7 +304,7 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm, dr
 
         function copyCode(oldFilePath_) {
             oldFilePath = oldFilePath_;
-            assert_usage(oldFilePath && oldFilePath.constructor===String && pathModule.isAbsolute(oldFilePath));
+            assert_plugin(oldFilePath && oldFilePath.constructor===String && pathModule.isAbsolute(oldFilePath), oldFilePath);
             const newFilePathRelative = (
                 pathModule.join(
                     targetDir,
@@ -311,15 +315,6 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm, dr
             assert_internal(pathModule.dirname(reframeConfigPath)===projectRootDir);
             return "-EVAL_START-require.resolve('./"+newFilePathRelative+"')-EVAL_END-";
         }
-    }
-    function getOldValue({configPath, ejecteePackageName}) {
-        const ejecteePackageExport = require(ejecteePackageName);
-        assert_internal(ejecteePackageExport.constructor===Object);
-
-        const oldValue = getPath(ejecteePackageExport, configPath);
-        assert_plugin(oldValue);
-
-        return oldValue;
     }
 
     function getValString(val) {
@@ -372,57 +367,62 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm, dr
     function stringIsAbsolutePath(str) {
         return pathModule.isAbsolute(str);
     }
-    function checkConfig({reframeConfigFile, configPath, configIsList, configIsFilePath, listElementKey, listElementKeyProp, oldValue}) {
+    function getEjecteeConfig({ejecteePackageName, configPath, configIsList, configIsFilePath, listElementKey, listElementKeyProp}) {
+            const ejecteePackageExport = require(ejecteePackageName);
+            assert_internal(ejecteePackageExport.constructor===Object);
 
-        assert_internal(configIsFilePath || configIsList);
-        checkUserConfig();
-        checkEjecteeConfig();
+            const oldConfig = getPath(ejecteePackageExport, configPath);
+            assert_plugin(oldConfig);
 
-        return;
-
-        function checkEjecteeConfig() {
-            assert_plugin(oldValue);
-            if( configIsList ) {
-                assert_plugin(oldValue.find);
-            }
             if( configIsFilePath ) {
-                assert_plugin(require.resolve(oldValue));
+                assert_plugin(require.resolve(oldConfig));
+                return oldConfig;
             }
+
+            if( configIsList ) {
+                assert_plugin(oldConfig.find);
+                const oldConfigElement = oldConfig.find(c1 => c1[listElementKeyProp]===listElementKey);
+                assert_plugin(oldConfigElement);
+                return oldConfigElement;
+            }
+
+            assert_internal(false);
+    }
+
+    function checkUserConfig({reframeConfigFile, configPath, configIsList, configIsFilePath, listElementKey, listElementKeyProp}) {
+        assert_internal(!!configIsFilePath !== !!configIsList);
+
+        const configFileObject = require(reframeConfigFile);
+        const configFileValue = getPath(configFileObject, configPath);
+
+        if( configIsList ) {
+            assert_usage(listElementKeyProp);
+            assert_usage(listElementKey);
+            assert_usage(
+                !configFileValue || configFileValue.find,
+                "The config `"+configPath+"` defined at `"+reframeConfigFile+"` should be an array but it isn't."
+            );
+            (configFileValue||[])
+            .forEach(configElement => {
+                assert_usage(
+                    configElement[listElementKeyProp],
+                    configElement,
+                    "The config printed above is missing the key `"+listElementKeyProp+"`"
+                );
+            });
+            assert_usage(
+                !configFileValue || !configFileValue.find(c1 => c1[listElementKeyProp]===listElementKey),
+                "The config `"+configPath+"` defined at `"+reframeConfigFile+"` already includes `"+listElementKey+"`.",
+                "Did you already eject?"
+            );
         }
 
-        function checkUserConfig() {
-            const configFileObject = require(reframeConfigFile);
-            const configFileValue = getPath(configFileObject, configPath);
-
-            if( configIsList ) {
-                assert_usage(listElementKeyProp);
-                assert_usage(listElementKey);
-                assert_usage(
-                    !configFileValue || configFileValue.find,
-                    "The config `"+configPath+"` defined at `"+reframeConfigFile+"` should be an array but it isn't."
-                );
-                (configFileValue||[])
-                .forEach(configElement => {
-                    assert_usage(
-                        configElement[listElementKeyProp],
-                        configElement,
-                        "The config printed above is missing the key `"+listElementKeyProp+"`"
-                    );
-                });
-                assert_usage(
-                    !configFileValue || !configFileValue.find(c1 => c1[listElementKeyProp]===listElementKey),
-                    "The config `"+configPath+"` defined at `"+reframeConfigFile+"` already includes `"+elementKey+"`.",
-                    "Did you already eject?"
-                );
-            }
-
-            if( configIsFilePath ) {
-                assert_usage(
-                    !configFileValue,
-                    "Your config file `"+reframeConfigFile+"` already defines a `"+configPath+"`.",
-                    "Remove `"+configPath+"` before ejecting."
-                );
-            }
+        if( configIsFilePath ) {
+            assert_usage(
+                !configFileValue,
+                "Your config file `"+reframeConfigFile+"` already defines a `"+configPath+"`.",
+                "Remove `"+configPath+"` before ejecting."
+            );
         }
     }
 
