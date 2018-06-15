@@ -20,7 +20,11 @@ module.exports = {
                 {
                     name: "--skip-npm",
                     description: "Skip installing packages with npm. You will have to run `npm install` / `yarn` yourself. Do this if you use Yarn.",
-                }
+                },
+                {
+                    name: "--dry-run",
+                    description: "See what the eject would add to your codebase without actually ejecting.",
+                },
             ],
             getHelp,
         },
@@ -52,11 +56,15 @@ function ejectableGetter(configParts) {
     return ejectables;
 }
 
-async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, printHelp}) {
+async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm, dryRun}, printHelp}) {
+    skipGit = skipGit || dryRun;
+    skipNpm = skipNpm || dryRun;
+
     if( !ejectableName ) {
         printHelp();
         return;
     }
+
     const detective = require('detective');
     const builtins = require('builtins')();
     const assert_internal = require('reassert/internal');
@@ -72,6 +80,7 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
     const os = require('os');
     const mkdirp = require('mkdirp');
     const writeJsonFile = require('write-json-file');
+    const chalk = require('chalk');
 
     await run();
 
@@ -127,12 +136,32 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
 
         const {newDeps, newDepsStr} = getNewDeps({deps, ejecteePackageJsonFile});
 
+        operations.forEach(op => {
+            if( op.type==='newFile' ) {
+                const {newFilePath, fileContent} = op;
+                if( ! dryRun ) {
+                    fs__write(newFilePath, fileContent);
+                }
+                console.log(symbolSuccess+'New file '+strFile(newFilePath)+'.');
+                if( dryRun ) {
+                    log_new_lines(newFilePath, fileContent);
+                }
+            }
+            if( op.type==='changeConfig' ) {
+                const {reframeConfigPath, reframeConfigFile, reframeConfigContentNew, newConfigContent} = op;
+                if( ! dryRun ) {
+                    fs__write(reframeConfigPath, reframeConfigContentNew);
+                }
+                console.log(symbolSuccess+'Modified '+strFile(reframeConfigFile));
+                if( dryRun ) {
+                    log_new_lines(reframeConfigPath, newConfigContent);
+                }
+            }
+        });
         if( newDeps.length>0 ) {
-            await addNewDeps({newDeps, projectPackageJsonFile});
-        }
-
-        operations.forEach(op => op());
-        if( newDeps.length>0 ) {
+            if( ! dryRun ) {
+                await addNewDeps({newDeps, projectPackageJsonFile});
+            }
             console.log(symbolSuccess+'Added new dependencies '+newDepsStr+' to '+strFile(projectPackageJsonFile)+'.');
         }
         console.log(symbolSuccess+'All code ejected.');
@@ -146,6 +175,13 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
         }
     }
 
+    function log_new_lines(filePath, newContent) {
+        console.log();
+        console.log(chalk.bold(filePath));
+        console.log(newContent.split('\n').map(l => chalk.green('+'+l)).join('\n'));
+        console.log();
+    }
+
     function copyFiles({fileCopies, operations, deps}) {
         const copySpecs = [];
         fileCopies.forEach(({oldFilePath, newFilePath}) => {
@@ -153,10 +189,19 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
             assert_internal(newFilePath);
             addCopySpec({oldFilePath, newFilePath, copySpecs, deps});
         });
-        operations.push(...(
-            copySpecs
-            .map(({newFilePath, fileContent}) => writeFile(newFilePath, fileContent))
-        ));
+        copySpecs
+        .forEach(({newFilePath, fileContent}) => {
+            assert_usage(
+                !fs__path_exists(newFilePath),
+                "Trying to write a new file at `"+newFilePath+"` but there is already a file there.",
+                "(Re-)move the file and try again."
+            );
+            operations.push({
+                type: 'newFile',
+                newFilePath,
+                fileContent,
+            });
+        })
 
     }
     function addCopySpec({oldFilePath, newFilePath, copySpecs, deps}) {
@@ -206,13 +251,8 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
         const {projectRootDir, reframeConfigFile} = reframeConfig.projectFiles;
         const reframeConfigPath = reframeConfigFile || pathModule.resolve(projectRootDir, './reframe.config.js');
 
-        let reframeConfigContent = (
-            reframeConfigFile ? (
-                fs__read(reframeConfigFile)
-            ) : (
-                'module.exports = {};\n'
-            )
-        );
+        const reframeConfigContentOld = reframeConfigFile && fs__read(reframeConfigFile);
+        let newConfigContent = '';
 
         configChanges
         .forEach(configChange => {
@@ -230,18 +270,22 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
 
             checkConfig({configPath, configIsList, configIsFilePath, listElementKey, listElementKeyProp, oldValue, reframeConfigFile});
 
-            const newConfigContent = applyConfigChange({configPath, newValue, configIsList, configIsFilePath});
-            reframeConfigContent += '\n' + newConfigContent + '\n';
+            const newContent = applyConfigChange({configPath, newValue, configIsList, configIsFilePath});
+            newConfigContent += '\n' + newContent + '\n';
         });
 
-        reframeConfigContent = reframeConfigContent.replace(/\s?$/, os.EOL);
+        const reframeConfigContentNew = (
+            (reframeConfigContentOld || 'module.exports = {};\n') +
+            newConfigContent
+        ).replace(/\s?$/, os.EOL);
 
-        const op = () => {
-            fs__write(reframeConfigPath, reframeConfigContent);
-            console.log(symbolSuccess+'Modified '+strFile(reframeConfigFile));
-        };
-
-        operations.push(op);
+        operations.push({
+            type: 'changeConfig',
+            reframeConfigPath,
+            reframeConfigFile,
+            newConfigContent,
+            reframeConfigContentNew,
+        });
     }
     function getNewValue({newConfigValue, targetDir, oldValue, reframeConfigPath, projectRootDir, ejecteeRootDir}) {
         assert_internal(newConfigValue.constructor === Function);
@@ -501,17 +545,6 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm}, p
         return pathString.split('.');
     }
 
-    function writeFile(filePath, fileContent) {
-        assert_usage(
-            !fs__path_exists(filePath),
-            "Trying to write a new file at `"+filePath+"` but there is already a file there.",
-            "(Re-)move the file and try again."
-        );
-        return () => {
-            fs__write(filePath, fileContent);
-            console.log(symbolSuccess+'New file '+strFile(filePath)+'.');
-        };
-    }
     function fs__write(filePath, fileContent) {
         assert_internal(pathModule.isAbsolute(filePath));
         mkdirp.sync(pathModule.dirname(filePath));
