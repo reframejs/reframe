@@ -1,4 +1,3 @@
-const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 const generateHtml = require('@brillout/index-html');
 const config = require('@brillout/reconfig').getConfig({configFileName: 'reframe.config.js'});
@@ -16,7 +15,6 @@ async function renderToHtml({pageConfig, initialProps}) {
     const contentHtml = ReactDOMServer.renderToStaticMarkup(reactElement);
 
     const html = renderHtmlDocument(contentHtml, pageConfig);
-
     return html;
 }
 
@@ -25,6 +23,5 @@ function renderHtmlDocument(contentHtml, pageConfig) {
     htmlOptions.bodyHtmls.push('<div id="'+CONTAINER_ID+'">'+contentHtml+'</div>');
 
     const html = generateHtml(htmlOptions);
-
     return html;
 }

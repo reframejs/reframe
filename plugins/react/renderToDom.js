@@ -12,6 +12,5 @@ async function renderToDom({pageConfig, initialProps}) {
     });
 
     const container = document.getElementById(CONTAINER_ID);
-
     ReactDOM.hydrate(reactElement, container);
 }
