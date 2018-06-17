@@ -1,10 +1,10 @@
 {
   "name": "@reframe/browser",
-  "version": "0.1.12",
+  "version": "0.1.13-next.0",
   "dependencies": {
-    "@brillout/browser-config": "0.1.12",
-    "@brillout/reconfig": "0.1.12",
-    "@brillout/repage": "0.1.12"
+    "@brillout/browser-config": "0.1.13-next.0",
+    "@brillout/reconfig": "0.1.13-next.0",
+    "@brillout/repage": "0.1.13-next.0"
   },
   "publishConfig": {
     "access": "public"

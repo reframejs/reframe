@@ -1,10 +1,10 @@
 {
   "name": "examples_custom-server-hapi",
   "private": true,
-  "version": "0.1.12",
+  "version": "0.1.13-next.0",
   "dependencies": {
-    "@brillout/reconfig": "0.1.12",
-    "@reframe/react-kit": "0.1.12",
+    "@brillout/reconfig": "0.1.13-next.0",
+    "@reframe/react-kit": "0.1.13-next.0",
     "hapi": "^17.5.1",
     "react": "^16.3.2"
   },

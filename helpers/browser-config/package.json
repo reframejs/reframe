@@ -1,7 +1,6 @@
 {
   "name": "@brillout/browser-config",
-  "version": "0.1.12",
-  "dependencies": {},
+  "version": "0.1.13-next.0",
   "scripts": {
     "docs": "mdocs"
   },
