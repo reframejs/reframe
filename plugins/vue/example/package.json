@@ -1,5 +1,6 @@
 {
   "name": "_example-vue",
+  "private": true,
   "version": "0.1.13-next.0",
   "dependencies": {
     "@reframe/react-kit": "0.1.13-next.0",
