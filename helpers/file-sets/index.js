@@ -10,7 +10,7 @@ module.exports = FileSets;
 
 
 function FileSets({pathBase}={}) {
-    assert_usage(!pathBase || pathModule.isAbsolute(pathBase));
+    assert_usage(pathBase && pathModule.isAbsolute(pathBase));
 
     const written_files = [];
 

@@ -358,14 +358,20 @@ function writeAssetMap({browserEntryPoints, fileSets, autoReloadEnabled, pageFil
     const pageNames = Object.keys(pageFiles);
     assert_internal(pageNames.length===pageModules.length);
 
+    const {outputDir} = this;
+
+    let buildTime = new Date();
+    let buildEnv = process.env.NODE_ENV || 'development';
+    let staticAssetsDir = pathModule.resolve(outputDir, BROWSER_OUTPUT);
+    staticAssetsDir = makeBuildPathRelative(staticAssetsDir, {outputDir});
     const assetInfos = {
-        buildTime: new Date(),
-        staticAssetsDir: pathModule.resolve(this.outputDir, BROWSER_OUTPUT),
-        buildEnv: process.env.NODE_ENV || 'development',
+        buildTime,
+        buildEnv,
+        staticAssetsDir,
         pageAssets: {},
     };
 
-    addPageFileTranspiled({assetInfos, pageModules});
+    addPageFileTranspiled({assetInfos, pageModules, outputDir});
 
     add_browser_entry_points({assetInfos, pageBrowserEntries, browserEntryPoints});
 
@@ -386,16 +392,23 @@ function writeAssetMap({browserEntryPoints, fileSets, autoReloadEnabled, pageFil
         noFileSet: true,
     });
 }
-function addPageFileTranspiled({assetInfos, pageModules}) {
+function addPageFileTranspiled({assetInfos, pageModules, outputDir}) {
     pageModules
     .forEach(({pageName, pageFileTranspiled, pageFile}) => {
         assert_internal(!assetInfos.pageAssets[pageName]);
+        pageFileTranspiled = makeBuildPathRelative(pageFileTranspiled, {outputDir});
+        pageFile = makeBuildPathRelative(pageFile, {outputDir});
         assetInfos
         .pageAssets[pageName] = {
             pageFileTranspiled,
             pageFile,
         };
     });
+}
+function makeBuildPathRelative(pathAbsolute, {outputDir}) {
+    assert_internal(pathModule.isAbsolute(pathAbsolute));
+    assert_internal(outputDir);
+    return pathModule.relative(outputDir, pathAbsolute);
 }
 function assert_assertMap(assetInfos) {
     Object.entries(assetInfos.pageAssets)
@@ -483,9 +496,9 @@ function add_entry_point_styles_to_page_assets({assetInfos, entry_point, pageNam
 function make_paths_array_unique(paths) {
     assert_internal(
         paths.every(
-            path => (
-                path && path.constructor===Object ||
-                path && path.constructor===String && path.startsWith('/')
+            p => (
+                p && p.constructor===Object ||
+                p && p.constructor===String && p.startsWith('/')
             )
         ),
         paths

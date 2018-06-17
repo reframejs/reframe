@@ -16,13 +16,19 @@ function getAssetInfos({outputDir, requireProductionBuild}) {
         return cache;
     }
 
+    assetInfos.staticAssetsDir = makePathAbsolute(assetInfos.staticAssetsDir, {outputDir});
+
     assetInfos.pageAssets = (
         Object.entries(assetInfos.pageAssets)
         .map(([pageName, assets]) => {
-            const {pageFileTranspiled, pageFile, styles, scripts} = assets;
+            let {pageFileTranspiled, pageFile, styles, scripts} = assets;
+            assert_internal(pageFile);
             assert_internal(pageFileTranspiled);
             assert_internal(styles.length>=0);
             assert_internal(scripts.length>=0);
+
+            pageFile = makePathAbsolute(pageFile, {outputDir});
+            pageFileTranspiled = makePathAbsolute(pageFileTranspiled, {outputDir});
 
             const pageExport = forceRequire(pageFileTranspiled);
 
@@ -33,6 +39,12 @@ function getAssetInfos({outputDir, requireProductionBuild}) {
     cache = assetInfos;
 
     return assetInfos;
+}
+
+function makePathAbsolute(pathRelative, {outputDir}) {
+    assert_internal(!pathModule.isAbsolute(pathRelative));
+    assert_internal(outputDir);
+    return pathModule.resolve(outputDir, pathRelative);
 }
 
 function readAssetMap({outputDir, requireProductionBuild}) {
