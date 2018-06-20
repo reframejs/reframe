@@ -1,6 +1,6 @@
 {
   "name": "@reframe/react-router",
-  "version": "0.1.13-next.0",
+  "version": "0.1.13",
   "scripts": {
     "docs": "mdocs"
   },

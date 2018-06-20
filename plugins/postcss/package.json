@@ -1,11 +1,11 @@
 {
   "name": "@reframe/postcss",
-  "version": "0.1.13-next.0",
+  "version": "0.1.13",
   "scripts": {
     "docs": "mdocs"
   },
   "dependencies": {
-    "@brillout/reconfig": "0.1.13-next.0",
+    "@brillout/reconfig": "0.1.13",
     "css-loader": "^0.28.11",
     "mini-css-extract-plugin": "^0.4.0",
     "postcss-loader": "^2.1.3"
