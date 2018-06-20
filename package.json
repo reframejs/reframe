@@ -10,7 +10,8 @@
         "publish": "lerna publish --cd-version=prerelease --preid=next --npm-tag=next --force-publish=*",
         "publish-force": "lerna publish --skip-git --npm-tag=next --force-publish=*",
         "release": "lerna publish --force-publish=*",
-        "release-test": "lerna publish --skip-git --skip-npm --force-publish=*"
+        "release-test": "lerna publish --skip-git --skip-npm --force-publish=*",
+        "change-npm-tag": "node ./helpers/dev-utils/changeNpmTag.js"
     },
     "devDependencies": {
         "@brillout/check-deps": "^0.1.3",
