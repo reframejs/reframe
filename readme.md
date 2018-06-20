@@ -184,7 +184,7 @@ as well as **old-school non-interactive apps**.
 
 Reframe aims to be the **"modern Django / Ruby on Rails"**:
  - Interactive views: First-class support for interactive views with React, Vue, etc.
- - Ejectabe: Gain full control by progressively ejecting the framework.
+ - Ejectable: Gain full control by progressively ejecting the framework.
  - Full-stack ORM: No need to create API endpoints to access your data from the frontend. (Work-in-progress.)
  - Easy deploy: "Serverless deploy" with serverless Node.js and serverless database. (Work-in-progress.)
 
