@@ -52,9 +52,9 @@
 </p></div>
 
 <div><p align="center">
-    <sub><sub><img src="https://github.com/reframejs/reframe/raw/docs/docs/images/thunderbolt.min.svg?sanitize=true" width="26"></sub></sub>&nbsp;&nbsp;<b>Insanely Rapid</b>&nbsp;&nbsp;&#8209;&nbsp;&nbsp;Implement&nbsp;apps&nbsp;in&nbsp;no&nbsp;time.
-    &nbsp; &nbsp; &nbsp; &nbsp;
-    <sub><sub><img src="https://github.com/reframejs/reframe/raw/docs/docs/images/tornado.min.svg?sanitize=true" width="26"></sub></sub>&nbsp;&nbsp;<b>Fully&nbsp;Flexible</b>&nbsp;&nbsp;&#8209;&nbsp;&nbsp;Doesn't&nbsp;get&nbsp;in&nbsp;your&nbsp;way&nbsp;when&nbsp;your&nbsp;app&nbsp;grows.
+    <sub><sub><img src="https://github.com/reframejs/reframe/raw/docs/docs/images/thunderbolt.min.svg?sanitize=true" width="26"></sub></sub>&nbsp;<b>Insanely Rapid</b>&nbsp;&#8209;&nbsp;Implement&nbsp;apps&nbsp;in&nbsp;no&nbsp;time.
+    &nbsp; &nbsp; &nbsp;
+    <sub><sub><img src="https://github.com/reframejs/reframe/raw/docs/docs/images/tornado.min.svg?sanitize=true" width="26"></sub></sub>&nbsp;&nbsp;<b>Fully&nbsp;Flexible</b>&nbsp;&#8209;&nbsp;Doesn't&nbsp;get&nbsp;in&nbsp;your&nbsp;way&nbsp;when&nbsp;your&nbsp;app&nbsp;grows.
 </p></div>
 
 <br/>
