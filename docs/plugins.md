@@ -128,23 +128,10 @@
         Framework to create full-stack web apps.
 </p></div>
 
-<p>
-<img src="https://github.com/reframejs/reframe/raw/docs/docs/images/thunderbolt.min.svg?sanitize=true" width="26">
-<sub><img src="https://github.com/reframejs/reframe/raw/docs/docs/images/thunderbolt.min.svg?sanitize=true" width="26"></sub>
-<sub><sub><img src="https://github.com/reframejs/reframe/raw/docs/docs/images/thunderbolt.min.svg?sanitize=true" width="26"></sub></sub>
-<sub><sub><sub><img src="https://github.com/reframejs/reframe/raw/docs/docs/images/thunderbolt.min.svg?sanitize=true" width="26"></sub></sub></sub>
-<sub><sub><sub><sub><img src="https://github.com/reframejs/reframe/raw/docs/docs/images/thunderbolt.min.svg?sanitize=true" width="26"></sub></sub></sub></sub>
-<sub><sub><sub><sub><sub><img src="https://github.com/reframejs/reframe/raw/docs/docs/images/thunderbolt.min.svg?sanitize=true" width="26"></sub></sub></sub></sub></sub>
-</p>
-
 <div><p align="center">
-    <sub><sub><sub><sub><sub><img src="https://github.com/reframejs/reframe/raw/docs/docs/images/thunderbolt.min.svg?sanitize=true" width="26"></sub></sub></sub></sub></sub>&nbsp;&nbsp;<b>Insanely Rapid</b>
-    &nbsp;&#8209;&nbsp;
-    Implement apps in no time.
+    <sub><sub><img src="https://github.com/reframejs/reframe/raw/docs/docs/images/thunderbolt.min.svg?sanitize=true" width="26"></sub></sub><b>Insanely Rapid</b>&nbsp;&#8209;&nbsp;Implement&nbsp;apps&nbsp;in&nbsp;no&nbsp;time.
     &nbsp; &nbsp; &nbsp; &nbsp;
-    <sub><sub><sub><sub><sub><img src="https://github.com/reframejs/reframe/raw/docs/docs/images/tornado.min.svg?sanitize=true" width="26"></sub></sub></sub></sub></sub>&nbsp;&nbsp;&nbsp;<b>Fully&nbsp;Flexible</b>
-    &nbsp;&#8209;&nbsp;
-    Doesn't get in your way when your app grows.
+    <sub><sub><img src="https://github.com/reframejs/reframe/raw/docs/docs/images/tornado.min.svg?sanitize=true" width="26"></sub></sub><b>Fully&nbsp;Flexible</b>&nbsp;&#8209;&nbsp;Doesn't&nbsp;get&nbsp;in&nbsp;your&nbsp;way&nbsp;when&nbsp;your&nbsp;app&nbsp;grows.
 </p></div>
 
 <br/>
