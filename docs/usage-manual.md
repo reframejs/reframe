@@ -129,9 +129,13 @@
 </p></div>
 
 <div><p align="center">
-    <b>Rapid&nbsp;Dev</b>&nbsp;&#8209;&nbsp;Quickly&nbsp;implement&nbsp;apps.
+    <b>Rapid Dev</b>
+    <img src="https://github.com/reframejs/reframe/raw/master/docs/images/thunderbolt.min.svg?sanitize=true" width="14" height="10">
+    Implement apps in no time.
     &nbsp; &nbsp; &nbsp;
-    <b>Fully&nbsp;Flexible</b>&nbsp;&#8209;&nbsp;As&nbsp;flexible&nbsp;as&nbsp;using&nbsp;do-one-thing-do-it-well&nbsp;libraries.
+    <b>Fully&nbsp;Flexible</b>
+    <img src="https://github.com/reframejs/reframe/raw/master/docs/images/tornado.min.svg?sanitize=true" width="14" height="10">
+    Doesn't get in your way when your app grows.
 </p></div>
 
 <br/>
