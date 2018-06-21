@@ -1,5 +1,7 @@
+process.on('unhandledRejection', err => {throw err});
+
 const assert = require('reassert');
-const rootPackageJsonFile = require.resolve('../../package.json');
+const rootPackageJsonFile = require.resolve('../../../package.json');
 const rootPackageJson = require(rootPackageJsonFile);
 const pathModule = require('path');
 const execa = require('execa');
