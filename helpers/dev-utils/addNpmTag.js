@@ -1,6 +1,6 @@
 const getPackages = require('./getPackages');
 const assert = require('reassert');
-const {symbolSuccess} = require('@brillout/cli-theme');
+const {symbolSuccess, colorEmphasis} = require('@brillout/cli-theme');
 
 assert(process.argv.length===3);
 const npmTag = process.argv[2];
@@ -10,8 +10,8 @@ addNpmTag(npmTag);
 
 function addNpmTag(npmTag) {
     getPackages()
-    .forEach(({exec, packageNameAndVersion}) => {
+    .forEach(async ({exec, packageNameAndVersion}) => {
         await exec('npm', ['dist-tag', 'add', packageNameAndVersion, npmTag]);
-        console.log(symbolSuccess+'tag '+npmTag+' added to '+packageNameAndVersion);
+        console.log(symbolSuccess+'tag '+colorEmphasis(npmTag)+' added to '+packageNameAndVersion);
     });
 }
