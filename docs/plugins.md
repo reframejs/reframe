@@ -125,10 +125,11 @@
 [<p align="center"><img src="https://github.com/reframejs/reframe/raw/master/docs/images/logo-with-title.min.svg?sanitize=true" width=450 height=94 style="max-width:100%;" alt="Reframe"/></p>](https://github.com/reframejs/reframe)
 
 <div><p align="center">
-        Framework to create web apps. The modern Django / Ruby on Rails.
+        Framework to create full-stack web apps.
 </p></div>
 
 <p>
+<img src="https://github.com/reframejs/reframe/raw/docs/docs/images/thunderbolt.min.svg?sanitize=true" width="26">
 <sub><img src="https://github.com/reframejs/reframe/raw/docs/docs/images/thunderbolt.min.svg?sanitize=true" width="26"></sub>
 <sub><sub><img src="https://github.com/reframejs/reframe/raw/docs/docs/images/thunderbolt.min.svg?sanitize=true" width="26"></sub></sub>
 <sub><sub><sub><img src="https://github.com/reframejs/reframe/raw/docs/docs/images/thunderbolt.min.svg?sanitize=true" width="26"></sub></sub></sub>
@@ -137,7 +138,7 @@
 </p>
 
 <div><p align="center">
-    <sub><sub><sub><sub><sub><img src="https://github.com/reframejs/reframe/raw/docs/docs/images/thunderbolt.min.svg?sanitize=true" width="26"></sub></sub></sub></sub></sub>&nbsp;&nbsp;<b>Rapid Dev</b>
+    <sub><sub><sub><sub><sub><img src="https://github.com/reframejs/reframe/raw/docs/docs/images/thunderbolt.min.svg?sanitize=true" width="26"></sub></sub></sub></sub></sub>&nbsp;&nbsp;<b>Insanely Rapid</b>
     &nbsp;&#8209;&nbsp;
     Implement apps in no time.
     &nbsp; &nbsp; &nbsp; &nbsp;
