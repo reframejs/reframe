@@ -23,6 +23,7 @@ async function checkIfPublished() {
     });
 
     if( ! hasError ) {
+        console.log();
         console.log(symbolSuccess+'All packages have the same tags:');
         console.log(
             referenceTags
@@ -30,6 +31,7 @@ async function checkIfPublished() {
                 indent+indent+colorEmphasis(tagName)+' '+packageVersion
             ).join('\n')
         );
+        console.log();
     }
 }
 

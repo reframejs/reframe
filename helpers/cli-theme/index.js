@@ -25,6 +25,7 @@ const cliTheme = {
 
     symbolSuccess: chalk.cyan(' '+symbols.success+' '),
     symbolError: chalk.red(' '+symbols.error+' '),
+    symbolInfo: chalk.yellow(' '+symbols.info+' '),
 
     indent: '   ',
 
