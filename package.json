@@ -3,15 +3,20 @@
     "scripts": {
         "install-all": "npm install yarn --no-save && yarn",
         "i": "yarn",
-        "clean": "git clean -xdff",
+
         "docs": "mdocs ./docs/",
         "docs-all": "npm run docs && lerna run docs",
+
+        "publish": "lerna publish --force-publish=* --npm-tag=next --cd-version=prerelease --preid=next",
+        "publish-retry-npm": "lerna publish --force-publish=* --npm-tag=next --skip-git",
+        "release-dry-run": "lerna publish --force-publish=* --npm-tag=next --skip-git --skip-npm",
+        "release-prepare": "lerna publish --force-publish=* --npm-tag=next",
+        "release": "node ./helpers/dev-utils/npm/setNpmTag.js latest",
+        "check-release": "node ./helpers/dev-utils/npm/checkIfCorrectlyPublished.js",
+
         "deps": "check-deps",
-        "publish": "lerna publish --cd-version=prerelease --preid=next --npm-tag=next --force-publish=*",
-        "publish-force": "lerna publish --skip-git --npm-tag=next --force-publish=*",
-        "release": "lerna publish --force-publish=*",
-        "release-test": "lerna publish --skip-git --skip-npm --force-publish=*",
-        "change-npm-tag": "node ./helpers/dev-utils/changeNpmTag.js"
+
+        "clean": "git clean -xdff"
     },
     "devDependencies": {
         "@brillout/check-deps": "^0.1.3",

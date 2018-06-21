@@ -6,9 +6,9 @@ assert(process.argv.length===3);
 const npmTag = process.argv[2];
 assert(npmTag);
 
-addNpmTag(npmTag);
+setNpmTag(npmTag);
 
-function addNpmTag(npmTag) {
+function setNpmTag(npmTag) {
     getPackages()
     .forEach(async ({exec, packageNameAndVersion}) => {
         await exec('npm', ['dist-tag', 'add', packageNameAndVersion, npmTag]);
