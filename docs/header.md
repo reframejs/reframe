@@ -53,15 +53,17 @@
 
 <div><p align="center">
     <sub><sub><sub><img src="https://github.com/reframejs/reframe/raw/docs/docs/images/thunderbolt.min.svg?sanitize=true" width="26"></sub></sub></sub>
-    &nbsp; &nbsp; &nbsp;
+    &nbsp;
     <b>Rapid Dev</b>
     Implement apps in no time.
+    &nbsp;&#8209;&nbsp;
     &nbsp; &nbsp; &nbsp;
     &nbsp; &nbsp; &nbsp;
     <sub><sub><sub><img src="https://github.com/reframejs/reframe/raw/docs/docs/images/tornado.min.svg?sanitize=true" width="26"></sub></sub></sub>
-    &nbsp; &nbsp; &nbsp;
+    &nbsp;
     <b>Fully&nbsp;Flexible</b>
-    &nbsp;&#8209;&nbsp;Doesn't get in your way when your app grows.
+    &nbsp;&#8209;&nbsp;
+    Doesn't get in your way when your app grows.
 </p></div>
 
 <br/>
