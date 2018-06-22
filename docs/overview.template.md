@@ -1,3 +1,4 @@
+!INLINE ./links.md --hide-source-path
 !INLINE ./header.md --hide-source-path
 
 !MENU
@@ -31,7 +32,7 @@ const WelcomePage = {
 };
 ~~~
 
-**No build configuration** and **no server configuration**.
+**No build configuration** and **no server configuration** is required.
 
 Yet, thanks to its "Progressive Eject" feature and its simple architecture,
 **you can easily customize and gain control over everything**.

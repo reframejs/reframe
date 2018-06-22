@@ -121,7 +121,6 @@
         &nbsp;&nbsp;&nbsp;&nbsp;
     </sup>
 </p>
-
 [<p align="center"><img src="https://github.com/reframejs/reframe/raw/master/docs/images/logo-with-title.min.svg?sanitize=true" width=450 height=94 style="max-width:100%;" alt="Reframe"/></p>](https://github.com/reframejs/reframe)
 
 <div><p align="center">
@@ -166,7 +165,7 @@ const WelcomePage = {
 };
 ~~~
 
-**No build configuration** and **no server configuration**.
+**No build configuration** and **no server configuration** is required.
 
 Yet, thanks to its "Progressive Eject" feature and its simple architecture,
 **you can easily customize and gain control over everything**.
