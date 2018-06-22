@@ -31,14 +31,7 @@ const WelcomePage = {
 };
 ~~~
 
-A *page config* is a plain JavaScript object that configures a page by assigning it
- - a React component (or a Vue component),
- - a route, and
- - further optional page configurations.
-
-You can create an app with **no build configuration** and **no server configuration**.
-
-> All you need to create a web app is one React component and one page config per page.
+**No build configuration** and **no server configuration**.
 
 Yet, thanks to its "Progressive Eject" feature and its simple architecture,
 **you can easily customize and gain control over everything**.
@@ -46,12 +39,6 @@ Yet, thanks to its "Progressive Eject" feature and its simple architecture,
 Reframe is a "Universal Framework":
 You can create any type of apps such as **modern interactive apps**
 as well as **old-school non-interactive apps**.
-
-Reframe aims to be the **"modern Django / Ruby on Rails"**:
- - Interactive views: First-class support for interactive views with React, Vue, etc.
- - Ejectable: Gain full control by progressively ejecting the framework.
- - Full-stack ORM: No need to create API endpoints to access your data from the frontend. (Work-in-progress.)
- - Easy deploy: "Serverless deploy" with serverless Node.js and serverless database. (Work-in-progress.)
 
 <br/>
 <br/>
