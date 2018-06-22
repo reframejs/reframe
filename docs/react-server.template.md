@@ -1,8 +1,8 @@
 !MENU_SKIP
 
 <p align="right">
-<img src="https://github.com/reframejs/reframe/raw/master/docs/images/logo.min.svg?sanitize=true" height=48 alt="Reframe"/>
-A [Reframe](https://github.com/reframejs/reframe) Kit
+<img src="https://github.com/reframejs/reframe/raw/docs/docs/images/logo.min.svg?sanitize=true" height=48 alt="Reframe"/>
+A <a href="https://github.com/reframejs/reframe">Reframe</a> Kit
 <br>
 Rapid Dev &nbsp; &nbsp; &nbsp; Fully Flexible
 </p>
