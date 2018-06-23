@@ -7,6 +7,7 @@
         "@brillout/reconfig": "0.1.13",
         "@reframe/utils": "0.1.13",
         "builtins": "^2.0.0",
+        "chalk": "^2.4.1",
         "detective": "^5.1.0",
         "mkdirp": "^0.5.1",
         "reassert": "^1.1.12",

@@ -2,6 +2,7 @@
   "name": "@rebuild/serve",
   "version": "0.1.13",
   "dependencies": {
+    "@brillout/cli-theme": "0.1.13",
     "@rebuild/build": "0.1.13",
     "chokidar": "^1.7.0",
     "parent-module": "^0.1.0",

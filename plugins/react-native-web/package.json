@@ -8,7 +8,6 @@
     "@brillout/browser-config": "0.1.13",
     "@brillout/index-html": "^0.1.2",
     "@brillout/reconfig": "0.1.13",
-    "@reframe/browser": "0.1.13",
     "@reframe/react": "0.1.13",
     "babel-plugin-react-native-web": "^0.6.1",
     "react-art": "^16.3.2",
