@@ -14,6 +14,13 @@ Create a web app with
  - React front-end
  - Node.js server
 
+This i
+ - SEO - dynamic views that needs SEO (Static views SEO -> see ...)
+ Inlcudes SSR
+ - 
+
+For other use cases see the [list of starters].
+
 To get started we recommand to read
 Go through the quick start to get started,
 read the whole Quick Usage Manual,
