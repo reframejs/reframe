@@ -1,0 +1,17 @@
+{
+  "name": "_example-koa",
+  "private": true,
+  "version": "0.1.7",
+  "dependencies": {
+    "@reframe/react-kit": "0.1.13-next.0",
+    "koa": "^2.5.1",
+    "koa-etag": "^3.0.0",
+    "koa-conditional-get": "^2.0.0",
+    "koa-router": "^7.4.0",
+    "koa-compose": "^4.0.0",
+    "react": "^16.3.2"
+  },
+  "checkDeps": {
+    "skip": true
+  }
+}
