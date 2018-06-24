@@ -40,6 +40,7 @@
         "plugins/deploy-git",
         "plugins/deploy-git/example",
         "plugins/path-to-regexp",
+        "plugins/koa",
         "plugins/postcss",
         "plugins/postcss/example",
         "plugins/react",
