@@ -20,6 +20,7 @@
 
 - Server
   - [Custom Server](#custom-server--top)
+  - [Custom Server Framework (Express, Koa, ...)](#custom-server-framework-express-koa---top)
   - [Fully Custom Server](#fully-custom-server--top)
 - Rendering
   - [Custom HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ...](#custom-html-head-meta-html---top)
@@ -239,6 +240,10 @@ Running `$ reframe eject server` will copy the following code to your codebase.
 
 
 
+## Custom Server Framework (Express, Koa, ...) !INLINE ./top-link.md #custom
+
+
+
 ## Fully Custom Server !INLINE ./top-link.md #custom
 
 ###### Custom web framework
@@ -252,16 +257,29 @@ But if you want to use another web framework instead of hapi then you may want t
 
 ###### Full control
 
-The server-side rendering (the generation of the pages' HTMLs at request-time)
-and the serving of static browser assets (JavaScript files, CSS files, images, fonts, etc.)
+The following ejects give you full control over the server.
+
+- `$ reframe eject server`
+  <br/>
+  Eject the code that creates the server instance.
+  See previous sections.
+- `$ reframe eject server-integration`
+  <br/>
+  Eject the code that integrates the server framework with Reframe.
+  See previous sections.
+- `$ reframe eject server-rendering`
+  <br/>
+  Eject the code that implements server-side rendering (the generation of the pages' HTMLs at request-time).
+- `$ reframe eject server-assets`
+  <br/>
+  Eject the code that implements the serving of static browser assets (JavaScript files, CSS files, images, fonts, etc.)
+
+Note that the ejectables `server-rendering` and `server-assets` 
+and the serving
 are implemented by the `@reframe/server` plugin.
 The plugin is agnostic and can be used with any web framework.
 
-You can take control over the server-side rendering by running `$ reframe eject server-rendering`.
-
-And you can take control over the static assets servering by running `$ reframe eject server-assets`.
-
-If you eject all server ejectables then every server LOC is in your codebase and you have full control over the server logic.
+If you eject all these ejectables then every single server LOC is in your codebase and you have full control over the server logic.
 
 !INLINE ./help.md --hide-source-path
 

@@ -24,7 +24,7 @@ To create other kind of apps, see the [list of starters]().
     - [CSS & Static Assets]()
     - [`doNotRenderInBrowser`]()
   - Server
-    - [Hapi Alternatives (Express, Koa, ...)]()
+    - [Custom Server Framework (Express, Koa, ...)]
   - [Deploy]()
 
 <br/>
@@ -69,6 +69,6 @@ For further usage information, look up the usage manual.
 
 ### `doNotRenderInBrowser`
 
-### Hapi Alternatives (Express, Koa, ...)
+### Custom Server Framework (Express, Koa, ...)
 
 ### Deploy
