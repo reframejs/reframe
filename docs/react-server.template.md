@@ -2,12 +2,13 @@
 !INLINE ./header.md --hide-source-path
 
 !MENU
-!MENU_ORDER 21
-!MENU_TITLE Starter: React Server
+!MENU_ORDER 22
+!MENU_TITLE React Server
+!MENU_SECTION Starters
 
 <br/>
 
-# Starter: React Server
+# React Server Starter
 
 Create a web app with
  - React front-end
@@ -19,8 +20,8 @@ To create other kind of apps, see the [list of starters]().
 - [Quick Start]()
 - Usage Basics
   - Frontend
-    - [CSS & Static Assets]()
     - [Page Async Data]()
+    - [CSS & Static Assets]()
     - [`doNotRenderInBrowser`]()
   - Server
     - [Hapi Alternatives (Express, Koa, ...)]()

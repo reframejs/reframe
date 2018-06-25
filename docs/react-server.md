@@ -128,7 +128,7 @@
 </p>
 
 <div><p align="center">
-        Framework to create web apps.
+        Create web apps.
 </p></div>
 
 <div><p align="center">
@@ -139,15 +139,11 @@
 
 <br/>
 
-[Overview](/../../)<br/>
-[Starter: React Frontend](/docs/react-frontend.md)<br/>
-[**Starter: React Server**](/docs/react-server.md)<br/>
-[Usage Manual](/docs/usage-manual.md)<br/>
-[Plugins](/docs/plugins.md)
+
 
 <br/>
 
-# Starter: React Server
+# React Server Starter
 
 Create a web app with
  - React front-end
@@ -159,8 +155,8 @@ To create other kind of apps, see the [list of starters]().
 - [Quick Start]()
 - Usage Basics
   - Frontend
-    - [CSS & Static Assets]()
     - [Page Async Data]()
+    - [CSS & Static Assets]()
     - [`doNotRenderInBrowser`]()
   - Server
     - [Hapi Alternatives (Express, Koa, ...)]()

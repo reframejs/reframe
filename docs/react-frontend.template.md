@@ -2,15 +2,22 @@
 !INLINE ./header.md --hide-source-path
 
 !MENU
-!MENU_ORDER 20
-!MENU_TITLE Starter: React Frontend
+!MENU_ORDER 21
+!MENU_SECTION Starters
+!MENU_TITLE React Frontend
 
 <br/>
 
-# Starter: React Frontend
+# React Frontend Starter
 
 Create a React frontend.
 
-with so called "page configs".
-Your frontend is automatically built.
-No build configuration required.
+If you need a server or another kind of apps, see the [list of starters]().
+
+- [Example]()
+- [Quick Start]()
+- Usage Basics
+  - [Deploy]()
+  - [Page Async Data]()
+  - [CSS & Static Assets]()
+  - [`doNotRenderInBrowser`]()

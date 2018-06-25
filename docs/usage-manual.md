@@ -128,7 +128,7 @@
 </p>
 
 <div><p align="center">
-        Framework to create web apps.
+        Create web apps.
 </p></div>
 
 <div><p align="center">
@@ -139,11 +139,7 @@
 
 <br/>
 
-[Overview](/../../)<br/>
-[Starter: React Frontend](/docs/react-frontend.md)<br/>
-[Starter: React Server](/docs/react-server.md)<br/>
-[**Usage Manual**](/docs/usage-manual.md)<br/>
-[Plugins](/docs/plugins.md)
+
 
 <br/>
 

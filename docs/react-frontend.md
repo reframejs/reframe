@@ -128,7 +128,7 @@
 </p>
 
 <div><p align="center">
-        Framework to create web apps.
+        Create web apps.
 </p></div>
 
 <div><p align="center">
@@ -139,21 +139,23 @@
 
 <br/>
 
-[Overview](/../../)<br/>
-[**Starter: React Frontend**](/docs/react-frontend.md)<br/>
-[Starter: React Server](/docs/react-server.md)<br/>
-[Usage Manual](/docs/usage-manual.md)<br/>
-[Plugins](/docs/plugins.md)
+
 
 <br/>
 
-# Starter: React Frontend
+# React Frontend Starter
 
 Create a React frontend.
 
-with so called "page configs".
-Your frontend is automatically built.
-No build configuration required.
+If you need a server or another kind of apps, see the [list of starters]().
+
+- [Example]()
+- [Quick Start]()
+- Usage Basics
+  - [Deploy]()
+  - [Page Async Data]()
+  - [CSS & Static Assets]()
+  - [`doNotRenderInBrowser`]()
 
 <!---
 
