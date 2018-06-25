@@ -141,8 +141,8 @@
 
 [Overview](/../../)<br/>
 Starters<br/>
- &nbsp; &nbsp; &nbsp; [React Frontend](/docs/react-frontend.md)<br/>
- &nbsp; &nbsp; &nbsp; [React Server](/docs/react-server.md)<br/>
+&nbsp; &nbsp; &nbsp;[React Frontend](/docs/react-frontend.md)<br/>
+&nbsp; &nbsp; &nbsp;[React Server](/docs/react-server.md)<br/>
 [**Usage Manual**](/docs/usage-manual.md)<br/>
 [Plugins](/docs/plugins.md)
 
