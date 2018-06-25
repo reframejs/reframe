@@ -4,6 +4,7 @@
 !MENU
 !MENU_ORDER 23
 !MENU_SECTION Starters
+!MENU_TITLE React Database
 
 <br/>
 

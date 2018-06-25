@@ -2,8 +2,9 @@
 !INLINE ./header.md --hide-source-path
 
 !MENU
-!MENU_ORDER 21
+!MENU_ORDER 22
 !MENU_SECTION Starters
+!MENU_TITLE React Frontend
 
 <br/>
 
