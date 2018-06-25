@@ -121,7 +121,11 @@
         &nbsp;&nbsp;&nbsp;&nbsp;
     </sup>
 </p>
-[<p align="center"><img src="https://github.com/reframejs/reframe/raw/master/docs/images/logo-with-title.min.svg?sanitize=true" width=450 height=94 style="max-width:100%;" alt="Reframe"/></p>](https://github.com/reframejs/reframe)
+<p align="center">
+    <a href="https://github.com/reframejs/reframe">
+        <img src="https://github.com/reframejs/reframe/raw/master/docs/images/logo-with-title.min.svg?sanitize=true" width=450 height=94 style="max-width:100%;" alt="Reframe"/>
+    </a>
+</p>
 
 <div><p align="center">
         Framework to create web apps.
@@ -136,6 +140,8 @@
 <br/>
 
 [**Overview**](/../../)<br/>
+[Starter: React Frontend](/docs/react-frontend.md)<br/>
+[Starter: React Server](/docs/react-server.md)<br/>
 [Usage Manual](/docs/usage-manual.md)<br/>
 [Plugins](/docs/plugins.md)
 
