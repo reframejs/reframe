@@ -242,22 +242,20 @@ Running `$ reframe eject server` will copy the following code to your codebase.
 
 ## Custom Server Framework (Express, Koa, ...) !INLINE ./top-link.md #custom
 
+First, check the [list of plugins](/docs/plugins.md) for a plugin that integrates the server framework you want to use with Reframe.
+If you then want to get control over the server instance, then run `$ reframe eject server`. (See previous section)
+
+If there isn't a plugin for the server framework you want, then run
+- `$ reframe eject server`
+- `$ reframe eject server-integration`
+to get full control over the integration of the current server framework and Reframe.
+At that point you can get rid of the current server framework and replace it any other server framework.
+
 
 
 ## Fully Custom Server !INLINE ./top-link.md #custom
 
-###### Custom web framework
-
-The code ejected by `$ reframe eject server`
-creates the hapi server and adds a
-hapi plugin that is responsible for the hapi <-> Reframe integration.
-This plugin can be ejected with `$ reframe eject server-integration`.
-Ejecting it is uncommon and chances are that you will never have to.
-But if you want to use another web framework instead of hapi then you may want to eject it.
-
-###### Full control
-
-The following ejects give you full control over the server.
+The following ejectables give you full control over the server.
 
 - `$ reframe eject server`
   <br/>
@@ -269,15 +267,10 @@ The following ejects give you full control over the server.
   See previous sections.
 - `$ reframe eject server-rendering`
   <br/>
-  Eject the code that implements server-side rendering (the generation of the pages' HTMLs at request-time).
+  Eject the code that implements server-side rendering. (The generation of HTML of pages at request-time.)
 - `$ reframe eject server-assets`
   <br/>
   Eject the code that implements the serving of static browser assets (JavaScript files, CSS files, images, fonts, etc.)
-
-Note that the ejectables `server-rendering` and `server-assets` 
-and the serving
-are implemented by the `@reframe/server` plugin.
-The plugin is agnostic and can be used with any web framework.
 
 If you eject all these ejectables then every single server LOC is in your codebase and you have full control over the server logic.
 

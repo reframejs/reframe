@@ -37,9 +37,22 @@ const WelcomePage = {
 Yet, thanks to its "Progressive Eject" feature and its simple architecture,
 **you can easily customize and gain control over everything**.
 
+> Quickly implement a prototype while staying fully flexible down the road.
+> Reframe doesn't lock you in: You can progressively and fully eject Reframe.
+
 Reframe is a "Universal Framework":
-You can create any type of apps such as **modern interactive apps**
-as well as **old-school non-interactive apps**.
+You can create every type of app:
+a **modern frontend with React**,
+a Node.js backend with **old-school non-interactive HTML pages**,
+a serverless Vue Frontend,
+a **full-stack app** with modern frontend + Node.js server + **Database/ORM** (ORM integration is WIP),
+etc.
+Changing from one type of app to another is easy.
+You can start write your prototype right away
+without having to think about what type of app is right for you.
+When we say Reframe is flexible, we mean it.
+
+More about Progressive Eject, Universal Framework, see [Concetps](/docs/concepts.md).
 
 <br/>
 <br/>
@@ -60,6 +73,8 @@ Reframe does the rest:
 <p align="center">
     <img src='https://github.com/reframejs/reframe/raw/master/docs/images/reframe-start.png?sanitize=true' width="780" style="max-width:100%;"/>
 </p>
+
+That's it: We created a web app simply by defining one page config. No build config, no server config.
 
 <br/>
 <br/>
