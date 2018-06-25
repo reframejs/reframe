@@ -2,7 +2,7 @@
 !INLINE ./header.md --hide-source-path
 
 !MENU
-!MENU_ORDER 100
+!MENU_ORDER 50
 
 <br/>
 
