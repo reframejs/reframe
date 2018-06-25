@@ -5,7 +5,7 @@
 </p>
 
 <div><p align="center">
-        Create web apps.
+    Framework to create web apps.
 </p></div>
 
 <div><p align="center">
