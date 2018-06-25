@@ -155,12 +155,8 @@ Create a web app with
 
 To create other kind of apps, see the [list of starters]().
 
-To get started, go through the Quick Start and read the entire Usage Basics.
-For further usage information, look up the Usage Manual.
-
 - [Example]()
 - [Quick Start]()
-&#9135;
 - Usage Basics
   - Frontend
     - [CSS & Static Assets]()
@@ -169,6 +165,9 @@ For further usage information, look up the Usage Manual.
   - Server
     - [Hapi Alternatives (Express, Koa, ...)]()
   - [Deploy]()
+
+<br/>
+<br/>
 
 ## Example
 
@@ -226,6 +225,9 @@ Reframe does the rest:
    ~~~
 
 4. Open [http://localhost:3000](http://localhost:3000).
+
+To get started, go through the quick start and read all the usage basics.
+For further usage information, look up the usage manual.
 
 <br/>
 <br/>
