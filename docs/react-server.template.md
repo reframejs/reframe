@@ -1,12 +1,11 @@
-!MENU_SKIP
-
-<p align="right">
-    <a href="https://github.com/reframejs/reframe">
-        <img src="https://github.com/reframejs/reframe/raw/docs/docs/images/logo-with-title.min.svg?sanitize=true" width="277" alt="Reframe"/>
-    </a>
-</p>
-
 !INLINE ./links.md --hide-source-path
+!INLINE ./header.md --hide-source-path
+
+!MENU
+!MENU_ORDER 21
+!MENU_TITLE Starter: React Server
+
+<br/>
 
 # Starter: React Server
 
@@ -14,37 +13,49 @@ Create a web app with
  - React front-end
  - Node.js server
 
-This i
- - SEO - dynamic views that needs SEO (Static views SEO -> see ...)
- Inlcudes SSR
- - 
+To create other kind of apps, see the [list of starters]().
 
-For other use cases see the [list of starters].
+To get started, go through the Quick Start and read the entire Usage Basics.
+For further usage information, look up the Usage Manual.
 
-To get started we recommand to read
-Go through the quick start to get started,
-read the whole Quick Usage Manual,
-and occasionaly check out the Complete Usage Manual for deeper usage, customization, ejecting, etc.
-
-
-- [Example]
-- [Quick Start]
-- Quick Usage Manual
+- [Example]()
+- [Quick Start]()
+&#9135;
+- Usage Basics
   - Frontend
-    - [CSS & Static Assets]
-    - [Page Async Data]
-    - [`doNotRenderInBrowser`]
+    - [CSS & Static Assets]()
+    - [Page Async Data]()
+    - [`doNotRenderInBrowser`]()
   - Server
-    - [Hapi Alternatives (Express, Koa, ...)]
-  - [Deploy]
+    - [Hapi Alternatives (Express, Koa, ...)]()
+  - [Deploy]()
 
 ## Example
 
+We create a web app
+by defining a page config `HelloPage`.
 
+~~~jsx
+// ~/my-app/pages/HelloPage.config.js
+
+!INLINE ../examples/basics/pages/HelloPage.config.js --hide-source-path
+~~~
+
+Reframe does the rest:
+
+<p align="center">
+    <img src='https://github.com/reframejs/reframe/raw/master/docs/images/reframe-start.png?sanitize=true' width="780" style="max-width:100%;"/>
+</p>
+
+<br/>
+<br/>
 
 ## Quick Start
 
 !INLINE ./start.md --hide-source-path
+
+<br/>
+<br/>
 
 
 ## Usage Manual
