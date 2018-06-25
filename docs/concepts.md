@@ -7,7 +7,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/plugins.template.md` instead.
+    Edit `/docs/concepts.template.md` instead.
 
 
 
@@ -22,7 +22,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/plugins.template.md` instead.
+    Edit `/docs/concepts.template.md` instead.
 
 
 
@@ -37,7 +37,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/plugins.template.md` instead.
+    Edit `/docs/concepts.template.md` instead.
 
 
 
@@ -52,7 +52,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/plugins.template.md` instead.
+    Edit `/docs/concepts.template.md` instead.
 
 
 
@@ -67,7 +67,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/plugins.template.md` instead.
+    Edit `/docs/concepts.template.md` instead.
 
 
 
@@ -146,31 +146,14 @@ Starters<br/>
 &nbsp; &nbsp; &nbsp;[React Database](/docs/react-database-starter.md)<br/>
 &nbsp; &nbsp; &nbsp;[React](/docs/react-starter.md)<br/>
 [Usage Manual](/docs/usage-manual.md)<br/>
-[Concepts](/docs/concepts.md)<br/>
-[**Plugins**](/docs/plugins.md)
+[**Concepts**](/docs/concepts.md)<br/>
+[Plugins](/docs/plugins.md)
 
 <br/>
 
-# Plugins
+# Concepts
 
-List of Reframe plugins. Make a PR to add yours.
 
-###### Languages
- - [@reframe/typescript](/plugins/typescript) - Use Reframe with TypeScript.
- - [@reframe/postcss](/plugins/postcss) - Use Reframe with PostCSS.
-
-###### Routers
- - [@reframe/react-router](/plugins/react-router) - Use React Router's components.
- - [@reframe/crossroads](/plugins/crossroads) - Use Reframe with [Crossroads.js](https://github.com/millermedeiros/crossroads.js).
- - [@reframe/path-to-regexp](/plugins/path-to-regexp) - Use Reframe with [`path-to-regexp`](https://github.com/pillarjs/path-to-regexp).
-
-###### Kits
- - [@reframe/react-kit](/plugins/react-kit) - Reframe's React-Kit.
-
-###### Renderers
- - [@reframe/react](/plugins/react) - Use Reframe with React.
- - [@reframe/react-native-web](/plugins/react-native-web) - Use Reframe with [React Native Web](https://github.com/necolas/react-native-web).
- - [@reframe/vue](/plugins/vue) - Use Reframe with Vue.
 
 <!---
 
@@ -181,7 +164,7 @@ List of Reframe plugins. Make a PR to add yours.
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/plugins.template.md` instead.
+    Edit `/docs/concepts.template.md` instead.
 
 
 
@@ -196,7 +179,7 @@ List of Reframe plugins. Make a PR to add yours.
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/plugins.template.md` instead.
+    Edit `/docs/concepts.template.md` instead.
 
 
 
@@ -211,7 +194,7 @@ List of Reframe plugins. Make a PR to add yours.
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/plugins.template.md` instead.
+    Edit `/docs/concepts.template.md` instead.
 
 
 
@@ -226,7 +209,7 @@ List of Reframe plugins. Make a PR to add yours.
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/plugins.template.md` instead.
+    Edit `/docs/concepts.template.md` instead.
 
 
 
@@ -241,7 +224,7 @@ List of Reframe plugins. Make a PR to add yours.
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/plugins.template.md` instead.
+    Edit `/docs/concepts.template.md` instead.
 
 
 

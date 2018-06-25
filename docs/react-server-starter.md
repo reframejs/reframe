@@ -7,7 +7,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/plugins.template.md` instead.
+    Edit `/docs/react-server-starter.template.md` instead.
 
 
 
@@ -22,7 +22,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/plugins.template.md` instead.
+    Edit `/docs/react-server-starter.template.md` instead.
 
 
 
@@ -37,7 +37,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/plugins.template.md` instead.
+    Edit `/docs/react-server-starter.template.md` instead.
 
 
 
@@ -52,7 +52,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/plugins.template.md` instead.
+    Edit `/docs/react-server-starter.template.md` instead.
 
 
 
@@ -67,7 +67,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/plugins.template.md` instead.
+    Edit `/docs/react-server-starter.template.md` instead.
 
 
 
@@ -142,35 +142,112 @@
 [Overview](/../../)<br/>
 Starters<br/>
 &nbsp; &nbsp; &nbsp;[React Frontend](/docs/react-frontend-starter.md)<br/>
-&nbsp; &nbsp; &nbsp;[React Server](/docs/react-server-starter.md)<br/>
+&nbsp; &nbsp; &nbsp;[**React Server**](/docs/react-server-starter.md)<br/>
 &nbsp; &nbsp; &nbsp;[React Database](/docs/react-database-starter.md)<br/>
 &nbsp; &nbsp; &nbsp;[React](/docs/react-starter.md)<br/>
 [Usage Manual](/docs/usage-manual.md)<br/>
 [Concepts](/docs/concepts.md)<br/>
-[**Plugins**](/docs/plugins.md)
+[Plugins](/docs/plugins.md)
 
 <br/>
 
-# Plugins
+# React Server Starter
 
-List of Reframe plugins. Make a PR to add yours.
+Create a web app with
+ - React front-end
+ - Node.js server
 
-###### Languages
- - [@reframe/typescript](/plugins/typescript) - Use Reframe with TypeScript.
- - [@reframe/postcss](/plugins/postcss) - Use Reframe with PostCSS.
+To create other kind of apps, see the [list of starters]().
 
-###### Routers
- - [@reframe/react-router](/plugins/react-router) - Use React Router's components.
- - [@reframe/crossroads](/plugins/crossroads) - Use Reframe with [Crossroads.js](https://github.com/millermedeiros/crossroads.js).
- - [@reframe/path-to-regexp](/plugins/path-to-regexp) - Use Reframe with [`path-to-regexp`](https://github.com/pillarjs/path-to-regexp).
+- [Example]()
+- [Quick Start]()
+- Usage Basics
+  - Frontend
+    - [Page Async Data]()
+    - [CSS & Static Assets]()
+    - [`doNotRenderInBrowser`]()
+  - Server
+    - [Hapi Alternatives (Express, Koa, ...)]()
+  - [Deploy]()
 
-###### Kits
- - [@reframe/react-kit](/plugins/react-kit) - Reframe's React-Kit.
+<br/>
+<br/>
 
-###### Renderers
- - [@reframe/react](/plugins/react) - Use Reframe with React.
- - [@reframe/react-native-web](/plugins/react-native-web) - Use Reframe with [React Native Web](https://github.com/necolas/react-native-web).
- - [@reframe/vue](/plugins/vue) - Use Reframe with Vue.
+## Example
+
+We create a web app
+by defining a page config `HelloPage`.
+
+~~~jsx
+// ~/my-app/pages/HelloPage.config.js
+
+// By default you write your views with React.
+// You can use another view library such as Vue.
+import React from 'react';
+
+const HelloPage = {
+  route: '/hello/:name', // Parameterized route
+  title: 'Hi there', // Page's <title>
+  view: props => {
+    // The route argument `name` is available at `props.route.args`
+    const name = props.route.args.name;
+    return (
+      <div>Hello {name}</div>
+    );
+  }
+};
+
+export default HelloPage;
+~~~
+
+Reframe does the rest:
+
+<p align="center">
+    <img src='https://github.com/reframejs/reframe/raw/master/docs/images/reframe-start.png?sanitize=true' width="780" style="max-width:100%;"/>
+</p>
+
+<br/>
+<br/>
+
+## Quick Start
+
+1. Install the Reframe CLI.
+   ~~~shell
+   $ npm install -g @reframe/cli
+   ~~~
+
+2. Initialize a new Rreframe app.
+   ~~~shell
+   $ reframe init my-app
+   ~~~
+   A `my-app/` directory is created and populated with a scaffold.
+
+3. Build the pages and start the server.
+   ~~~shell
+   $ cd my-app
+   $ reframe start
+   ~~~
+
+4. Open [http://localhost:3000](http://localhost:3000).
+
+To get started, go through the quick start and read all the usage basics.
+For further usage information, look up the usage manual.
+
+<br/>
+<br/>
+
+
+## Usage Manual
+
+### CSS & Static Assets
+
+### Page Async Data
+
+### `doNotRenderInBrowser`
+
+### Hapi Alternatives (Express, Koa, ...)
+
+### Deploy
 
 <!---
 
@@ -181,7 +258,7 @@ List of Reframe plugins. Make a PR to add yours.
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/plugins.template.md` instead.
+    Edit `/docs/react-server-starter.template.md` instead.
 
 
 
@@ -196,7 +273,7 @@ List of Reframe plugins. Make a PR to add yours.
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/plugins.template.md` instead.
+    Edit `/docs/react-server-starter.template.md` instead.
 
 
 
@@ -211,7 +288,7 @@ List of Reframe plugins. Make a PR to add yours.
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/plugins.template.md` instead.
+    Edit `/docs/react-server-starter.template.md` instead.
 
 
 
@@ -226,7 +303,7 @@ List of Reframe plugins. Make a PR to add yours.
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/plugins.template.md` instead.
+    Edit `/docs/react-server-starter.template.md` instead.
 
 
 
@@ -241,7 +318,7 @@ List of Reframe plugins. Make a PR to add yours.
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/plugins.template.md` instead.
+    Edit `/docs/react-server-starter.template.md` instead.
 
 
 
