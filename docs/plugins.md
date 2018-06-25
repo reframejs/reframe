@@ -121,9 +121,7 @@
         &nbsp;&nbsp;&nbsp;&nbsp;
     </sup>
 </p>
-bla
-
-<img align="left" src="https://github.com/reframejs/reframe/raw/master/docs/images/logo-with-title.min.svg?sanitize=true" width=450 height=94 style="max-width:100%;" alt="Reframe"/>
+<a href="https://github.com/reframejs/reframe"><img align="left" src="https://github.com/reframejs/reframe/raw/master/docs/images/logo-with-title.min.svg?sanitize=true" width=450 height=94 style="max-width:100%;" alt="Reframe"/></a>
 
 <p align="right">
     <sup>
