@@ -4,7 +4,6 @@
 !MENU
 !MENU_ORDER 24
 !MENU_SECTION Starters
-!MENU_TITLE React
 
 <br/>
 

@@ -4,7 +4,6 @@
 !MENU
 !MENU_ORDER 21
 !MENU_SECTION Starters
-!MENU_TITLE React Frontend
 
 <br/>
 

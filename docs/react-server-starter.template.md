@@ -3,7 +3,6 @@
 
 !MENU
 !MENU_ORDER 22
-!MENU_TITLE React Server
 !MENU_SECTION Starters
 
 <br/>
