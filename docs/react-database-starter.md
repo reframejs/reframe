@@ -140,11 +140,7 @@
 <br/>
 
 [Overview](/../../)<br/>
-Starters<br/>
-&nbsp; &nbsp; &nbsp;[React Frontend](/docs/react-frontend-starter.md)<br/>
-&nbsp; &nbsp; &nbsp;[React Server](/docs/react-server-starter.md)<br/>
-&nbsp; &nbsp; &nbsp;[**React Database**](/docs/react-database-starter.md)<br/>
-&nbsp; &nbsp; &nbsp;[React](/docs/react-starter.md)<br/>
+Starters: [React Frontend](/docs/react-frontend-starter.md) | [React Server](/docs/react-server-starter.md) | [**React Database**](/docs/react-database-starter.md) | [React](/docs/react-starter.md)<br/>
 [Usage Manual](/docs/usage-manual.md)<br/>
 [Concepts](/docs/concepts.md)<br/>
 [Plugins](/docs/plugins.md)
