@@ -77,11 +77,7 @@
 
 !INLINE ./sections/usage-style.md --hide-source-path
 
-!INLINE ./help.md --hide-source-path
-!INLINE ./top-link.md #basics --hide-source-path
-<br/>
-<br/>
-<br/>
+!INLINE ./snippets/section-footer.md #basics --hide-source-path
 
 
 
