@@ -235,10 +235,15 @@ That's it: We created a web app simply by defining one page config. No build con
 
 ### Getting Started &nbsp; [<sup><sub>:top:</sub></sup>](#overview)
 
- | React | React Frontend | React Server | React Database
+bla | React | React Frontend | React Server | React Database
 --- | --- | --- | --- | ---
 React Frontend | :large_orange_diamond: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:
 Node.js Server | :large_orange_diamond: | :x: | :heavy_check_mark: | :heavy_check_mark:
+
+Markdown | Less | Pretty
+--- | --- | ---
+*Still* | `renders` | **nicely**
+1 | 2 | 3
 
 <br/>
 <br/>
