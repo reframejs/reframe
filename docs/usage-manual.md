@@ -297,7 +297,6 @@ But in that case the data will not be rendered to HTML.
 
 Deeper explanation and example of pages loading data:
  - [/examples/basics/pages/got/](/examples/basics/pages/got/)
-
 <br/>
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
@@ -307,9 +306,6 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 <br/>
 <br/>
 <br/>
-
-
-
 
 
 

@@ -37,27 +37,46 @@ For other starters, see the [list of starters](/../../#getting-started).
 
 5. **Read the entire [Usage Basics](#react-server) section** and lookup the usage manual for further usage information.
 
+!INLINE ./top-link.md #react-server --hide-source-path
+
 <br/>
 <br/>
+
+
+
 
 ## Page Async Data
 
 !INLINE ./sections/usage-async-data.md --hide-source-path
 !INLINE ./snippets/section-footer.md #react-server --hide-source-path
 
+
+
+
+
 ## CSS & Static Assets
 
 !INLINE ./sections/usage-style.md --hide-source-path
+!INLINE ./snippets/section-footer.md #react-server --hide-source-path
 
-!INLINE ./help.md --hide-source-path
-!INLINE ./top-link.md #react-server --hide-source-path
-<br/>
-<br/>
-<br/>
+
 
 
 ## `doNotRenderInBrowser`
 
+!INLINE ./snippets/section-footer.md #react-server --hide-source-path
+
+
+
+
 ## Custom Server Framework (Express, Koa, ...)
 
+!INLINE ./snippets/section-footer.md #react-server --hide-source-path
+
+
+
+
 ## Deploy
+
+!INLINE ./snippets/section-footer.md #react-server --hide-source-path
+

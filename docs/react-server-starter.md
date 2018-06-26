@@ -145,8 +145,8 @@ For other starters, see the [list of starters](/../../#getting-started).
 - [Quick Start](#quick-start)
 - Usage Basics
   - Frontend
-    - [Page Async Data]()
-    - [CSS & Static Assets]()
+    - [Page Async Data](#page-async-data)<br>
+    - [CSS & Static Assets](#css--static-assets)<br>
     - [`doNotRenderInBrowser`]()
   - Server
     - [Custom Server Framework (Express, Koa, ...)]()
@@ -176,10 +176,15 @@ For other starters, see the [list of starters](/../../#getting-started).
 
 4. Open [http://localhost:3000](http://localhost:3000).
 
-5. **Read the entire "Usage Basics"** section and lookup the usage manual for further usage information.
+5. **Read the entire [Usage Basics](#react-server) section** and lookup the usage manual for further usage information.
+
+<b><sub><a href="#react-server">&#8679; TOP &#8679;</a></sub></b>
 
 <br/>
 <br/>
+
+
+
 
 ## Page Async Data
 
@@ -216,7 +221,6 @@ But in that case the data will not be rendered to HTML.
 
 Deeper explanation and example of pages loading data:
  - [/examples/basics/pages/got/](/examples/basics/pages/got/)
-
 <br/>
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
@@ -226,6 +230,10 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 <br/>
 <br/>
 <br/>
+
+
+
+
 
 ## CSS & Static Assets
 
@@ -256,6 +264,20 @@ In addition, static assets can be referenced in CSS by using the `url` data type
 
 Example of a page loading and using CSS, fonts, images and static assets:
  - [/examples/basics/pages/glitter/](/examples/basics/pages/glitter/)
+<br/>
+
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+<br/>
+<br/>
+<b><sub><a href="#react-server">&#8679; TOP &#8679;</a></sub></b>
+<br/>
+<br/>
+<br/>
+
+
+
+
+## `doNotRenderInBrowser`
 
 <br/>
 
@@ -268,11 +290,35 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 <br/>
 
 
-## `doNotRenderInBrowser`
+
 
 ## Custom Server Framework (Express, Koa, ...)
 
+<br/>
+
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+<br/>
+<br/>
+<b><sub><a href="#react-server">&#8679; TOP &#8679;</a></sub></b>
+<br/>
+<br/>
+<br/>
+
+
+
+
 ## Deploy
+
+<br/>
+
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+<br/>
+<br/>
+<b><sub><a href="#react-server">&#8679; TOP &#8679;</a></sub></b>
+<br/>
+<br/>
+<br/>
+
 
 <!---
 
