@@ -7,16 +7,13 @@
 </p>
 
 <br/>
-<br/>
 
 <p align="center">
-  Framework to create web apps.
+  &nbsp;Framework to create web apps.
   <br/>
+  &nbsp;&nbsp;<sub><sub><img src="https://github.com/reframejs/reframe/raw/docs/docs/images/thunderbolt.min.svg?sanitize=true" width="26" height="26"></sub></sub>&nbsp;&nbsp;<b>Rapid</b>&nbsp;&nbsp;&#8209;&nbsp;&nbsp;Implement&nbsp;apps&nbsp;in&nbsp;no&nbsp;time.
   <br/>
-  <sub><sub><img src="https://github.com/reframejs/reframe/raw/docs/docs/images/thunderbolt.min.svg?sanitize=true" width="26" height="26"></sub></sub>&nbsp;<b>Rapid</b>: Implement&nbsp;apps&nbsp;in&nbsp;no&nbsp;time.
-  <br/>
-  <br/>
-  <sub><sub><img src="https://github.com/reframejs/reframe/raw/docs/docs/images/tornado.min.svg?sanitize=true" width="26" height="26"></sub></sub>&nbsp;&nbsp;<b>Flexible</b>: Progressively&nbsp;ejectable.
+  &nbsp;<sub><sub><img src="https://github.com/reframejs/reframe/raw/docs/docs/images/tornado.min.svg?sanitize=true" width="26" height="26"></sub></sub>&nbsp;&nbsp;&nbsp;<b>Flexible</b>&nbsp;&nbsp;&#8209;&nbsp;&nbsp;Progressively&nbsp;ejectable.
 </p>
 
 <br/>
