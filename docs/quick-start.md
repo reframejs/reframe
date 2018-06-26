@@ -5,7 +5,7 @@
 
 2. Initialize a new Rreframe app.
    ~~~shell
-   $ reframe init my-app
+   $ reframe init !ARGUMENT-1 my-app
    ~~~
    A `my-app/` directory is created and populated with a scaffold.
 

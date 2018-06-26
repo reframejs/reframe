@@ -134,15 +134,15 @@
 
 <br/>
 
-# React Server Starter
+# React Server
 
-Create a web app with
+Starter to create a web app with
  - React front-end
  - Node.js server
 
-To create other kind of apps, see the [list of starters]().
+For other starters, see the [list of starters](/../../#getting-started).
 
-- [Quick Start]()
+- [Quick Start](#quick-start)
 - Usage Basics
   - Frontend
     - [Page Async Data]()
@@ -164,7 +164,7 @@ To create other kind of apps, see the [list of starters]().
 
 2. Initialize a new Rreframe app.
    ~~~shell
-   $ reframe init my-app
+   $ reframe init react-server my-app
    ~~~
    A `my-app/` directory is created and populated with a scaffold.
 
@@ -176,14 +176,13 @@ To create other kind of apps, see the [list of starters]().
 
 4. Open [http://localhost:3000](http://localhost:3000).
 
-To get started, go through the quick start and read all the usage basics.
-For further usage information, look up the usage manual.
+5. **Read the entire [Usage Basics](#usage-basics) section** and lookup the usage manual for further usage information.
 
 <br/>
 <br/>
 
 
-## Usage Manual
+## Usage Basics
 
 ### CSS & Static Assets
 
