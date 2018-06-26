@@ -4,6 +4,7 @@
 
 !MENU
 !MENU_ORDER 50
+!MENU_INDENT 12
 
 <br/>
 

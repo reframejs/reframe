@@ -6,6 +6,7 @@
 !MENU_ORDER 22
 !MENU_SECTION Starters
 !MENU_TITLE React Frontend
+!MENU_INDENT 12
 
 <br/>
 

@@ -6,6 +6,7 @@
 !MENU_ORDER 21
 !MENU_SECTION Starters
 !MENU_TITLE React Server
+!MENU_INDENT 12
 
 <br/>
 
