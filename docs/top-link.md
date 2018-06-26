@@ -1,1 +1,1 @@
-&nbsp; [<sup><sub>:top:</sub></sup>](!ARGUMENT-1)
+<b><sup><a href="!ARGUMENT-1">&#8679; TOP &#8679;</a></sup></b>

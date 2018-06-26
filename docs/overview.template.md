@@ -53,10 +53,12 @@ When we say Reframe is rapid yet flexible, we mean it.
 
 See [Concetps](/docs/concepts.md) for more about Progressive Eject, Universal Framework, and other concepts such as the non-interactive-by-default approach.
 
+ !INLINE ./top-link.md #overview
+
 <br/>
 <br/>
 
-### Example !INLINE ./top-link.md #overview
+### Example
 
 We create a web app
 by defining a page config `HelloPage`.
@@ -75,10 +77,12 @@ Reframe does the rest:
 
 That's it: We created a web app simply by defining one page config. No build config, no server config.
 
+ !INLINE ./top-link.md #overview
+
 <br/>
 <br/>
 
-### Getting Started !INLINE ./top-link.md #overview
+### Getting Started
 
 Choose a starter:
 
@@ -100,19 +104,7 @@ You can easily add/remove a Node.js server and add/remove a database/ORM.
 Quikly choose a starter and start write your prototype.
 As your prototype grows add/remove what you need.
 
+ !INLINE ./top-link.md #overview
+
 <br/>
 <br/>
-
-<a href="#top">&#8683; TOP &#8683;</a>
-
-<a href="#top"><b>&#8683;</b> <small>TOP</small> &#8683;</a>
-
-<a href="#top">&#8683; <sub>TOP</sub> &#8683;</a>
-
-<a href="#top">&#8679; <sub>TOP</sub> &#8679;</a>
-
-
-<sup><a href="#top">&#8679; TOP &#8679;</a></sup>
-
-<b><sup><a href="#top">&#8679; TOP &#8679;</a></sup></b>
-
