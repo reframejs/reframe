@@ -104,5 +104,7 @@ As your prototype grows add/remove what you need.
 <br/>
 
 <a href="#top">&#8683; TOP &#8683;</a>
-<a href="#top">&#8683; <small>TOP</small> &#8683;</a>
-<a href="#top"><sup>&#8683; <sub><sub>TOP<sub><sub> &#8683;</a>
+
+<a href="#top"><b>&#8683;</b> <small>TOP</small> &#8683;</a>
+
+<a href="#top">&#8683; <sub><sub>TOP</sub></sub> &#8683;</a>
