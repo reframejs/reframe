@@ -64,7 +64,6 @@
 
 !INLINE ./start.md --hide-source-path
 !INLINE ./top-link.md #basics --hide-source-path
-
 <br/>
 <br/>
 
@@ -104,8 +103,8 @@ Example of a page loading and using CSS, fonts, images and static assets:
 
 !INLINE ./help.md --hide-source-path
 !INLINE ./top-link.md #basics --hide-source-path
-
-
+<br/>
+<br/>
 
 
 
@@ -131,6 +130,8 @@ Deeper explanation and example of pages loading data:
 
 !INLINE ./help.md --hide-source-path
 !INLINE ./top-link.md #basics --hide-source-path
+<br/>
+<br/>
 
 
 
@@ -155,6 +156,8 @@ Example:
 
 !INLINE ./help.md --hide-source-path
 !INLINE ./top-link.md #basics --hide-source-path
+<br/>
+<br/>
 
 
 
@@ -212,6 +215,8 @@ By adding `htmlStatic: true` to its page config, the page is rendered to HTML at
 
 !INLINE ./help.md --hide-source-path
 !INLINE ./top-link.md #basics --hide-source-path
+<br/>
+<br/>
 
 
 
@@ -241,6 +246,8 @@ Running `$ reframe eject server` will copy the following code to your codebase.
 
 !INLINE ./help.md --hide-source-path
 !INLINE ./top-link.md #custom --hide-source-path
+<br/>
+<br/>
 
 
 
@@ -284,6 +291,8 @@ If you eject all these ejectables then every single server LOC is in your codeba
 
 !INLINE ./help.md --hide-source-path
 !INLINE ./top-link.md #custom --hide-source-path
+<br/>
+<br/>
 
 
 
@@ -334,6 +343,8 @@ see [Custom Renderer](#custom-renderer).
 
 !INLINE ./help.md --hide-source-path
 !INLINE ./top-link.md #custom --hide-source-path
+<br/>
+<br/>
 
 
 
@@ -363,6 +374,8 @@ Ejecting the React renderer will copy the following code to your codebase.
 
 !INLINE ./help.md --hide-source-path
 !INLINE ./top-link.md #custom --hide-source-path
+<br/>
+<br/>
 
 
 
@@ -387,6 +400,8 @@ Running `$reframe eject browser` ejects the following code.
 
 !INLINE ./help.md --hide-source-path
 !INLINE ./top-link.md #custom --hide-source-path
+<br/>
+<br/>
 
 
 
@@ -413,6 +428,8 @@ You can see the example in full and other examples at [/examples/custom-browser]
 
 !INLINE ./help.md --hide-source-path
 !INLINE ./top-link.md #custom --hide-source-path
+<br/>
+<br/>
 
 
 
@@ -434,6 +451,8 @@ Use this ejectable as last resort.
 
 !INLINE ./help.md --hide-source-path
 !INLINE ./top-link.md #custom --hide-source-path
+<br/>
+<br/>
 
 
 
@@ -516,6 +535,8 @@ Either use another plugin in the [list of router plugins](/docs/plugins.md#route
 
 !INLINE ./help.md --hide-source-path
 !INLINE ./top-link.md #custom --hide-source-path
+<br/>
+<br/>
 
 
 
@@ -531,6 +552,8 @@ Example:
 
 !INLINE ./help.md --hide-source-path
 !INLINE ./top-link.md #custom --hide-source-path
+<br/>
+<br/>
 
 
 
@@ -585,6 +608,8 @@ Examples:
 
 !INLINE ./help.md --hide-source-path
 !INLINE ./top-link.md #custom --hide-source-path
+<br/>
+<br/>
 
 
 
@@ -617,6 +642,8 @@ If you eject all build ejectables, then you have full control over the build log
 
 !INLINE ./help.md --hide-source-path
 !INLINE ./top-link.md #custom --hide-source-path
+<br/>
+<br/>
 
 
 
@@ -644,6 +671,8 @@ The static assets are located in the `dist/browser/` directory.
 
 !INLINE ./help.md --hide-source-path
 !INLINE ./top-link.md #use-cases --hide-source-path
+<br/>
+<br/>
 
 
 
@@ -663,6 +692,8 @@ If you want to persist data, you may consider using a cloud database.
 
 !INLINE ./help.md --hide-source-path
 !INLINE ./top-link.md #use-cases --hide-source-path
+<br/>
+<br/>
 
 
 
@@ -675,6 +706,8 @@ Check out the [`@reframe/vue`](/plugins/vue) plugin.
 
 !INLINE ./help.md --hide-source-path
 !INLINE ./top-link.md #use-cases --hide-source-path
+<br/>
+<br/>
 
 ## React Router
 
@@ -682,6 +715,8 @@ You can use the React Router components by adding the [@reframe/react-router](/p
 
 !INLINE ./help.md --hide-source-path
 !INLINE ./top-link.md #use-cases --hide-source-path
+<br/>
+<br/>
 
 ## TypeScript
 
@@ -689,6 +724,8 @@ You can write your app with TypeScript by adding the [@reframe/typescript](/plug
 
 !INLINE ./help.md --hide-source-path
 !INLINE ./top-link.md #use-cases --hide-source-path
+<br/>
+<br/>
 
 ## PostCSS
 
@@ -696,6 +733,8 @@ You can write your styles with PostCSS by adding the [@reframe/postcss](/plugins
 
 !INLINE ./help.md --hide-source-path
 !INLINE ./top-link.md #use-cases --hide-source-path
+<br/>
+<br/>
 
 
 
@@ -715,6 +754,8 @@ Examples of apps using Reframe + RNW:
 
 !INLINE ./help.md --hide-source-path
 !INLINE ./top-link.md #use-cases --hide-source-path
+<br/>
+<br/>
 
 
 
@@ -732,6 +773,8 @@ For example:
 
 !INLINE ./help.md --hide-source-path
 !INLINE ./top-link.md #use-cases --hide-source-path
+<br/>
+<br/>
 
 
 

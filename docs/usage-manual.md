@@ -207,7 +207,6 @@
 
 4. Open [http://localhost:3000](http://localhost:3000).
 <b><sub><a href="#basics">&#8679; TOP &#8679;</a></sub></b>
-
 <br/>
 <br/>
 
@@ -248,12 +247,9 @@ Example of a page loading and using CSS, fonts, images and static assets:
 <br/>
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
-
-<br/>
-<br/>
 <b><sub><a href="#basics">&#8679; TOP &#8679;</a></sub></b>
-
-
+<br/>
+<br/>
 
 
 
@@ -299,10 +295,9 @@ Deeper explanation and example of pages loading data:
 <br/>
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
-
-<br/>
-<br/>
 <b><sub><a href="#basics">&#8679; TOP &#8679;</a></sub></b>
+<br/>
+<br/>
 
 
 
@@ -346,10 +341,9 @@ export default {
 <br/>
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
-
-<br/>
-<br/>
 <b><sub><a href="#basics">&#8679; TOP &#8679;</a></sub></b>
+<br/>
+<br/>
 
 
 
@@ -408,10 +402,9 @@ By adding `htmlStatic: true` to its page config, the page is rendered to HTML at
 <br/>
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
-
-<br/>
-<br/>
 <b><sub><a href="#basics">&#8679; TOP &#8679;</a></sub></b>
+<br/>
+<br/>
 
 
 
@@ -465,10 +458,9 @@ async function start() {
 <br/>
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
-
-<br/>
-<br/>
 <b><sub><a href="#custom">&#8679; TOP &#8679;</a></sub></b>
+<br/>
+<br/>
 
 
 
@@ -513,10 +505,9 @@ If you eject all these ejectables then every single server LOC is in your codeba
 <br/>
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
-
-<br/>
-<br/>
 <b><sub><a href="#custom">&#8679; TOP &#8679;</a></sub></b>
+<br/>
+<br/>
 
 
 
@@ -633,10 +624,9 @@ see [Custom Renderer](#custom-renderer).
 <br/>
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
-
-<br/>
-<br/>
 <b><sub><a href="#custom">&#8679; TOP &#8679;</a></sub></b>
+<br/>
+<br/>
 
 
 
@@ -736,10 +726,9 @@ function applyViewWrappers({reactElement, initialProps, viewWrappers=[]}) {
 <br/>
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
-
-<br/>
-<br/>
 <b><sub><a href="#custom">&#8679; TOP &#8679;</a></sub></b>
+<br/>
+<br/>
 
 
 
@@ -773,10 +762,9 @@ async function initBrowser() {
 <br/>
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
-
-<br/>
-<br/>
 <b><sub><a href="#custom">&#8679; TOP &#8679;</a></sub></b>
+<br/>
+<br/>
 
 
 
@@ -836,10 +824,9 @@ You can see the example in full and other examples at [/examples/custom-browser]
 <br/>
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
-
-<br/>
-<br/>
 <b><sub><a href="#custom">&#8679; TOP &#8679;</a></sub></b>
+<br/>
+<br/>
 
 
 
@@ -862,10 +849,9 @@ Use this ejectable as last resort.
 <br/>
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
-
-<br/>
-<br/>
 <b><sub><a href="#custom">&#8679; TOP &#8679;</a></sub></b>
+<br/>
+<br/>
 
 
 
@@ -949,10 +935,9 @@ Either use another plugin in the [list of router plugins](/docs/plugins.md#route
 <br/>
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
-
-<br/>
-<br/>
 <b><sub><a href="#custom">&#8679; TOP &#8679;</a></sub></b>
+<br/>
+<br/>
 
 
 
@@ -969,10 +954,9 @@ Example:
 <br/>
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
-
-<br/>
-<br/>
 <b><sub><a href="#custom">&#8679; TOP &#8679;</a></sub></b>
+<br/>
+<br/>
 
 
 
@@ -1028,10 +1012,9 @@ Examples:
 <br/>
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
-
-<br/>
-<br/>
 <b><sub><a href="#custom">&#8679; TOP &#8679;</a></sub></b>
+<br/>
+<br/>
 
 
 
@@ -1093,10 +1076,9 @@ If you eject all build ejectables, then you have full control over the build log
 <br/>
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
-
-<br/>
-<br/>
 <b><sub><a href="#custom">&#8679; TOP &#8679;</a></sub></b>
+<br/>
+<br/>
 
 
 
@@ -1125,10 +1107,9 @@ The static assets are located in the `dist/browser/` directory.
 <br/>
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
-
-<br/>
-<br/>
 <b><sub><a href="#use-cases">&#8679; TOP &#8679;</a></sub></b>
+<br/>
+<br/>
 
 
 
@@ -1149,10 +1130,9 @@ If you want to persist data, you may consider using a cloud database.
 <br/>
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
-
-<br/>
-<br/>
 <b><sub><a href="#use-cases">&#8679; TOP &#8679;</a></sub></b>
+<br/>
+<br/>
 
 
 
@@ -1166,10 +1146,9 @@ Check out the [`@reframe/vue`](/plugins/vue) plugin.
 <br/>
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
-
-<br/>
-<br/>
 <b><sub><a href="#use-cases">&#8679; TOP &#8679;</a></sub></b>
+<br/>
+<br/>
 
 ## React Router
 
@@ -1178,10 +1157,9 @@ You can use the React Router components by adding the [@reframe/react-router](/p
 <br/>
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
-
-<br/>
-<br/>
 <b><sub><a href="#use-cases">&#8679; TOP &#8679;</a></sub></b>
+<br/>
+<br/>
 
 ## TypeScript
 
@@ -1190,10 +1168,9 @@ You can write your app with TypeScript by adding the [@reframe/typescript](/plug
 <br/>
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
-
-<br/>
-<br/>
 <b><sub><a href="#use-cases">&#8679; TOP &#8679;</a></sub></b>
+<br/>
+<br/>
 
 ## PostCSS
 
@@ -1202,10 +1179,9 @@ You can write your styles with PostCSS by adding the [@reframe/postcss](/plugins
 <br/>
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
-
-<br/>
-<br/>
 <b><sub><a href="#use-cases">&#8679; TOP &#8679;</a></sub></b>
+<br/>
+<br/>
 
 
 
@@ -1226,10 +1202,9 @@ Examples of apps using Reframe + RNW:
 <br/>
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
-
-<br/>
-<br/>
 <b><sub><a href="#use-cases">&#8679; TOP &#8679;</a></sub></b>
+<br/>
+<br/>
 
 
 
@@ -1248,10 +1223,9 @@ For example:
 <br/>
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
-
-<br/>
-<br/>
 <b><sub><a href="#use-cases">&#8679; TOP &#8679;</a></sub></b>
+<br/>
+<br/>
 
 
 
