@@ -270,7 +270,26 @@ The value returned by `async getInitialProps()` is then available to your page's
 For example:
 
 ~~~js
-!INLINE ../../examples/basics/pages/got/GameOfThronesPage.config.js
+// /examples/basics/pages/got/GameOfThronesPage.config.js
+
+import React from 'react';
+import getCharacters from './data/getCharacters';
+import CharacterList from './views/CharacterList';
+
+export default {
+    route: '/game-of-thrones',
+
+    // Everything returned in `getInitialProps()` is passed to the props of the view
+    getInitialProps: async () => {
+        const characters = await getCharacters();
+        return {characters};
+    },
+
+    // Our data is available at `props.characters`
+    view: props => <CharacterList characters={props.characters}/>,
+
+    domStatic: true,
+};
 ~~~
 
 Alternatively, you can fetch data in a stateful component.
@@ -279,8 +298,12 @@ But in that case the data will not be rendered to HTML.
 Deeper explanation and example of pages loading data:
  - [/examples/basics/pages/got/](/examples/basics/pages/got/)
 
-!INLINE ../help.md --hide-source-path
-!INLINE ../top-link.md #basics --hide-source-path
+<br/>
+
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+<br/>
+<br/>
+<b><sub><a href="#basics">&#8679; TOP &#8679;</a></sub></b>
 <br/>
 <br/>
 <br/>
