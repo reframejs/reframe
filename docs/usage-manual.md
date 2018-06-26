@@ -127,7 +127,6 @@
 </p>
 
 <br/>
-<br/>
 
 [Overview](/../../)<br/>
 Starters: [React Server](/docs/react-server-starter.md) | [React Frontend](/docs/react-frontend-starter.md) | [React Database](/docs/react-database-starter.md)<br/>
