@@ -231,8 +231,6 @@ Reframe does the rest:
 That's it: We created a web app simply by defining one page config. No build config, no server config.
 
 <br/>
-<small>&#8683; TOP &#8683;</small>
-<br/>
 <br/>
 
 ### Getting Started &nbsp; [<sup><sub>:top:</sub></sup>](#overview)
@@ -260,7 +258,9 @@ As your prototype grows add/remove what you need.
 <br/>
 <br/>
 
-&#8683; TOP &#8683;
+<a href="#top">&#8683; TOP &#8683;</a>
+<a href="#top">&#8683; <small>TOP</small> &#8683;</a>
+<a href="#top"><sup>&#8683; <sub><sub>TOP<sub><sub> &#8683;</a>
 
 <!---
 
