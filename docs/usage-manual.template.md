@@ -12,11 +12,12 @@
 
 #### Basics
 
-- [Getting Started](#getting-started)<br>
-- [CSS & Static Assets](#css--static-assets)<br>
-- [Page Async Data](#page-async-data)<br>
-- [Page Navigation & Links](#page-navigation--links)<br>
-- [`domStatic` & `htmlStatic`](#domstatic--htmlstatic)<br>
+- [Getting Started](#getting-started)
+- [CSS & Static Assets](#css--static-assets)
+- [Page Async Data](#page-async-data)
+- [Page Navigation & Links](#page-navigation--links)
+- [`doNotRenderInBrowser`](#donotrenderinbrowser)
+- [`renderHtmlAtBuildTime`](#renderhtmlatbuildtime)
 
 #### Custom
 
@@ -117,48 +118,31 @@ Example:
 
 
 
-## `domStatic` & `htmlStatic`
+## `doNotRenderInBrowser`
 
-By default, a page is rendered twice:
-On the server (to HTML) and in the browser (to the DOM).
+!INLINE ./sections/doNotRenderInBrowser.md --hide-source-path
+
+!INLINE ./snippets/section-footer.md #basics --hide-source-path
+
+
+
+## `renderHtmlAtBuildTime`
+
+By default, every page is rendered to HTML.
 (React components can be rendered to the DOM as well as to HTML.)
 
-A page can be "DOM-dynamic" or "DOM-static" and "HTML-dynamic" or "HTML-static".
+The page config option `renderHtmlAtBuildTime` allows you to control whether the page should be rendered statically at build-time or dynamically at request-time.
 
- - **_HTML-static_**
-   <br/>
-   The page is rendered to **HTML at build-time**.
-   <br/>
-   (The page is rendered to HTML only once, when Reframe is building your app's pages.)
-   <br/>
-   Add `htmlStatic: true` to the page config.
- - **_HTML-dynamic_**
+ - `renderHtmlAtBuildTime: false` (default value)
    <br/>
    The page is rendered to **HTML at request-time**.
    <br/>
-   (The page is (re-)rendered to HTML every time the user requests the page.)
+   The page is (re-)rendered to HTML every time the user requests the page.
+ - `renderHtmlAtBuildTime: true`
    <br/>
-   Default setting.
- - **_DOM-static_**
+   The page is rendered to **HTML at build-time**.
    <br/>
-   The page is **not rendered in the browser**.
-   <br/>
-   (The DOM will not change since the page is not rendered to the DOM.)
-   <br/>
-   Add `domStatic: true` to the page config.
- - **_DOM-dynamic_**
-   <br/>
-   The page **is rendered in the browser**.
-   <br/>
-   (The DOM may eventually change since the page is rendered to the DOM.)
-   <br/>
-   Default setting.
-
-Because it is rendered in the browser, a page can have interactive views
-(a like button, an interactive graph, a To-Do list, etc.).
-But if a page has no interactive views then it is wasteful to render it in the browser.
-By adding `domStatic: true` to its page config, the page is only rendered on the server and not in the browser.
-The browser loads no (or almost no) JavaScript and the DOM is static.
+   The page is rendered to HTML only once, when Reframe is building your app's pages.
 
 By default a page is rendered to HTML at request-time.
 But if a page is static

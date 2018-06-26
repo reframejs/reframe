@@ -138,11 +138,12 @@
 
 #### Basics
 
-- [Getting Started](#getting-started)<br>
-- [CSS & Static Assets](#css--static-assets)<br>
-- [Page Async Data](#page-async-data)<br>
-- [Page Navigation & Links](#page-navigation--links)<br>
-- [`domStatic` & `htmlStatic`](#domstatic--htmlstatic)<br>
+- [Getting Started](#getting-started)
+- [CSS & Static Assets](#css--static-assets)
+- [Page Async Data](#page-async-data)
+- [Page Navigation & Links](#page-navigation--links)
+- [`doNotRenderInBrowser`](#donotrenderinbrowser)
+- [`renderHtmlAtBuildTime`](#renderhtmlatbuildtime)
 
 #### Custom
 
@@ -361,48 +362,60 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-## `domStatic` & `htmlStatic`
+## `doNotRenderInBrowser`
 
-By default, a page is rendered twice:
-On the server (to HTML) and in the browser (to the DOM).
-(React components can be rendered to the DOM as well as to HTML.)
+The page config option `doNotRenderInBrowser` allow you to control whether or not your page is rendered in the browser.
 
-A page can be "DOM-dynamic" or "DOM-static" and "HTML-dynamic" or "HTML-static".
-
- - **_HTML-static_**
-   <br/>
-   The page is rendered to **HTML at build-time**.
-   <br/>
-   (The page is rendered to HTML only once, when Reframe is building your app's pages.)
-   <br/>
-   Add `htmlStatic: true` to the page config.
- - **_HTML-dynamic_**
-   <br/>
-   The page is rendered to **HTML at request-time**.
-   <br/>
-   (The page is (re-)rendered to HTML every time the user requests the page.)
-   <br/>
-   Default setting.
- - **_DOM-static_**
-   <br/>
-   The page is **not rendered in the browser**.
-   <br/>
-   (The DOM will not change since the page is not rendered to the DOM.)
-   <br/>
-   Add `domStatic: true` to the page config.
- - **_DOM-dynamic_**
+ - `doNotRenderInBrowser: false` (default value)
    <br/>
    The page **is rendered in the browser**.
    <br/>
-   (The DOM may eventually change since the page is rendered to the DOM.)
+   The page's view (e.g. React components) and the view renderer (e.g. React) is loaded in the browser.
    <br/>
-   Default setting.
+   The DOM may eventually change since the page is rendered to the DOM.
+ - `doNotRenderInBrowser: true`
+   <br/>
+   The page is **not rendered in the browser**.
+   <br/>
+   (Almost) no JavaScript is loaded in the browser.
+   <br/>
+   The DOM will not change since the page is not rendered to the DOM.
 
-Because it is rendered in the browser, a page can have interactive views
+By default a page is rendered in the browser so that it can have interactive views
 (a like button, an interactive graph, a To-Do list, etc.).
 But if a page has no interactive views then it is wasteful to render it in the browser.
-By adding `domStatic: true` to its page config, the page is only rendered on the server and not in the browser.
+By adding `doNotRenderInBrowser: true` to its page config, the page is only rendered on the server and not in the browser.
 The browser loads no (or almost no) JavaScript and the DOM is static.
+
+<br/>
+
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+<br/>
+<br/>
+<b><sub><a href="#basics">&#8679; TOP &#8679;</a></sub></b>
+<br/>
+<br/>
+<br/>
+
+
+
+## `renderHtmlAtBuildTime`
+
+By default, every page is rendered to HTML.
+(React components can be rendered to the DOM as well as to HTML.)
+
+The page config option `renderHtmlAtBuildTime` allows you to control whether the page should be rendered statically at build-time or dynamically at request-time.
+
+ - `renderHtmlAtBuildTime: false` (default value)
+   <br/>
+   The page is rendered to **HTML at request-time**.
+   <br/>
+   The page is (re-)rendered to HTML every time the user requests the page.
+ - `renderHtmlAtBuildTime: true`
+   <br/>
+   The page is rendered to **HTML at build-time**.
+   <br/>
+   The page is rendered to HTML only once, when Reframe is building your app's pages.
 
 By default a page is rendered to HTML at request-time.
 But if a page is static

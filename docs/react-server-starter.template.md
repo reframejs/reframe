@@ -21,9 +21,9 @@ For other starters, see the [list of starters](/../../#getting-started).
 - [Quick Start](#quick-start)
 - Usage Basics
   - Frontend
-    - [Page Async Data](#page-async-data)<br>
-    - [CSS & Static Assets](#css--static-assets)<br>
-    - [`doNotRenderInBrowser`](doNotRenderInBrowser)
+    - [Page Async Data](#page-async-data)
+    - [CSS & Static Assets](#css--static-assets)
+    - [`doNotRenderInBrowser`](#donotrenderinbrowser)
   - Server
     - [Custom Server Framework (Express, Koa, ...)](#custom-server-framework-express-koa-)
   - [Deploy](#deploy)
@@ -63,6 +63,8 @@ For other starters, see the [list of starters](/../../#getting-started).
 
 
 ## `doNotRenderInBrowser`
+
+!INLINE ./sections/doNotRenderInBrowser.md --hide-source-path
 
 !INLINE ./snippets/section-footer.md #react-server --hide-source-path
 
