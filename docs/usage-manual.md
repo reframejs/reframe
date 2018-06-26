@@ -75,6 +75,9 @@
 
 
 -->
+<a href="https://github.com/reframejs/reframe">
+    <img align="left" src="https://github.com/reframejs/reframe/raw/master/docs/images/logo-with-title.min.svg?sanitize=true" height=80 style="max-width:100%;" alt="Reframe"/>
+</a>
 <p align="right">
     <sup>
         <a href="#">
@@ -121,9 +124,6 @@
         &nbsp;&nbsp;&nbsp;&nbsp;
     </sup>
 </p>
-<a href="https://github.com/reframejs/reframe">
-    <img align="left" src="https://github.com/reframejs/reframe/raw/master/docs/images/logo-with-title.min.svg?sanitize=true" height=80 style="max-width:100%;" alt="Reframe"/>
-</a>
 
 [Overview](/../../)<br/>
 Starters: [React Server](/docs/react-server-starter.md) | [React Frontend](/docs/react-frontend-starter.md) | [React Database](/docs/react-database-starter.md)<br/>
