@@ -384,8 +384,6 @@ The page config option `doNotRenderInBrowser` allow you to control whether or no
 By default a page is rendered in the browser so that it can have interactive views
 (a like button, an interactive graph, a To-Do list, etc.).
 But if a page has no interactive views then it is wasteful to render it in the browser.
-By adding `doNotRenderInBrowser: true` to its page config, the page is only rendered on the server and not in the browser.
-The browser loads no (or almost no) JavaScript and the DOM is static.
 
 <br/>
 
