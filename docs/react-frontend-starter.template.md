@@ -1,7 +1,6 @@
 !INLINE ./header-light.md --hide-source-path
 <br/>
 !INLINE ./links.md --hide-source-path
-<br/>
 
 !MENU
 !MENU_ORDER 22

@@ -125,7 +125,6 @@
         &nbsp;&nbsp;&nbsp;&nbsp;
     </sup>
 </p>
-<br/>
 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Overview](/../../)<br/>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Starters: [React Server](/docs/react-server-starter.md) | [**React Frontend**](/docs/react-frontend-starter.md) | [React Database](/docs/react-database-starter.md)<br/>
