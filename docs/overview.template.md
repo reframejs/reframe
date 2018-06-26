@@ -11,8 +11,8 @@
 # Overview
 
  - [Introduction](#introduction)
- - [Example](#example--top)
- - [Getting Started](#getting-started--top)
+ - [Example](#example)
+ - [Getting Started](#getting-started)
 
 <br/>
 <br/>
@@ -33,25 +33,24 @@ const WelcomePage = {
 
 **No build configuration** and **no server configuration** is required.
 
-Yet, thanks to its "Progressive Eject" feature and its simple architecture,
-you can easily **customize and gain control over everything**.
-Reframe doesn't lock you in: You can progressively and fully eject Reframe.
-You can quickly implement a prototype while staying fully flexible down the road.
+Yet, thanks to its "Progressive Eject" feature
+you can take over control over everything.
+Reframe **doesn't lock you in**.
+You **quickly implement a prototype while staying fully flexible down the road**.
 
 Reframe is a "Universal Framework":
 You can create any type of app:
-a **modern interactive frontend with React**,
-a Node.js **backend with old-school non-interactive HTML pages**,
-a serverless Vue Frontend,
-a **full-stack app** with modern frontend + Node.js server + **Database/ORM** (ORM integration is WIP),
-etc.
+a modern **interactive frontend with React**,
+a Node.js backend with **old-school non-interactive HTML pages**,
+a **static site generated with Vue.js** components,
+a **full-stack app** with modern frontend + Node.js server + **Database/ORM** (ORM integration is WIP).
 Changing from one type of app to another is easy.
-You can start write your prototype right away and
-without thinking about what type of app is right for you.
+**Start write your prototype right away
+without thinking about what type of app is right for you**.
 
-When we say Reframe is rapid yet flexible, we mean it.
+When we say Reframe is rapid and flexible, we mean it.
 
-See [Concetps](/docs/concepts.md) for more about Progressive Eject, Universal Framework, and other concepts such as the non-interactive-by-default approach.
+More at [Concetps](/docs/concepts.md).
 
  !INLINE ./top-link.md #overview
 
@@ -60,7 +59,7 @@ See [Concetps](/docs/concepts.md) for more about Progressive Eject, Universal Fr
 
 ### Example
 
-We create a web app
+We create an app
 by defining a page config `HelloPage`.
 
 ~~~jsx
@@ -69,13 +68,11 @@ by defining a page config `HelloPage`.
 !INLINE ../examples/basics/pages/HelloPage.config.js --hide-source-path
 ~~~
 
-Reframe does the rest:
-
 <p align="center">
     <img src='https://github.com/reframejs/reframe/raw/master/docs/images/reframe-start.png?sanitize=true' width="780" style="max-width:100%;"/>
 </p>
 
-That's it: We created a web app simply by defining one page config. No build config, no server config.
+That's it: We created an entire web app simply by defining one page config. No build config, no server config.
 
  !INLINE ./top-link.md #overview
 
