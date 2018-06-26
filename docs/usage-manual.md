@@ -161,6 +161,7 @@ Starters: [React Server](/docs/react-server-starter.md) | [React Frontend](/docs
 
 - Server
   - [Custom Server](#custom-server--top)
+  - [Custom Server Framework (Express, Koa, ...)](#custom-server-framework-express-koa---top)
   - [Fully Custom Server](#fully-custom-server--top)
 - Rendering
   - [Custom HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ...](#custom-html-head-meta-html---top)
@@ -482,29 +483,39 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
+## Custom Server Framework (Express, Koa, ...) &nbsp; [<sup><sub>:top:</sub></sup>](#custom)
+
+First, check the [list of plugins](/docs/plugins.md) for a plugin that integrates the server framework you want to use with Reframe.
+If you then want to get control over the server instance, then run `$ reframe eject server`. (See previous section)
+
+If there isn't a plugin for the server framework you want, then run
+- `$ reframe eject server`
+- `$ reframe eject server-integration`
+to get full control over the integration of the current server framework and Reframe.
+At that point you can get rid of the current server framework and replace it any other server framework.
+
+
+
 ## Fully Custom Server &nbsp; [<sup><sub>:top:</sub></sup>](#custom)
 
-###### Custom web framework
+The following ejectables give you full control over the server.
 
-The code ejected by `$ reframe eject server`
-creates the hapi server and adds a
-hapi plugin that is responsible for the hapi <-> Reframe integration.
-This plugin can be ejected with `$ reframe eject server-integration`.
-Ejecting it is uncommon and chances are that you will never have to.
-But if you want to use another web framework instead of hapi then you may want to eject it.
+- `$ reframe eject server`
+  <br/>
+  Eject the code that creates the server instance.
+  See previous sections.
+- `$ reframe eject server-integration`
+  <br/>
+  Eject the code that integrates the server framework with Reframe.
+  See previous sections.
+- `$ reframe eject server-rendering`
+  <br/>
+  Eject the code that implements server-side rendering. (The generation of HTML of pages at request-time.)
+- `$ reframe eject server-assets`
+  <br/>
+  Eject the code that implements the serving of static browser assets (JavaScript files, CSS files, images, fonts, etc.)
 
-###### Full control
-
-The server-side rendering (the generation of the pages' HTMLs at request-time)
-and the serving of static browser assets (JavaScript files, CSS files, images, fonts, etc.)
-are implemented by the `@reframe/server` plugin.
-The plugin is agnostic and can be used with any web framework.
-
-You can take control over the server-side rendering by running `$ reframe eject server-rendering`.
-
-And you can take control over the static assets servering by running `$ reframe eject server-assets`.
-
-If you eject all server ejectables then every server LOC is in your codebase and you have full control over the server logic.
+If you eject all these ejectables then every single server LOC is in your codebase and you have full control over the server logic.
 
 <br/>
 
