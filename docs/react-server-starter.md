@@ -142,7 +142,6 @@ Create a web app with
 
 To create other kind of apps, see the [list of starters]().
 
-- [Example]()
 - [Quick Start]()
 - Usage Basics
   - Frontend
@@ -152,42 +151,6 @@ To create other kind of apps, see the [list of starters]().
   - Server
     - [Custom Server Framework (Express, Koa, ...)]
   - [Deploy]()
-
-<br/>
-<br/>
-
-## Example
-
-We create a web app
-by defining a page config `HelloPage`.
-
-~~~jsx
-// ~/my-app/pages/HelloPage.config.js
-
-// By default you write your views with React.
-// You can use another view library such as Vue.
-import React from 'react';
-
-const HelloPage = {
-  route: '/hello/:name', // Parameterized route
-  title: 'Hi there', // Page's <title>
-  view: props => {
-    // The route argument `name` is available at `props.route.args`
-    const name = props.route.args.name;
-    return (
-      <div>Hello {name}</div>
-    );
-  }
-};
-
-export default HelloPage;
-~~~
-
-Reframe does the rest:
-
-<p align="center">
-    <img src='https://github.com/reframejs/reframe/raw/master/docs/images/reframe-start.png?sanitize=true' width="780" style="max-width:100%;"/>
-</p>
 
 <br/>
 <br/>

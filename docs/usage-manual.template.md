@@ -62,7 +62,8 @@
 
 ## Getting Started
 
-!INLINE ./start.md --hide-source-path
+!INLINE ./getting-started.md --hide-source-path
+
 !INLINE ./top-link.md #basics --hide-source-path
 <br/>
 <br/>

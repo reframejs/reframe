@@ -188,24 +188,26 @@
 
 ## Getting Started
 
-1. Install the Reframe CLI.
-   ~~~shell
-   $ npm install -g @reframe/cli
-   ~~~
+Choose a starter:
 
-2. Initialize a new Rreframe app.
-   ~~~shell
-   $ reframe init my-app
-   ~~~
-   A `my-app/` directory is created and populated with a scaffold.
+- [React Server](/docs/react-server-starter.md)
+- [React Frontend](/docs/react-frontend-starter.md)
+- [React Database](/docs/react-database-starter.md)
 
-3. Build the pages and start the server.
-   ~~~shell
-   $ cd my-app
-   $ reframe start
-   ~~~
+They scaffold the following:
 
-4. Open [http://localhost:3000](http://localhost:3000).
+&nbsp; | React Frontend | React Server | React Database
+--- | :---: | :---: | :---:
+React Frontend | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:
+Node.js Server | :x: | :heavy_check_mark: | :heavy_check_mark:
+Database/ORM | :x: | :x: | :heavy_check_mark:
+
+Don't bother choosing the right starter:
+You can easily add/remove a Node.js server and add/remove a database/ORM.
+
+Quickly choose a starter and start write your prototype.
+As your prototype grows add/remove what you need.
+
 <b><sub><a href="#basics">&#8679; TOP &#8679;</a></sub></b>
 <br/>
 <br/>
