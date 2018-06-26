@@ -86,5 +86,11 @@ React Frontend | :large_orange_diamond: | :heavy_check_mark: | :heavy_check_mark
 Node.js Server | :large_orange_diamond: | :x: | :heavy_check_mark: | :heavy_check_mark:
 Database/ORM | :large_orange_diamond: | :x: | :x: | :heavy_check_mark:
 
+&nbsp; | React Starter | React Frontend Starter | React Server Starter | React Database Starter | euwqh | euiwqhieu
+--- | :---: | :---: | :---: | :---: | euwqh | euiwqhieu
+React Frontend | :large_orange_diamond: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | euwqh | euiwqhieu
+Node.js Server | :large_orange_diamond: | :x: | :heavy_check_mark: | :heavy_check_mark: | euwqh | euiwqhieu
+Database/ORM | :large_orange_diamond: | :x: | :x: | :heavy_check_mark: | euwqh | euiwqhieu
+
 <br/>
 <br/>
