@@ -203,7 +203,7 @@ Running `$ reframe eject server` will copy the following code to your codebase.
 
 ## Custom Server Framework (Express, Koa, ...)
 
-!INLINE ./sections/custom-server-framework.md
+!INLINE ./sections/custom-server-framework.md --hide-source-path
 
 !INLINE ./snippets/section-footer.md #custom --hide-source-path
 
@@ -590,7 +590,7 @@ The static assets are located in the `dist/browser/` directory.
 
 ## Serverless Deploy
 
-!INLINE ./sections/deploy-serverless.md
+!INLINE ./sections/deploy-serverless.md --hide-source-path
 !INLINE ./snippets/section-footer.md #use-cases --hide-source-path
 
 

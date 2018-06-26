@@ -71,7 +71,7 @@ For other starters, see the [list of starters](/../../#getting-started).
 
 ## Custom Server Framework (Express, Koa, ...)
 
-!INLINE ./sections/custom-server-framework.md
+!INLINE ./sections/custom-server-framework.md --hide-source-path
 !INLINE ./snippets/section-footer.md #react-server --hide-source-path
 
 
@@ -79,7 +79,7 @@ For other starters, see the [list of starters](/../../#getting-started).
 
 ## Deploy
 
-!INLINE ./sections/deploy-serverless.md
+!INLINE ./sections/deploy-serverless.md --hide-source-path
 !INLINE ./snippets/section-footer.md #react-server --hide-source-path
 
 

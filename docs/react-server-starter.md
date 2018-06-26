@@ -294,8 +294,6 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 ## Custom Server Framework (Express, Koa, ...)
 
-// /docs/sections/custom-server-framework.md
-
 First, check the [list of plugins](/docs/plugins.md) for a plugin that integrates the server framework you want to use with Reframe.
 If you then want to get control over the server instance, then run `$ reframe eject server`. (See previous section)
 
@@ -318,8 +316,6 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 ## Deploy
-
-// /docs/sections/deploy-serverless.md
 
 If your app is stateless we then recommand serverless deployment.
 
