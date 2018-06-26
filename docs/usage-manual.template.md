@@ -203,14 +203,7 @@ Running `$ reframe eject server` will copy the following code to your codebase.
 
 ## Custom Server Framework (Express, Koa, ...)
 
-First, check the [list of plugins](/docs/plugins.md) for a plugin that integrates the server framework you want to use with Reframe.
-If you then want to get control over the server instance, then run `$ reframe eject server`. (See previous section)
-
-If there isn't a plugin for the server framework you want, then run
-- `$ reframe eject server`
-- `$ reframe eject server-integration`
-to get full control over the integration of the current server framework and Reframe.
-At that point you can get rid of the current server framework and replace it any other server framework.
+!INLINE ./sections/custom-server-framework.md
 
 !INLINE ./snippets/section-footer.md #custom --hide-source-path
 
@@ -597,17 +590,7 @@ The static assets are located in the `dist/browser/` directory.
 
 ## Serverless Deploy
 
-If your app is stateless we then recommand serverless deployment.
-
-Serverless deployment solutions:
- - [Up](https://github.com/apex/up) - CLI tool to manage serverless deployement on AWS.
- - [Now](https://zeit.co/now) - Serverless host.
-
-A step-by-step guide on how to deploy a Reframe app on Up can be found [here](https://github.com/AurelienLourot/reframe-on-up).
-
-If you want to persist data, you may consider using a cloud database.
- - [List of cloud databases](/docs/cloud-databases.md)
-
+!INLINE ./sections/deploy-serverless.md
 !INLINE ./snippets/section-footer.md #use-cases --hide-source-path
 
 

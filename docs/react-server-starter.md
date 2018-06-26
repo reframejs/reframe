@@ -149,7 +149,7 @@ For other starters, see the [list of starters](/../../#getting-started).
     - [CSS & Static Assets](#css--static-assets)<br>
     - [`doNotRenderInBrowser`]()
   - Server
-    - [Custom Server Framework (Express, Koa, ...)]()
+    - [Custom Server Framework (Express, Koa, ...)](#custom-server-framework-express-koa-)
   - [Deploy]()
 
 <br/>
@@ -294,6 +294,16 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 ## Custom Server Framework (Express, Koa, ...)
 
+// /docs/sections/custom-server-framework.md
+
+First, check the [list of plugins](/docs/plugins.md) for a plugin that integrates the server framework you want to use with Reframe.
+If you then want to get control over the server instance, then run `$ reframe eject server`. (See previous section)
+
+If there isn't a plugin for the server framework you want, then run
+- `$ reframe eject server`
+- `$ reframe eject server-integration`
+to get full control over the integration of the current server framework and Reframe.
+At that point you can get rid of the current server framework and replace it any other server framework.
 <br/>
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
@@ -309,6 +319,18 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 ## Deploy
 
+// /docs/sections/deploy-serverless.md
+
+If your app is stateless we then recommand serverless deployment.
+
+Serverless deployment solutions:
+ - [Up](https://github.com/apex/up) - CLI tool to manage serverless deployement on AWS.
+ - [Now](https://zeit.co/now) - Serverless host.
+
+A step-by-step guide on how to deploy a Reframe app on Up can be found [here](https://github.com/AurelienLourot/reframe-on-up).
+
+If you want to persist data, you may consider using a cloud database.
+ - [List of cloud databases](/docs/cloud-databases.md)
 <br/>
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
@@ -318,6 +340,10 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 <br/>
 <br/>
 <br/>
+
+
+
+
 
 
 <!---
