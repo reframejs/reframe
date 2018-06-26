@@ -129,8 +129,9 @@
 
 <div><p align="center">
     Framework to create web apps.
+    &nbsp;
     <sub><sub><img src="https://github.com/reframejs/reframe/raw/docs/docs/images/thunderbolt.min.svg?sanitize=true" width="26" height="26"></sub></sub>&nbsp;<b>Rapid</b>: Implement&nbsp;apps&nbsp;in&nbsp;no&nbsp;time.
-    &nbsp; &nbsp; &nbsp; &nbsp;
+    &nbsp;
     <sub><sub><img src="https://github.com/reframejs/reframe/raw/docs/docs/images/tornado.min.svg?sanitize=true" width="26" height="26"></sub></sub>&nbsp;&nbsp;<b>Flexible</b>: Progressively&nbsp;ejectable.
 </p></div>
 
