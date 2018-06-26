@@ -297,6 +297,7 @@ But in that case the data will not be rendered to HTML.
 
 Deeper explanation and example of pages loading data:
  - [/examples/basics/pages/got/](/examples/basics/pages/got/)
+
 <br/>
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
@@ -971,7 +972,7 @@ and pages defined with React Router components will share the same browser-side 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 <br/>
 <br/>
-<b><sub><a href="#use-cases">&#8679; TOP &#8679;</a></sub></b>
+<b><sub><a href="#custom">&#8679; TOP &#8679;</a></sub></b>
 <br/>
 <br/>
 <br/>

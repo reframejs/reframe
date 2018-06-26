@@ -87,6 +87,7 @@
 ## Page Async Data
 
 !INLINE ./sections/usage-async-data.md --hide-source-path
+
 !INLINE ./snippets/section-footer.md #basics --hide-source-path
 
 
@@ -108,11 +109,7 @@ Example:
 !INLINE ../examples/basics/pages/page-b.config.js --hide-source-path
 ~~~
 
-!INLINE ./help.md --hide-source-path
-!INLINE ./top-link.md #basics --hide-source-path
-<br/>
-<br/>
-<br/>
+!INLINE ./snippets/section-footer.md #basics --hide-source-path
 
 
 
@@ -168,11 +165,7 @@ But if a page is static
 (a landing page, a blog post, a personal homepage, etc.) it would be wasteful to re-render its HTML on every page request.
 By adding `htmlStatic: true` to its page config, the page is rendered to HTML at build-time instead.
 
-!INLINE ./help.md --hide-source-path
-!INLINE ./top-link.md #basics --hide-source-path
-<br/>
-<br/>
-<br/>
+!INLINE ./snippets/section-footer.md #basics --hide-source-path
 
 
 
@@ -200,11 +193,7 @@ Running `$ reframe eject server` will copy the following code to your codebase.
 !INLINE ../plugins/hapi/start.js
 ~~~
 
-!INLINE ./help.md --hide-source-path
-!INLINE ./top-link.md #custom --hide-source-path
-<br/>
-<br/>
-<br/>
+!INLINE ./snippets/section-footer.md #custom --hide-source-path
 
 
 
@@ -223,11 +212,7 @@ If there isn't a plugin for the server framework you want, then run
 to get full control over the integration of the current server framework and Reframe.
 At that point you can get rid of the current server framework and replace it any other server framework.
 
-!INLINE ./help.md --hide-source-path
-!INLINE ./top-link.md #custom --hide-source-path
-<br/>
-<br/>
-<br/>
+!INLINE ./snippets/section-footer.md #custom --hide-source-path
 
 
 
@@ -253,11 +238,7 @@ The following ejectables give you full control over the server.
 
 If you eject all these ejectables then every single server LOC is in your codebase and you have full control over the server logic.
 
-!INLINE ./help.md --hide-source-path
-!INLINE ./top-link.md #custom --hide-source-path
-<br/>
-<br/>
-<br/>
+!INLINE ./snippets/section-footer.md #custom --hide-source-path
 
 
 
@@ -306,11 +287,7 @@ Example:
 If you want to use something else than `@brillout/index-html`, then you can eject the renderer,
 see [Custom Renderer](#custom-renderer).
 
-!INLINE ./help.md --hide-source-path
-!INLINE ./top-link.md #custom --hide-source-path
-<br/>
-<br/>
-<br/>
+!INLINE ./snippets/section-footer.md #custom --hide-source-path
 
 
 
@@ -338,11 +315,7 @@ Ejecting the React renderer will copy the following code to your codebase.
 !INLINE ../plugins/react/common.js
 ~~~
 
-!INLINE ./help.md --hide-source-path
-!INLINE ./top-link.md #custom --hide-source-path
-<br/>
-<br/>
-<br/>
+!INLINE ./snippets/section-footer.md #custom --hide-source-path
 
 
 
@@ -365,11 +338,7 @@ Running `$reframe eject browser` ejects the following code.
 !INLINE ../plugins/browser/browserEntry.js
 ~~~
 
-!INLINE ./help.md --hide-source-path
-!INLINE ./top-link.md #custom --hide-source-path
-<br/>
-<br/>
-<br/>
+!INLINE ./snippets/section-footer.md #custom --hide-source-path
 
 
 
@@ -394,11 +363,7 @@ For example:
 
 You can see the example in full and other examples at [/examples/custom-browser](/examples/custom-browser).
 
-!INLINE ./help.md --hide-source-path
-!INLINE ./top-link.md #custom --hide-source-path
-<br/>
-<br/>
-<br/>
+!INLINE ./snippets/section-footer.md #custom --hide-source-path
 
 
 
@@ -418,11 +383,7 @@ You can take control over the generation of browser entries by running `$ refram
 We recommand to use the previously mentioned ejectables instead.
 Use this ejectable as last resort.
 
-!INLINE ./help.md --hide-source-path
-!INLINE ./top-link.md #custom --hide-source-path
-<br/>
-<br/>
-<br/>
+!INLINE ./snippets/section-footer.md #custom --hide-source-path
 
 
 
@@ -493,11 +454,7 @@ Also note that the broswer-side code is splitted only between pages defined with
 and pages defined with React Router components will share the same browser-side code bundle.
 
 
-!INLINE ./help.md --hide-source-path
-!INLINE ./top-link.md #use-cases --hide-source-path
-<br/>
-<br/>
-<br/>
+!INLINE ./snippets/section-footer.md #custom --hide-source-path
 
 
 
@@ -509,11 +466,7 @@ Reframe can be used with any routing library.
 
 Either use another plugin in the [list of router plugins](/docs/plugins.md#routers) or eject the router with `$ reframe eject router`.
 
-!INLINE ./help.md --hide-source-path
-!INLINE ./top-link.md #custom --hide-source-path
-<br/>
-<br/>
-<br/>
+!INLINE ./snippets/section-footer.md #custom --hide-source-path
 
 
 
@@ -527,11 +480,7 @@ You can customize the babel config by creating a `.babelrc` file.
 Example:
  - [/examples/custom-babel](/examples/custom-babel)
 
-!INLINE ./help.md --hide-source-path
-!INLINE ./top-link.md #custom --hide-source-path
-<br/>
-<br/>
-<br/>
+!INLINE ./snippets/section-footer.md #custom --hide-source-path
 
 
 
@@ -584,11 +533,7 @@ Examples:
  - Source code of [`@reframe/react`](/plugins/react)
  - Source code of [`@reframe/typescript`](/plugins/typescript)
 
-!INLINE ./help.md --hide-source-path
-!INLINE ./top-link.md #custom --hide-source-path
-<br/>
-<br/>
-<br/>
+!INLINE ./snippets/section-footer.md #custom --hide-source-path
 
 
 
@@ -619,11 +564,7 @@ Use this ejectable as last resort.
 
 If you eject all build ejectables, then you have full control over the build logic.
 
-!INLINE ./help.md --hide-source-path
-!INLINE ./top-link.md #custom --hide-source-path
-<br/>
-<br/>
-<br/>
+!INLINE ./snippets/section-footer.md #custom --hide-source-path
 
 
 
@@ -649,11 +590,7 @@ and your app can be statically deployed.
 
 The static assets are located in the `dist/browser/` directory.
 
-!INLINE ./help.md --hide-source-path
-!INLINE ./top-link.md #use-cases --hide-source-path
-<br/>
-<br/>
-<br/>
+!INLINE ./snippets/section-footer.md #use-cases --hide-source-path
 
 
 
@@ -671,11 +608,7 @@ A step-by-step guide on how to deploy a Reframe app on Up can be found [here](ht
 If you want to persist data, you may consider using a cloud database.
  - [List of cloud databases](/docs/cloud-databases.md)
 
-!INLINE ./help.md --hide-source-path
-!INLINE ./top-link.md #use-cases --hide-source-path
-<br/>
-<br/>
-<br/>
+!INLINE ./snippets/section-footer.md #use-cases --hide-source-path
 
 
 
@@ -686,41 +619,25 @@ You can also use Reframe with Vue instead of React.
 
 Check out the [`@reframe/vue`](/plugins/vue) plugin.
 
-!INLINE ./help.md --hide-source-path
-!INLINE ./top-link.md #use-cases --hide-source-path
-<br/>
-<br/>
-<br/>
+!INLINE ./snippets/section-footer.md #use-cases --hide-source-path
 
 ## React Router
 
 You can use the React Router components by adding the [@reframe/react-router](/plugins/react-router) plugin.
 
-!INLINE ./help.md --hide-source-path
-!INLINE ./top-link.md #use-cases --hide-source-path
-<br/>
-<br/>
-<br/>
+!INLINE ./snippets/section-footer.md #use-cases --hide-source-path
 
 ## TypeScript
 
 You can write your app with TypeScript by adding the [@reframe/typescript](/plugins/typescript) plugin.
 
-!INLINE ./help.md --hide-source-path
-!INLINE ./top-link.md #use-cases --hide-source-path
-<br/>
-<br/>
-<br/>
+!INLINE ./snippets/section-footer.md #use-cases --hide-source-path
 
 ## PostCSS
 
 You can write your styles with PostCSS by adding the [@reframe/postcss](/plugins/postcss) plugin.
 
-!INLINE ./help.md --hide-source-path
-!INLINE ./top-link.md #use-cases --hide-source-path
-<br/>
-<br/>
-<br/>
+!INLINE ./snippets/section-footer.md #use-cases --hide-source-path
 
 
 
@@ -738,11 +655,7 @@ Examples of apps using Reframe + RNW:
  - [/plugins/react-native-web/example](/plugins/react-native-web/example)
  - [/examples/react-native-web-and-react-router](/examples/react-native-web-and-react-router)
 
-!INLINE ./help.md --hide-source-path
-!INLINE ./top-link.md #use-cases --hide-source-path
-<br/>
-<br/>
-<br/>
+!INLINE ./snippets/section-footer.md #use-cases --hide-source-path
 
 
 
@@ -758,11 +671,7 @@ And you can share routing logic by using Reframe + React Native Web + [React Rou
 For example:
  - [/examples/react-native-web-and-react-router](/examples/react-native-web-and-react-router)
 
-!INLINE ./help.md --hide-source-path
-!INLINE ./top-link.md #use-cases --hide-source-path
-<br/>
-<br/>
-<br/>
+!INLINE ./snippets/section-footer.md #use-cases --hide-source-path
 
 
 
