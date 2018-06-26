@@ -80,11 +80,11 @@ That's it: We created a web app simply by defining one page config. No build con
 
 ### Getting Started !INLINE ./top-link.md #overview
 
-&nbsp; | React | React Frontend | React Server | React Database
---- | --- | --- | --- | ---
+&nbsp; | React Starter | React Frontend Starter | React Server Starter | React Database Starter
+--- | :---: | :---: | :---: | :---:
 React Frontend | :large_orange_diamond: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:
 Node.js Server | :large_orange_diamond: | :x: | :heavy_check_mark: | :heavy_check_mark:
-Database/ORM Server | :large_orange_diamond: | :x: | :x: | :heavy_check_mark:
+Database/ORM | :large_orange_diamond: | :x: | :x: | :heavy_check_mark:
 
 <br/>
 <br/>
