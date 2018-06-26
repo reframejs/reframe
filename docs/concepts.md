@@ -172,7 +172,7 @@ as if you would have implemented your app on top of these do-one-thing-do-it-wel
 
 > Quickly implement a prototype while staying fully flexible down the road.
 
- <b><sub><a href="#overview">&#8679; TOP &#8679;</a></sub></b>
+<b><sub><a href="#concepts">&#8679; TOP &#8679;</a></sub></b>
 
 <br/>
 <br/>
@@ -199,7 +199,7 @@ This means that you can start writing your prototype and decide only at a later 
 
 > Reframe is the only framework that supports every type of web app.
 
- <b><sub><a href="#overview">&#8679; TOP &#8679;</a></sub></b>
+<b><sub><a href="#concepts">&#8679; TOP &#8679;</a></sub></b>
 
 <br/>
 <br/>

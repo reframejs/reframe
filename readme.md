@@ -194,7 +194,7 @@ When we say Reframe is rapid and flexible, we mean it.
 
 More at [Concetps](/docs/concepts.md).
 
- <b><sub><a href="#overview">&#8679; TOP &#8679;</a></sub></b>
+<b><sub><a href="#overview">&#8679; TOP &#8679;</a></sub></b>
 
 <br/>
 <br/>
@@ -232,7 +232,7 @@ export default HelloPage;
 
 That's it: We created an entire web app simply by defining one page config. No build config, no server config.
 
- <b><sub><a href="#overview">&#8679; TOP &#8679;</a></sub></b>
+<b><sub><a href="#overview">&#8679; TOP &#8679;</a></sub></b>
 
 <br/>
 <br/>
@@ -259,7 +259,7 @@ You can easily add/remove a Node.js server and add/remove a database/ORM.
 Quickly choose a starter and start write your prototype.
 As your prototype grows add/remove what you need.
 
- <b><sub><a href="#overview">&#8679; TOP &#8679;</a></sub></b>
+<b><sub><a href="#overview">&#8679; TOP &#8679;</a></sub></b>
 
 <br/>
 <br/>
