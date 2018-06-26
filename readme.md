@@ -129,12 +129,9 @@
 
 <div><p align="center">
     Framework to create web apps.
-</p></div>
-
-<div><p align="center">
-    <sub><sub><img src="https://github.com/reframejs/reframe/raw/docs/docs/images/thunderbolt.min.svg?sanitize=true" width="26" height="26"></sub></sub>&nbsp;&nbsp;<b>Rapid</b>&nbsp;&nbsp;&#8209;&nbsp;&nbsp;Implement&nbsp;apps&nbsp;in&nbsp;no&nbsp;time.
+    <sub><sub><img src="https://github.com/reframejs/reframe/raw/docs/docs/images/thunderbolt.min.svg?sanitize=true" width="26" height="26"></sub></sub>&nbsp;<b>Rapid</b>: Implement&nbsp;apps&nbsp;in&nbsp;no&nbsp;time.
     &nbsp; &nbsp; &nbsp; &nbsp;
-    <sub><sub><img src="https://github.com/reframejs/reframe/raw/docs/docs/images/tornado.min.svg?sanitize=true" width="26" height="26"></sub></sub>&nbsp;&nbsp;&nbsp;<b>Flexible</b>&nbsp;&nbsp;&#8209;&nbsp;&nbsp;Progressively&nbsp;ejectable.
+    <sub><sub><img src="https://github.com/reframejs/reframe/raw/docs/docs/images/tornado.min.svg?sanitize=true" width="26" height="26"></sub></sub>&nbsp;&nbsp;<b>Flexible</b>: Progressively&nbsp;ejectable.
 </p></div>
 
 <br/>
@@ -242,7 +239,7 @@ Choose a starter:
 - [React Frontend](/docs/react-frontend-starter.md)
 - [React Database](/docs/react-database-starter.md)
 
-The starters scaffold an app with the following:
+They scaffold the following:
 
 &nbsp; | React Frontend | React Server | React Database
 --- | :---: | :---: | :---:
@@ -253,7 +250,7 @@ Database/ORM | :x: | :x: | :heavy_check_mark:
 Don't bother choosing the right starter:
 You can easily add/remove a Node.js server and add/remove a database/ORM.
 
-Quikly choose a starter and start write your prototype.
+Quickly choose a starter and start write your prototype.
 As your prototype grows add/remove what you need.
 
  <b><sub><a href="#overview">&#8679; TOP &#8679;</a></sub></b>

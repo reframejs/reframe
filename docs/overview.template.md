@@ -87,7 +87,7 @@ Choose a starter:
 - [React Frontend](/docs/react-frontend-starter.md)
 - [React Database](/docs/react-database-starter.md)
 
-The starters scaffold an app with the following:
+They scaffold the following:
 
 &nbsp; | React Frontend | React Server | React Database
 --- | :---: | :---: | :---:
@@ -98,7 +98,7 @@ Database/ORM | :x: | :x: | :heavy_check_mark:
 Don't bother choosing the right starter:
 You can easily add/remove a Node.js server and add/remove a database/ORM.
 
-Quikly choose a starter and start write your prototype.
+Quickly choose a starter and start write your prototype.
 As your prototype grows add/remove what you need.
 
  !INLINE ./top-link.md #overview
