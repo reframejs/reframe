@@ -1,6 +1,6 @@
 !INLINE ./header-light.md --hide-source-path
-!INLINE ./links.md --hide-source-path
 <br/>
+!INLINE ./links.md --hide-source-path
 
 !MENU
 !MENU_ORDER 40
