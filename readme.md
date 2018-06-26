@@ -140,7 +140,7 @@
 <br/>
 
 [**Overview**](/../../)<br/>
-Starters: [React Server](/docs/react-server-starter.md) | [React Frontend](/docs/react-frontend-starter.md) | [React Database](/docs/react-database-starter.md) | [React](/docs/react-starter.md)<br/>
+Starters: [React Server](/docs/react-server-starter.md) | [React Frontend](/docs/react-frontend-starter.md) | [React Database](/docs/react-database-starter.md)<br/>
 [Usage Manual](/docs/usage-manual.md)<br/>
 [Concepts](/docs/concepts.md)<br/>
 [Plugins](/docs/plugins.md)
@@ -235,11 +235,24 @@ That's it: We created a web app simply by defining one page config. No build con
 
 ### Getting Started &nbsp; [<sup><sub>:top:</sub></sup>](#overview)
 
-&nbsp; | React<br/>Starter | React Frontend<br/>Starter | React Server<br/>Starter | React Database<br/>Starter
---- | :---: | :---: | :---: | :---:
-React Frontend | :large_orange_diamond: | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:
-Node.js Server | :large_orange_diamond: | :x: | :heavy_check_mark: | :heavy_check_mark:
-Database/ORM | :large_orange_diamond: | :x: | :x: | :heavy_check_mark:
+Choose one of the following starters:
+
+- [React Server](/docs/react-server-starter.md)
+- [React Frontend](/docs/react-frontend-starter.md)
+- [React Database](/docs/react-database-starter.md)
+
+The starters scaffold an app with the following:
+
+&nbsp; | React Frontend<br/>Starter | React Server<br/>Starter | React Database<br/>Starter
+--- | :---: | :---: | :---:
+React Frontend | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:
+Node.js Server | :x: | :heavy_check_mark: | :heavy_check_mark:
+Database/ORM | :x: | :x: | :heavy_check_mark:
+
+Don't bother choosing the right starter:
+You can easily add/remove a Node.js server and add/remove a database/ORM.
+So quikly choose a starter and start write your prototype.
+As your prototype grows add/remove what you need.
 
 <br/>
 <br/>
