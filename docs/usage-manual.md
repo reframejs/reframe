@@ -209,6 +209,7 @@
 <b><sub><a href="#basics">&#8679; TOP &#8679;</a></sub></b>
 <br/>
 <br/>
+<br/>
 
 
 
@@ -250,6 +251,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 <br/>
 <br/>
 <b><sub><a href="#basics">&#8679; TOP &#8679;</a></sub></b>
+<br/>
 <br/>
 <br/>
 
@@ -302,6 +304,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 <b><sub><a href="#basics">&#8679; TOP &#8679;</a></sub></b>
 <br/>
 <br/>
+<br/>
 
 
 
@@ -348,6 +351,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 <br/>
 <br/>
 <b><sub><a href="#basics">&#8679; TOP &#8679;</a></sub></b>
+<br/>
 <br/>
 <br/>
 
@@ -413,6 +417,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 <b><sub><a href="#basics">&#8679; TOP &#8679;</a></sub></b>
 <br/>
 <br/>
+<br/>
 
 
 
@@ -471,6 +476,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 <b><sub><a href="#custom">&#8679; TOP &#8679;</a></sub></b>
 <br/>
 <br/>
+<br/>
 
 
 
@@ -488,6 +494,17 @@ If there isn't a plugin for the server framework you want, then run
 - `$ reframe eject server-integration`
 to get full control over the integration of the current server framework and Reframe.
 At that point you can get rid of the current server framework and replace it any other server framework.
+
+<br/>
+
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+<br/>
+<br/>
+<b><sub><a href="#custom">&#8679; TOP &#8679;</a></sub></b>
+<br/>
+<br/>
+<br/>
+
 
 
 
@@ -518,6 +535,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 <br/>
 <br/>
 <b><sub><a href="#custom">&#8679; TOP &#8679;</a></sub></b>
+<br/>
 <br/>
 <br/>
 
@@ -641,6 +659,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 <b><sub><a href="#custom">&#8679; TOP &#8679;</a></sub></b>
 <br/>
 <br/>
+<br/>
 
 
 
@@ -745,6 +764,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 <b><sub><a href="#custom">&#8679; TOP &#8679;</a></sub></b>
 <br/>
 <br/>
+<br/>
 
 
 
@@ -781,6 +801,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 <br/>
 <br/>
 <b><sub><a href="#custom">&#8679; TOP &#8679;</a></sub></b>
+<br/>
 <br/>
 <br/>
 
@@ -847,6 +868,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 <b><sub><a href="#custom">&#8679; TOP &#8679;</a></sub></b>
 <br/>
 <br/>
+<br/>
 
 
 
@@ -872,6 +894,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 <br/>
 <br/>
 <b><sub><a href="#custom">&#8679; TOP &#8679;</a></sub></b>
+<br/>
 <br/>
 <br/>
 
@@ -944,6 +967,16 @@ Also note that the broswer-side code is splitted only between pages defined with
 and pages defined with React Router components will share the same browser-side code bundle.
 
 
+<br/>
+
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+<br/>
+<br/>
+<b><sub><a href="#use-cases">&#8679; TOP &#8679;</a></sub></b>
+<br/>
+<br/>
+<br/>
+
 
 
 
@@ -960,6 +993,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 <br/>
 <br/>
 <b><sub><a href="#custom">&#8679; TOP &#8679;</a></sub></b>
+<br/>
 <br/>
 <br/>
 
@@ -981,6 +1015,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 <br/>
 <br/>
 <b><sub><a href="#custom">&#8679; TOP &#8679;</a></sub></b>
+<br/>
 <br/>
 <br/>
 
@@ -1041,6 +1076,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 <br/>
 <br/>
 <b><sub><a href="#custom">&#8679; TOP &#8679;</a></sub></b>
+<br/>
 <br/>
 <br/>
 
@@ -1109,6 +1145,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 <b><sub><a href="#custom">&#8679; TOP &#8679;</a></sub></b>
 <br/>
 <br/>
+<br/>
 
 
 
@@ -1142,6 +1179,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 <b><sub><a href="#use-cases">&#8679; TOP &#8679;</a></sub></b>
 <br/>
 <br/>
+<br/>
 
 
 
@@ -1167,6 +1205,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 <b><sub><a href="#use-cases">&#8679; TOP &#8679;</a></sub></b>
 <br/>
 <br/>
+<br/>
 
 
 
@@ -1185,6 +1224,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 <b><sub><a href="#use-cases">&#8679; TOP &#8679;</a></sub></b>
 <br/>
 <br/>
+<br/>
 
 ## React Router
 
@@ -1196,6 +1236,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 <br/>
 <br/>
 <b><sub><a href="#use-cases">&#8679; TOP &#8679;</a></sub></b>
+<br/>
 <br/>
 <br/>
 
@@ -1211,6 +1252,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 <b><sub><a href="#use-cases">&#8679; TOP &#8679;</a></sub></b>
 <br/>
 <br/>
+<br/>
 
 ## PostCSS
 
@@ -1222,6 +1264,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 <br/>
 <br/>
 <b><sub><a href="#use-cases">&#8679; TOP &#8679;</a></sub></b>
+<br/>
 <br/>
 <br/>
 
@@ -1249,6 +1292,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 <b><sub><a href="#use-cases">&#8679; TOP &#8679;</a></sub></b>
 <br/>
 <br/>
+<br/>
 
 
 
@@ -1270,6 +1314,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 <br/>
 <br/>
 <b><sub><a href="#use-cases">&#8679; TOP &#8679;</a></sub></b>
+<br/>
 <br/>
 <br/>
 
