@@ -199,7 +199,7 @@ That's it: We created an entire web app simply by defining one page config. No b
   is the state-of-the-art tool to do so.
 - **WebAssembly**
   <br/>
-  WebAssembly is immensely promising and Reframe, being based on JavaScript and Node.js, embraces the WebAssembly future.
+  WebAssembly is immensely promising and Reframe, being based on JavaScript, embraces the WebAssembly future.
 
 ###### Performance
 

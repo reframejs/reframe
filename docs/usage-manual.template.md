@@ -528,7 +528,7 @@ It will copy the following file to your codebase.
 
 Run `$ reframe eject build-rendering` to eject `getPageHtmls()` to gain control over the static rendering.
 (That is the rendering of pages to HTML that happens at build-time.
-In other words, the HTML rendering of pages that have `htmlStatic: true` in their page configs.)
+In other words, the HTML rendering of pages that have `renderHtmlAtBuildTime: true` in their page configs.)
 Note that, most of the time, you should eject the renderer instead,
 see [Custom Renderer](#custom-renderer).
 Use this ejectable as last resort.
@@ -550,21 +550,19 @@ If you eject all build ejectables, then you have full control over the build log
 
 ## Static Deploy
 
-If you are app is html-static, you can deploy it to a static host.
+If your app is html-static, you can deploy it to a static host.
 
-The `$ reframe deploy-static` command will automatically deploy your app.
-It works with any static host that integrates with Git such as
-[Netlify](https://www.netlify.com/) or
-[GitHub Pages](https://pages.github.com/).
-
-Your app is html-static when all your page configs have `htmlStatic: true`.
+Your app is html-static when all your page configs have `renderHtmlAtBuildTime: true`.
 In that case,
 all HTMLs are rendered at build-time,
 your app consists of static assets only,
 no Node.js server is required,
-and your app can be statically deployed.
+and your app can be statically served.
 
-The static assets are located in the `dist/browser/` directory.
+If you add the `@reframe/deploy-git` plugin you can then
+run `$ reframe deploy` to automatically deploy your app.
+
+!INLINE ./sections/deploy-static.md --hide-source-path
 
 !INLINE ./snippets/section-footer.md #use-cases --hide-source-path
 

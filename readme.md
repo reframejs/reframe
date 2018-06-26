@@ -375,7 +375,7 @@ As your prototype grows add/remove what you need.
   is the state-of-the-art tool to do so.
 - **WebAssembly**
   <br/>
-  WebAssembly is immensely promising and Reframe, being based on JavaScript and Node.js, embraces the WebAssembly future.
+  WebAssembly is immensely promising and Reframe, being based on JavaScript, embraces the WebAssembly future.
 
 ###### Performance
 

@@ -134,9 +134,16 @@
 
 <br/>
 
-# React Database Starter
+# React Database
 
+Starter to create a web app with:
+ - React front-end
+ - Node.js server
+ - Database + ORM
 
+Work-in-progress.
+
+Follow [twitter.com/reframejs](https://twitter.com/reframejs) to get updates.
 
 <!---
 
