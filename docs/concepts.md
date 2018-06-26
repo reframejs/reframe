@@ -127,15 +127,15 @@
 </p>
 <br/>
 
-[Overview](/../../)<br/>
-Starters: [React Server](/docs/react-server-starter.md) | [React Frontend](/docs/react-frontend-starter.md) | [React Database](/docs/react-database-starter.md)<br/>
-[Usage Manual](/docs/usage-manual.md)<br/>
-[**Concepts**](/docs/concepts.md)<br/>
-[Plugins](/docs/plugins.md)
+&nbsp; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; [Overview](/../../)<br/>
+&nbsp; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; Starters: [React Server](/docs/react-server-starter.md) | [React Frontend](/docs/react-frontend-starter.md) | [React Database](/docs/react-database-starter.md)<br/>
+&nbsp; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; [Usage Manual](/docs/usage-manual.md)<br/>
+&nbsp; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; [**Concepts**](/docs/concepts.md)<br/>
+&nbsp; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; [Plugins](/docs/plugins.md)
 
 <br/>
 
-# Overview
+# Concepts
 
  - [Progressive Eject](#progressive-eject)
  - [Universal Framework](#universal-framework)
@@ -172,6 +172,11 @@ as if you would have implemented your app on top of these do-one-thing-do-it-wel
 
 > Quickly implement a prototype while staying fully flexible down the road.
 
+ <b><sub><a href="#overview">&#8679; TOP &#8679;</a></sub></b>
+
+<br/>
+<br/>
+
 
 ### Universal Framework
 
@@ -193,6 +198,8 @@ The cherry on the cake is that choosing the type of your app is simply a matter 
 This means that you can start writing your prototype and decide only at a later point what type of app is right for you.
 
 > Reframe is the only framework that supports every type of web app.
+
+ <b><sub><a href="#overview">&#8679; TOP &#8679;</a></sub></b>
 
 <br/>
 <br/>

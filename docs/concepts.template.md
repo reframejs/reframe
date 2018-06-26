@@ -7,7 +7,7 @@
 
 <br/>
 
-# Overview
+# Concepts
 
  - [Progressive Eject](#progressive-eject)
  - [Universal Framework](#universal-framework)
@@ -44,6 +44,11 @@ as if you would have implemented your app on top of these do-one-thing-do-it-wel
 
 > Quickly implement a prototype while staying fully flexible down the road.
 
+!INLINE ./top-link.md #concepts --hide-source-path
+
+<br/>
+<br/>
+
 
 ### Universal Framework
 
@@ -65,6 +70,8 @@ The cherry on the cake is that choosing the type of your app is simply a matter 
 This means that you can start writing your prototype and decide only at a later point what type of app is right for you.
 
 > Reframe is the only framework that supports every type of web app.
+
+!INLINE ./top-link.md #concepts --hide-source-path
 
 <br/>
 <br/>

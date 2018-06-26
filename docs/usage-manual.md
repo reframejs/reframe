@@ -127,11 +127,11 @@
 </p>
 <br/>
 
-[Overview](/../../)<br/>
-Starters: [React Server](/docs/react-server-starter.md) | [React Frontend](/docs/react-frontend-starter.md) | [React Database](/docs/react-database-starter.md)<br/>
-[**Usage Manual**](/docs/usage-manual.md)<br/>
-[Concepts](/docs/concepts.md)<br/>
-[Plugins](/docs/plugins.md)
+&nbsp; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; [Overview](/../../)<br/>
+&nbsp; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; Starters: [React Server](/docs/react-server-starter.md) | [React Frontend](/docs/react-frontend-starter.md) | [React Database](/docs/react-database-starter.md)<br/>
+&nbsp; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; [**Usage Manual**](/docs/usage-manual.md)<br/>
+&nbsp; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; [Concepts](/docs/concepts.md)<br/>
+&nbsp; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; &nbps; [Plugins](/docs/plugins.md)
 
 <br/>
 

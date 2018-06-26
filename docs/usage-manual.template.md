@@ -11,45 +11,45 @@
 
 #### Basics
 
-- [Getting Started](#getting-started--top)<br>
-- [CSS & Static Assets](#css--static-assets--top)<br>
-- [Data Loading](#data-loading--top)<br>
-- [Page Navigation & Links](#page-navigation--links--top)<br>
-- [`domStatic` & `htmlStatic`](#domstatic--htmlstatic--top)<br>
+- [Getting Started](#getting-started)<br>
+- [CSS & Static Assets](#css--static-assets)<br>
+- [Data Loading](#data-loading)<br>
+- [Page Navigation & Links](#page-navigation--links)<br>
+- [`domStatic` & `htmlStatic`](#domstatic--htmlstatic)<br>
 
 #### Custom
 
 - Server
-  - [Custom Server](#custom-server--top)
-  - [Custom Server Framework (Express, Koa, ...)](#custom-server-framework-express-koa---top)
-  - [Fully Custom Server](#fully-custom-server--top)
+  - [Custom Server](#custom-server)
+  - [Custom Server Framework (Express, Koa, ...)](#custom-server-framework-express-koa-)
+  - [Fully Custom Server](#fully-custom-server)
 - Rendering
-  - [Custom HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ...](#custom-html-head-meta-html---top)
-  - [Custom Renderer](#custom-renderer--top)
+  - [Custom HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ...](#custom-html-head-meta-html-)
+  - [Custom Renderer](#custom-renderer)
 - Browser
-  - [Custom Default Browser Entry](#custom-default-browser-entry--top)
-  - [Custom Page Browser Entry](#custom-page-browser-entry--top)
-  - [Fully Custom Browser Entry](#fully-custom-browser-entry--top)
+  - [Custom Default Browser Entry](#custom-default-browser-entry)
+  - [Custom Page Browser Entry](#custom-page-browser-entry)
+  - [Fully Custom Browser Entry](#fully-custom-browser-entry)
 - Routing
-  - [Advanced Routing](#advanced-routing--top)
-  - [Custom Router](#custom-router--top)
+  - [Advanced Routing](#advanced-routing)
+  - [Custom Router](#custom-router)
 - Build
-  - [Custom Babel](#custom-babel--top)
-  - [Custom Webpack](#custom-webpack--top)
-  - [Fully Custom Build](#fully-custom-build--top)
+  - [Custom Babel](#custom-babel)
+  - [Custom Webpack](#custom-webpack)
+  - [Fully Custom Build](#fully-custom-build)
 
 #### Use Cases
 
 - Deploy
-  - [Static Deploy](#static-deploy--top)
-  - [Serverless Deploy](#serverless-deploy--top)
+  - [Static Deploy](#static-deploy)
+  - [Serverless Deploy](#serverless-deploy)
 - Integrations
-  - [Vue](#vue--top)
-  - [React Router](#react-router--top)
-  - [TypeScript](#typescript--top)
-  - [PostCSS](#postcss--top)
-  - [React Native (Web)](#react-native-web--top)
-  - [React Native (Web) + React Router](#react-native-web--react-router--top)
+  - [Vue](#vue)
+  - [React Router](#react-router)
+  - [TypeScript](#typescript)
+  - [PostCSS](#postcss)
+  - [React Native (Web)](#react-native-web)
+  - [React Native (Web) + React Router](#react-native-web--react-router)
 
 
 <br/>
@@ -59,9 +59,10 @@
 
 
 
-## Getting Started !INLINE ./top-link.md #basics
+## Getting Started
 
 !INLINE ./start.md --hide-source-path
+!INLINE ./top-link.md #basics --hide-source-path
 
 <br/>
 <br/>
@@ -70,7 +71,7 @@
 
 
 
-## CSS & Static Assets !INLINE ./top-link.md #basics
+## CSS & Static Assets
 
 A CSS file can be loaded and applied by importing it.
 
@@ -101,6 +102,7 @@ Example of a page loading and using CSS, fonts, images and static assets:
  - [/examples/basics/pages/glitter/](/examples/basics/pages/glitter/)
 
 !INLINE ./help.md --hide-source-path
+!INLINE ./top-link.md #basics --hide-source-path
 
 
 
@@ -109,7 +111,7 @@ Example of a page loading and using CSS, fonts, images and static assets:
 
 
 
-## Data Loading !INLINE ./top-link.md #basics
+## Data Loading
 
 The page config `async getInitialProps()` can be used to fetch data before your page's view is rendered.
 The value returned by `async getInitialProps()` is then available to your page's view.
@@ -127,6 +129,7 @@ Deeper explanation and example of pages loading data:
  - [/examples/basics/pages/got/](/examples/basics/pages/got/)
 
 !INLINE ./help.md --hide-source-path
+!INLINE ./top-link.md #basics --hide-source-path
 
 
 
@@ -134,11 +137,11 @@ Deeper explanation and example of pages loading data:
 
 
 
-## Page Navigation & Links !INLINE ./top-link.md #basics
+## Page Navigation & Links
 
 The standard way to navigate between pages is to use the HTML link tag `<a>`.
 
-See [Advanced Routing](#advanced-routing--top) for alternative ways of navigating.
+See [Advanced Routing](#advanced-routing) for alternative ways of navigating.
 
 Example:
 
@@ -150,6 +153,7 @@ Example:
 ~~~
 
 !INLINE ./help.md --hide-source-path
+!INLINE ./top-link.md #basics --hide-source-path
 
 
 
@@ -157,7 +161,7 @@ Example:
 
 
 
-## `domStatic` & `htmlStatic` !INLINE ./top-link.md #basics
+## `domStatic` & `htmlStatic`
 
 By default, a page is rendered twice:
 On the server (to HTML) and in the browser (to the DOM).
@@ -206,6 +210,7 @@ But if a page is static
 By adding `htmlStatic: true` to its page config, the page is rendered to HTML at build-time instead.
 
 !INLINE ./help.md --hide-source-path
+!INLINE ./top-link.md #basics --hide-source-path
 
 
 
@@ -214,7 +219,7 @@ By adding `htmlStatic: true` to its page config, the page is rendered to HTML at
 
 
 
-## Custom Server !INLINE ./top-link.md #custom
+## Custom Server
 
 By default, Reframe creates a server with the web framework hapi ([hapijs.com](https://hapijs.com/)).
 
@@ -234,6 +239,7 @@ Running `$ reframe eject server` will copy the following code to your codebase.
 ~~~
 
 !INLINE ./help.md --hide-source-path
+!INLINE ./top-link.md #custom --hide-source-path
 
 
 
@@ -241,7 +247,7 @@ Running `$ reframe eject server` will copy the following code to your codebase.
 
 
 
-## Custom Server Framework (Express, Koa, ...) !INLINE ./top-link.md #custom
+## Custom Server Framework (Express, Koa, ...)
 
 First, check the [list of plugins](/docs/plugins.md) for a plugin that integrates the server framework you want to use with Reframe.
 If you then want to get control over the server instance, then run `$ reframe eject server`. (See previous section)
@@ -254,7 +260,7 @@ At that point you can get rid of the current server framework and replace it any
 
 
 
-## Fully Custom Server !INLINE ./top-link.md #custom
+## Fully Custom Server
 
 The following ejectables give you full control over the server.
 
@@ -276,6 +282,7 @@ The following ejectables give you full control over the server.
 If you eject all these ejectables then every single server LOC is in your codebase and you have full control over the server logic.
 
 !INLINE ./help.md --hide-source-path
+!INLINE ./top-link.md #custom --hide-source-path
 
 
 
@@ -285,7 +292,7 @@ If you eject all these ejectables then every single server LOC is in your codeba
 
 
 
-## Custom HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ... !INLINE ./top-link.md #custom
+## Custom HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ...
 
 Reframe uses [`@brillout/index-html`](https://github.com/brillout/index-html) to generate HTML.
 
@@ -322,9 +329,10 @@ Example:
  - [/examples/custom-head](/examples/custom-head)
 
 If you want to use something else than `@brillout/index-html`, then you can eject the renderer,
-see [Custom Renderer](#custom-renderer--top).
+see [Custom Renderer](#custom-renderer).
 
 !INLINE ./help.md --hide-source-path
+!INLINE ./top-link.md #custom --hide-source-path
 
 
 
@@ -332,7 +340,7 @@ see [Custom Renderer](#custom-renderer--top).
 
 
 
-## Custom Renderer !INLINE ./top-link.md #custom
+## Custom Renderer
 
 By default Reframe renders the `view` property of your page configs with React.
 
@@ -353,6 +361,7 @@ Ejecting the React renderer will copy the following code to your codebase.
 ~~~
 
 !INLINE ./help.md --hide-source-path
+!INLINE ./top-link.md #custom --hide-source-path
 
 
 
@@ -360,7 +369,7 @@ Ejecting the React renderer will copy the following code to your codebase.
 
 
 
-## Custom Default Browser Entry !INLINE ./top-link.md #custom
+## Custom Default Browser Entry
 
 You can customize the browser entry code by running `$reframe eject browser`.
 
@@ -376,13 +385,14 @@ Running `$reframe eject browser` ejects the following code.
 ~~~
 
 !INLINE ./help.md --hide-source-path
+!INLINE ./top-link.md #custom --hide-source-path
 
 
 
 
 
 
-## Custom Page Browser Entry !INLINE ./top-link.md #custom
+## Custom Page Browser Entry
 
 You can customize the browser entry code for a single page
 without affecting the browser entry code of other pages.
@@ -401,19 +411,20 @@ For example:
 You can see the example in full and other examples at [/examples/custom-browser](/examples/custom-browser).
 
 !INLINE ./help.md --hide-source-path
+!INLINE ./top-link.md #custom --hide-source-path
 
 
 
 
 
 
-## Fully Custom Browser Entry !INLINE ./top-link.md #custom
+## Fully Custom Browser Entry
 
 You can as well eject the code that orchestrates the hydration of the page by running `$ reframe eject browser-hydration`.
 Note that
 if you want to customize the rendering process itself
 you should run `$ reframe eject renderer` instead,
-see [Custom Renderer](#custom-renderer--top).
+see [Custom Renderer](#custom-renderer).
 
 Note that the browser entry of each page are generated at build-time.
 You can take control over the generation of browser entries by running `$ reframe eject build-browser-entries`.
@@ -421,13 +432,14 @@ We recommand to use the previously mentioned ejectables instead.
 Use this ejectable as last resort.
 
 !INLINE ./help.md --hide-source-path
+!INLINE ./top-link.md #custom --hide-source-path
 
 
 
 
 
 
-## Advanced Routing !INLINE ./top-link.md #custom
+## Advanced Routing
 
 ###### Reframe's default router
 
@@ -495,20 +507,21 @@ and pages defined with React Router components will share the same browser-side 
 
 
 
-## Custom Router !INLINE ./top-link.md #custom
+## Custom Router
 
 Reframe can be used with any routing library.
 
 Either use another plugin in the [list of router plugins](/docs/plugins.md#routers) or eject the router with `$ reframe eject router`.
 
 !INLINE ./help.md --hide-source-path
+!INLINE ./top-link.md #custom --hide-source-path
 
 
 
 
 
 
-## Custom Babel !INLINE ./top-link.md #custom
+## Custom Babel
 
 You can customize the babel config by creating a `.babelrc` file.
 
@@ -516,13 +529,14 @@ Example:
  - [/examples/custom-babel](/examples/custom-babel)
 
 !INLINE ./help.md --hide-source-path
+!INLINE ./top-link.md #custom --hide-source-path
 
 
 
 
 
 
-## Custom Webpack !INLINE ./top-link.md #custom
+## Custom Webpack
 
 You can customize the webpack config by using `webpackBrowserConfig` and/or `webpackNodejsConfig`.
 
@@ -569,13 +583,14 @@ Examples:
  - Source code of [`@reframe/typescript`](/plugins/typescript)
 
 !INLINE ./help.md --hide-source-path
+!INLINE ./top-link.md #custom --hide-source-path
 
 
 
 
 
 
-## Fully Custom Build !INLINE ./top-link.md #custom
+## Fully Custom Build
 
 Run `$ reframe eject build` to eject the overall build code.
 
@@ -589,7 +604,7 @@ Run `$ reframe eject build-rendering` to eject `getPageHtmls()` to gain control 
 (That is the rendering of pages to HTML that happens at build-time.
 In other words, the HTML rendering of pages that have `htmlStatic: true` in their page configs.)
 Note that, most of the time, you should eject the renderer instead,
-see [Custom Renderer](#custom-renderer--top).
+see [Custom Renderer](#custom-renderer).
 Use this ejectable as last resort.
 
 Run `$ reframe eject build-browser-entries` to eject `getPageBrowserEntries()` to gain control over the generation of the browser entry source code of each page.
@@ -600,6 +615,7 @@ Use this ejectable as last resort.
 If you eject all build ejectables, then you have full control over the build logic.
 
 !INLINE ./help.md --hide-source-path
+!INLINE ./top-link.md #custom --hide-source-path
 
 
 
@@ -607,7 +623,7 @@ If you eject all build ejectables, then you have full control over the build log
 
 
 
-## Static Deploy !INLINE ./top-link.md #use-cases
+## Static Deploy
 
 If you are app is html-static, you can deploy it to a static host.
 
@@ -626,11 +642,12 @@ and your app can be statically deployed.
 The static assets are located in the `dist/browser/` directory.
 
 !INLINE ./help.md --hide-source-path
+!INLINE ./top-link.md #use-cases --hide-source-path
 
 
 
 
-## Serverless Deploy !INLINE ./top-link.md #use-cases
+## Serverless Deploy
 
 If your app is stateless we then recommand serverless deployment.
 
@@ -644,40 +661,45 @@ If you want to persist data, you may consider using a cloud database.
  - [List of cloud databases](/docs/cloud-databases.md)
 
 !INLINE ./help.md --hide-source-path
+!INLINE ./top-link.md #use-cases --hide-source-path
 
 
 
 
-## Vue !INLINE ./top-link.md #use-cases
+## Vue
 
 You can also use Reframe with Vue instead of React.
 
 Check out the [`@reframe/vue`](/plugins/vue) plugin.
 
 !INLINE ./help.md --hide-source-path
+!INLINE ./top-link.md #use-cases --hide-source-path
 
-## React Router !INLINE ./top-link.md #use-cases
+## React Router
 
 You can use the React Router components by adding the [@reframe/react-router](/plugins/react-router) plugin.
 
 !INLINE ./help.md --hide-source-path
+!INLINE ./top-link.md #use-cases --hide-source-path
 
-## TypeScript !INLINE ./top-link.md #use-cases
+## TypeScript
 
 You can write your app with TypeScript by adding the [@reframe/typescript](/plugins/typescript) plugin.
 
 !INLINE ./help.md --hide-source-path
+!INLINE ./top-link.md #use-cases --hide-source-path
 
-## PostCSS !INLINE ./top-link.md #use-cases
+## PostCSS
 
 You can write your styles with PostCSS by adding the [@reframe/postcss](/plugins/postcss) plugin.
 
 !INLINE ./help.md --hide-source-path
+!INLINE ./top-link.md #use-cases --hide-source-path
 
 
 
 
-## React Native (Web) !INLINE ./top-link.md #use-cases
+## React Native (Web)
 
 If you want an app on the web and on mobile,
 you may consider create a web app with Reframe and [React Native Web](https://github.com/necolas/react-native-web)
@@ -691,13 +713,14 @@ Examples of apps using Reframe + RNW:
  - [/examples/react-native-web-and-react-router](/examples/react-native-web-and-react-router)
 
 !INLINE ./help.md --hide-source-path
+!INLINE ./top-link.md #use-cases --hide-source-path
 
 
 
 
 
 
-## React Native (Web) + React Router !INLINE ./top-link.md #use-cases
+## React Native (Web) + React Router
 
 As mentioned in the previous section you can use Reframe + React Native Web to share code with your React Native mobile app.
 
@@ -707,6 +730,7 @@ For example:
  - [/examples/react-native-web-and-react-router](/examples/react-native-web-and-react-router)
 
 !INLINE ./help.md --hide-source-path
+!INLINE ./top-link.md #use-cases --hide-source-path
 
 
 
