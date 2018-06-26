@@ -399,8 +399,8 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 ## `renderHtmlAtBuildTime`
 
-By default, every page is rendered to HTML.
-(React components can be rendered to the DOM as well as to HTML.)
+Every page is rendered to HTML.
+(React and Vue.js components can be rendered to the DOM as well as to HTML.)
 
 The page config option `renderHtmlAtBuildTime` allows you to control whether the page should be rendered statically at build-time or dynamically at request-time.
 
@@ -418,7 +418,6 @@ The page config option `renderHtmlAtBuildTime` allows you to control whether the
 By default a page is rendered to HTML at request-time.
 But if a page is static
 (a landing page, a blog post, a personal homepage, etc.) it would be wasteful to re-render its HTML on every page request.
-By adding `htmlStatic: true` to its page config, the page is rendered to HTML at build-time instead.
 
 <br/>
 
