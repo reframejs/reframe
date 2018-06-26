@@ -90,10 +90,8 @@
 
 ## Page Async Data
 
-!INLINE ./sections/usage-async-data.md #basics --hide-source-path
-
-
-
+!INLINE ./sections/usage-async-data.md --hide-source-path
+!INLINE ./snippets/section-footer.md #basics --hide-source-path
 
 
 

@@ -21,8 +21,8 @@ For other starters, see the [list of starters](/../../#getting-started).
 - [Quick Start](#quick-start)
 - Usage Basics
   - Frontend
-    - [Page Async Data]()
-    - [CSS & Static Assets]()
+    - [Page Async Data](#page-async-data)<br>
+    - [CSS & Static Assets](#css--static-assets)<br>
     - [`doNotRenderInBrowser`]()
   - Server
     - [Custom Server Framework (Express, Koa, ...)]()
@@ -35,14 +35,15 @@ For other starters, see the [list of starters](/../../#getting-started).
 
 !INLINE ./quick-start.md react-server --hide-source-path
 
-5. **Read the entire "Usage Basics"** section and lookup the usage manual for further usage information.
+5. **Read the entire [Usage Basics](#react-server) section** and lookup the usage manual for further usage information.
 
 <br/>
 <br/>
 
 ## Page Async Data
 
-!INLINE ./sections/usage-async-data.md #react-server --hide-source-path
+!INLINE ./sections/usage-async-data.md --hide-source-path
+!INLINE ./snippets/section-footer.md #react-server --hide-source-path
 
 ## CSS & Static Assets
 
