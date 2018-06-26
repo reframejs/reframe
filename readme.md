@@ -175,7 +175,7 @@ const WelcomePage = {
 
 **No build configuration** and **no server configuration** is required.
 
-Yet, thanks to "Progressive Eject"
+Yet, since Reframe is progressively ejectable,
 you can take control over everything.
 Reframe **doesn't lock you in**.
 You **quickly implement a prototype while staying fully flexible down the road**.
@@ -243,7 +243,7 @@ Choose a starter:
 
 - [React Server](/docs/react-server-starter.md)
 - [React Frontend](/docs/react-frontend-starter.md)
-- [React Database](/docs/react-database-starter.md)
+- [React Database](/docs/react-database-starter.md) (Work-in-progress)
 
 They scaffold the following:
 
