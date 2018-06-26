@@ -262,7 +262,15 @@ As your prototype grows add/remove what you need.
 
 <a href="#top"><b>&#8683;</b> <small>TOP</small> &#8683;</a>
 
-<a href="#top">&#8683; <sub><sub>TOP</sub></sub> &#8683;</a>
+<a href="#top">&#8683; <sub>TOP</sub> &#8683;</a>
+
+<a href="#top">&#8679; <sub>TOP</sub> &#8679;</a>
+
+
+<sup><a href="#top">&#8679; TOP &#8679;</a></sup>
+
+<b><sup><a href="#top">&#8679; TOP &#8679;</a></sup></b>
+
 
 <!---
 
