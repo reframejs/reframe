@@ -12,7 +12,7 @@
 
 # React Server
 
-Starter to create a web app with
+Starter to create a web app with:
  - React front-end
  - Node.js server
 
@@ -25,7 +25,7 @@ For other starters, see the [list of starters](/../../#getting-started).
     - [CSS & Static Assets]()
     - [`doNotRenderInBrowser`]()
   - Server
-    - [Custom Server Framework (Express, Koa, ...)]
+    - [Custom Server Framework (Express, Koa, ...)]()
   - [Deploy]()
 
 <br/>
@@ -35,7 +35,7 @@ For other starters, see the [list of starters](/../../#getting-started).
 
 !INLINE ./quick-start.md react-server --hide-source-path
 
-5. **Read the entire [Usage Basics](#usage-basics) section** and lookup the usage manual for further usage information.
+5. Read the **entire** [Usage Basics](#usage-basics) section and lookup the usage manual for further usage information.
 
 <br/>
 <br/>
@@ -44,6 +44,15 @@ For other starters, see the [list of starters](/../../#getting-started).
 ## Usage Basics
 
 ### CSS & Static Assets
+
+!INLINE ./sections/usage-style.md --hide-source-path
+
+!INLINE ./help.md --hide-source-path
+!INLINE ./top-link.md #react-server --hide-source-path
+<br/>
+<br/>
+<br/>
+
 
 ### Page Async Data
 

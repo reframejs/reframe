@@ -136,7 +136,7 @@
 
 # React Server
 
-Starter to create a web app with
+Starter to create a web app with:
  - React front-end
  - Node.js server
 
@@ -149,7 +149,7 @@ For other starters, see the [list of starters](/../../#getting-started).
     - [CSS & Static Assets]()
     - [`doNotRenderInBrowser`]()
   - Server
-    - [Custom Server Framework (Express, Koa, ...)]
+    - [Custom Server Framework (Express, Koa, ...)]()
   - [Deploy]()
 
 <br/>
@@ -176,7 +176,7 @@ For other starters, see the [list of starters](/../../#getting-started).
 
 4. Open [http://localhost:3000](http://localhost:3000).
 
-5. **Read the entire [Usage Basics](#usage-basics) section** and lookup the usage manual for further usage information.
+5. Read the **entire** [Usage Basics](#usage-basics) section and lookup the usage manual for further usage information.
 
 <br/>
 <br/>
@@ -185,6 +185,45 @@ For other starters, see the [list of starters](/../../#getting-started).
 ## Usage Basics
 
 ### CSS & Static Assets
+
+A CSS file can be loaded and applied by importing it.
+
+~~~js
+import './GlitterStyle.css';
+~~~
+
+Static assets (images, fonts, videos, etc.) can be imported as well
+but importing an asset doesn't actually load it:
+Only the URL of the asset is returned.
+It is up to us to use/fetch the URL of the asset.
+
+~~~js
+import diamondUrl from './diamond.png';
+
+// do something with diamondUrl, e.g. `await fetch(diamondUrl)` or `<img src={diamondUrl}/>`
+~~~
+
+In addition, static assets can be referenced in CSS by using the `url` data type.
+
+~~~css
+.diamond-background {
+    background-image: url('./diamond.png');
+}
+~~~
+
+Example of a page loading and using CSS, fonts, images and static assets:
+ - [/examples/basics/pages/glitter/](/examples/basics/pages/glitter/)
+
+<br/>
+
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+<br/>
+<br/>
+<b><sub><a href="#react-server">&#8679; TOP &#8679;</a></sub></b>
+<br/>
+<br/>
+<br/>
+
 
 ### Page Async Data
 
