@@ -192,7 +192,7 @@ When we say Reframe is rapid yet flexible, we mean it.
 
 See [Concetps](/docs/concepts.md) for more about Progressive Eject, Universal Framework, and other concepts such as the non-interactive-by-default approach.
 
- <b><sup><a href="#overview">&#8679; TOP &#8679;</a></sup></b>
+ <b><sub><a href="#overview">&#8679; TOP &#8679;</a></sub></b>
 
 <br/>
 <br/>
@@ -232,7 +232,7 @@ Reframe does the rest:
 
 That's it: We created a web app simply by defining one page config. No build config, no server config.
 
- <b><sup><a href="#overview">&#8679; TOP &#8679;</a></sup></b>
+ <b><sub><a href="#overview">&#8679; TOP &#8679;</a></sub></b>
 
 <br/>
 <br/>
@@ -259,7 +259,7 @@ You can easily add/remove a Node.js server and add/remove a database/ORM.
 Quikly choose a starter and start write your prototype.
 As your prototype grows add/remove what you need.
 
- <b><sup><a href="#overview">&#8679; TOP &#8679;</a></sup></b>
+ <b><sub><a href="#overview">&#8679; TOP &#8679;</a></sub></b>
 
 <br/>
 <br/>
