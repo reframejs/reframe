@@ -35,15 +35,16 @@ For other starters, see the [list of starters](/../../#getting-started).
 
 !INLINE ./quick-start.md react-server --hide-source-path
 
-5. Read the **entire** [Usage Basics](#usage-basics) section and lookup the usage manual for further usage information.
+5. **Read the entire "Usage Basics"** section and lookup the usage manual for further usage information.
 
 <br/>
 <br/>
 
+## Page Async Data
 
-## Usage Basics
+!INLINE ./sections/usage-async-data.md #react-server --hide-source-path
 
-### CSS & Static Assets
+## CSS & Static Assets
 
 !INLINE ./sections/usage-style.md --hide-source-path
 
@@ -54,10 +55,8 @@ For other starters, see the [list of starters](/../../#getting-started).
 <br/>
 
 
-### Page Async Data
+## `doNotRenderInBrowser`
 
-### `doNotRenderInBrowser`
+## Custom Server Framework (Express, Koa, ...)
 
-### Custom Server Framework (Express, Koa, ...)
-
-### Deploy
+## Deploy

@@ -14,7 +14,7 @@
 
 - [Getting Started](#getting-started)<br>
 - [CSS & Static Assets](#css--static-assets)<br>
-- [Data Loading](#data-loading)<br>
+- [Page Async Data](#page-async-data)<br>
 - [Page Navigation & Links](#page-navigation--links)<br>
 - [`domStatic` & `htmlStatic`](#domstatic--htmlstatic)<br>
 
@@ -88,28 +88,10 @@
 
 
 
-## Data Loading
+## Page Async Data
 
-The page config `async getInitialProps()` can be used to fetch data before your page's view is rendered.
-The value returned by `async getInitialProps()` is then available to your page's view.
+!INLINE ./sections/usage-async-data.md #basics --hide-source-path
 
-For example:
-
-~~~js
-!INLINE ../examples/basics/pages/got/GameOfThronesPage.config.js
-~~~
-
-Alternatively, you can fetch data in a stateful component.
-But in that case the data will not be rendered to HTML.
-
-Deeper explanation and example of pages loading data:
- - [/examples/basics/pages/got/](/examples/basics/pages/got/)
-
-!INLINE ./help.md --hide-source-path
-!INLINE ./top-link.md #basics --hide-source-path
-<br/>
-<br/>
-<br/>
 
 
 
