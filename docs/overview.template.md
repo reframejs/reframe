@@ -92,7 +92,7 @@ That's it: We created an entire web app simply by defining one page config. No b
 
 
 
-### Tech Specs !INLINE ./top-link.md #overview
+### Tech Specs
 
  - [Developer Experience](#developer-experience)
  - [SEO](#seo)

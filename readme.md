@@ -268,7 +268,7 @@ As your prototype grows add/remove what you need.
 
 
 
-### Tech Specs !INLINE ./top-link.md #overview
+### Tech Specs
 
  - [Developer Experience](#developer-experience)
  - [SEO](#seo)
