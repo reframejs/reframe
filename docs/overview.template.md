@@ -49,7 +49,7 @@ Changing from one type of app to another is easy.
 You can start write your prototype right away and
 without thinking about what type of app is right for you.
 
-When we say Reframe is flexible, we mean it.
+When we say Reframe is rapid yet flexible, we mean it.
 
 See [Concetps](/docs/concepts.md) for more about Progressive Eject, Universal Framework, and other concepts such as the non-interactive-by-default approach.
 
@@ -76,11 +76,13 @@ Reframe does the rest:
 That's it: We created a web app simply by defining one page config. No build config, no server config.
 
 <br/>
+<small>&#8683; TOP &#8683;</small>
+<br/>
 <br/>
 
 ### Getting Started !INLINE ./top-link.md #overview
 
-Choose one of the following starters:
+Choose a starter:
 
 - [React Server](/docs/react-server-starter.md)
 - [React Frontend](/docs/react-frontend-starter.md)
@@ -88,7 +90,7 @@ Choose one of the following starters:
 
 The starters scaffold an app with the following:
 
-&nbsp; | React Frontend<br/>Starter | React Server<br/>Starter | React Database<br/>Starter
+&nbsp; | React Frontend | React Server | React Database
 --- | :---: | :---: | :---:
 React Frontend | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:
 Node.js Server | :x: | :heavy_check_mark: | :heavy_check_mark:
@@ -96,8 +98,11 @@ Database/ORM | :x: | :x: | :heavy_check_mark:
 
 Don't bother choosing the right starter:
 You can easily add/remove a Node.js server and add/remove a database/ORM.
-So quikly choose a starter and start write your prototype.
+
+Quikly choose a starter and start write your prototype.
 As your prototype grows add/remove what you need.
 
 <br/>
 <br/>
+
+&#8683; TOP &#8683;
