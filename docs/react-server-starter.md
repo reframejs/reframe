@@ -147,10 +147,10 @@ For other starters, see the [list of starters](/../../#getting-started).
   - Frontend
     - [Page Async Data](#page-async-data)<br>
     - [CSS & Static Assets](#css--static-assets)<br>
-    - [`doNotRenderInBrowser`]()
+    - [`doNotRenderInBrowser`](doNotRenderInBrowser)
   - Server
     - [Custom Server Framework (Express, Koa, ...)](#custom-server-framework-express-koa-)
-  - [Deploy]()
+  - [Deploy](#deploy)
 
 <br/>
 <br/>
