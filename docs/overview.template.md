@@ -33,8 +33,8 @@ const WelcomePage = {
 
 **No build configuration** and **no server configuration** is required.
 
-Yet, thanks to its "Progressive Eject" feature
-you can take over control over everything.
+Yet, thanks to "Progressive Eject"
+you can take control over everything.
 Reframe **doesn't lock you in**.
 You **quickly implement a prototype while staying fully flexible down the road**.
 

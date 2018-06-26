@@ -132,9 +132,9 @@
 </p></div>
 
 <div><p align="center">
-    <sub><sub><img src="https://github.com/reframejs/reframe/raw/docs/docs/images/thunderbolt.min.svg?sanitize=true" width="26" height="26"></sub></sub>&nbsp;&nbsp;<b>Rapid&nbsp;Dev</b>&nbsp;&nbsp;&#8209;&nbsp;&nbsp;Implement&nbsp;apps&nbsp;in&nbsp;no&nbsp;time.
+    <sub><sub><img src="https://github.com/reframejs/reframe/raw/docs/docs/images/thunderbolt.min.svg?sanitize=true" width="26" height="26"></sub></sub>&nbsp;&nbsp;<b>Rapid</b>&nbsp;&nbsp;&#8209;&nbsp;&nbsp;Implement&nbsp;apps&nbsp;in&nbsp;no&nbsp;time.
     &nbsp; &nbsp; &nbsp; &nbsp;
-    <sub><sub><img src="https://github.com/reframejs/reframe/raw/docs/docs/images/tornado.min.svg?sanitize=true" width="26" height="26"></sub></sub>&nbsp;&nbsp;&nbsp;<b>Fully&nbsp;Flexible</b>&nbsp;&nbsp;&#8209;&nbsp;&nbsp;Easily&nbsp;and&nbsp;progressively&nbsp;ejectable.
+    <sub><sub><img src="https://github.com/reframejs/reframe/raw/docs/docs/images/tornado.min.svg?sanitize=true" width="26" height="26"></sub></sub>&nbsp;&nbsp;&nbsp;<b>Flexible</b>&nbsp;&nbsp;&#8209;&nbsp;&nbsp;Progressively&nbsp;ejectable.
 </p></div>
 
 <br/>
@@ -172,8 +172,8 @@ const WelcomePage = {
 
 **No build configuration** and **no server configuration** is required.
 
-Yet, thanks to its "Progressive Eject" feature
-you can take over control over everything.
+Yet, thanks to "Progressive Eject"
+you can take control over everything.
 Reframe **doesn't lock you in**.
 You **quickly implement a prototype while staying fully flexible down the road**.
 
