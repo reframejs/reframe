@@ -138,6 +138,7 @@
 
  - [Progressive Eject](#progressive-eject)
  - [Universal Framework](#universal-framework)
+ - [Non-interactive First Approach](#non-interactive-first-approach)
 
 <br/>
 <br/>
@@ -203,6 +204,42 @@ This means that you can start writing your prototype and decide only at a later 
 <br/>
 <br/>
 
+### Non-interactive-first approach
+
+Interactive views (an interactive graph, a like button, a To-Do list, etc.) are a powerful addition to our dev toolbox.
+They allow us to implement incredible web apps and Reframe has first-class support for interactive views.
+
+But they come with a downside: They are often very complex and take considerably more time to implement.
+
+In general:
+- **Interactive** views are **difficult** to implement **but powerful**.
+- **Non-interactive** views are considerably **easier** to implement.
+
+People new to web dev are often not aware of that and make the mistake to implement interactive views
+where good old-school non-interactive HTML pages would have done the job just fine.
+Even senior devS often overly use interactive views.
+
+Using interactive views all over the place is fine if you are Netflix and have lot's of devS.
+But if you have limited resources then you may want to reconsider and choose non-interactive views over interactive views.
+
+Leading us to what we call the *non-interactive-first approach*:
+ - Whenever possible implement features with non-interactive views.
+ - Implement a prototype with non-interactive views first to then gradually add interactive views later.
+
+Reframe embraces the non-interactive-first approach by allowing you to create non-interactive pages:
+Set `doNotRenderInBrowser: true` to a page's config and the page will not be rendered in the browser.
+Instead your page is only rendered to HTML.
+(Views written with React and Vue can be rendered to HTML.)
+More at [Usage Manual - `doNotRenderInBrowser`](/docs/usage-manual.md#donotrenderinbrowser).
+
+This means that you can create an app that has interactive pages as well as non-interactive pages.
+For example a `/about` page that is static and non-interactive
+(browser doesn't load any JavaScript and the DOM is static)
+and a `/search` page that is dynamic and interactive
+(browser loads React components and the DOM is dynamic).
+
+We call such apps *mixed apps*.
+Mixed apps are the future and Reframe is the only framework supporting them.
 
 <!---
 

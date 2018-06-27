@@ -12,7 +12,7 @@
 
  - [Progressive Eject](#progressive-eject)
  - [Universal Framework](#universal-framework)
- - [Non-interactive-by-default Approach](#non-interactive-by-default-approach)
+ - [Non-interactive First Approach](#non-interactive-first-approach)
 
 <br/>
 <br/>
@@ -78,53 +78,39 @@ This means that you can start writing your prototype and decide only at a later 
 <br/>
 <br/>
 
-### Non-interactive-by-default approach
+### Non-interactive-first approach
 
-Interactive views (An interactive graph, a like button, a To-Do list, etc.) are a powerful addition to our dev toolbox.
-They allow to implement incredible web apps and Reframe has first-class support for interactive views.
+Interactive views (an interactive graph, a like button, a To-Do list, etc.) are a powerful addition to our dev toolbox.
+They allow us to implement incredible web apps and Reframe has first-class support for interactive views.
 
-But they come with a downside: They are often complex and time consuming to implement.
+But they come with a downside: They are often very complex and take considerably more time to implement.
 
-People new to web dev are often not aware of that and make the mistake to implement 
-We are all too often tempted to use interactive views to implement features where a good old-school non-interactive HTML page would have done the job just fine.
+In general:
+- **Interactive** views are **difficult** to implement **but powerful**.
+- **Non-interactive** views are considerably **easier** to implement.
 
-In general 
-Hence 
+People new to web dev are often not aware of that and make the mistake to implement interactive views
+where good old-school non-interactive HTML pages would have done the job just fine.
+Even senior devS often overly use interactive views.
 
-Interactive views
+Using interactive views all over the place is fine if you are Netflix and have lot's of devS.
+But if you have limited resources then you may want to reconsider and choose non-interactive views over interactive views.
 
-- Manage state view
-- Visual transition between state
-- Performance management
-  - Runtime speed management (rendering to HTML is considerably more performant than rendering to the DOM.)
-  - Code size management
-  - Mobile
+Leading us to what we call the *non-interactive-first approach*:
+ - Whenever possible implement features with non-interactive views.
+ - Implement a prototype with non-interactive views first to then gradually add interactive views later.
 
-That's fine if you are Netflix and have .
-
-But if you have limited resource you may want to choose to implement non-interactive views over implementing interactive views.
-We call this the "non-interactive-by-default approach": Whenever possible implement features with non-interactive views.
-
-Reframe embraces the non-interactive-by-default approach by allowing you to create non-interactive pages:
+Reframe embraces the non-interactive-first approach by allowing you to create non-interactive pages:
 Set `doNotRenderInBrowser: true` to a page's config and the page will not be rendered in the browser.
-Instead your page is only rendered to HTML in Node.js.
+Instead your page is only rendered to HTML.
 (Views written with React and Vue can be rendered to HTML.)
+More at [Usage Manual - `doNotRenderInBrowser`](/docs/usage-manual.md#donotrenderinbrowser).
 
-This means you can create apps that mix interactive
-Reframe introduces a new type of app we call "mixed apps".
-A *mixed app* is an app that has interactive pages as well as non-interactive pages.
+This means that you can create an app that has interactive pages as well as non-interactive pages.
 For example a `/about` page that is static and non-interactive
 (browser doesn't load any JavaScript and the DOM is static)
 and a `/search` page that is dynamic and interactive
 (browser loads React components and the DOM is dynamic).
-<br/>
-Both are important:
-Interactive views are difficult to implement but powerful while
-non-interactive views are considerably easier to implement.
-<br/>
-Mixed apps allow you to follow the non-interactive-by-default approach:
-Whenever possible, implement features with non-interative views.
-<br/>
-Mixed apps are the future and Reframe is the only framework supporting them.
 
-Re
+We call such apps *mixed apps*.
+Mixed apps are the future and Reframe is the only framework supporting them.
