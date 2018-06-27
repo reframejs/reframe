@@ -39,8 +39,6 @@ const WelcomePage = {
     title: 'Welcome', // <title>
     description: 'This is a Reframe App.', // <meta name="description">
 
-    // Set the "static-ness" of the page.
-    // (See the usage manual's "domStatic & htmlStatic" section.)
     htmlStatic: true,
     domStatic: true,
 };

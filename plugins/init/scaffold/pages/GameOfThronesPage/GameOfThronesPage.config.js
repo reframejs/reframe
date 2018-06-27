@@ -23,8 +23,6 @@ export default {
     getInitialProps,
     view: GameOfThronesView,
 
-    // Set the "static-ness" of the page.
-    // (See the usage manual's "domStatic & htmlStatic" section.)
     htmlStatic: false,
     domStatic: true,
 };

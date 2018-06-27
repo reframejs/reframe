@@ -40,8 +40,6 @@ export default {
     route: "/counter",
     view: CounterView,
 
-    // We set the "static-ness" of the page.
-    // (See the usage manual's "domStatic & htmlStatic" section.)
     htmlStatic: true,
     domStatic: false,
 };
