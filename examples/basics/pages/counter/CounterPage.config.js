@@ -4,7 +4,7 @@ const CounterPage = {
     route: '/counter',
     title: 'Counter',
     view: CounterComponent,
-    htmlStatic: true,
+    renderHtmlAtBuildTime: true,
     browserEntry: './CounterPage-entry.js',
 };
 

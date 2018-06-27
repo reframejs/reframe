@@ -23,6 +23,6 @@ export default {
     getInitialProps,
     view: GameOfThronesView,
 
-    htmlStatic: false,
+    renderHtmlAtBuildTime: false,
     doNotRenderInBrowser: true,
 };

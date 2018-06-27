@@ -39,7 +39,7 @@ const WelcomePage = {
     title: 'Welcome', // <title>
     description: 'This is a Reframe App.', // <meta name="description">
 
-    htmlStatic: true,
+    renderHtmlAtBuildTime: true,
     doNotRenderInBrowser: true,
 };
 

@@ -57,7 +57,7 @@ const LandingPage = {
     title: 'Welcome',
     route: '/',
     view: LandingComponent,
-    htmlStatic: true,
+    renderHtmlAtBuildTime: true,
     doNotRenderInBrowser: true,
 };
 

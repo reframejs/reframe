@@ -36,6 +36,6 @@ export default {
     route: "/time",
     view: TimeView,
 
-    htmlStatic: false,
+    renderHtmlAtBuildTime: false,
     doNotRenderInBrowser: false,
 };

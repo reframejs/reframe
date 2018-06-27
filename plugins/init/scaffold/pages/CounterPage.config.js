@@ -40,7 +40,7 @@ export default {
     route: "/counter",
     view: CounterView,
 
-    htmlStatic: true,
+    renderHtmlAtBuildTime: true,
     doNotRenderInBrowser: false,
 };
 

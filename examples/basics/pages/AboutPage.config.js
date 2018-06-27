@@ -4,7 +4,7 @@ const AboutPage = {
     title: 'About',
     route: '/about',
     view: () => <div>This is a static About page.</div>,
-    htmlStatic: true,
+    renderHtmlAtBuildTime: true,
     doNotRenderInBrowser: true,
 };
 

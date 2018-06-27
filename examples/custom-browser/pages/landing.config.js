@@ -18,6 +18,6 @@ export default {
             </p>
         </div>
     ),
-    htmlStatic: true,
+    renderHtmlAtBuildTime: true,
     doNotRenderInBrowser: true,
 };

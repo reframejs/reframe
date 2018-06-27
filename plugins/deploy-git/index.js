@@ -44,7 +44,7 @@ async function runDeploy() {
 
     const htmlDynamicPages = (
         pageConfigs
-        .filter(pageConfig => !pageConfig.htmlStatic)
+        .filter(pageConfig => !pageConfig.renderHtmlAtBuildTime)
     );
     assert_usage(
         htmlDynamicPages.length===0,
@@ -52,7 +52,7 @@ async function runDeploy() {
         "",
         "But static deploy only works with HTML-static apps.",
         "",
-        "All your page configs need `htmlStatic: true` but the following built pages don't:",
+        "All your page configs need `renderHtmlAtBuildTime: true` but the following built pages don't:",
         htmlDynamicPages
         .map(pageConfig => {
             return "  "+pageConfig.pageName+" ("+pageConfig.pageFile+")";

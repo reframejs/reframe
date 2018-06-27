@@ -16,15 +16,15 @@ async function getStaticPageHtmls({pageConfigs, router, renderToHtml}) {
                 const isUniqueRoute = router.hasOnlyOneUniqueRoute(pageConfig);
 
                 assert_warning(
-                    isUniqueRoute || !pageConfig.htmlStatic,
+                    isUniqueRoute || !pageConfig.renderHtmlAtBuildTime,
                     pageConfig,
-                    "Can't have `htmlStatic: true` since the route is parameterized",
+                    "Can't have `renderHtmlAtBuildTime: true` since the route is parameterized",
                     "Page config in question is printed above."
                 );
 
                 return isUniqueRoute;
             })
-            .filter(pageConfig => pageConfig.htmlStatic)
+            .filter(pageConfig => pageConfig.renderHtmlAtBuildTime)
             .map(async pageConfig => {
                 const uri = router.getRouteUri({}, pageConfig);
 

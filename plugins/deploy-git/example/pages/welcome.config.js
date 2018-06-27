@@ -11,7 +11,7 @@ const WelcomePage = {
             </small>
         </div>
     ),
-    htmlStatic: true,
+    renderHtmlAtBuildTime: true,
     doNotRenderInBrowser: true,
 };
 

@@ -19,7 +19,7 @@ async function getPageHtml({pageConfigs, uri, renderToHtml, router}) {
     const pageConfig = pageConfigMatches[0];
 
     assert_warning(
-        !pageConfig.htmlStatic,
+        !pageConfig.renderHtmlAtBuildTime,
         'Performance warning; dynamically rendering a static page at `'+uri+'`.'
     );
 

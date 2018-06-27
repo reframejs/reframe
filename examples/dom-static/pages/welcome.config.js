@@ -8,7 +8,7 @@ const WelcomePage = {
     <a href="/about">About page</a>.
   </div>,
   doNotRenderInBrowser: true,
-  htmlStatic: true,
+  renderHtmlAtBuildTime: true,
 };
 
 export default WelcomePage;
