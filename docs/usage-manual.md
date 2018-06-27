@@ -204,7 +204,7 @@ Node.js Server | :x: | :heavy_check_mark: | :heavy_check_mark:
 Database/ORM | :x: | :x: | :heavy_check_mark:
 
 Don't bother choosing the right starter:
-You can easily add/remove a Node.js server and add/remove a database/ORM.
+You can easily add/remove a Node.js server and add/remove a database/ORM afterwards.
 Instead, quickly choose a starter and start write your prototype.
 As your prototype grows add/remove what you need.
 

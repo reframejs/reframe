@@ -138,9 +138,11 @@
 
 Starter to create a React front-end.
 
-It doesn't require a Node.js server and it can be deploy to a static host.
+Ideal if you don't need a backend or if you already have one.
 
-If you need a server or another kind of app, see the [list of starters]().
+If you are not sure if you need a Node.js server, that's fine: You can easily add one afterwards.
+
+For other starters, see the [list of starters](/../../#getting-started).
 
 - [Quick Start](#quick-start)
 - Usage Basics
