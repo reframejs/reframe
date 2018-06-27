@@ -1,0 +1,23 @@
+body {
+    margin: 0;
+}
+.header {
+    height: 80px;
+    background-color: #f8f8f8;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 1.3em;
+}
+.header a {
+    color: #338;
+    text-decoration: none;
+}
+.header a > * {
+    vertical-align: middle;
+}
+.logo {
+    width: 20px;
+    height: 20px;
+    margin: 0 10px;
+}

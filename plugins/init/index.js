@@ -68,7 +68,7 @@ Inside that directory, you can run commands such as
 `);
 
     if( ! skipNpm ) {
-        console.log(`Installing ${colorPkg('react')} and ${colorPkg('@reframe/react-kit')}.`);
+        console.log(`Installing dependencies.`);
         console.log(`This might take a couple of minutes.`);
         console.log();
 
