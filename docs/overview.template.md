@@ -159,43 +159,40 @@ That's it: We created an entire web app simply by defining one page config. No b
 ###### SEO
 
 - **Server-Side Rendering** (**SSR**) -
-  Pages are rendered to HTML giving you full control over SEO.
+  Pages are fully rendered to HTML giving you full control over SEO.
 
 ###### Integrations
 
 - **React** -
   Write views with React.
 - **React Router** -
-  Add the `@reframe/react-router` plugin and use the React Router components.
+  Add the @reframe/react-router plugin and use the React Router components.
 - **Vue.js** -
-  Add the `@reframe/vue` plugin and write your views with Vue.
+  Add the @reframe/vue plugin and write your views with Vue.
 - **TypeScript** -
-  Add the `@reframe/typescript` plugin and write your app with TypeScript.
+  Add the @reframe/typescript plugin and write your app with TypeScript.
 - **PostCSS** -
-  Add the `@reframe/postcss` plugin and write modern CSS with PostCSS.
+  Add the @reframe/postcss plugin and write modern CSS with PostCSS.
 - **Hapi** -
-  The server is created with the robust and scalable
-  server framework
-  Hapi ([hapijs.com](https://hapijs.com/)).
+  The server is created with the robust and scalable server framework Hapi.
 - **Express** -
   Add the `@reframe/express` plugin and write your backend with Express.
 - **Webpack** -
   The state-of-the-art tool webpack is used to build static assets.
 - **WebAssembly** -
-  WebAssembly is immensely promising and Reframe is based on JavaScript.
+  Reframe is based on JavaScript and embraces the WebAssembly future.
 
 ###### Performance
 
 - **Static Browser** -
   Pages can be configured to not be loaded nor rendered in the browser.
 - **Code-splitting** -
-  Pages load only the code they need.
+  The browser loads only one page at a time.
 - **Server-Side Rendering** (**SSR**) -
   Pages are fully rendered to HTML.
 - **Optimal HTTP caching** -
-  Dynamic responses are cached with ETag and
   Static responses are indefinitely cached and
-  dynamic responses
+  dynamic responses are cached with ETag.
 - **Static Rendering** -
   Pages can be configured to be rendered to HTML at build-time (instead of request-time).
 
