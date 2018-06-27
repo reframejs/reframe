@@ -42,9 +42,9 @@ If you need a server or another kind of app, see the [list of starters]().
 
 
 
-## Usage Basics
+#### Usage Basics
 
-### Deploy
+## Deploy
 
 Run `$ reframe deploy` to automatically deploy your app.
 
@@ -54,7 +54,7 @@ Run `$ reframe deploy` to automatically deploy your app.
 
 
 
-### Page Async Data
+## Page Async Data
 
 !INLINE ./sections/usage-async-data.md --hide-source-path
 !INLINE ./snippets/section-footer.md #react-frontend --hide-source-path
@@ -63,7 +63,7 @@ Run `$ reframe deploy` to automatically deploy your app.
 
 
 
-### CSS & Static Assets
+## CSS & Static Assets
 
 !INLINE ./sections/usage-style.md --hide-source-path
 !INLINE ./snippets/section-footer.md #react-frontend --hide-source-path
@@ -71,7 +71,7 @@ Run `$ reframe deploy` to automatically deploy your app.
 
 
 
-### `doNotRenderInBrowser`
+## `doNotRenderInBrowser`
 
 !INLINE ./sections/doNotRenderInBrowser.md --hide-source-path
 
