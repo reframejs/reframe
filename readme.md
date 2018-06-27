@@ -176,22 +176,20 @@ const WelcomePage = {
 
 **No build configuration** and **no server configuration** is required.
 
-Yet, since Reframe is progressively ejectable,
+Yet Reframe is progressively ejectable and
 you can take control over everything.
-Reframe **doesn't lock you in**.
-You **quickly implement a prototype while staying fully flexible down the road**.
+**No lock in**.
+**Quickly implement a prototype while staying fully flexible down the road**.
 
-Reframe is a "Universal Framework":
-You can create any type of app:
-a modern **interactive frontend with React**,
+Reframe is a "Universal Framework",
+that is you can create any type of app:
+a **modern interactive frontend with React**,
 a Node.js backend with **old-school non-interactive HTML pages**,
-a **static site generated with Vue.js** components,
+a **static site generated with Vue.js**,
 a **full-stack app** with modern frontend + Node.js server + **Database/ORM** (ORM integration is WIP).
-Changing from one type of app to another is easy.
-**Start write your prototype right away
-without thinking about what type of app is right for you**.
-
-When we say Reframe is rapid and flexible, we mean it.
+Changing app type is easy so you can
+**start write your prototype right away, and
+only later decide the type of your app**.
 
 More at [Concetps](/docs/concepts.md).
 
@@ -202,8 +200,7 @@ More at [Concetps](/docs/concepts.md).
 
 ### Example
 
-We create an app
-by defining a page config `HelloPage`.
+We define a page config `HelloPage`.
 
 ~~~jsx
 // ~/my-app/pages/HelloPage.config.js
@@ -227,11 +224,13 @@ const HelloPage = {
 export default HelloPage;
 ~~~
 
+And that's it.
+We created an entire web app simply by defining one page config.
+No build config, no server config.
+
 <p align="center">
     <img src='https://github.com/reframejs/reframe/raw/master/docs/images/reframe-start.png?sanitize=true' width="780" style="max-width:100%;"/>
 </p>
-
-That's it: We created an entire web app simply by defining one page config. No build config, no server config.
 
 <b><sub><a href="#overview">&#8679; TOP &#8679;</a></sub></b>
 
@@ -256,8 +255,7 @@ Database/ORM | :x: | :x: | :heavy_check_mark:
 
 Don't bother choosing the right starter:
 You can easily add/remove a Node.js server and add/remove a database/ORM.
-
-Quickly choose a starter and start write your prototype.
+Instead, quickly choose a starter and start write your prototype.
 As your prototype grows add/remove what you need.
 
 <b><sub><a href="#overview">&#8679; TOP &#8679;</a></sub></b>
@@ -277,64 +275,21 @@ As your prototype grows add/remove what you need.
 
 ###### Developer Experience
 
-- **Quick but flexible**
-  <br/>
+- **Rapid & Flexible** -
   Quickly implement apps while staying fully flexible.
-  See the "Fully Flexible" section.
-  <br/>
-- **Mixed Apps** :tm:
-  <br/>
-  Reframe introduces a new type of app we call "mixed apps".
-  A *mixed app* is an app that has interactive pages as well as non-interactive pages.
-  For example a `/about` page that is static and non-interactive
-  (browser doesn't load any JavaScript and the DOM is static)
-  and a `/search` page that is dynamic and interactive
-  (browser loads React components and the DOM is dynamic).
-  <br/>
-  Both are important:
-  Interactive views are difficult to implement but powerful while
-  non-interactive views are considerably easier to implement.
-  <br/>
-  Mixed apps allow you to follow the non-interactive-by-default approach:
-  Whenever possible, implement features with non-interative views.
-  <br/>
-  Mixed apps are the future and Reframe is the only framework supporting them.
-- **Learn once, write any app**
-  <br/>
-  Instead of learning different frameworks to create different types of apps,
-  learn Reframe once to be able to implement any type of web app.
-  <br/>
-  Reframe is the only framework that supports every type of web app.
-  <br/>
-- **ORM** [WIP]
-  <br/>
-  To use an ORM (such as [TypeORM](https://github.com/typeorm/typeorm)) you will have to create API endpoints yourself.
-  But the Reframe devS are currently designing ways so that you can access your data from the frontend without having to create API endpoints yourself.
-  <br/>
-  Work-in-progress. (Follow [twitter.com/reframejs](https://twitter.com/reframejs) to get updates.)
-  <br/>
-- **User Mangement** [WIP]
-  <br/>
-  Once Reframe integrates with ORMs, Reframe will be able to take care of user management.
-  <br/>
-  Work-in-progress. (Follow [twitter.com/reframejs](https://twitter.com/reframejs) to get updates.)
-- **Easy Deploy** [WIP]
-  <br/>
-  If your app is static you can easily deploy it by using `$ reframe deploy-static`.
-  (Supports all static hosts that have git integration such as GitHub Pages, Netlify, Firebase, etc.)
-  <br/>
-  Also, Reframe is exploring ways to deploy
-  to serverless services such as AWS Lambda and
-  serverless databases such as AWS DynamoDB or Google Cloud Datastore.
-  <br/>
-  This will eventually mean that the entire deployment and scaling is done for you.
-  <br/>
-  Work-in-progress. (Follow [twitter.com/reframejs](https://twitter.com/reframejs) to get updates.)
+- **Non-interactive-by-default Approach** -
+  Increase dev speed by choosing non-interactive over interactive. More at [Concetps](/docs/concepts.md).
+- **Learn once, write any app** -
+  Learn Reframe once to be able to implement any type of web app.
+- **Easy Deploy** -
+  Automatic deploy of static apps. WIP: Automatic deploy of serverless apps (incl. serverless database).
+- **ORM & User Management** -
+  Work-in-progress. Stay tuned at [twitter.com/reframejs](https://twitter.com/reframejs).
 
 
 ###### SEO
 
-- **Server-Side Rendering** (**SSR**) -
+- **Server-Side Rendering** -
   Pages are fully rendered to HTML giving you full control over SEO.
 
 ###### Integrations
@@ -352,7 +307,7 @@ As your prototype grows add/remove what you need.
 - **Hapi** -
   The server is created with the robust and scalable server framework Hapi.
 - **Express** -
-  Add the `@reframe/express` plugin and write your backend with Express.
+  Add the @reframe/express plugin and write your backend with Express.
 - **Webpack** -
   The state-of-the-art tool webpack is used to build static assets.
 - **WebAssembly** -
@@ -364,7 +319,7 @@ As your prototype grows add/remove what you need.
   Pages can be configured to not be loaded nor rendered in the browser.
 - **Code-splitting** -
   The browser loads only one page at a time.
-- **Server-Side Rendering** (**SSR**) -
+- **Server-Side Rendering** -
   Pages are fully rendered to HTML.
 - **Optimal HTTP caching** -
   Static responses are indefinitely cached and

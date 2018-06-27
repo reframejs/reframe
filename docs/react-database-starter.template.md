@@ -17,6 +17,4 @@ Starter to create a web app with:
  - Node.js server
  - Database + ORM
 
-Work-in-progress.
-
-Follow [twitter.com/reframejs](https://twitter.com/reframejs) to get updates.
+Work-in-progress. Stay tuned at [twitter.com/reframejs](https://twitter.com/reframejs).

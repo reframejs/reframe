@@ -205,8 +205,7 @@ Database/ORM | :x: | :x: | :heavy_check_mark:
 
 Don't bother choosing the right starter:
 You can easily add/remove a Node.js server and add/remove a database/ORM.
-
-Quickly choose a starter and start write your prototype.
+Instead, quickly choose a starter and start write your prototype.
 As your prototype grows add/remove what you need.
 
 <b><sub><a href="#basics">&#8679; TOP &#8679;</a></sub></b>
