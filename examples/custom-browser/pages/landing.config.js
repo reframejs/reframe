@@ -19,5 +19,5 @@ export default {
         </div>
     ),
     htmlStatic: true,
-    domStatic: true,
+    doNotRenderInBrowser: true,
 };

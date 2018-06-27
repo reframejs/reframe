@@ -41,6 +41,6 @@ export default {
     view: CounterView,
 
     htmlStatic: true,
-    domStatic: false,
+    doNotRenderInBrowser: false,
 };
 

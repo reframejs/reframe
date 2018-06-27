@@ -18,5 +18,5 @@ export default {
 
     route: '/about',
     view: () => <h1>About Page</h1>,
-    domStatic: true,
+    doNotRenderInBrowser: true,
 };

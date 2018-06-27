@@ -4,7 +4,7 @@ const GlitterPage = {
     route: '/glitter',
     title: 'Glamorous Page',
     view: GlitterComponent,
-    domStatic: true,
+    doNotRenderInBrowser: true,
 };
 
 module.exports = GlitterPage;

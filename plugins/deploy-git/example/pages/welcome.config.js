@@ -12,7 +12,7 @@ const WelcomePage = {
         </div>
     ),
     htmlStatic: true,
-    domStatic: true,
+    doNotRenderInBrowser: true,
 };
 
 export default WelcomePage;

@@ -194,7 +194,7 @@ Reframe is universal, that is, you can create any type of web app:
    <br/>
    Apps that mix both: Modern interactive pages <sup><sub>:sparkles:</sub></sup> as well as good ol' 1998 non-interative pages <sup><sub>:floppy_disk:</sub></sup>.
 
-The cherry on the cake is that choosing the type of your app is simply a matter of setting the page config options `htmlStatic` and `domStatic`.
+The cherry on the cake is that choosing the type of your app is simply a matter of setting the page config options `htmlStatic` and `doNotRenderInBrowser`.
 This means that you can start writing your prototype and decide only at a later point what type of app is right for you.
 
 > Reframe is the only framework that supports every type of web app.

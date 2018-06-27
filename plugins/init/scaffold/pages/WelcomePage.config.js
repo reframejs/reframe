@@ -40,7 +40,7 @@ const WelcomePage = {
     description: 'This is a Reframe App.', // <meta name="description">
 
     htmlStatic: true,
-    domStatic: true,
+    doNotRenderInBrowser: true,
 };
 
 export default WelcomePage;

@@ -14,5 +14,5 @@ export default {
     // Our data is available at `props.characters`
     view: props => <CharacterList characters={props.characters}/>,
 
-    domStatic: true,
+    doNotRenderInBrowser: true,
 };

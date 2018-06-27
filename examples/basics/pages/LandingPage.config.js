@@ -58,7 +58,7 @@ const LandingPage = {
     route: '/',
     view: LandingComponent,
     htmlStatic: true,
-    domStatic: true,
+    doNotRenderInBrowser: true,
 };
 
 module.exports = LandingPage;

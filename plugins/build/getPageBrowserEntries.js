@@ -21,7 +21,7 @@ function getPageBrowserEntries(pageModules) {
             return {
                 pageName,
                 browserEntryString,
-                browserEntryOnlyCss: pageConfig.domStatic,
+                browserEntryOnlyCss: pageConfig.doNotRenderInBrowser,
             };
         })
     );

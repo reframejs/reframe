@@ -5,7 +5,7 @@ const AboutPage = {
     route: '/about',
     view: () => <div>This is a static About page.</div>,
     htmlStatic: true,
-    domStatic: true,
+    doNotRenderInBrowser: true,
 };
 
 module.exports = AboutPage;

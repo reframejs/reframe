@@ -24,5 +24,5 @@ export default {
     view: GameOfThronesView,
 
     htmlStatic: false,
-    domStatic: true,
+    doNotRenderInBrowser: true,
 };

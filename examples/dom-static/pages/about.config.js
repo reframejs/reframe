@@ -7,7 +7,7 @@ const AboutPage = {
     <br/>
     <a href="/">Welcome page</a>.
   </div>,
-  domStatic: true,
+  doNotRenderInBrowser: true,
   htmlStatic: true,
 };
 

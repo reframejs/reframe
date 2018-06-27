@@ -288,7 +288,7 @@ export default {
     // Our data is available at `props.characters`
     view: props => <CharacterList characters={props.characters}/>,
 
-    domStatic: true,
+    doNotRenderInBrowser: true,
 };
 ~~~
 
@@ -599,7 +599,7 @@ export default {
 
     route: '/',
     view: () => <h1>Welcome</h1>,
-    domStatic: true,
+    doNotRenderInBrowser: true,
 };
 ~~~
 
@@ -646,7 +646,7 @@ export default {
 
     route: '/about',
     view: () => <h1>About Page</h1>,
-    domStatic: true,
+    doNotRenderInBrowser: true,
 };
 ~~~
 

@@ -4,5 +4,5 @@ export default {
     route: '/time/html-static',
     view: TimeComponent,
     htmlStatic: true,
-    domStatic: true,
+    doNotRenderInBrowser: true,
 };

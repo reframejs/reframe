@@ -37,5 +37,5 @@ export default {
     view: TimeView,
 
     htmlStatic: false,
-    domStatic: false,
+    doNotRenderInBrowser: false,
 };

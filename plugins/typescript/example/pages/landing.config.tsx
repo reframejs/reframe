@@ -7,5 +7,5 @@ const Hello = (props: HelloProps) => <h3>Hello from {props.compiler} and {props.
 export default {
     route: '/',
     view: () => <Hello compiler="TypeScript" framework="React" />,
-    domStatic: true,
+    doNotRenderInBrowser: true,
 };

@@ -43,7 +43,7 @@ Because `aysnc getInitialProps()` is called and waited for prior to rendering th
 </html>
 ~~~
 
-Note that because the HTML already contains the data, we can set `domStatic: true` for increased performance.
+Note that because the HTML already contains the data, we can set `doNotRenderInBrowser: true` for increased performance.
 
 
 

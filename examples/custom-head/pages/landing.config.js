@@ -25,5 +25,5 @@ export default {
 
     route: '/',
     view: () => <h1>Welcome</h1>,
-    domStatic: true,
+    doNotRenderInBrowser: true,
 };
