@@ -268,16 +268,11 @@ As your prototype grows add/remove what you need.
 
 ### Tech Specs
 
- - [Developer Experience](#developer-experience)
- - [SEO](#seo)
- - [Integrations](#integrations)
- - [Performance](#performance)
-
 ###### Developer Experience
 
 - **Rapid & Flexible** -
   Quickly implement apps while staying fully flexible.
-- **Non-interactive-by-default Approach** -
+- **Non-interactive-by-default** -
   Increase dev speed by choosing non-interactive over interactive. More at [Concetps](/docs/concepts.md).
 - **Learn once, write any app** -
   Learn Reframe once to be able to implement any type of web app.
