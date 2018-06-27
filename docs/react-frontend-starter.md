@@ -181,7 +181,11 @@ If you need a server or another kind of app, see the [list of starters]().
 <br/>
 
 
-## Deploy
+
+
+## Usage Basics
+
+### Deploy
 
 Run `$ reframe deploy` to automatically deploy your app.
 
@@ -204,7 +208,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-## Page Async Data
+### Page Async Data
 
 The page config `async getInitialProps()` can be used to fetch data before your page's view is rendered.
 The value returned by `async getInitialProps()` is then available to your page's view.
@@ -253,7 +257,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-## CSS & Static Assets
+### CSS & Static Assets
 
 A CSS file can be loaded and applied by importing it.
 
@@ -295,13 +299,13 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-## `doNotRenderInBrowser`
+### `doNotRenderInBrowser`
 
 The page config option `doNotRenderInBrowser` allow you to control whether or not your page is rendered in the browser.
 
  - `doNotRenderInBrowser: false` (default value)
    <br/>
-   The page **is rendered in the browser**.
+   The page is **rendered in the browser**.
    <br/>
    The page's view (e.g. React components) and the view renderer (e.g. React) is loaded in the browser.
    <br/>

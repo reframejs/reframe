@@ -191,7 +191,7 @@ Changing app type is easy so you can
 **start write your prototype right away, and
 only later decide the type of your app**.
 
-More at [Concetps](/docs/concepts.md).
+More at [Concepts](/docs/concepts.md).
 
 <b><sub><a href="#overview">&#8679; TOP &#8679;</a></sub></b>
 
@@ -273,7 +273,7 @@ As your prototype grows add/remove what you need.
 - **Rapid & Flexible** -
   Quickly implement apps while staying fully flexible.
 - **Non-interactive-by-default** -
-  Increase dev speed by choosing non-interactive over interactive. More at [Concetps](/docs/concepts.md).
+  Increase dev speed by choosing non-interactive over interactive. More at [Concepts](/docs/concepts.md).
 - **Learn once, write any app** -
   Learn Reframe once to be able to implement any type of web app.
 - **Easy Deploy** -
@@ -299,6 +299,10 @@ As your prototype grows add/remove what you need.
   Add the @reframe/typescript plugin and write your app with TypeScript.
 - **PostCSS** -
   Add the @reframe/postcss plugin and write modern CSS with PostCSS.
+- **Netlify** -
+  Automatic deploy of static apps with Netlify.
+- **GitHub Pages** -
+  Automatic deploy of static apps with GitHub Pages.
 - **Hapi** -
   The server is created with the robust and scalable server framework Hapi.
 - **Express** -

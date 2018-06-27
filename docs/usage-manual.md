@@ -367,7 +367,7 @@ The page config option `doNotRenderInBrowser` allow you to control whether or no
 
  - `doNotRenderInBrowser: false` (default value)
    <br/>
-   The page **is rendered in the browser**.
+   The page is **rendered in the browser**.
    <br/>
    The page's view (e.g. React components) and the view renderer (e.g. React) is loaded in the browser.
    <br/>
