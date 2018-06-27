@@ -186,9 +186,9 @@ For other starters, see the [list of starters](/../../#getting-started).
 
 
 
-## Usage Basics
+#### Usage Basics
 
-### Page Async Data
+## Page Async Data
 
 The page config `async getInitialProps()` can be used to fetch data before your page's view is rendered.
 The value returned by `async getInitialProps()` is then available to your page's view.
@@ -237,7 +237,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-### CSS & Static Assets
+## CSS & Static Assets
 
 A CSS file can be loaded and applied by importing it.
 
@@ -279,7 +279,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-### `doNotRenderInBrowser`
+## `doNotRenderInBrowser`
 
 The page config option `doNotRenderInBrowser` allow you to control whether or not your page is rendered in the browser.
 
@@ -315,7 +315,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-### Custom Server Framework (Express, Koa, ...)
+## Custom Server Framework (Express, Koa, ...)
 
 First, check the [list of plugins](/docs/plugins.md) for a plugin that integrates the server framework you want to use with Reframe.
 If you then want to get control over the server instance, then run `$ reframe eject server`. (See previous section)
@@ -338,7 +338,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-### Deploy
+## Deploy
 
 If your app is stateless we then recommand serverless deployment.
 

@@ -45,9 +45,9 @@ For other starters, see the [list of starters](/../../#getting-started).
 
 
 
-## Usage Basics
+#### Usage Basics
 
-### Page Async Data
+## Page Async Data
 
 !INLINE ./sections/usage-async-data.md --hide-source-path
 !INLINE ./snippets/section-footer.md #react-server --hide-source-path
@@ -56,7 +56,7 @@ For other starters, see the [list of starters](/../../#getting-started).
 
 
 
-### CSS & Static Assets
+## CSS & Static Assets
 
 !INLINE ./sections/usage-style.md --hide-source-path
 !INLINE ./snippets/section-footer.md #react-server --hide-source-path
@@ -64,7 +64,7 @@ For other starters, see the [list of starters](/../../#getting-started).
 
 
 
-### `doNotRenderInBrowser`
+## `doNotRenderInBrowser`
 
 !INLINE ./sections/doNotRenderInBrowser.md --hide-source-path
 
@@ -73,7 +73,7 @@ For other starters, see the [list of starters](/../../#getting-started).
 
 
 
-### Custom Server Framework (Express, Koa, ...)
+## Custom Server Framework (Express, Koa, ...)
 
 !INLINE ./sections/custom-server-framework.md --hide-source-path
 !INLINE ./snippets/section-footer.md #react-server --hide-source-path
@@ -81,7 +81,7 @@ For other starters, see the [list of starters](/../../#getting-started).
 
 
 
-### Deploy
+## Deploy
 
 !INLINE ./sections/deploy-serverless.md --hide-source-path
 !INLINE ./snippets/section-footer.md #react-server --hide-source-path
