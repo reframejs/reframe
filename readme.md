@@ -334,76 +334,48 @@ As your prototype grows add/remove what you need.
 
 ###### SEO
 
-- **Server-Side Rendering** (**SSR**)
-  <br/>
-  By default, all pages are rendered to HTML.
-  This gives you full control over SEO.
-  <br/>
-  (Google successfully crawls DOM-dynamic pages only to a limited extend.
-  In practice you need SSR for reliable SEO.)
+- **Server-Side Rendering** (**SSR**) -
+  Pages are rendered to HTML giving you full control over SEO.
 
 ###### Integrations
 
-- **React**
+- **React** -
   <br/>
   By default, you define your pages' views with React.
-- **React Router**
+- **React Router** -
   <br/>
   You can use the React Router components (`<Route>`, `<Switch>`, etc.) by adding the `@reframe/react-router` plugin.
-- **Vue.js**
-  <br/>
-  You can write your views with Vue instead of React by adding the `@reframe/vue` plugin.
-- **TypeScript**
-  <br/>
-  Write your app in TypeScript by adding the `@reframe/typescript` plugin.
-- **PostCSS**
-  <br/>
+- **Vue.js** -
+  Add the `@reframe/vue` plugin and write your views with Vue.
+- **TypeScript** -
+  Add the `@reframe/typescript` plugin and write your app with TypeScript.
+- **PostCSS** -
   Add the `@reframe/postcss` plugin and write modern CSS with PostCSS.
-- **Hapi**
-  <br/>
-  By default, Reframe uses hapi to create the server.
+- **Hapi** -
+  The server is created with the robust and scalable
   Hapi
-  ([hapijs.com](https://hapijs.com/))
-  is known for its robustness and scalability.
-- **Express**
-  <br/>
-  Add the `@reframe/express` plugin and write your backend with Express instead of hapi.
-- **Webpack**
-  <br/>
-  By default, Reframe uses webpack to build static assets.
-  Webpack
-  is the state-of-the-art tool to do so.
-- **WebAssembly**
-  <br/>
-  WebAssembly is immensely promising and Reframe, being based on JavaScript, embraces the WebAssembly future.
+  ([hapijs.com](https://hapijs.com/)).
+
+- **Express** -
+  Add the `@reframe/express` plugin and write your backend with Express.
+- **Webpack** -
+  The state-of-the-art tool webpack is used to build static assets.
+- **WebAssembly** -
+  WebAssembly is immensely promising and Reframe is based on JavaScript.
 
 ###### Performance
 
-- **Static DOM**
-  <br/>
-  When setting `domStatic: true` to a page config, the page is not hydrated.
-  (In other words, the page is not loaded nor rendered in the browser. It is only rendered to HTML on the server.)
-  These pages are very performant as (almost) no JavaScript is loaded/executed in the browser.
-- **Code-splitting**
-  <br/>
-  By default a page loads two scripts:
-  One script that is shared and cached across all pages
-  (that includes common code such as React, polyfills, etc.)
-  and a second script that includes the React components of the page.
-  That way, a page only loads what it needs.
-- **Server-Side Rendering** (**SSR**)
-  <br/>
-  By default, a page is rendered to HTML on the server before being rendered to the DOM in the browser.
-  Improving the user-perceived load time.
-- **Optimal HTTP caching**
-  <br/>
-  Every dynamic server response is cached with a ETag header.
-  And every static server response is indefinitely cached.
-- **Static Rendering**
-  <br/>
-  When setting `htmlStatic: true` to a page config, the page is rendered to HTML at build-time (instead of request-time).
-  The page's HTML is rendered only once and is served statically.
-  Decreasing load time.
+- **Static Browser** -
+  When setting `doNotRenderInBrowser: true`, the page is not loaded nor rendered in the browser.
+- **Code-splitting** -
+  Pages load only the code they need.
+- **Server-Side Rendering** (**SSR**) -
+  Pages are rendered to HTML on the server before being rendered to the DOM in the browser.
+- **Optimal HTTP caching** -
+  Dynamic responses are cached with ETag and
+  static responses are indefinitely cached.
+- **Static Rendering** -
+  When setting `renderHtmlAtBuildTime: true`, the page's HTML is rendered at build-time (instead of request-time).
 
 <b><sub><a href="#overview">&#8679; TOP &#8679;</a></sub></b>
 
