@@ -14,7 +14,7 @@
 
 Starter to create a React front-end.
 
-Ideal if you don't need a backend or if you already have one.
+Choose this starter if you don't need a backend or if you already have one.
 
 If you are not sure if you need a Node.js server, that's fine: You can easily add one afterwards.
 

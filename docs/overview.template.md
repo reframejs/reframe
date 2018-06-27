@@ -32,7 +32,7 @@ const WelcomePage = {
 };
 ~~~
 
-**No build configuration** and **no server configuration** is required.
+**No build configuration** and **no server configuration** are required.
 
 Yet Reframe is progressively ejectable and
 you can take control over everything.
