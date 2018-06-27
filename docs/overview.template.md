@@ -164,11 +164,9 @@ That's it: We created an entire web app simply by defining one page config. No b
 ###### Integrations
 
 - **React** -
-  <br/>
-  By default, you define your pages' views with React.
+  Write views with React.
 - **React Router** -
-  <br/>
-  You can use the React Router components (`<Route>`, `<Switch>`, etc.) by adding the `@reframe/react-router` plugin.
+  Add the `@reframe/react-router` plugin and use the React Router components.
 - **Vue.js** -
   Add the `@reframe/vue` plugin and write your views with Vue.
 - **TypeScript** -
@@ -177,9 +175,8 @@ That's it: We created an entire web app simply by defining one page config. No b
   Add the `@reframe/postcss` plugin and write modern CSS with PostCSS.
 - **Hapi** -
   The server is created with the robust and scalable
-  Hapi
-  ([hapijs.com](https://hapijs.com/)).
-
+  server framework
+  Hapi ([hapijs.com](https://hapijs.com/)).
 - **Express** -
   Add the `@reframe/express` plugin and write your backend with Express.
 - **Webpack** -
@@ -190,16 +187,17 @@ That's it: We created an entire web app simply by defining one page config. No b
 ###### Performance
 
 - **Static Browser** -
-  When setting `doNotRenderInBrowser: true`, the page is not loaded nor rendered in the browser.
+  Pages can be configured to not be loaded nor rendered in the browser.
 - **Code-splitting** -
   Pages load only the code they need.
 - **Server-Side Rendering** (**SSR**) -
-  Pages are rendered to HTML on the server before being rendered to the DOM in the browser.
+  Pages are fully rendered to HTML.
 - **Optimal HTTP caching** -
   Dynamic responses are cached with ETag and
-  static responses are indefinitely cached.
+  Static responses are indefinitely cached and
+  dynamic responses
 - **Static Rendering** -
-  When setting `renderHtmlAtBuildTime: true`, the page's HTML is rendered at build-time (instead of request-time).
+  Pages can be configured to be rendered to HTML at build-time (instead of request-time).
 
 !INLINE ./top-link.md #overview --hide-source-path
 
