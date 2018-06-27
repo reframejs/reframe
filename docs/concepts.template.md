@@ -111,7 +111,8 @@ and a `/search` page that is dynamic and interactive
 (browser loads React components and the DOM is dynamic).
 
 We call such apps *mixed apps*.
-Mixed apps are the future and Reframe is the only framework supporting them.
+
+> Mixed apps are the future and Reframe is the only framework supporting them.
 
 
 !INLINE ./top-link.md #concepts --hide-source-path
