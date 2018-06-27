@@ -138,7 +138,7 @@
 
  - [Progressive Eject](#progressive-eject)
  - [Universal Framework](#universal-framework)
- - [Non-interactive First Approach](#non-interactive-first-approach)
+ - [Non-Interactive First Approach](#non-interactive-first-approach)
 
 <br/>
 <br/>
@@ -204,7 +204,7 @@ This means that you can start writing your prototype and decide only at a later 
 <br/>
 <br/>
 
-### Non-interactive-first approach
+### Non-Interactive First Approach
 
 Interactive views (an interactive graph, a like button, a To-Do list, etc.) are a powerful addition to our dev toolbox.
 They allow us to implement incredible web apps and Reframe has first-class support for interactive views.
@@ -228,8 +228,6 @@ Leading us to what we call the *non-interactive-first approach*:
 
 Reframe embraces the non-interactive-first approach by allowing you to create non-interactive pages:
 Set `doNotRenderInBrowser: true` to a page's config and the page will not be rendered in the browser.
-Instead your page is only rendered to HTML.
-(Views written with React and Vue can be rendered to HTML.)
 More at [Usage Manual - `doNotRenderInBrowser`](/docs/usage-manual.md#donotrenderinbrowser).
 
 This means that you can create an app that has interactive pages as well as non-interactive pages.
@@ -240,6 +238,13 @@ and a `/search` page that is dynamic and interactive
 
 We call such apps *mixed apps*.
 Mixed apps are the future and Reframe is the only framework supporting them.
+
+
+<b><sub><a href="#concepts">&#8679; TOP &#8679;</a></sub></b>
+
+<br/>
+<br/>
+
 
 <!---
 
