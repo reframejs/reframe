@@ -2,7 +2,7 @@
 
 process.on('unhandledRejection', err => {throw err});
 
-const {colorEmphasisLight, colorEmphasis, strDir, strDir_emphasisFile, strFile, colorFile, colorPkg, colorDir, colorError, loadingSpinner} = require('@brillout/cli-theme');
+const {colorEmphasisLight, colorEmphasis, strDir, strDir_emphasisFile, strFile, colorFile, colorPkg, colorDir, colorError, loadingSpinner, indent} = require('@brillout/cli-theme');
 
 loadingSpinner.start();
 
@@ -54,7 +54,7 @@ runProgram();
 
 
 function initProgram() {
-    const INDENT = '  ';
+    const INDENT = indent;
 
     let noCommand = true;
 
@@ -72,14 +72,14 @@ function initProgram() {
     disableHelp();
 
     return {
-        runProgram: () => {
+        runProgram: async () => {
             program.parse(process.argv);
 
             if( noCommand ) {
                 if( hasOption('-v', '--version') ) {
                     printVersions();
                 } else {
-                    printHelp();
+                    await printHelp();
                 }
             }
         },
@@ -211,21 +211,21 @@ function initProgram() {
         program.option('-h, --help');
     }
 
-    function printHelp(commandName) {
+    async function printHelp(commandName) {
         if( commandName ) {
             const cmdSpec = commandSpecs[commandName];
             if( ! cmdSpec ) {
                 printInvalidCommand(commandName);
                 return;
             }
-            printHelpCommand(cmdSpec);
+            await printHelpCommand(cmdSpec);
             return;
         }
 
         printHelpProgram();
     }
 
-    function printHelpCommand(cmdSpec) {
+    async function printHelpCommand(cmdSpec) {
         let usageLog = INDENT+'Usage: reframe '+cmdSpec.commandLine;
 
         const optionsSpec = cmdSpec.options || [];
@@ -252,8 +252,8 @@ function initProgram() {
         console.log();
         console.log(usageLog);
         console.log(optionsLog);
-        if( cmdSpec.getHelp ) {
-            cmdSpec.getHelp();
+        if( cmdSpec.printAdditionalHelp ) {
+            await cmdSpec.printAdditionalHelp();
         }
     }
 

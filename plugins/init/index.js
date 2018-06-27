@@ -14,16 +14,16 @@ module.exports = {
             action: async ({inputs: [starter, projectDir], options: {skipNpm}}) => {
                 const starters = await getStarterList();
                 if( ! starter || ! projectDir ) {
-                    showUsageInfo({starters});
-                    showUsageExample();
+                    await showWrongUsage({starters});
                     return;
                 }
                 if( ! starters.includes(starter) ) {
-                    showStarterDoesntExist({starter, starters});
+                    await showStarterDoesntExist({starter, starters});
                     return;
                 }
                 await runInit({starter, projectDir, skipNpm});
             },
+            printAdditionalHelp,
         }
     ],
 };
@@ -111,33 +111,44 @@ async function lopOffPackageJson(projectRootDir) {
     await fs.outputFile(packageJsonFile, JSON.stringify(packageJson, null, 2));
 }
 
-function showUsageExample() {
-    const {colorCmd} = require('@brillout/cli-theme');
-
-    console.log(
-`
-  For example:
-    ${colorCmd('reframe init react-server my-app')}
-`
-    );
-}
-
-function showStarterDoesntExist({starter, starters}) {
+async function showStarterDoesntExist({starter, starters}) {
     const {colorError, indent} = require('@brillout/cli-theme');
     console.log();
-    console.log(colorError("Starter `"+starter+"` doesn't exist."));
+    console.log(colorError(indent+"Starter `"+starter+"` doesn't exist."));
     console.log();
-    console.log('Starters:');
-    console.log(starters.map(l => indent+l).join('\n'));
+    await printStarters();
     console.log();
 }
 
-function showUsageInfo({starters}) {
-    const {colorCmd} = require('@brillout/cli-theme');
+async function showWrongUsage({starters}) {
+    const {indent} = require('@brillout/cli-theme');
 
-    console.log(
-`
-  Please specify the starter and the project directory:
-    ${'reframe init '+colorCmd('<starter> <project-directory>')}`
-    );
+    console.log();
+    console.log(indent+'Please specify the starter and the project directory:');
+    console.log(indent+indent+'reframe init <starter> <project-directory>');
+    console.log();
+
+    printAdditionalHelp();
+}
+
+function printUsageExample() {
+    const {indent} = require('@brillout/cli-theme');
+
+    console.log(indent+'For example:');
+    console.log(indent+indent+'reframe init react-server my-app');
+}
+
+
+async function printStarters() {
+    const starters = await getStarterList();
+    const {indent} = require('@brillout/cli-theme');
+    console.log(indent+'Starters:');
+    console.log(starters.map(l => indent+indent+l).join('\n'));
+}
+
+async function printAdditionalHelp() {
+    printUsageExample();
+    console.log();
+    await printStarters();
+    console.log();
 }

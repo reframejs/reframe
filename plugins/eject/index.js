@@ -26,7 +26,7 @@ module.exports = {
                     description: "See what the eject would add to your codebase without actually ejecting.",
                 },
             ],
-            getHelp,
+            printAdditionalHelp,
         },
     ],
 };
@@ -72,7 +72,7 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm, dr
     const assert_plugin = assert_usage;
     // TODO rename to config
     const reframeConfig = require('@brillout/reconfig').getConfig({configFileName: 'reframe.config.js'});
-    const {symbolSuccess, strFile, colorEmphasisLight, colorError} = require('@brillout/cli-theme');
+    const {symbolSuccess, strFile, colorEmphasisLight, colorError, indent} = require('@brillout/cli-theme');
     const runNpmInstall = require('@reframe/utils/runNpmInstall');
     const gitUtils = require('@reframe/utils/git');
     const pathModule = require('path');
@@ -91,9 +91,9 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm, dr
         const ejectableSpec = ejectables[ejectableName];
         if( ! ejectableSpec ) {
             console.log();
-            console.log(colorError('No ejectable `'+ejectableName+'` found.'));
+            console.log(colorError(indent+'No ejectable `'+ejectableName+'` found.'));
             console.log();
-            printEjectables(0);
+            printEjectables();
             console.log();
             return;
         }
@@ -564,7 +564,7 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm, dr
     function fs__read(filePath) { return fs.readFileSync(filePath, 'utf8'); }
 }
 
-function getHelp() {
+function printAdditionalHelp() {
     printEjectables();
     console.log();
 }
@@ -575,19 +575,18 @@ function getEjectables() {
     return config.ejectables;
 }
 
-function printEjectables(tabbing=2) {
-    const {colorEmphasisLight} = require('@brillout/cli-theme');
+function printEjectables() {
+    const {colorEmphasisLight, indent} = require('@brillout/cli-theme');
     const {tableFormat} = require('@brillout/format-text');
 
     const ejectables = getEjectables();
-    const tab = new Array(tabbing).fill(' ').join('');
-    console.log(tab+'Ejectables:');
+    console.log(indent+'Ejectables:');
     console.log(tableFormat(
         Object.values(ejectables)
         .map(ejectable => {
             const {name, description} = ejectable;
             return ["reframe eject "+colorEmphasisLight(name), description];
         })
-        , {indent: tab+'  '}
+        , {indent: indent+indent}
     ));
 }
