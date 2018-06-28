@@ -61,6 +61,7 @@
         "examples/custom-webpack",
         "examples/custom-webpack-full",
         "examples/custom-browser",
+        "examples/custom-browser-lib",
         "examples/dom-static",
         "examples/runtime-error",
         "helpers/utils",
