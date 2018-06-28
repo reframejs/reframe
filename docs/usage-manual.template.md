@@ -235,13 +235,16 @@ There are two ways to change the outer-part HTML:
  - By creating a `index.html` file
  - Over the page config
 
-Over the page config:
+1. Over the page config:
 
 ~~~js
 !INLINE ../examples/custom-head/pages/landing.config.js
 ~~~
 
-Over a `index.html` file saved in your app's root directory:
+Note that if `awesome-lib.js` and `awesome-lib.css` are inside your project, you can't follow this
+technique. Instead you will have to [customize the browser entry](#custom-default-browser-entry).
+
+2. Over a `index.html` file saved in your app's root directory:
 
 ~~~js
 !INLINE ../examples/custom-head/index.html
@@ -306,6 +309,7 @@ You can customize the browser entry code by running `$reframe eject browser`.
 We encourage you to do so and you should if you want to:
   - Initialize user tracking such as Google Analytics
   - Initialize error tracking such as Sentry
+  - Link to a frontend library such as Semantic UI
   - etc.
 
 Running `$reframe eject browser` ejects the following code.
@@ -313,6 +317,24 @@ Running `$reframe eject browser` ejects the following code.
 ~~~js
 !INLINE ../plugins/browser/browserEntry.js
 ~~~
+
+At that point you can link to a frontend library present in your project. Such a library is usually
+made of `.css` and `.js` assets and without Reframe you would link to them via `<link>` and
+`<script>`.
+
+You achieve this by importing the `.js` assets in your `browserEntry.js`:
+
+~~~js
+!INLINE ../examples/custom-browser-lib/browser/browserEntry.js
+~~~
+
+and by importing the `.css` assets in your pages and/or views:
+
+~~~js
+!INLINE ../examples/custom-browser-lib/pages/semanticui.config.js
+~~~
+
+You can see the example in full at [/examples/custom-browser-lib](/examples/custom-browser-lib).
 
 !INLINE ./snippets/section-footer.md #custom --hide-source-path
 
