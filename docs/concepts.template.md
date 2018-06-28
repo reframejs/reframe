@@ -19,6 +19,8 @@
 <br/>
 
 
+
+
 ## Progressive Eject
 
 All of Reframe can be progressively ejected.
@@ -53,45 +55,45 @@ as if you would have implemented your app on top of these do-one-thing-do-it-wel
 <br/>
 
 
+
+
 ## Universal Framework
 
 > TL;DR
-> - Universal framework: A framework that supports all type of apps
-> - Reframe is the only universal framework
-> - Start write your prototype and decide later the type of your app
-> - Whatever you need, Reframe's got your back
+> - Universal framework: A framework that supports all types of apps.
+> - Reframe is the only universal framework.
+> - Start write your prototype and decide later the type of your app.
+> - Whatever type of app you end up needing, Reframe's got your back.
 
-Reframe is a what we call a *universal framework*, that is, you can create any type of web app.
+Reframe is a what we call a *universal framework*, that is, a framework that supports all types of apps.
 You can create a frontend without backend, a backend without frontend, or a frontend + backend.
-And you can use any view library such as React, Vue.js, etc.
+And you can use any view library such as React or Vue.js.
 
 And, maybe even more importantly, changing from one app type to another is easy.
-With Reframe, changing the type of your application is simply  amtter of changing plugins or changing page configurations.
+With Reframe, changing the type of your application is simply a matter of changing plugins or changing your page configs.
 
-It is often not clear at first what type of app is right for you.
-So instead of having to decide the type of your application before starting to write your prototype, you simply start with your best guess and as your prototype matures you change the type of your application. For example, you can start writing a React frontend without a backend and if you afterwards realize that you do need a backend then you can easily add one.
+It is often, at first, not clear what type of app is the right the one.
+So instead of having to decide the type of your app before starting to code,
+you start with your best guess and as your app matures you change the type of your application.
+For example, you can start writing a React frontend without a backend and
+if you realize at a later point that you do need a backend after all,
+you can easily add one afterwards.
 
-> Start write your prototype and decide later the type of your app
+> Start write your prototype and decide later the type of your app.
 
-That Reframe allows you to easily switch between any type of app
-may be more crucial than you realize.
+That Reframe allows you to easily switch between any type of app is crucial.
 For example, CRA
 ([github.com/facebook/create-react-app](https://github.com/facebook/create-react-app))
 doesn't support SSR
-(Server-side Rendering, that is the rendering of your pages to HTML).
-And if you start writing your app with CRA and realize afterwards that you need SSR for SEO reasons,
-then you'll have to entirely remove CRA.
+(Server-side Rendering, that is the rendering of your pages to HTML)
+and, if you write your app with CRA and realize afterwards that you need SSR (for SEO reasons e.g.),
+then you'll have to get rid of CRA.
 In contrast, adding SSR with Reframe is simply a matter of setting `renderHtmlAtBuildTime: false`.
 
-> No matter what type of app you end up needing, Reframe's got your back
+> Whatever type of app you end up needing, Reframe's got your back.
 
-We are not aware.
-Reframe's high flexibility comes from a simple design.
-Even though .
-We care a lot about. We want
-As you eject Reframe 
-inheriting a simple design 
-There are no other framework that give you that amount of flexibility.
+Most of Reframe's flexibility is a consequence of Reframe's simple architecture.
+There are no other framework out there that give you such flexibility.
 
 > Reframe is the only universal framework.
 
@@ -100,16 +102,21 @@ There are no other framework that give you that amount of flexibility.
 <br/>
 <br/>
 
+
+
+
+
+
 ## Non-Interactive First Approach
 
 > TL;DR
-> - Choose to implement non-interactive views over interactive views to significantly increase dev speed
-> - Reframe is the only framework that embraces the non-interative first approach
+> - Prefer to implement non-interactive views over interactive views to considerably increase dev speed.
+> - Reframe is the only framework that embraces the non-interative first approach.
 
 Interactive views (an interactive graph, a like button, a To-Do list, etc.) are a powerful addition to our dev toolbox.
-They allow us to implement incredible web apps and Reframe has first-class support for interactive views.
+They allow us to implement incredible things and Reframe has first-class support for interactive views.
 
-But they come with a downside: They are often very complex and take considerably more time to implement.
+But they come with a downside: They are often complex and take considerably more time to implement.
 
 In general:
 - **Interactive** views are **difficult** to implement **but powerful**.
@@ -124,16 +131,16 @@ But if you have limited resources then you may want to reconsider and choose non
 
 Leading us to what we call the *non-interactive-first approach*:
  - Whenever possible implement features with non-interactive views.
- - Implement a prototype with a minimal amount of interactive views first. Then gradually add interactive views to improve the UX quality of your app.
+ - First, implement a prototype with a minimal amount of interactive views, then gradually add interactive views to improve your app's UX.
 
-> Increase your dev speed by preferring non-interactive views over interactive views
+> Increase dev speed by preferring implementing features with non-interactive views
 
-Reframe embraces the non-interactive-first approach by allowing you to create non-interactive pages:
+Reframe allows you to create non-interactive pages:
 Set `doNotRenderInBrowser: true` to a page's config and the page will not be rendered in the browser.
-More at [Usage Manual - `doNotRenderInBrowser`](/docs/usage-manual.md#donotrenderinbrowser).
+(More at [Usage Manual - `doNotRenderInBrowser`](/docs/usage-manual.md#donotrenderinbrowser).)
 
 This means that you can create an app that has interactive pages as well as non-interactive pages.
-For example a `/about` page that is static and non-interactive
+For example an `/about` page that is static and non-interactive
 (browser doesn't load any JavaScript and the DOM is static)
 and a `/search` page that is dynamic and interactive
 (browser loads React components and the DOM is dynamic).
@@ -142,43 +149,49 @@ We call such apps *mixed apps*.
 
 > Mixed apps are the future and Reframe is the only framework supporting them.
 
-
 !INLINE ./top-link.md #concepts --hide-source-path
 
 <br/>
 <br/>
+
+
+
+
+
 
 ## Simple Architecture
 
 > TL;DR
-> - Reframe's code is simple
-> - Reframe's simple architecture is the reason why Reframe is highly flexible
-> - As you eject Reframe you will inherit a simple architecture
+> - Reframe's code is simple.
+> - As you eject Reframe you inherit a simple architecture.
+> - Reframe's simple architecture is the reason why Reframe is highly flexible.
 
 Reframe's essence is to care a great amount about
- - Rapid dev - Allow Reframe's users to go from 0 to a working prototype in the shortest amount of time possible.
- - Full flexibility - Give Reframe's user full as much freedom as possible.
+ - Rapid dev - Allow Reframe's user to go from 0 to a working prototype in the shortest amount of time possible.
+ - Full flexibility - Give Reframe's user as much freedom as possible.
  - Simple architecture - Make Reframe's codebase as simple as possible.
 
 Reframe's architecture is simple: It's all about one global config.
 
- - Plugins add stuff (parameters, functions, etc.) to the global config
- - Plugins use stuff defined in the global config
+ - Plugins add things (parameters or functionality) to the global config.
+ - Plugins use things defined in the global config.
 
 In essence, the config acts as dependency injection.
-(When you think about it, every config system is an inversion of control.)
+(When you think about it, a config is an inversion of control.)
 
 Everything is a plugin.
 Other than the CLI, every single Reframe code is contained in a plugin.
 
-This means that you can change every part of Reframe simply by switching out plugins or by changing the global config.
-(That is by modifying your `reframe.config.js`.)
+This means that you can change every part of Reframe by simply switching out plugins or by changing the global config.
+(In other words by modifying your `reframe.config.js`.)
 
-For example, using another build tool, other than webpack, is simply a matter of changing the global config.
-
+For example, using another build tool other than webpack is simply a matter of remove the webpack plugin and adding `build()` and `getBuildInfo()` to the global config.
 
 !INLINE ./top-link.md #concepts --hide-source-path
 
 <br/>
 <br/>
+
+
+
 

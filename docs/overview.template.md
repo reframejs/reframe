@@ -99,7 +99,7 @@ No build config, no server config.
 - **Rapid & Flexible** -
   Quickly implement apps while staying fully flexible.
 - **Non-interactive first** -
-  Increase dev speed by choosing non-interactive over interactive. More at [Concepts](/docs/concepts.md).
+  Increase dev speed by prefering non-interactive over interactive. (See [Concepts](/docs/concepts.md).)
 - **Learn once, write any app** -
   Learn Reframe once to be able to implement any type of web app.
 - **Easy Deploy** -
