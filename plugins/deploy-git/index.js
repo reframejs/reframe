@@ -9,7 +9,7 @@ module.exports = {
     ],
     cliCommands: [
         {
-            name: 'deploy-static',
+            name: 'deploy',
             description: cmdDescription,
             action: runDeploy,
         }
