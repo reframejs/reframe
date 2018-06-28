@@ -54,6 +54,10 @@ as if you would have implemented your app on top of these do-one-thing-do-it-wel
 
 ### Universal Framework
 
+> TL;DR
+> - Reframe supports all types of apps
+> - Start write your prototype and decide later the type of your app
+
 Reframe is universal, that is, you can create any type of web app:
 
  - **Modern interactive apps** <sup><sub>:sparkles:</sub></sup>
@@ -69,7 +73,10 @@ Reframe is universal, that is, you can create any type of web app:
    Apps that mix both: Modern interactive pages <sup><sub>:sparkles:</sub></sup> as well as good ol' 1998 non-interative pages <sup><sub>:floppy_disk:</sub></sup>.
 
 The cherry on the cake is that choosing the type of your app is simply a matter of setting the page config options `renderHtmlAtBuildTime` and `doNotRenderInBrowser`.
+
 This means that you can start writing your prototype and decide only at a later point what type of app is right for you.
+
+> Start write your prototype and decide later the type of your app
 
 > Reframe is the only framework that supports every type of web app.
 
@@ -79,6 +86,10 @@ This means that you can start writing your prototype and decide only at a later 
 <br/>
 
 ### Non-Interactive First Approach
+
+> TL;DR
+> - Choose to implement non-interactive views over interactive to significantly increase dev speed
+> - Reframe embraces the non-interative first approach
 
 Interactive views (an interactive graph, a like button, a To-Do list, etc.) are a powerful addition to our dev toolbox.
 They allow us to implement incredible web apps and Reframe has first-class support for interactive views.
@@ -98,7 +109,7 @@ But if you have limited resources then you may want to reconsider and choose non
 
 Leading us to what we call the *non-interactive-first approach*:
  - Whenever possible implement features with non-interactive views.
- - Implement a prototype with non-interactive views first to then gradually add interactive views later.
+ - Implement a prototype with a minimal amount of interactive views first. Then gradually add interactive views to improve the UX quality of your app.
 
 Reframe embraces the non-interactive-first approach by allowing you to create non-interactive pages:
 Set `doNotRenderInBrowser: true` to a page's config and the page will not be rendered in the browser.

@@ -34,7 +34,7 @@ const WelcomePage = {
 
 **No build configuration** and **no server configuration** are required.
 
-Yet Reframe is progressively ejectable and
+Yet, Reframe is progressively ejectable and
 you can take control over everything.
 **No lock in**.
 **Quickly implement a prototype while staying fully flexible down the road**.
@@ -44,12 +44,13 @@ that is you can create any type of app:
 a **modern interactive frontend with React**,
 a Node.js backend with **old-school non-interactive HTML pages**,
 a **static site generated with Vue.js**,
-a **full-stack app** with modern frontend + Node.js server + **Database/ORM** (ORM integration is WIP).
-Changing app type is easy so you can
-**start write your prototype right away, and
-only later decide the type of your app**.
+a **full-stack app** with modern frontend + Node.js server + **Database/ORM** (ORM integration is WIP), etc.
+Changing the type of your app is easy.
+So you can
+**start write your prototype and
+decide later the type of your app**.
 
-More at [Concepts](/docs/concepts.md).
+See [Concepts](/docs/concepts.md) for explanations.
 
 !INLINE ./top-link.md #overview --hide-source-path
 
@@ -117,9 +118,9 @@ No build config, no server config.
 - **React** -
   Write views with React.
 - **React Router** -
-  Add the @reframe/react-router plugin and use the React Router components.
+  Add the @reframe/react-router plugin and use React Router components.
 - **Vue.js** -
-  Add the @reframe/vue plugin and write your views with Vue.
+  Add the @reframe/vue plugin and write views with Vue.
 - **TypeScript** -
   Add the @reframe/typescript plugin and write your app with TypeScript.
 - **PostCSS** -
@@ -129,13 +130,13 @@ No build config, no server config.
 - **GitHub Pages** -
   Automatic deploy of static apps with GitHub Pages.
 - **Hapi** -
-  The server is created with the robust and scalable server framework Hapi.
+  By default, Reframe uses the robust and scalable server framework Hapi.
 - **Express** -
-  Add the @reframe/express plugin and write your backend with Express.
+  Add the @reframe/express plugin and implement your backend with Express.
 - **Webpack** -
-  The state-of-the-art tool webpack is used to build static assets.
+  By default, Reframes uses webpack to build static assets.
 - **WebAssembly** -
-  Reframe is based on JavaScript and embraces the WebAssembly future.
+  Reframe is based on the JavaScript ecosystem and embraces the WebAssembly future.
 
 ###### Performance
 
