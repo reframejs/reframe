@@ -57,22 +57,37 @@ as if you would have implemented your app on top of these do-one-thing-do-it-wel
 > TL;DR
 > - Reframe supports all types of apps
 > - Start write your prototype and decide later the type of your app
+> - No matter what you need, Reframe's got your back
 
 Reframe is universal, that is, you can create any type of web app:
 
- - **Modern interactive apps** <sup><sub>:sparkles:</sub></sup>
-   <br/>
-   Apps with interactive views.
-   (An interactive graph, a like button, a To-Do list, etc.) (The browser loads the page's view and renders it to the DOM &mdash; the DOM is dynamic.)
- - **Good ol' 1998 websites** <sup><sub>:floppy_disk:</sub></sup>
-   <br/>
-   Apps without interactive views.
-   (The browser doesn't load any JavaScript. The DOM is static.)
- - **Mixed apps** :tm:
-   <br/>
-   Apps that mix both: Modern interactive pages <sup><sub>:sparkles:</sub></sup> as well as good ol' 1998 non-interative pages <sup><sub>:floppy_disk:</sub></sup>.
+Even more importantly than being able is be able to easly switch from one type of app to another.
 
-The cherry on the cake is that choosing the type of your app is simply a matter of setting the page config options `renderHtmlAtBuildTime` and `doNotRenderInBrowser`.
+It is often not clear at first what type of app is right for you.
+Most of is simply a matter of changing plugins or changing page configurations.
+Because 
+
+This may seem like just a convenience but this is actually crucial.
+If you are using a framework that doesn't support a certain type of app you end, then you have a problem.
+
+For example CRA
+([github.com/facebook/create-react-app](https://github.com/facebook/create-react-app))
+doesn't support SSR
+(Server-side Rendering: render your pages to HTML).
+If you start your app with CRA and realize afterwards you need SSR for SEO reasons,
+then you'll have to entirely remove CRA altogether.
+In contrast, adding SSR with Reframe is simply a matter of setting `renderHtmlAtBuildTime: false`.
+
+> No matter what type of app you end up needing, Reframe's got your back
+
+
+Let's for example imagine your are building an app with CRA .
+With CRA you create a React front-end.
+If you then realize that you need a server to render your pages to HTML for SEO reasons then you wil have to entirely remove CRA.
+You will actually not be able to use any.
+If you for example use  and you realize afterwards
+And you realize that you need then you'll need to entirely remove CRA.
+In contrast Reframe is simply a matter of 
 
 This means that you can start writing your prototype and decide only at a later point what type of app is right for you.
 
@@ -88,8 +103,8 @@ This means that you can start writing your prototype and decide only at a later 
 ### Non-Interactive First Approach
 
 > TL;DR
-> - Choose to implement non-interactive views over interactive to significantly increase dev speed
-> - Reframe embraces the non-interative first approach
+> - Choose to implement non-interactive views over interactive views to significantly increase dev speed
+> - Reframe is the only framework that embraces the non-interative first approach
 
 Interactive views (an interactive graph, a like button, a To-Do list, etc.) are a powerful addition to our dev toolbox.
 They allow us to implement incredible web apps and Reframe has first-class support for interactive views.
@@ -110,6 +125,8 @@ But if you have limited resources then you may want to reconsider and choose non
 Leading us to what we call the *non-interactive-first approach*:
  - Whenever possible implement features with non-interactive views.
  - Implement a prototype with a minimal amount of interactive views first. Then gradually add interactive views to improve the UX quality of your app.
+
+> Increase your dev speed by preferring non-interactive views over interactive views
 
 Reframe embraces the non-interactive-first approach by allowing you to create non-interactive pages:
 Set `doNotRenderInBrowser: true` to a page's config and the page will not be rendered in the browser.
