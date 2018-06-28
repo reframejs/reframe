@@ -8,7 +8,6 @@ module.exports = {
         require('@reframe/project-files'),
         require('@reframe/path-to-regexp'),
         require('@reframe/start'),
-        require('@reframe/deploy-git'),
         require('@reframe/eject'),
         require('@reframe/build'),
     ],
