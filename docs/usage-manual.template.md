@@ -52,6 +52,7 @@
   - [PostCSS](#postcss)
   - [React Native (Web)](#react-native-web)
   - [React Native (Web) + React Router](#react-native-web--react-router)
+  - [Frontend Libraries](#frontend-libraries)
 
 
 <br/>
@@ -309,7 +310,7 @@ You can customize the browser entry code by running `$reframe eject browser`.
 We encourage you to do so and you should if you want to:
   - Initialize user tracking such as Google Analytics
   - Initialize error tracking such as Sentry
-  - Link to a frontend library such as Semantic UI
+  - Add a frontend library such as Bootstrap or Semantic UI
   - etc.
 
 Running `$reframe eject browser` ejects the following code.
@@ -318,23 +319,7 @@ Running `$reframe eject browser` ejects the following code.
 !INLINE ../plugins/browser/browserEntry.js
 ~~~
 
-At that point you can link to a frontend library present in your project. Such a library is usually
-made of `.css` and `.js` assets and without Reframe you would link to them via `<link>` and
-`<script>`.
-
-You achieve this by importing the `.js` assets in your `browserEntry.js`:
-
-~~~js
-!INLINE ../examples/custom-browser-lib/browser/browserEntry.js
-~~~
-
-and by importing the `.css` assets in your pages and/or views:
-
-~~~js
-!INLINE ../examples/custom-browser-lib/pages/semanticui.config.js
-~~~
-
-You can see the example in full at [/examples/custom-browser-lib](/examples/custom-browser-lib).
+At this point you can [add a frontend library](#frontend-libraries).
 
 !INLINE ./snippets/section-footer.md #custom --hide-source-path
 
@@ -656,6 +641,40 @@ And you can share routing logic by using Reframe + React Native Web + [React Rou
 
 For example:
  - [/examples/react-native-web-and-react-router](/examples/react-native-web-and-react-router)
+
+!INLINE ./snippets/section-footer.md #use-cases --hide-source-path
+
+
+
+
+
+
+## Frontend Libraries
+
+As mentioned in [this section](#custom-default-browser-entry) you can add frontend libraries such as
+Bootstrap or Semantic UI to your Reframe app. Such a library is usually made of `.css` and `.js`
+assets and without Reframe you would link to them via `<link>` and `<script>`.
+
+After having [ejected the browser entry code](#custom-default-browser-entry) import these assets
+in your `browserEntry.js`:
+
+~~~js
+import browserConfig from '@brillout/browser-config';
+
+import './thirdparty/awesome-frontend-lib.js';
+import './thirdparty/awesome-frontend-lib.css';
+
+initBrowser();
+
+async function initBrowser() {
+    await browserConfig.hydratePage();
+}
+~~~
+
+Note that you can also import `awesome-frontend-lib.css` in your pages and/or views instead.
+
+For example:
+ - [/examples/custom-browser-lib](/examples/custom-browser-lib)
 
 !INLINE ./snippets/section-footer.md #use-cases --hide-source-path
 
