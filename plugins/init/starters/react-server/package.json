@@ -1,16 +1,16 @@
 {
   "name": "_sample-project",
   "private": "true",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "checkDeps": {
     "skip": true
   },
   "dependencies": {
+    "@brillout/cli-theme": "0.1.14",
     "@brillout/fetch": "^0.1.0",
-    "@reframe/react-kit": "0.1.13",
-    "react": "^16.3.2",
+    "@brillout/reconfig": "0.1.14",
+    "@reframe/react-kit": "0.1.14",
     "hapi": "^17.3.1",
-    "@brillout/reconfig": "0.1.13",
-    "@brillout/cli-theme": "0.1.13"
+    "react": "^16.3.2"
   }
 }

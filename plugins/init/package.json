@@ -1,9 +1,9 @@
 {
     "name": "@reframe/init",
-    "version": "0.1.13",
+    "version": "0.1.14",
     "dependencies": {
-        "@brillout/cli-theme": "0.1.13",
-        "@reframe/utils": "0.1.13",
+        "@brillout/cli-theme": "0.1.14",
+        "@reframe/utils": "0.1.14",
         "fs-extra": "^6.0.1"
     },
     "publishConfig": {

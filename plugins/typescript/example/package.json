@@ -1,10 +1,10 @@
 {
   "name": "_example-typescript",
   "private": true,
-  "version": "0.1.13",
+  "version": "0.1.14",
   "dependencies": {
-    "@reframe/react-kit": "0.1.13",
-    "@reframe/typescript": "0.1.13",
+    "@reframe/react-kit": "0.1.14",
+    "@reframe/typescript": "0.1.14",
     "react": "^16.3.2"
   },
   "checkDeps": {

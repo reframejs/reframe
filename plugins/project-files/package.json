@@ -1,8 +1,8 @@
 {
     "name": "@reframe/project-files",
-    "version": "0.1.13",
+    "version": "0.1.14",
     "dependencies": {
-        "@reframe/utils": "0.1.13"
+        "@reframe/utils": "0.1.14"
     },
     "publishConfig": {
         "access": "public"
