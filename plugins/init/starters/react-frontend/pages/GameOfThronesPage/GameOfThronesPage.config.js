@@ -10,7 +10,7 @@ const getCharacters = async () => {
     return characters;
 };
 
-// We use a stateful component to load async data
+// We use a stateful component to asynchronously load the list of characters
 class CharactersView extends React.Component {
     render() {
         if( ! this.state || this.state.characters===undefined ) {
@@ -24,7 +24,6 @@ class CharactersView extends React.Component {
     }
 }
 
-// Our loaded list is then available at `props.characters`.
 const GameOfThronesView = () => (
     <div>
         <Header/>

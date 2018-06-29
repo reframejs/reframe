@@ -39,8 +39,5 @@ const CounterView = () => (
 export default {
     route: "/counter",
     view: CounterView,
-
-    renderHtmlAtBuildTime: true,
-    doNotRenderInBrowser: false,
 };
 

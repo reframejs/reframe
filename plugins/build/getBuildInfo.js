@@ -1,12 +1,10 @@
 const getAssetInfos = require('webpack-ssr/getAssetInfos');
-const reconfig = require('@brillout/reconfig');
+const config = require('@brillout/reconfig').getConfig({configFileName: 'reframe.config.js'});
 
 module.exports = getBuildInfo;
 
 function getBuildInfo({shouldBeProductionBuild}={}) {
-    const reframeConfig = reconfig.getConfig({configFileName: 'reframe.config.js'});
-
-    const outputDir = reframeConfig.projectFiles.buildOutputDir;
+    const outputDir = config.projectFiles.buildOutputDir;
 
     const assetInfos = getAssetInfos({outputDir, shouldBeProductionBuild});
 
@@ -20,21 +18,34 @@ function getPageConfigs({pageAssets}) {
     const pageConfigs = (
         pageAssets
         .map(({pageName, pageFile, pageFileTranspiled, pageExport, styles, scripts}) => {
-            const pageConfig = pageExport;
+            const pageConfig = {};
 
-            pageConfig.scripts = makeUnique([
-                ...(scripts||[]),
-                ...(pageConfig.scripts||[]),
-            ]);
+            Object.assign(
+                pageConfig,
+                config.defaultPageConfig,
+                pageExport,
+            );
 
-            pageConfig.styles = makeUnique([
-                ...(styles||[]),
-                ...(pageConfig.styles||[])
-            ]);
-
-            pageConfig.pageName = pageName;
-            pageConfig.pageFile = pageFile;
-            pageConfig.pageFileTranspiled = pageFileTranspiled;
+            Object.assign(
+                pageConfig,
+                {
+                    scripts: (
+                        makeUnique([
+                            ...(scripts||[]),
+                            ...(pageConfig.scripts||[]),
+                        ])
+                    ),
+                    styles: (
+                        makeUnique([
+                            ...(styles||[]),
+                            ...(pageConfig.styles||[])
+                        ])
+                    ),
+                    pageName,
+                    pageFile,
+                    pageFileTranspiled,
+                }
+            );
 
             return pageConfig;
         })

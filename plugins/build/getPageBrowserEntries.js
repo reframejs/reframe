@@ -16,6 +16,8 @@ function getPageBrowserEntries(pageModules) {
         .map(({pageExport: pageConfig, pageName, pageFile}) => {
             assert_pageConfig(pageConfig, pageFile);
 
+            assert_usage__defaultPageConfig();
+
             const browserEntryString = getBrowserEntryString({pageConfig, pageName, pageFile});
 
             return {
@@ -25,6 +27,18 @@ function getPageBrowserEntries(pageModules) {
             };
         })
     );
+}
+
+function assert_usage__defaultPageConfig() {
+    const configsUsedInBrowser = ['route', 'view', 'getInitialProps'];
+    const {defaultPageConfig} = config;
+    configsUsedInBrowser.forEach(prop => {
+        assert_usage(
+            !(prop in config),
+            "Reframe doesn't support setting a default `"+prop+"` page configuration via `defaultPageConfig`.",
+            "Open a GitHub issue if you need to do that."
+        );
+    });
 }
 
 function getBrowserEntryString({pageConfig, pageFile, pageName}) {

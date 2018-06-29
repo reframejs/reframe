@@ -13,6 +13,7 @@ module.exports = {
         requireFileGetter('getPageHtmlsFile'),
         requireFileGetter('getPageBrowserEntriesFile'),
         transparentGetter('doNotWatchBuildFiles'),
+        transparentGetter('defaultPageConfig'),
         transparentGetter('log'),
         {
             prop: 'webpackBrowserConfigModifier',

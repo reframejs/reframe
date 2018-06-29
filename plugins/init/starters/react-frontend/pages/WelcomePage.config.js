@@ -39,7 +39,9 @@ const WelcomePage = {
     title: 'Welcome', // <title>
     description: 'This is a Reframe App.', // <meta name="description">
 
-    renderHtmlAtBuildTime: true,
+    // The landing page doesn't contain any interactive views.
+    // Thus we don't have to render it in the browser.
+    // More infos at "Usage Manual - doNotRenderInBrowser".
     doNotRenderInBrowser: true,
 };
 

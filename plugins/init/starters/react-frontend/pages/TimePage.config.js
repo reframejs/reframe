@@ -35,7 +35,4 @@ const TimeView = () => (
 export default {
     route: "/time",
     view: TimeView,
-
-    renderHtmlAtBuildTime: false,
-    doNotRenderInBrowser: false,
 };

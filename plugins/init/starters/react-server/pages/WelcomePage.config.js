@@ -41,7 +41,7 @@ const WelcomePage = {
 
     // The landing page doesn't contain any interactive views.
     // Thus we don't have to render it in the browser.
-    // More infos at "Usage Manual - doNotRenderInBrowser"
+    // More infos at "Usage Manual - doNotRenderInBrowser".
     doNotRenderInBrowser: true,
 };
 
