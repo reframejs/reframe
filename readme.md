@@ -199,7 +199,7 @@ decide later the type of your app**.
 
 <br/>
 
-See [Concepts](/docs/concepts.md) for explanations.
+More at [Concepts](/docs/concepts.md).
 
 <b><sub><a href="#overview">&#8679; TOP &#8679;</a></sub></b>
 

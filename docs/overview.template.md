@@ -57,7 +57,7 @@ decide later the type of your app**.
 
 <br/>
 
-See [Concepts](/docs/concepts.md) for explanations.
+More at [Concepts](/docs/concepts.md).
 
 !INLINE ./top-link.md #overview --hide-source-path
 
