@@ -176,30 +176,26 @@ const WelcomePage = {
 
 **No build configuration** and **no server configuration** are required.
 
-&nbsp;
-
-Yet, Reframe is progressively ejectable which means:
+<br/>
+Yet, Reframe is progressively ejectable. This means:
  - You can **take control over everything**.
  - **No lock in**.
  - **Quickly implement a prototype while staying fully flexible down the road**.
 
-&nbsp;
-
+<br/>
 Reframe is a "Universal Framework",
-that is you can create any type of app:
+that is you can create any type of app such as
  - a **modern interactive frontend with React**,
  - a Node.js backend with **old-school non-interactive HTML pages**,
  - a **static site generated with Vue.js**,
- - a **full-stack app** with modern frontend + Node.js server + **Database/ORM** (ORM integration is WIP)
- - etc.
+ - a **full-stack app** with modern frontend + **Node.js server** + **Database/ORM** (ORM integration is WIP).
 
 Changing the type of your app is easy.
 So you can
 **start write your prototype and
 decide later the type of your app**.
 
-&nbsp;
-
+<br/>
 See [Concepts](/docs/concepts.md) for explanations.
 
 <b><sub><a href="#overview">&#8679; TOP &#8679;</a></sub></b>
