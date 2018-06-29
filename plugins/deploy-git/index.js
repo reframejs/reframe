@@ -86,7 +86,7 @@ async function runDeploy() {
         ],
         buildRepository: {
             remote: 'git@github.com:username/repo',
-            branch: 'branch', // optional, default is \`master\`
+            branch: 'dist', // optional, default is \`master\`
         },
     };`
         )
