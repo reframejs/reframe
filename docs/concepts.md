@@ -308,8 +308,10 @@ In essence, the config acts as dependency injection.
 Everything is a plugin.
 Other than the CLI, every single Reframe line of code is contained in a plugin.
 
-This means that you can change every part of Reframe by simply switching out plugins / by changing the global config.
-(By modifying your `reframe.config.js`.)
+This means that you can change every part of Reframe
+by simply switching out plugins /
+by changing the global config
+(by modifying your `reframe.config.js`).
 
 For example, using another build tool other than webpack is simply a matter of removing the webpack plugin and adding two functions `build()` and `getBuildInfo()` to the global config.
 
