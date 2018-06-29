@@ -35,6 +35,7 @@ const WelcomePage = {
 **No build configuration** and **no server configuration** are required.
 
 <br/>
+
 Yet, Reframe is progressively ejectable. This means:
  - You can **take control over everything**.
  - **No lock in**.
