@@ -178,6 +178,7 @@
   - [PostCSS](#postcss)
   - [React Native (Web)](#react-native-web)
   - [React Native (Web) + React Router](#react-native-web--react-router)
+  - [Frontend Libraries](#frontend-libraries)
 
 
 <br/>
@@ -567,7 +568,7 @@ There are two ways to change the outer-part HTML:
  - By creating a `index.html` file
  - Over the page config
 
-Over the page config:
+1. Over the page config:
 
 ~~~js
 // /examples/custom-head/pages/landing.config.js
@@ -603,7 +604,10 @@ export default {
 };
 ~~~
 
-Over a `index.html` file saved in your app's root directory:
+Note that if `awesome-lib.js` and `awesome-lib.css` are inside your project, you can't follow this
+technique. Instead you will have to [customize the browser entry](#custom-default-browser-entry).
+
+2. Over a `index.html` file saved in your app's root directory:
 
 ~~~js
 // /examples/custom-head/index.html
@@ -788,6 +792,7 @@ You can customize the browser entry code by running `$reframe eject browser`.
 We encourage you to do so and you should if you want to:
   - Initialize user tracking such as Google Analytics
   - Initialize error tracking such as Sentry
+  - Add a frontend library such as Bootstrap or Semantic UI
   - etc.
 
 Running `$reframe eject browser` ejects the following code.
@@ -803,6 +808,8 @@ async function initBrowser() {
     await browserConfig.hydratePage();
 }
 ~~~
+
+At this point you can [add a frontend library](#frontend-libraries).
 
 <br/>
 
@@ -1318,6 +1325,48 @@ And you can share routing logic by using Reframe + React Native Web + [React Rou
 
 For example:
  - [/examples/react-native-web-and-react-router](/examples/react-native-web-and-react-router)
+
+<br/>
+
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+<br/>
+<br/>
+<b><sub><a href="#use-cases">&#8679; TOP &#8679;</a></sub></b>
+<br/>
+<br/>
+<br/>
+
+
+
+
+
+
+## Frontend Libraries
+
+As mentioned in [this section](#custom-default-browser-entry) you can add frontend libraries such as
+Bootstrap or Semantic UI to your Reframe app. Such a library is usually made of `.css` and `.js`
+assets and without Reframe you would link to them via `<link>` and `<script>`.
+
+After having [ejected the browser entry code](#custom-default-browser-entry) import these assets
+in your `browserEntry.js`:
+
+~~~js
+import browserConfig from '@brillout/browser-config';
+
+import './thirdparty/awesome-frontend-lib.js';
+import './thirdparty/awesome-frontend-lib.css';
+
+initBrowser();
+
+async function initBrowser() {
+    await browserConfig.hydratePage();
+}
+~~~
+
+Note that you can also import `awesome-frontend-lib.css` in your pages and/or views instead.
+
+For example:
+ - [/examples/custom-browser-lib](/examples/custom-browser-lib)
 
 <br/>
 
