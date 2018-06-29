@@ -9,8 +9,8 @@ let cache;
 
 module.exports = getAssetInfos;
 
-function getAssetInfos({outputDir, requireProductionBuild}) {
-    const assetInfos = readAssetMap({outputDir, requireProductionBuild});
+function getAssetInfos({outputDir, shouldBeProductionBuild}) {
+    const assetInfos = readAssetMap({outputDir, shouldBeProductionBuild});
 
     if( cache && cache.buildTime === assetInfos.buildTime ) {
         return cache;
@@ -47,7 +47,7 @@ function makePathAbsolute(pathRelative, {outputDir}) {
     return pathModule.resolve(outputDir, pathRelative);
 }
 
-function readAssetMap({outputDir, requireProductionBuild}) {
+function readAssetMap({outputDir, shouldBeProductionBuild}) {
     const assetMapPath = pathModule.resolve(outputDir, 'assetInfos.json');
     const assetMapContent = readFile(assetMapPath);
     assert_usage(
@@ -57,7 +57,7 @@ function readAssetMap({outputDir, requireProductionBuild}) {
     );
     const assetInfos = JSON.parse(assetMapContent)
     assert_usage(
-        !requireProductionBuild || assetInfos.buildEnv==='production',
+        !shouldBeProductionBuild || assetInfos.buildEnv==='production',
         'Your app has been built for "'+assetInfos.buildEnv+'" but you need to '+colorError("build your app for production")+".",
         "(E.g. by running `$ reframe build`.)",
         "(The asset information file `"+assetMapPath+"` has `buildEnv` set to `"+assetInfos.buildEnv+"` but it should be `production`.)"

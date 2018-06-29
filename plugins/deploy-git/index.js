@@ -34,7 +34,7 @@ async function runDeploy() {
         reframeConfig.getBuildInfo
     );
 
-    const buildInfo = reframeConfig.getBuildInfo({requireProductionBuild: true});
+    const buildInfo = reframeConfig.getBuildInfo({shouldBeProductionBuild: true});
     const {staticAssetsDir, buildEnv, pageConfigs, buildTime} = buildInfo;
     assert_internal(buildEnv==='production');
     assert_internal(buildTime);

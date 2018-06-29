@@ -3,12 +3,12 @@ const reconfig = require('@brillout/reconfig');
 
 module.exports = getBuildInfo;
 
-function getBuildInfo({requireProductionBuild}={}) {
+function getBuildInfo({shouldBeProductionBuild}={}) {
     const reframeConfig = reconfig.getConfig({configFileName: 'reframe.config.js'});
 
     const outputDir = reframeConfig.projectFiles.buildOutputDir;
 
-    const assetInfos = getAssetInfos({outputDir, requireProductionBuild});
+    const assetInfos = getAssetInfos({outputDir, shouldBeProductionBuild});
 
     const {pageAssets, ...assetInfos__rest} = assetInfos;
     const pageConfigs = getPageConfigs({pageAssets});
