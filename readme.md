@@ -192,6 +192,7 @@ that is you can create any type of app:
  - a **static site generated with Vue.js**,
  - a **full-stack app** with modern frontend + Node.js server + **Database/ORM** (ORM integration is WIP)
  - etc.
+
 Changing the type of your app is easy.
 So you can
 **start write your prototype and
