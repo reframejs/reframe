@@ -8,6 +8,9 @@
   "dependencies": {
     "@brillout/fetch": "^0.1.0",
     "@reframe/react-kit": "0.1.13",
-    "react": "^16.3.2"
+    "react": "^16.3.2",
+    "hapi": "^17.3.1",
+    "@brillout/reconfig": "0.1.13",
+    "@brillout/cli-theme": "0.1.13"
   }
 }
