@@ -9,25 +9,33 @@ const Welcome = () => (
                 Welcome to Reframe
             </h2>
 
-            Interactive/stateful pages:
+            Interactive pages:
             <ul>
                 <li>
-                    <a href="/counter">/counter</a> - Counter
+                    <a href="/counter">/counter</a> - A counter.
                 </li>
                 <li>
-                    <a href="/time">/time</a> - Display time
+                    <a href="/time">/time</a> - Display time.
                 </li>
             </ul>
 
             Non-interactive pages:
             <ul>
                 <li>
-                    <a href="/game-of-thrones">/game-of-thrones</a> - Load and display list of GoT characters
+                    <a href="/game-of-thrones">/game-of-thrones</a> - Load and display list of GoT characters.
                 </li>
                 <li>
-                    <a href="/">/</a> - This landing page
+                    <a href="/">/</a> - This landing page.
                 </li>
             </ul>
+
+            Route defined with Hapi:
+            <ul>
+                <li>
+                    <a href="/hello-from-hapi">/hello-from-hapi</a>
+                </li>
+            </ul>
+
         </div>
     </div>
 );

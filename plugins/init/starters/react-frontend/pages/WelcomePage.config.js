@@ -8,24 +8,15 @@ const Welcome = () => (
             <h2 style={{fontWeight: 'normal'}}>
                 Welcome to Reframe
             </h2>
-
-            Interactive/stateful pages:
             <ul>
                 <li>
-                    <a href="/counter">/counter</a> - Counter
+                    <a href="/counter">/counter</a> - A Counter.
                 </li>
                 <li>
-                    <a href="/time">/time</a> - Display time
-                </li>
-            </ul>
-
-            Non-interactive pages:
-            <ul>
-                <li>
-                    <a href="/game-of-thrones">/game-of-thrones</a> - Load and display list of GoT characters
+                    <a href="/time">/time</a> - Display time.
                 </li>
                 <li>
-                    <a href="/">/</a> - This landing page
+                    <a href="/game-of-thrones">/game-of-thrones</a> - Load and display list of GoT characters.
                 </li>
             </ul>
         </div>
