@@ -34,14 +34,14 @@ const WelcomePage = {
 
 **No build configuration** and **no server configuration** are required.
 
-&nbps;
+&nbsp;
 
 Yet, Reframe is progressively ejectable which means:
  - You can **take control over everything**.
  - **No lock in**.
  - **Quickly implement a prototype while staying fully flexible down the road**.
 
-&nbps;
+&nbsp;
 
 Reframe is a "Universal Framework",
 that is you can create any type of app:
@@ -55,7 +55,7 @@ So you can
 **start write your prototype and
 decide later the type of your app**.
 
-&nbps;
+&nbsp;
 
 See [Concepts](/docs/concepts.md) for explanations.
 
