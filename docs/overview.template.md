@@ -41,6 +41,7 @@ Yet, Reframe is progressively ejectable. This means:
  - **Quickly implement a prototype while staying fully flexible down the road**.
 
 <br/>
+
 Reframe is a "Universal Framework",
 that is you can create any type of app such as
  - a **modern interactive frontend with React**,
@@ -54,11 +55,13 @@ So you can
 decide later the type of your app**.
 
 <br/>
+
 See [Concepts](/docs/concepts.md) for explanations.
 
 !INLINE ./top-link.md #overview --hide-source-path
 
 <br/>
+
 <br/>
 
 ### Example
