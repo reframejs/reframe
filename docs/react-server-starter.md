@@ -176,7 +176,7 @@ For other starters, see the [list of starters](/../../#getting-started).
 
 4. Open [http://localhost:3000](http://localhost:3000).
 
-5. **Read the entire [Usage Basics](#react-server) section** and lookup the usage manual for further usage information.
+5. **Read the entire [Usage Basics](#react-server) section** and lookup the [Usage Manual](/docs/usage-manual.md) for further usage information.
 
 <b><sub><a href="#react-server">&#8679; TOP &#8679;</a></sub></b>
 

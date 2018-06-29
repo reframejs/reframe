@@ -34,7 +34,7 @@ For other starters, see the [list of starters](/../../#getting-started).
 
 !INLINE ./quick-start.md react-frontend --hide-source-path
 
-5. **Read the entire [Usage Basics](#react-frontend) section** and lookup the usage manual for further usage information.
+5. **Read the entire [Usage Basics](#react-frontend) section** and lookup the [Usage Manual](/docs/usage-manual.md) for further usage information.
 
 !INLINE ./top-link.md #react-frontend --hide-source-path
 
