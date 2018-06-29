@@ -12,7 +12,7 @@
         "release-dry-run": "lerna publish --force-publish=* --npm-tag=next --skip-git --skip-npm",
         "release-prepare": "lerna publish --force-publish=* --npm-tag=next",
         "release": "node ./helpers/dev-utils/npm/setNpmTag.js latest",
-        "check-release": "node ./helpers/dev-utils/npm/checkIfCorrectlyPublished.js",
+        "release-check": "node ./helpers/dev-utils/npm/checkIfCorrectlyPublished.js",
 
         "deps": "check-deps",
 
