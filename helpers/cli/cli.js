@@ -286,7 +286,7 @@ function initProgram() {
 
     function printInvalidCommand(commandName) {
         console.log();
-        console.log("Command "+colorEmphasisLight(commandName)+" doesn't exist.");
+        console.log(colorError("Command "+colorEmphasisLight(commandName)+" doesn't exist."));
         console.log();
         console.log('Run '+colorEmphasisLight('reframe help')+' for the list of commands.');
         console.log();

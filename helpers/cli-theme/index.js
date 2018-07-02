@@ -13,7 +13,7 @@ const cliTheme = {
     colorFile: chalk.cyan,
 
     colorEmphasis: chalk.cyan,
-    colorEmphasisLight: chalk.bold,
+    colorEmphasisLight: chalk.bold.white,
     colorCmd: chalk.cyan,
     colorPkg: chalk.cyan,
     colorUrl: chalk.cyan,

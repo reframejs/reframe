@@ -17,7 +17,7 @@ module.exports = {
                     await showStarterDoesntExist({starter, starters});
                     return;
                 }
-                await runInit({starter, projectDir, skipNpm});
+                await runCreate({starter, projectDir, skipNpm});
             },
             printAdditionalHelp,
         }
@@ -33,7 +33,7 @@ async function getStarterList() {
     return starters;
 }
 
-async function runInit({starter, projectDir, skipNpm}) {
+async function runCreate({starter, projectDir, skipNpm}) {
     const pathModule = require('path');
     const runNpmInstall = require('@reframe/utils/runNpmInstall');
 
@@ -42,7 +42,7 @@ async function runInit({starter, projectDir, skipNpm}) {
     const projectRootDir = pathModule.resolve(process.cwd(), projectDir);
     const projectRootDir__pretty = colorDir(strDir(projectRootDir))
 
-    await scaffoldProject(starter, projectRootDir);
+    await scaffoldProject({starter, projectRootDir, projectRootDir__pretty});
 
     console.log(
 `
@@ -78,14 +78,22 @@ Inside that directory, you can run commands such as
     console.log();
 }
 
-async function scaffoldProject(starter, projectRootDir) {
+async function scaffoldProject({starter, projectRootDir, projectRootDir__pretty}) {
     const fs = require('fs-extra');
     const pathModule = require('path');
-    const assert = require('assert');
+    const assert_internal = require('reassert/internal');
+    const assert_usage = require('reassert/usage');
+    const {colorError} = require('@brillout/cli-theme');
 
     const starterPath = pathModule.resolve(__dirname, './starters', starter);
 
-    assert(await fs.pathExists(starterPath));
+    assert_internal(await fs.pathExists(starterPath));
+
+    assert_usage(
+        ! await fs.pathExists(projectRootDir),
+        colorError("Directory "+projectRootDir__pretty+" already exists."),
+        "Remove it or create your app somewhere else."
+    );
 
     await fs.copy(starterPath, projectRootDir);
 
