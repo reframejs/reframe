@@ -42,7 +42,7 @@ assert_config(reframeConfig);
 const isProject = !! reframeConfig.$configFile;
 
 if( ! isProject ) {
-    reframeConfig.$addPlugin(require('@reframe/init'));
+    reframeConfig.$addPlugin(require('@reframe/create'));
     reframeConfig.$addPlugin(require('@reframe/project-files'), {isRoot: false});
 }
 

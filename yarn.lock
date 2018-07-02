@@ -45,9 +45,17 @@
     find-up "^2.1.0"
     reassert "^1.1.8"
 
-"@brillout/mdocs@^0.1.15", "@brillout/mdocs@^0.1.16", "@brillout/mdocs@^0.1.18":
+"@brillout/mdocs@^0.1.15", "@brillout/mdocs@^0.1.16":
   version "0.1.18"
   resolved "https://registry.yarnpkg.com/@brillout/mdocs/-/mdocs-0.1.18.tgz#d6b1230756cdc447e6ea158a9607a806fb049508"
+  dependencies:
+    "@brillout/find-package-files" "^0.1.0"
+    find-up "^2.1.0"
+    reassert "^1.1.8"
+
+"@brillout/mdocs@^0.1.19":
+  version "0.1.19"
+  resolved "https://registry.yarnpkg.com/@brillout/mdocs/-/mdocs-0.1.19.tgz#bcdc953061535dde5e89a8a38ad9b3edd1db5875"
   dependencies:
     "@brillout/find-package-files" "^0.1.0"
     find-up "^2.1.0"

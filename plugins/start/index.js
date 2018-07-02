@@ -11,12 +11,12 @@ function getCliCommands() {
 
     return [
         {
-            name: 'start',
+            name: 'dev',
             description: 'Build pages and start server for development.',
             options: [
                 optLog,
             ],
-            action: runStart,
+            action: runDev,
         },
         {
             name: 'build',
@@ -28,7 +28,7 @@ function getCliCommands() {
                     description: "Build for development.",
                 },
             ],
-            action: startBuild,
+            action: execBuild,
         },
         {
             name: 'server',
@@ -36,29 +36,29 @@ function getCliCommands() {
             options: [
                 {
                     name: "-d, --dev",
-                    description: "Start for development.",
+                    description: "Start server for development.",
                 },
             ],
-            action: startServer,
+            action: execServer,
         },
     ];
 }
 
-async function runStart({options}) {
+async function runDev({options}) {
     const reframeConfig = init({dev: true, ...options});
     log_found_stuff({reframeConfig, log_page_configs: true});
     await buildAssets(reframeConfig);
     await runServer(reframeConfig);
 }
 
-async function startBuild({options}) {
+async function execBuild({options}) {
     const reframeConfig = init({...options, doNotWatchBuildFiles: true});
     log_found_stuff({reframeConfig, log_page_configs: true});
     await buildAssets(reframeConfig);
     log_server_start_hint();
 }
 
-async function startServer({options}) {
+async function execServer({options}) {
     const reframeConfig = init(options);
     log_found_stuff({reframeConfig, log_built_pages: true});
     await runServer(reframeConfig);

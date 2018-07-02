@@ -9,7 +9,7 @@
     "@brillout/format-text": "^0.1.0",
     "@brillout/get-user-dir": "^0.2.1",
     "@brillout/reconfig": "0.1.14",
-    "@reframe/init": "0.1.14",
+    "@reframe/create": "0.1.14",
     "@reframe/project-files": "0.1.14",
     "@reframe/utils": "0.1.14",
     "commander": "2.14.1",

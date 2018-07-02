@@ -2,7 +2,7 @@ module.exports = {
     $name: require('./package.json').name,
     cliCommands: [
         {
-            name: 'init',
+            name: 'create',
             param: '[starter] [project-directory]',
             description: 'Create a new Reframe project.',
             options: [
@@ -125,7 +125,7 @@ async function showWrongUsage({starters}) {
 
     console.log();
     console.log(indent+'Please specify the starter and the project directory:');
-    console.log(indent+indent+'reframe init <starter> <project-directory>');
+    console.log(indent+indent+'reframe create <starter> <project-directory>');
     console.log();
 
     printAdditionalHelp();
@@ -135,7 +135,7 @@ function printUsageExample() {
     const {indent} = require('@brillout/cli-theme');
 
     console.log(indent+'For example:');
-    console.log(indent+indent+'reframe init react-server my-app');
+    console.log(indent+indent+'reframe create react-server my-app');
 }
 
 

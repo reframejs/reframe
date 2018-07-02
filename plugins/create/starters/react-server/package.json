@@ -1,13 +1,16 @@
 {
-  "name": "_sample-project",
+  "name": "_starters-react-server",
   "private": "true",
   "version": "0.1.14",
   "checkDeps": {
     "skip": true
   },
   "dependencies": {
+    "@brillout/cli-theme": "0.1.14",
     "@brillout/fetch": "^0.1.0",
+    "@brillout/reconfig": "0.1.14",
     "@reframe/react-kit": "0.1.14",
+    "hapi": "^17.3.1",
     "react": "^16.3.2"
   }
 }
