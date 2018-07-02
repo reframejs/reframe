@@ -1,4 +1,5 @@
 #!/usr/bin/env node
 
-process.argv.push('create');
-require('@reframe/cli/cli.js');
+console.log(process.argv);
+process.argv.splice(2, 0, 'create');
+require('@reframe/cli/bin.js');

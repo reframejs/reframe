@@ -50,7 +50,7 @@ ${symbolSuccess}Reframe app created in ${projectRootDir__pretty}.
 
 Inside that directory, you can run commands such as
 
-  ${colorCmd('reframe start')}
+  ${colorCmd('reframe dev')}
     Build and start server for development.
 
   ${colorCmd('reframe')}
@@ -74,7 +74,7 @@ Inside that directory, you can run commands such as
         console.log();
     }
 
-    console.log(`Run ${colorCmd('cd '+projectDir+' && reframe start')} and go to ${colorUrl('http://localhost:3000')} to open your new app.`);
+    console.log(`Run ${colorCmd('cd '+projectDir+' && reframe dev')} and go to ${colorUrl('http://localhost:3000')} to open your new app.`);
     console.log();
 }
 
