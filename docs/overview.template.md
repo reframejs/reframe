@@ -36,7 +36,7 @@ const WelcomePage = {
 
 <br/>
 
-Yet, Reframe is progressively ejectable.
+Reframe is progressively ejectable.
 
 This means:
  - You can take control over and customize everything.
