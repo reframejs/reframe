@@ -11,12 +11,8 @@ module.exports = {
                     description: "Skip installing packages with npm. You will have to run `npm install` / `yarn` yourself. Do this if you use Yarn.",
                 }
             ],
-            action: async ({inputs: [starter, projectDir], options: {skipNpm}}) => {
+            action: async ({inputs: [starter='react-frontend', projectDir='my-'+starter], options: {skipNpm}}) => {
                 const starters = await getStarterList();
-                if( ! starter || ! projectDir ) {
-                    await showWrongUsage({starters});
-                    return;
-                }
                 if( ! starters.includes(starter) ) {
                     await showStarterDoesntExist({starter, starters});
                     return;
@@ -118,17 +114,6 @@ async function showStarterDoesntExist({starter, starters}) {
     console.log();
     await printStarters();
     console.log();
-}
-
-async function showWrongUsage({starters}) {
-    const {indent} = require('@brillout/cli-theme');
-
-    console.log();
-    console.log(indent+'Please specify the starter and the project directory:');
-    console.log(indent+indent+'reframe create <starter> <project-directory>');
-    console.log();
-
-    printAdditionalHelp();
 }
 
 function printUsageExample() {
