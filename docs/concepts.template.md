@@ -12,7 +12,7 @@
 
  - [Progressive Eject](#progressive-eject)
  - [Universal Framework](#universal-framework)
- - [Non-Interactive First Approach](#non-interactive-first-approach)
+ - [Non-Interactive-First Approach](#non-interactive-first-approach)
  - [Simple Architecture](#simple-architecture)
 
 <br/>
@@ -107,11 +107,11 @@ There are no other framework out there that give you such flexibility.
 
 
 
-## Non-Interactive First Approach
+## Non-Interactive-First Approach
 
 > TL;DR
 > - Prefer to implement non-interactive views over interactive views to considerably increase dev speed.
-> - Reframe is the only framework that embraces the non-interative first approach.
+> - Reframe is the only framework that embraces the non-interative-first approach.
 
 Interactive views (an interactive graph, a like button, a To-Do list, etc.) are a powerful addition to our dev toolbox.
 They allow us to implement incredible things and Reframe has first-class support for interactive views.

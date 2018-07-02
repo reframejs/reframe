@@ -32,14 +32,16 @@ const WelcomePage = {
 };
 ~~~
 
-**No build configuration** and **no server configuration** are required.
+**No build configuration** and **no server configuration** required.
 
 <br/>
 
 Yet, Reframe is progressively ejectable. This means:
- - You can **take control over everything**.
- - **No lock in**.
- - **Quickly implement a prototype while staying fully flexible down the road**.
+ - You can take **control over everything**.
+ - **No lock-in**.
+ - **Quickly implement** a prototype **while staying fully flexible** down the road.
+
+More at [Concepts - Progressive Eject](/docs/concepts.md#progressive-eject).
 
 <br/>
 
@@ -52,12 +54,10 @@ that is you can create any type of app such as
 
 Changing the type of your app is easy.
 So you can
-**start write your prototype and
-decide later the type of your app**.
+start write your prototype and
+**decide later the type of your app**.
 
-<br/>
-
-More at [Concepts](/docs/concepts.md).
+More at [Concepts - Universal Framework](/docs/concepts.md#universal-framework).
 
 !INLINE ./top-link.md #overview --hide-source-path
 
@@ -107,7 +107,7 @@ No build config, no server config.
 - **Rapid & Flexible** -
   Quickly implement apps while staying fully flexible.
 - **Non-interactive first** -
-  Increase dev speed by prefering non-interactive over interactive. (See [Concepts](/docs/concepts.md).)
+  Increase dev speed by prefering non-interactive over interactive. (More at [Concepts](/docs/concepts.md#non-interactive-first-approach).)
 - **Learn once, write any app** -
   Learn Reframe once to be able to implement any type of web app.
 - **Easy Deploy** -

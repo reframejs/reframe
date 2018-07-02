@@ -130,10 +130,10 @@
 </p>
 
 <p align="center">
-  Framework to create web apps.
+  &nbsp;Framework to create web apps.
 </p>
 <p align="center">
-  &nbsp;&nbsp;<sub><sub><img src="https://github.com/reframejs/reframe/raw/master/docs/images/thunderbolt.min.svg?sanitize=true" width="26" height="26"></sub></sub>&nbsp;&nbsp;&nbsp;<b>Rapid</b>&nbsp;&nbsp;&#8209;&nbsp;&nbsp;Implement&nbsp;apps&nbsp;in&nbsp;no&nbsp;time.
+  &nbsp;&nbsp;&nbsp;<sub><sub><img src="https://github.com/reframejs/reframe/raw/master/docs/images/thunderbolt.min.svg?sanitize=true" width="26" height="26"></sub></sub>&nbsp;&nbsp;<b>Rapid</b>&nbsp;&nbsp;&#8209;&nbsp;&nbsp;Implement&nbsp;apps&nbsp;in&nbsp;no&nbsp;time.
   <br/>
   <sub><sub><img src="https://github.com/reframejs/reframe/raw/master/docs/images/tornado.min.svg?sanitize=true" width="26" height="26"></sub></sub>&nbsp;&nbsp;<b>Flexible</b>&nbsp;&nbsp;&#8209;&nbsp;&nbsp;Progressively&nbsp;ejectable.
 </p>
@@ -174,14 +174,16 @@ const WelcomePage = {
 };
 ~~~
 
-**No build configuration** and **no server configuration** are required.
+**No build configuration** and **no server configuration** required.
 
 <br/>
 
 Yet, Reframe is progressively ejectable. This means:
- - You can **take control over everything**.
- - **No lock in**.
- - **Quickly implement a prototype while staying fully flexible down the road**.
+ - You can take **control over everything**.
+ - **No lock-in**.
+ - **Quickly implement** a prototype **while staying fully flexible** down the road.
+
+More at [Concepts - Progressive Eject](/docs/concepts.md#progressive-eject).
 
 <br/>
 
@@ -194,12 +196,10 @@ that is you can create any type of app such as
 
 Changing the type of your app is easy.
 So you can
-**start write your prototype and
-decide later the type of your app**.
+start write your prototype and
+**decide later the type of your app**.
 
-<br/>
-
-More at [Concepts](/docs/concepts.md).
+More at [Concepts - Universal Framework](/docs/concepts.md#universal-framework).
 
 <b><sub><a href="#overview">&#8679; TOP &#8679;</a></sub></b>
 
@@ -282,7 +282,7 @@ As your prototype grows add/remove what you need.
 - **Rapid & Flexible** -
   Quickly implement apps while staying fully flexible.
 - **Non-interactive first** -
-  Increase dev speed by prefering non-interactive over interactive. (See [Concepts](/docs/concepts.md).)
+  Increase dev speed by prefering non-interactive over interactive. (More at [Concepts](/docs/concepts.md#non-interactive-first-approach).)
 - **Learn once, write any app** -
   Learn Reframe once to be able to implement any type of web app.
 - **Easy Deploy** -
