@@ -3,6 +3,7 @@ const assert_usage = require('reassert/usage');
 const mkdirp = require('mkdirp');
 const pathModule = require('path');
 const fs = require('fs');
+const fsExtra = require('fs-extra');
 
 module.exports = handleOutputDir;
 
@@ -15,7 +16,6 @@ function moveAndStampOutputDir({outputDir}) {
     const stamp_path = path__resolve(outputDir, 'build-stamp');
 
     handle_existing_output_dir();
-    assert_emtpy_output_dir();
     create_output_dir();
 
     return;
@@ -70,20 +70,10 @@ function moveAndStampOutputDir({outputDir}) {
             "It is therefore assumed that `"+outputDir+"` has not been created by Reframe.",
             "Remove `"+outputDir+"`, so that Reframe can safely write distribution files."
         );
-        move_old_output_dir();
+        remove_output_dir();
     }
 
-    function assert_emtpy_output_dir() {
-        if( ! fs__path_exists(outputDir) ) {
-            return;
-        }
-        const files = fs__ls(outputDir);
-        assert_internal(files.length<=1, files);
-        assert_internal(files.length===1, files);
-        assert_internal(files[0].endsWith('previous'), files);
-    }
-
-    function move_old_output_dir() {
+    function remove_output_dir() {
         const stamp_content = fs__path_exists(stamp_path) && fs__read(stamp_path).trim();
         assert_internal(
             stamp_content,
@@ -91,20 +81,7 @@ function moveAndStampOutputDir({outputDir}) {
             'Remove `'+outputDir+'` and retry.',
         );
         assert_internal(stamp_content && !/\s/.test(stamp_content), stamp_content);
-        const graveyard_path = path__resolve(outputDir, 'previous', stamp_content);
-        move_all_files(outputDir, graveyard_path);
-    }
-
-    function move_all_files(path_old, path_new) {
-        const files = fs__ls(path_old);
-        files
-        .filter(filepath => !path_new.startsWith(filepath))
-        .forEach(filepath => {
-            const filepath__relative = pathModule.relative(path_old, filepath);
-            assert_internal(filepath__relative.split(pathModule.sep).length===1, path_old, filepath);
-            const filepath__new = path__resolve(path_new, filepath__relative);
-            fs__rename(filepath, filepath__new);
-        });
+        fsExtra.removeSync(outputDir);
     }
 }
 
