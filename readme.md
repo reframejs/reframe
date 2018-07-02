@@ -162,7 +162,7 @@ Starters: [React Server](/docs/react-server-starter.md) | [React Frontend](/docs
 
 ### Introduction
 
-With Reframe you can create a web app simply by defining "page configs".
+With Reframe you create web apps by defining "page configs".
 Your pages are automatically built and served.
 
 ~~~jsx
@@ -174,14 +174,14 @@ const WelcomePage = {
 };
 ~~~
 
-**No build configuration** and **no server configuration** required.
+No build configuration and no server configuration required.
 
 <br/>
 
 Yet, Reframe is progressively ejectable. This means:
- - You can take **control over everything**.
- - **No lock-in**.
- - **Quickly implement** a prototype **while staying fully flexible** down the road.
+ - You can take control over everything.
+ - No lock-in.
+ - Quickly implement a prototype while staying fully flexible down the road.
 
 More at [Concepts - Progressive Eject](/docs/concepts.md#progressive-eject).
 
@@ -189,15 +189,15 @@ More at [Concepts - Progressive Eject](/docs/concepts.md#progressive-eject).
 
 Reframe is a "Universal Framework",
 that is you can create any type of app such as
- - a **modern interactive frontend with React**,
- - a Node.js backend with **old-school non-interactive HTML pages**,
- - a **static site generated with Vue.js**,
- - a **full-stack app** with modern frontend + **Node.js server** + **Database/ORM** (ORM integration is WIP).
+ - a modern interactive frontend with React,
+ - a Node.js backend with old-school non-interactive HTML pages,
+ - a static site generated with Vue.js,
+ - a full-stack app with modern frontend + Node.js server + Database/ORM (ORM integration is WIP).
 
 Changing the type of your app is easy.
 So you can
 start write your prototype and
-**decide later the type of your app**.
+decide later the type of your app.
 
 More at [Concepts - Universal Framework](/docs/concepts.md#universal-framework).
 
@@ -233,7 +233,7 @@ const HelloPage = {
 export default HelloPage;
 ~~~
 
-And that's it.
+That's it.
 We created an entire web app simply by defining one page config.
 No build config, no server config.
 
