@@ -35,10 +35,9 @@ function hasDirtyOrUntrackedFiles({cwd}) {
     return promise;
 }
 
-function isRepository({cwd}) {
-    const {promise, resolvePromise} = genPromise();
-    git_state.isGit(cwd, exists => {resolvePromise(exists)});
-    return promise;
+async function isRepository({cwd}) {
+    const gitP = simple_git(cwd);
+    return await gitP.checkIsRepo();
 }
 
 function genPromise() {
