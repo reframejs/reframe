@@ -45,43 +45,43 @@ function getCliCommands() {
 }
 
 async function runDev({options}) {
-    const reframeConfig = init({dev: true, ...options});
-    log_found_stuff({reframeConfig, log_page_configs: true});
-    await buildAssets(reframeConfig);
-    await runServer(reframeConfig);
+    const config = init({dev: true, ...options});
+    log_found_stuff({config, log_page_configs: true});
+    await buildAssets(config);
+    await runServer(config);
 }
 
 async function execBuild({options}) {
-    const reframeConfig = init({...options, doNotWatchBuildFiles: true});
-    log_found_stuff({reframeConfig, log_page_configs: true});
-    await buildAssets(reframeConfig);
+    const config = init({...options, doNotWatchBuildFiles: true});
+    log_found_stuff({config, log_page_configs: true});
+    await buildAssets(config);
     log_server_start_hint();
 }
 
 async function execServer({options}) {
-    const reframeConfig = init(options);
-    log_found_stuff({reframeConfig, log_built_pages: true});
-    await runServer(reframeConfig);
+    const config = init(options);
+    log_found_stuff({config, log_built_pages: true});
+    await runServer(config);
+    assert_env(config);
 }
 
-
-async function buildAssets(reframeConfig) {
-    assert_build(reframeConfig);
-    await reframeConfig.runBuild();
+async function buildAssets(config) {
+    assert_build(config);
+    await config.runBuild();
 }
 
-async function runServer(reframeConfig) {
-    assert_server(reframeConfig);
+async function runServer(config) {
+    assert_server(config);
 
     let server;
     try {
-        server = await require(reframeConfig.serverStartFile);
+        server = await require(config.serverStartFile);
     } catch(err) {
         prettify_error(err);
         return;
     }
 
-    log_server(server, reframeConfig);
+    log_server(server, config);
 }
 function init({dev, log, doNotWatchBuildFiles, _description}) {
     if( _description ) {
@@ -95,9 +95,9 @@ function init({dev, log, doNotWatchBuildFiles, _description}) {
     }
 
     const reconfig = require('@brillout/reconfig');
-    const reframeConfig = reconfig.getConfig({configFileName: 'reframe.config.js'});
+    const config = reconfig.getConfig({configFileName: 'reframe.config.js'});
 
-    reframeConfig.$addConfig({
+    config.$addConfig({
         $name: 'cli-arguments',
         log: {
             verbose: !!log,
@@ -105,21 +105,33 @@ function init({dev, log, doNotWatchBuildFiles, _description}) {
         doNotWatchBuildFiles,
     });
 
-    return reframeConfig;
+    return config;
 }
 
-function assert_build(reframeConfig) {
-    assert_config(reframeConfig.runBuild, reframeConfig, 'runBuild', 'build');
+function assert_env(config) {
+    const {buildEnv} = config.getBuildInfo();
+    const {colorWarning, colorEmphasis} = require('@brillout/cli-theme');
+    const assert_warning = require('reassert/warning');
+    const serverEnv = process.env['NODE_ENV'] || 'development';
+    assert_warning(
+        serverEnv === buildEnv,
+        colorWarning("Server and build don't target the same environment."),
+        "Server is running for "+colorEmphasis(serverEnv)+".",
+        "Code is built for "+colorEmphasis(buildEnv)+".",
+    );
 }
-function assert_server(reframeConfig) {
-    assert_config(reframeConfig.serverStartFile, reframeConfig, 'serverStartFile', 'server');
+function assert_build(config) {
+    assert_config(config.runBuild, config, 'runBuild', 'build');
 }
-function assert_config(bool, reframeConfig, configOpt, name) {
+function assert_server(config) {
+    assert_config(config.serverStartFile, config, 'serverStartFile', 'server');
+}
+function assert_config(bool, config, configOpt, name) {
     const assert_usage = require('reassert/usage');
     const assert_internal = require('reassert/internal');
     const {strFile, colorEmphasis} = require('@brillout/cli-theme');
     const cliUtils = require('@reframe/utils/cliUtils');
-    const reframeConfigFile = getReframeConfigFile(reframeConfig);
+    const reframeConfigFile = getReframeConfigFile(config);
     // TODO-LATER this error is actually wrong as configOpt is a config getter and not a config option
     //  - automatically print errors in the `reconfig/getters` getters instead
     assert_usage(
@@ -130,15 +142,15 @@ function assert_config(bool, reframeConfig, configOpt, name) {
         '',
         "Either add a "+name+" plugin or define `"+configOpt+"` yourself in your `"+strFile(reframeConfigFile)+"`.",
         '',
-        'Loaded '+cliUtils.getRootPluginsLog(reframeConfig, colorEmphasis)+".",
+        'Loaded '+cliUtils.getRootPluginsLog(config, colorEmphasis)+".",
         '',
         'Loaded config '+colorEmphasis(strFile(reframeConfigFile))+"."
     );
 }
 
-function getReframeConfigFile(reframeConfig) {
+function getReframeConfigFile(config) {
     const assert_internal = require('reassert/internal');
-    const reframeConfigFile = reframeConfig.$configFile;
+    const reframeConfigFile = config.$configFile;
     assert_internal(reframeConfigFile);
     return reframeConfigFile;
 }
@@ -158,14 +170,14 @@ function prettify_error(err) {
     console.error();
 }
 
-function log_server(server, reframeConfig) {
+function log_server(server, config) {
  // const {symbolSuccess} = require('@brillout/cli-theme');
  // console.log(symbolSuccess+'Server running '+server.info.uri);
-    log_routes(reframeConfig, server);
+    log_routes(config, server);
     console.log();
 }
-function log_routes(reframeConfig, server) {
-    const {pageConfigs} = reframeConfig.getBuildInfo();
+function log_routes(config, server) {
+    const {pageConfigs} = config.getBuildInfo();
     const {colorPkg, colorDim, indent} = require('@brillout/cli-theme');
 
     const serverUrl = server && server.info && server.info.uri || '';
@@ -187,7 +199,7 @@ function log_server_start_hint() {
     console.log();
 }
 
-function log_found_stuff({reframeConfig, log_page_configs, log_built_pages}) {
+function log_found_stuff({config, log_page_configs, log_built_pages}) {
     const {colorError, symbolSuccess, strDir, strFile, colorPkg, colorEmphasis} = require('@brillout/cli-theme');
     const pathModule = require('path');
     const assert_usage = require('reassert/usage');
@@ -195,8 +207,8 @@ function log_found_stuff({reframeConfig, log_page_configs, log_built_pages}) {
 
     let lines = [];
 
-    lines.push(cliUtils.getProjectRootLog(reframeConfig));
-    lines.push(cliUtils.getRootPluginsLog(reframeConfig));
+    lines.push(cliUtils.getProjectRootLog(config));
+    lines.push(cliUtils.getRootPluginsLog(config));
     lines.push(log_reframe_config());
     log_built_pages && lines.push(...log_built_pages_found());
     log_page_configs && lines.push(...log_found_page_configs());
@@ -211,11 +223,11 @@ function log_found_stuff({reframeConfig, log_page_configs, log_built_pages}) {
     return;
 
     function log_built_pages_found() {
-        const {buildOutputDir} = reframeConfig.projectFiles;
+        const {buildOutputDir} = config.projectFiles;
 
         let buildInfo;
         try {
-            buildInfo = reframeConfig.getBuildInfo();
+            buildInfo = config.getBuildInfo();
         } catch(err) {
             if( ((err||{}).message||'').includes('The build needs to have been run previously') ) {
                 assert_usage(
@@ -232,7 +244,7 @@ function log_found_stuff({reframeConfig, log_page_configs, log_built_pages}) {
     }
 
     function log_reframe_config() {
-        const reframeConfigFile = getReframeConfigFile(reframeConfig);
+        const reframeConfigFile = getReframeConfigFile(config);
         return (
             reframeConfigFile ? (
                 'Reframe config '+strFile(reframeConfigFile)
@@ -243,8 +255,8 @@ function log_found_stuff({reframeConfig, log_page_configs, log_built_pages}) {
     }
 
     function log_found_page_configs() {
-        const configFiles = Object.entries(reframeConfig.getPageConfigFiles());
-        const {projectRootDir} = reframeConfig.projectFiles;
+        const configFiles = Object.entries(config.getPageConfigFiles());
+        const {projectRootDir} = config.projectFiles;
 
         const numberOfPages = configFiles.length;
         if( numberOfPages===0 ) {
