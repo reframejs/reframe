@@ -178,7 +178,9 @@ const WelcomePage = {
 
 <br/>
 
-Yet, Reframe is progressively ejectable. This means:
+Yet, Reframe is progressively ejectable.
+
+This means:
  - You can take control over everything.
  - **No lock-in**.
  - Quickly implement a prototype while staying fully flexible down the road.
@@ -188,7 +190,9 @@ More at [Concepts - Progressive Eject](/docs/concepts.md#progressive-eject).
 <br/>
 
 Reframe is a "Universal Framework",
-that is you can create any type of app such as
+that is you can create any type of app.
+
+Such as
  - a **modern interactive frontend with React**,
  - a Node.js backend with **old-school non-interactive HTML pages**,
  - a static site generated with Vue.js,
