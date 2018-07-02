@@ -39,9 +39,9 @@ const WelcomePage = {
 Yet, Reframe is progressively ejectable.
 
 This means:
- - You can take control over everything.
+ - You can take control over and customize everything.
  - **No lock-in**.
- - Quickly implement a prototype while staying fully flexible down the road.
+ - You can quickly implement a prototype while staying fully flexible down the road.
 
 More at [Concepts - Progressive Eject](/docs/concepts.md#progressive-eject).
 
