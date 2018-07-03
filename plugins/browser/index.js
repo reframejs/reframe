@@ -12,13 +12,21 @@ module.exports = {
 
     browserEntryFile,
 
-    hydratePageFile,
-    browserConfigs: ['hydratePageFile'],
+    browserInitFiles: [
+        {
+            name: 'hydratePage',
+            initFile: hydratePageFile,
+            doNotInclude: ({pageConfig}) => !!pageConfig.doNotRenderInBrowser,
+            // -50 is fairly aggressive to ensure that hydration is
+            // one of the first thing that happens in the browser
+            executionOrder: -50,
+        }
+    ],
 
     ejectables: [
         {
             name: 'browser',
-            description: 'Eject the default browser entry code.',
+            description: 'Eject the browser initialization code.',
             actions: [
                 {
                     targetDir: 'browser/',
@@ -29,13 +37,19 @@ module.exports = {
         },
         {
             name: 'browser-hydration',
-            description: 'Eject hydration code.',
+            description: 'Eject the code that hydrates the page (which renders the page to the DOM).',
             actions: [
                 {
                     targetDir: 'browser/',
-                    configIsFilePath: true,
-                    configPath: 'hydratePageFile',
-                },
+                    configPath: 'httpRequestHandlerFiles',
+                    configIsList: true,
+                    listElementKeyProp: 'name',
+                    listElementKey: 'hydratePage',
+                    newConfigValue: ({copyCode, oldConfigValue}) => ({
+                        ...oldConfigValue,
+                        initFile: copyCode(oldConfigValue.initFile),
+                    }),
+                }
             ],
         },
     ],

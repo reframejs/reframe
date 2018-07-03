@@ -18,12 +18,12 @@ function getPageBrowserEntries(pageModules) {
 
             assert_usage__defaultPageConfig();
 
-            const browserEntryString = getBrowserEntryString({pageConfig, pageName, pageFile});
+            const {browserEntryString, doNotIncludeJavaScript} = getBrowserEntryString({pageConfig, pageName, pageFile});
 
             return {
                 pageName,
-                browserEntryString,
-                browserEntryOnlyCss: pageConfig.doNotRenderInBrowser,
+                browserEntryString: browserEntryString,
+                browserEntryOnlyCss: doNotIncludeJavaScript,
             };
         })
     );
@@ -47,7 +47,7 @@ function getBrowserEntryString({pageConfig, pageFile, pageName}) {
     let browserEntryString = '';
 
     if( ! browserEntrySpec.doNotInlcudeBrowserConfig ) {
-        const configCode = generateConfigCode();
+        var {configCode, noInitFunctions} = generateConfigCode({pageConfig});
         browserEntryString += configCode+'\n\n';
     }
 
@@ -57,67 +57,96 @@ function getBrowserEntryString({pageConfig, pageFile, pageName}) {
     }
 
     browserEntryString += [
-        "require('"+browserEntrySpec.browserEntryPath+"');",
+        getRequireString(browserEntrySpec.browserEntryPath)+";",
         "",
     ].join('\n');
 
-    return browserEntryString;
+    const doNotIncludeJavaScript = (
+        require.resolve(browserEntrySpec.browserEntryPath) === require.resolve('@reframe/browser/browserEntry') &&
+        noInitFunctions
+    );
+    console.log(doNotIncludeJavaScript, noInitFunctions);
+
+    return {browserEntryString, doNotIncludeJavaScript};
 }
 
-function generateConfigCode() {
+function generateConfigCode({pageConfig}) {
     const lines = [
         "(() => {",
-        "  const browserConfig = require('"+require.resolve('@brillout/browser-config')+"');",
+        "  const browserConfig = "+getRequireString('@brillout/browser-config')+";",
     ];
 
-    config
-    .browserConfigs
-    .forEach(({configName, configFile, configFiles}) => {
-        assert_internal(!configFiles === !!configFile);
-        lines.push("");
-        if( configFile ) {
-            lines.push(
-                "  browserConfig['"+configName+"'] = require('"+configFile+"');",
-            );
-        }
-        if( configFiles ) {
-            lines.push(
-                "  browserConfig['"+configName+"'] = [",
-                ...(
-                    configFiles
-                    .map((configFile, i) => {
-                        let line = "    require('"+configFile+"')";
-                        line += i===configFiles.length-1 ? "" : ",";
-                        return line;
-                    })
-                ),
-                "  ];",
-            );
-        }
-    });
+    addBrowserConfigs();
+
+    const noInitFunctions = addInitFunctions();
 
     lines.push(
         "})();",
     );
 
-    const sourceCode = lines.join('\n');
+    return {configCode: lines.join('\n'), noInitFunctions};
 
-    return sourceCode;
+    function addBrowserConfigs() {
+        config
+        .browserConfigs
+        .forEach(({configName, configFile, configFiles}) => {
+            assert_internal(!configFiles === !!configFile);
+            lines.push("");
+            if( configFile ) {
+                lines.push(
+                    "  browserConfig['"+configName+"'] = "+getRequireString(configFile)+";"
+                );
+            }
+            if( configFiles ) {
+                lines.push(
+                    "  browserConfig['"+configName+"'] = [",
+                    ...(
+                        configFiles
+                        .map((configFile, i) => {
+                            let line = "    "+getRequireString(configFile);
+                            line += i===configFiles.length-1 ? "" : ",";
+                            return line;
+                        })
+                    ),
+                    "  ];",
+                );
+            }
+        });
+    }
+
+    function addInitFunctions() {
+        lines.push(
+            "  browserConfig.initFunctions = {};"
+        );
+
+        let initFiles = config.browserInitFiles.slice();
+        initFiles = initFiles.filter(({doNotInclude}) => !doNotInclude || !doNotInclude({pageConfig}));
+        initFiles.sort((f1, f2) => f1.executionOrder - f2.executionOrder);
+        initFiles.forEach(({initFile, name}) => {
+            lines.push("  browserConfig.initFunctions['"+name+"'] = "+getRequireString(initFile)+";");
+        });
+
+        return initFiles.length===0;
+    }
 }
 
 function generatePageConfigCode(pageFile) {
     const sourceCode = [
         "(() => {",
-        "  const browserConfig = require('"+require.resolve('@brillout/browser-config')+"');",
+        "  const browserConfig = "+getRequireString('@brillout/browser-config')+";",
         "",
-        "  let pageConfig = require('"+pageFile+"');",
+        "  let pageConfig = "+getRequireString(pageFile)+";",
         "  pageConfig = (pageConfig||{}).__esModule===true ? pageConfig.default : pageConfig;",
         "",
-        "  browserConfig.currentPageConfig = pageConfig;",
+        "  browserConfig.pageConfig = pageConfig;",
         "})();",
     ].join('\n')
 
     return sourceCode;
+}
+
+function getRequireString(requirePath) {
+    return "require('"+require.resolve(requirePath)+"')";
 }
 
 function getBrowserEntrySpec({pageConfig, pageFile, pageName}) {

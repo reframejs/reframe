@@ -1,4 +1,4 @@
-const {transparentGetter, lazyRequireFileGetter, requireFileGetter} = require('@brillout/reconfig/getters');
+const {transparentGetter, lazyRequireFileGetter, requireFileGetter, arrayGetter} = require('@brillout/reconfig/getters');
 const buildFile = require.resolve('./executeBuild');
 const getBuildInfoFile = require.resolve('./getBuildInfo');
 const getPageBrowserEntriesFile = require.resolve('./getPageBrowserEntries');
@@ -27,6 +27,7 @@ module.exports = {
             prop: 'browserConfigs',
             getter: getBrowserConfigs,
         },
+        arrayGetter('browserInitFiles'),
     ],
     buildFile,
     getBuildInfoFile,

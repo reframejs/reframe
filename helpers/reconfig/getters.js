@@ -4,6 +4,7 @@ module.exports = {
     transparentGetter,
     lazyRequireFileGetter,
     requireFileGetter,
+    arrayGetter,
 };
 
 // TODO-LATER - show usage error when trying to access a missing config
@@ -50,4 +51,20 @@ function findLast(configParts, prop) {
             return configPart[prop];
         }
     }
+}
+
+function arrayGetter(prop) {
+    return {
+        prop,
+        getter: configParts => {
+            const array = [];
+            configParts.forEach(configPart => {
+                if(prop in configPart) {
+                    assert_usage(configPart[prop].length>=0);
+                    return array.push(...configPart[prop]);
+                }
+            });
+            return array;
+        },
+    };
 }
