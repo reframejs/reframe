@@ -316,7 +316,7 @@ We encourage you to do so and you should if you want to:
 Running `$reframe eject browser` ejects the following code.
 
 ~~~js
-!INLINE ../plugins/browser/browserEntry.js
+!INLINE ../plugins/browser/browserInit.js
 ~~~
 
 At this point you can [add a frontend library](#frontend-libraries).
@@ -656,7 +656,7 @@ Bootstrap or Semantic UI to your Reframe app. Such a library is usually made of 
 assets and without Reframe you would link to them via `<link>` and `<script>`.
 
 After having [ejected the browser entry code](#custom-default-browser-entry) import these assets
-in your `browserEntry.js`:
+in your `browserInit.js`:
 
 ~~~js
 import browserConfig from '@brillout/browser-config';

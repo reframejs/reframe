@@ -1,16 +1,16 @@
 const {transparentGetter} = require('@brillout/reconfig/getters');
 const $name = require('./package.json').name;
 const $getters = [
-    transparentGetter('browserEntryFile'),
+    transparentGetter('browserInitFile'),
 ];
-const browserEntryFile = require.resolve('./browserEntry');
+const browserInitFile = require.resolve('./browserInit');
 const hydratePageFile = require.resolve('./hydratePage');
 
 module.exports = {
     $name,
     $getters,
 
-    browserEntryFile,
+    browserInitFile,
 
     browserInitFiles: [
         {
@@ -31,7 +31,7 @@ module.exports = {
                 {
                     targetDir: 'browser/',
                     configIsFilePath: true,
-                    configPath: 'browserEntryFile',
+                    configPath: 'browserInitFile',
                 },
             ],
         },

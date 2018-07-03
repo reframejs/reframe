@@ -57,15 +57,14 @@ function getBrowserEntryString({pageConfig, pageFile, pageName}) {
     }
 
     browserEntryString += [
-        getRequireString(browserEntrySpec.browserEntryPath)+";",
+        getRequireString(browserEntrySpec.browserInitPath)+";",
         "",
     ].join('\n');
 
     const doNotIncludeJavaScript = (
-        require.resolve(browserEntrySpec.browserEntryPath) === require.resolve('@reframe/browser/browserEntry') &&
+        require.resolve(browserEntrySpec.browserInitPath) === require.resolve('@reframe/browser/browserInit') &&
         noInitFunctions
     );
-    console.log(doNotIncludeJavaScript, noInitFunctions);
 
     return {browserEntryString, doNotIncludeJavaScript};
 }
@@ -152,21 +151,21 @@ function getRequireString(requirePath) {
 function getBrowserEntrySpec({pageConfig, pageFile, pageName}) {
     const {browserEntry} = pageConfig;
 
-    const pathToEntry = (browserEntry||{}).pathToEntry || browserEntry;
+    const pathToInitFile = (browserEntry||{}).pathToInitFile || browserEntry;
 
-    let browserEntryPath;
-    if( pathToEntry ) {
+    let browserInitPath;
+    if( pathToInitFile ) {
         const pageDir = pathModule.dirname(pageFile);
-        browserEntryPath = pathModule.resolve(pageDir, pathToEntry);
-        assert_browserEntryPath({browserEntryPath, pathToEntry, pageName, pageDir});
+        browserInitPath = pathModule.resolve(pageDir, pathToInitFile);
+        assert_browserInitPath({browserInitPath, pathToInitFile, pageName, pageDir});
     } else {
-        assert_usage(config.browserEntryFile);
-        assert_usage(pathModule.isAbsolute(config.browserEntryFile));
-        browserEntryPath = config.browserEntryFile;
+        assert_usage(config.browserInitFile);
+        assert_usage(pathModule.isAbsolute(config.browserInitFile));
+        browserInitPath = config.browserInitFile;
     }
 
     const browserEntrySpec = {
-        browserEntryPath,
+        browserInitPath,
         doNotIncludePageConfig: (browserEntry||{}).doNotIncludePageConfig,
         doNotInlcudeBrowserConfig: (browserEntry||{}).doNotInlcudeBrowserConfig,
     };
@@ -174,15 +173,15 @@ function getBrowserEntrySpec({pageConfig, pageFile, pageName}) {
     return browserEntrySpec;
 }
 
-function assert_browserEntryPath({browserEntryPath, pathToEntry, pageName, pageDir}) {
+function assert_browserInitPath({browserInitPath, pathToInitFile, pageName, pageDir}) {
     const errorIntro = 'The `browserEntry` of the page config of `'+pageName+'` ';
     assert_usage(
-        !pathModule.isAbsolute(pathToEntry),
-        errorIntro+'should be a relative path but it is an absolute path: `'+browserEntryPath+'`'
+        !pathModule.isAbsolute(pathToInitFile),
+        errorIntro+'should be a relative path but it is an absolute path: `'+browserInitPath+'`'
     );
     assert_usage(
-        isModule(browserEntryPath),
-        errorIntro+'is resolved to `'+browserEntryPath+'` but no file/module has been found there.',
+        isModule(browserInitPath),
+        errorIntro+'is resolved to `'+browserInitPath+'` but no file/module has been found there.',
         '`browserEntry` should be the relative path from `'+pageDir+'` to the browser entry file.'
     );
 }

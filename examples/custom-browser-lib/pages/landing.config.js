@@ -12,4 +12,5 @@ export default {
         </div>
     ),
     renderHtmlAtBuildTime: true,
+    doNotRenderInBrowser: true,
 };
