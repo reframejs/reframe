@@ -5,10 +5,8 @@
     "@brillout/cli-theme": "0.1.14",
     "@brillout/reconfig":"0.1.14",
     "koa": "^2.5.1",
-    "koa-etag": "^3.0.0",
-    "koa-conditional-get": "^2.0.0",
     "koa-router": "^7.4.0",
-    "koa-compose": "^4.0.0"
+    "reassert": "^1.1.12"
   },
   "publishConfig": {
     "access": "public"

@@ -1,29 +1,33 @@
-'use strict';
 const Router = require('koa-router');
-const ETag = require('koa-etag');
+const config = require('@brillout/reconfig').getConfig({configFileName: 'reframe.config.js'})
 const assert_internal = require('reassert/internal');
-const router = new Router();
-const reconfig = require('@brillout/reconfig');
 
-module.exports = router.routes();
+module.exports = getRoutes();
 
-router.get('*', async(ctx, next) => {
+function getRoutes() {
+    const router = new Router();
 
-    const {body, headers, etag} = await getResponse(ctx);
+    router.get('*', async (ctx, next) => {
+        const {body, headers, etag} = await getResponse(ctx);
 
-    if( body === null ) return next();
+        if( body === null ) return next();
 
-    headers.forEach(header => ctx.set(header.name, header.value));
-    if( etag ) {
-        ctx.set('ETag', etag);
-        ctx.status = 200;
-        if (ctx.fresh) {
-            ctx.status = 304;
-            return;
+        headers.forEach(header => ctx.set(header.name, header.value));
+        if( etag ) {
+            ctx.set('ETag', etag);
+            ctx.status = 200;
+            if (ctx.fresh) {
+                ctx.status = 304;
+                return;
+            }
         }
-    }
-    ctx.body = body;
-})
+
+        ctx.body = body;
+    });
+
+    return router.routes();
+}
+
 async function getResponse(ctx) {
     let {body, headers} = await applyConfigHandlers(ctx);
 
@@ -46,9 +50,5 @@ async function getResponse(ctx) {
 }
 
 async function applyConfigHandlers(ctx) {
-    const config = reconfig.getConfig({configFileName: 'reframe.config.js'});
     return await config.applyRequestHandlers(ctx.request);
 }
-
-
-
