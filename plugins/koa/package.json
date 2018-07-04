@@ -1,9 +1,9 @@
 {
   "name": "@reframe/koa",
-  "version": "0.0.1",
+  "version": "0.1.14",
   "dependencies": {
-    "@brillout/cli-theme": "0.1.5",
-    "@brillout/reconfig":"^0.1.13",
+    "@brillout/cli-theme": "0.1.14",
+    "@brillout/reconfig":"0.1.14",
     "koa": "^2.5.1",
     "koa-etag": "^3.0.0",
     "koa-conditional-get": "^2.0.0",
