@@ -1,8 +1,8 @@
 const koaServer = require('@reframe/koa');
 
 module.exports = {
-	$plugins: [
+    $plugins: [
         require('@reframe/react-kit'),
-		require('@reframe/koa')
-	]
+        require('@reframe/koa')
+    ]
 };

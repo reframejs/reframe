@@ -3,8 +3,7 @@
   "version": "0.0.1",
   "dependencies": {
     "@brillout/cli-theme": "0.1.5",
-    "@brillout/repage": "0.1.5",
-    "@reframe/utils": "0.1.5",
+    "@brillout/reconfig":"^0.1.13",
     "koa": "^2.5.1",
     "koa-etag": "^3.0.0",
     "koa-conditional-get": "^2.0.0",
