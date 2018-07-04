@@ -8,7 +8,7 @@
   "scripts": {
     "reframe": "reframe",
     "dev": "reframe dev",
-    "start": "reframe server"
+    "start": "export NODE_ENV='production' && node ./server/start.js"
   },
   "dependencies": {
     "@brillout/cli-theme": "0.1.14",

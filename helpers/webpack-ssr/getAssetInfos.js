@@ -53,7 +53,7 @@ function readAssetMap({outputDir, shouldBeProductionBuild}) {
     assert_usage(
         assetMapContent!==null,
         colorError("You need to build your app")+". (E.g. by running `$ reframe build`.)",
-        "(No asset information file `"+assetMapPath+"` found which should be generated when building.)"
+        "(No asset information file `"+assetMapPath+"` found which is generated when building.)"
     );
     const assetInfos = JSON.parse(assetMapContent)
     assert_usage(
