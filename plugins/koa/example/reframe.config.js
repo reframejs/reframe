@@ -6,3 +6,5 @@ module.exports = {
         require('@reframe/koa')
     ]
 };
+
+module.exports['serverStartFile'] = require.resolve('./server/start.js');
