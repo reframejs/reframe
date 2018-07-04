@@ -9,11 +9,7 @@ async function startServer () {
     let port = 3000
     const server = new Koa()
 
-//configure custom middleware
-//server.use(middleware())
-
-//configure custom routes
-    server.use(config.koaIntegrationPlugin.middleware)
+    server.use(config.koaIntegration)
 
     server.listen(port)
 
