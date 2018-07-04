@@ -6,11 +6,7 @@ const assert_internal = require('reassert/internal');
 const router = new Router();
 const reconfig = require('@brillout/reconfig');
 
-module.exports = {
-    name: 'koaIntegrationPluginFile',
-    multiple: false,
-    middleware: middleware(),
-};
+module.exports = middleware();
 
 function middleware() {
 	return compose(
