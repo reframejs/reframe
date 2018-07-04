@@ -1,21 +1,11 @@
 'use strict';
-const compose = require('koa-compose');
 const Router = require('koa-router');
 const ETag = require('koa-etag');
 const assert_internal = require('reassert/internal');
 const router = new Router();
 const reconfig = require('@brillout/reconfig');
 
-module.exports = middleware();
-
-function middleware() {
-	return compose(
-	[
-		router.routes(),
-		// Add middleware here
-	]
-	)
-}
+module.exports = router.routes();
 
 router.get('*', async(ctx, next) => {
 
