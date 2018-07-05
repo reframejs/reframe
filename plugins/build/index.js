@@ -27,7 +27,7 @@ module.exports = {
             prop: 'browserConfigs',
             getter: getBrowserConfigs,
         },
-        arrayGetter('browserInitFiles'),
+        arrayGetter('browserInitFunctions'),
     ],
     buildFile,
     getBuildInfoFile,

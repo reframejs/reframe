@@ -15,7 +15,6 @@ function getPageBrowserEntries(pageModules) {
         pageModules
         .map(({pageExport: pageConfig, pageName, pageFile}) => {
             assert_pageConfig(pageConfig, pageFile);
-
             assert_usage__defaultPageConfig();
 
             const {browserEntryString, doNotIncludeJavaScript} = getBrowserEntryString({pageConfig, pageName, pageFile});
@@ -44,6 +43,63 @@ function assert_usage__defaultPageConfig() {
 function getBrowserEntryString({pageConfig, pageFile, pageName}) {
     const browserEntrySpec = getBrowserEntrySpec({pageConfig, pageFile, pageName});
 
+    const allBrowserConfigs = getAllBrowserConfigs({browserEntrySpec, pageConfig, pageFile, pageName});
+
+    const doNotIncludeJavaScript = (
+        allBrowserConfigs.length===0 &&
+        require.resolve(browserEntrySpec.browserInitPath) === require.resolve('@reframe/browser/browserInit')
+    );
+
+    const browserEntryLines = [];
+
+    if( allBrowserConfigs.length ) {
+        browserEntryLines.push(...[
+            "const browserConfig = require('"+require.resolve('@brillout/browser-config')+"');",
+            "",
+        ]);
+
+        allBrowserConfigs.forEach(({configProp, configVal, configParentProp, configParentVal}) => {
+            if( configParentProp ) {
+                const configVar = "browserConfig"+configParentProp;
+                browserEntryLines.push(
+                    configVar+' = '+configVar+' || '+configParentVal+';',
+                );
+            }
+            browserEntryLines.push(...[
+                "browserConfig"+configProp+" = "+configVal+";",
+                '',
+            ]);
+        })
+    }
+
+    browserEntryLines.push(...[
+        getRequireString(browserEntrySpec.browserInitPath)+";",
+        "",
+    ]);
+
+    const browserEntryString = browserEntryLines.join('\n');
+
+    console.log(browserEntryString);
+
+    return {browserEntryString, doNotIncludeJavaScript};
+}
+
+function getAllBrowserConfigs({browserEntrySpec, pageConfig, pageFile, pageName}) {
+    const allBrowserConfigs = [];
+
+    const browserConfigsToAdd = browserEntrySpec.browserConfigsNeeded||[];
+
+    addInitFunctions();
+
+    addPageConfig();
+
+    addBrowserConfigs();
+
+    console.log(allBrowserConfigs);
+
+    return allBrowserConfigs;
+
+    /*
     let browserEntryString = '';
 
     if( ! browserEntrySpec.doNotInlcudeBrowserConfig ) {
@@ -55,20 +111,78 @@ function getBrowserEntryString({pageConfig, pageFile, pageName}) {
         const pageConfigCode = generatePageConfigCode(pageFile);
         browserEntryString += pageConfigCode+'\n\n';
     }
+    */
 
-    browserEntryString += [
-        getRequireString(browserEntrySpec.browserInitPath)+";",
-        "",
-    ].join('\n');
+    function addBrowserConfigs() {
+        config
+        .browserConfigs
+        .forEach(({configName, configFile, configFiles}) => {
+            assert_internal(!configFiles === !!configFile);
 
-    const doNotIncludeJavaScript = (
-        require.resolve(browserEntrySpec.browserInitPath) === require.resolve('@reframe/browser/browserInit') &&
-        noInitFunctions
-    );
+            if( ! browserConfigsToAdd.includes(configName) ) {
+                return;
+            }
 
-    return {browserEntryString, doNotIncludeJavaScript};
+            const configVal = (
+                configFile ? (
+                    getRequireString(configFile)
+                ) : (
+                    [
+                        "[",
+                        ...(
+                            configFiles
+                            .map(configFile =>
+                                "    "+getRequireString(configFile)+","
+                            )
+                        ),
+                        "]",
+                    ].join('\n')
+                )
+            );
+
+            allBrowserConfigs.push({
+                configProp: "['"+configName+"']",
+                configVal,
+            });
+        });
+    }
+
+    function addPageConfig() {
+        if( ! browserConfigsToAdd.includes('pageConfig') ) {
+            return;
+        }
+
+        const configVal = [
+            "(() => {",
+            "    let pageConfig = "+getRequireString(pageFile)+";",
+            "    pageConfig = (pageConfig||{}).__esModule===true ? pageConfig.default : pageConfig;",
+            "    return pageConfig;",
+            "})()",
+        ].join('\n');
+
+        allBrowserConfigs.push({
+            configProp: ".pageConfig",
+            configVal,
+        });
+    }
+
+    function addInitFunctions() {
+        let initFcts = config.browserInitFunctions.slice();
+        initFcts = initFcts.filter(({doNotInclude}) => !doNotInclude || !doNotInclude({pageConfig}));
+        initFcts.sort((f1, f2) => f1.executionOrder - f2.executionOrder);
+        initFcts.forEach(({initFunctionFile, name, browserConfigsNeeded}) => {
+            browserConfigsToAdd.push(...browserConfigsNeeded);
+            allBrowserConfigs.push({
+                configProp: ".initFunctions['"+name+"']",
+                configVal: getRequireString(initFunctionFile),
+                configParentProp: '.initFunctions',
+                configParentVal: '{}',
+            });
+        });
+    }
 }
 
+/*
 function generateConfigCode({pageConfig}) {
     const lines = [
         "(() => {",
@@ -77,7 +191,7 @@ function generateConfigCode({pageConfig}) {
 
     addBrowserConfigs();
 
-    const noInitFunctions = addInitFunctions();
+    const {noInitFunctions} = addInitFunctions();
 
     lines.push(
         "})();",
@@ -85,64 +199,8 @@ function generateConfigCode({pageConfig}) {
 
     return {configCode: lines.join('\n'), noInitFunctions};
 
-    function addBrowserConfigs() {
-        config
-        .browserConfigs
-        .forEach(({configName, configFile, configFiles}) => {
-            assert_internal(!configFiles === !!configFile);
-            lines.push("");
-            if( configFile ) {
-                lines.push(
-                    "  browserConfig['"+configName+"'] = "+getRequireString(configFile)+";"
-                );
-            }
-            if( configFiles ) {
-                lines.push(
-                    "  browserConfig['"+configName+"'] = [",
-                    ...(
-                        configFiles
-                        .map((configFile, i) => {
-                            let line = "    "+getRequireString(configFile);
-                            line += i===configFiles.length-1 ? "" : ",";
-                            return line;
-                        })
-                    ),
-                    "  ];",
-                );
-            }
-        });
-    }
-
-    function addInitFunctions() {
-        lines.push(
-            "  browserConfig.initFunctions = {};"
-        );
-
-        let initFiles = config.browserInitFiles.slice();
-        initFiles = initFiles.filter(({doNotInclude}) => !doNotInclude || !doNotInclude({pageConfig}));
-        initFiles.sort((f1, f2) => f1.executionOrder - f2.executionOrder);
-        initFiles.forEach(({initFile, name}) => {
-            lines.push("  browserConfig.initFunctions['"+name+"'] = "+getRequireString(initFile)+";");
-        });
-
-        return initFiles.length===0;
-    }
 }
-
-function generatePageConfigCode(pageFile) {
-    const sourceCode = [
-        "(() => {",
-        "  const browserConfig = "+getRequireString('@brillout/browser-config')+";",
-        "",
-        "  let pageConfig = "+getRequireString(pageFile)+";",
-        "  pageConfig = (pageConfig||{}).__esModule===true ? pageConfig.default : pageConfig;",
-        "",
-        "  browserConfig.pageConfig = pageConfig;",
-        "})();",
-    ].join('\n')
-
-    return sourceCode;
-}
+*/
 
 function getRequireString(requirePath) {
     return "require('"+require.resolve(requirePath)+"')";

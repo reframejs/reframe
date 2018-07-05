@@ -5,7 +5,6 @@
   "dependencies": {
     "@reframe/browser": "0.1.14",
     "@reframe/build": "0.1.14",
-    "@reframe/deploy-git": "0.1.14",
     "@reframe/eject": "0.1.14",
     "@reframe/hapi": "0.1.14",
     "@reframe/path-to-regexp": "0.1.14",

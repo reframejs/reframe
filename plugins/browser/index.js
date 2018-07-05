@@ -12,14 +12,19 @@ module.exports = {
 
     browserInitFile,
 
-    browserInitFiles: [
+    browserInitFunctions: [
         {
             name: 'hydratePage',
-            initFile: hydratePageFile,
+            initFunctionFile: hydratePageFile,
             doNotInclude: ({pageConfig}) => !!pageConfig.doNotRenderInBrowser,
             // -50 is fairly aggressive to ensure that hydration is
             // one of the first thing that happens in the browser
             executionOrder: -50,
+            browserConfigsNeeded: [
+                'renderToDom',
+                'pageConfig',
+                'router',
+            ],
         }
     ],
 
@@ -41,13 +46,13 @@ module.exports = {
             actions: [
                 {
                     targetDir: 'browser/',
-                    configPath: 'httpRequestHandlerFiles',
+                    configPath: 'browserInitFunctions',
                     configIsList: true,
                     listElementKeyProp: 'name',
                     listElementKey: 'hydratePage',
                     newConfigValue: ({copyCode, oldConfigValue}) => ({
                         ...oldConfigValue,
-                        initFile: copyCode(oldConfigValue.initFile),
+                        initFunctionFile: copyCode(oldConfigValue.initFunctionFile),
                     }),
                 }
             ],
