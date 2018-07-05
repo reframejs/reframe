@@ -105,18 +105,7 @@ function getBrowserConfig({fileSets, autoReloadEnabled}) {
 function getPageBrowserEntries() {
     const {pageModules} = this;
     assert_internal(pageModules.length>0);
-    const pageBrowserEntries__array = this.getPageBrowserEntries(pageModules);
-    const pageBrowserEntries = {};
-    pageBrowserEntries__array.forEach(pageBrowserEntry => {
-        const {pageName, browserEntryString, browserEntryOnlyCss} = pageBrowserEntry;
-        assert_usage(pageName);
-        assert_usage(browserEntryString);
-        pageBrowserEntries[pageName] = {
-            pageName,
-            browserEntryString,
-            browserEntryOnlyCss: !!browserEntryOnlyCss,
-        };
-    });
+    const pageBrowserEntries = this.getPageBrowserEntries(pageModules);
     return pageBrowserEntries;
 }
 
@@ -293,16 +282,18 @@ function generateBrowserEntries({fileSets}) {
 
     fileSets.startFileSet('BROWSER_SOURCE_CODE');
 
-    Object.values(pageBrowserEntries)
+    pageBrowserEntries
     .forEach(pageBrowserEntry => {
         assert_usage(pageBrowserEntry);
-        const {browserEntryString, pageName} = pageBrowserEntry;
+        const {browserEntryString, doNotIncludeJavaScript, pageName} = pageBrowserEntry;
 
         assert_usage(browserEntryString && browserEntryString.constructor===String);
 
+        const filename = pageName+'-browser'+(doNotIncludeJavaScript?'-css':'')+'.js';
+
         const fileAbsolutePath = fileSets.writeFile({
             fileContent: browserEntryString,
-            filePath: pathModule.join(SOURCE_CODE_OUTPUT, 'browser-entries', pageName+'-browser.js'),
+            filePath: pathModule.join(SOURCE_CODE_OUTPUT, 'browser-entries', filename),
         });
         assert_internal(fileAbsolutePath);
 
@@ -354,7 +345,7 @@ async function writeHtmlFiles({fileSets}) {
 
 function writeAssetMap({browserEntryPoints, fileSets, autoReloadEnabled, pageFiles}) {
     const {pageBrowserEntries, pageModules} = this;
-    assert_internal(Object.keys(pageBrowserEntries).length>0);
+    assert_internal(pageBrowserEntries.length>0);
     const pageNames = Object.keys(pageFiles);
     assert_internal(pageNames.length===pageModules.length);
 
@@ -438,12 +429,12 @@ function add_browser_entry_points({assetInfos, pageBrowserEntries, browserEntryP
     Object.values(browserEntryPoints)
     .forEach(entry_point => {
         assert_internal(entry_point.entry_name);
-        Object.values(pageBrowserEntries)
-        .forEach(({browserEntryOnlyCss, pageName}) => {
-            assert_usage([true, false].includes(browserEntryOnlyCss));
+        pageBrowserEntries
+        .forEach(({doNotIncludeJavaScript, pageName}) => {
+            assert_usage([true, false].includes(doNotIncludeJavaScript));
             assert_internal(pageName);
             if( pageName===entry_point.entry_name ) {
-                if( browserEntryOnlyCss ) {
+                if( doNotIncludeJavaScript ) {
                     add_entry_point_styles_to_page_assets({assetInfos, entry_point, pageName});
                 } else {
                     add_entry_point_to_page_assets({assetInfos, entry_point, pageName});

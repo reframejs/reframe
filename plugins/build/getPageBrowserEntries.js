@@ -11,21 +11,17 @@ module.exports = getPageBrowserEntries;
 
 
 function getPageBrowserEntries(pageModules) {
-    return (
-        pageModules
-        .map(({pageExport: pageConfig, pageName, pageFile}) => {
-            assert_pageConfig(pageConfig, pageFile);
-            assert_usage__defaultPageConfig();
+    assert_usage__defaultPageConfig();
 
-            const {browserEntryString, doNotIncludeJavaScript} = getBrowserEntryString({pageConfig, pageName, pageFile});
+    const browserEntries = [];
 
-            return {
-                pageName,
-                browserEntryString: browserEntryString,
-                browserEntryOnlyCss: doNotIncludeJavaScript,
-            };
-        })
-    );
+    pageModules
+    .map(({pageExport: pageConfig, pageName, pageFile}) => {
+        assert_pageConfig(pageConfig, pageFile);
+        browserEntries.push(...getBrowserEntryString({pageConfig, pageName, pageFile}));
+    })
+
+    return browserEntries;
 }
 
 function assert_usage__defaultPageConfig() {
@@ -44,21 +40,20 @@ function getBrowserEntryString({pageConfig, pageFile, pageName}) {
     const browserEntrySpec = getBrowserEntrySpec({pageConfig, pageFile, pageName});
 
     const allBrowserConfigs = getAllBrowserConfigs({browserEntrySpec, pageConfig, pageFile, pageName});
+    const allBrowserConfigs__js = allBrowserConfigs.filter(({doNotIncludeJavaScript}) => !doNotIncludeJavaScript);
+    const allBrowserConfigs__css = allBrowserConfigs.filter(({doNotIncludeJavaScript}) => doNotIncludeJavaScript);
 
-    const doNotIncludeJavaScript = (
-        allBrowserConfigs.length===0 &&
-        require.resolve(browserEntrySpec.browserInitPath) === require.resolve('@reframe/browser/browserInit')
-    );
+    const browserEntries = [];
 
-    const browserEntryLines = [];
+    if( allBrowserConfigs__js.length ) {
+        const browserEntryLines = [];
 
-    if( allBrowserConfigs.length ) {
         browserEntryLines.push(...[
             "const browserConfig = require('"+require.resolve('@brillout/browser-config')+"');",
             "",
         ]);
 
-        allBrowserConfigs.forEach(({configProp, configVal, configParentProp, configParentVal}) => {
+        allBrowserConfigs__js.forEach(({configProp, configVal, configParentProp, configParentVal}) => {
             if( configParentProp ) {
                 const configVar = "browserConfig"+configParentProp;
                 browserEntryLines.push(
@@ -69,19 +64,35 @@ function getBrowserEntryString({pageConfig, pageFile, pageName}) {
                 "browserConfig"+configProp+" = "+configVal+";",
                 '',
             ]);
-        })
+        });
+
+        browserEntryLines.push(...[
+            getRequireString(browserEntrySpec.browserInitPath)+";",
+            "",
+        ]);
+
+        browserEntries.push({
+            browserEntryString: browserEntryLines.join('\n'),
+            doNotIncludeJavaScript: false,
+            pageName,
+        });
     }
 
-    browserEntryLines.push(...[
-        getRequireString(browserEntrySpec.browserInitPath)+";",
-        "",
-    ]);
+    if( allBrowserConfigs__css.length ) {
+        const browserEntryLines = [];
 
-    const browserEntryString = browserEntryLines.join('\n');
+        allBrowserConfigs__css.forEach(({configVal}) => {
+            browserEntryLines.push(...[configVal, '']);
+        });
 
-    console.log(browserEntryString);
+        browserEntries.push({
+            browserEntryString: browserEntryLines.join('\n'),
+            doNotIncludeJavaScript: true,
+            pageName,
+        });
+    }
 
-    return {browserEntryString, doNotIncludeJavaScript};
+    return browserEntries;
 }
 
 function getAllBrowserConfigs({browserEntrySpec, pageConfig, pageFile, pageName}) {
@@ -119,10 +130,6 @@ function getAllBrowserConfigs({browserEntrySpec, pageConfig, pageFile, pageName}
         .forEach(({configName, configFile, configFiles}) => {
             assert_internal(!configFiles === !!configFile);
 
-            if( ! browserConfigsToAdd.includes(configName) ) {
-                return;
-            }
-
             const configVal = (
                 configFile ? (
                     getRequireString(configFile)
@@ -143,15 +150,12 @@ function getAllBrowserConfigs({browserEntrySpec, pageConfig, pageFile, pageName}
             allBrowserConfigs.push({
                 configProp: "['"+configName+"']",
                 configVal,
+                doNotIncludeJavaScript: !browserConfigsToAdd.includes(configName),
             });
         });
     }
 
     function addPageConfig() {
-        if( ! browserConfigsToAdd.includes('pageConfig') ) {
-            return;
-        }
-
         const configVal = [
             "(() => {",
             "    let pageConfig = "+getRequireString(pageFile)+";",
@@ -163,6 +167,7 @@ function getAllBrowserConfigs({browserEntrySpec, pageConfig, pageFile, pageName}
         allBrowserConfigs.push({
             configProp: ".pageConfig",
             configVal,
+            doNotIncludeJavaScript: !browserConfigsToAdd.includes('pageConfig'),
         });
     }
 
