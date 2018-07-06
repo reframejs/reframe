@@ -21,8 +21,8 @@ For other starters, see the [list of starters](/../../#getting-started).
 - [Quick Start](#quick-start)
 - Usage Basics
   - Frontend
-    - [Page Async Data](#page-async-data)
     - [CSS & Static Assets](#css--static-assets)
+    - [Page Async Data](#page-async-data)
     - [`doNotRenderInBrowser`](#donotrenderinbrowser)
   - Server
     - [Custom Server Framework (Express, Koa, ...)](#custom-server-framework-express-koa-)
@@ -35,7 +35,9 @@ For other starters, see the [list of starters](/../../#getting-started).
 
 !INLINE ./quick-start.md react-server --hide-source-path
 
-5. **Read the entire [Usage Basics](#react-server) section** and lookup the [Usage Manual](/docs/usage-manual.md) for further usage information.
+5. **Read the entire [Usage Basics](#react-server) section**.
+
+For further usage information, lookup the [Usage Manual](/docs/usage-manual.md).
 
 !INLINE ./top-link.md #react-server --hide-source-path
 
@@ -47,18 +49,17 @@ For other starters, see the [list of starters](/../../#getting-started).
 
 #### Usage Basics
 
-## Page Async Data
+## CSS & Static Assets
 
-!INLINE ./sections/usage-async-data.md --hide-source-path
+!INLINE ./sections/usage-style.md --hide-source-path
 !INLINE ./snippets/section-footer.md #react-server --hide-source-path
 
 
 
 
+## Page Async Data
 
-## CSS & Static Assets
-
-!INLINE ./sections/usage-style.md --hide-source-path
+!INLINE ./sections/usage-async-data.md --hide-source-path
 !INLINE ./snippets/section-footer.md #react-server --hide-source-path
 
 
@@ -85,7 +86,6 @@ For other starters, see the [list of starters](/../../#getting-started).
 
 !INLINE ./sections/deploy-serverless.md --hide-source-path
 !INLINE ./snippets/section-footer.md #react-server --hide-source-path
-
 
 
 

@@ -3,7 +3,7 @@
    $ npm install -g @reframe/cli
    ~~~
 
-2. Initialize a new Rreframe app.
+2. Initialize a new Reframe app.
    ~~~shell
    $ reframe create !ARGUMENT-1 my-app
    ~~~

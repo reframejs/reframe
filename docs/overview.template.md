@@ -41,8 +41,8 @@ Reframe is progressively ejectable.
 This means:
  - You can take control over everything.
  - You can customize everything.
- - **No lock-in**.
- - You can quickly implement a prototype while staying fully flexible down the road.
+ - You can entirely (and progressively) get rid of Reframe. **No lock-in**.
+ - You can **quickly implement a prototype while staying fully flexible** down the road.
 
 More at [Concepts - Progressive Eject](/docs/concepts.md#progressive-eject).
 
@@ -53,9 +53,9 @@ that is you can create any type of app.
 
 Such as
  - a **modern interactive frontend with React**,
- - a Node.js backend with **old-school non-interactive HTML pages**,
+ - a **Node.js backend with old-school non-interactive HTML pages**,
  - a static site generated with Vue.js,
- - a full-stack app with modern frontend + **Node.js server** + **Database/ORM** (ORM integration is WIP).
+ - a full-stack app with modern frontend + Node.js server + **Database/ORM** (ORM integration is WIP).
 
 Changing the type of your app is easy.
 So you can

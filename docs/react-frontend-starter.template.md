@@ -16,15 +16,16 @@ Starter to create a React front-end.
 
 Choose this starter if you don't need a backend or if you already have one.
 
-If you are not sure if you need a Node.js server, that's fine: You can easily add one afterwards.
+If you are not sure if you need a Node.js server, that's fine:
+You can use the React Frontend starter and easily add a Node.js server afterwards.
 
 For other starters, see the [list of starters](/../../#getting-started).
 
 - [Quick Start](#quick-start)
 - Usage Basics
   - [Deploy](#deploy)
-  - [Page Async Data](#page-async-data)
   - [CSS & Static Assets](#css--static-assets)
+  - [Page Async Data](#page-async-data)
   - [`doNotRenderInBrowser`](#donotrenderinbrowser)
 
 <br/>
@@ -34,7 +35,9 @@ For other starters, see the [list of starters](/../../#getting-started).
 
 !INLINE ./quick-start.md react-frontend --hide-source-path
 
-5. **Read the entire [Usage Basics](#react-frontend) section** and lookup the [Usage Manual](/docs/usage-manual.md) for further usage information.
+5. **Read the entire [Usage Basics](#react-frontend) section**.
+
+For further usage information, lookup the [Usage Manual](/docs/usage-manual.md).
 
 !INLINE ./top-link.md #react-frontend --hide-source-path
 
@@ -56,18 +59,17 @@ Run `$ reframe deploy` to automatically deploy your app.
 
 
 
-## Page Async Data
+## CSS & Static Assets
 
-!INLINE ./sections/usage-async-data.md --hide-source-path
+!INLINE ./sections/usage-style.md --hide-source-path
 !INLINE ./snippets/section-footer.md #react-frontend --hide-source-path
 
 
 
 
+## Page Async Data
 
-## CSS & Static Assets
-
-!INLINE ./sections/usage-style.md --hide-source-path
+!INLINE ./sections/usage-async-data.md --hide-source-path
 !INLINE ./snippets/section-footer.md #react-frontend --hide-source-path
 
 

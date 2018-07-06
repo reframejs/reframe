@@ -26,7 +26,7 @@
 All of Reframe can be progressively ejected.
 
 For example, the CLI command `$ reframe eject server` ejects the server code:
-[Around 30 lines of code](/plugins/hapi/start.js)
+[~20 lines of code](/plugins/hapi/start.js)
 are copied from Reframe's codebase and added to your codebase.
 Allowing you to modify the server code.
 You can then

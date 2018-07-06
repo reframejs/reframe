@@ -1,5 +1,5 @@
-First, check the [list of plugins](/docs/plugins.md) for a plugin that integrates the server framework you want to use with Reframe.
-If you then want to get control over the server instance, then run `$ reframe eject server`. (See previous section)
+Check the [list of plugins](/docs/plugins.md) for a plugin that integrates the server framework you want to use with Reframe.
+You can then get control over the server instance by runnning `$ reframe eject server`.
 
 If there isn't a plugin for the server framework you want, then run
 - `$ reframe eject server`

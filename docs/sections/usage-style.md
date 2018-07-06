@@ -23,5 +23,5 @@ In addition, static assets can be referenced in CSS by using the `url` data type
 }
 ~~~
 
-Example of a page loading and using CSS, fonts, images and static assets:
+Example of a page using CSS, fonts, images and other static assets:
  - [/examples/basics/pages/glitter/](/examples/basics/pages/glitter/)
