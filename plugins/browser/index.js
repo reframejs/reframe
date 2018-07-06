@@ -41,8 +41,8 @@ module.exports = {
             ],
         },
         {
-            name: 'browser-hydration',
-            description: 'Eject the code that hydrates the page (which renders the page to the DOM).',
+            name: 'browser-hydrate',
+            description: 'Eject the code that orchestrates the hydration of the page.',
             actions: [
                 {
                     targetDir: 'browser/',

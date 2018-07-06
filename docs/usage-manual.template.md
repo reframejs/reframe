@@ -333,7 +333,7 @@ At this point you can [add a frontend library](#frontend-libraries).
 You can customize the browser entry code for a single page
 without affecting the browser entry code of other pages.
 
-You do this by setting the page config `browserEntry`.
+You do this by setting the page config `browserInit`.
 For example:
 
 ~~~js
@@ -355,13 +355,12 @@ You can see the example in full and other examples at [/examples/custom-browser]
 
 ## Fully Custom Browser Entry
 
-You can as well eject the code that orchestrates the hydration of the page by running `$ reframe eject browser-hydration`.
-Note that
-if you want to customize the rendering process itself
+You can as well eject the code that orchestrates the hydration of the page by running `$ reframe eject browser-hydrate`.
+If you want to customize the rendering process itself
 you should run `$ reframe eject renderer` instead,
 see [Custom Renderer](#custom-renderer).
 
-Note that the browser entry of each page are generated at build-time.
+The browser entry of each page is generated at build-time.
 You can take control over the generation of browser entries by running `$ reframe eject build-browser-entries`.
 We recommand to use the previously mentioned ejectables instead.
 Use this ejectable as last resort.

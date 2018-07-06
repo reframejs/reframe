@@ -1,5 +1,7 @@
 const PageCommon = {
-    browserEntry: './browser-entry.js',
+    browserInit: {
+        initFile: './browser-init.js',
+    },
     scripts: [
         {
             async: true,

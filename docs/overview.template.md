@@ -52,9 +52,9 @@ Reframe is a "Universal Framework",
 that is you can create any type of app.
 
 Such as
- - a **modern interactive frontend with React**,
- - a **Node.js backend with old-school non-interactive HTML pages**,
- - a static site generated with Vue.js,
+ - a **modern interactive frontend with React**, or
+ - a **Node.js backend with old-school non-interactive HTML pages**, or
+ - a static site generated with Vue.js, or
  - a full-stack app with modern frontend + Node.js server + **Database/ORM** (ORM integration is WIP).
 
 Changing the type of your app is easy.

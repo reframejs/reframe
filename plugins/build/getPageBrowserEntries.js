@@ -212,15 +212,15 @@ function getRequireString(requirePath) {
 }
 
 function getBrowserEntrySpec({pageConfig, pageFile, pageName}) {
-    const {browserEntry} = pageConfig;
+    const {browserInit} = pageConfig;
 
-    const pathToInitFile = (browserEntry||{}).pathToInitFile || browserEntry;
+    const initFile = (browserInit||{}).initFile || browserInit;
 
     let browserInitPath;
-    if( pathToInitFile ) {
+    if( initFile ) {
         const pageDir = pathModule.dirname(pageFile);
-        browserInitPath = pathModule.resolve(pageDir, pathToInitFile);
-        assert_browserInitPath({browserInitPath, pathToInitFile, pageName, pageDir});
+        browserInitPath = pathModule.resolve(pageDir, initFile);
+        assert_browserInitPath({browserInitPath, initFile, pageName, pageDir});
     } else {
         assert_usage(config.browserInitFile);
         assert_usage(pathModule.isAbsolute(config.browserInitFile));
@@ -229,23 +229,23 @@ function getBrowserEntrySpec({pageConfig, pageFile, pageName}) {
 
     const browserEntrySpec = {
         browserInitPath,
-        doNotIncludePageConfig: (browserEntry||{}).doNotIncludePageConfig,
-        doNotInlcudeBrowserConfig: (browserEntry||{}).doNotInlcudeBrowserConfig,
+        doNotIncludePageConfig: (browserInit||{}).doNotIncludePageConfig,
+        doNotInlcudeBrowserConfig: (browserInit||{}).doNotInlcudeBrowserConfig,
     };
 
     return browserEntrySpec;
 }
 
-function assert_browserInitPath({browserInitPath, pathToInitFile, pageName, pageDir}) {
-    const errorIntro = 'The `browserEntry` of the page config of `'+pageName+'` ';
+function assert_browserInitPath({browserInitPath, initFile, pageName, pageDir}) {
+    const errorIntro = 'The `browserInit` of the page config of `'+pageName+'` ';
     assert_usage(
-        !pathModule.isAbsolute(pathToInitFile),
+        !pathModule.isAbsolute(initFile),
         errorIntro+'should be a relative path but it is an absolute path: `'+browserInitPath+'`'
     );
     assert_usage(
         isModule(browserInitPath),
         errorIntro+'is resolved to `'+browserInitPath+'` but no file/module has been found there.',
-        '`browserEntry` should be the relative path from `'+pageDir+'` to the browser entry file.'
+        '`browserInit` should be the relative path from `'+pageDir+'` to the browser entry file.'
     );
 }
 

@@ -3,10 +3,8 @@ import TimeComponent from '../../basics/views/TimeComponent';
 
 export default {
     route: '/custom-hydration',
-    browserEntry: {
-        pathToInitFile: './custom-hydration.js',
-        doNotIncludePageConfig: true,
-        doNotInlcudeBrowserConfig: true,
+    browserInit: {
+        initFile: './custom-hydration.js',
     },
     view: () => (
         <div>
