@@ -12,7 +12,10 @@ export default {
             </div>
             <br/>
             Current Time: <TimeComponent/>
+            <br/><br/>
+            This page <b>doesn't</b> load React and React components.
         </div>
     ),
     ...CommonConfig,
+    doNotRenderInBrowser: true,
 };

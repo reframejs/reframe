@@ -297,8 +297,8 @@ function generateBrowserEntries({fileSets}) {
         });
         assert_internal(fileAbsolutePath);
 
-        assert_internal(!generatedEntries[pageName]);
-        generatedEntries[pageName] = fileAbsolutePath;
+        generatedEntries[pageName] = generatedEntries[pageName] || [];
+        generatedEntries[pageName].push(fileAbsolutePath);
     });
 
     fileSets.endFileSet();

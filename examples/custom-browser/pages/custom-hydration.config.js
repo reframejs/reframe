@@ -6,6 +6,7 @@ export default {
     browserInit: {
         initFile: './custom-hydration.js',
     },
+    doNotRenderInBrowser: true,
     view: () => (
         <div>
             <div>

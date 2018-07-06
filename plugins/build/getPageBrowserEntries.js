@@ -43,15 +43,21 @@ function getBrowserEntryString({pageConfig, pageFile, pageName}) {
     const allBrowserConfigs__js = allBrowserConfigs.filter(({doNotIncludeJavaScript}) => !doNotIncludeJavaScript);
     const allBrowserConfigs__css = allBrowserConfigs.filter(({doNotIncludeJavaScript}) => doNotIncludeJavaScript);
 
+    const isDefaultBrowserInit = (
+        require.resolve(browserEntrySpec.browserInitPath) ===
+        require.resolve('@reframe/browser/browserInit')
+    );
+
     const browserEntries = [];
 
-    if( allBrowserConfigs__js.length ) {
+    if( allBrowserConfigs__js.length || !isDefaultBrowserInit ) {
         const browserEntryLines = [];
 
-        browserEntryLines.push(...[
-            "const browserConfig = require('"+require.resolve('@brillout/browser-config')+"');",
-            "",
-        ]);
+        if( allBrowserConfigs__js.length ) {
+            browserEntryLines.push(...[ "const browserConfig = require('"+require.resolve('@brillout/browser-config')+"');",
+                "",
+            ]);
+        }
 
         allBrowserConfigs__js.forEach(({configProp, configVal, configParentProp, configParentVal}) => {
             if( configParentProp ) {

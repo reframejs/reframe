@@ -12,6 +12,8 @@ export default {
             </div>
             <br/>
             Current Time: <TimeComponent/>
+            <br/><br/>
+            This page loads React and React components.
         </div>
     ),
     ...CommonConfig,
