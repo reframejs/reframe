@@ -1,6 +1,6 @@
 import React from 'react';
 import CommonConfig from './common-config';
-import TimeComponent from '../../basics/views/TimeComponent';
+import TimeComponent from '../../basics/pages/time/TimeComponent';
 
 export default {
     route: '/privacy',

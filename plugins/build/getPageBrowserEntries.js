@@ -106,23 +106,7 @@ function getAllBrowserConfigs({browserEntrySpec, pageConfig, pageFile, pageName}
 
     addBrowserConfigs();
 
-    console.log(allBrowserConfigs);
-
     return allBrowserConfigs;
-
-    /*
-    let browserEntryString = '';
-
-    if( ! browserEntrySpec.doNotInlcudeBrowserConfig ) {
-        var {configCode, noInitFunctions} = generateConfigCode({pageConfig});
-        browserEntryString += configCode+'\n\n';
-    }
-
-    if( ! browserEntrySpec.doNotIncludePageConfig ) {
-        const pageConfigCode = generatePageConfigCode(pageFile);
-        browserEntryString += pageConfigCode+'\n\n';
-    }
-    */
 
     function addBrowserConfigs() {
         config
@@ -187,26 +171,6 @@ function getAllBrowserConfigs({browserEntrySpec, pageConfig, pageFile, pageName}
     }
 }
 
-/*
-function generateConfigCode({pageConfig}) {
-    const lines = [
-        "(() => {",
-        "  const browserConfig = "+getRequireString('@brillout/browser-config')+";",
-    ];
-
-    addBrowserConfigs();
-
-    const {noInitFunctions} = addInitFunctions();
-
-    lines.push(
-        "})();",
-    );
-
-    return {configCode: lines.join('\n'), noInitFunctions};
-
-}
-*/
-
 function getRequireString(requirePath) {
     return "require('"+require.resolve(requirePath)+"')";
 }
@@ -229,8 +193,7 @@ function getBrowserEntrySpec({pageConfig, pageFile, pageName}) {
 
     const browserEntrySpec = {
         browserInitPath,
-        doNotIncludePageConfig: (browserInit||{}).doNotIncludePageConfig,
-        doNotInlcudeBrowserConfig: (browserInit||{}).doNotInlcudeBrowserConfig,
+        browserConfigsNeeded: (browserInit||{}).browserConfigsNeeded,
     };
 
     return browserEntrySpec;

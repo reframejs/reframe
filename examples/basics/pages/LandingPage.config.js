@@ -7,9 +7,10 @@ const Section = ({title, children}) => (
     </div>
 );
 
-const Link = ({pathname}) => (
+const Link = ({pathname, text}) => (
     <div>
         <a href={pathname}>{pathname}</a>
+        {text?(' ('+text+')'):''}
     </div>
 );
 
@@ -17,38 +18,33 @@ const LandingComponent = () => (
     <div>
         <h3>Reframe examples</h3>
 
-        <Section title={'HTML-static'}>
-            <Link pathname={'/'}/>
-            <Link pathname={'/about'}/>
+        <Section title='Static pages'>
+            <Link pathname='/'/>
+            <Link pathname='/about'/>
         </Section>
 
-        <Section title={'HTML-dynamic'}>
-            <Link pathname={'/hello/lisa'}/>
+        <Section title='HTML-dynamic pages'>
+            <Link pathname='/hello/lisa'/>
         </Section>
 
-        <Section title={'Static VS Dynamic'}>
-            <Link pathname={'/time'}/>
-            <Link pathname={'/time/html-static'}/>
-            <Link pathname={'/time/html-dynamic'}/>
+        <Section title='Static VS Dynamic'>
+            <Link pathname='/time' text="HTML-dynamic & DOM-dynamic"/>
+            <Link pathname='/time/html-dynamic' text="HTML-dynamic & DOM-static"/>
+            <Link pathname='/time/html-static' text="HTML-static & DOM-static"/>
         </Section>
 
-        <Section title={'CSS & Static Assets'}>
-            <Link pathname={'/glitter'}/>
+        <Section title='CSS & Static Assets'>
+            <Link pathname='/glitter'/>
         </Section>
 
-        <Section title={'DOM-dynamic'}>
-            <Link pathname={'/counter'}/>
-            <Link pathname={'/counter2'}/>
+        <Section title='Async Data'>
+            <Link pathname='/game-of-thrones'/>
+            <Link pathname='/game-of-thrones-2'/>
         </Section>
 
-        <Section title={'Async Data'}>
-            <Link pathname={'/game-of-thrones'}/>
-            <Link pathname={'/game-of-thrones-2'}/>
-        </Section>
-
-        <Section title={'Links between pages'}>
-            <Link pathname={'/page-a'}/>
-            <Link pathname={'/page-b'}/>
+        <Section title='Links between pages'>
+            <Link pathname='/page-a'/>
+            <Link pathname='/page-b'/>
         </Section>
     </div>
 );

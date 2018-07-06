@@ -1,4 +1,4 @@
-import TimeComponent from '../../views/TimeComponent';
+import TimeComponent from './TimeComponent';
 
 export default {
     route: '/time/html-dynamic',
