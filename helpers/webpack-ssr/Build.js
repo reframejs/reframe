@@ -434,6 +434,7 @@ function add_browser_entry_points({assetInfos, pageBrowserEntries, browserEntryP
             assert_usage([true, false].includes(doNotIncludeJavaScript));
             assert_internal(pageName);
             if( pageName===entry_point.entry_name ) {
+                console.log(doNotIncludeJavaScript, entry_point);
                 if( doNotIncludeJavaScript ) {
                     add_entry_point_styles_to_page_assets({assetInfos, entry_point, pageName});
                 } else {

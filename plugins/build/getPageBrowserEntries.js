@@ -53,11 +53,12 @@ function getBrowserEntryString({pageConfig, pageFile, pageName}) {
     if( allBrowserConfigs__js.length || !isDefaultBrowserInit ) {
         const browserEntryLines = [];
 
-        if( allBrowserConfigs__js.length ) {
-            browserEntryLines.push(...[ "const browserConfig = require('"+require.resolve('@brillout/browser-config')+"');",
-                "",
-            ]);
-        }
+        browserEntryLines.push(...[
+            "const browserConfig = require('"+require.resolve('@brillout/browser-config')+"');",
+            "",
+            "browserConfig.initFunctions = {};",
+            "",
+        ]);
 
         allBrowserConfigs__js.forEach(({configProp, configVal, configParentProp, configParentVal}) => {
             if( configParentProp ) {

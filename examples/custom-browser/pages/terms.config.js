@@ -2,6 +2,8 @@ import React from 'react';
 import CommonConfig from './common-config';
 import TimeComponent from '../../basics/pages/time/TimeComponent';
 
+console.log('ToS page config');
+
 export default {
     route: '/terms',
     view: () => (
