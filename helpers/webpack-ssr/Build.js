@@ -17,6 +17,8 @@ const SOURCE_CODE_OUTPUT = 'source-code';
 const BROWSER_OUTPUT = 'browser';
 const NODEJS_OUTPUT = 'nodejs';
 
+const CSS_ONLY = '-CSS_ONLY';
+
 const AUTORELOAD_ENTRY_NAME = 'autoreload-client';
 
 
@@ -297,8 +299,9 @@ function generateBrowserEntries({fileSets}) {
         });
         assert_internal(fileAbsolutePath);
 
-        generatedEntries[pageName] = generatedEntries[pageName] || [];
-        generatedEntries[pageName].push(fileAbsolutePath);
+        const entryName = pageName + (doNotIncludeJavaScript?CSS_ONLY:'');
+        assert_internal(!generatedEntries[entryName]);
+        generatedEntries[entryName] = fileAbsolutePath;
     });
 
     fileSets.endFileSet();
@@ -428,14 +431,13 @@ function add_autoreload_client({assetInfos, pageNames, browserEntryPoints}) {
 function add_browser_entry_points({assetInfos, pageBrowserEntries, browserEntryPoints}) {
     Object.values(browserEntryPoints)
     .forEach(entry_point => {
-        assert_internal(entry_point.entry_name);
+        const {entry_name} = entry_point;
+        assert_internal(entry_name);
         pageBrowserEntries
-        .forEach(({doNotIncludeJavaScript, pageName}) => {
-            assert_usage([true, false].includes(doNotIncludeJavaScript));
+        .forEach(({pageName}) => {
             assert_internal(pageName);
-            if( pageName===entry_point.entry_name ) {
-                console.log(doNotIncludeJavaScript, entry_point);
-                if( doNotIncludeJavaScript ) {
+            if( [pageName, pageName+CSS_ONLY].includes(entry_name) ) {
+                if( entry_name.endsWith(CSS_ONLY) ) {
                     add_entry_point_styles_to_page_assets({assetInfos, entry_point, pageName});
                 } else {
                     add_entry_point_to_page_assets({assetInfos, entry_point, pageName});
@@ -446,7 +448,6 @@ function add_browser_entry_points({assetInfos, pageBrowserEntries, browserEntryP
 }
 function add_entry_point_to_page_assets({assetInfos, entry_point, removeIndex, pageName}) {
     assert_internal(pageName);
-    assert_internal(!entry_point.entry_name.split('.').includes('noop'));
 
     const pageAssets = assetInfos.pageAssets[pageName] = assetInfos.pageAssets[pageName] || {};
 

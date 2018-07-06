@@ -1,4 +1,5 @@
 import browserConfig from '@brillout/browser-config';
+import './style.css';
 
 (async () => {
     // browser initialization, inlucdes page hydration
