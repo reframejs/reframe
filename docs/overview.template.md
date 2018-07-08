@@ -121,10 +121,10 @@ No build config, no server config.
   Work-in-progress. Stay tuned at [twitter.com/reframejs](https://twitter.com/reframejs).
 
 
-###### SEO
+###### SEO & Metadata
 
 - **Server-Side Rendering** -
-  Pages are fully rendered to HTML giving you full control over SEO.
+  Pages are fully rendered to HTML giving you full control over SEO & metadata.
 
 ###### Integrations
 
