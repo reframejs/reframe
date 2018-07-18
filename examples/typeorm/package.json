@@ -1,0 +1,25 @@
+{
+  "scripts": {
+    "dev": "reframe dev",
+    "production": "npm run build && npm run start",
+    "build": "reframe build",
+    "start": "export NODE_ENV='production' && ts-node ./server/start.js",
+    "s": "ts-node ./server/start.js",
+    "reframe": "reframe"
+  },
+  "dependencies": {
+    "@brillout/cli-theme": "0.1.14",
+    "@brillout/fetch": "^0.1.0",
+    "@brillout/reconfig": "0.1.14",
+    "@reframe/cli": "0.1.14",
+    "@reframe/react-kit": "0.1.14",
+    "@types/node": "^10.5.2",
+    "hapi": "^17.3.1",
+    "react": "^16.3.2",
+    "reflect-metadata": "^0.1.12",
+    "sqlite3": "^4.0.2",
+    "ts-node": "^7.0.0",
+    "typeorm": "^0.2.7",
+    "typescript": "^2.9.2"
+  }
+}
