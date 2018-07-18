@@ -1,5 +1,5 @@
 import React from 'react';
-import EasiClient from '../server/easi/EasiClient';
+import easyqlClient from '../server/easyql/client/easyqlClient';
 
 const Welcome = ({users}) => (
     <div>{
@@ -13,7 +13,7 @@ const WelcomePage = {
     view: Welcome,
 
     getInitialProps: async () => {
-        const users = await EasiClient.get({
+        const users = await easyqlClient.get({
             objectType: 'User',
         });
         console.log(users);

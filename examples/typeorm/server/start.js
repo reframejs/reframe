@@ -1,8 +1,7 @@
 const Hapi = require('hapi');
 const config = require('@brillout/reconfig').getConfig({configFileName: 'reframe.config.js'});
 const {symbolSuccess, colorEmphasis} = require('@brillout/cli-theme');
-const EasiHapiPlugin = require('./easi/EasiHapiPlugin');
-require('./easi/permissions');
+const api = reuire('./api');
 
 module.exports = start();
 
@@ -15,15 +14,7 @@ async function start() {
     // Run `$ reframe eject server-integration` to eject the integration plugin.
     await server.register(config.hapiIntegrationPlugin);
 
-    await server.register(EasiHapiPlugin);
-
-    server.route({
-        method: 'GET',
-        path:'/hello-from-hapi',
-        handler: function (request, h) {
-            return 'Route defined with Hapi. Could be an API endpoint.'
-        }
-    });
+    await server.register(api);
 
     await server.start();
 
