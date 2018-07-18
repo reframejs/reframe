@@ -3,6 +3,7 @@ const publicInterface = require('../easi/publicInterface');
 
 publicInterface.add({
     entity: User,
-    write: true,
+    objectType: 'User',
+    write: ({loggerUser, apiRequest}) => loggedUser.id===apiRequest.id,
     read: true,
 });

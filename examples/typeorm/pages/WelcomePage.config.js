@@ -14,7 +14,7 @@ const WelcomePage = {
 
     getInitialProps: async () => {
         const users = await EasiClient.get({
-            modelName: 'user',
+            objectType: 'User',
         });
         console.log(users);
         return {users};
