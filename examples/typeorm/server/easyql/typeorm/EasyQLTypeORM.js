@@ -1,4 +1,3 @@
-const {User} = require("../../../models/entity/User");
 const {createConnection} = require("typeorm");
 require("reflect-metadata");
 const assert_internal = require('reassert/internal');
@@ -20,8 +19,13 @@ function EasyQLTypeORM(easyql) {
         if( ! connection ) {
             connection = await createConnection();
         }
-        const users = await connection.manager.find(User);
-        return JSON.stringify(users);
+        for(const permission of permissions) {
+            if( permission.entity.name===query.entityName ) {
+                const objects = await connection.manager.find(permission.entity);
+                return JSON.stringify({objects});
+            }
+        }
+        return NEXT;
     }
 
     function addPermissions(permissions__new) {

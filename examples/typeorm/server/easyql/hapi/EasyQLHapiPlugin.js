@@ -23,13 +23,12 @@ async function handleRequest(request, h, easyql) {
     const URL_BASE = process.env['EASYQL_URL_BASE'] || '/api/';
 
 	const {req} = request.raw;
-	console.log(2, req.url);
     if( ! req.url.startsWith(URL_BASE) ) {
         return h.continue;
     }
 
     const queryString = req.url.slice(URL_BASE.length);
-    const query = JSON.parse(queryString);
+    const query = JSON.parse(decodeURIComponent(queryString));
 
     const NEXT = Symbol();
     const params = {req, query, NEXT};

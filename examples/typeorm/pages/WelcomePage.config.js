@@ -4,7 +4,7 @@ import easyqlClient from '../server/easyql/client/easyqlClient';
 const Welcome = ({users}) => (
     <div>{
         users
-        .map(user => <div>{user}</div>)
+        .map(user => <div key={user.id}>{user.firstName+" "+user.lastName}</div>)
     }</div>
 );
 
