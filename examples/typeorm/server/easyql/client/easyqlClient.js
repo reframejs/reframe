@@ -26,7 +26,7 @@ async function fireHttpRequest({query, method}) {
 
 function getOption(optionName) {
     return (
-        (typeof process !== undefined) && process.env && process.env[optionName] ||
-        (typeof window !== undefined) && window[optionName]
+        (typeof process !== "undefined") && process && process.env && process.env[optionName] ||
+        (typeof window !== "undefined") && window && window[optionName]
     );
 }

@@ -6,11 +6,13 @@ module.exports = EasyQLHapiPlugin;
 function EasyQLHapiPlugin(easyql) {
     assert_internal(easyql.InterfaceHandlers.constructor===Array);
 
-    const EasyQLHapiPlugin = {
+    const easyqlPlugin = {
         name: 'EasyQLHapiPlugin',
         multiple: false,
         register: server => server.ext('onPreResponse', (req, h) => handleRequest(req, h, easyql)),
     };
+
+    return easyqlPlugin;
 }
 
 async function handleRequest(request, h, easyql) {
