@@ -23,7 +23,7 @@ async function handleRequest(request, h, easyql) {
     const URL_BASE = process.env['EASYQL_URL_BASE'] || '/api/';
 
 	const {req} = request.raw;
-	console.log(req.url);
+	console.log(2, req.url);
     if( ! req.url.startsWith(URL_BASE) ) {
         return h.continue;
     }

@@ -11,9 +11,12 @@ function get(query) { return fireHttpRequest({query, method: 'GET'}) }
 function post(query) { return fireHttpRequest({query, method: 'POST'}) }
 
 async function fireHttpRequest({query, method}) {
+    console.log(1);
     const URL_BASE = getOption('EASYQL_URL_BASE') || '/api/';
-    const queryString = JSON.stringify(query);
-    const url = URL_BASE+queryString;
+    const queryString = encodeURIComponent(JSON.stringify(query));
+ // const url = URL_BASE+queryString;
+    const url = '/api/';
+    console.log(url);
     const response = await fetch(
         url,
         {
