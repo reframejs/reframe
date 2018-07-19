@@ -6,7 +6,7 @@ const {User} = require('../models/entity/User.ts');
 const permissions = [
     {
         entity: User,
-        write: ({loggerUser, apiRequest}) => loggedUser.id===apiRequest.id,
+        write: ({loggerUser, query}) => loggedUser.id===query.id,
         read: true,
     }
 ];

@@ -3,21 +3,21 @@ const assert_usage = require('reassert/usage');
 const assert_internal = require('reassert/internal');
 
 const easyqlClient = {
-    get,
+    query,
 };
 module.exports = easyqlClient;
 
-function get(query) { return fireHttpRequest({query, method: 'GET'}) }
-function post(query) { return fireHttpRequest({query, method: 'POST'}) }
-
-async function fireHttpRequest({query, method}) {
-    console.log(1);
+async function query(queryObject) {
+    const {queryType, modelName} = queryObject;
+    assert_usage(['read', 'write'].includes(queryType));
+    assert_usage(modelName && modelName.constructor===String);
 
     // TODO
     const URL_BASE = getOption('EASYQL_URL_BASE') || 'http://localhost:3000/api/';
 
-    const queryString = encodeURIComponent(JSON.stringify(query));
+    const queryString = encodeURIComponent(JSON.stringify(queryObject));
     const url = URL_BASE+queryString;
+    const method = queryType==='write'?'POST':'GET';
     console.log(url);
     const response = await fetch(
         url,
