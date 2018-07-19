@@ -20,7 +20,7 @@ function EasyQLTypeORM(easyql) {
             connection = await createConnection();
         }
         for(const permission of permissions) {
-            if( query.queryType==='retrieve' && query.modelName===permission.entity.name ) {
+            if( query.queryType==='read' && query.modelName===permission.entity.name ) {
                 const objects = await connection.manager.find(permission.entity);
                 return JSON.stringify({objects});
             }

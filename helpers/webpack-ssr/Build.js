@@ -52,6 +52,8 @@ function BuildInstance() {
 
     const that = this;
 
+    that.onNewBuild = [];
+
     isoBuilder.builder = (function* ({buildForNodejs, buildForBrowser}) {
         const pageFiles__by_interface = that.getPageFiles();
 
@@ -75,6 +77,8 @@ function BuildInstance() {
         yield writeHtmlFiles.call(that, {fileSets});
 
         for(const listener of that.onNewBuild) {
+            console.log(listener);
+            console.log(listener.toString());
             yield listener();
         }
 
