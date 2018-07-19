@@ -74,6 +74,10 @@ function BuildInstance() {
 
         yield writeHtmlFiles.call(that, {fileSets});
 
+        for(const listener of that.onNewBuild) {
+            yield listener();
+        }
+
         if( autoReloadEnabled ) {
             reloadBrowser();
         }

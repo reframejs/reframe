@@ -47,8 +47,12 @@ function getCliCommands() {
 async function runDev({options}) {
     const config = init({dev: true, ...options});
     log_found_stuff({config, log_page_configs: true});
-    await buildAssets(config);
-    await runServer(config);
+    const {onNewBuild} = await buildAssets(config);
+    const server = await runServer(config);
+    onNewBuild.push(() => {
+        server.stop();
+        runServer(config);
+    });
 }
 
 async function execBuild({options}) {
@@ -67,7 +71,7 @@ async function execServer({options}) {
 
 async function buildAssets(config) {
     assert_build(config);
-    await config.runBuild();
+    return await config.runBuild();
 }
 
 async function runServer(config) {
@@ -82,6 +86,8 @@ async function runServer(config) {
     }
 
     log_server(server, config);
+
+    return server;
 }
 function init({dev, log, doNotWatchBuildFiles, _description}) {
     if( _description ) {

@@ -59,6 +59,7 @@ function IsoBuilder() {
     });
 
     this.build = startAll;
+    this.onNewBuild = [];
 
     return this;
 
