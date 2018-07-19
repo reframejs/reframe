@@ -47,12 +47,18 @@ function getCliCommands() {
 async function runDev({options}) {
     const config = init({dev: true, ...options});
     log_found_stuff({config, log_page_configs: true});
+    await buildAssets(config);
+    return await runServer(config);
+    /*
     const {onNewBuild} = await buildAssets(config);
-    const server = await runServer(config);
-    onNewBuild.push(() => {
-        server.stop();
-        runServer(config);
+    let server;
+    onNewBuild.push(async () => {
+        if( server ) {
+            server.stop();
+        }
+        server = await runServer(config);
     });
+    */
 }
 
 async function execBuild({options}) {
