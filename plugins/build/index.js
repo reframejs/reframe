@@ -1,5 +1,5 @@
-const {transparentGetter, lazyRequireFileGetter, requireFileGetter, arrayGetter} = require('@brillout/reconfig/getters');
-const buildFile = require.resolve('./executeBuild');
+const {transparentGetter, requireFileGetter, arrayGetter} = require('@brillout/reconfig/getters');
+const runBuildFile = require.resolve('./runBuild');
 const getBuildInfoFile = require.resolve('./getBuildInfo');
 const getPageBrowserEntriesFile = require.resolve('./getPageBrowserEntries');
 const getPageHtmlsFile = require.resolve('./getPageHtmls');
@@ -8,7 +8,7 @@ const packageName = require('./package.json').name;
 module.exports = {
     $name: packageName,
     $getters: [
-        lazyRequireFileGetter('buildFile', 'runBuild'),
+        requireFileGetter('runBuildFile'),
         requireFileGetter('getBuildInfoFile'),
         requireFileGetter('getPageHtmlsFile'),
         requireFileGetter('getPageBrowserEntriesFile'),
@@ -29,7 +29,7 @@ module.exports = {
         },
         arrayGetter('browserInitFunctions'),
     ],
-    buildFile,
+    runBuildFile,
     getBuildInfoFile,
     getPageHtmlsFile,
     getPageBrowserEntriesFile,
@@ -141,7 +141,7 @@ function getEjectables() {
                 {
                     targetDir: 'build/',
                     configIsFilePath: true,
-                    configPath: 'buildFile',
+                    configPath: 'runBuildFile',
                 },
                 {
                     targetDir: 'build/',

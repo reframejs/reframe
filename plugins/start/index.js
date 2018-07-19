@@ -47,7 +47,13 @@ function getCliCommands() {
 async function runDev({options}) {
     const config = init({dev: true, ...options});
     log_found_stuff({config, log_page_configs: true});
-    await buildAssets(config);
+
+    assert_build(config);
+    config.runBuild.onNewBuild.push(async () => {
+        console.log('re-built dd');
+    });
+    await config.runBuild();
+
     return await runServer(config);
     /*
     const {onNewBuild} = await buildAssets(config);
@@ -64,7 +70,10 @@ async function runDev({options}) {
 async function execBuild({options}) {
     const config = init({...options, doNotWatchBuildFiles: true});
     log_found_stuff({config, log_page_configs: true});
-    await buildAssets(config);
+
+    assert_build(config);
+    await config.runBuild();
+
     log_server_start_hint();
 }
 
@@ -73,11 +82,6 @@ async function execServer({options}) {
     log_found_stuff({config, log_built_pages: true});
     await runServer(config);
     assert_env(config);
-}
-
-async function buildAssets(config) {
-    assert_build(config);
-    return await config.runBuild();
 }
 
 async function runServer(config) {

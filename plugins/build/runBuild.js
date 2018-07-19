@@ -24,4 +24,4 @@ const build = new Build({
 
 watchDir(pagesDir, () => {build()});
 
-module.exports = build();
+module.exports = build;

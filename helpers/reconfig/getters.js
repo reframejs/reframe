@@ -2,7 +2,6 @@ const assert_usage = require('reassert/usage');
 
 module.exports = {
     transparentGetter,
-    lazyRequireFileGetter,
     requireFileGetter,
     arrayGetter,
 };
@@ -15,16 +14,6 @@ function transparentGetter(prop) {
         prop,
         getter: configParts => {
             return findLast(configParts, prop);
-        },
-    };
-}
-
-function lazyRequireFileGetter(propOld, prop) {
-    return {
-        prop,
-        getter: configParts => {
-            const filePath = findLast(configParts, propOld);
-            return filePath && (() => require(filePath));
         },
     };
 }
