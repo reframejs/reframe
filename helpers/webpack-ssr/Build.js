@@ -26,10 +26,10 @@ module.exports = WebpackSSR;
 
 
 function WebpackSSR(opts) {
-    const instance = {};
+    const instance = () => build();
     Object.assign(instance, opts);
     const build = BuildInstance.call(instance);
-    return () => build();
+    return instance;
 }
 
 function BuildInstance() {

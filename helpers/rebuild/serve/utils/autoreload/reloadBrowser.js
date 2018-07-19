@@ -12,7 +12,7 @@ function reloadBrowser() {
         reloadSocket = new WebSocket.Server({port: PORT});
     }
     improveErrorHandling(reloadSocket);
-    broadcast(reloadSocket, 'RELOAD');
+    broadcast(reloadSocket, 'RELOAD_BROWSER');
 }
 
 function broadcast(socket, data) {
