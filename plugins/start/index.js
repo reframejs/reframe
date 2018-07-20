@@ -98,6 +98,7 @@ async function runServer(config, {quiet}={}) {
             var consoleLog = console.log
             console.log = () => {};
         }
+        console.log(serverEntry);
         server = await forceRequire(serverEntry);
         if( quiet ) {
             console.log = consoleLog;
