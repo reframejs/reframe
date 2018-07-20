@@ -1,9 +1,9 @@
 const assert_internal = require('reassert/internal');
 const assert_usage = require('reassert/usage');
-const forceRequire = require('@rebuild/build/utils/forceRequire');
 const fs = require('fs');
 const pathModule = require('path');
 const {colorError} = require('@brillout/cli-theme');
+const forceRequire = require('@rebuild/build/utils/forceRequire');
 
 let cache;
 
@@ -36,16 +36,13 @@ function getAssetInfos({outputDir, shouldBeProductionBuild}) {
         })
     );
 
-    /*
-    Object.assign(
-        assetInfos.server,
-        {
-            serverFile,
-            serverFileTranspiled,
-            serverExport,
-        }
-    );
-    */
+    if( assetInfos.server ) {
+        const keys = Object.keys(assetInfos.server);
+        assert_internal(keys.length===1 && keys.includes('serverFileTranspiled'));
+        assetInfos.server.serverFileTranspiled = (
+            makePathAbsolute(assetInfos.server.serverFileTranspiled, {outputDir})
+        );
+    }
 
     cache = assetInfos;
 

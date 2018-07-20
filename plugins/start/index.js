@@ -87,9 +87,14 @@ async function execServer({options}) {
 async function runServer(config) {
     assert_server(config);
 
+    const {server: {serverFileTranspiled}} = config.getBuildInfo();
+
+    const serverEntry = serverFileTranspiled || config.serverStartFile;
+
+    console.log(serverEntry);
     let server;
     try {
-        server = await require(config.serverStartFile);
+        server = await require(serverEntry);
     } catch(err) {
         prettify_error(err);
         return;

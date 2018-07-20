@@ -380,12 +380,13 @@ function writeAssetMap({browserEntryPoints, nodejsEntryPoints, fileSets, autoRel
     let buildEnv = process.env.NODE_ENV || 'development';
     let staticAssetsDir = pathModule.resolve(outputDir, BROWSER_OUTPUT);
     staticAssetsDir = makeBuildPathRelative(staticAssetsDir, {outputDir});
- // console.log(nodejsEntryPoints[ENTRY_NAME__SERVER]);
+    const server = getServerInfos({nodejsEntryPoints, outputDir});
     const assetInfos = {
         buildTime,
         buildEnv,
         staticAssetsDir,
         pageAssets: {},
+        server,
     };
 
     addPageFileTranspiled({assetInfos, pageModules, outputDir});
@@ -408,6 +409,15 @@ function writeAssetMap({browserEntryPoints, nodejsEntryPoints, fileSets, autoRel
         filePath: 'assetInfos.json',
         noFileSet: true,
     });
+}
+function getServerInfos({nodejsEntryPoints, outputDir}) {
+    if( ! nodejsEntryPoints[ENTRY_NAME__SERVER] ) {
+        return null;
+    }
+    let serverFileTranspiled = nodejsEntryPoints[ENTRY_NAME__SERVER].loadedModulePath;
+    serverFileTranspiled = makeBuildPathRelative(serverFileTranspiled, {outputDir});
+    assert_internal(serverFileTranspiled);
+    return {serverFileTranspiled};
 }
 function addPageFileTranspiled({assetInfos, pageModules, outputDir}) {
     pageModules
