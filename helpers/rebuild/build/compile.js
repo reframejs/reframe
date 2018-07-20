@@ -446,7 +446,7 @@ function get_styles_and_scripts({all_assets}) {
     return {styles, scripts};
 }
 
-function load_entry_point(entry_point) {
+function load_entry_point(entry_point, loadEntryPoints) {
     const scripts = (
         entry_point
         .all_assets
@@ -479,14 +479,18 @@ function load_entry_point(entry_point) {
     const filepath = scripts[0];
     assert_internal(path_module.isAbsolute(filepath));
 
-    let loadedModule = null;
-    let runtimeError = null;
-    try {
-        loadedModule = forceRequire(filepath);
-    } catch(err) {
-        runtimeError = err;
+    const ret = {loadedModulePath: filepath};
+
+    assert_internal(entry_point.entry_name);
+    if( !(loadEntryPoints.skipEntryPoints||[]).includes(entry_point.entry_name) ) {
+        try {
+            ret.loadedModule = forceRequire(filepath);
+        } catch(err) {
+            ret.runtimeError = err;
+        }
     }
-    return {loadedModule, runtimeError, loadedModulePath: filepath};
+
+    return ret;
 }
 
 function get_entry_points({config, webpack_stats, dist_root_directory, loadEntryPoints}) {
@@ -512,12 +516,10 @@ function get_entry_points({config, webpack_stats, dist_root_directory, loadEntry
         };
 
         if( loadEntryPoints && ! runtimeError ) {
-            const ret = load_entry_point(ep);
+            const ret = load_entry_point(ep, loadEntryPoints);
+            Object.assign(ep, ret);
             if( ret.runtimeError ) {
                 runtimeError = ret.runtimeError;
-            } else {
-                ep.loadedModule = ret.loadedModule;
-                ep.loadedModulePath = ret.loadedModulePath;
             }
         }
     });

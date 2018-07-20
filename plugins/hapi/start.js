@@ -16,7 +16,6 @@ async function start() {
     await server.start();
 
     const env = colorEmphasis(process.env.NODE_ENV||'development');
-    throw new Error('aaa');
     console.log(symbolSuccess+'Server running (for '+env+')');
 
     return server;

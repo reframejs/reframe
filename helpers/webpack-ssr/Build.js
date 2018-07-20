@@ -43,6 +43,9 @@ function BuildInstance() {
         getBuildEndText: () => 'Pages built',
     });
     isoBuilder.doNotWatchBuildFiles = this.doNotWatchBuildFiles;
+    isoBuilder.loadNodejsEntryPoints = {
+        skipEntryPoints: [ENTRY_NAME__SERVER],
+    };
 
     const {outputDir} = this;
     assert_usage(outputDir);

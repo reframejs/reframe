@@ -50,7 +50,7 @@ function IsoBuilder() {
                 logger: null,
                 onCompilationStateChange,
                 compilationName: 'nodejsCompilation',
-                loadEntryPoints: true,
+                loadEntryPoints: isoBuilder.loadNodejsEntryPoints,
             })
         ),
         onBuildStart,
