@@ -11,7 +11,7 @@ const fs = require('fs');
 const mkdirp = require('mkdirp');
 const deep_copy = require('./utils/deep_copy');
 const {titleFormat} = require('@brillout/format-text');
-const forceRequire = require('./utils/forceRequire');
+const forceRequire = require('@reframe/utils/forceRequire');
 
 /*
 global.DEBUG_WATCH = true;

@@ -85,6 +85,7 @@ async function execServer({options}) {
 }
 
 async function runServer(config) {
+    const forceRequire = require('@reframe/utils/forceRequire');
     assert_server(config);
 
     const {server: {serverFileTranspiled}} = config.getBuildInfo();
@@ -94,7 +95,7 @@ async function runServer(config) {
     console.log(serverEntry);
     let server;
     try {
-        server = await require(serverEntry);
+        server = await forceRequire(serverEntry);
     } catch(err) {
         prettify_error(err);
         return;

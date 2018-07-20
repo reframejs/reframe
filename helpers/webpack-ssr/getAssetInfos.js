@@ -3,7 +3,7 @@ const assert_usage = require('reassert/usage');
 const fs = require('fs');
 const pathModule = require('path');
 const {colorError} = require('@brillout/cli-theme');
-const forceRequire = require('@rebuild/build/utils/forceRequire');
+const forceRequire = require('@reframe/utils/forceRequire');
 
 let cache;
 

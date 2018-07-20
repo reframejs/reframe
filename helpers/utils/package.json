@@ -10,7 +10,8 @@
     "git-state": "^4.0.0",
     "reassert": "^1.1.12",
     "semver": "^5.5.0",
-    "simple-git": "^1.95.0"
+    "simple-git": "^1.95.0",
+    "source-map-support": "^0.5.4"
   },
   "publishConfig": {
     "access": "public"
