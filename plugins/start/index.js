@@ -57,7 +57,7 @@ async function execDev({options}) {
         }
         await server.stop();
         server = null;
-        server = await runServer(config);
+        server = await runServer(config, {quiet: true});
     });
 
     await config.runBuild();
@@ -84,7 +84,7 @@ async function execServer({options}) {
     unaligned_env_warning(config);
 }
 
-async function runServer(config) {
+async function runServer(config, {quiet}={}) {
     const forceRequire = require('@reframe/utils/forceRequire');
     assert_server(config);
 
@@ -92,10 +92,16 @@ async function runServer(config) {
 
     const serverEntry = serverFileTranspiled || config.serverStartFile;
 
-    console.log(serverEntry);
     let server;
     try {
+        if( quiet ) {
+            var consoleLog = console.log
+            console.log = () => {};
+        }
         server = await forceRequire(serverEntry);
+        if( quiet ) {
+            console.log = consoleLog;
+        }
     } catch(err) {
         prettify_error(err);
         return;
