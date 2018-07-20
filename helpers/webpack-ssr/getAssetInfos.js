@@ -30,11 +30,24 @@ function getAssetInfos({outputDir, shouldBeProductionBuild}) {
             pageFile = makePathAbsolute(pageFile, {outputDir});
             pageFileTranspiled = makePathAbsolute(pageFileTranspiled, {outputDir});
 
+            console.log(pageFileTranspiled);
+            console.log(222222222222);
             const pageExport = forceRequire(pageFileTranspiled);
 
             return {...assets, pageName, pageFileTranspiled, pageFile, pageExport};
         })
     );
+
+    /*
+    Object.assign(
+        assetInfos.server,
+        {
+            serverFile,
+            serverFileTranspiled,
+            serverExport,
+        }
+    );
+    */
 
     cache = assetInfos;
 

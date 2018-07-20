@@ -129,7 +129,7 @@ function loadConfigFile({configFileName}) {
         return null;
     }
 
-    const rootConfigObject = require(configFile);
+    const rootConfigObject = eval('require')(configFile);
 
     assert_usage(
         rootConfigObject && rootConfigObject.constructor===Object

@@ -10,6 +10,7 @@ const getWebpackNodejsConfig = ({config, ...utils}) => projectConfig.webpackNode
 const {log, doNotWatchBuildFiles} = projectConfig;
 const {pagesDir} = projectConfig.projectFiles;
 const {getPageHtmls, getPageBrowserEntries} = projectConfig;
+const serverEntryFile = projectConfig.serverStartFile;
 
 const build = new Build({
     outputDir,
@@ -20,6 +21,7 @@ const build = new Build({
     getWebpackNodejsConfig,
     log,
     doNotWatchBuildFiles,
+    serverEntryFile,
 });
 
 watchDir(pagesDir, () => {build()});

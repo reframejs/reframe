@@ -87,6 +87,7 @@ async function execServer({options}) {
 async function runServer(config) {
     assert_server(config);
 
+    console.log('preeeeeee');
     let server;
     try {
         server = await require(config.serverStartFile);

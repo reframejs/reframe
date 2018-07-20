@@ -19,7 +19,8 @@ const NODEJS_OUTPUT = 'nodejs';
 
 const CSS_ONLY = '-CSS_ONLY';
 
-const AUTORELOAD_ENTRY_NAME = 'autoreload-client';
+const ENTRY_NAME__AUTORELOAD = 'autoreload_client';
+const ENTRY_NAME__SERVER = 'server_start_entry';
 
 
 module.exports = WebpackSSR;
@@ -75,7 +76,7 @@ function BuildInstance() {
         const browserEntryPoints = yield buildForBrowser(configBrowser);
         assert_internal(Object.values(browserEntryPoints).length>0, browserEntryPoints);
 
-        writeAssetMap.call(that, {browserEntryPoints, fileSets, autoReloadEnabled, pageFiles});
+        writeAssetMap.call(that, {browserEntryPoints, nodejsEntryPoints, fileSets, autoReloadEnabled, pageFiles});
 
         yield writeHtmlFiles.call(that, {fileSets});
 
@@ -137,8 +138,8 @@ function getNodejsEntries({pageFiles__by_interface}) {
 
     if( serverEntryFile ) {
         assert_usage(pathModule.isAbsolute(serverEntryFile));
-        assert_usage(!server_entries.server);
-        server_entries.server = [serverEntryFile];
+        assert_usage(!server_entries[ENTRY_NAME__SERVER]);
+        server_entries[ENTRY_NAME__SERVER] = [serverEntryFile];
     }
 
     return server_entries;
@@ -167,6 +168,7 @@ function getPageFiles({configNodejs, pageFiles__by_interface}) {
 
     const pageFiles__by_config = {};
     Object.entries(nodejsEntries)
+    .filter(([entry_name]) => entry_name!==ENTRY_NAME__SERVER)
     .filter(([pageName]) => !pageFiles__by_interface[pageName])
     .forEach(([pageName, entryFiles]) => {
         assert_internal(entryFiles.constructor===Array);
@@ -216,7 +218,7 @@ function assert_config({config, webpackEntries, outputPath, getterName}) {
     Object.entries(webpackEntries)
     .forEach(([pageName]) => {
         assert_usage(
-            configEntries.includes(pageName) || pageName===AUTORELOAD_ENTRY_NAME,
+            configEntries.includes(pageName) || pageName===ENTRY_NAME__AUTORELOAD,
             "The config returned by `"+getterName+"` is missing the `"+pageName+"` entry: `config.entry['"+pageName+"']=="+config.entry[pageName]+"`.",
             {
                 IS_REASSERT_OPTS: true,
@@ -248,12 +250,16 @@ function assert_config({config, webpackEntries, outputPath, getterName}) {
 }
 
 function loadPageModules({nodejsEntryPoints, pageFiles}) {
-    const epS = Object.entries(nodejsEntryPoints);
-    assert_internal(epS.length === Object.keys(pageFiles).length);
+    const pageEntries = (
+        Object.entries(nodejsEntryPoints)
+        .filter(([entry_name]) => entry_name!==ENTRY_NAME__SERVER)
+    );
+    assert_internal(pageEntries.length === Object.keys(pageFiles).length);
     const pageModules = (
-        epS
-        .map(([pageName, entry_point]) => {
+        pageEntries
+        .map(([entry_name, entry_point]) => {
             const {loadedModule, loadedModulePath} = entry_point;
+            const pageName = entry_name;
             const pageFile = pageFiles[pageName];
             assert_internal(pageName);
             assert_internal(pageFile);
@@ -284,8 +290,8 @@ function getBrowserEntries({generatedEntries, autoReloadEnabled}) {
     const browserEntries = {...generatedEntries};
 
     if( autoReloadEnabled ) {
-        assert_usage(!browserEntries[AUTORELOAD_ENTRY_NAME]);
-        browserEntries[AUTORELOAD_ENTRY_NAME] = [autoreloadClientPath];
+        assert_usage(!browserEntries[ENTRY_NAME__AUTORELOAD]);
+        browserEntries[ENTRY_NAME__AUTORELOAD] = [autoreloadClientPath];
     }
 
     return browserEntries;
@@ -359,7 +365,7 @@ async function writeHtmlFiles({fileSets}) {
     }
 }
 
-function writeAssetMap({browserEntryPoints, fileSets, autoReloadEnabled, pageFiles}) {
+function writeAssetMap({browserEntryPoints, nodejsEntryPoints, fileSets, autoReloadEnabled, pageFiles}) {
     const {pageBrowserEntries, pageModules} = this;
     assert_internal(pageBrowserEntries.length>0);
     const pageNames = Object.keys(pageFiles);
@@ -371,6 +377,7 @@ function writeAssetMap({browserEntryPoints, fileSets, autoReloadEnabled, pageFil
     let buildEnv = process.env.NODE_ENV || 'development';
     let staticAssetsDir = pathModule.resolve(outputDir, BROWSER_OUTPUT);
     staticAssetsDir = makeBuildPathRelative(staticAssetsDir, {outputDir});
+ // console.log(nodejsEntryPoints[ENTRY_NAME__SERVER]);
     const assetInfos = {
         buildTime,
         buildEnv,
@@ -431,7 +438,7 @@ function assert_assertMap(assetInfos) {
     });
 }
 function add_autoreload_client({assetInfos, pageNames, browserEntryPoints}) {
-    const entry_point__autoreload = Object.values(browserEntryPoints).find(({entry_name}) => entry_name===AUTORELOAD_ENTRY_NAME);
+    const entry_point__autoreload = Object.values(browserEntryPoints).find(({entry_name}) => entry_name===ENTRY_NAME__AUTORELOAD);
     if( ! entry_point__autoreload ) {
         return;
     }
