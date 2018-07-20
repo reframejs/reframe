@@ -16,7 +16,7 @@ function getCliCommands() {
             options: [
                 optLog,
             ],
-            action: runDev,
+            action: execDev,
         },
         {
             name: 'build',
@@ -44,27 +44,26 @@ function getCliCommands() {
     ];
 }
 
-async function runDev({options}) {
+async function execDev({options}) {
     const config = init({dev: true, ...options});
     log_found_stuff({config, log_page_configs: true});
 
     assert_build(config);
-    config.runBuild.onNewBuild.push(async () => {
-        console.log('re-built dd');
-    });
-    await config.runBuild();
 
-    return await runServer(config);
-    /*
-    const {onNewBuild} = await buildAssets(config);
     let server;
-    onNewBuild.push(async () => {
-        if( server ) {
-            server.stop();
+    config.runBuild.onBuildEnd.push(async ({isFirstBuild}) => {
+        if( isFirstBuild ) {
+            return;
         }
+        await server.stop();
+        server = null;
         server = await runServer(config);
     });
-    */
+
+    await config.runBuild();
+
+    server = await runServer(config);
+    log_server(server, config);
 }
 
 async function execBuild({options}) {
@@ -80,8 +79,9 @@ async function execBuild({options}) {
 async function execServer({options}) {
     const config = init(options);
     log_found_stuff({config, log_built_pages: true});
-    await runServer(config);
-    assert_env(config);
+    const server = await runServer(config);
+    log_server(server, config);
+    unaligned_env_warning(config);
 }
 
 async function runServer(config) {
@@ -94,8 +94,6 @@ async function runServer(config) {
         prettify_error(err);
         return;
     }
-
-    log_server(server, config);
 
     return server;
 }
@@ -124,7 +122,7 @@ function init({dev, log, doNotWatchBuildFiles, _description}) {
     return config;
 }
 
-function assert_env(config) {
+function unaligned_env_warning(config) {
     const {buildEnv} = config.getBuildInfo();
     const {colorWarning, colorEmphasis} = require('@brillout/cli-theme');
     const assert_warning = require('reassert/warning');

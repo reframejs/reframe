@@ -271,6 +271,8 @@ function WebpackCompilerWithCache() {
 async function buildAll({isoBuilder, latestRun, browserBuild, nodejsBuild}) {
     global.DEBUG_WATCH && console.log(chalk.bold('START-OVERALL-BUILDER'));
 
+    await waitOnLatestRun(latestRun);
+
     const logger = isoBuilder.logger = isoBuilder.logger || Logger();
 
     log_state_start({logger});
@@ -375,6 +377,10 @@ function log_state_fail({logger, browserCompilationInfo, nodejsCompilationInfo})
 
 async function waitOnLatestRun(latestRun) {
     const {runNumber} = latestRun;
+    if( ! latestRun.runPromise ) {
+        latestRun.runNumber===0;
+        return;
+    }
     const {isAborted} = await latestRun.runPromise;
     if( latestRun.runNumber !== runNumber ) {
         return waitOnLatestRun(latestRun);

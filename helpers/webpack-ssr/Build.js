@@ -26,9 +26,10 @@ module.exports = WebpackSSR;
 
 
 function WebpackSSR(opts) {
+    let build;
     const instance = () => build();
     Object.assign(instance, opts);
-    const build = BuildInstance.call(instance);
+    build = BuildInstance.call(instance);
     return instance;
 }
 
@@ -52,7 +53,9 @@ function BuildInstance() {
 
     const that = this;
 
-    that.onNewBuild = [];
+    that.onBuildEnd = [];
+
+    let isFirstBuild = true;
 
     isoBuilder.builder = (function* ({buildForNodejs, buildForBrowser}) {
         const pageFiles__by_interface = that.getPageFiles();
@@ -76,10 +79,8 @@ function BuildInstance() {
 
         yield writeHtmlFiles.call(that, {fileSets});
 
-        for(const listener of that.onNewBuild) {
-            console.log(listener);
-            console.log(listener.toString());
-            yield listener();
+        for(const listener of that.onBuildEnd) {
+            yield listener({isFirstBuild});
         }
 
         if( autoReloadEnabled ) {
@@ -87,7 +88,11 @@ function BuildInstance() {
         }
     }).bind(this);
 
-    return () => isoBuilder.build();
+    return async () => {
+        const ret = await isoBuilder.build();
+        assert_internal(ret===undefined);
+        isFirstBuild = false;
+    };
 }
 
 function getNodejsConfig({pageFiles__by_interface}) {
