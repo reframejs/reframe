@@ -3,13 +3,16 @@ const assert_internal = require('reassert/internal');
 
 module.exports = EasyQLHapiPlugin;
 
-function EasyQLHapiPlugin(easyql) {
+function EasyQLHapiPlugin(easyql, closeConnection) {
     assert_internal(easyql.InterfaceHandlers.constructor===Array);
 
     const easyqlPlugin = {
         name: 'EasyQLHapiPlugin',
         multiple: false,
-        register: server => server.ext('onPreResponse', (req, h) => handleRequest(req, h, easyql)),
+        register: server => {
+            server.ext('onPreResponse', (req, h) => handleRequest(req, h, easyql));
+            server.ext('onPostStop', () => closeConnection());
+        },
     };
 
     return easyqlPlugin;

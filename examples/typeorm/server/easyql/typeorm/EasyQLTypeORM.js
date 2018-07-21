@@ -1,11 +1,12 @@
 const {createConnection} = require("typeorm");
 require("reflect-metadata");
 const assert_internal = require('reassert/internal');
-const {User} = require('../../../models/entity/User.ts');
+const assert_usage = require('reassert/usage');
 
 module.exports = EasyQLTypeORM;
 
-function EasyQLTypeORM(easyql) {
+function EasyQLTypeORM(easyql, typeormConfig) {
+    assert_usage(typeormConfig);
     assert_internal(easyql.InterfaceHandlers.constructor===Array);
     let connection;
 
@@ -13,35 +14,16 @@ function EasyQLTypeORM(easyql) {
 
     const permissions = [];
 
-    return addPermissions;
+    return {addPermissions, closeConnection};
 
     async function interfaceHandler(params) {
         const {req, loggedUser, query, NEXT} = params;
         if( ! connection ) {
-            connection = await createConnection(
-            {
-               "type": "sqlite",
-               "database": "database.sqlite",
-               "synchronize": true,
-               "logging": false,
-               "entities": [
-                  User,
-               ],
-               "migrations": [
-                  "models/migration/**/*.ts"
-               ],
-               "subscribers": [
-                  "models/subscriber/**/*.ts"
-               ],
-               "cli": {
-                  "entitiesDir": "models/entity",
-                  "migrationsDir": "models/migration",
-                  "subscribersDir": "models/subscriber"
-               }
-            }
-            );
+            connection = await createConnection(typeormConfig);
         }
         for(const permission of permissions) {
+            console.log(permission);
+            console.log(permission.entity);
             if( query.queryType==='read' && query.modelName===permission.entity.name ) {
                 const objects = await connection.manager.find(permission.entity);
                 return JSON.stringify({objects, yep: 1});
@@ -53,9 +35,16 @@ function EasyQLTypeORM(easyql) {
     function addPermissions(permissions__new) {
         permissions.push(...permissions__new);
     }
+
+    async function closeConnection() {
+        console.log("PRE CLOSE");
+        await connection.close();
+        console.log("POST CLOSE");
+    }
 }
 
 /*
+const User = require('../../../models/entity/User.ts');
 console.log("Inserting a new user into the database...");
 const user = new User();
 user.firstName = "Timber";

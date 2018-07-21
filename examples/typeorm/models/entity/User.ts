@@ -1,8 +1,7 @@
-console.log('beruhwiriua');
 import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
 
 @Entity()
-export class User {
+class User {
 
     @PrimaryGeneratedColumn()
     id: number;
@@ -17,3 +16,5 @@ export class User {
     age: number;
 
 }
+
+export default User;
