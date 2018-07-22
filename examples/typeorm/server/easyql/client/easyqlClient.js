@@ -18,7 +18,6 @@ async function query(queryObject) {
     const queryString = encodeURIComponent(JSON.stringify(queryObject));
     const url = URL_BASE+queryString;
     const method = queryType==='write'?'POST':'GET';
-    console.log(url);
     const response = await fetch(
         url,
         {

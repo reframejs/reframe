@@ -20,8 +20,9 @@ class UserAdder extends React.Component {
             </form>
         );
     }
-    onChange() {
-        console.log(arguments);
+    onChange(ev) {
+        console.log(ev.target);
+        console.log(ev.target.name);
     }
     onSubmit() {
         console.log(arguments);
@@ -47,7 +48,6 @@ const WelcomePage = {
             }))
             .objects
         );
-        console.log(users);
         return {users};
     },
 };
