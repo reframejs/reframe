@@ -22,8 +22,6 @@ function EasyQLTypeORM(easyql, typeormConfig) {
             connection = await createConnection(typeormConfig);
         }
         for(const permission of permissions) {
-            console.log(permission);
-            console.log(permission.entity);
             if( query.queryType==='read' && query.modelName===permission.entity.name ) {
                 const objects = await connection.manager.find(permission.entity);
                 return JSON.stringify({objects, yep: 1});
@@ -37,9 +35,12 @@ function EasyQLTypeORM(easyql, typeormConfig) {
     }
 
     async function closeConnection() {
-        console.log("PRE CLOSE");
-        await connection.close();
-        console.log("POST CLOSE");
+     // console.log("PRE CLOSE");
+        if( connection ) {
+            await connection.close();
+            connection = null;
+        }
+     // console.log("POST CLOSE");
     }
 }
 
