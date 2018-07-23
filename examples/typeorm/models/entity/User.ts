@@ -2,7 +2,6 @@ import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
 
 @Entity()
 class User {
-
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -11,10 +10,6 @@ class User {
 
     @Column()
     lastName: string;
-
-    @Column()
-    age: number;
-
 }
 
 export default User;

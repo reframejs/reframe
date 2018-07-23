@@ -28,12 +28,12 @@ class UserAdder extends React.Component {
         ev.preventDefault();
         const object = this.state;
         console.log(object);
-        await easyqlClient.query({
+        const response = await easyqlClient.query({
             queryType: 'write',
             modelName: 'User',
             object,
         });
-     // window.document.location.reload();
+        window.document.location.reload();
     }
 }
 

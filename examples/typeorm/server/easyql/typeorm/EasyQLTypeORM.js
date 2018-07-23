@@ -27,17 +27,17 @@ function EasyQLTypeORM(easyql, typeormConfig) {
                 assert_usage(queryType, query);
                 const {entity} = permission;
                 assert_usage(entity, permission);
-                if( queryType==='read' && hasPermission(permission.read, query) ) {
+                if( queryType==='read' && await hasPermission(permission.read, params) ) {
                     const objects = await connection.manager.find(entity);
                     return JSON.stringify({objects});
                 }
-                if( queryType==='write' && hasPermission(permission.write, query) ) {
+                if( queryType==='write' && await hasPermission(permission.write, params) ) {
                     const objects = await connection.manager.find(entity);
                     const objectProps = query.object;
                     assert_usage(objectProps, query);
                     const obj = new entity();
                     Object.assign(obj, objectProps);
-                    await obj.save();
+                    await connection.manager.save(obj);
                     return JSON.stringify({objects: [obj]});
                 }
             }
@@ -45,8 +45,14 @@ function EasyQLTypeORM(easyql, typeormConfig) {
         return NEXT;
     }
 
-    function hasPermission(permissionRequirement, query) {
-        return true;
+    async function hasPermission(permissionRequirement, params) {
+        if( permissionRequirement === true ) {
+            return true;
+        }
+        if( permissionRequirement instanceof Function ) {
+            await permissionRequirement(params);
+        }
+        assert_usage(false, permissionRequirement);
     }
 
     function addPermissions(permissions__new) {

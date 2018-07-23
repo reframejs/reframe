@@ -51,6 +51,12 @@ async function handleRequest(request, h, easyql) {
             const response = h.response(result);
             return response;
         }
+        const assert_warning = require('reassert/warning');
+        assert_warning(
+            false,
+            "No matching permission found for following query:",
+            query
+        );
     }
 
     return h.continue;

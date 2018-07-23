@@ -7,8 +7,7 @@ const typeormConfig = require('./typeorm.config.js');
 const permissions = [
     {
         entity: User,
-        write: true,
-     // write: ({loggerUser, query}) => loggedUser.id===query.id,
+        write: ({loggedUser, query}) => loggedUser && loggedUser.id===query.object.id,
         read: true,
     }
 ];
