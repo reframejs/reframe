@@ -1,10 +1,11 @@
 const assert_usage = require('reassert/usage');
 const assert_internal = require('reassert/internal');
+const assert_warning = require('reassert/warning');
 
 module.exports = EasyQLHapiPlugin;
 
 function EasyQLHapiPlugin(easyql, closeConnection) {
-    assert_internal(easyql.InterfaceHandlers.constructor===Array);
+    assert_internal(easyql.QueryHandlers.constructor===Array);
 
     const easyqlPlugin = {
         name: 'EasyQLHapiPlugin',
@@ -44,19 +45,23 @@ async function handleRequest(request, h, easyql) {
     */
     Object.assign(params, {loggedUser: {id: '123'}});
 
-    for(const handler of easyql.InterfaceHandlers) {
+    for(const handler of easyql.QueryHandlers) {
         assert_usage(handler instanceof Function);
         const result = await handler(params);
         if( result !== NEXT ) {
             const response = h.response(result);
             return response;
         }
-        const assert_warning = require('reassert/warning');
-        assert_warning(
-            false,
-            "No matching permission found for following query:",
-            query
-        );
+        {
+            const params__light = Object.assign({}, params);
+            delete params__light.req;
+            delete params__light.NEXT;
+            assert_warning(
+                false,
+                "No matching permission found for the following request:",
+                params__light
+            );
+        }
     }
 
     return h.continue;

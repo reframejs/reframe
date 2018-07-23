@@ -7,10 +7,10 @@ module.exports = EasyQLTypeORM;
 
 function EasyQLTypeORM(easyql, typeormConfig) {
     assert_usage(typeormConfig);
-    assert_internal(easyql.InterfaceHandlers.constructor===Array);
+    assert_internal(easyql.QueryHandlers.constructor===Array);
     let connection;
 
-    easyql.InterfaceHandlers.push(interfaceHandler);
+    easyql.QueryHandlers.push(interfaceHandler);
 
     const permissions = [];
 
@@ -50,7 +50,7 @@ function EasyQLTypeORM(easyql, typeormConfig) {
             return true;
         }
         if( permissionRequirement instanceof Function ) {
-            await permissionRequirement(params);
+            return await permissionRequirement(params);
         }
         assert_usage(false, permissionRequirement);
     }

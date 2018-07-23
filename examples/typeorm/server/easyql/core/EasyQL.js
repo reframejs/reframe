@@ -2,7 +2,7 @@ module.exports = EasyQL;
 
 function EasyQL () {
     Object.assign(this, {
-        InterfaceHandlers: [],
+        QueryHandlers: [],
     });
 
     return this;
