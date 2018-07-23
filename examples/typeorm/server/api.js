@@ -3,14 +3,15 @@ const EasyQLTypeORM = require('./easyql/typeorm/EasyQLTypeORM');
 const EasyQLHapiPlugin = require('./easyql/hapi/EasyQLHapiPlugin');
 const {default: User} = require('../models/entity/User.ts');
 const typeormConfig = require('./typeorm.config.js');
+const EasyQLUserManagementPlugin = require('./easyql/user/EasyQLUserManagementPlugin');
 
-const permissions = [
-    {
-        entity: User,
-        write: ({loggedUser, query}) => loggedUser && loggedUser.id===query.object.id,
-        read: true,
-    }
-];
+console.log(User);
+console.log(typeof User);
+console.log(User.constructor);
+console.log(User.constructor.name);
+
+/*
+*/
 
 const api = initEasyqlPlugin();
 
@@ -19,8 +20,11 @@ module.exports = api;
 function initEasyqlPlugin() {
     const easyql = new EasyQL();
 
-    const {addPermissions, closeConnection} = EasyQLTypeORM(easyql, typeormConfig);
-    addPermissions(permissions);
+    const {addPermissions, closeConnection, addModel} = EasyQLTypeORM(easyql, typeormConfig);
+
+    const {User} = new EasyQLUserManagementPlugin({easyql, addModel, addPermissions});
+
+ // addPermissions(permissions);
 
     const easyqlPlugin = new EasyQLHapiPlugin(easyql, closeConnection);
 

@@ -58,7 +58,7 @@ async function handleRequest(request, h, easyql) {
             delete params__light.NEXT;
             assert_warning(
                 false,
-                "No matching permission found for the following request:",
+                "No matching permission found for the following query:",
                 params__light
             );
         }

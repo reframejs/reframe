@@ -1,4 +1,4 @@
-const {createConnection} = require("typeorm");
+const {createConnection, EntitySchema} = require("typeorm");
 require("reflect-metadata");
 const assert_internal = require('reassert/internal');
 const assert_usage = require('reassert/usage');
@@ -10,32 +10,40 @@ function EasyQLTypeORM(easyql, typeormConfig) {
     assert_internal(easyql.QueryHandlers.constructor===Array);
     let connection;
 
-    easyql.QueryHandlers.push(interfaceHandler);
+    easyql.QueryHandlers.push(queryHandler);
 
     const permissions = [];
+    const generatedSchemas = [];
 
-    return {addPermissions, closeConnection};
+    return {
+        addPermissions,
+        closeConnection,
+        addModel: addModel.bind(null, generatedSchemas, connection),
+    };
 
-    async function interfaceHandler(params) {
-        const {req, loggedUser, query, NEXT} = params;
+    async function queryHandler(params) {
+        const {req, query, NEXT} = params;
+        assert_internal(req && query && NEXT, params);
         if( ! connection ) {
             connection = await createConnection(typeormConfig);
         }
         for(const permission of permissions) {
-            if( query.modelName===permission.entity.name ) {
+            assert_usage(permission);
+            assert_usage(permission.model);
+            if( query.modelName===permission.model.name ) {
                 const {queryType} = query;
                 assert_usage(queryType, query);
-                const {entity} = permission;
-                assert_usage(entity, permission);
+                const {model: schema} = permission;
+                assert_usage(schema, permission);
                 if( queryType==='read' && await hasPermission(permission.read, params) ) {
-                    const objects = await connection.manager.find(entity);
+                    const objects = await connection.manager.find(schema);
                     return JSON.stringify({objects});
                 }
                 if( queryType==='write' && await hasPermission(permission.write, params) ) {
-                    const objects = await connection.manager.find(entity);
+                    const objects = await connection.manager.find(schema);
                     const objectProps = query.object;
                     assert_usage(objectProps, query);
-                    const obj = new entity();
+                    const obj = new schema();
                     Object.assign(obj, objectProps);
                     await connection.manager.save(obj);
                     return JSON.stringify({objects: [obj]});
@@ -69,14 +77,50 @@ function EasyQLTypeORM(easyql, typeormConfig) {
     }
 }
 
-/*
-const User = require('../../../models/entity/User.ts');
-console.log("Inserting a new user into the database...");
-const user = new User();
-user.firstName = "Timber";
-user.lastName = "Saw";
-user.age = 25;
-await connection.manager.save(user);
-console.log("Saved a new user with id: " + user.id);
-console.log("Loading users from the database...");
-*/
+function addModel(generatedSchemas, connection, modelSpecFn) {
+    assert_usage(connection===undefined);
+
+    const types = {
+        ID: Symbol(),
+        STRING: Symbol(),
+    };
+
+    const modelSpec = modelSpecFn({
+        types,
+    });
+
+    const {modelName, props} = modelSpec;
+    assert_usage(modelName);
+    assert_usage(props && Object.entries(props).length>0);
+
+    const schemaObject = {
+        name: modelName,
+        columns: {},
+    };
+    Object.entries(props).forEach(([propName, propType]) => {
+        schemaObject.columns[propName] = getTypeormType(propType);
+    });
+
+    const schema = new EntitySchema(schemaObject);
+
+    generatedSchemas.push(schema);
+
+    return {model: schema};
+
+    function getTypeormType(propType) {
+        if( propType === types.ID ) {
+            return {
+                type: Number,
+                primary: true,
+                generated: true
+            };
+        }
+        if( propType === types.STRING ) {
+            return {
+                type: String,
+            };
+        }
+        console.log(3000,propType.toString());
+        assert_usage(false, propType.toString());
+    }
+}
