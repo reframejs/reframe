@@ -14,13 +14,12 @@ function EasyQLUserManagementPlugin({easyql, addModel, addPermissions}) {
             },
         };
     });
-    assert_internal(User);
-    assert_internal(User.name==='User', User);
 
     const permissions = [
         {
             model: User,
-            write: ({loggedUser, query}) => loggedUser && loggedUser.id===query.object.id,
+         // write: ({loggedUser, query}) => loggedUser && loggedUser.id===query.object.id,
+            write: true,
             read: true,
         }
     ];

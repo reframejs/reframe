@@ -1,16 +1,15 @@
 const EasyQL = require('./easyql/core/EasyQL');
 const EasyQLTypeORM = require('./easyql/typeorm/EasyQLTypeORM');
 const EasyQLHapiPlugin = require('./easyql/hapi/EasyQLHapiPlugin');
-const {default: User} = require('../models/entity/User.ts');
 const typeormConfig = require('./typeorm.config.js');
 const EasyQLUserManagementPlugin = require('./easyql/user/EasyQLUserManagementPlugin');
 
+/*
+const {default: User} = require('../models/entity/User.ts');
 console.log(User);
 console.log(typeof User);
 console.log(User.constructor);
 console.log(User.constructor.name);
-
-/*
 */
 
 const api = initEasyqlPlugin();

@@ -1,7 +1,8 @@
-const {createConnection, EntitySchema} = require("typeorm");
+const {createConnection, EntitySchema, getRepository} = require("typeorm");
 require("reflect-metadata");
 const assert_internal = require('reassert/internal');
 const assert_usage = require('reassert/usage');
+//const {default: User} = require('../../../models/entity/User.ts');
 
 module.exports = EasyQLTypeORM;
 
@@ -30,7 +31,7 @@ function EasyQLTypeORM(easyql, typeormConfig) {
         for(const permission of permissions) {
             assert_usage(permission);
             assert_usage(permission.model);
-            if( query.modelName===permission.model.name ) {
+            if( query.modelName === getModelName(permission.model) ) {
                 const {queryType} = query;
                 assert_usage(queryType, query);
                 const {model: schema} = permission;
@@ -43,9 +44,17 @@ function EasyQLTypeORM(easyql, typeormConfig) {
                     const objects = await connection.manager.find(schema);
                     const objectProps = query.object;
                     assert_usage(objectProps, query);
+
+                    /*
                     const obj = new schema();
                     Object.assign(obj, objectProps);
                     await connection.manager.save(obj);
+                    return JSON.stringify({objects: [obj]});
+                    */
+
+                    const repository = connection.getRepository(schema);
+                    const obj = await repository.save(objectProps);
+
                     return JSON.stringify({objects: [obj]});
                 }
             }
@@ -68,12 +77,10 @@ function EasyQLTypeORM(easyql, typeormConfig) {
     }
 
     async function closeConnection() {
-     // console.log("PRE CLOSE");
         if( connection ) {
             await connection.close();
             connection = null;
         }
-     // console.log("POST CLOSE");
     }
 }
 
@@ -102,6 +109,7 @@ function addModel(generatedSchemas, connection, modelSpecFn) {
     });
 
     const schema = new EntitySchema(schemaObject);
+    assert_internal(schema.options.name===modelName);
 
     generatedSchemas.push(schema);
 
@@ -120,7 +128,15 @@ function addModel(generatedSchemas, connection, modelSpecFn) {
                 type: String,
             };
         }
-        console.log(3000,propType.toString());
         assert_usage(false, propType.toString());
     }
+}
+
+function getModelName(model) {
+    if( model instanceof EntitySchema ) {
+        assert_internal(model.options.name);
+        return model.options.name;
+    }
+    assert_internal(model.name);
+    return model.name;
 }

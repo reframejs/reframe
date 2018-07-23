@@ -55,9 +55,7 @@ async function execDev({options}) {
         if( isFirstBuild ) {
             return;
         }
-     // console.log("BEFORE STOP");
         await server.stop();
-     // console.log("AFTER STOP");
         server = null;
         server = await runServer(config, {quiet: true});
     });
@@ -100,7 +98,6 @@ async function runServer(config, {quiet}={}) {
             var consoleLog = console.log
             console.log = () => {};
         }
-        console.log(serverEntry);
         server = await forceRequire(serverEntry);
         if( quiet ) {
             console.log = consoleLog;
