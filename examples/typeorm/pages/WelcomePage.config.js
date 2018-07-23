@@ -13,19 +13,26 @@ const UserList = ({users}) => (
 class UserAdder extends React.Component {
     render() {
         return (
-            <form onSubmit={this.onSubmit}>
-                <input type="text" name="firstName" onChange={this.onChange}/>
-                <input type="text" name="lastName" onChange={this.onChange}/>
-                <button type="submit"/>
+            <form onSubmit={this.onSubmit.bind(this)}>
+                <input type="text" name="firstName" onChange={this.onChange.bind(this)}/>
+                <input type="text" name="lastName" onChange={this.onChange.bind(this)}/>
+                <button type="submit">Add User</button>
             </form>
         );
     }
     onChange(ev) {
-        console.log(ev.target);
-        console.log(ev.target.name);
+        const {name, value} = ev.target;
+        this.setState({[name]: value});
     }
-    onSubmit() {
-        console.log(arguments);
+    async onSubmit(ev) {
+        ev.preventDefault();
+        const object = this.state;
+        console.log(object);
+        await easyqlClient.query({
+            queryType: 'write',
+            modelName: 'User',
+            object,
+        });
     }
 }
 
@@ -41,13 +48,13 @@ const WelcomePage = {
     view: Welcome,
 
     getInitialProps: async () => {
-        const users = (
-            (await easyqlClient.query({
-                queryType: 'read',
-                modelName: 'User',
-            }))
-            .objects
-        );
+        const response = await easyqlClient.query({
+            queryType: 'read',
+            modelName: 'User',
+        });
+
+        const users = response.objects;
+
         return {users};
     },
 };

@@ -40,6 +40,7 @@ function compile(
     assert_tmp(!onBuild);
     assert_tmp(doNotGenerateIndexHtml);
 
+ // webpack_config.profile = true;
  // const resolveTimeout = gen_timeout({name: 'Compilation Build '+compilationName});
 
     const {stop_compilation, wait_compilation, wait_successfull_compilation, first_success_promise} = (
