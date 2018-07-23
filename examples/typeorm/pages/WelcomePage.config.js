@@ -33,6 +33,7 @@ class UserAdder extends React.Component {
             modelName: 'User',
             object,
         });
+     // window.document.location.reload();
     }
 }
 

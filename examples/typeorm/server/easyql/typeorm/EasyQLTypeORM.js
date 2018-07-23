@@ -22,12 +22,31 @@ function EasyQLTypeORM(easyql, typeormConfig) {
             connection = await createConnection(typeormConfig);
         }
         for(const permission of permissions) {
-            if( query.queryType==='read' && query.modelName===permission.entity.name ) {
-                const objects = await connection.manager.find(permission.entity);
-                return JSON.stringify({objects, yep: 1});
+            if( query.modelName===permission.entity.name ) {
+                const {queryType} = query;
+                assert_usage(queryType, query);
+                const {entity} = permission;
+                assert_usage(entity, permission);
+                if( queryType==='read' && hasPermission(permission.read, query) ) {
+                    const objects = await connection.manager.find(entity);
+                    return JSON.stringify({objects});
+                }
+                if( queryType==='write' && hasPermission(permission.write, query) ) {
+                    const objects = await connection.manager.find(entity);
+                    const objectProps = query.object;
+                    assert_usage(objectProps, query);
+                    const obj = new entity();
+                    Object.assign(obj, objectProps);
+                    await obj.save();
+                    return JSON.stringify({objects: [obj]});
+                }
             }
         }
         return NEXT;
+    }
+
+    function hasPermission(permissionRequirement, query) {
+        return true;
     }
 
     function addPermissions(permissions__new) {
