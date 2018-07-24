@@ -43,11 +43,12 @@ function EasyQLUserManagementPlugin({easyql, addModel, addPermissions}) {
 
 function addLoggedUser({req}) {
     const cookies = cookie.parse(req.headers.cookie || '');
-    console.log(cookies, req.headers.cookie);
 
     const {auth: authCookie} = cookies;
 
     const loggedUser = getLoggedUser(authCookie);
+
+    console.log(loggedUser, req.headers.cookie);
 
     return {loggedUser};
 }
