@@ -2,6 +2,10 @@ const assert_internal = require('reassert/internal');
 const assert_warning = require('reassert/warning');
 const cookie = require('cookie');
 const cookieSignature = require('cookie-signature');
+const parseUri = require('@brillout/parse-uri');
+
+// TODO
+const SECRET_KEY = 'not-secret-yet';
 
 module.exports = EasyQLUserManagementPlugin;
 
@@ -9,6 +13,8 @@ function EasyQLUserManagementPlugin({easyql, addModel, addPermissions}) {
     assert_internal(easyql.ParamHandlers.constructor===Array);
 
     easyql.ParamHandlers.push(addLoggedUser);
+
+    easyql.TMP_REQ_HANDLER = authRequestHandler;
 
     addModel(({types: {ID, STRING}}) => {
         return {
@@ -25,7 +31,8 @@ function EasyQLUserManagementPlugin({easyql, addModel, addPermissions}) {
         {
             modelName: 'User',
          // write: ({loggedUser, query}) => loggedUser && loggedUser.id===query.object.id,
-            write: true,
+            write: ({loggedUser, query}) => loggedUser && loggedUser.id==='12345',
+         // write: true,
             read: true,
         }
     ];
@@ -36,6 +43,7 @@ function EasyQLUserManagementPlugin({easyql, addModel, addPermissions}) {
 
 function addLoggedUser({req}) {
     const cookies = cookie.parse(req.headers.cookie || '');
+    console.log(cookies, req.headers.cookie);
 
     const {auth: authCookie} = cookies;
 
@@ -45,27 +53,47 @@ function addLoggedUser({req}) {
 }
 
 function getLoggedUser(authCookie) {
-    if( authCookie ) {
+    if( ! authCookie ) {
         return null;
     }
-
-    // TODO
-    const SECRET_KEY = 'not-secret-yet';
 
     const authVal = cookieSignature.unsign(authCookie, SECRET_KEY);
     const authParts = authVal.split('.');
-    assert_warning(authParts.length===2);
-    if( authParts.length!== 1 ) {
+    if( authParts.length!==2 ) {
+        assert_warning(false, "Malformatted cookie encountered.");
         return null;
     }
+    const [userId, timestamp] = authParts;
+
+    return {id: userId};
 }
 
-    /*
-    res.setHeader('Set-Cookie', cookie.serialize('auth', 'euqhweiuh', {
-        maxAge: 60 * 60 * 24 * 7 // 1 week
+
+function authRequestHandler({req, res}) {
+    const url = parseUri(req.url);
+    if( url.pathname!=='/auth' ) {
+        return;
+    }
+
+    const userId = '12345';
+    const timestamp = new Date().getTime();
+
+    const authVal = cookieSignature.sign(userId+'.'+timestamp, SECRET_KEY);
+
+    const cookieVal = cookie.serialize('auth', authVal, {
+        maxAge: 60 * 60 * 24 * 7, // 1 week
         httpOnly: true,
         sameSite: 'strict',
      // secure: true,
-    }));
-    */
+    });
 
+    return {
+        body: 'yep',
+        headers: [
+            {
+                name: 'Set-Cookie',
+                value: cookieVal,
+            }
+        ],
+    };
+}
