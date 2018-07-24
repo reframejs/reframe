@@ -9,8 +9,7 @@ module.exports = {
    type: "sqlite",
    database: "database.sqlite",
    synchronize: true,
-   logging: true,
-   /*
+   logging: false,
    entities,
    migrations,
    subscribers,
@@ -19,5 +18,4 @@ module.exports = {
       migrationsDir: "./models/migration",
       subscribersDir: "./models/subscriber"
    }
-   */
 }

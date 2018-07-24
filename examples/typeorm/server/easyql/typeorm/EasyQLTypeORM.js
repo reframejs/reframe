@@ -2,7 +2,6 @@ const {createConnection, EntitySchema, getRepository} = require("typeorm");
 require("reflect-metadata");
 const assert_internal = require('reassert/internal');
 const assert_usage = require('reassert/usage');
-//const {default: User} = require('../../../models/entity/User.ts');
 
 module.exports = EasyQLTypeORM;
 
@@ -29,7 +28,7 @@ function EasyQLTypeORM(easyql, typeormConfig) {
         if( ! connection ) {
             const connectionOptions = Object.assign({}, typeormConfig);
             connectionOptions.entities = (connectionOptions.entities||[]).slice();
-            connectionOptions.push(...generatedEntities.map(s => new EntitySchema(s)));
+            connectionOptions.entities.push(...generatedEntities.map(s => new EntitySchema(s)));
             connection = await createConnection(connectionOptions);
         }
 
@@ -110,28 +109,21 @@ function addModel(generatedEntities, connection, modelSpecFn) {
         entityObject.columns[propName] = getTypeormType(propType);
     });
 
-    /*
-    const entity = new EntitySchema(entityObject);
-    assert_internal(entity.options.name===modelName);
-    /*/
- // const entity = entityObject;
-    //*/
+    generatedEntities.push(entityObject);
 
-    generatedEntities.push(entity);
-
-    return {model: entity};
+    return undefined;
 
     function getTypeormType(propType) {
         if( propType === types.ID ) {
             return {
-                type: "int",
+                type: Number,
                 primary: true,
                 generated: true
             };
         }
         if( propType === types.STRING ) {
             return {
-                type: "varchar",
+                type: String,
             };
         }
         assert_usage(false, propType.toString());
