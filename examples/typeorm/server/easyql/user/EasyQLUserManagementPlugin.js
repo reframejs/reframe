@@ -26,5 +26,5 @@ function EasyQLUserManagementPlugin({easyql, addModel, addPermissions}) {
 
     addPermissions(permissions);
 
-    return User;
+    return {User};
 }

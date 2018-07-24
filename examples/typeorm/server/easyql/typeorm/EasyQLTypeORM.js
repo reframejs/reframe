@@ -25,44 +25,46 @@ function EasyQLTypeORM(easyql, typeormConfig) {
     async function queryHandler(params) {
         const {req, query, NEXT} = params;
         assert_internal(req && query && NEXT, params);
+
         if( ! connection ) {
             const connectionOptions = Object.assign({}, typeormConfig);
             connectionOptions.entities = (connectionOptions.entities||[]).slice();
-            console.log(generatedEntities);
-            // TODO
-            connectionOptions.entitySchemas = generatedEntities;
-
-            connection = await createConnection(typeormConfig);
+            connectionOptions.push(...generatedEntities.map(s => new EntitySchema(s));
+            connection = await createConnection(connectionOptions);
         }
+
         for(const permission of permissions) {
             assert_usage(permission);
             assert_usage(permission.model);
-            if( query.modelName === getModelName(permission.model) ) {
-                const {queryType} = query;
-                assert_usage(queryType, query);
-                const {model: entity} = permission;
-                assert_usage(entity, permission);
-                if( queryType==='read' && await hasPermission(permission.read, params) ) {
-                    const objects = await connection.manager.find(entity);
-                    return JSON.stringify({objects});
-                }
-                if( queryType==='write' && await hasPermission(permission.write, params) ) {
-                    const objects = await connection.manager.find(entity);
-                    const objectProps = query.object;
-                    assert_usage(objectProps, query);
+            const modelName = getModelName(permission.model);
 
-                    /*
-                    const obj = new entity();
-                    Object.assign(obj, objectProps);
-                    await connection.manager.save(obj);
-                    return JSON.stringify({objects: [obj]});
-                    */
+            if( query.modelName !== modelName ) {
+                continue;
+            }
 
-                    const repository = connection.getRepository(entity);
-                    const obj = await repository.save(objectProps);
+            const {queryType} = query;
+            assert_usage(queryType, query);
 
-                    return JSON.stringify({objects: [obj]});
-                }
+            /*
+            const {model: entity} = permission;
+            assert_usage(entity, permission);
+            */
+
+            console.log('mn', modelName);
+            const repository = connection.getRepository(modelName);
+
+            if( queryType==='read' && await hasPermission(permission.read, params) ) {
+                const objects = await repository.find();
+                return JSON.stringify({objects});
+            }
+
+            if( queryType==='write' && await hasPermission(permission.write, params) ) {
+                const objectProps = query.object;
+                assert_usage(objectProps, query);
+
+                const obj = await repository.save(objectProps);
+
+                return JSON.stringify({objects: [obj]});
             }
         }
         return NEXT;
@@ -114,7 +116,7 @@ function addModel(generatedEntities, connection, modelSpecFn) {
         entityObject.columns[propName] = getTypeormType(propType);
     });
 
-    //*
+    /*
     const entity = new EntitySchema(entityObject);
     assert_internal(entity.options.name===modelName);
     /*/
@@ -128,14 +130,14 @@ function addModel(generatedEntities, connection, modelSpecFn) {
     function getTypeormType(propType) {
         if( propType === types.ID ) {
             return {
-                type: Number,
+                type: "int",
                 primary: true,
                 generated: true
             };
         }
         if( propType === types.STRING ) {
             return {
-                type: String,
+                type: "varchar",
             };
         }
         assert_usage(false, propType.toString());
