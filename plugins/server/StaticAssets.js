@@ -33,7 +33,7 @@ function getContentTypeHeader(filePath) {
     const mime = mimos.path(filePath);
 
     const contentTypeHeader = {
-        name: 'content-type',
+        name: 'Content-Type',
         value: mime && mime.type || 'application/octet-stream',
     };
 
@@ -45,7 +45,7 @@ function getCacheHeader(filePath, fileContent) {
 
     if( ! urlCtonainsHash ) {
         return {
-            name: 'etag',
+            name: 'ETag',
             value: '"'+computeHash(fileContent)+'"',
         };
     } else {
@@ -54,7 +54,7 @@ function getCacheHeader(filePath, fileContent) {
         // Support for `immutable`:
         //   - http://stackoverflow.com/questions/41936772/which-browsers-support-cache-control-immutable
         return {
-            name: 'Cache-control',
+            name: 'Cache-Control',
             value: 'public, max-age=31536000, immutable',
         };
     }

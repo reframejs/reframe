@@ -37,7 +37,7 @@ async function getResponse(ctx) {
     headers = (
         headers
         .filter(header => {
-            if( header.name==='etag' ) {
+            if( header.name==='ETag' ) {
                 etag = header.value;
                 assert_internal(etag[0]==='"' && etag.slice(-1)[0]==='"', etag);
                 etag = etag.slice(1, -1);

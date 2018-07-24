@@ -15,8 +15,8 @@ async function serverRendering({url}) {
     const hash = computeHash(html);
 
     const headers = [];
-    headers.push({name: 'content-type', value: 'text/html'});
-    headers.push({name: 'etag', value: '"'+hash+'"'});
+    headers.push({name: 'Content-Type', value: 'text/html'});
+    headers.push({name: 'ETag', value: '"'+hash+'"'});
 
     return {
         body: html,
