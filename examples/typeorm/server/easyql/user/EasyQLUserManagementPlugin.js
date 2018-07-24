@@ -4,7 +4,7 @@ module.exports = EasyQLUserManagementPlugin;
 
 function EasyQLUserManagementPlugin({easyql, addModel, addPermissions}) {
 
-    const {model: User} = addModel(({types: {ID, STRING}}) => {
+    addModel(({types: {ID, STRING}}) => {
         return {
             modelName: 'User',
             props: {
@@ -17,7 +17,7 @@ function EasyQLUserManagementPlugin({easyql, addModel, addPermissions}) {
 
     const permissions = [
         {
-            model: User,
+            modelName: 'User',
          // write: ({loggedUser, query}) => loggedUser && loggedUser.id===query.object.id,
             write: true,
             read: true,

@@ -29,29 +29,23 @@ function EasyQLTypeORM(easyql, typeormConfig) {
         if( ! connection ) {
             const connectionOptions = Object.assign({}, typeormConfig);
             connectionOptions.entities = (connectionOptions.entities||[]).slice();
-            connectionOptions.push(...generatedEntities.map(s => new EntitySchema(s));
+            connectionOptions.push(...generatedEntities.map(s => new EntitySchema(s)));
             connection = await createConnection(connectionOptions);
         }
 
         for(const permission of permissions) {
             assert_usage(permission);
-            assert_usage(permission.model);
-            const modelName = getModelName(permission.model);
+            assert_usage(permission.modelName);
+        //  const modelName = getModelName(permission.model);
 
-            if( query.modelName !== modelName ) {
+            if( query.modelName !== permission.modelName ) {
                 continue;
             }
 
             const {queryType} = query;
             assert_usage(queryType, query);
 
-            /*
-            const {model: entity} = permission;
-            assert_usage(entity, permission);
-            */
-
-            console.log('mn', modelName);
-            const repository = connection.getRepository(modelName);
+            const repository = connection.getRepository(permission.modelName);
 
             if( queryType==='read' && await hasPermission(permission.read, params) ) {
                 const objects = await repository.find();
@@ -120,7 +114,7 @@ function addModel(generatedEntities, connection, modelSpecFn) {
     const entity = new EntitySchema(entityObject);
     assert_internal(entity.options.name===modelName);
     /*/
-    const entity = entityObject;
+ // const entity = entityObject;
     //*/
 
     generatedEntities.push(entity);
@@ -144,6 +138,7 @@ function addModel(generatedEntities, connection, modelSpecFn) {
     }
 }
 
+/*
 function getModelName(model) {
     if( model instanceof EntitySchema ) {
         assert_internal(model.options.name);
@@ -152,3 +147,4 @@ function getModelName(model) {
     assert_internal(model.name);
     return model.name;
 }
+*/

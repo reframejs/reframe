@@ -4,6 +4,7 @@ const mkdirp = require('mkdirp');
 const pathModule = require('path');
 const fs = require('fs');
 const fsExtra = require('fs-extra');
+const {colorError, colorEmphasisLight} = require('@brillout/cli-theme');
 
 module.exports = handleOutputDir;
 
@@ -15,7 +16,7 @@ function moveAndStampOutputDir({outputDir}) {
     assert_usage(outputDir && pathModule.isAbsolute(outputDir), outputDir);
     const stamp_path = path__resolve(outputDir, 'build-stamp');
 
-    handle_existing_output_dir();
+    remove_output_dir();
     create_output_dir();
 
     return;
@@ -60,25 +61,16 @@ function moveAndStampOutputDir({outputDir}) {
         }
     }
 
-    function handle_existing_output_dir() {
+    function remove_output_dir() {
         if( ! fs__path_exists(outputDir) ) {
             return;
         }
-        assert_usage(
-            fs__path_exists(stamp_path),
-            "Reframe's stamp `"+stamp_path+"` not found.",
-            "It is therefore assumed that `"+outputDir+"` has not been created by Reframe.",
-            "Remove `"+outputDir+"`, so that Reframe can safely write distribution files."
-        );
-        remove_output_dir();
-    }
-
-    function remove_output_dir() {
         const stamp_content = fs__path_exists(stamp_path) && fs__read(stamp_path).trim();
-        assert_internal(
+        assert_usage(
             stamp_content,
-            'Reframe stamp is missing at `'+stamp_path+'`.',
-            'Remove `'+outputDir+'` and retry.',
+            colorError('Reframe stamp is missing')+' at `'+stamp_path+'`.',
+            "It is therefore assumed that `"+outputDir+"` has not been created by Reframe.",
+            colorEmphasisLight('Remove `'+outputDir+'` and retry.'),
         );
         assert_internal(stamp_content && !/\s/.test(stamp_content), stamp_content);
         fsExtra.removeSync(outputDir);

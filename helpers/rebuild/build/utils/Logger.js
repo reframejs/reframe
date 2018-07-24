@@ -162,6 +162,17 @@ function log_stats_errors({webpack_stats}) {
 
     const info = webpack_stats.toJson();
 
+    if (has_warnings) {
+        log_title('Warning');
+        if( info.warnings.forEach ) {
+            info.warnings.forEach(error => {
+                print_warn(colorWarning(error));
+            });
+        } else {
+            print_warn(info.warnings);
+        }
+    }
+
     if (has_errors) {
         log_title('Error');
         if( info.errors.forEach ) {
@@ -171,17 +182,6 @@ function log_stats_errors({webpack_stats}) {
             });
         } else {
             print_err(info.errors);
-        }
-    }
-
-    if (has_warnings) {
-        log_title('Warning');
-        if( info.warnings.forEach ) {
-            info.warnings.forEach(error => {
-                print_warn(colorWarning(error));
-            });
-        } else {
-            print_warn(info.warnings);
         }
     }
 }
