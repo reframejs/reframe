@@ -35,19 +35,18 @@ async function handleRequest(request, h, easyql) {
     const query = JSON.parse(decodeURIComponent(queryString));
 
     const NEXT = Symbol();
-    const params = {req, query, NEXT};
-    /*
-    for(const handler of RequestHandlers) {
+    const params = {req, query};
+    for(const handler of ParamHandlers) {
         assert_usage(handler instanceof Function);
-        const newParams = await handler({req});
+        const newParams = await handler(params);
+        assert_usage(newParams && newParams.constructor===Object);
         Object.assign(params, newParams);
     }
-    */
     Object.assign(params, {loggedUser: {id: '123'}});
 
     for(const handler of easyql.QueryHandlers) {
         assert_usage(handler instanceof Function);
-        const result = await handler(params);
+        const result = await handler({...params, NEXT});
         if( result !== NEXT ) {
             const response = h.response(result);
             return response;
@@ -55,7 +54,6 @@ async function handleRequest(request, h, easyql) {
         {
             const params__light = Object.assign({}, params);
             delete params__light.req;
-            delete params__light.NEXT;
             assert_warning(
                 false,
                 "No matching permission found for the following query:",
