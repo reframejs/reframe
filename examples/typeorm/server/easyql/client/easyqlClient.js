@@ -7,7 +7,7 @@ const easyqlClient = {
 };
 module.exports = easyqlClient;
 
-async function query(queryObject) {
+async function query({query: queryObject, requestHeaders}) {
     const {queryType, modelName} = queryObject;
     assert_usage(['read', 'write'].includes(queryType));
     assert_usage(modelName && modelName.constructor===String);
@@ -22,9 +22,11 @@ async function query(queryObject) {
         url,
         {
             method,
+            credentials: 'same-origin',
+            headers: requestHeaders,
         }
     );
-    const responseJson = response.json();
+    const responseJson = await response.json();
     return responseJson;
 }
 

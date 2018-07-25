@@ -3,10 +3,10 @@ const generateHtml = require('@brillout/index-html');
 
 module.exports = {renderPageHtml};
 
-async function renderPageHtml({renderToHtml, pageConfig, url, router}) {
+async function renderPageHtml({renderToHtml, pageConfig, url, router, initialProps}) {
     let html;
     try {
-        const initialProps = await getInitialProps({pageConfig, url, router});
+        initialProps = await getInitialProps({pageConfig, url, router, initialProps});
         html = await renderToHtml({pageConfig, initialProps});
     } catch(err) {
         if( isProduction() ) {

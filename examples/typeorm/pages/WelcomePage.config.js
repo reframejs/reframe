@@ -27,11 +27,12 @@ class UserAdder extends React.Component {
     async onSubmit(ev) {
         ev.preventDefault();
         const object = this.state;
-        const response = await easyqlClient.query({
+        const query = {
             queryType: 'write',
             modelName: 'User',
             object,
-        });
+        };
+        const response = await easyqlClient.query({query});
         if( response.statusCode!==404 ) {
             window.document.location.reload();
         }
@@ -49,11 +50,13 @@ const WelcomePage = {
     route: '/',
     view: Welcome,
 
-    getInitialProps: async () => {
-        const response = await easyqlClient.query({
+    getInitialProps: async ({req}) => {
+        const query = {
             queryType: 'read',
             modelName: 'User',
-        });
+        };
+        const requestHeaders = req && req.headers;
+        const response = await easyqlClient.query({query, requestHeaders});
 
         const users = response.objects;
 

@@ -3,10 +3,10 @@ const crypto = require('crypto');
 const getPageHtml = require('@brillout/repage/getPageHtml');
 const reconfig = require('@brillout/reconfig');
 
-module.exports = serverRendering;
+module.exports = ServerRendering;
 
-async function serverRendering({url}) {
-    const html = await getHtml(url.uri);
+async function ServerRendering({url, req}) {
+    const html = await getHtml(url.uri, req);
 
     if( html === null ) {
         return null;
@@ -24,7 +24,7 @@ async function serverRendering({url}) {
     }
 }
 
-async function getHtml(uri) {
+async function getHtml(uri, req) {
     assert_internal(uri && uri.constructor===String, uri);
 
     const config = reconfig.getConfig({configFileName: 'reframe.config.js'});
@@ -32,7 +32,7 @@ async function getHtml(uri) {
     const {pageConfigs} = config.getBuildInfo();
     const {renderToHtml, router} = config;
 
-    const html = await getPageHtml({pageConfigs, uri, renderToHtml, router});
+    const html = await getPageHtml({pageConfigs, uri, renderToHtml, router, initialProps: {req}});
     assert_internal(html===null || html.constructor===String, html);
 
     return html;

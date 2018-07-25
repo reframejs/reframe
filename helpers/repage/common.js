@@ -7,13 +7,14 @@ function getUrl({uri}) {
     return url;
 }
 
-async function getInitialProps({pageConfig, url, router}) {
-    const route = getRouteInfo({url, router, pageConfig});
+async function getInitialProps({pageConfig, url, router, initialProps}) {
+    initialProps = {...initialProps};
 
-    const initialProps = {route};
+    const route = getRouteInfo({url, router, pageConfig});
+    initialProps = {route, ...initialProps};
 
     if( pageConfig.getInitialProps ) {
-        Object.assign(initialProps, await pageConfig.getInitialProps(initialProps));
+        initialProps = {...initialProps, ...(await pageConfig.getInitialProps(initialProps))};
     }
 
     return initialProps;

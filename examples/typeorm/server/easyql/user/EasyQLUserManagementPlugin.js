@@ -48,7 +48,7 @@ function addLoggedUser({req}) {
 
     const loggedUser = getLoggedUser(authCookie);
 
-    console.log(loggedUser, req.headers.cookie);
+ // console.log(loggedUser, req.headers.cookie);
 
     return {loggedUser};
 }
