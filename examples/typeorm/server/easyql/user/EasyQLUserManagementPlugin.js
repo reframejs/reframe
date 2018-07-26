@@ -76,10 +76,26 @@ function authRequestHandler({req, res}) {
         return;
     }
 
-    const userId = '12345';
+    const user_mocks = [
+        {
+            id: '1',
+            name: 'jon',
+        },
+        {
+            id: '2',
+            name: 'cersei',
+        },
+        {
+            id: '3',
+            name: 'alice',
+        },
+    ];
+
+    const user = user_mocks[Math.random()*user_mocks.length|0];
+
     const timestamp = new Date().getTime();
 
-    const authVal = cookieSignature.sign(userId+'.'+timestamp, SECRET_KEY);
+    const authVal = cookieSignature.sign(user.id+'.'+timestamp, SECRET_KEY);
 
     const cookieVal = cookie.serialize('auth', authVal, {
         maxAge: 60 * 60 * 24 * 7, // 1 week
@@ -88,13 +104,22 @@ function authRequestHandler({req, res}) {
      // secure: true,
     });
 
-    return {
-        body: 'yep',
-        headers: [
-            {
-                name: 'Set-Cookie',
-                value: cookieVal,
-            }
-        ],
-    };
+    const headers = [
+        {
+            name: 'set-cookie',
+            value: cookieVal,
+        },
+        {
+            name: 'set-cookie',
+            value: cookie.serialize('ran', Math.random()),
+        },
+        {
+            name: 'set-cookie',
+            value: cookie.serialize('ran2', Math.random()),
+        },
+    ];
+
+    const body = JSON.stringify(user);
+
+    return {body, headers};
 }
