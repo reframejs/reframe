@@ -3,6 +3,7 @@ const assert_warning = require('reassert/warning');
 const cookie = require('cookie');
 const cookieSignature = require('cookie-signature');
 const parseUri = require('@brillout/parse-uri');
+const easyqlClient = require('../../../server/easyql/client/easyqlClient');
 
 // TODO
 const SECRET_KEY = 'not-secret-yet';
@@ -14,7 +15,7 @@ function EasyQLUserManagementPlugin({easyql, addModel, addPermissions}) {
 
     easyql.ParamHandlers.push(addLoggedUser);
 
-    easyql.TMP_REQ_HANDLER = authRequestHandler;
+    easyql.TMP_REQ_HANDLER = authRequestHandler.bind(null, easyql);
 
     addModel(({types: {ID, STRING}}) => {
         return {
@@ -70,7 +71,7 @@ function getLoggedUser(authCookie) {
 }
 
 
-function authRequestHandler({req, res}) {
+function authRequestHandler(easyql, {req, res}) {
     const url = parseUri(req.url);
     if( url.pathname!=='/auth' ) {
         return;

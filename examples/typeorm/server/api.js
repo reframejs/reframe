@@ -12,9 +12,9 @@ console.log(User.constructor);
 console.log(User.constructor.name);
 */
 
-const api = initEasyqlPlugin();
+const {easyqlPlugin: api, User} = initEasyqlPlugin();
 
-module.exports = api;
+module.exports = {api, User};
 
 function initEasyqlPlugin() {
     const easyql = new EasyQL();
@@ -23,9 +23,19 @@ function initEasyqlPlugin() {
 
     const {User} = new EasyQLUserManagementPlugin({easyql, addModel, addPermissions});
 
- // addPermissions(permissions);
+    const permissions = [
+        {
+            modelName: 'Todo',
+         // write: ({loggedUser, query}) => loggedUser && loggedUser.id===query.object.id,
+         // write: ({loggedUser, query}) => loggedUser && loggedUser.id==='12345',
+            write: true,
+            read: true,
+        }
+    ];
+    addPermissions(permissions);
+
 
     const easyqlPlugin = new EasyQLHapiPlugin(easyql, closeConnection);
 
-    return easyqlPlugin;
+    return {easyqlPlugin, User};
 }
