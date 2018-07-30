@@ -10,7 +10,9 @@ module.exports = {requireAll, requireContext};
 
 function requireAll(loader) {
     const modules = loader.keys().map(key => {
-        return loader(key).default;
+        const module = loader(key);
+     // console.log('m', module);
+        return module.default;
     });
     return modules;
 }

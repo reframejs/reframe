@@ -1,8 +1,8 @@
 const EasyQL = require('./easyql/core/EasyQL');
 const EasyQLTypeORM = require('./easyql/typeorm/EasyQLTypeORM');
 const EasyQLHapiPlugin = require('./easyql/hapi/EasyQLHapiPlugin');
-const typeormConfig = require('./typeorm.config.js');
 const EasyQLUserManagementPlugin = require('./easyql/user/EasyQLUserManagementPlugin');
+const typeormConfig = require('./typeorm.config.js');
 
 /*
 const {default: User} = require('../models/entity/User.ts');

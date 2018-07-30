@@ -17,7 +17,7 @@ function EasyQLUserManagementPlugin({easyql, addModel, addPermissions}) {
 
     easyql.TMP_REQ_HANDLER = authRequestHandler.bind(null, easyql);
 
-    addModel(({types: {ID, STRING}}) => {
+    const User = addModel(({types: {ID, STRING}}) => {
         return {
             modelName: 'User',
             props: {
@@ -39,6 +39,8 @@ function EasyQLUserManagementPlugin({easyql, addModel, addPermissions}) {
     ];
 
     addPermissions(permissions);
+
+    return {User};
 }
 
 

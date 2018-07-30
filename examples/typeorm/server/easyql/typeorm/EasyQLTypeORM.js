@@ -26,9 +26,15 @@ function EasyQLTypeORM(easyql, typeormConfig) {
         assert_internal(req && query && NEXT, params);
 
         if( ! connection ) {
-            const connectionOptions = Object.assign({}, typeormConfig);
+            const con = typeormConfig();
+            const connectionOptions = Object.assign({}, con);
             connectionOptions.entities = (connectionOptions.entities||[]).slice();
-            connectionOptions.entities.push(...generatedEntities.map(s => new EntitySchema(s)));
+            connectionOptions.entitySchemas = generatedEntities.slice();
+        //  connectionOptions.entities.push(...generatedEntities);
+            console.log('es',{
+            entities: connectionOptions.entities,
+            entitySchemas: connectionOptions.entitySchemas,
+            });
             connection = await createConnection(connectionOptions);
         }
 
@@ -109,9 +115,11 @@ function addModel(generatedEntities, connection, modelSpecFn) {
         entityObject.columns[propName] = getTypeormType(propType);
     });
 
+    const entity = new EntitySchema(entityObject);
+
     generatedEntities.push(entityObject);
 
-    return undefined;
+    return entity;
 
     function getTypeormType(propType) {
         if( propType === types.ID ) {
