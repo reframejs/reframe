@@ -19,6 +19,37 @@ const TodoList = ({todos}) => (
     }</div>
 );
 
+class UserAdder extends React.Component {
+    render() {
+        return (
+            <form onSubmit={this.onSubmit.bind(this)}>
+                <input type="text" name="firstName" onChange={this.onChange.bind(this)}/>
+                <input type="text" name="lastName" onChange={this.onChange.bind(this)}/>
+                <button type="submit">Add user</button>
+            </form>
+        );
+    }
+    onChange(ev) {
+        const {name, value} = ev.target;
+        this.setState({[name]: value});
+    }
+    async onSubmit(ev) {
+        ev.preventDefault();
+        const object = {...this.state};
+        const query = {
+            queryType: 'write',
+            modelName: 'User',
+            object,
+        };
+        const response = await easyqlClient.query({query});
+        console.log(response);
+        console.log(response.statusCode);
+        if( response.statusCode===200 ) {
+            window.document.location.reload();
+        }
+    }
+}
+
 class TodoAdder extends React.Component {
     render() {
         return (
@@ -41,7 +72,7 @@ class TodoAdder extends React.Component {
             object,
         };
         const response = await easyqlClient.query({query});
-        if( response.statusCode!==404 ) {
+        if( response.statusCode===200 ) {
             window.document.location.reload();
         }
     }
@@ -49,6 +80,7 @@ class TodoAdder extends React.Component {
 
 const Welcome = ({users, todos}) => (
     <div>
+        <UserAdder/>
         <UserList users={users}/>
         <TodoAdder/>
         <TodoList todos={todos}/>

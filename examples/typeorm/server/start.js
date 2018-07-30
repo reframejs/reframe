@@ -1,10 +1,7 @@
-console.log('s1');
 const Hapi = require('hapi');
 const config = require('@brillout/reconfig').getConfig({configFileName: 'reframe.config.js'});
 const {symbolSuccess, colorEmphasis} = require('@brillout/cli-theme');
-console.log('s2');
 const {api} = require('./api');
-console.log('s3');
 
 module.exports = start();
 

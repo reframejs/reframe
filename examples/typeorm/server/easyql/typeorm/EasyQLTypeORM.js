@@ -29,8 +29,10 @@ function EasyQLTypeORM(easyql, typeormConfig) {
             const con = typeormConfig();
             const connectionOptions = Object.assign({}, con);
             connectionOptions.entities = (connectionOptions.entities||[]).slice();
-            connectionOptions.entitySchemas = generatedEntities.slice();
-        //  connectionOptions.entities.push(...generatedEntities);
+        //  connectionOptions.entitySchemas = (connectionOptions.entitySchemas||[]).slice();
+        //  connectionOptions.entitySchemas.push(...generatedEntities);
+            connectionOptions.entities.push(...generatedEntities);
+            connectionOptions.entities.push(...connectionOptions.es.map(es => new EntitySchema(es)));
             console.log('es',{
             entities: connectionOptions.entities,
             entitySchemas: connectionOptions.entitySchemas,
@@ -117,7 +119,8 @@ function addModel(generatedEntities, connection, modelSpecFn) {
 
     const entity = new EntitySchema(entityObject);
 
-    generatedEntities.push(entityObject);
+ // generatedEntities.push(entityObject);
+    generatedEntities.push(entity);
 
     return entity;
 
