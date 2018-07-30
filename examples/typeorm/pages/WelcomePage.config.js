@@ -42,9 +42,7 @@ class UserAdder extends React.Component {
             object,
         };
         const response = await easyqlClient.query({query});
-        console.log(response);
-        console.log(response.statusCode);
-        if( response.statusCode===200 ) {
+        if( ! response.error ) {
             window.document.location.reload();
         }
     }
@@ -72,7 +70,7 @@ class TodoAdder extends React.Component {
             object,
         };
         const response = await easyqlClient.query({query});
-        if( response.statusCode===200 ) {
+        if( ! response.error ) {
             window.document.location.reload();
         }
     }
@@ -108,8 +106,8 @@ async function getTodos({req}) {
     const requestHeaders = req && req.headers;
     const response = await easyqlClient.query({query, requestHeaders});
 
-    console.log(response);
     const todos = response.objects;
+    console.log(todos);
 
     return todos;
 }
