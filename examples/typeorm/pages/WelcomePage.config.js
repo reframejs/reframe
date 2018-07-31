@@ -63,7 +63,7 @@ class TodoAdder extends React.Component {
     }
     async onSubmit(ev) {
         ev.preventDefault();
-        const object = {user: '1', isCompleted: false, ...this.state};
+        const object = {user: {id: '1'}, isCompleted: false, ...this.state};
         const query = {
             queryType: 'write',
             modelName: 'Todo',

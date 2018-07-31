@@ -3,19 +3,26 @@ module.exports = {
     columns: {
         id: {
             primary: true,
-            type: "int",
+            type: Number,
             generated: true
         },
         text: {
-            type: "text"
-        }
+            type: String,
+        },
+        isCompleted: {
+            type: Boolean,
+        },
     },
     relations: {
-        categories: {
+        user: {
             target: "User",
             type: "many-to-one",
-            joinTable: true,
-            cascade: true
+            eager: false,
+            cascade: false,
+            joinColumn: {
+                name: 'author',
+            },
+            nullable: false
         }
     }
 };
