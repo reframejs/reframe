@@ -5,13 +5,14 @@ const UserManagement = require('./easyql/user/UserManagement');
 const typeormConfig = require('./typeorm.config.js');
 
 const permissions = [
-    () => ({
-        modelName: 'Todo',
-     // write: ({loggedUser, query}) => loggedUser && loggedUser.id===query.object.id,
-     // write: ({loggedUser, query}) => loggedUser && loggedUser.id==='12345',
-        write: true,
-        read: true,
-    }),
+    () => {
+        const isAuthor = ({loggedUser, object}) => loggedUser && loggedUser.id==object.user.id;
+        return {
+            modelName: 'Todo',
+            write: isAuthor,
+            read: isAuthor,
+        };
+    },
 ];
 
 const easyql = new EasyQL();

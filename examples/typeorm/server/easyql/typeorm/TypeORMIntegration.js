@@ -60,29 +60,40 @@ function TypeORMIntegration(easyql) {
 
             const repository = connection.getRepository(permission.modelName);
 
-            if( queryType==='read' && await hasPermission(permission.read, params) ) {
+            if( queryType==='read' ) {
                 const objects = await repository.find();
-                return JSON.stringify({objects});
+                if( await hasPermission(objects, permission.read, params) ) {
+                    return JSON.stringify({objects});
+                }
             }
 
-            if( queryType==='write' && await hasPermission(permission.write, params) ) {
+            if( queryType==='write' ) {
                 const objectProps = query.object;
                 assert_usage(objectProps, query);
+                const objects = [objectProps];
 
-                const obj = await repository.save(objectProps);
-
-                return JSON.stringify({objects: [obj]});
+                if( await hasPermission([object], permission.write, params) ) {
+                    const obj = await repository.save(objectProps);
+                    return JSON.stringify({objects: [obj]});
+                }
             }
         }
         return NEXT;
     }
 
-    async function hasPermission(permissionRequirement, params) {
+    async function hasPermission(objects, permissionRequirement, params) {
         if( permissionRequirement === true ) {
             return true;
         }
         if( permissionRequirement instanceof Function ) {
-            return await permissionRequirement(params);
+            const permitted = (
+                objects.every(object => {
+                    const args = {object, ...params};
+                    console.log(object.user.id, params.loggedUser.id);
+                    return permissionRequirement(args);
+                })
+            );
+            return permitted;
         }
         assert_usage(false, permissionRequirement);
     }

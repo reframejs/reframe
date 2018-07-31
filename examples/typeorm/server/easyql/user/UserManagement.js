@@ -47,8 +47,8 @@ function UserManagement(easyql) {
         () => ({
             modelName: 'User',
          // write: ({loggedUser, query}) => loggedUser && loggedUser.id===query.object.id,
-            write: ({loggedUser, query}) => loggedUser && loggedUser.id==='12345',
-         // write: true,
+         // write: ({loggedUser, query}) => loggedUser && loggedUser.id==='12345',
+            write: true,
             read: true,
         })
     );
@@ -101,15 +101,15 @@ function authRequestHandler(easyql, {req, res}) {
 
     const user_mocks = [
         {
-            id: '1',
+            id: 1,
             name: 'jon',
         },
         {
-            id: '2',
+            id: 2,
             name: 'cersei',
         },
         {
-            id: '3',
+            id: 3,
             name: 'alice',
         },
     ];
@@ -122,23 +122,15 @@ function authRequestHandler(easyql, {req, res}) {
 
     const cookieVal = cookie.serialize('auth', authVal, {
         maxAge: 60 * 60 * 24 * 7, // 1 week
-        httpOnly: true,
+     // httpOnly: true,
         sameSite: 'strict',
      // secure: true,
     });
 
     const headers = [
         {
-            name: 'set-cookie',
+            name: 'Set-Cookie',
             value: cookieVal,
-        },
-        {
-            name: 'set-cookie',
-            value: cookie.serialize('ran', Math.random()),
-        },
-        {
-            name: 'set-cookie',
-            value: cookie.serialize('ran2', Math.random()),
         },
     ];
 

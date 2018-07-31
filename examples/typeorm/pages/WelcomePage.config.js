@@ -63,7 +63,8 @@ class TodoAdder extends React.Component {
     }
     async onSubmit(ev) {
         ev.preventDefault();
-        const object = {user: {id: '1'}, isCompleted: false, ...this.state};
+        const userId = Math.random()*3|0;
+        const object = {user: {id: userId}, isCompleted: false, ...this.state};
         const query = {
             queryType: 'write',
             modelName: 'Todo',
@@ -86,9 +87,16 @@ const Welcome = ({users, todos}) => (
 );
 
 async function getUsers({req}) {
+    const userId = document.cookie.split('auth=')[1][0];
+    console.log('ui', userId);
     const query = {
         queryType: 'read',
         modelName: 'User',
+        filter: {
+            user: {
+                userId,
+            },
+        },
     };
     const requestHeaders = req && req.headers;
     const response = await easyqlClient.query({query, requestHeaders});
