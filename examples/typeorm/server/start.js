@@ -15,6 +15,8 @@ async function start() {
     await server.register(config.hapiIntegrationPlugin);
 
     // Add API generated with EasyQL
+    console.log(easyql);
+    console.log(easyql.HapiPlugin);
     await server.register(easyql.HapiPlugin);
 
     await server.start();

@@ -14,8 +14,6 @@ function TypeORMIntegration(easyql) {
 
     const generatedEntities = [];
 
-    const addModel = addModel.bind(null, generatedEntities, connection);
-
     Object.assign(easyql, {
         QueryHandlers,
         closeConnection,
@@ -37,15 +35,17 @@ function TypeORMIntegration(easyql) {
         //  connectionOptions.entitySchemas.push(...generatedEntities);
             connectionOptions.entities.push(...generatedEntities);
             connectionOptions.entities.push(...connectionOptions.es.map(es => new EntitySchema(es)));
+            /*
             console.log('es',{
             entities: connectionOptions.entities,
             entitySchemas: connectionOptions.entitySchemas,
             });
+            */
             connection = await createConnection(connectionOptions);
         }
 
         assert_usage(easyql.permissions);
-        for(const permissionFn of permissions) {
+        for(const permissionFn of easyql.permissions) {
             const permission = permissionFn();
             assert_usage(permission);
             assert_usage(permission.modelName);
@@ -93,53 +93,53 @@ function TypeORMIntegration(easyql) {
             connection = null;
         }
     }
-}
 
-function addModel(generatedEntities, connection, modelSpecFn) {
-    assert_usage(connection===undefined);
+    function addModel(modelSpecFn) {
+        assert_usage(connection===undefined);
 
-    const types = {
-        ID: Symbol(),
-        STRING: Symbol(),
-    };
+        const types = {
+            ID: Symbol(),
+            STRING: Symbol(),
+        };
 
-    const modelSpec = modelSpecFn({
-        types,
-    });
+        const modelSpec = modelSpecFn({
+            types,
+        });
 
-    const {modelName, props} = modelSpec;
-    assert_usage(modelName);
-    assert_usage(props && Object.entries(props).length>0);
+        const {modelName, props} = modelSpec;
+        assert_usage(modelName);
+        assert_usage(props && Object.entries(props).length>0);
 
-    const entityObject = {
-        name: modelName,
-        columns: {},
-    };
-    Object.entries(props).forEach(([propName, propType]) => {
-        entityObject.columns[propName] = getTypeormType(propType);
-    });
+        const entityObject = {
+            name: modelName,
+            columns: {},
+        };
+        Object.entries(props).forEach(([propName, propType]) => {
+            entityObject.columns[propName] = getTypeormType(propType);
+        });
 
-    const entity = new EntitySchema(entityObject);
+        const entity = new EntitySchema(entityObject);
 
- // generatedEntities.push(entityObject);
-    generatedEntities.push(entity);
+     // generatedEntities.push(entityObject);
+        generatedEntities.push(entity);
 
-    return entity;
+        return entity;
 
-    function getTypeormType(propType) {
-        if( propType === types.ID ) {
-            return {
-                type: Number,
-                primary: true,
-                generated: true
-            };
+        function getTypeormType(propType) {
+            if( propType === types.ID ) {
+                return {
+                    type: Number,
+                    primary: true,
+                    generated: true
+                };
+            }
+            if( propType === types.STRING ) {
+                return {
+                    type: String,
+                };
+            }
+            assert_usage(false, propType.toString());
         }
-        if( propType === types.STRING ) {
-            return {
-                type: String,
-            };
-        }
-        assert_usage(false, propType.toString());
     }
 }
 

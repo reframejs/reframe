@@ -44,13 +44,13 @@ function UserManagement(easyql) {
 
     const permissions = easyql.permissions || [];
     permissions.push(
-        () => {
+        () => ({
             modelName: 'User',
          // write: ({loggedUser, query}) => loggedUser && loggedUser.id===query.object.id,
             write: ({loggedUser, query}) => loggedUser && loggedUser.id==='12345',
          // write: true,
             read: true,
-        }
+        })
     );
 
     Object.assign(easyql, {
