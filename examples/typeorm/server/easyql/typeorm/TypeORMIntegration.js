@@ -3,30 +3,34 @@ require("reflect-metadata");
 const assert_internal = require('reassert/internal');
 const assert_usage = require('reassert/usage');
 
-module.exports = EasyQLTypeORM;
+module.exports = TypeORMIntegration;
 
-function EasyQLTypeORM(easyql, typeormConfig) {
-    assert_usage(typeormConfig);
-    assert_internal(easyql.QueryHandlers.constructor===Array);
+function TypeORMIntegration(easyql) {
     let connection;
 
-    easyql.QueryHandlers.push(queryHandler);
+    const QueryHandlers = easyql.QueryHandlers || [];
+    assert_usage(QueryHandlers.constructor===Array);
+    QueryHandlers.push(queryHandler);
 
-    const permissions = [];
     const generatedEntities = [];
 
-    return {
-        addPermissions,
+    const addModel = addModel.bind(null, generatedEntities, connection);
+
+    Object.assign(easyql, {
+        QueryHandlers,
         closeConnection,
-        addModel: addModel.bind(null, generatedEntities, connection),
-    };
+        addModel,
+    });
+
+    return;
 
     async function queryHandler(params) {
         const {req, query, NEXT} = params;
         assert_internal(req && query && NEXT, params);
 
         if( ! connection ) {
-            const con = typeormConfig();
+            assert_usage(easyql.typeormConfig);
+            const con = easyql.typeormConfig();
             const connectionOptions = Object.assign({}, con);
             connectionOptions.entities = (connectionOptions.entities||[]).slice();
         //  connectionOptions.entitySchemas = (connectionOptions.entitySchemas||[]).slice();
@@ -40,7 +44,9 @@ function EasyQLTypeORM(easyql, typeormConfig) {
             connection = await createConnection(connectionOptions);
         }
 
-        for(const permission of permissions) {
+        assert_usage(easyql.permissions);
+        for(const permissionFn of permissions) {
+            const permission = permissionFn();
             assert_usage(permission);
             assert_usage(permission.modelName);
         //  const modelName = getModelName(permission.model);
@@ -79,10 +85,6 @@ function EasyQLTypeORM(easyql, typeormConfig) {
             return await permissionRequirement(params);
         }
         assert_usage(false, permissionRequirement);
-    }
-
-    function addPermissions(permissions__new) {
-        permissions.push(...permissions__new);
     }
 
     async function closeConnection() {

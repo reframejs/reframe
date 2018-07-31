@@ -1,4 +1,4 @@
-const assert_internal = require('reassert/internal');
+const assert_usage = require('reassert/usage');
 const assert_warning = require('reassert/warning');
 const cookie = require('cookie');
 const cookieSignature = require('cookie-signature');
@@ -8,39 +8,59 @@ const easyqlClient = require('../../../server/easyql/client/easyqlClient');
 // TODO
 const SECRET_KEY = 'not-secret-yet';
 
-module.exports = EasyQLUserManagementPlugin;
+module.exports = UserManagement;
 
-function EasyQLUserManagementPlugin({easyql, addModel, addPermissions}) {
-    assert_internal(easyql.ParamHandlers.constructor===Array);
+function UserManagement(easyql) {
 
-    easyql.ParamHandlers.push(addLoggedUser);
+    const ParamHandlers = easyql.ParamHandlers || [];
+    assert_usage(ParamHandlers.constructor===Array);
+    ParamHandlers.push(addLoggedUser);
 
-    easyql.TMP_REQ_HANDLER = authRequestHandler.bind(null, easyql);
+    const TMP_REQ_HANDLER = authRequestHandler.bind(null, easyql);
 
-    const User = addModel(({types: {ID, STRING}}) => {
-        return {
-            modelName: 'User',
-            props: {
-                id: ID,
-                firstName: STRING,
-                lastName: STRING,
-            },
-        };
+    let UserModel;
+    const models = easyql.models || {};
+    assert_usage(models.constructor===Object);
+    Object.assign(models, {
+        get User() {
+            if( ! UserModel ) {
+                assert_usage(easyql.addModel);
+                UserModel = (
+                    easyql.addModel(({types: {ID, STRING}}) => {
+                        return {
+                            modelName: 'User',
+                            props: {
+                                id: ID,
+                                firstName: STRING,
+                                lastName: STRING,
+                            },
+                        };
+                    })
+                );
+            }
+            return UserModel;
+        }
     });
 
-    const permissions = [
-        {
+    const permissions = easyql.permissions || [];
+    permissions.push(
+        () => {
             modelName: 'User',
          // write: ({loggedUser, query}) => loggedUser && loggedUser.id===query.object.id,
             write: ({loggedUser, query}) => loggedUser && loggedUser.id==='12345',
          // write: true,
             read: true,
         }
-    ];
+    );
 
-    addPermissions(permissions);
+    Object.assign(easyql, {
+        TMP_REQ_HANDLER,
+        ParamHandlers,
+        permissions,
+        models,
+    });
 
-    return {User};
+    return;
 }
 
 

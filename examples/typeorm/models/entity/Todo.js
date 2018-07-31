@@ -17,11 +17,13 @@ module.exports = {
         user: {
             target: "User",
             type: "many-to-one",
-            eager: false,
+            eager: true,
             cascade: false,
+            /*
             joinColumn: {
                 name: 'author',
             },
+            */
             nullable: false
         }
     }
