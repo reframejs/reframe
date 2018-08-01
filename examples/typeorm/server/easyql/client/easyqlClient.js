@@ -2,8 +2,12 @@ const fetch = require('@brillout/fetch');
 const assert_usage = require('reassert/usage');
 const assert_internal = require('reassert/internal');
 
+// TODO - Don't directly require getLoggedUser
+const readAuthCookie = require('../user/readAuthCookie');
+
 const easyqlClient = {
     query,
+    getLoggedUser,
 };
 module.exports = easyqlClient;
 
@@ -35,4 +39,10 @@ function getOption(optionName) {
         (typeof process !== "undefined") && process && process.env && process.env[optionName] ||
         (typeof window !== "undefined") && window && window[optionName]
     );
+}
+
+function getLoggedUser({req}={}) {
+    const cookieString = req ? req.headers.cookie : document.cookie;
+    const {loggedUser} = readAuthCookie({cookieString});
+    return loggedUser;
 }

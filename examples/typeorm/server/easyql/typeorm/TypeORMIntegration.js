@@ -2,6 +2,7 @@ const {createConnection, EntitySchema, getRepository} = require("typeorm");
 require("reflect-metadata");
 const assert_internal = require('reassert/internal');
 const assert_usage = require('reassert/usage');
+const assert_warning = require('reassert/warning');
 
 module.exports = TypeORMIntegration;
 
@@ -61,7 +62,11 @@ function TypeORMIntegration(easyql) {
             const repository = connection.getRepository(permission.modelName);
 
             if( queryType==='read' ) {
-                const objects = await repository.find();
+                const findOptions = {};
+                if( query.filter ) {
+                    findOptions.where = query.filter;
+                }
+                const objects = await repository.find(findOptions);
                 if( await hasPermission(objects, permission.read, params) ) {
                     return JSON.stringify({objects});
                 }
@@ -70,10 +75,19 @@ function TypeORMIntegration(easyql) {
             if( queryType==='write' ) {
                 const objectProps = query.object;
                 assert_usage(objectProps, query);
-                const objects = [objectProps];
-
-                if( await hasPermission([object], permission.write, params) ) {
-                    const obj = await repository.save(objectProps);
+                if( await hasPermission([objectProps], permission.write, params) ) {
+                    let obj;
+                    try {
+                        obj = await repository.save(objectProps);
+                    } catch(err) {
+                        console.error(err);
+                        assert_warning(
+                            false,
+                            "Error while trying the following object to the database.",
+                            objectProps
+                        )
+                        return NEXT;
+                    }
                     return JSON.stringify({objects: [obj]});
                 }
             }
@@ -89,7 +103,6 @@ function TypeORMIntegration(easyql) {
             const permitted = (
                 objects.every(object => {
                     const args = {object, ...params};
-                    console.log(object.user.id, params.loggedUser.id);
                     return permissionRequirement(args);
                 })
             );

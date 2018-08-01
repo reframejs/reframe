@@ -1,9 +1,10 @@
 const assert_usage = require('reassert/usage');
-const assert_warning = require('reassert/warning');
+const assert_internal = require('reassert/internal');
 const cookie = require('cookie');
 const cookieSignature = require('cookie-signature');
 const parseUri = require('@brillout/parse-uri');
 const easyqlClient = require('../../../server/easyql/client/easyqlClient');
+const readAuthCookie = require('./readAuthCookie');
 
 // TODO
 const SECRET_KEY = 'not-secret-yet';
@@ -65,31 +66,20 @@ function UserManagement(easyql) {
 
 
 function addLoggedUser({req}) {
-    const cookies = cookie.parse(req.headers.cookie || '');
+    const cookieString = req.headers.cookie;
 
-    const {auth: authCookie} = cookies;
+    let {loggedUser, authCookie} = readAuthCookie({cookieString});
 
-    const loggedUser = getLoggedUser(authCookie);
+ // console.log(loggedUser, cookieString);
 
- // console.log(loggedUser, req.headers.cookie);
+    const validation = cookieSignature.unsign(authCookie, SECRET_KEY);
+    assert_internal(validation===false || validation===authCookie.split('.').slice(0, -1).join('.'));
+    if( ! validation ) {
+        loggedUser = null;
+    }
 
+    assert_internal(loggedUser===null || loggedUser.constructor===Object);
     return {loggedUser};
-}
-
-function getLoggedUser(authCookie) {
-    if( ! authCookie ) {
-        return null;
-    }
-
-    const authVal = cookieSignature.unsign(authCookie, SECRET_KEY);
-    const authParts = authVal.split('.');
-    if( authParts.length!==2 ) {
-        assert_warning(false, "Malformatted cookie encountered.");
-        return null;
-    }
-    const [userId, timestamp] = authParts;
-
-    return {id: userId};
 }
 
 
@@ -122,6 +112,7 @@ function authRequestHandler(easyql, {req, res}) {
 
     const cookieVal = cookie.serialize('auth', authVal, {
         maxAge: 60 * 60 * 24 * 7, // 1 week
+        // TODO-LATER make `httpOnly` true
      // httpOnly: true,
         sameSite: 'strict',
      // secure: true,

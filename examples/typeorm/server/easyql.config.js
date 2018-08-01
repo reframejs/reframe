@@ -6,7 +6,7 @@ const typeormConfig = require('./typeorm.config.js');
 
 const permissions = [
     () => {
-        const isAuthor = ({loggedUser, object}) => loggedUser && loggedUser.id==object.user.id;
+        const isAuthor = ({loggedUser, object}) => loggedUser && loggedUser.id===object.user.id;
         return {
             modelName: 'Todo',
             write: isAuthor,

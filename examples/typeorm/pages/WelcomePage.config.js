@@ -63,8 +63,9 @@ class TodoAdder extends React.Component {
     }
     async onSubmit(ev) {
         ev.preventDefault();
-        const userId = Math.random()*3|0;
-        const object = {user: {id: userId}, isCompleted: false, ...this.state};
+        const loggedUser = easyqlClient.getLoggedUser();
+        const {id} = loggedUser;
+        const object = {user: {id}, isCompleted: false, ...this.state};
         const query = {
             queryType: 'write',
             modelName: 'Todo',
@@ -87,16 +88,9 @@ const Welcome = ({users, todos}) => (
 );
 
 async function getUsers({req}) {
-    const userId = document.cookie.split('auth=')[1][0];
-    console.log('ui', userId);
     const query = {
         queryType: 'read',
         modelName: 'User',
-        filter: {
-            user: {
-                userId,
-            },
-        },
     };
     const requestHeaders = req && req.headers;
     const response = await easyqlClient.query({query, requestHeaders});
@@ -107,15 +101,21 @@ async function getUsers({req}) {
 }
 
 async function getTodos({req}) {
+    const loggedUser = easyqlClient.getLoggedUser({req});
+    const userId = loggedUser.id;
     const query = {
         queryType: 'read',
         modelName: 'Todo',
+        filter: {
+            user: {
+                id: userId,
+            },
+        },
     };
     const requestHeaders = req && req.headers;
     const response = await easyqlClient.query({query, requestHeaders});
 
     const todos = response.objects;
-    console.log(todos);
 
     return todos;
 }
