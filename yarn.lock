@@ -30,6 +30,13 @@
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/@brillout/format-text/-/format-text-0.1.1.tgz#13cd49bf966fc82727c0c62e003fcdc05fb052f8"
 
+"@brillout/format-text@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@brillout/format-text/-/format-text-0.1.2.tgz#fa54fd0f4601d41b906e9a0596bbd4fedec5de76"
+  dependencies:
+    reassert "^1.1.14"
+    string-width "^2.1.1"
+
 "@brillout/get-user-dir@^0.2.1":
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/@brillout/get-user-dir/-/get-user-dir-0.2.1.tgz#37ebc8b8dc70ac094c0463f531caa037096dff6d"
@@ -5921,6 +5928,12 @@ readline-utils@^2.2.1, readline-utils@^2.2.3:
 reassert@^1.1.11, reassert@^1.1.12, reassert@^1.1.8, reassert@^1.1.9:
   version "1.1.12"
   resolved "https://registry.yarnpkg.com/reassert/-/reassert-1.1.12.tgz#b34e30696cd0321773756ae94b40ea7f75a99c8e"
+  dependencies:
+    "@brillout/format-text" "^0.1.0"
+
+reassert@^1.1.14:
+  version "1.1.14"
+  resolved "https://registry.yarnpkg.com/reassert/-/reassert-1.1.14.tgz#9a00eb9f799e6364ff4872ff13668a83dbb0e317"
   dependencies:
     "@brillout/format-text" "^0.1.0"
 

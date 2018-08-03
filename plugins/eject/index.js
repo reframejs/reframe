@@ -1,3 +1,6 @@
+const CMD_EJECT_PREVIEW = 'eject-preview';
+const CMD_EJECT = 'eject';
+
 module.exports = {
     $name: require('./package.json').name,
     $getters: [
@@ -8,7 +11,7 @@ module.exports = {
     ],
     cliCommands: [
         {
-            name: 'eject',
+            name: CMD_EJECT,
             param: '[ejectable]',
             description: 'Eject an "ejectable".',
             action: runEject,
@@ -21,12 +24,21 @@ module.exports = {
                     name: "--skip-npm",
                     description: "Skip installing packages with npm. You will have to run `npm install` / `yarn` yourself. Do this if you use Yarn.",
                 },
-                {
-                    name: "--dry-run",
-                    description: "See what the eject would add to your codebase without actually ejecting.",
-                },
             ],
-            printAdditionalHelp,
+            printAdditionalHelp: () => {
+                printEjectables({isPreview: false});
+                console.log();
+            },
+        },
+        {
+            name: CMD_EJECT_PREVIEW,
+            param: '[ejectable]',
+            description: 'Preview the code that an "ejectable" would eject.',
+            action: runPreview,
+            printAdditionalHelp: () => {
+                printEjectables({isPreview: true});
+                console.log();
+            },
         },
     ],
 };
@@ -56,9 +68,27 @@ function ejectableGetter(configParts) {
     return ejectables;
 }
 
-async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm, dryRun}, printHelp}) {
-    skipGit = skipGit || dryRun;
-    skipNpm = skipNpm || dryRun;
+function runEject(argObj) {
+    execEject.call(null, argObj);
+}
+
+async function runPreview(argObj) {
+    argObj.options.isPreview = true;
+    if( argObj.inputs[0] !== 'all' ) {
+        execEject.call(null, argObj);
+        return;
+    }
+    const ejectables = getEjectables();
+    for(const ejectableName of Object.keys(ejectables).reverse()) {
+        argObj.inputs[0] = ejectableName;
+        await execEject.call(null, argObj);
+    }
+}
+
+
+async function execEject({inputs: [ejectableName], options: {skipGit, skipNpm, isPreview}, printHelp}) {
+    skipGit = skipGit || isPreview;
+    skipNpm = skipNpm || isPreview;
 
     if( !ejectableName ) {
         printHelp();
@@ -73,6 +103,7 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm, dr
     // TODO rename to config
     const reframeConfig = require('@brillout/reconfig').getConfig({configFileName: 'reframe.config.js'});
     const {symbolSuccess, strFile, colorEmphasisLight, colorError, indent} = require('@brillout/cli-theme');
+    const {titleFormat} = require('@brillout/format-text');
     const runNpmInstall = require('@reframe/utils/runNpmInstall');
     const gitUtils = require('@reframe/utils/git');
     const pathModule = require('path');
@@ -93,7 +124,7 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm, dr
             console.log();
             console.log(colorError(indent+'No ejectable `'+ejectableName+'` found.'));
             console.log();
-            printEjectables();
+            printEjectables({isPreview});
             console.log();
             return;
         }
@@ -133,39 +164,44 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm, dr
         copyFiles({fileCopies, operations, deps});
 
         console.log();
+        console.log(titleFormat('Preview of '+colorEmphasisLight('reframe '+CMD_EJECT+' '+ejectableName), {padding: 6}));
+        console.log();
 
         const {newDeps, newDepsStr} = getNewDeps({deps, ejecteePackageJsonFile});
 
         operations.forEach(op => {
             if( op.type==='newFile' ) {
                 const {newFilePath, fileContent} = op;
-                if( ! dryRun ) {
+                if( ! isPreview ) {
                     fs__write(newFilePath, fileContent);
+                    console.log(symbolSuccess+'New file '+strFile(newFilePath)+'.');
                 }
-                console.log(symbolSuccess+'New file '+strFile(newFilePath)+'.');
-                if( dryRun ) {
-                    log_new_lines(newFilePath, fileContent);
+                if( isPreview ) {
+                    log_new_code(newFilePath, fileContent);
                 }
             }
             if( op.type==='changeConfig' ) {
                 const {reframeConfigPath, reframeConfigFile, reframeConfigContentNew, newConfigContent} = op;
-                if( ! dryRun ) {
+                if( ! isPreview ) {
                     fs__write(reframeConfigPath, reframeConfigContentNew);
+                    console.log(symbolSuccess+'Modified '+strFile(reframeConfigFile));
                 }
-                console.log(symbolSuccess+'Modified '+strFile(reframeConfigFile));
-                if( dryRun ) {
-                    log_new_lines(reframeConfigPath, newConfigContent);
+                if( isPreview ) {
+                    log_new_code(reframeConfigPath, newConfigContent);
                 }
             }
         });
         if( newDeps.length>0 ) {
-            if( ! dryRun ) {
+            if( ! isPreview ) {
                 await addNewDeps({newDeps, projectPackageJsonFile});
+                console.log(symbolSuccess+'Added new dependencies '+newDepsStr+' to '+strFile(projectPackageJsonFile)+'.');
             }
-            console.log(symbolSuccess+'Added new dependencies '+newDepsStr+' to '+strFile(projectPackageJsonFile)+'.');
         }
-        console.log(symbolSuccess+'All code ejected.');
-        console.log();
+
+        if( ! isPreview ) {
+            console.log(symbolSuccess+'All code ejected.');
+            console.log();
+        }
 
         if( newDeps.length>0 && !skipNpm ) {
             console.log('Installing new dependencies '+newDepsStr+'.');
@@ -175,8 +211,7 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm, dr
         }
     }
 
-    function log_new_lines(filePath, newContent) {
-        console.log();
+    function log_new_code(filePath, newContent) {
         console.log(chalk.bold(strFile(filePath)));
         const lines = newContent.split('\n');
         assert_internal(lines.slice(-1)[0]==='');
@@ -564,20 +599,16 @@ async function runEject({inputs: [ejectableName], options: {skipGit, skipNpm, dr
     function fs__read(filePath) { return fs.readFileSync(filePath, 'utf8'); }
 }
 
-function printAdditionalHelp() {
-    printEjectables();
-    console.log();
-}
-
 function getEjectables() {
     const reconfig = require('@brillout/reconfig');
     const config = reconfig.getConfig({configFileName: 'reframe.config.js'});
     return config.ejectables;
 }
 
-function printEjectables() {
+function printEjectables({isPreview}) {
     const {colorEmphasisLight, indent} = require('@brillout/cli-theme');
     const {tableFormat} = require('@brillout/format-text');
+    const assert_warning = require('reassert/warning');
 
     const ejectables = getEjectables();
     console.log(indent+'Ejectables:');
@@ -585,8 +616,25 @@ function printEjectables() {
         Object.values(ejectables)
         .map(ejectable => {
             const {name, description} = ejectable;
-            return ["reframe eject "+colorEmphasisLight(name), description];
+            return [colorEmphasisLight(name), description];
         })
         , {indent: indent+indent}
     ));
+
+    console.log();
+    const commandName = isPreview ? CMD_EJECT_PREVIEW : CMD_EJECT;
+    const ejectableName = 'server';
+    assert_warning(ejectables[ejectableName]);
+    console.log(indent+'Example: reframe '+commandName+' '+ejectableName);
+
+    if( isPreview ) {
+        console.log();
+        console.log(indent+'Preview all ejectables by running '+colorEmphasisLight('reframe '+CMD_EJECT_PREVIEW+' all'));
+    }
+
+    if( !isPreview ) {
+        console.log();
+        console.log(indent+'Preview ejectables with '+colorEmphasisLight(CMD_EJECT_PREVIEW)+'.');
+        console.log(indent+'See '+colorEmphasisLight('reframe help eject-preview')+'.');
+    }
 }
