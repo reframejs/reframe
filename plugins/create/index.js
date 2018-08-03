@@ -44,24 +44,33 @@ async function runCreate({starter, projectDir, skipNpm}) {
 
     await scaffoldProject({starter, projectRootDir, projectRootDir__pretty});
 
-    console.log(
-`
-${symbolSuccess}Reframe app created in ${projectRootDir__pretty}.
+    const introText = [
+        '',
+        `${symbolSuccess}Reframe app created in ${projectRootDir__pretty}.`,
+        '',
+        'Inside that directory, you can run commands such as',
+        '',
+        `  ${colorCmd('reframe dev')}`,
+        '    Build and start server for development.',
+        '',
+        `  ${colorCmd('reframe')}`,
+        '    List all commands.',
+        '',
+        /*
+        ...(
+            starter!=='react-frontend' ? [] : [
+                `  ${colorCmd('reframe eject server')}`,
+                '    Ejects ~30 LOC giving you control over the Node.JS/hapi server.',
+                '',
+            ]
+        ),
+        */
+        `  ${colorCmd('reframe eject')}`,
+        '    List all ejectables.',
+        '',
+    ];
 
-Inside that directory, you can run commands such as
-
-  ${colorCmd('reframe dev')}
-    Build and start server for development.
-
-  ${colorCmd('reframe')}
-    List all commands.
-
-  ${colorCmd('reframe eject server')}
-    Ejects ~30 LOC giving you control over the Node.JS/hapi server.
-
-  ${colorCmd('reframe eject')}
-    List all ejectables.
-`);
+    console.log(introText.join('\n'));
 
     if( ! skipNpm ) {
         console.log(`Installing dependencies.`);
