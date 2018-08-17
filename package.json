@@ -67,6 +67,7 @@
         "examples/custom-browser-lib",
         "examples/dom-static",
         "examples/runtime-error",
+        "examples/typeorm",
         "helpers/utils",
         "helpers/cli",
         "helpers/cli-theme",

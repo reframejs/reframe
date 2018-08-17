@@ -1,6 +1,7 @@
 {
   "name": "_example-koa",
   "private": true,
+  "version": "0.1.14",
   "dependencies": {
     "@brillout/reconfig": "0.1.14",
     "@brillout/cli-theme": "0.1.14",
