@@ -35,8 +35,9 @@ function TypeORMIntegration(easyql) {
         //  connectionOptions.entitySchemas = (connectionOptions.entitySchemas||[]).slice();
         //  connectionOptions.entitySchemas.push(...generatedEntities);
             connectionOptions.entities.push(...generatedEntities);
-            connectionOptions.entities.push(...connectionOptions.es.map(es => new EntitySchema(es)));
+            console.log(connectionOptions.entities);
             /*
+            connectionOptions.entities.push(...connectionOptions.es.map(es => new EntitySchema(es)));
             console.log('es',{
             entities: connectionOptions.entities,
             entitySchemas: connectionOptions.entitySchemas,
@@ -46,10 +47,9 @@ function TypeORMIntegration(easyql) {
         }
 
         assert_usage(easyql.permissions);
-        for(const permissionFn of easyql.permissions) {
-            const permission = permissionFn();
+        for(const permission of easyql.permissions) {
             assert_usage(permission);
-            assert_usage(permission.modelName);
+            assert_usage(permission.modelName, permission);
         //  const modelName = getModelName(permission.model);
 
             if( query.modelName !== permission.modelName ) {

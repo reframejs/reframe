@@ -7,15 +7,23 @@ const typeormConfig = require('./typeorm.config.js');
 const permissions = [
     {
         modelName: 'Todo',
-        write: ({loggedUser, object: todo}) => loggedUser && loggedUser.id===todo.author.id,
-        read: ({loggedUser, object: todo}) => loggedUser && loggedUser.id===todo.author.id,
+        write: isTodoAuthor,
+        read: isTodoAuthor,
     },
     {
         modelName: 'User',
         read: true,
-        write: ({loggedUser, object: user}) => loggedUser && loggedUser.id===user.id,
+        write: isUser,
     }
 ];
+
+function isTodoAuthor({loggedUser, object: todo}) {
+    return loggedUser && loggedUser.id===todo.user.id;
+}
+
+function isUser({loggedUser, object: user}) {
+    return loggedUser && loggedUser.id===user.id;
+}
 
 const easyql = new EasyQL();
 

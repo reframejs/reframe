@@ -1,8 +1,8 @@
 import {Entity, PrimaryGeneratedColumn, Column, ManyToOne} from "typeorm";
-import {User} from "./User";
+import User from "./User";
 
 @Entity()
-export class Todo {
+class Todo {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -12,6 +12,8 @@ export class Todo {
     @Column()
     isCompleted: boolean;
 
-    @ManyToOne("User", user => user.todos)
+    @ManyToOne("User", user => user.todos, {eager: true})
     user: User;
 }
+
+export default Todo;

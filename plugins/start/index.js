@@ -55,6 +55,10 @@ async function execDev({options}) {
         if( isFirstBuild ) {
             return;
         }
+
+        // TODO - sometimes server.stop is not a function
+        assert_internal(server.stop instanceof Function, server.stop);
+
         await server.stop();
         server = null;
         server = await runServer(config, {quiet: true});
