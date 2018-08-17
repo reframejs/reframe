@@ -25,6 +25,34 @@ Object.assign(easyql, {
         HapiIntegration,
         UserManagement,
     ],
+    authStrategy,
 });
+
+function authStrategy({url}) {
+    if( url.pathname!=='/auth' ) {
+        return null;
+    }
+
+    const user_mocks = [
+        {
+            id: 1,
+            name: 'jon',
+        },
+        {
+            id: 2,
+            name: 'cersei',
+        },
+        {
+            id: 3,
+            name: 'alice',
+        },
+    ];
+
+    const loggedUser = user_mocks[Math.random()*user_mocks.length|0];
+
+    loggedUser.ehwq = 12;
+
+    return loggedUser;
+}
 
 module.exports = easyql;

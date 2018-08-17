@@ -83,32 +83,21 @@ function addLoggedUser({req}) {
 }
 
 
-function authRequestHandler(easyql, {req, res}) {
+async function authRequestHandler(easyql, {req, res}) {
     const url = parseUri(req.url);
-    if( url.pathname!=='/auth' ) {
-        return;
+
+    const loggedUser = await easyql.authStrategy({easyql, url, req, res});
+    assert_usage(loggedUser===null || loggedUser.constructor===Object);
+
+    if( ! loggedUser ) {
+        return null;
     }
 
-    const user_mocks = [
-        {
-            id: 1,
-            name: 'jon',
-        },
-        {
-            id: 2,
-            name: 'cersei',
-        },
-        {
-            id: 3,
-            name: 'alice',
-        },
-    ];
-
-    const user = user_mocks[Math.random()*user_mocks.length|0];
+    assert_usage(loggedUser.id);
 
     const timestamp = new Date().getTime();
 
-    const authVal = cookieSignature.sign(user.id+'.'+timestamp, SECRET_KEY);
+    const authVal = cookieSignature.sign(loggedUser.id+'.'+timestamp, SECRET_KEY);
 
     const cookieVal = cookie.serialize('auth', authVal, {
         maxAge: 60 * 60 * 24 * 7, // 1 week
@@ -125,7 +114,7 @@ function authRequestHandler(easyql, {req, res}) {
         },
     ];
 
-    const body = JSON.stringify(user);
+    const body = JSON.stringify(loggedUser);
 
     return {body, headers};
 }
