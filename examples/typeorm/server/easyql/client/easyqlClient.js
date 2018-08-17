@@ -43,6 +43,7 @@ function getLoggedUser({req}={}) {
     const readAuthCookie = require('../user/readAuthCookie');
 
     const cookieString = req ? req.headers.cookie : document.cookie;
-    const {loggedUser} = readAuthCookie({cookieString});
+    const authCookie = readAuthCookie({cookieString});
+    const loggedUser = authCookie && authCookie.loggedUser;
     return loggedUser;
 }
