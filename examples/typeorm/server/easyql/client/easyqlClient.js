@@ -40,7 +40,7 @@ function getOption(optionName) {
 
 // TODO
 function getLoggedUser({req}={}) {
-    const readAuthCookie = require('../user/readAuthCookie');
+    const readAuthCookie = require('../core/readAuthCookie');
 
     const cookieString = req ? req.headers.cookie : document.cookie;
     const authCookie = readAuthCookie({cookieString});

@@ -1,4 +1,7 @@
 const assert_usage = require('reassert/usage');
+const AuthCookieManager = require('./AuthCookieManager');
+
+const internalPlugins = [AuthCookieManager];
 
 module.exports = EasyQL;
 
@@ -18,7 +21,10 @@ function EasyQL () {
             if( ! pluginsAreInstalled ) {
                 pluginsAreInstalled = true;
                 assert_usage(easyql.plugins.length>0);
-                easyql.plugins.forEach(plugin => plugin(easyql));
+                [
+                    ...internalPlugins,
+                    ...easyql.plugins,
+                ].forEach(plugin => plugin(easyql));
             }
             return obj[prop];
         },

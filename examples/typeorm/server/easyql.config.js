@@ -5,14 +5,16 @@ const UserManagement = require('./easyql/user/UserManagement');
 const typeormConfig = require('./typeorm.config.js');
 
 const permissions = [
-    () => {
-        const isAuthor = ({loggedUser, object}) => loggedUser && loggedUser.id===object.user.id;
-        return {
-            modelName: 'Todo',
-            write: isAuthor,
-            read: isAuthor,
-        };
+    {
+        modelName: 'Todo',
+        write: ({loggedUser, object: todo}) => loggedUser && loggedUser.id===todo.author.id,
+        read: ({loggedUser, object: todo}) => loggedUser && loggedUser.id===todo.author.id,
     },
+    {
+        modelName: 'User',
+        read: true,
+        write: ({loggedUser, object: user}) => loggedUser && loggedUser.id===user.id,
+    }
 ];
 
 const easyql = new EasyQL();
@@ -23,7 +25,7 @@ Object.assign(easyql, {
     plugins: [
         TypeORMIntegration,
         HapiIntegration,
-        UserManagement,
+     // UserManagement,
     ],
     authStrategy,
 });
