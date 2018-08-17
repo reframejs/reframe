@@ -88,7 +88,8 @@ async function runServer(config, {quiet}={}) {
     const forceRequire = require('@reframe/utils/forceRequire');
     assert_server(config);
 
-    const {server: {serverFileTranspiled}} = config.getBuildInfo();
+    const buildInfo = config.getBuildInfo();
+    const serverFileTranspiled = buildInfo.server && buildInfo.server.serverFileTranspiled;
 
     const serverEntry = serverFileTranspiled || config.serverStartFile;
 
