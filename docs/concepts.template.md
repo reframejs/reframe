@@ -145,9 +145,9 @@ For example an `/about` page that is static and non-interactive
 and a `/search` page that is dynamic and interactive
 (browser loads React components and the DOM is dynamic).
 
-We call such apps *mixed apps*.
+We call such apps *mixed web apps*.
 
-> Mixed apps are the future and Reframe is the only framework supporting them.
+> Mixed web apps are the future and Reframe is the only framework supporting them.
 
 !INLINE ./top-link.md #concepts --hide-source-path
 
