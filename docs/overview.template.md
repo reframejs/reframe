@@ -124,6 +124,7 @@ Despite Reframe's low 500 LOC of glue code, Reframe is fully featured.
     A frontend without a backend.
     Ideal if you already have a backend.
   - **SPA**
+  - **MPA**
   - **Static site**
   - **Old-school backend** -
     A Node.js backend with plain old HTML without interactive views.
@@ -155,7 +156,10 @@ Despite Reframe's low 500 LOC of glue code, Reframe is fully featured.
 
 ### Examples
 
-##### Frontend
+- [Frontend](#frontend)
+- [Full-stack](#full-stack)
+
+###### Frontend
 
 We define a page config `HelloPage`.
 
@@ -166,14 +170,14 @@ We define a page config `HelloPage`.
 ~~~
 
 That's it.
-We created an entire web app simply by defining one page config.
+We created a entire frontend simply by defining one page config.
 No build config, no server config.
 
 <p align="center">
     <img src='https://github.com/reframejs/reframe/raw/master/docs/images/reframe-start.png?sanitize=true' width="780" style="max-width:100%;"/>
 </p>
 
-##### Full-stack
+###### Full-stack
 
 Let's look at a Todo App.
 
