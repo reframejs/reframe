@@ -369,19 +369,16 @@ const permissions = [
 ];
 ~~~
 
-We now access the data from our view:
+We can now access `Todo` entries from our view:
 
 ~~~js
 import React from 'react';
 import easyqlClient from '@easyql/client';
 
 const TodoList = ({todos}) => (
-    <div>{
-        todos
-        .map(todo =>
-            <div key={todo.id}>{todo.text}</div>
-        )
-    }</div>
+    <div>{ todos.map(todo =>
+        <div key={todo.id}>{todo.text}</div>
+    )}</div>
 );
 
 const getInitialProps = async ({req}) => {
