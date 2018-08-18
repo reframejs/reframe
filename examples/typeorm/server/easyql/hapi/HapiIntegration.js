@@ -29,6 +29,13 @@ function HapiIntegration(easyql) {
 
         const URL_BASE = process.env['EASYQL_URL_BASE'] || '/api/';
 
+        /*
+        console.log('p1');
+        console.log(Object.keys(request));
+        console.log(request.body);
+        console.log(request.payload);
+        console.log('p2');
+        */
         const {req} = request.raw;
 
         // TODO

@@ -45,7 +45,7 @@ async function authRequestHandler(easyql, {req, res}) {
     const url = parseUri(req.url);
 
     const loggedUser = await easyql.authStrategy({easyql, url, req, res});
-    assert_usage(loggedUser===null || loggedUser.constructor===Object);
+    assert_usage(loggedUser===null || Object.keys(loggedUser).length>0, loggedUser);
 
     if( ! loggedUser ) {
         return null;

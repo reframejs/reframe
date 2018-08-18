@@ -4,6 +4,9 @@ const HapiIntegration = require('./easyql/hapi/HapiIntegration');
 const UserManagement = require('./easyql/user/UserManagement');
 const typeormConfig = require('./typeorm.config.js');
 const User = require('../models/entity/User').default;
+const formBody = require("body/form")
+const {getRepository} = require("typeorm");
+const qs = require('querystring');
 
 const permissions = [
     {
@@ -39,22 +42,72 @@ Object.assign(easyql, {
     authStrategy,
 });
 
+function getBodyPayload(req, url) {
+    console.log(req.method);
+    if( req.method==='GET' ) {
+        return Object.assign({}, qs.parse(url.search.slice(1)));
+    }
+    let resolve;
+    let reject;
+    const promise = new Promise((resolve_, reject_) => {resolve = resolve_; reject = reject_;});
+
+    console.log(111);
+	let body = '';
+	req.on('data', function (data) {
+    console.log(222);
+		body += data;
+		if (body.length > 1e6)
+			req.connection.destroy();
+	});
+	req.on('end', function () {
+    console.log(333);
+		var post = qs.parse(body);
+        resolve(post);
+	});
+
+	return promise;
+}
+
+/*
+function getBodyPayload(req) {
+    let resolve;
+    let reject;
+    const promise = new Promise((resolve_, reject_) => {resolve = resolve_; reject = reject_;});
+    console.log(11111);
+    formBody(req, {}, (err, body) => {
+    console.log(22222);
+        if( err ) {
+            reject(err);
+        } else {
+            resolve(body);
+        }
+    });
+    return promise;
+}
+*/
+
+
 async function authStrategy({url, req}) {
-    if( url.pathname==='/auth/signin' ) {
-        console.log(req);
-        console.log(req.body);
-        console.log(url);
+    const isSignin = url.pathname==='/auth/signin';
+    const isSignup = url.pathname==='/auth/signup';
+
+    if( ! isSignin && ! isSignup ) {
         return null;
     }
 
-    if( url.pathname==='/auth/signup' ) {
-        console.log(Object.keys(req));
-        console.log(url);
+    const repository = getRepository(User);
+    const payload = await getBodyPayload(req, url);
+
+    if( isSignin ) {
+        const user = await repository.findOne(payload);
+        return user||null;
+    }
+
+    if( isSignup ) {
         const newUser = new User();
-        newUser.firstName = 'fi'+Math.random();
-        newUser.lastName = 's';
-        await newUser.save();
-        return null;
+        Object.assign(newUser, payload);
+        await repository.save(newUser);
+        return newUser;
     }
 
     if( url.pathname!=='/auth' ) {
