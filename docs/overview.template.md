@@ -11,7 +11,7 @@
 # Overview
 
  - [Introduction](#introduction)
- - [100% Flexible](#100% Flexible)
+ - [100% Flexible](#100-flexible)
  - [Features](#features)
  - [Examples](#examples)
  - [Getting Started](#getting-started)
@@ -39,8 +39,9 @@ const WelcomePage = {
 
 Reframe takes care of all the glue code:
 You can create an app with **no build configuration**, **no server configuration**, and **no API configuration** (an API is automatically generated for you).
-**But you can fully and gradually take control over the glue code**.
-That is you can progressively eject Reframe's glue code.
+
+**But you can fully and gradually take control over the glue code**:
+You can progressively eject Reframe's glue code.
 This gives you what we call "100% flexibility".
 
 !INLINE ./top-link.md #overview --hide-source-path
@@ -62,25 +63,25 @@ On one hand you want to glue things together yourself to keep flexibility and co
 On the other hand
 you want to use a framework to quickly get things up and running.
 
-How about having the best of both worlds:
+How about having the best of both worlds?
 Somehow having the glue code already written for you but with the possiblity of customizing that glue code.
 Reframe is born out of the following question:
 
 > Is it possible to design a framework that is as flexible as not using a framework?
 
-Reframe's answer to that question is a loud and clear "Yes".
+Reframe's answer to that question is a clear "Yes".
 
 To achieve that Reframe applies following principles:
  - Isolate a maximum of code in do-one-thing-do-it-well libraries.
  - Minimize the amount of glue code.
  - Make the glue code (progressively) ejectabe.
 
-Reframe managed to reduce the glue code to a tiny ~500 lines of code.
+We managed to reduce the glue code to a tiny ~500 lines of code.
 This is ridiculously little.
 
 All of Reframe's glue code is progressively ejectable.
 This means that you can gradually take over the glue code.
-More at Concepts - Progressive Eject.
+More at [Concepts - Progressive Eject](/docs/concepts.md#progressive-eject).
 
 With Reframe you can build an app in a scalable way:
  1. First, quickly bootstrap a prototype.
@@ -119,14 +120,12 @@ Despite Reframe's low 500 LOC of glue code, Reframe is fully featured.
     Reframe supports Server-Side Rendering (SSR) to give you full control over SEO and SMO.
 - Database
   - **ORM** -
-    Integration with TypeORM (automatic migration generation, etc.)
-  - **Automatic API generation** -
-    with EasyQL
-  - Easily access your data from the frontend with EasyQL
+    Integration with TypeORM.
+  - **Automatic API generation**
 - You can create any type of app:
   - **Full-stack app** -
     App with interactive frontend + server + database.
-  - **Modern Frontend** -
+  - **Modern frontend** -
     A frontend without a backend.
     Ideal if you already have a backend.
   - **SPA**
@@ -136,14 +135,13 @@ Despite Reframe's low 500 LOC of glue code, Reframe is fully featured.
     (No JavaScript is executed in the browser, the DOM is static. You still use React to generate dynamic HTML.)
   - **Mobile web app** -
     Browser-side Javascript is a performance killer for mobile.
-    With Reframe you can buid web apps with (almost) no browser-side JavaScript.
+    With Reframe you can buid web apps that have (almost) no browser-side JavaScript.
     (You still use JavaScript on the server with Node.js and with React to generate HTML)
   - **Mixed Web App** -
     A new kind of app we call "Mixed Web App" (MWA).
     (What a MWA is about is explained in [Concepts - Non-Interactive-First Approach](/docs/concepts.md#non-interactive-first-approach).)
 - **Easy deploy** -
   Integration with static hosts (Netlify, GitHub Pages, etc.).
-  <br/>
   We are also exploring ways to automate the deployment to a serverless stack (serverless server + serverless database).
   (Work-in-progress, stay tuned at [twitter.com/reframejs](https://twitter.com/reframejs).)
 - **Ejectable** -
@@ -162,6 +160,8 @@ Despite Reframe's low 500 LOC of glue code, Reframe is fully featured.
 
 ### Examples
 
+##### Frontend
+
 We define a page config `HelloPage`.
 
 ~~~jsx
@@ -177,6 +177,85 @@ No build config, no server config.
 <p align="center">
     <img src='https://github.com/reframejs/reframe/raw/master/docs/images/reframe-start.png?sanitize=true' width="780" style="max-width:100%;"/>
 </p>
+
+##### Full-stack
+
+Let's look at a Todo App.
+
+~~~ts
+import {Entity, PrimaryGeneratedColumn, Column, ManyToOne} from "typeorm";
+
+@Entity()
+export class Todo {
+    @PrimaryGeneratedColumn()
+    id: number;
+
+    @Column()
+    text: string;
+
+    @Column()
+    isCompleted: boolean;
+
+    @ManyToOne("User")
+    author: "User";
+}
+~~~
+
+To make `Todo` entries accessible from our views, we define permissions:
+
+~~~js
+// Only the author of a todo item should be allowed to read & write
+const isTodoAuthor = ({loggedUser, object: todo}) => loggedUser && loggedUser.id===todo.author.id;
+
+const permissions = [
+    {
+        modelName: 'Todo',
+        write: isTodoAuthor,
+        read: isTodoAuthor,
+    },
+];
+~~~
+
+We now access the data from our view:
+
+~~~js
+import React from 'react';
+import easyqlClient from '@easyql/client';
+
+const TodoList = ({todos}) => (
+    <div>{
+        todos
+        .map(todo =>
+            <div key={todo.id}>{todo.text}</div>
+        )
+    }</div>
+);
+
+const getInitialProps = async ({req}) => {
+    const loggedUser = easyqlClient.getLoggedUser({req});
+    const query = {
+        queryType: 'read',
+        modelName: 'Todo',
+        filter: {
+            author: {
+                id: loggedUser.id,
+            },
+        },
+    };
+    const response = await easyqlClient.query({query, req});
+    const todos = response.objects;
+    return {todos};
+};
+
+export default {
+    route: '/',
+    view: TodoList,
+    getInitialProps,
+};
+~~~
+
+That's it.
+We simply define pages, data models, and permissions to build a full-stack app.
 
 !INLINE ./top-link.md #overview --hide-source-path
 
