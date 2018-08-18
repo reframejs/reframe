@@ -63,13 +63,8 @@ On one hand you want to glue things together yourself to keep flexibility and co
 On the other hand
 you want to use a framework to quickly get things up and running.
 
-How about having the best of both worlds?
-Somehow having the glue code already written for you but with the possiblity of customizing that glue code.
-Reframe is born out of the following question:
-
-> Is it possible to design a framework that is as flexible as not using a framework?
-
-Reframe's answer to that question is a clear "Yes".
+Reframe is about giving you the best of both worlds:
+The glue code already written for you but you have the possiblity to change that glue code.
 
 To achieve that Reframe applies following principles:
  - Isolate a maximum of code in do-one-thing-do-it-well libraries.
