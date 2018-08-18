@@ -3,6 +3,7 @@ const TypeORMIntegration = require('./easyql/typeorm/TypeORMIntegration');
 const HapiIntegration = require('./easyql/hapi/HapiIntegration');
 const UserManagement = require('./easyql/user/UserManagement');
 const typeormConfig = require('./typeorm.config.js');
+const User = require('../models/entity/User').default;
 
 const permissions = [
     {
@@ -38,7 +39,24 @@ Object.assign(easyql, {
     authStrategy,
 });
 
-function authStrategy({url}) {
+async function authStrategy({url, req}) {
+    if( url.pathname==='/auth/signin' ) {
+        console.log(req);
+        console.log(req.body);
+        console.log(url);
+        return null;
+    }
+
+    if( url.pathname==='/auth/signup' ) {
+        console.log(Object.keys(req));
+        console.log(url);
+        const newUser = new User();
+        newUser.firstName = 'fi'+Math.random();
+        newUser.lastName = 's';
+        await newUser.save();
+        return null;
+    }
+
     if( url.pathname!=='/auth' ) {
         return null;
     }

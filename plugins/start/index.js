@@ -45,6 +45,8 @@ function getCliCommands() {
 }
 
 async function execDev({options}) {
+    const assert_internal = require('reassert/internal');
+
     const config = init({dev: true, ...options});
     log_found_stuff({config, log_page_configs: true});
 

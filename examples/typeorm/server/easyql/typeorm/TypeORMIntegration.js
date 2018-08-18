@@ -35,8 +35,8 @@ function TypeORMIntegration(easyql) {
         //  connectionOptions.entitySchemas = (connectionOptions.entitySchemas||[]).slice();
         //  connectionOptions.entitySchemas.push(...generatedEntities);
             connectionOptions.entities.push(...generatedEntities);
-            console.log(connectionOptions.entities);
             /*
+            console.log(connectionOptions.entities);
             connectionOptions.entities.push(...connectionOptions.es.map(es => new EntitySchema(es)));
             console.log('es',{
             entities: connectionOptions.entities,

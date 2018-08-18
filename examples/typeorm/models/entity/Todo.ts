@@ -1,5 +1,4 @@
 import {Entity, PrimaryGeneratedColumn, Column, ManyToOne} from "typeorm";
-import User from "./User";
 
 @Entity()
 class Todo {
@@ -13,7 +12,7 @@ class Todo {
     isCompleted: boolean;
 
     @ManyToOne("User", user => user.todos, {eager: true})
-    user: User;
+    user: "User";
 }
 
 export default Todo;
