@@ -529,7 +529,7 @@ Run `$ reframe eject build` to eject the overall build code.
 It will copy the following file to your codebase.
 
 ~~~js
-!INLINE ../plugins/build/executeBuild.js
+!INLINE ../plugins/build/runBuild.js
 ~~~
 
 Run `$ reframe eject build-rendering` to eject `getPageHtmls()` to gain control over the static rendering.

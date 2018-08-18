@@ -152,7 +152,7 @@
 All of Reframe can be progressively ejected.
 
 For example, the CLI command `$ reframe eject server` ejects the server code:
-[Around 30 lines of code](/plugins/hapi/start.js)
+[~20 lines of code](/plugins/hapi/start.js)
 are copied from Reframe's codebase and added to your codebase.
 Allowing you to modify the server code.
 You can then
@@ -271,9 +271,9 @@ For example an `/about` page that is static and non-interactive
 and a `/search` page that is dynamic and interactive
 (browser loads React components and the DOM is dynamic).
 
-We call such apps *mixed apps*.
+We call such apps *mixed web apps*.
 
-> Mixed apps are the future and Reframe is the only framework supporting them.
+> Mixed web apps are the future and Reframe is the only framework supporting them.
 
 <b><sub><a href="#concepts">&#8679; TOP &#8679;</a></sub></b>
 

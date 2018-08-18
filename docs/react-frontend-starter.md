@@ -140,15 +140,16 @@ Starter to create a React front-end.
 
 Choose this starter if you don't need a backend or if you already have one.
 
-If you are not sure if you need a Node.js server, that's fine: You can easily add one afterwards.
+If you are not sure if you need a Node.js server, that's fine:
+You can use the React Frontend starter and easily add a Node.js server afterwards.
 
 For other starters, see the [list of starters](/../../#getting-started).
 
 - [Quick Start](#quick-start)
 - Usage Basics
   - [Deploy](#deploy)
-  - [Page Async Data](#page-async-data)
   - [CSS & Static Assets](#css--static-assets)
+  - [Page Async Data](#page-async-data)
   - [`doNotRenderInBrowser`](#donotrenderinbrowser)
 
 <br/>
@@ -161,21 +162,23 @@ For other starters, see the [list of starters](/../../#getting-started).
    $ npm install -g @reframe/cli
    ~~~
 
-2. Initialize a new Rreframe app.
+2. Initialize a new Reframe app.
    ~~~shell
-   $ reframe init react-frontend my-app
+   $ reframe create react-frontend my-app
    ~~~
    A `my-app/` directory is created and populated with a scaffold.
 
 3. Build the pages and start the server.
    ~~~shell
    $ cd my-app
-   $ reframe start
+   $ reframe dev
    ~~~
 
 4. Open [http://localhost:3000](http://localhost:3000).
 
-5. **Read the entire [Usage Basics](#react-frontend) section** and lookup the [Usage Manual](/docs/usage-manual.md) for further usage information.
+5. **Read the entire [Usage Basics](#react-frontend) section**.
+
+For further usage information, lookup the [Usage Manual](/docs/usage-manual.md).
 
 <b><sub><a href="#react-frontend">&#8679; TOP &#8679;</a></sub></b>
 
@@ -195,7 +198,7 @@ The deploy command works with any static host that integrates with Git such as
 [Netlify](https://www.netlify.com/) (recommanded) or
 [GitHub Pages](https://pages.github.com/).
 
-If you want to deploy manually then simply copy/serve the `dist/browser/` directory.
+If you want to manually deploy then simply copy/serve the `dist/browser/` directory.
 This directory contains all browser assets.
 <br/>
 
@@ -203,6 +206,48 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 <br/>
 <br/>
 <b><sub><a href="#react-server">&#8679; TOP &#8679;</a></sub></b>
+<br/>
+<br/>
+<br/>
+
+
+
+
+## CSS & Static Assets
+
+A CSS file can be loaded and applied by importing it.
+
+~~~js
+import './GlitterStyle.css';
+~~~
+
+Static assets (images, fonts, videos, etc.) can be imported as well
+but importing an asset doesn't actually load it:
+Only the URL of the asset is returned.
+It is up to us to use/fetch the URL of the asset.
+
+~~~js
+import diamondUrl from './diamond.png';
+
+// do something with diamondUrl, e.g. `await fetch(diamondUrl)` or `<img src={diamondUrl}/>`
+~~~
+
+In addition, static assets can be referenced in CSS by using the `url` data type.
+
+~~~css
+.diamond-background {
+    background-image: url('./diamond.png');
+}
+~~~
+
+Example of a page using CSS, fonts, images and other static assets:
+ - [/examples/basics/pages/glitter/](/examples/basics/pages/glitter/)
+<br/>
+
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+<br/>
+<br/>
+<b><sub><a href="#react-frontend">&#8679; TOP &#8679;</a></sub></b>
 <br/>
 <br/>
 <br/>
@@ -243,51 +288,8 @@ export default {
 Alternatively, you can fetch data in a stateful component.
 But in that case the data will not be rendered to HTML.
 
-Deeper explanation and example of pages loading data:
+Deeper explanation and further examples of pages asynchronously loading data:
  - [/examples/basics/pages/got/](/examples/basics/pages/got/)
-<br/>
-
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
-<br/>
-<br/>
-<b><sub><a href="#react-frontend">&#8679; TOP &#8679;</a></sub></b>
-<br/>
-<br/>
-<br/>
-
-
-
-
-
-## CSS & Static Assets
-
-A CSS file can be loaded and applied by importing it.
-
-~~~js
-import './GlitterStyle.css';
-~~~
-
-Static assets (images, fonts, videos, etc.) can be imported as well
-but importing an asset doesn't actually load it:
-Only the URL of the asset is returned.
-It is up to us to use/fetch the URL of the asset.
-
-~~~js
-import diamondUrl from './diamond.png';
-
-// do something with diamondUrl, e.g. `await fetch(diamondUrl)` or `<img src={diamondUrl}/>`
-~~~
-
-In addition, static assets can be referenced in CSS by using the `url` data type.
-
-~~~css
-.diamond-background {
-    background-image: url('./diamond.png');
-}
-~~~
-
-Example of a page loading and using CSS, fonts, images and static assets:
- - [/examples/basics/pages/glitter/](/examples/basics/pages/glitter/)
 <br/>
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
@@ -303,26 +305,36 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 ## `doNotRenderInBrowser`
 
-The page config option `doNotRenderInBrowser` allow you to control whether or not your page is rendered in the browser.
+The page config option `doNotRenderInBrowser` allow you to control whether or not the page is rendered in the browser.
+
+By default a page is rendered in the browser so that it can have interactive views
+(a like button, an interactive graph, a To-Do list, etc.).
+But if a page has no interactive views then it is wasteful to render it in the browser.
 
  - `doNotRenderInBrowser: false` (default value)
    <br/>
    The page is **rendered in the browser**.
    <br/>
-   The page's view (e.g. React components) and the view renderer (e.g. React) is loaded in the browser.
+   The page's view (e.g. React components) and the view renderer (e.g. React) are loaded in the browser.
    <br/>
-   The DOM may eventually change since the page is rendered to the DOM.
+   The page's view is rendered to the DOM.
+   (E.g. with `ReactDOM.hydrate`.)
+   <br/>
+   The DOM may change.
  - `doNotRenderInBrowser: true`
    <br/>
    The page is **not rendered in the browser**.
    <br/>
-   (Almost) no JavaScript is loaded in the browser.
+   No JavaScript (or much less JavaScript) is loaded in the browser.
    <br/>
-   The DOM will not change since the page is not rendered to the DOM.
+   The DOM will not change.
 
-By default a page is rendered in the browser so that it can have interactive views
-(a like button, an interactive graph, a To-Do list, etc.).
-But if a page has no interactive views then it is wasteful to render it in the browser.
+Setting `doNotRenderInBrowser: true` makes the page considerably faster as no (or much less) JavaScript is loaded and exectued.
+
+So if your page has no interactive views, then you should set `doNotRenderInBrowser: true`.
+More precisely, you should set `doNotRenderInBrowser: true` if your page's view is stateless.
+E.g. a functional React component is always stateless and non-interactive.
+So if your page's view is composed of functional React components only, then you should set `doNotRenderInBrowser: true`.
 
 <br/>
 

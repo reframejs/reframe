@@ -18,6 +18,7 @@ List of Reframe plugins. Make a PR to add yours.
 
 ###### Servers
  - [@reframe/koa](/plugins/koa) - Use Reframe with Koa.
+ - [@reframe/hapi](/plugins/hapi) - Use Reframe with Hapi.
 
 ###### Renderers
  - [@reframe/react](/plugins/react) - Use Reframe with React.

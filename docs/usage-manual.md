@@ -245,7 +245,7 @@ In addition, static assets can be referenced in CSS by using the `url` data type
 }
 ~~~
 
-Example of a page loading and using CSS, fonts, images and static assets:
+Example of a page using CSS, fonts, images and other static assets:
  - [/examples/basics/pages/glitter/](/examples/basics/pages/glitter/)
 
 <br/>
@@ -296,7 +296,7 @@ export default {
 Alternatively, you can fetch data in a stateful component.
 But in that case the data will not be rendered to HTML.
 
-Deeper explanation and example of pages loading data:
+Deeper explanation and further examples of pages asynchronously loading data:
  - [/examples/basics/pages/got/](/examples/basics/pages/got/)
 
 <br/>
@@ -364,26 +364,36 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 ## `doNotRenderInBrowser`
 
-The page config option `doNotRenderInBrowser` allow you to control whether or not your page is rendered in the browser.
+The page config option `doNotRenderInBrowser` allow you to control whether or not the page is rendered in the browser.
+
+By default a page is rendered in the browser so that it can have interactive views
+(a like button, an interactive graph, a To-Do list, etc.).
+But if a page has no interactive views then it is wasteful to render it in the browser.
 
  - `doNotRenderInBrowser: false` (default value)
    <br/>
    The page is **rendered in the browser**.
    <br/>
-   The page's view (e.g. React components) and the view renderer (e.g. React) is loaded in the browser.
+   The page's view (e.g. React components) and the view renderer (e.g. React) are loaded in the browser.
    <br/>
-   The DOM may eventually change since the page is rendered to the DOM.
+   The page's view is rendered to the DOM.
+   (E.g. with `ReactDOM.hydrate`.)
+   <br/>
+   The DOM may change.
  - `doNotRenderInBrowser: true`
    <br/>
    The page is **not rendered in the browser**.
    <br/>
-   (Almost) no JavaScript is loaded in the browser.
+   No JavaScript (or much less JavaScript) is loaded in the browser.
    <br/>
-   The DOM will not change since the page is not rendered to the DOM.
+   The DOM will not change.
 
-By default a page is rendered in the browser so that it can have interactive views
-(a like button, an interactive graph, a To-Do list, etc.).
-But if a page has no interactive views then it is wasteful to render it in the browser.
+Setting `doNotRenderInBrowser: true` makes the page considerably faster as no (or much less) JavaScript is loaded and exectued.
+
+So if your page has no interactive views, then you should set `doNotRenderInBrowser: true`.
+More precisely, you should set `doNotRenderInBrowser: true` if your page's view is stateless.
+E.g. a functional React component is always stateless and non-interactive.
+So if your page's view is composed of functional React components only, then you should set `doNotRenderInBrowser: true`.
 
 <br/>
 
@@ -496,8 +506,8 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 ## Custom Server Framework (Express, Koa, ...)
 
-First, check the [list of plugins](/docs/plugins.md) for a plugin that integrates the server framework you want to use with Reframe.
-If you then want to get control over the server instance, then run `$ reframe eject server`. (See previous section)
+Check the [list of plugins](/docs/plugins.md) for a plugin that integrates the server framework you want to use with Reframe.
+You can then get control over the server instance by runnning `$ reframe eject server`.
 
 If there isn't a plugin for the server framework you want, then run
 - `$ reframe eject server`
@@ -798,14 +808,24 @@ We encourage you to do so and you should if you want to:
 Running `$reframe eject browser` ejects the following code.
 
 ~~~js
-// /plugins/browser/browserEntry.js
+// /plugins/browser/browserInit.js
 
 import browserConfig from '@brillout/browser-config';
 
 initBrowser();
 
 async function initBrowser() {
-    await browserConfig.hydratePage();
+    // Include pre-init code here
+
+    // Plugins can add init functions
+    // For example:
+    //  - page hydration (i.e. rendering of the page to the DOM)
+    //  - user tracking initialization
+    for(const initFunction of Object.values(browserConfig.initFunctions)) {
+        await initFunction();
+    }
+
+    // Include post-init code here
 }
 ~~~
 
@@ -831,22 +851,21 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 You can customize the browser entry code for a single page
 without affecting the browser entry code of other pages.
 
-You do this by setting the page config `browserEntry`.
+You do this by setting the page config `browserInit`.
 For example:
 
 ~~~js
 // /examples/custom-browser/pages/custom-hydration.config.js
 
 import React from 'react';
-import TimeComponent from '../../basics/views/TimeComponent';
+import TimeComponent from '../../basics/pages/time/TimeComponent';
 
 export default {
     route: '/custom-hydration',
-    browserEntry: {
-        pathToEntry: './custom-hydration.js',
-        doNotIncludePageConfig: true,
-        doNotInlcudeBrowserConfig: true,
+    browserInit: {
+        initFile: './custom-hydration.js',
     },
+    doNotRenderInBrowser: true,
     view: () => (
         <div>
             <div>
@@ -868,10 +887,12 @@ export default {
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-import TimeComponent from '../../basics/views/TimeComponent';
+import TimeComponent from '../../basics/pages/time/TimeComponent';
+import './style.css';
 
 ReactDOM.hydrate(<TimeComponent/>, document.getElementById('time-hook'));
+
+console.log('custom hydration');
 ~~~
 
 You can see the example in full and other examples at [/examples/custom-browser](/examples/custom-browser).
@@ -893,13 +914,12 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 ## Fully Custom Browser Entry
 
-You can as well eject the code that orchestrates the hydration of the page by running `$ reframe eject browser-hydration`.
-Note that
-if you want to customize the rendering process itself
+You can as well eject the code that orchestrates the hydration of the page by running `$ reframe eject browser-hydrate`.
+If you want to customize the rendering process itself
 you should run `$ reframe eject renderer` instead,
 see [Custom Renderer](#custom-renderer).
 
-Note that the browser entry of each page are generated at build-time.
+The browser entry of each page is generated at build-time.
 You can take control over the generation of browser entries by running `$ reframe eject build-browser-entries`.
 We recommand to use the previously mentioned ejectables instead.
 Use this ejectable as last resort.
@@ -1108,7 +1128,7 @@ Run `$ reframe eject build` to eject the overall build code.
 It will copy the following file to your codebase.
 
 ~~~js
-// /plugins/build/executeBuild.js
+// /plugins/build/runBuild.js
 
 const Build = require('webpack-ssr/Build');
 const watchDir = require('webpack-ssr/watchDir');
@@ -1122,6 +1142,7 @@ const getWebpackNodejsConfig = ({config, ...utils}) => projectConfig.webpackNode
 const {log, doNotWatchBuildFiles} = projectConfig;
 const {pagesDir} = projectConfig.projectFiles;
 const {getPageHtmls, getPageBrowserEntries} = projectConfig;
+const serverEntryFile = projectConfig.transpileServerCode && projectConfig.serverStartFile;
 
 const build = new Build({
     outputDir,
@@ -1132,11 +1153,12 @@ const build = new Build({
     getWebpackNodejsConfig,
     log,
     doNotWatchBuildFiles,
+    serverEntryFile,
 });
 
 watchDir(pagesDir, () => {build()});
 
-module.exports = build();
+module.exports = build;
 ~~~
 
 Run `$ reframe eject build-rendering` to eject `getPageHtmls()` to gain control over the static rendering.
@@ -1187,7 +1209,7 @@ The deploy command works with any static host that integrates with Git such as
 [Netlify](https://www.netlify.com/) (recommanded) or
 [GitHub Pages](https://pages.github.com/).
 
-If you want to deploy manually then simply copy/serve the `dist/browser/` directory.
+If you want to manually deploy then simply copy/serve the `dist/browser/` directory.
 This directory contains all browser assets.
 
 <br/>
@@ -1205,13 +1227,18 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 ## Serverless Deploy
 
-If your app is stateless we then recommand serverless deployment.
+If your app is stateless then we recommand serverless deployment.
 
 Serverless deployment solutions:
  - [Up](https://github.com/apex/up) - CLI tool to manage serverless deployement on AWS.
+   <br/>
+   The free tier is generous and will likely be enough for your first prototype.
+   <br/>
+   Step-by-step guide on how to deploy a Reframe app on Up: [github.com/AurelienLourot/reframe-on-up](https://github.com/AurelienLourot/reframe-on-up).
  - [Now](https://zeit.co/now) - Serverless host.
+   <br/>
+   The free tier doesn't support custom domains. (See [zeit.co/pricing](https://zeit.co/pricing).)
 
-A step-by-step guide on how to deploy a Reframe app on Up can be found [here](https://github.com/AurelienLourot/reframe-on-up).
 
 If you want to persist data, you may consider using a cloud database.
  - [List of cloud databases](/docs/cloud-databases.md)
@@ -1348,7 +1375,7 @@ Bootstrap or Semantic UI to your Reframe app. Such a library is usually made of 
 assets and without Reframe you would link to them via `<link>` and `<script>`.
 
 After having [ejected the browser entry code](#custom-default-browser-entry) import these assets
-in your `browserEntry.js`:
+in your `browserInit.js`:
 
 ~~~js
 import browserConfig from '@brillout/browser-config';
