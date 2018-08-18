@@ -102,6 +102,10 @@ async function getUsers({req}) {
 
 async function getTodos({req}) {
     const loggedUser = easyqlClient.getLoggedUser({req});
+    if( ! loggedUser ) {
+        return [];
+    }
+
     const userId = loggedUser.id;
     const query = {
         queryType: 'read',

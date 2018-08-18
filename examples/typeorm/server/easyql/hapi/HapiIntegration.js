@@ -44,6 +44,9 @@ function HapiIntegration(easyql) {
         if( ret ) {
             const resp = h.response(ret.body);
             ret.headers.forEach(header => resp.header(header.name, header.value));
+            if( ret.redirect ) {
+                resp.redirect(ret.redirect);
+            }
             return resp;
         }
 
@@ -59,7 +62,7 @@ function HapiIntegration(easyql) {
         for(const handler of easyql.ParamHandlers) {
             assert_usage(handler instanceof Function);
             const newParams = await handler(params);
-            assert_usage(newParams && newParams.constructor===Object);
+            assert_usage(newParams===null || newParams && newParams.constructor===Object);
             Object.assign(params, newParams);
         }
 

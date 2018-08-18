@@ -43,7 +43,6 @@ Object.assign(easyql, {
 });
 
 function getBodyPayload(req, url) {
-    console.log(req.method);
     if( req.method==='GET' ) {
         return Object.assign({}, qs.parse(url.search.slice(1)));
     }
@@ -100,40 +99,19 @@ async function authStrategy({url, req}) {
 
     if( isSignin ) {
         const user = await repository.findOne(payload);
-        return user||null;
+        if( user ) {
+            return {loggedUser: user, redirect: '/'};
+        } else {
+            return {err: 'Wrong login information'};
+        }
     }
 
     if( isSignup ) {
         const newUser = new User();
         Object.assign(newUser, payload);
         await repository.save(newUser);
-        return newUser;
+        return {loggedUser: newUser, redirect: '/'};
     }
-
-    if( url.pathname!=='/auth' ) {
-        return null;
-    }
-
-    const user_mocks = [
-        {
-            id: 1,
-            name: 'jon',
-        },
-        {
-            id: 2,
-            name: 'cersei',
-        },
-        {
-            id: 3,
-            name: 'alice',
-        },
-    ];
-
-    const loggedUser = user_mocks[Math.random()*user_mocks.length|0];
-
-    loggedUser.ehwq = 12;
-
-    return loggedUser;
 }
 
 module.exports = easyql;

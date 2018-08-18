@@ -26,17 +26,23 @@ function AuthCookieManager(easyql) {
 function addLoggedUser({req}) {
     const cookieString = req.headers.cookie;
 
-    let {loggedUser, authCookie} = readAuthCookie({cookieString});
+    const parsedInfo = readAuthCookie({cookieString});
+
+    if( ! parsedInfo ) {
+        return null;
+    }
+
+    let {loggedUser, authCookie} = parsedInfo;
 
  // console.log(loggedUser, cookieString);
 
     const validation = cookieSignature.unsign(authCookie, SECRET_KEY);
     assert_internal(validation===false || validation===authCookie.split('.').slice(0, -1).join('.'));
     if( ! validation ) {
-        loggedUser = null;
+        return null;
     }
 
-    assert_internal(loggedUser===null || loggedUser.constructor===Object);
+    assert_internal(loggedUser.constructor===Object);
     return {loggedUser};
 }
 
@@ -44,14 +50,13 @@ function addLoggedUser({req}) {
 async function authRequestHandler(easyql, {req, res}) {
     const url = parseUri(req.url);
 
-    const loggedUser = await easyql.authStrategy({easyql, url, req, res});
-    assert_usage(loggedUser===null || Object.keys(loggedUser).length>0, loggedUser);
-
-    if( ! loggedUser ) {
+    const authResponse = await easyql.authStrategy({easyql, url, req, res});
+    assert_usage(authResponse===null || Object.keys(authResponse).length>0, authResponse);
+    if( authResponse===null ) {
         return null;
     }
-
-    assert_usage(loggedUser.id);
+    const {loggedUser, redirect, err} = authResponse;
+    assert_usage(loggedUser && loggedUser.id, authResponse);
 
     const timestamp = new Date().getTime();
 
@@ -59,6 +64,7 @@ async function authRequestHandler(easyql, {req, res}) {
 
     const cookieVal = cookie.serialize('auth', authVal, {
         maxAge: 60 * 60 * 24 * 7, // 1 week
+        path: '/',
         // TODO-LATER make `httpOnly` true
      // httpOnly: true,
         sameSite: 'strict',
@@ -74,5 +80,5 @@ async function authRequestHandler(easyql, {req, res}) {
 
     const body = JSON.stringify(loggedUser);
 
-    return {body, headers};
+    return {body, headers, redirect};
 }
