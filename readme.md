@@ -185,10 +185,10 @@ export default WelcomePage;
 ~~~
 
 **Reframe takes care of all the glue code**:
-You can create an app with **no build configuration** and **no server configuration**.
-And if you have a database an **API can be automatically generated** for you.
+You can create an app with no build configuration and no server configuration.
+And if you have a database an API can be automatically generated for you.
 
-**But you can fully and gradually take control over the glue code**:
+**But you can gradually and fully take control over the glue code**:
 That is, you can progressively eject the glue code implemented by Reframe.
 This gives you what we call "100% flexibility".
 
@@ -214,7 +214,7 @@ you want to use a framework to quickly get things up and running.
 Reframe is about giving you the best of both worlds:
 The glue code is already written for you but you have the possiblity to change that glue code.
 
-To achieve that Reframe applies following principles:
+To achieve that, Reframe applies following principles:
  - Isolate a maximum of code in do-one-thing-do-it-well libraries.
  - Minimize the amount of glue code.
  - Make the glue code (progressively) ejectabe.
@@ -226,7 +226,7 @@ All of Reframe's glue code is progressively ejectable.
 This means that you can gradually take over the glue code.
 More at [Concepts - Progressive Eject](/docs/concepts.md#progressive-eject).
 
-With Reframe you can build an app in a scalable way:
+With Reframe you can build an app in a quick yet scalable way:
  1. First, quickly bootstrap a prototype.
     <br/>
     (All glue code is taken care by Reframe.)
@@ -237,7 +237,7 @@ With Reframe you can build an app in a scalable way:
  3. Finally, fully get rid of Reframe.
     <br/>
     (By ejecting all Reframe's glue code, your code will not depend on Reframe anymore but will depend on do-one-thing-do-it-well libraries only.
-    At that point you have the exact same flexibility as if you would have glued do-one-thing-do-it-well libraries yourself in the beginning.)
+    At that point you have the exact same flexibility as if you would have glued things together yourself in the beginning.)
 
 That said, you will most likely eject only a fraction of the glue code.
 (E.g. only ~200 lines of the total of ~500 lines of glue code.)
@@ -280,10 +280,10 @@ Despite Reframe's low 500 LOC of glue code, Reframe is fully featured.
   - **Mobile web app** -
     Browser-side Javascript is a performance killer for mobile.
     With Reframe you can buid web apps that have (almost) no browser-side JavaScript.
-    (You still use JavaScript on the server with Node.js and with React to generate HTML)
+    (You still use JavaScript on the server with Node.js and with React to generate HTML.)
   - **Mixed Web App** -
     A new kind of app we call "Mixed Web App" (MWA).
-    (What a MWA is about is explained in [Concepts - Non-Interactive-First Approach](/docs/concepts.md#non-interactive-first-approach).)
+    (See [Concepts - Non-Interactive-First Approach](/docs/concepts.md#non-interactive-first-approach).)
 - **Easy deploy** -
   Integration with static hosts (Netlify, GitHub Pages, etc.).
   We are also exploring ways to automate the deployment to a serverless stack (serverless server + serverless database).
@@ -291,7 +291,7 @@ Despite Reframe's low 500 LOC of glue code, Reframe is fully featured.
 - **Ejectable** -
   Fully and progressively eject Reframe to gradually gain full control over your app.
 - **Integrations** - Plugins for React, React Router, Vue.js, Webpack, TypeScript, PostCSS, Hapi, Express, Koa, etc.
-- **Performance** - Code-splitting, Server-Side Rendering, Optimal HTTP caching, etc.
+- **Performance** - Code-splitting, Server-Side Rendering, optimal HTTP caching, etc.
 
 <b><sub><a href="#overview">&#8679; TOP &#8679;</a></sub></b>
 
@@ -364,7 +364,7 @@ export class Todo {
 }
 ~~~
 
-To make `Todo` entries accessible from our views, we define permissions:
+To make our `Todo` entries accessible from our views, we define permissions:
 
 ~~~js
 // Only the author of a todo item should be allowed to read & write
@@ -415,7 +415,7 @@ export default {
 ~~~
 
 That's it.
-We simply define pages, data models, and permissions to build a full-stack app.
+We simply defined pages, data models, and permissions to build a full-stack app.
 
 <b><sub><a href="#overview">&#8679; TOP &#8679;</a></sub></b>
 
