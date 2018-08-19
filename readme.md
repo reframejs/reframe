@@ -184,6 +184,10 @@ const WelcomePage = {
 export default WelcomePage;
 ~~~
 
+<p align="center">
+    <img src='https://github.com/reframejs/reframe/raw/master/docs/images/previews/welcome.png?sanitize=true' width="780" style="max-width:100%;"/>
+</p>
+
 **Reframe takes care of all the glue code**:
 You can create an app with no build configuration and no server configuration.
 And if you have a database an API can be automatically generated for you.
@@ -338,7 +342,7 @@ We created a entire frontend simply by defining one page config.
 No build config, no server config.
 
 <p align="center">
-    <img src='https://github.com/reframejs/reframe/raw/master/docs/images/reframe-start.png?sanitize=true' width="780" style="max-width:100%;"/>
+    <img src='https://github.com/reframejs/reframe/raw/master/docs/images/previews/hello.png?sanitize=true' width="780" style="max-width:100%;"/>
 </p>
 
 ###### Full-stack
