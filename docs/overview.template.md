@@ -29,19 +29,17 @@ allows you to quickly develop web apps.
 While staying "100% flexible".
 
 ~~~jsx
-// A page config
-const WelcomePage = {
-  route: '/welcome',
-  view: () => <div>Welcome to Reframe</div>,
-  title: 'Welcome'
-};
+// ~/my-app/pages/WelcomePage.config.js
+
+!INLINE ../examples/basics/pages/WelcomePage.config.js --hide-source-path
 ~~~
 
-Reframe takes care of all the glue code:
-You can create an app with **no build configuration**, **no server configuration**, and **no API configuration** (an API is automatically generated for you).
+**Reframe takes care of all the glue code**:
+You can create an app with **no build configuration** and **no server configuration**.
+And if you have a database an **API can be automatically generated** for you.
 
 **But you can fully and gradually take control over the glue code**:
-You can progressively eject Reframe's glue code.
+That is, you can progressively eject the glue code implemented by Reframe.
 This gives you what we call "100% flexibility".
 
 !INLINE ./top-link.md #overview --hide-source-path
@@ -64,7 +62,7 @@ On the other hand
 you want to use a framework to quickly get things up and running.
 
 Reframe is about giving you the best of both worlds:
-The glue code already written for you but you have the possiblity to change that glue code.
+The glue code is already written for you but you have the possiblity to change that glue code.
 
 To achieve that Reframe applies following principles:
  - Isolate a maximum of code in do-one-thing-do-it-well libraries.
