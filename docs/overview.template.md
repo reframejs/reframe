@@ -32,11 +32,9 @@ It aims to come with everything you need to go from zero to a prototype.
 
 It doesn't claim to solve all your problems.
 Instead, it solves one and only one problem:
-How to quickly implement a prototype from nothing.
+How to quickly implement a prototype.
 
-And as your prototype grows into something serious, Reframe progressively gives away control to you and your team.
-
-<br/>
+And as your prototype grows into something serious, Reframe gradually gives away control to you and your team.
 
 **Temporary**
 
@@ -45,7 +43,7 @@ A good parent knows when it's time to let go of his child.
 Just like a 19-year-old doesn't want his parents to dictate his life,
 a team of 5 developers doesn't want a framework to dictate how to do things.
 
-Reframe is designed from the ground up to be progressively removable:
+Reframe is designed from the ground up to be gradually removed:
 As your prototype grows you eject parts of Reframe.
 Once you ejected everything, you fully got rid of Reframe and have full control.
 
