@@ -45,7 +45,7 @@ a team of 5 developers doesn't want a framework to dictate how to do things.
 
 Reframe is designed from the ground up to be gradually removed:
 As your prototype grows you eject parts of Reframe.
-Once you ejected everything, you fully got rid of Reframe and have full control.
+Once you eject everything, you fully got rid of Reframe and have full control.
 
 Where Meteor, Django and Ruby and Rails are clingy parents that can't let go,
 Reframe knows how to let go.
