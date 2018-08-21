@@ -11,7 +11,6 @@
 # Overview
 
  - [Introduction](#introduction)
- - [100% Flexible](#100-flexible)
  - [Features](#features)
  - [Examples](#examples)
  - [Getting Started](#getting-started)
@@ -20,13 +19,10 @@
 <br/>
 
 
-
-
 ### Introduction
 
-Reframe
-allows you to quickly develop web apps.
-While staying "100% flexible".
+
+Reframe is a temporary framework to quickly implement prototypes.
 
 ~~~jsx
 // ~/my-app/pages/WelcomePage.config.js
@@ -38,72 +34,41 @@ While staying "100% flexible".
     <img src='https://github.com/reframejs/reframe/raw/master/docs/images/previews/welcome.png?sanitize=true' width="780" style="max-width:100%;"/>
 </p>
 
-**Reframe takes care of all the glue code**:
-You can create an app with no build configuration and no server configuration.
-And if you have a database an API can be automatically generated for you.
+<br/>
+<br/>
 
-**But you can gradually and fully take control over the glue code**:
-That is, you can progressively eject the glue code implemented by Reframe.
-This gives you what we call "100% flexibility".
+**Rapid** -
+Reframe allows you to quickly implement prototypes.
+It aims to come with everything you need to go from zero to a prototype.
 
-!INLINE ./top-link.md #overview --hide-source-path
+It doesn't claim to solve all your problems.
+Instead, it solves one and only one problem:
+How to quickly implement a prototype from nothing.
+
+And as your prototype grows into something serious, Reframe progressively gives away control to you and your team.
 
 <br/>
 <br/>
 
+**Temporary** -
+A good parent knows when it's time to let go of his child.
 
+Just like a 19-year-old doesn't want his parents to dictate his life,
+a team of 5 developers doesn't want a framework to dictate how to do things.
 
+Reframe is designed from the ground up to be progressively removable:
+As your prototype grows you eject parts of Reframe.
+Once you ejected everything, you fully got rid of Reframe and have full control.
 
+Where Meteor, Django and Ruby and Rails are clingy parents that can't let go,
+Reframe knows how to let go.
 
-### 100% Flexible
-
-There are two ways to create a web app:
- - You use a framework that glues do-one-thing-do-it-well libraries for you.
- - You glue do-one-thing-do-it-well libraries yourself.
-
-On one hand you want to glue things together yourself to keep flexibility and control.
-On the other hand
-you want to use a framework to quickly get things up and running.
-
-Reframe is about giving you the best of both worlds:
-The glue code is already written for you but you have the possiblity to change that glue code.
-
-To achieve that, Reframe applies following principles:
- - Isolate a maximum of code in do-one-thing-do-it-well libraries.
- - Minimize the amount of glue code.
- - Make the glue code (progressively) ejectabe.
-
-We managed to reduce the glue code to a tiny ~500 lines of code.
-This is ridiculously little.
-
-All of Reframe's glue code is progressively ejectable.
-This means that you can gradually take over the glue code.
 More at [Concepts - Progressive Eject](/docs/concepts.md#progressive-eject).
 
-With Reframe you can build an app in a quick yet scalable way:
- 1. First, quickly bootstrap a prototype.
-    <br/>
-    (All glue code is taken care by Reframe.)
- 2. Then, gradually take control over the glue code.
-    <br/>
-    (As your prototype grows you progressively eject Reframe's glue code as the need arises.)
-    <br/>
- 3. Finally, fully get rid of Reframe.
-    <br/>
-    (By ejecting all Reframe's glue code, your code will not depend on Reframe anymore but will depend on do-one-thing-do-it-well libraries only.
-    At that point you have the exact same flexibility as if you would have glued things together yourself in the beginning.)
-
-That said, you will most likely eject only a fraction of the glue code.
-(E.g. only ~200 lines of the total of ~500 lines of glue code.)
-But if you want to take over full control, you can.
-
-Despite Reframe's low 500 LOC of glue code, Reframe is fully featured.
-
 !INLINE ./top-link.md #overview --hide-source-path
 
 <br/>
 <br/>
-
 
 
 
