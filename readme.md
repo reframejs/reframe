@@ -130,12 +130,12 @@
 </p>
 
 <p align="center">
-  &nbsp;Temporary framework to quickly implement prototypes.
+  &nbsp;Framework to create prototypes.
 </p>
 <p align="center">
   <b>Rapid</b>&nbsp;&nbsp;&#8209;&nbsp;&nbsp;Implement&nbsp;prototypes&nbsp;in&nbsp;no&nbsp;time.
   <br/>
-  <b>Temporary</b>&nbsp;&nbsp;&#8209;&nbsp;&nbsp;Progressively get rid of Reframe as your prototype grows into something serious.
+  <b>Temporary</b>&nbsp;&nbsp;&#8209;&nbsp;&nbsp;Progressively ejectable.
 </p>
 
 <br/>
