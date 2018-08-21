@@ -22,9 +22,8 @@
 ### Introduction
 
 
-Reframe is a temporary framework to quickly implement prototypes.
-
-<br/>
+Reframe is a web framework.
+It is rapid yet temporary which is ideal for quick prototyping.
 
 **Rapid**
 
@@ -37,7 +36,6 @@ How to quickly implement a prototype from nothing.
 
 And as your prototype grows into something serious, Reframe progressively gives away control to you and your team.
 
-<br/>
 <br/>
 
 **Temporary**

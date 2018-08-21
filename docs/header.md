@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  &nbsp;Framework to create prototypes.
+  &nbsp;Web framework to create prototypes.
 </p>
 <p align="center">
   <b>Rapid</b>&nbsp;&nbsp;&#8209;&nbsp;&nbsp;Implement&nbsp;prototypes&nbsp;in&nbsp;no&nbsp;time.
