@@ -194,8 +194,6 @@ Reframe knows how to let go.
 
 More at [Concepts - Progressive Eject](/docs/concepts.md#progressive-eject).
 
-<br/>
-
 <b><sub><a href="#overview">&#8679; TOP &#8679;</a></sub></b>
 
 <br/>

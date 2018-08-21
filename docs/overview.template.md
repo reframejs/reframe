@@ -52,8 +52,6 @@ Reframe knows how to let go.
 
 More at [Concepts - Progressive Eject](/docs/concepts.md#progressive-eject).
 
-<br/>
-
 !INLINE ./top-link.md #overview --hide-source-path
 
 <br/>
