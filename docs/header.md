@@ -7,12 +7,12 @@
 </p>
 
 <p align="center">
-  &nbsp;Framework to create web apps.
+  &nbsp;Temporary framework to quickly implement prototypes.
 </p>
 <p align="center">
-  <sub><sub><img src="https://github.com/reframejs/reframe/raw/master/docs/images/thunderbolt.min.svg?sanitize=true" width="26" height="26"></sub></sub>&nbsp;&nbsp;<b>Rapid</b>&nbsp;&nbsp;&#8209;&nbsp;&nbsp;Implement&nbsp;apps&nbsp;in&nbsp;no&nbsp;time.
+  <b>Rapid</b>&nbsp;&nbsp;&#8209;&nbsp;&nbsp;Implement&nbsp;prototypes&nbsp;in&nbsp;no&nbsp;time.
   <br/>
-  <sub><sub><img src="https://github.com/reframejs/reframe/raw/master/docs/images/tornado.min.svg?sanitize=true" width="26" height="26"></sub></sub>&nbsp;&nbsp;<b>100% Flexible</b>&nbsp;&nbsp;&#8209;&nbsp;&nbsp;As&nbsp;flexible&nbsp;as&nbsp;not&nbsp;using&nbsp;a&nbsp;framework.
+  <b>Temporary</b>&nbsp;&nbsp;&#8209;&nbsp;&nbsp;Progressively get rid of Reframe as your prototype grows into something serious.
 </p>
 
 <br/>

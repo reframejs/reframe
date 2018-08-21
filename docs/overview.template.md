@@ -24,20 +24,10 @@
 
 Reframe is a temporary framework to quickly implement prototypes.
 
-~~~jsx
-// ~/my-app/pages/WelcomePage.config.js
-
-!INLINE ../examples/basics/pages/WelcomePage.config.js --hide-source-path
-~~~
-
-<p align="center">
-    <img src='https://github.com/reframejs/reframe/raw/master/docs/images/previews/welcome.png?sanitize=true' width="780" style="max-width:100%;"/>
-</p>
-
-<br/>
 <br/>
 
-**Rapid** -
+**Rapid**
+
 Reframe allows you to quickly implement prototypes.
 It aims to come with everything you need to go from zero to a prototype.
 
@@ -50,7 +40,8 @@ And as your prototype grows into something serious, Reframe progressively gives 
 <br/>
 <br/>
 
-**Temporary** -
+**Temporary**
+
 A good parent knows when it's time to let go of his child.
 
 Just like a 19-year-old doesn't want his parents to dictate his life,
@@ -64,6 +55,8 @@ Where Meteor, Django and Ruby and Rails are clingy parents that can't let go,
 Reframe knows how to let go.
 
 More at [Concepts - Progressive Eject](/docs/concepts.md#progressive-eject).
+
+<br/>
 
 !INLINE ./top-link.md #overview --hide-source-path
 
