@@ -27,18 +27,18 @@ Reframe is a web framework.
 It is rapid yet temporary. Which is ideal for
 prototyping.
 
-Reframe's stack is composed of
+Reframe's stack is:
 React (or Vue) + Webpack + Node.js (optional) + TypeORM (optional).
 
 **Rapid**
 
-Reframe allows you to quickly implement prototypes.
+With Reframe you can implement prototypes in no time.
 
-It doesn't claim to solve all your problems.
-Instead, it solves one and only one problem:
-How to go from zero to a prototype.
+Reframe doesn't want to solve all your problems
+and instead focuses on one problem:
+How to quickly go from zero to a prototype.
 
-As your prototype grows into something serious, Reframe gradually gives away control to you and your team.
+And as your prototype grows into something serious, Reframe gradually gives away control to you and your team.
 
 **Temporary**
 

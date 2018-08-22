@@ -12,7 +12,7 @@
 <p align="center">
   <b>Rapid</b>&nbsp;&nbsp;&#8209;&nbsp;&nbsp;Implement&nbsp;prototypes&nbsp;in&nbsp;no&nbsp;time.
   <br/>
-  <b>Temporary</b>&nbsp;&nbsp;&#8209;&nbsp;&nbsp;Progressively ejectable.
+  <b>Temporary</b>&nbsp;&nbsp;&#8209;&nbsp;&nbsp;Gradually&nbsp;removable.
 </p>
 
 <br/>
