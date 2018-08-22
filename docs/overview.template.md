@@ -23,18 +23,22 @@
 
 
 Reframe is a web framework.
-It is rapid yet temporary which is ideal for quick prototyping.
+
+It is rapid yet temporary. Which is ideal for
+prototyping.
+
+Reframe's stack is composed of
+React (or Vue) + Webpack + Node.js (optional) + TypeORM (optional).
 
 **Rapid**
 
 Reframe allows you to quickly implement prototypes.
-It aims to come with everything you need to go from zero to a prototype.
 
 It doesn't claim to solve all your problems.
 Instead, it solves one and only one problem:
-How to quickly implement a prototype.
+How to go from zero to a prototype.
 
-And as your prototype grows into something serious, Reframe gradually gives away control to you and your team.
+As your prototype grows into something serious, Reframe gradually gives away control to you and your team.
 
 **Temporary**
 
@@ -45,9 +49,9 @@ a team of 5 developers doesn't want a framework to dictate how to do things.
 
 Reframe is designed from the ground up to be gradually removed:
 As your prototype grows you eject parts of Reframe.
-Once you eject everything, you fully got rid of Reframe and have full control.
+Once every part is ejected, Reframe is fully removed and you have full control over the stack.
 
-Where Meteor, Django and Ruby and Rails are clingy parents that can't let go,
+Where other frameworks are clingy parents that can't let go,
 Reframe knows how to let go.
 
 More at [Concepts - Progressive Eject](/docs/concepts.md#progressive-eject).
