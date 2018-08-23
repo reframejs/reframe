@@ -24,7 +24,7 @@
 Reframe is a framework to create web apps.
 
 Reframe's stack is:
-React (or Vue) + Webpack + Node.js (optional) + TypeORM (optional).
+React (or Vue) + Node.js (optional) + [TypeORM](https://github.com/typeorm/typeorm) (optional).
 
 
 ~~~jsx
@@ -41,9 +41,9 @@ React (or Vue) + Webpack + Node.js (optional) + TypeORM (optional).
 
 **Rapid**
 
-With Reframe you can implement apps in no time.
+Reframe assembles a stack optimized for quickly implementing prototypes.
 
-As your prototype grows into something a serious app, Reframe gradually gives away control to you and your team.
+And as your prototype grows into a serious app, Reframe gradually gives away control to you and your team.
 
 <br/>
 
@@ -63,31 +63,36 @@ Reframe knows how to let go.
 
 <br/>
 
-Reframe supports a wide range of app types.
-This means that if you don't know at first what type of app is right for you, that's ok:
-You can choose an app type at your best guess at first,
-and later change the type of your app as it becomes clear what you need.
-(Reframe is designed so that you can easily change the type of your app.)
+Reframe supports a wide range of stacks.
+This means that if you don't know at first what stack is right for you, that's ok:
+You can choose a stack with your best guess at first,
+and later change the stack as it becomes clear what you need.
+(Reframe is designed so that you can easily change the stack.)
 
-**Full-stack Apps** (Interactive Frontend + Backend + Database/ORM)
+**Full-stack Apps**
 
-You can create an app that is composed of:
- - Modern interactive Frontend (with React or Vue)
- - Node.js Backend
- - Node.js ORM (Such as (TypeORM)[https://github.com/typeorm/typeorm].)
+Stack composed of:
+ - Modern interactive frontend (with React or Vue)
+ - Node.js backend
+ - Node.js ORM (Such as [TypeORM](https://github.com/typeorm/typeorm).)
 
 <br/>
 
 **Frontend + Backend** (SSR apps)
 
-If you don't need/want an ORM you can as well use Reframe to create a modern interactive frontend + Node.js backend only.
+Stack composed of:
+ - Modern interactive frontend (with React or Vue)
+ - Node.js backend
 
-By default, Reframe renders your views to HTML as well as to the DOM.
-The technique of rendering views to both HTML and to the DOM is called SSR (Server-Side Rendering) and plays an important role for performance, SEO, and SMO.
+By default, Reframe renders your pages to both HTML and the DOM.
+(It's a technique called SSR (Server-Side Rendering) and plays an important role for performance, SEO, and SMO.)
 
 <br/>
 
 **Frontend only** (Static sites)
+
+Stack composed of:
+ - Modern interactive frontend (with React or Vue)
 
 Reframe supports creating apps that are composed of only static browser assets (JavaScript files, CSS files, images, fonts, etc.).
 
@@ -99,18 +104,28 @@ Such app is ideal if you don't need a backend (or if you already implemented one
 
 <br/>
 
-**Backend only** (Old-school apps. Mobile web apps.)
+**Backend only**
 
-If you don't need interactive views, then we recommand to create an app that has no (or almost no) browser-side JavaScript.
+Stack composed of:
+ - Node.js Backend
+
+We recommand this if you don't need interactive views.
+
+The app  has no (or almost no) browser-side JavaScript.
 
 You still use JavaScript on the server with Node.js and with React to generate the HTML of your pages.
+(React can render views not only to the DOM but as well to HTML.)
 
-You can as well create an app composed of backend + database/ORM.
+This stack is well suited for mobile.
+(Browser-side JavaScript is a performance killer for mobile.)
+
+You can add a Node.js ORM to that stack.
 
 <br/>
 
-**Mixed Web Apps** (MWA)
+**Mixed Web Apps**
 
+We introduce what we call "Mixed Web Apps"
 Reframe introduces a new kind of apps that combine old-school non-interactive HTML pages and modern interactive pages.
 
 
