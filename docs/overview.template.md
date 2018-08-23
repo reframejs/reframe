@@ -94,11 +94,11 @@ By default, Reframe renders your pages to both HTML and the DOM.
 Stack composed of:
  - Modern interactive frontend (with React or Vue)
 
-Reframe supports creating apps that are composed of only static browser assets (JavaScript files, CSS files, images, fonts, etc.).
+Your app consists of static browser assets only. (JavaScript files, CSS files, images, fonts, etc.)
 
-No Node.js server is required and the frontend can be deployed to a static host such as Netfliy or GitHub Pages.
+No Node.js server is required and your app can be deployed to a static host such as Netfliy or GitHub Pages.
 
-Such app is ideal if you don't need a backend (or if you already implemented one).
+This stack is ideal if you don't need a backend (or if you already implemented one).
 
 (Frontend only apps are also commonly called "static sites".)
 
@@ -109,15 +109,15 @@ Such app is ideal if you don't need a backend (or if you already implemented one
 Stack composed of:
  - Node.js Backend
 
-We recommand this if you don't need interactive views.
-
-The app  has no (or almost no) browser-side JavaScript.
+Your app has no (or almost no) browser-side JavaScript.
 
 You still use JavaScript on the server with Node.js and with React to generate the HTML of your pages.
 (React can render views not only to the DOM but as well to HTML.)
 
+We recommand this if you don't need interactive views.
+
 This stack is well suited for mobile.
-(Browser-side JavaScript is a performance killer for mobile.)
+(Browser-side JavaScript is a performance killer on mobile.)
 
 You can add a Node.js ORM to that stack.
 
@@ -125,6 +125,17 @@ You can add a Node.js ORM to that stack.
 
 **Mixed Web Apps**
 
+We introduce a new kind of apps: "Mixed Web Apps" (MWA).
+
+The stack is composed of:
+ - Modern interactive frontend (with React or Vue)
+ - Node.js backend
+
+But only some pages have a frontend.
+
+This is because non-interactive HTML pages 
+
+It's a mix be
 We introduce what we call "Mixed Web Apps"
 Reframe introduces a new kind of apps that combine old-school non-interactive HTML pages and modern interactive pages.
 
