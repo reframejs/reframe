@@ -22,7 +22,7 @@
 ### Introduction
 
 
-Reframe is a web framework that is rapid and removoable.
+Reframe is a web framework. It is rapid and removable that is rapid and removable.
 
 Reframe's stack is:
 React (or Vue) + Webpack + Node.js (optional) + TypeORM (optional).
@@ -33,7 +33,7 @@ With Reframe you can implement apps in no time.
 
 As your prototype grows into something a serious app, Reframe gradually gives away control to you and your team.
 
-**Temporary**
+**Removable**
 
 A good parent knows when it's time to let go of his child.
 
