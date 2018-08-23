@@ -61,8 +61,6 @@ Once every part is ejected, Reframe is fully removed and you have full control o
 Where other frameworks are clingy parents that can't let go,
 Reframe knows how to let go.
 
-More at [Concepts - Progressive Eject](/docs/concepts.md#progressive-eject).
-
 <br/>
 
 Reframe supports a wide range of app types.
@@ -73,25 +71,61 @@ and later change the type of your app as it becomes clear what you need.
 
 **Full-stack Apps** (Interactive Frontend + Backend + Database/ORM)
 
+You can create an app that is composed of:
+ - Modern interactive Frontend (with React or Vue)
+ - Node.js Backend
+ - Node.js ORM (Such as (TypeORM)[https://github.com/typeorm/typeorm].)
 
 <br/>
 
 **Frontend + Backend** (SSR apps)
 
+If you don't need/want an ORM you can as well use Reframe to create a modern interactive frontend + Node.js backend only.
+
+By default, Reframe renders your views to HTML as well as to the DOM.
+The technique of rendering views to both HTML and to the DOM is called SSR (Server-Side Rendering) and plays an important role for performance, SEO, and SMO.
+
 <br/>
 
 **Frontend only** (Static sites)
 
+Reframe supports creating apps that are composed of only static browser assets (JavaScript files, CSS files, images, fonts, etc.).
+
+No Node.js server is required and the frontend can be deployed to a static host such as Netfliy or GitHub Pages.
+
+Such app is ideal if you don't need a backend (or if you already implemented one).
+
+(Frontend only apps are also commonly called "static sites".)
+
 <br/>
 
-**Backend only** (Old-school apps)
+**Backend only** (Old-school apps. Mobile web apps.)
+
+If you don't need interactive views, then we recommand to create an app that has no (or almost no) browser-side JavaScript.
+
+You still use JavaScript on the server with Node.js and with React to generate the HTML of your pages.
+
+You can as well create an app composed of backend + database/ORM.
 
 <br/>
 
 **Mixed Web Apps** (MWA)
 
-<br/>
+Reframe introduces a new kind of apps that combine old-school non-interactive HTML pages and modern interactive pages.
 
+
+
+Old-school non-interactive HTML pages excell in developer experience (they are much much easier to implement than modern interactive DOM-dynamic pages) and performance (especially on mobile)
+
+but they don't of
+
+MWAs embraces non-interactive pages as well as interactive pages.
+
+We call such apps "Mixed Web Apps" (MWA).
+
+We believe MWAs to be the future of web dev.
+
+<br/>
 
 !INLINE ./top-link.md #overview --hide-source-path
 
