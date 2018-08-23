@@ -216,12 +216,11 @@ Reframe knows how to let go.
 ###### Many stacks
 
 Reframe supports a wide range of stacks.
+
 If you don't know what stack is right for you, that's ok:
 You can choose a stack with your best guess at first,
 and later change the stack as it becomes clear what you need.
 (Reframe is designed so that you can easily change the stack.)
-
-<br/>
 
 **Full-stack Apps**
 
