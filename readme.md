@@ -153,7 +153,6 @@ Starters: [React Server](/docs/react-server-starter.md) | [React Frontend](/docs
 # Overview
 
  - [Introduction](#introduction)
- - [Features](#features)
  - [Examples](#examples)
  - [Getting Started](#getting-started)
 
@@ -164,10 +163,10 @@ Starters: [React Server](/docs/react-server-starter.md) | [React Frontend](/docs
 ### Introduction
 
 
-Reframe is a framework to create web apps. It is rapid and removable.
+Reframe is a framework to create web apps.
 
 Reframe's stack is:
-React (or Vue) + Webpack + Node.js (optional) + TypeORM (optional).
+React (or Vue) + Node.js (optional) + [TypeORM](https://github.com/typeorm/typeorm) (optional).
 
 
 ~~~jsx
@@ -192,9 +191,9 @@ export default WelcomePage;
 
 **Rapid**
 
-With Reframe you can implement apps in no time.
+Reframe assembles a stack optimized for quickly implementing prototypes.
 
-As your prototype grows into something a serious app, Reframe gradually gives away control to you and your team.
+And as your prototype grows into a serious app, Reframe gradually gives away control.
 
 <br/>
 
@@ -207,12 +206,84 @@ a team of 5 developers doesn't want a framework to dictate how to do things.
 
 Reframe is designed from the ground up to be gradually removed:
 As your app grows you eject parts of Reframe.
-Once every part is ejected, Reframe is fully removed and you have full control over the stack.
+Once every part is ejected, Reframe is fully removed and you have full control over your app.
 
 Where other frameworks are clingy parents that can't let go,
 Reframe knows how to let go.
 
-More at [Concepts - Progressive Eject](/docs/concepts.md#progressive-eject).
+<br/>
+
+Reframe supports a wide range of stacks.
+If you don't know what stack is right for you, that's ok:
+You can choose a stack with your best guess at first,
+and later change the stack as it becomes clear what you need.
+(Reframe is designed so that you can easily change the stack.)
+
+**Full-stack Apps**
+
+Stack composed of:
+ - Modern interactive frontend (with React or Vue)
+ - Node.js backend
+ - Node.js ORM (Such as [TypeORM](https://github.com/typeorm/typeorm).)
+
+<br/>
+
+**Frontend + Backend** (SSR apps)
+
+Stack composed of:
+ - Modern interactive frontend (with React or Vue)
+ - Node.js backend
+
+By default, Reframe renders your pages both to HTML and to the DOM.
+(This practice is called SSR (Server-Side Rendering) and plays an important role for performance, SEO, and SMO.)
+
+<br/>
+
+**Frontend only** (Static sites)
+
+Stack composed of:
+ - Modern interactive frontend (with React or Vue)
+
+Your app consists of static browser assets only. (JavaScript files, CSS files, images, fonts, etc.)
+
+No Node.js server is required and your app can be deployed to a static host such as Netfliy or GitHub Pages.
+
+This stack is ideal if you don't need a backend (or if you already implemented one).
+
+(Frontend-only apps are also called "static sites".)
+
+<br/>
+
+**Backend only**
+
+Stack composed of:
+ - Node.js Backend
+
+Your app has no (or almost no) browser-side JavaScript.
+
+You still use JavaScript on the server with Node.js and React to generate the HTML of your pages.
+(React can render views to HTML.)
+
+We recommand this if you don't need interactive views.
+
+This stack is well suited for mobile.
+(Browser-side JavaScript is a performance killer on mobile.)
+
+You can add a Node.js ORM to that stack.
+
+<br/>
+
+**Mixed Web Apps**
+
+We introduce a new kind of app: "Mixed Web Apps" (MWA).
+
+Non-interactive views are considerably easier to implement and more performant than interactive views.
+
+MWAs are about combining non-interactive views with interactive views.
+
+This stack is well suited for mobile.
+
+We believe MWAs to be the future of web dev.
 
 <br/>
 
@@ -220,55 +291,6 @@ More at [Concepts - Progressive Eject](/docs/concepts.md#progressive-eject).
 
 <br/>
 <br/>
-
-
-
-
-### Features
-
-- Modern Frontend
-  - **Interactive views** -
-    First-class support for interactive views with React, Vue.js, etc.
-  - **SEO** -
-    Reframe supports Server-Side Rendering (SSR) to give you full control over SEO and SMO.
-- Database
-  - **ORM** -
-    Integration with TypeORM.
-  - **Automatic API generation**
-- You can create any type of app:
-  - **Full-stack app** -
-    App with interactive frontend + server + database.
-  - **Modern frontend** -
-    A frontend without a backend.
-    Ideal if you already have a backend.
-  - **SPA**
-  - **MPA**
-  - **Static site**
-  - **Old-school backend** -
-    A Node.js backend with plain old HTML without interactive views.
-    (No JavaScript is executed in the browser, the DOM is static. You still use React to generate dynamic HTML.)
-  - **Mobile web app** -
-    Browser-side Javascript is a performance killer for mobile.
-    With Reframe you can buid web apps that have (almost) no browser-side JavaScript.
-    (You still use JavaScript on the server with Node.js and with React to generate HTML.)
-  - **Mixed Web App** -
-    A new kind of app we call "Mixed Web App" (MWA).
-    (See [Concepts - Non-Interactive-First Approach](/docs/concepts.md#non-interactive-first-approach).)
-- **Easy deploy** -
-  Integration with static hosts (Netlify, GitHub Pages, etc.).
-  We are also exploring ways to automate the deployment to a serverless stack (serverless server + serverless database).
-  (Work-in-progress, stay tuned at [twitter.com/reframejs](https://twitter.com/reframejs).)
-- **Ejectable** -
-  Fully and progressively eject Reframe to gradually gain full control over your app.
-- **Integrations** - Plugins for React, React Router, Vue.js, Webpack, TypeScript, PostCSS, Hapi, Express, Koa, etc.
-- **Performance** - Code-splitting, Server-Side Rendering, optimal HTTP caching, etc.
-
-<b><sub><a href="#overview">&#8679; TOP &#8679;</a></sub></b>
-
-<br/>
-<br/>
-
-
 
 
 
