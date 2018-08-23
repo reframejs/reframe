@@ -7,12 +7,12 @@
 </p>
 
 <p align="center">
-  &nbsp;Web framework to create prototypes.
+  Framework to create web apps.
 </p>
 <p align="center">
-  <b>Rapid</b>&nbsp;&nbsp;&#8209;&nbsp;&nbsp;Implement&nbsp;prototypes&nbsp;in&nbsp;no&nbsp;time.
+  <b>Rapid</b>&nbsp;&nbsp;&#8209;&nbsp;&nbsp;Implement&nbsp;apps&nbsp;in&nbsp;no&nbsp;time.
   <br/>
-  <b>Temporary</b>&nbsp;&nbsp;&#8209;&nbsp;&nbsp;Gradually&nbsp;removable.
+  <b>Removable</b>&nbsp;&nbsp;&#8209;&nbsp;&nbsp;Gradually&nbsp;remove Reframe as your app grows.
 </p>
 
 <br/>

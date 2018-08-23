@@ -130,12 +130,12 @@
 </p>
 
 <p align="center">
-  &nbsp;Web framework to create prototypes.
+  Framework to create web apps.
 </p>
 <p align="center">
-  <b>Rapid</b>&nbsp;&nbsp;&#8209;&nbsp;&nbsp;Implement&nbsp;prototypes&nbsp;in&nbsp;no&nbsp;time.
+  <b>Rapid</b>&nbsp;&nbsp;&#8209;&nbsp;&nbsp;Implement&nbsp;apps&nbsp;in&nbsp;no&nbsp;time.
   <br/>
-  <b>Temporary</b>&nbsp;&nbsp;&#8209;&nbsp;&nbsp;Gradually&nbsp;removable.
+  <b>Removable</b>&nbsp;&nbsp;&#8209;&nbsp;&nbsp;Gradually&nbsp;remove Reframe as your app grows.
 </p>
 
 <br/>
@@ -164,23 +164,16 @@ Starters: [React Server](/docs/react-server-starter.md) | [React Frontend](/docs
 ### Introduction
 
 
-Reframe is a web framework.
-
-It is rapid yet temporary. Which is ideal for
-prototyping.
+Reframe is a web framework that is rapid and removoable.
 
 Reframe's stack is:
 React (or Vue) + Webpack + Node.js (optional) + TypeORM (optional).
 
 **Rapid**
 
-With Reframe you can implement prototypes in no time.
+With Reframe you can implement apps in no time.
 
-Reframe doesn't want to solve all your problems
-and instead focuses on one problem:
-How to quickly go from zero to a prototype.
-
-And as your prototype grows into something serious, Reframe gradually gives away control to you and your team.
+As your prototype grows into something a serious app, Reframe gradually gives away control to you and your team.
 
 **Temporary**
 
@@ -190,7 +183,7 @@ Just like a 19-year-old doesn't want his parents to dictate his life,
 a team of 5 developers doesn't want a framework to dictate how to do things.
 
 Reframe is designed from the ground up to be gradually removed:
-As your prototype grows you eject parts of Reframe.
+As your app grows you eject parts of Reframe.
 Once every part is ejected, Reframe is fully removed and you have full control over the stack.
 
 Where other frameworks are clingy parents that can't let go,
