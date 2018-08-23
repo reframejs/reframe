@@ -125,29 +125,11 @@ You can add a Node.js ORM to that stack.
 
 **Mixed Web Apps**
 
-We introduce a new kind of apps: "Mixed Web Apps" (MWA).
+We introduce a new kind of app: "Mixed Web Apps" (MWA).
 
-The stack is composed of:
- - Modern interactive frontend (with React or Vue)
- - Node.js backend
+Non-interactive views are considerably easier to implement and more performant than interactive views.
 
-But only some pages have a frontend.
-
-This is because non-interactive HTML pages 
-
-It's a mix be
-We introduce what we call "Mixed Web Apps"
-Reframe introduces a new kind of apps that combine old-school non-interactive HTML pages and modern interactive pages.
-
-
-
-Old-school non-interactive HTML pages excell in developer experience (they are much much easier to implement than modern interactive DOM-dynamic pages) and performance (especially on mobile)
-
-but they don't of
-
-MWAs embraces non-interactive pages as well as interactive pages.
-
-We call such apps "Mixed Web Apps" (MWA).
+MWAs are about combining non-interactive views with interactive views.
 
 We believe MWAs to be the future of web dev.
 
