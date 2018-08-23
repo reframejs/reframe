@@ -43,7 +43,7 @@ React (or Vue) + Node.js (optional) + [TypeORM](https://github.com/typeorm/typeo
 
 Reframe assembles a stack optimized for quickly implementing prototypes.
 
-And as your prototype grows into a serious app, Reframe gradually gives away control to you and your team.
+And as your prototype grows into a serious app, Reframe gradually gives away control.
 
 <br/>
 
@@ -56,7 +56,7 @@ a team of 5 developers doesn't want a framework to dictate how to do things.
 
 Reframe is designed from the ground up to be gradually removed:
 As your app grows you eject parts of Reframe.
-Once every part is ejected, Reframe is fully removed and you have full control over the stack.
+Once every part is ejected, Reframe is fully removed and you have full control over your app.
 
 Where other frameworks are clingy parents that can't let go,
 Reframe knows how to let go.
@@ -64,7 +64,7 @@ Reframe knows how to let go.
 <br/>
 
 Reframe supports a wide range of stacks.
-This means that if you don't know at first what stack is right for you, that's ok:
+If you don't know what stack is right for you, that's ok:
 You can choose a stack with your best guess at first,
 and later change the stack as it becomes clear what you need.
 (Reframe is designed so that you can easily change the stack.)
@@ -84,8 +84,8 @@ Stack composed of:
  - Modern interactive frontend (with React or Vue)
  - Node.js backend
 
-By default, Reframe renders your pages to both HTML and the DOM.
-(It's a technique called SSR (Server-Side Rendering) and plays an important role for performance, SEO, and SMO.)
+By default, Reframe renders your pages both to HTML and to the DOM.
+(This practice is called SSR (Server-Side Rendering) and plays an important role for performance, SEO, and SMO.)
 
 <br/>
 
@@ -100,7 +100,7 @@ No Node.js server is required and your app can be deployed to a static host such
 
 This stack is ideal if you don't need a backend (or if you already implemented one).
 
-(Frontend only apps are also commonly called "static sites".)
+(Frontend-only apps are also called "static sites".)
 
 <br/>
 
@@ -111,8 +111,8 @@ Stack composed of:
 
 Your app has no (or almost no) browser-side JavaScript.
 
-You still use JavaScript on the server with Node.js and with React to generate the HTML of your pages.
-(React can render views not only to the DOM but as well to HTML.)
+You still use JavaScript on the server with Node.js and React to generate the HTML of your pages.
+(React can render views to HTML.)
 
 We recommand this if you don't need interactive views.
 
@@ -130,6 +130,8 @@ We introduce a new kind of app: "Mixed Web Apps" (MWA).
 Non-interactive views are considerably easier to implement and more performant than interactive views.
 
 MWAs are about combining non-interactive views with interactive views.
+
+This stack is well suited for mobile.
 
 We believe MWAs to be the future of web dev.
 
