@@ -11,7 +11,6 @@
 # Overview
 
  - [Introduction](#introduction)
- - [Features](#features)
  - [Examples](#examples)
  - [Getting Started](#getting-started)
 
@@ -22,7 +21,7 @@
 ### Introduction
 
 
-Reframe is a framework to create web apps. It is rapid and removable.
+Reframe is a framework to create web apps.
 
 Reframe's stack is:
 React (or Vue) + Webpack + Node.js (optional) + TypeORM (optional).
@@ -66,59 +65,38 @@ More at [Concepts - Progressive Eject](/docs/concepts.md#progressive-eject).
 
 <br/>
 
-!INLINE ./top-link.md #overview --hide-source-path
+Reframe supports a wide range of app types.
+This means that if you don't know at first what type of app is right for you, that's ok:
+You can choose an app type at your best guess at first,
+and later change the type of your app as it becomes clear what you need.
+(Reframe is designed so that you can easily change the type of your app.)
+
+**Full-stack Apps** (Interactive Frontend + Backend + Database/ORM)
+
 
 <br/>
+
+**Frontend + Backend** (SSR apps)
+
 <br/>
 
+**Frontend only** (Static sites)
 
+<br/>
 
+**Backend only** (Old-school apps)
 
-### Features
+<br/>
 
-- Modern Frontend
-  - **Interactive views** -
-    First-class support for interactive views with React, Vue.js, etc.
-  - **SEO** -
-    Reframe supports Server-Side Rendering (SSR) to give you full control over SEO and SMO.
-- Database
-  - **ORM** -
-    Integration with TypeORM.
-  - **Automatic API generation**
-- You can create any type of app:
-  - **Full-stack app** -
-    App with interactive frontend + server + database.
-  - **Modern frontend** -
-    A frontend without a backend.
-    Ideal if you already have a backend.
-  - **SPA**
-  - **MPA**
-  - **Static site**
-  - **Old-school backend** -
-    A Node.js backend with plain old HTML without interactive views.
-    (No JavaScript is executed in the browser, the DOM is static. You still use React to generate dynamic HTML.)
-  - **Mobile web app** -
-    Browser-side Javascript is a performance killer for mobile.
-    With Reframe you can buid web apps that have (almost) no browser-side JavaScript.
-    (You still use JavaScript on the server with Node.js and with React to generate HTML.)
-  - **Mixed Web App** -
-    A new kind of app we call "Mixed Web App" (MWA).
-    (See [Concepts - Non-Interactive-First Approach](/docs/concepts.md#non-interactive-first-approach).)
-- **Easy deploy** -
-  Integration with static hosts (Netlify, GitHub Pages, etc.).
-  We are also exploring ways to automate the deployment to a serverless stack (serverless server + serverless database).
-  (Work-in-progress, stay tuned at [twitter.com/reframejs](https://twitter.com/reframejs).)
-- **Ejectable** -
-  Fully and progressively eject Reframe to gradually gain full control over your app.
-- **Integrations** - Plugins for React, React Router, Vue.js, Webpack, TypeScript, PostCSS, Hapi, Express, Koa, etc.
-- **Performance** - Code-splitting, Server-Side Rendering, optimal HTTP caching, etc.
+**Mixed Web Apps** (MWA)
+
+<br/>
+
 
 !INLINE ./top-link.md #overview --hide-source-path
 
 <br/>
 <br/>
-
-
 
 
 
