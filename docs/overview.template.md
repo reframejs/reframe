@@ -65,7 +65,7 @@ Reframe knows how to let go.
 
 **Flexible stack**
 
-Reframe's stack is flexible that is you can easily change it while your app grows.
+Reframe's stack is flexible in the sense that you can easily change it while your app grows.
 
 This is of importance because when you start writing your prototype you often don't know what stack is right for you.
 With Reframe that's ok:
