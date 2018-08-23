@@ -164,16 +164,39 @@ Starters: [React Server](/docs/react-server-starter.md) | [React Frontend](/docs
 ### Introduction
 
 
-Reframe is a web framework. It is rapid and removable that is rapid and removable.
+Reframe is a framework to create web apps. It is rapid and removable.
 
 Reframe's stack is:
 React (or Vue) + Webpack + Node.js (optional) + TypeORM (optional).
+
+
+~~~jsx
+// ~/my-app/pages/WelcomePage.config.js
+
+import React from 'react';
+
+const WelcomePage = {
+  route: '/welcome',
+  view: () => <div>Welcome to Reframe</div>,
+  title: 'Welcome'
+};
+
+export default WelcomePage;
+~~~
+
+<p align="center">
+    <img src='https://github.com/reframejs/reframe/raw/master/docs/images/previews/welcome.png?sanitize=true' width="780" style="max-width:100%;"/>
+</p>
+
+<br/>
 
 **Rapid**
 
 With Reframe you can implement apps in no time.
 
 As your prototype grows into something a serious app, Reframe gradually gives away control to you and your team.
+
+<br/>
 
 **Removable**
 
@@ -190,6 +213,8 @@ Where other frameworks are clingy parents that can't let go,
 Reframe knows how to let go.
 
 More at [Concepts - Progressive Eject](/docs/concepts.md#progressive-eject).
+
+<br/>
 
 <b><sub><a href="#overview">&#8679; TOP &#8679;</a></sub></b>
 
