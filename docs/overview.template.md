@@ -63,21 +63,23 @@ Reframe knows how to let go.
 
 <br/>
 
-###### Many stacks
+**Flexible stack**
 
-Reframe supports a wide range of stacks.
+Reframe's stack is flexible that is you can easily change it while your app grows.
 
-If you don't know what stack is right for you, that's ok:
+This is of importance because when you start writing your prototype you often don't know what stack is right for you.
+With Reframe that's ok:
 You can choose a stack with your best guess at first,
 and later change the stack as it becomes clear what you need.
-(Reframe is designed so that you can easily change the stack.)
 
-**Full-stack Apps**
+<br/>
+
+**Full-stack**
 
 Stack composed of:
  - Modern interactive frontend (with React or Vue)
  - Node.js backend
- - Node.js ORM (Such as [TypeORM](https://github.com/typeorm/typeorm).)
+ - Node.js ORM ([TypeORM](https://github.com/typeorm/typeorm))
 
 <br/>
 
