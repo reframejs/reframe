@@ -213,11 +213,15 @@ Reframe knows how to let go.
 
 <br/>
 
+###### Many stacks
+
 Reframe supports a wide range of stacks.
 If you don't know what stack is right for you, that's ok:
 You can choose a stack with your best guess at first,
 and later change the stack as it becomes clear what you need.
 (Reframe is designed so that you can easily change the stack.)
+
+<br/>
 
 **Full-stack Apps**
 
@@ -235,7 +239,7 @@ Stack composed of:
  - Node.js backend
 
 By default, Reframe renders your pages both to HTML and to the DOM.
-(This practice is called SSR (Server-Side Rendering) and plays an important role for performance, SEO, and SMO.)
+(This practice is called SSR (Server-Side Rendering) which plays an important role for performance, SEO, and SMO.)
 
 <br/>
 
@@ -245,12 +249,9 @@ Stack composed of:
  - Modern interactive frontend (with React or Vue)
 
 Your app consists of static browser assets only. (JavaScript files, CSS files, images, fonts, etc.)
-
 No Node.js server is required and your app can be deployed to a static host such as Netfliy or GitHub Pages.
 
 This stack is ideal if you don't need a backend (or if you already implemented one).
-
-(Frontend-only apps are also called "static sites".)
 
 <br/>
 
@@ -260,16 +261,10 @@ Stack composed of:
  - Node.js Backend
 
 Your app has no (or almost no) browser-side JavaScript.
-
 You still use JavaScript on the server with Node.js and React to generate the HTML of your pages.
 (React can render views to HTML.)
 
-We recommand this if you don't need interactive views.
-
-This stack is well suited for mobile.
-(Browser-side JavaScript is a performance killer on mobile.)
-
-You can add a Node.js ORM to that stack.
+We recommend this if you don't need interactive views.
 
 <br/>
 
@@ -278,10 +273,7 @@ You can add a Node.js ORM to that stack.
 We introduce a new kind of app: "Mixed Web Apps" (MWA).
 
 Non-interactive views are considerably easier to implement and more performant than interactive views.
-
 MWAs are about combining non-interactive views with interactive views.
-
-This stack is well suited for mobile.
 
 We believe MWAs to be the future of web dev.
 
