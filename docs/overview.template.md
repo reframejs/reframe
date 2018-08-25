@@ -150,7 +150,7 @@ And as your prototype grows into a serious app, Reframe gradually gives away con
 
 <br/>
 
-**Removable**
+**Easily Removable**
 
 A good parent knows when it's time to let go of his child.
 
