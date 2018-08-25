@@ -41,7 +41,29 @@ React (or Vue) + Node.js (optional) + [TypeORM](https://github.com/typeorm/typeo
 
 **Rapid**
 
+You simply define so called page objects and you are good to go.
+
+No build configuration and no server configuration required.
+
+
+###### Trust
+
 Reframe assembles a stack optimized for quickly implementing prototypes.
+
+In contrast to other frameworks Reframe doesn't do everything for you.
+
+You may think at first
+
+A breeze. and as soon as you need control
+
+The opposite stance.
+
+Framework helps you but also trusts you.
+It trusts that when the right time comes you will be ok.
+Other frameworks desperately try to do everything for you.
+In vain
+
+Reframe believes that trust enables true rapidness.
 
 And as your prototype grows into a serious app, Reframe gradually gives away control.
 
@@ -65,16 +87,19 @@ Reframe knows how to let go.
 
 **Flexible stack**
 
-Reframe's stack is flexible in the sense that you can easily change it while your app grows.
+Reframe's stack is flexible in the sense that you can easily modify it.
 
-This is of importance because when you start writing your prototype you often don't know what stack is right for you.
+you first start writing your prototype it is often not clear what stack you need.
+
+This is of importance because when you start writing your app you often don't know what stack is right for you.
 With Reframe that's ok:
-You can choose a stack with your best guess at first,
-and later change the stack as it becomes clear what you need.
+You can start write a prototype and at later point you can easiy add/remove an ORM, add/remove a backend, add/remove a frontend.
+
+
 
 <br/>
 
-**Full-stack**
+###### Full-stack
 
 Stack composed of:
  - Modern interactive frontend (with React or Vue)
@@ -83,18 +108,18 @@ Stack composed of:
 
 <br/>
 
-**Frontend + Backend** (SSR apps)
+###### Backend + frontend (SSR apps)
 
 Stack composed of:
  - Modern interactive frontend (with React or Vue)
  - Node.js backend
 
-By default, Reframe renders your pages both to HTML and to the DOM.
+Your pages are rendered to both HTML and the DOM.
 (This practice is called SSR (Server-Side Rendering) which plays an important role for performance, SEO, and SMO.)
 
 <br/>
 
-**Frontend only** (Static sites)
+###### Frontend only (Static sites)
 
 Stack composed of:
  - Modern interactive frontend (with React or Vue)
@@ -106,7 +131,7 @@ This stack is ideal if you don't need a backend (or if you already implemented o
 
 <br/>
 
-**Backend only**
+###### Backend only
 
 Stack composed of:
  - Node.js Backend
@@ -115,10 +140,14 @@ Your app has no (or almost no) browser-side JavaScript.
 You still use JavaScript on the server with Node.js and React to generate the HTML of your pages.
 (React can render views to HTML.)
 
-We recommend this if you don't need interactive views.
+This stack is an excellent choice if you don't need interactive views.
 
 <br/>
 
+###### Backend + partial Frontend
+
+
+That way you can mix non-interactive views 
 **Mixed Web Apps**
 
 We introduce a new kind of app: "Mixed Web Apps" (MWA).
@@ -127,6 +156,9 @@ Non-interactive views are considerably easier to implement and more performant t
 MWAs are about combining non-interactive views with interactive views.
 
 We believe MWAs to be the future of web dev.
+
+For example, your landing page or your about page may have no interactive views would be wasetfull.
+And if you have a interactive search page, then you can add the frontend to that page.
 
 <br/>
 
