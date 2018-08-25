@@ -41,16 +41,77 @@ React (or Vue) + Node.js (optional) + [TypeORM](https://github.com/typeorm/typeo
 
 **Rapid**
 
-You simply define so called page objects and you are good to go.
+Reframe allows you to create web apps by defining so-called "page configs".
+Reframe takes care of the rest:
+It automatically transpiles, bundles, routes, renders, and serves your pages.
 
-No build configuration and no server configuration required.
+All you need to create a web app is
+One React component and one page config per page is enough to create a web app.
+You can create a web app by simply 
 
+
+That's it: We created a web app with just one page config.
+
+But you can eject and customize every part of Reframe. (The build configuration, the routing, the rendering, etc.)
+
+Actually, all Reframe parts are ejectable and hence customizable.
+
+This also a gain in rapidness: If some Reframe part doesn't do what you want, eject and .
+That's much easier than finding a workaround sealed off code.
+
+Progressive eject exposes all Reframe code wide open allowing you to rapdily change and adapt whatever you want.
+
+that you can change whenever you want.
+
+Being able to eject and take control over whatever you want, not only enables full cusomtization but it also increases rapidness:
+If you need something that Reframe does different you simply eject.
+With 
+
+We trust that you can take over control and we want you to do so.
+
+Thanks to progressive eject is not only a enables full customization gain in flexiblity but it also enables trust.
+This is 
 
 ###### Trust
 
+
+
+No build configuration required. (But you can eject and customize Reframe's build configuration.)
+
+
+
+
+We trust that you can own the code that 
+
+Reframe's progressive eject feature is what enables that trust.
+
 Reframe assembles a stack optimized for quickly implementing prototypes.
 
-In contrast to other frameworks Reframe doesn't do everything for you.
+
+Other frameworks encapsulate things away from you .
+This result over a loss of control.
+If thi
+In contrast to other frameworks Reframe trust that you can take control over things.
+
+We trust and allow you to control build configuration, the server configuration, the rendering, the routing, etc.
+: We allow you to take control Whenever you 
+
+This is often represents an considerable improvement in increase in rapidness:
+Instead of finding workarounds because, you simply eject and modifiy.
+
+CSS-in-JS
+
+doesn't try to do everything for you.
+
+lightweight and a breeze.
+
+As soon as you need something that Reframe doesn't do you eject.
+
+For example, Reframe's Webpack configuration instead of 
+In contrast to other frameworks Reframe doesn't try to polish everything to perfection.
+
+This 
+do everything for you.
 
 You may think at first
 
@@ -89,15 +150,11 @@ Reframe knows how to let go.
 
 Reframe's stack is flexible in the sense that you can easily modify it.
 
-you first start writing your prototype it is often not clear what stack you need.
-
-This is of importance because when you start writing your app you often don't know what stack is right for you.
+This is of importance because when you start writing a prototype you often don't know what stack is right for you.
 With Reframe that's ok:
-You can start write a prototype and at later point you can easiy add/remove an ORM, add/remove a backend, add/remove a frontend.
+You can start write your prototype and at a later point you can easiy add/remove a backend, add/remove a frontend.
 
-
-
-<br/>
+You can create apps with following stacks:
 
 ###### Full-stack
 
@@ -105,8 +162,6 @@ Stack composed of:
  - Modern interactive frontend (with React or Vue)
  - Node.js backend
  - Node.js ORM ([TypeORM](https://github.com/typeorm/typeorm))
-
-<br/>
 
 ###### Backend + frontend (SSR apps)
 
@@ -116,8 +171,6 @@ Stack composed of:
 
 Your pages are rendered to both HTML and the DOM.
 (This practice is called SSR (Server-Side Rendering) which plays an important role for performance, SEO, and SMO.)
-
-<br/>
 
 ###### Frontend only (Static sites)
 
@@ -129,8 +182,6 @@ No Node.js server is required and your app can be deployed to a static host such
 
 This stack is ideal if you don't need a backend (or if you already implemented one).
 
-<br/>
-
 ###### Backend only
 
 Stack composed of:
@@ -141,8 +192,6 @@ You still use JavaScript on the server with Node.js and React to generate the HT
 (React can render views to HTML.)
 
 This stack is an excellent choice if you don't need interactive views.
-
-<br/>
 
 ###### Backend + partial Frontend
 
