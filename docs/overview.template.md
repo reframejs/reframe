@@ -45,12 +45,30 @@ Reframe allows you to create web apps by defining so-called "page configs".
 Reframe takes care of the rest:
 It automatically transpiles, bundles, routes, renders, and serves your pages.
 
-All you need to create a web app is
-One React component and one page config per page is enough to create a web app.
-You can create a web app by simply 
+That's it: We created a web app with just one React component and one page config.
+
+You may now think that Reframe takes away too much control from you.
+But thanks to Reframe's *progressive eject* feature, this is actually not the case: You can eject and customize the build configuration (the webpack config), the rendering (the code calling `require('react-dom/server').renderToStaticMarkup()` and `require('react-dom').hydrate()`), the routing, the server, etc.
+
+This means that even for edge cases
+ewhen you need to 
+
+Actually, all Reframe parts is ejectable.
+Progressive ejedct basically opens all of Reframe's code wide for you to change and adapt as you whish.
+This is also an increase in rapidness: you you can quickly eject and modify Reframe parts as needed.
+
+See, for what exactly progressive eject is and what its benefinits are.
+this alo
+
+Actually, all Reframe parts are ejectable, which means that you can entirely remove Reframe.
+
+Reframe introduces 
+
+rapidness and customiazabibly 
 
 
-That's it: We created a web app with just one page config.
+
+
 
 But you can eject and customize every part of Reframe. (The build configuration, the routing, the rendering, etc.)
 
@@ -60,6 +78,8 @@ This also a gain in rapidness: If some Reframe part doesn't do what you want, ej
 That's much easier than finding a workaround sealed off code.
 
 Progressive eject exposes all Reframe code wide open allowing you to rapdily change and adapt whatever you want.
+
+
 
 that you can change whenever you want.
 
