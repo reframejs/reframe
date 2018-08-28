@@ -27,7 +27,7 @@ Reframe's stack is:
 React (or Vue) + Node.js (optional) + [TypeORM](https://github.com/typeorm/typeorm) (optional).
 
 <p align="center">
-    <img src='https://github.com/reframejs/reframe/raw/master/docs/images/previews/welcome.png?sanitize=true' style="width:100%;"/>
+    <img src='https://github.com/reframejs/reframe/raw/master/docs/images/previews/welcome.png?sanitize=true'/>
 </p>
 
 <br/>

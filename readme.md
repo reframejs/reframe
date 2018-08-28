@@ -168,23 +168,8 @@ Reframe is a framework to create web apps.
 Reframe's stack is:
 React (or Vue) + Node.js (optional) + [TypeORM](https://github.com/typeorm/typeorm) (optional).
 
-
-~~~jsx
-// ~/my-app/pages/WelcomePage.config.js
-
-import React from 'react';
-
-const WelcomePage = {
-  route: '/welcome',
-  view: () => <div>Welcome to Reframe</div>,
-  title: 'Welcome'
-};
-
-export default WelcomePage;
-~~~
-
 <p align="center">
-    <img src='https://github.com/reframejs/reframe/raw/master/docs/images/previews/welcome.png?sanitize=true' width="780" style="max-width:100%;"/>
+    <img src='https://github.com/reframejs/reframe/raw/master/docs/images/previews/welcome.png?sanitize=true'/>
 </p>
 
 <br/>
