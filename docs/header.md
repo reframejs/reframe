@@ -12,7 +12,7 @@
 <p align="center">
   <b>Rapid</b>&nbsp;&nbsp;&#8209;&nbsp;&nbsp;Implement&nbsp;apps&nbsp;in&nbsp;no&nbsp;time.
   <br/>
-  <b>Easily Removable</b>&nbsp;&nbsp;&#8209;&nbsp;&nbsp;Gradually&nbsp;remove Reframe as your app grows.
+  <b>Take control</b>&nbsp;&nbsp;&#8209;&nbsp;&nbsp;Easily and gradually take over control as your app grows.
 </p>
 
 <br/>

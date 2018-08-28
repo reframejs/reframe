@@ -26,10 +26,6 @@ Reframe is a framework to create web apps.
 Reframe's stack is:
 React (or Vue) + Node.js (optional) + [TypeORM](https://github.com/typeorm/typeorm) (optional).
 
-<p align="center">
-    <img src='https://github.com/reframejs/reframe/raw/master/docs/images/previews/welcome.png?sanitize=true'/>
-</p>
-
 <br/>
 
 **Rapid**
@@ -38,7 +34,50 @@ Reframe allows you to create web apps by defining so-called "page configs".
 Reframe takes care of the rest:
 It automatically transpiles, bundles, routes, renders, and serves your pages.
 
+<p align="center">
+    <img src='https://github.com/reframejs/reframe/raw/master/docs/images/previews/welcome.png?sanitize=true'/>
+</p>
+
 That's it: We created a web app with just one React component and one page config.
+
+
+
+
+
+*Take control* - 
+Progressive eject: Every part of Reframe can be ejected. More progressive eject.
+
+
+*Removable* - 
+If.
+You are left with do-one-thing-do-it-well libraries
+
+*Learn once, write any app* -
+*Any kind of app* -
+Reframe supports a wide.
+That you can s
+Learn one framework to create any kind of app.
+
+Whether it be a full-stack app (modern interactive frontend + backend + ORM + database),
+a 
+an plain old HTML,
+a serverless frontend (aka static sites),
+a interactive frontend +  (aka SSR apps)
+old school backend.
+See the examples bellow.
+
+
+*Simple design* -
+
+This leaves Reframe with a tiny 500 LOC of glue code.
+This means that inherit a simple design as you eject Reframe.
+
+**
+
+
+
+
+
 
 You may now think that Reframe takes away too much control from you.
 But thanks to Reframe's *progressive eject* feature, this is actually not the case: You can eject and customize the build configuration (the webpack config), the rendering (the code calling `require('react-dom/server').renderToStaticMarkup()` and `require('react-dom').hydrate()`), the routing, the server, etc.
