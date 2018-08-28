@@ -41,16 +41,25 @@ It automatically transpiles, bundles, routes, renders, and serves your pages.
 That's it: We created a web app with just one React component and one page config.
 
 
-
+Tension between 
+Reframe's set out is to 
 
 
 *Take control* - 
+As your app grows you can eject parts of Reframe.
+
+Every part of Reframe can be ejected
 Progressive eject: Every part of Reframe can be ejected. More progressive eject.
+We call this feature of being able to eject parts "progressive eject", see.
 
 
 *Removable* - 
-If.
-You are left with do-one-thing-do-it-well libraries
+Every part of Reframe is ejectable.
+This means that if you eject everything, then you effectively get rid of Reframe.
+You are then left with do-one-thing-do-it-well libraries.
+This gives you a unique flexibility.
+
+*Quick prototyping* -
 
 *Learn once, write any app* -
 *Any kind of app* -
