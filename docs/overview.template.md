@@ -22,15 +22,16 @@
 
 
 Reframe is a framework to create web apps.
+Reframe is born out of the belief that a web framework can be rapid yet flexible as the same time.
 
-Reframe's stack is:
-React (or Vue) + Node.js (optional) + [TypeORM](https://github.com/typeorm/typeorm) (optional).
+Reframe assembles a JavaScript stack and can integrate with
+Node.js, React, Vue.js, React Native Web, React Router, TypeScript, TypeORM, PostCSS, Webpack, Express, Koa, Hapi, etc.
 
 <br/>
 
 **Rapid**
 
-Reframe allows you to create web apps by defining so-called "page configs".
+You can create a web app by defining so-called "page configs".
 Reframe takes care of the rest:
 It automatically transpiles, bundles, routes, renders, and serves your pages.
 
@@ -38,30 +39,63 @@ It automatically transpiles, bundles, routes, renders, and serves your pages.
     <img src='https://github.com/reframejs/reframe/raw/master/docs/images/previews/welcome.png?sanitize=true'/>
 </p>
 
-That's it: We created a web app with just one React component and one page config.
+That's it: We created a web app simply by defining one React component and one page config.
 
+But you can eject and customize all Reframe parts.
+But you can eject and customize.
 
-Tension between 
-Reframe's set out is to 
+**Flexible**
 
+Web frameworks have a bad reputation regarding flexibility:
+There is a general belief that 
+It is generat
 
-*Take control* - 
+Reframe is different and greatly cares about flexiblity.
+It is (to our knowledge) the most flexible framework there is and that by far.
+We would even argue more flexible than using do-one-do-it-well libraries.
+
+Reframe's flexibility is based on three principles:
+
+- **Progressive Eject** -
+  All Reframe parts are ejectable:
+  You can eject the build configuration, the rendering, the routing, the server, etc.
+  
+- **Min glue code - Max do-one-thing-do-it-well libraries** -
+  Isolate a maximum of code in do-one-thing-do-it-well libraries.
+  The glue code has been minimized to a tiny ~500 lines of code.
+  
+- **Flexible stack** -
+  Reframe assembles a flexible stack:
+  You can configure your app to have a frontend only, a frontend + backend, or a frontend + backend + database/ORM.
+
+Some benefits of Reframe's flexibility:
+
+**Take control** - 
 As your app grows you can eject parts of Reframe.
 
 Every part of Reframe can be ejected
 Progressive eject: Every part of Reframe can be ejected. More progressive eject.
 We call this feature of being able to eject parts "progressive eject", see.
 
-
-*Removable* - 
+**Removable** - 
 Every part of Reframe is ejectable.
 This means that if you eject everything, then you effectively get rid of Reframe.
 You are then left with do-one-thing-do-it-well libraries.
 This gives you a unique flexibility.
 
-*Quick prototyping* -
+**Rapid prototyping** -
+A trick 
+to then gradually add a server then a database.
+Start with a frontend with that you can easily deploy to a static frontend.
+And then add a server with a database.
+
+
+
+
+
 
 *Learn once, write any app* -
+
 *Any kind of app* -
 Reframe supports a wide.
 That you can s
@@ -74,14 +108,6 @@ a serverless frontend (aka static sites),
 a interactive frontend +  (aka SSR apps)
 old school backend.
 See the examples bellow.
-
-
-*Simple design* -
-
-This leaves Reframe with a tiny 500 LOC of glue code.
-This means that inherit a simple design as you eject Reframe.
-
-**
 
 
 
