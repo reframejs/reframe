@@ -22,9 +22,9 @@
 
 
 Reframe is a framework to create web apps.
-Reframe is born out of the belief that a web framework can be rapid yet flexible as the same time.
+It is born out of the belief that a web framework can be rapid yet, as the same time, flexible.
 
-Reframe assembles a JavaScript stack and can integrate with
+Reframe assembles a JavaScript stack that can integrate with
 Node.js, React, Vue.js, React Native Web, React Router, TypeScript, TypeORM, PostCSS, Webpack, Express, Koa, Hapi, etc.
 
 <br/>
@@ -41,55 +41,58 @@ It automatically transpiles, bundles, routes, renders, and serves your pages.
 
 That's it: We created a web app simply by defining one React component and one page config.
 
-But you can eject and customize all Reframe parts.
-But you can eject and customize.
+Yet, all Reframe parts can be ejected and customized.
 
 **Flexible**
 
 Web frameworks have a bad reputation regarding flexibility:
-There is a general belief that 
-It is generat
+There is a general belief that either that their is a trade off between rapidness and flexibility.
+We believe it doesn't have to be that way.
 
-Reframe is different and greatly cares about flexiblity.
-It is (to our knowledge) the most flexible framework there is and that by far.
-We would even argue more flexible than using do-one-do-it-well libraries.
+Reframe greatly cares about flexiblity
+and is (to our knowledge) the most flexible framework out there.
+We would even argue that Reframe is more flexible than gluying do-one-do-it-well libraries yourself.
 
-Reframe's flexibility is based on three principles:
+Reframe's flexibility is based on three pillars:
 
 - **Progressive Eject** -
   All Reframe parts are ejectable:
-  You can eject the build configuration, the rendering, the routing, the server, etc.
+  You can eject the build configuration, and/or the rendering, and/or the routing, and/or the server, etc.
   
-- **Min glue code - Max do-one-thing-do-it-well libraries** -
-  Isolate a maximum of code in do-one-thing-do-it-well libraries.
-  The glue code has been minimized to a tiny ~500 lines of code.
+- **Minimal glue code** -
+  We isolate a maximum of code in do-one-thing-do-it-well libraries.
+  That way, we managed to minimize the glue code to a tiny ~500 lines of code.
   
 - **Flexible stack** -
   Reframe assembles a flexible stack:
-  You can configure your app to have a frontend only, a frontend + backend, or a frontend + backend + database/ORM.
+  You can configure your app to have a frontend only (aka static site), a frontend + backend (aka SSR app), a backend only, or a frontend + backend + database/ORM (aka full-stack app).
+  And adding/removing a backend and a is easy
 
 Some benefits of Reframe's flexibility:
 
-**Take control** - 
+**Take Over Control** - 
 As your app grows you can eject parts of Reframe.
 
 Every part of Reframe can be ejected
 Progressive eject: Every part of Reframe can be ejected. More progressive eject.
 We call this feature of being able to eject parts "progressive eject", see.
 
-**Removable** - 
+**Easily Removable** - 
 Every part of Reframe is ejectable.
 This means that if you eject everything, then you effectively get rid of Reframe.
-You are then left with do-one-thing-do-it-well libraries.
-This gives you a unique flexibility.
+Your code then doesn't depend on Reframe anymore but only on do-one-thing-do-it-well libraries.
 
-**Rapid prototyping** -
+**Rapid Prototyping** -
+The stack is flexible: you
 A trick 
 to then gradually add a server then a database.
 Start with a frontend with that you can easily deploy to a static frontend.
 And then add a server with a database.
+As your prototype grows into something serious you can, thanks to progressive eject, gradully and fully get rid of Reframe.
 
-
+**Learn Once, Write Any App** -
+Instead of learning different frameworks to implement apps with different types of JavaScript stacks,
+you can learn Reframe to be able to implement apps with all kinds of JavaScript stacks.
 
 
 
