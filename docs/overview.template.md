@@ -31,8 +31,8 @@ Node.js, React, React Native Web, React Router, Vue.js, TypeScript, TypeORM, Pos
 
 **Rapid**
 
-You can create a web app by defining so-called "page configs"
-while Reframe takes care of the rest:
+You can create a web app by defining so-called "page configs".
+Reframe takes care of the rest:
 It automatically transpiles, bundles, routes, renders, and serves your pages.
 
 <p align="center">
@@ -41,7 +41,9 @@ It automatically transpiles, bundles, routes, renders, and serves your pages.
 
 That's it: We created a web app simply by defining one React component and one page config.
 
-Yet, Reframe parts can be ejected and customized.
+Yet, every Reframe part can be ejected and customized.
+
+<br/>
 
 **Flexible**
 
@@ -52,7 +54,7 @@ We believe it doesn't have to be that way.
 
 Reframe greatly cares about flexiblity
 and is (to our knowledge) the most flexible web framework out there.
-We would even argue that Reframe is more flexible than gluying do-one-do-it-well libraries yourself.
+We would even argue that Reframe is more flexible than gluying do-one-thing-do-it-well libraries yourself.
 
 Reframe's flexibility is based on three pillars:
 
@@ -62,34 +64,39 @@ Reframe's flexibility is based on three pillars:
 
 - **Minimal glue code** -
   We isolate a maximum of code in do-one-thing-do-it-well libraries.
-  That way, we managed to minimize the glue code to a tiny ~500 lines of code.
+  That way, we managed to reduce the glue code to a tiny ~500 lines of code.
 
 - **Flexible stack** -
   Reframe assembles a flexible stack:
   You can configure your app to have a frontend only (aka static site), a frontend + backend (aka SSR app), a backend only (aka old-school app with plain old HTML), or a frontend + backend + database/ORM (aka full-stack app).
   And it is easy to add/remove a backend, and/or a frontend, and/or a database/ORM to an existing app.
 
-Leading to these benefits:
+Leading to benefits:
 
 **Take Over Control** - 
-As your app grows and as the need arises you can eject and take control over Reframe parts.
-All Reframe parts are ejectable which means that you gain full control if you eject all parts.
+As your app grows and the need arises you can eject and take control over Reframe parts.
+All Reframe parts are ejectable which means that you can gain full control.
 
 **Easily Removable** - 
 If you eject all Reframe parts then you effectively get rid of Reframe.
 Your code then doesn't depend on Reframe anymore but only on do-one-thing-do-it-well libraries.
 
 **Rapid Prototyping** -
-You can change your app's stack at any point which comes in handy for quick prototyping.
+You can change your app's stack at any point in time, which comes in handy for quick prototyping.
 For example,
 you can have your first prototype to be a frontend only (static site)
-in order to be able to easily deploy it (to a static host such as Netlify or GitHub Pages).
-You would skip a database by hard-writting the data in your code base.
-You would then add a server and a real database at a later point when hard-writing data isn't sustainable anymore.
+that can easily be deployed (to a static host such as Netlify or GitHub Pages).
+You would skip a database by hard-writing the data in your code base.
+Then, you would add a server and a real database at a later point when hard-writing data isn't sustainable anymore.
 
 **Learn Once, Write Any App** -
 Instead of using different frameworks for different types of JavaScript stacks,
 you can use Reframe to be able to implement apps with all kinds of JavaScript stacks.
+
+
+
+
+
 
 
 
@@ -103,7 +110,7 @@ You can then easily deploy your prototype to a static host
 That way you can easily deploy your first prototype.
 As add a server and real database later on.
 Instead of 
-For example you can start a prototype with a hard-written fill the data in manually
+For example you can start a prototype with a hard-writen fill the data in manually
 databse
 For example you can start with a frontend only that you can easy deploy
 with that you can easily deploy to a static frontend.
