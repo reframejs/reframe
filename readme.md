@@ -123,21 +123,19 @@
 </p>
 <br/>
 <br/>
+<br/>
+<br/>
+<br/>
+
 <p align="center">
   <a href="https://github.com/reframejs/reframe">
     <img src="https://github.com/reframejs/reframe/raw/master/docs/images/logo-with-title.min.svg?sanitize=true" width=450 height=94 style="max-width:100%;" alt="Reframe"/>
   </a>
 </p>
 
-<p align="center">
-  Framework to create web apps.
-</p>
-<p align="center">
-  <b>Rapid</b>&nbsp;&nbsp;&#8209;&nbsp;&nbsp;Implement&nbsp;apps&nbsp;in&nbsp;no&nbsp;time.
-  <br/>
-  <b>Removable</b>&nbsp;&nbsp;&#8209;&nbsp;&nbsp;Gradually&nbsp;remove Reframe as your app grows.
-</p>
-
+<br/>
+<br/>
+<br/>
 <br/>
 <br/>
 <br/>
@@ -164,104 +162,78 @@ Starters: [React Server](/docs/react-server-starter.md) | [React Frontend](/docs
 
 
 Reframe is a framework to create web apps.
+It is born out of the belief that a web framework can be rapid yet, as the same time, flexible.
 
-Reframe's stack is:
-React (or Vue) + Node.js (optional) + [TypeORM](https://github.com/typeorm/typeorm) (optional).
-
-<p align="center">
-    <img src='https://github.com/reframejs/reframe/raw/master/docs/images/previews/welcome.png?sanitize=true'/>
-</p>
+Reframe assembles a JavaScript stack that can integrate with
+Node.js, React, React Native Web, React Router, Vue.js, TypeScript, TypeORM, PostCSS, Webpack, Express, Koa, Hapi, etc.
 
 <br/>
 
 **Rapid**
 
-Reframe assembles a stack optimized for quickly implementing prototypes.
+You can create a web app by defining so-called "page configs".
+Reframe takes care of the rest:
+It automatically transpiles, bundles, routes, renders, and serves your pages.
 
-And as your prototype grows into a serious app, Reframe gradually gives away control.
+<p align="center">
+    <img src='https://github.com/reframejs/reframe/raw/master/docs/images/previews/welcome.png?sanitize=true'/>
+</p>
 
-<br/>
+That's it: We created a web app simply by defining one React component and one page config.
 
-**Removable**
-
-A good parent knows when it's time to let go of his child.
-
-Just like a 19-year-old doesn't want his parents to dictate his life,
-a team of 5 developers doesn't want a framework to dictate how to do things.
-
-Reframe is designed from the ground up to be gradually removed:
-As your app grows you eject parts of Reframe.
-Once every part is ejected, Reframe is fully removed and you have full control over your app.
-
-Where other frameworks are clingy parents that can't let go,
-Reframe knows how to let go.
+Yet, every Reframe part can be ejected and customized.
 
 <br/>
 
-**Flexible stack**
+**Flexible**
 
-Reframe's stack is flexible in the sense that you can easily change it while your app grows.
+Web frameworks have a bad reputation regarding flexibility.
+There is a general belief that there is a trade off between rapidness and flexibility
+and that a web framework always comes with a lost in flexibility.
+We believe it doesn't have to be that way.
 
-This is of importance because when you start writing your prototype you often don't know what stack is right for you.
-With Reframe that's ok:
-You can choose a stack with your best guess at first,
-and later change the stack as it becomes clear what you need.
+Reframe greatly cares about flexiblity
+and is (to our knowledge) the most flexible web framework out there.
+We would even argue that Reframe is more flexible than gluying do-one-thing-do-it-well libraries yourself.
 
-<br/>
+Reframe's flexibility is based on three pillars:
 
-**Full-stack**
+- **Progressive Eject** -
+  All Reframe parts are ejectable:
+  You can eject the build configuration, and/or the rendering, and/or the routing, and/or the server, etc.
 
-Stack composed of:
- - Modern interactive frontend (with React or Vue)
- - Node.js backend
- - Node.js ORM ([TypeORM](https://github.com/typeorm/typeorm))
+- **Minimal glue code** -
+  We isolate a maximum of code in do-one-thing-do-it-well libraries.
+  That way, we managed to reduce the glue code to a tiny ~500 lines of code.
 
-<br/>
+- **Flexible stack** -
+  Reframe assembles a flexible stack:
+  You can configure your app to have a frontend only (aka static site), a frontend + backend (aka SSR app), a backend only (aka old-school app with plain old HTML), or a frontend + backend + database/ORM (aka full-stack app).
+  And it is easy to add/remove a backend, and/or a frontend, and/or a database/ORM to an existing app.
 
-**Frontend + Backend** (SSR apps)
+Leading to benefits:
 
-Stack composed of:
- - Modern interactive frontend (with React or Vue)
- - Node.js backend
+**Take Over Control** - 
+As your app grows and the need arises you can eject and take control over Reframe parts.
+All Reframe parts are ejectable which means that you can gain full control.
 
-By default, Reframe renders your pages both to HTML and to the DOM.
-(This practice is called SSR (Server-Side Rendering) which plays an important role for performance, SEO, and SMO.)
+**Easily Removable** - 
+If you eject all Reframe parts then you effectively get rid of Reframe.
+Your code then doesn't depend on Reframe anymore but only on do-one-thing-do-it-well libraries.
 
-<br/>
+**Rapid Prototyping** -
+You can change your app's stack at any point in time, which comes in handy for quick prototyping.
+For example,
+you can have your first prototype to be a frontend only (static site)
+that can easily be deployed (to a static host such as Netlify or GitHub Pages).
+You would skip a database by hard-writing the data in your code base.
+Then, you would add a server and a real database at a later point when hard-writing data isn't sustainable anymore.
 
-**Frontend only** (Static sites)
+**Learn Once, Write Any App** -
+Instead of using different frameworks for different types of JavaScript stacks,
+you can use Reframe to be able to implement apps with all kinds of JavaScript stacks.
 
-Stack composed of:
- - Modern interactive frontend (with React or Vue)
 
-Your app consists of static browser assets only. (JavaScript files, CSS files, images, fonts, etc.)
-No Node.js server is required and your app can be deployed to a static host such as Netfliy or GitHub Pages.
-
-This stack is ideal if you don't need a backend (or if you already implemented one).
-
-<br/>
-
-**Backend only**
-
-Stack composed of:
- - Node.js Backend
-
-Your app has no (or almost no) browser-side JavaScript.
-You still use JavaScript on the server with Node.js and React to generate the HTML of your pages.
-(React can render views to HTML.)
-
-We recommend this if you don't need interactive views.
-
-<br/>
-
-**Mixed Web Apps**
-
-We introduce a new kind of app: "Mixed Web Apps" (MWA).
-
-Non-interactive views are considerably easier to implement and more performant than interactive views.
-MWAs are about combining non-interactive views with interactive views.
-
-We believe MWAs to be the future of web dev.
 
 <br/>
 
@@ -303,17 +275,17 @@ const HelloPage = {
 export default HelloPage;
 ~~~
 
-That's it.
-We created a entire frontend simply by defining one page config.
-No build config, no server config.
-
 <p align="center">
     <img src='https://github.com/reframejs/reframe/raw/master/docs/images/previews/hello.png?sanitize=true' width="780" style="max-width:100%;"/>
 </p>
 
+That's it.
+We created a frontend simply by defining one page config.
+
 ###### Full-stack
 
 Let's look at a Todo App.
+(Note that the database/ORM integration shown here is work-in-progress.)
 
 ~~~ts
 import {Entity, PrimaryGeneratedColumn, Column, ManyToOne} from "typeorm";
