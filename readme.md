@@ -179,9 +179,9 @@ It automatically transpiles, bundles, routes, renders, and serves your pages.
     <img src='https://github.com/reframejs/reframe/raw/master/docs/images/previews/welcome.png?sanitize=true'/>
 </p>
 
-That's it: We created a web app simply by defining one React component and one page config.
+That's it, we created a web app simply by defining one React component and one page config.
 
-Yet, every Reframe part can be ejected and customized.
+Yet, Reframe is designed to be highly flexible.
 
 <br/>
 
@@ -198,20 +198,20 @@ We would even argue that Reframe is more flexible than gluying do-one-thing-do-i
 
 Reframe's flexibility is based on three pillars:
 
-- **Progressive Eject** -
-  All Reframe parts are ejectable:
-  You can eject the build configuration, and/or the rendering, and/or the routing, and/or the server, etc.
+1. **Progressive Eject** -
+   All Reframe parts are ejectable:
+   You can eject the build configuration, and/or the render code, and/or the routing code, and/or the server code, etc.
 
-- **Minimal glue code** -
-  We isolate a maximum of code in do-one-thing-do-it-well libraries.
-  That way, we managed to reduce the glue code to a tiny ~500 lines of code.
+2. **Minimal glue code** -
+   We isolate a maximum of code in do-one-thing-do-it-well libraries.
+   That way, we managed to reduce the glue code to a tiny ~500 lines of code.
 
-- **Flexible stack** -
-  Reframe assembles a flexible stack:
-  You can configure your app to have a frontend only (aka static site), a frontend + backend (aka SSR app), a backend only (aka old-school app with plain old HTML), or a frontend + backend + database/ORM (aka full-stack app).
-  And it is easy to add/remove a backend, and/or a frontend, and/or a database/ORM to an existing app.
-
-Leading to benefits:
+3. **Flexible stack** -
+   Reframe assembles a flexible stack:
+   You can configure your app to have a frontend only (aka static site), a frontend + backend (aka SSR app), a backend only (aka old-school app with plain old HTML), or a frontend + backend + database/ORM (aka full-stack app).
+   And it is easy to add/remove a backend, and/or a frontend, and/or a database/ORM to an existing app.
+ 
+Giving us some benefits:
 
 **Take Over Control** - 
 As your app grows and the need arises you can eject and take control over Reframe parts.
@@ -230,12 +230,11 @@ You would skip a database by hard-writing the data in your code base.
 Then, you would add a server and a real database at a later point when hard-writing data isn't sustainable anymore.
 
 **Learn Once, Write Any App** -
-Instead of using different frameworks for different types of JavaScript stacks,
-you can use Reframe to be able to implement apps with all kinds of JavaScript stacks.
+Instead of learning different frameworks for different types of JavaScript stacks,
+you can learn Reframe to be able to implement apps with all kinds of JavaScript stacks.
 
 
 
-<br/>
 
 <b><sub><a href="#overview">&#8679; TOP &#8679;</a></sub></b>
 
@@ -251,7 +250,7 @@ you can use Reframe to be able to implement apps with all kinds of JavaScript st
 
 ###### Frontend
 
-We define a page config `HelloPage`.
+We define a page config `HelloPage`:
 
 ~~~jsx
 // ~/my-app/pages/HelloPage.config.js
@@ -279,8 +278,8 @@ export default HelloPage;
     <img src='https://github.com/reframejs/reframe/raw/master/docs/images/previews/hello.png?sanitize=true' width="780" style="max-width:100%;"/>
 </p>
 
-That's it.
-We created a frontend simply by defining one page config.
+And that's it,
+we created a frontend simply by defining one page config.
 
 ###### Full-stack
 
@@ -356,8 +355,8 @@ export default {
 };
 ~~~
 
-That's it.
-We simply defined pages, data models, and permissions to build a full-stack app.
+And that's it,
+we simply defined pages, data models, and permissions to create a full-stack app.
 
 <b><sub><a href="#overview">&#8679; TOP &#8679;</a></sub></b>
 
