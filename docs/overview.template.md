@@ -25,14 +25,14 @@ Reframe is a framework to create web apps.
 It is born out of the belief that a web framework can be rapid yet, as the same time, flexible.
 
 Reframe assembles a JavaScript stack that can integrate with
-Node.js, React, Vue.js, React Native Web, React Router, TypeScript, TypeORM, PostCSS, Webpack, Express, Koa, Hapi, etc.
+Node.js, React, React Native Web, React Router, Vue.js, TypeScript, TypeORM, PostCSS, Webpack, Express, Koa, Hapi, etc.
 
 <br/>
 
 **Rapid**
 
-You can create a web app by defining so-called "page configs".
-Reframe takes care of the rest:
+You can create a web app by defining so-called "page configs"
+while Reframe takes care of the rest:
 It automatically transpiles, bundles, routes, renders, and serves your pages.
 
 <p align="center">
@@ -41,12 +41,13 @@ It automatically transpiles, bundles, routes, renders, and serves your pages.
 
 That's it: We created a web app simply by defining one React component and one page config.
 
-Yet, all Reframe parts can be ejected and customized.
+Yet, Reframe parts can be ejected and customized.
 
 **Flexible**
 
-Web frameworks have a bad reputation regarding flexibility:
-There is a general belief that either that their is a trade off between rapidness and flexibility.
+Web frameworks have a bad reputation regarding flexibility.
+There is a general belief that there is a trade off between rapidness and flexibility
+and that a web framework always comes with a lost in flexibility.
 We believe it doesn't have to be that way.
 
 Reframe greatly cares about flexiblity
@@ -58,15 +59,15 @@ Reframe's flexibility is based on three pillars:
 - **Progressive Eject** -
   All Reframe parts are ejectable:
   You can eject the build configuration, and/or the rendering, and/or the routing, and/or the server, etc.
-  
+
 - **Minimal glue code** -
   We isolate a maximum of code in do-one-thing-do-it-well libraries.
   That way, we managed to minimize the glue code to a tiny ~500 lines of code.
-  
+
 - **Flexible stack** -
   Reframe assembles a flexible stack:
-  You can configure your app to have a frontend only (aka static site), a frontend + backend (aka SSR app), a backend only, or a frontend + backend + database/ORM (aka full-stack app).
-  And adding/removing a backend and a is easy
+  You can configure your app to have a frontend only (aka static site), a frontend + backend (aka SSR app), a backend only (aka old-school app with plain old HTML), or a frontend + backend + database/ORM (aka full-stack app).
+  And it is easy to add/remove a backend, and/or a frontend, and/or a database/ORM to an existing app.
 
 Some benefits of Reframe's flexibility:
 
