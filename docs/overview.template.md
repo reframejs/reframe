@@ -16,11 +16,8 @@
  - [Getting Started](#getting-started)
 
 <br/>
-<br/>
-
 
 ### Introduction
-
 
 Reframe is a framework to create web apps.
 It is born out of the belief that a web framework can be rapid yet, as the same time, flexible.
