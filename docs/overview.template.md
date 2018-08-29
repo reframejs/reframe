@@ -3,6 +3,7 @@
 !INLINE ./links.md --hide-source-path
 
 !MENU
+!MENU_INDENT 12
 !OUTPUT ../readme.md
 !MENU_LINK /../../
 !MENU_ORDER 10
