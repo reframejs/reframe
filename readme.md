@@ -202,7 +202,7 @@ Reframe's flexibility is based on three pillars:
    You can configure your app to have a frontend only (aka static site), a frontend + backend (aka SSR app), a backend only (aka old-school app with plain old HTML), or a frontend + backend + database/ORM (aka full-stack app).
    And it is easy to remove/add a backend, frontend, or database/ORM to an existing app.
  
-Some benefits of that flexiblity:
+Benefits of Reframe's flexiblity:
 
 **Take Over Control** -
 You can eject and take control over Reframe parts
