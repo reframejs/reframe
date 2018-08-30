@@ -79,7 +79,6 @@ Reframe's flexibility is based on three pillars:
    And it is easy to remove/add a backend, frontend, or database/ORM to an existing app.
  
 Some benefits of that flexiblity:
-Giving us some benefits:
 
 **Take Over Control** -
 As your app grows and as the need arises you can eject and take control over Reframe parts.
