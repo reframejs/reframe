@@ -145,17 +145,18 @@
 ### Introduction
 
 Reframe is a framework to create web apps.
+
 It assembles a JavaScript stack that can integrate with
 Node.js, React, React Native Web, React Router, Vue.js, TypeScript, TypeORM, PostCSS, Webpack, Express, Koa, Hapi, etc.
 
 All kinds of JavaScript stacks are supported:
 Full-stack (modern interactive frontend + Node.js server + database with a Node.js ORM), 
-frontend + backend (aka SSR apps),
-frontend only (aka static sites),
+frontend + backend (aka SSR app),
+frontend only (aka static site),
 backend only,
 etc.
 
-Reframe was born out of the belief that a web framework can be rapid yet flexible at the same time.
+Reframe is born out of the belief that a web framework can be rapid yet flexible at the same time.
 
 <br/>
 
