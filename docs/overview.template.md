@@ -71,12 +71,12 @@ Reframe's flexibility is based on three pillars:
 
 2. **Minimal glue code** -
    We isolate a maximum of code in do-one-thing-do-it-well libraries.
-   That way, we manage to reduce the glue code to a tiny ~500 lines of code.
+   That way, we manage to keep the glue code to a tiny ~500 lines of code.
 
 3. **Flexible stack** -
    Reframe assembles a flexible stack:
    You can configure your app to have a frontend only (aka static site), a frontend + backend (aka SSR app), a backend only (aka old-school app with plain old HTML), or a frontend + backend + database/ORM (aka full-stack app).
-   And it is easy to remove/add a backend, frontend, or database/ORM to an existing app.
+   Also, it is easy to later remove/add a backend, frontend, or database/ORM to an existing app.
  
 Benefits of Reframe's flexibility:
 
