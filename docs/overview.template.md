@@ -81,7 +81,8 @@ Reframe's flexibility is based on three pillars:
 Some benefits of that flexiblity:
 
 **Take Over Control** -
-As your app grows and as the need arises you can eject and take control over Reframe parts.
+You can eject and take control over Reframe parts
+as your app grows and as the need arises.
 All Reframe parts are ejectable which means that you can gain full control.
 
 **Removable** -
