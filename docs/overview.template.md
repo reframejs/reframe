@@ -22,7 +22,7 @@
 
 Reframe is a framework to create web apps.
 
-It assembles a JavaScript stack that can integrate with
+It assembles a JavaScript stack that has integrations for
 Node.js, React, React Native Web, React Router, Vue.js, TypeScript, TypeORM, PostCSS, Webpack, Express, Koa, Hapi, etc.
 
 All kinds of JavaScript stacks are supported:
@@ -77,7 +77,7 @@ Reframe's flexibility is based on three pillars:
    Reframe assembles a flexible stack:
    You can configure your app to have a frontend only (aka static site), a frontend + backend (aka SSR app), a backend only (aka old-school app with plain old HTML), or a frontend + backend + database/ORM (aka full-stack app).
    Also, it is easy to later remove/add a backend, frontend, or database/ORM to an existing app.
- 
+
 Benefits of Reframe's flexibility:
 
 **Take Over Control** -
@@ -87,7 +87,8 @@ All Reframe parts are ejectable which means that you can gain full control.
 
 **Removable** -
 If you eject all Reframe parts then you effectively get rid of Reframe.
-At that point your code doesn't depend on Reframe anymore and only depends on do-one-thing-do-it-well libraries.
+At that point your code doesn't depend on Reframe anymore and only depends on do-one-thing-do-it-well libraries
+(React/Vue, Hapi/Koa/Express, Webpack, ...).
 
 **Rapid Prototyping** -
 You can change your app's stack at any point in time which comes in handy for quick prototyping.
@@ -98,8 +99,8 @@ You would skip a database by hard-writing the data in your code base.
 Then, at a later point when hard-writing data isn't sustainable anymore, you would add a server and a real database to your prototype.
 
 **Learn Once, Write Any App** -
-Instead of learning different frameworks for different JavaScript stacks,
-you can learn Reframe to be able to implement apps with all kinds of JavaScript stacks.
+Instead of learning different web frameworks to implement apps with different JavaScript stacks,
+you can learn Reframe to implement apps with all kinds of JavaScript stacks.
 
 
 
