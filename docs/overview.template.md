@@ -21,10 +21,14 @@
 ### Introduction
 
 Reframe is a framework to create web apps.
-It is born out of the belief that a web framework can be rapid yet, as the same time, flexible.
+
+It is born out of the belief that a web framework can be rapid yet flexible at the same time.
 
 Reframe assembles a JavaScript stack that can integrate with
 Node.js, React, React Native Web, React Router, Vue.js, TypeScript, TypeORM, PostCSS, Webpack, Express, Koa, Hapi, etc.
+
+This means you can create an app with a modern interactive frontend, a Node.js server, and a database with a Node.js ORM.
+Other stacks like static sites and SSR apps are supported as well.
 
 <br/>
 
@@ -40,7 +44,7 @@ It automatically transpiles, bundles, routes, renders, and serves your pages.
 
 That's it, we created a web app simply by defining one React component and one page config.
 
-Yet, Reframe is designed to be highly flexible.
+Yet, Reframe is designed from the ground up to be highly flexible.
 
 <br/>
 
@@ -51,8 +55,8 @@ There is a general belief that there is a trade off between rapidness and flexib
 and that a web framework always comes with a lost in flexibility.
 We believe it doesn't have to be that way.
 
-Reframe greatly cares about flexiblity
-and is (to our knowledge) the most flexible web framework out there.
+Reframe greatly cares about flexiblity.
+It is (to our knowledge) the most flexible web framework out there.
 We would even argue that Reframe is more flexible than gluying do-one-thing-do-it-well libraries yourself.
 
 Reframe's flexibility is based on three pillars:
@@ -63,33 +67,34 @@ Reframe's flexibility is based on three pillars:
 
 2. **Minimal glue code** -
    We isolate a maximum of code in do-one-thing-do-it-well libraries.
-   That way, we managed to reduce the glue code to a tiny ~500 lines of code.
+   That way, we manage to reduce the glue code to a tiny ~500 lines of code.
 
 3. **Flexible stack** -
    Reframe assembles a flexible stack:
    You can configure your app to have a frontend only (aka static site), a frontend + backend (aka SSR app), a backend only (aka old-school app with plain old HTML), or a frontend + backend + database/ORM (aka full-stack app).
-   And it is easy to add/remove a backend, and/or a frontend, and/or a database/ORM to an existing app.
+   And it is easy to remove/add a backend, frontend, or database/ORM to an existing app.
  
+Some benefits of that flexiblity:
 Giving us some benefits:
 
 **Take Over Control** - 
-As your app grows and the need arises you can eject and take control over Reframe parts.
+As your app grows and as the need arises you can eject and take control over Reframe parts.
 All Reframe parts are ejectable which means that you can gain full control.
 
-**Easily Removable** - 
+**Removable** - 
 If you eject all Reframe parts then you effectively get rid of Reframe.
-Your code then doesn't depend on Reframe anymore but only on do-one-thing-do-it-well libraries.
+At that point your code doesn't depend on Reframe anymore and only depends on do-one-thing-do-it-well libraries.
 
 **Rapid Prototyping** -
 You can change your app's stack at any point in time, which comes in handy for quick prototyping.
 For example,
 you can have your first prototype to be a frontend only (static site)
-that can easily be deployed (to a static host such as Netlify or GitHub Pages).
+that you can easily deploy (to a static host such as Netlify or GitHub Pages).
 You would skip a database by hard-writing the data in your code base.
-Then, you would add a server and a real database at a later point when hard-writing data isn't sustainable anymore.
+Then, you would add a server and a real database later on when hard-writing data isn't sustainable anymore.
 
 **Learn Once, Write Any App** -
-Instead of learning different frameworks for different types of JavaScript stacks,
+Instead of learning different frameworks for different JavaScript stacks,
 you can learn Reframe to be able to implement apps with all kinds of JavaScript stacks.
 
 
