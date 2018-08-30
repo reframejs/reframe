@@ -27,8 +27,12 @@ It is born out of the belief that a web framework can be rapid yet flexible at t
 Reframe assembles a JavaScript stack that can integrate with
 Node.js, React, React Native Web, React Router, Vue.js, TypeScript, TypeORM, PostCSS, Webpack, Express, Koa, Hapi, etc.
 
-This means you can create an app with a modern interactive frontend, a Node.js server, and a database with a Node.js ORM.
-Other stacks like static sites and SSR apps are supported as well.
+All kinds of JavaScript stacks are supported:
+Full-stack (modern interactive frontend + Node.js server + database with a Node.js ORM), 
+frontend + backend (aka SSR apps),
+frontend only (aka static sites),
+backend only,
+etc.
 
 <br/>
 
