@@ -61,7 +61,7 @@ We believe it doesn't have to be that way.
 
 Reframe greatly cares about flexibility.
 It is (to our knowledge) the most flexible web framework out there.
-We would even argue that Reframe is more flexible than gluying do-one-thing-do-it-well libraries yourself.
+We would actually argue that Reframe is more flexible than gluying do-one-thing-do-it-well libraries yourself.
 
 Reframe's flexibility is based on three pillars:
 
