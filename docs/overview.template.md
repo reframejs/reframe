@@ -32,11 +32,11 @@ frontend only (aka static site),
 backend only,
 etc.
 
-Reframe is born out of the belief that a web framework can be rapid yet flexible at the same time.
+Reframe is born out of the belief that a web framework can offer high development speed while being highly flexible at the same time.
 
 <br/>
 
-**Rapid**
+**Rapid Development**
 
 You can create a web app by defining so-called "page configs".
 Reframe takes care of the rest:
@@ -55,7 +55,7 @@ Yet, Reframe is designed from the ground up to be highly flexible.
 **Flexible**
 
 Web frameworks have a bad reputation regarding flexibility.
-There is a general belief that there is a trade off between rapidness and flexibility
+There is a general belief that there is a trade off between development speed and flexibility
 and that a web framework always comes with a lost in flexibility.
 We believe it doesn't have to be that way.
 
