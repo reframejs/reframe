@@ -183,7 +183,7 @@ There is a general belief that there is a trade off between development speed an
 and that a web framework always comes with a lost in flexibility.
 We believe it doesn't have to be that way.
 
-Reframe greatly cares about flexiblity.
+Reframe greatly cares about flexibility.
 It is (to our knowledge) the most flexible web framework out there.
 We would even argue that Reframe is more flexible than gluying do-one-thing-do-it-well libraries yourself.
 
@@ -202,7 +202,7 @@ Reframe's flexibility is based on three pillars:
    You can configure your app to have a frontend only (aka static site), a frontend + backend (aka SSR app), a backend only (aka old-school app with plain old HTML), or a frontend + backend + database/ORM (aka full-stack app).
    And it is easy to remove/add a backend, frontend, or database/ORM to an existing app.
  
-Benefits of Reframe's flexiblity:
+Benefits of Reframe's flexibility:
 
 **Take Over Control** -
 You can eject and take control over Reframe parts
