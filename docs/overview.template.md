@@ -22,7 +22,7 @@
 
 Reframe is a framework to create web apps.
 
-It assembles a JavaScript stack that has integrations for
+It assembles a JavaScript stack that can integrate with
 Node.js, React, React Native Web, React Router, Vue.js, TypeScript, TypeORM, PostCSS, Webpack, Express, Koa, Hapi, etc.
 
 All kinds of JavaScript stacks are supported:
@@ -47,6 +47,7 @@ It automatically transpiles, bundles, routes, renders, and serves your pages.
 </p>
 
 That's it, we created a web app simply by defining one React component and one page config.
+No build configuration required.
 
 Yet, Reframe is designed from the ground up to be highly flexible.
 
@@ -67,7 +68,7 @@ Reframe's flexibility is based on three pillars:
 
 1. **Progressive Eject** -
    All Reframe parts are ejectable:
-   You can eject the build configuration, and/or the render code, and/or the routing code, and/or the server code, etc.
+   You can eject the build configuration (the webpack config), and/or the render code, and/or the routing code, and/or the server code, etc.
 
 2. **Minimal glue code** -
    We isolate a maximum of code in do-one-thing-do-it-well libraries.
@@ -99,8 +100,8 @@ You would skip a database by hard-writing the data in your code base.
 Then, at a later point when hard-writing data isn't sustainable anymore, you would add a server and a real database to your prototype.
 
 **Learn Once, Write Any App** -
-Instead of learning different web frameworks to implement apps with different JavaScript stacks,
-you can learn Reframe to implement apps with all kinds of JavaScript stacks.
+Instead of learning different web frameworks depending on what JavaScript stack you need,
+you can learn Reframe for all kinds of JavaScript stacks.
 
 
 
