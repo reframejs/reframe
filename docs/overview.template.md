@@ -26,7 +26,7 @@ It assembles a JavaScript stack that can integrate with
 Node.js, React, React Native Web, React Router, Vue.js, TypeScript, TypeORM, PostCSS, Webpack, Express, Koa, Hapi, etc.
 
 All kinds of JavaScript stacks are supported:
-Full-stack (modern interactive frontend + Node.js server + database with a Node.js ORM), 
+Full-stack (modern interactive frontend + Node.js server + database with a Node.js ORM),
 frontend + backend (aka SSR app),
 frontend only (aka static site),
 backend only,
@@ -81,11 +81,11 @@ Reframe's flexibility is based on three pillars:
 Some benefits of that flexiblity:
 Giving us some benefits:
 
-**Take Over Control** - 
+**Take Over Control** -
 As your app grows and as the need arises you can eject and take control over Reframe parts.
 All Reframe parts are ejectable which means that you can gain full control.
 
-**Removable** - 
+**Removable** -
 If you eject all Reframe parts then you effectively get rid of Reframe.
 At that point your code doesn't depend on Reframe anymore and only depends on do-one-thing-do-it-well libraries.
 
