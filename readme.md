@@ -214,12 +214,12 @@ If you eject all Reframe parts then you effectively get rid of Reframe.
 At that point your code doesn't depend on Reframe anymore and only depends on do-one-thing-do-it-well libraries.
 
 **Rapid Prototyping** -
-You can change your app's stack at any point in time, which comes in handy for quick prototyping.
+You can change your app's stack at any point in time which comes in handy for quick prototyping.
 For example,
 you can have your first prototype to be a frontend only (static site)
 that you can easily deploy (to a static host such as Netlify or GitHub Pages).
 You would skip a database by hard-writing the data in your code base.
-Then, you would add a server and a real database later on when hard-writing data isn't sustainable anymore.
+Then, at a later point when hard-writing data isn't sustainable anymore, you would add a server and a real database to your prototype.
 
 **Learn Once, Write Any App** -
 Instead of learning different frameworks for different JavaScript stacks,
