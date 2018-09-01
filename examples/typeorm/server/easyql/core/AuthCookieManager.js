@@ -47,10 +47,10 @@ function addLoggedUser({req}) {
 }
 
 
-async function authRequestHandler(easyql, {req, res}) {
+async function authRequestHandler(easyql, {req, payload}) {
     const url = parseUri(req.url);
 
-    const authResponse = await easyql.authStrategy({easyql, url, req, res});
+    const authResponse = await easyql.authStrategy({url, req, payload});
     assert_usage(authResponse===null || Object.keys(authResponse).length>0, authResponse);
     if( authResponse===null ) {
         return null;

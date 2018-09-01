@@ -87,7 +87,7 @@ function getBodyPayload(req) {
 */
 
 
-async function authStrategy({url, req}) {
+async function authStrategy({url, req, payload}) {
     const isSignin = url.pathname==='/auth/signin';
     const isSignup = url.pathname==='/auth/signup';
 
@@ -96,7 +96,7 @@ async function authStrategy({url, req}) {
     }
 
     const repository = getRepository(User);
-    const payload = await getBodyPayload(req, url);
+    payload = payload || await getBodyPayload(req, url);
 
     if( isSignin ) {
         const user = await repository.findOne(payload);

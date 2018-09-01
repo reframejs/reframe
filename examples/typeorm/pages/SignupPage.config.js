@@ -1,7 +1,7 @@
 import React from 'react';
 
 const SignupForm = () => (
-    <form action="auth/signup" method="get">
+    <form action="auth/signup">
         <input name="username" id="username" defaultValue="u1"/>
         <input name="password" id="password" defaultValue="testpw"/>
         <button>Singup</button>

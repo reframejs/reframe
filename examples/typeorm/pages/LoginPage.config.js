@@ -1,7 +1,7 @@
 import React from 'react';
 
 const LoginForm = () => (
-    <form action="auth/signin" method="get">
+    <form action="auth/signin">
         <input name="username" id="username" defaultValue="u1"/>
         <input name="password" id="password" defaultValue="testpw"/>
         <button>Login</button>

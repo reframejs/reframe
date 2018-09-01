@@ -10,7 +10,25 @@ function HapiIntegration(easyql) {
         name: 'EasyQLIntegration',
         multiple: false,
         register: server => {
+            server.route({
+                method: ['GET', 'POST'],
+                path: '/{param*}',
+                handler: (req, h) => {
+                    /*
+                    console.log(121);
+                    console.log(req.url);
+                    console.log(req.method);
+                    console.log(req.payload);
+                    */
+                    return handleRequest(req, h, easyql);
+                 // return h.continue;
+                },
+            });
+
+            /*
             server.ext('onPreResponse', (req, h) => handleRequest(req, h, easyql));
+            */
+
             server.ext('onPostStop', () => {
                 assert_usage(easyql.closeConnection);
                 easyql.closeConnection();
@@ -23,6 +41,7 @@ function HapiIntegration(easyql) {
     return;
 
     async function handleRequest(request, h, easyql) {
+     // console.log('pre', request.url, request.response && request.response.output, request.response && request.response.isBoom, !!request.response);
         if( alreadyServed(request) ) {
             return h.continue;
         }
@@ -37,10 +56,11 @@ function HapiIntegration(easyql) {
         console.log('p2');
         */
         const {req} = request.raw;
+        const {payload} = request;
 
         // TODO
         const {TMP_REQ_HANDLER} = easyql;
-        const ret = await TMP_REQ_HANDLER({req});
+        const ret = await TMP_REQ_HANDLER({req, payload});
         if( ret ) {
             const resp = h.response(ret.body);
             ret.headers.forEach(header => resp.header(header.name, header.value));
@@ -92,6 +112,16 @@ function HapiIntegration(easyql) {
 }
 
 function alreadyServed(request) {
+
+    // TODO
+    if( ! request.response ) {
+        return false;
+    }
+
+    if( ! request.response.output ) {
+        return false;
+    }
+
     return (
         ! request.response.isBoom ||
         request.response.output.statusCode !== 404

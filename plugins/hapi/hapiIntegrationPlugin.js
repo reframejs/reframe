@@ -66,6 +66,15 @@ async function applyConfigHandlers(request) {
 }
 
 function alreadyServed(request) {
+    // TODO
+    if( ! request.response ) {
+        return false;
+    }
+
+    if( ! request.response.output ) {
+        return false;
+    }
+
     return (
         ! request.response.isBoom ||
         request.response.output.statusCode !== 404
