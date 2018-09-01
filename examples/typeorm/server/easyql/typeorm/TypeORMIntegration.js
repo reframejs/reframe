@@ -6,30 +6,27 @@ const assert_warning = require('reassert/warning');
 
 module.exports = TypeORMIntegration;
 
-function TypeORMIntegration(easyql) {
+function TypeORMIntegration({typeormConfig}) {
     let connection;
-
-    const QueryHandlers = easyql.QueryHandlers || [];
-    assert_usage(QueryHandlers.constructor===Array);
-    QueryHandlers.push(queryHandler);
 
     const generatedEntities = [];
 
-    Object.assign(easyql, {
-        QueryHandlers,
+    return {
+        QueryHandlers: [
+            queryHandler,
+        ],
         closeConnection,
         addModel,
-    });
-
-    return;
+    };
 
     async function queryHandler(params) {
-        const {req, query, NEXT} = params;
+        const {req, query, NEXT, permissions} = params;
+        assert_usage(permissions);
         assert_internal(req && query && NEXT, params);
 
         if( ! connection ) {
-            assert_usage(easyql.typeormConfig);
-            const con = easyql.typeormConfig();
+            assert_usage(typeormConfig instanceof Function);
+            const con = typeormConfig();
             const connectionOptions = Object.assign({}, con);
             connectionOptions.entities = (connectionOptions.entities||[]).slice();
         //  connectionOptions.entitySchemas = (connectionOptions.entitySchemas||[]).slice();
@@ -46,8 +43,7 @@ function TypeORMIntegration(easyql) {
             connection = await createConnection(connectionOptions);
         }
 
-        assert_usage(easyql.permissions);
-        for(const permission of easyql.permissions) {
+        for(const permission of permissions) {
             assert_usage(permission);
             assert_usage(permission.modelName, permission);
         //  const modelName = getModelName(permission.model);

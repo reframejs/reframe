@@ -69,7 +69,9 @@ function HapiIntegration(easyql) {
         assert_usage(easyql.QueryHandlers.constructor===Array);
         for(const handler of easyql.QueryHandlers) {
             assert_usage(handler instanceof Function);
-            const result = await handler({...params, NEXT});
+            const {permissions} = easyql;
+            assert_internal(permissions);
+            const result = await handler({...params, permissions, NEXT});
             if( result !== NEXT ) {
                 const response = h.response(result);
                 return response;

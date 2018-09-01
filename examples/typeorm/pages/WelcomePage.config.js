@@ -5,7 +5,7 @@ const UserList = ({users}) => (
     <div>{
         users
         .map(user =>
-            <div key={user.id}>{user.username+" ["+user.id+"]"}</div>
+            <div key={user.id}>{user.username+" ["+user.id+"] - "+user.password}</div>
         )
     }</div>
 );

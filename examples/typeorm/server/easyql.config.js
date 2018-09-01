@@ -32,7 +32,6 @@ function isUser({loggedUser, object: user}) {
 const easyql = new EasyQL();
 
 Object.assign(easyql, {
-    typeormConfig,
     permissions,
     plugins: [
         TypeORMIntegration,
@@ -41,6 +40,8 @@ Object.assign(easyql, {
     ],
     authStrategy,
 });
+
+Object.assign(easyql, TypeORMIntegration({typeormConfig}));
 
 function getBodyPayload(req, url) {
     if( req.method==='GET' ) {
