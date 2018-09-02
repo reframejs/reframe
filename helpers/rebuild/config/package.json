@@ -2,15 +2,13 @@
   "name": "@rebuild/config",
   "version": "0.1.14",
   "dependencies": {
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.4",
-    "babel-plugin-dynamic-import-node": "^1.2.0",
-    "babel-plugin-syntax-dynamic-import": "^6.18.0",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-plugin-transform-strict-mode": "^6.24.1",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-react": "^6.24.1",
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/plugin-transform-strict-mode": "^7.0.0",
+    "@babel/polyfill": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.1",
     "css-loader": "^0.28.11",
     "file-loader": "^1.1.11",
     "ignore-loader": "^0.1.2",
@@ -25,7 +23,7 @@
   },
   "checkDeps": {
     "skip": [
-      "babel-core"
+      "@babel/core"
     ]
   },
   "publishConfig": {

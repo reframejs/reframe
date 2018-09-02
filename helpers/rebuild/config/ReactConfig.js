@@ -9,11 +9,11 @@ function ReactConfig() {
 function config_react(config) {
     const js_rule = config.module.rules.js;
     assert_internal(js_rule, config);
-    assert_internal(js_rule.use.loader.includes('babel-loader'), config);
+    assert_internal(js_rule.use.loader.includes('@babel/loader'), config);
     assert_internal(js_rule.use.options, config);
     assert_internal(js_rule.use.options.presets, config);
 
-    js_rule.use.options.presets.push(require.resolve('babel-preset-react'));
+    js_rule.use.options.presets.push(require.resolve('@babel/preset-react'));
 
     return {
         resolve: {

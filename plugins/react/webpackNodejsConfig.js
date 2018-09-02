@@ -1,4 +1,4 @@
-const babelPresetReactPath = require.resolve('babel-preset-react');
+const babelPresetReactPath = require.resolve('@babel/preset-react');
 
 module.exports = webpackNodejsConfig;
 

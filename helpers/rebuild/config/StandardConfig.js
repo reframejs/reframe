@@ -436,16 +436,18 @@ function config_es_latest({is_node_target}) {
                     loader: require.resolve('babel-loader'),
                     options: {
                         presets: [
-                            [require.resolve('babel-preset-env'), babel_preset_env_opts]
+                            [require.resolve('@babel/preset-env'), babel_preset_env_opts]
                         ],
                         plugins: [
-                            require.resolve("babel-plugin-transform-object-rest-spread"),
-                            require.resolve("babel-plugin-transform-strict-mode"),
+                            require.resolve("@babel/plugin-proposal-object-rest-spread"),
+                            require.resolve("@babel/plugin-transform-strict-mode"),
+                            /*
                             is_node_target ? (
                                 require.resolve("babel-plugin-dynamic-import-node")
                             ) : (
                                 require.resolve("babel-plugin-syntax-dynamic-import")
                             ),
+                            */
                         ],
                     },
                 },
@@ -458,11 +460,11 @@ function config_es_latest({is_node_target}) {
     if( ! is_node_target && is_production() ) {
         conf.entry = {
             '*': [
-                require.resolve('babel-polyfill'),
+                require.resolve('@babel/polyfill'),
             ],
             /*
             main: [
-                require.resolve('babel-polyfill'),
+                require.resolve('@babel/polyfill'),
             ],
             */
         };
