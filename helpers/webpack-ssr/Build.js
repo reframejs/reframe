@@ -62,15 +62,19 @@ function BuildInstance() {
     let isFirstBuild = true;
 
     isoBuilder.builder = (function* ({buildForNodejs, buildForBrowser}) {
+            const d = new Date();
         const pageFiles__by_interface = that.getPageFiles();
 
+        console.log('t1',new Date() - d);
         const configNodejs = getNodejsConfig.call(that, {pageFiles__by_interface});
         const nodejsEntryPoints = yield buildForNodejs(configNodejs);
         assert_internal(Object.keys(nodejsEntryPoints).length>0, nodejsEntryPoints);
 
+        console.log('t2',new Date() - d);
         const pageFiles = getPageFiles.call(that, {configNodejs, pageFiles__by_interface});
         assert_internal(Object.keys(pageFiles).length>0);
 
+        console.log('t3',new Date() - d);
         that.pageModules = loadPageModules.call(that, {nodejsEntryPoints, pageFiles});
 
         that.pageBrowserEntries = getPageBrowserEntries.call(that);
@@ -79,17 +83,21 @@ function BuildInstance() {
         const browserEntryPoints = yield buildForBrowser(configBrowser);
         assert_internal(Object.values(browserEntryPoints).length>0, browserEntryPoints);
 
+        console.log('t4',new Date() - d);
         writeAssetMap.call(that, {browserEntryPoints, nodejsEntryPoints, fileSets, autoReloadEnabled, pageFiles});
 
         yield writeHtmlFiles.call(that, {fileSets});
 
+        console.log('t5',new Date() - d);
         for(const listener of that.onBuildEnd) {
             yield listener({isFirstBuild});
         }
 
+        console.log('t6',new Date() - d);
         if( autoReloadEnabled ) {
             reloadBrowser();
         }
+        console.log('t7',new Date() - d);
     }).bind(this);
 
     return async () => {

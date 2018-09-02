@@ -61,9 +61,12 @@ async function execDev({options}) {
         // TODO - sometimes server.stop is not a function
         assert_internal(server.stop instanceof Function, server.stop);
 
+        const d = new Date();
         await server.stop();
+        console.log('sc',new Date() - d);
         server = null;
         server = await runServer(config, {quiet: true});
+        console.log('ss',new Date() - d);
     });
 
     await config.runBuild();
