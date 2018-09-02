@@ -69,7 +69,6 @@ async function execDev({options}) {
     await config.runBuild();
 
     server = await runServer(config);
-    log_server(server, config);
 }
 
 async function execBuild({options}) {
@@ -86,8 +85,6 @@ async function execServer({options}) {
     const config = init(options);
     log_found_stuff({config, log_built_pages: true});
     const server = await runServer(config);
-    log_server(server, config);
-    unaligned_env_warning(config);
 }
 
 async function runServer(config, {quiet}={}) {
@@ -110,8 +107,15 @@ async function runServer(config, {quiet}={}) {
             console.log = consoleLog;
         }
     } catch(err) {
-        prettify_error(err);
-        return;
+        throw prettify_error(err);
+    }
+
+    if( ! quiet ) {
+     // const {symbolSuccess} = require('@brillout/cli-theme');
+     // console.log(symbolSuccess+'Server running '+server.info.uri);
+        log_routes(config, server);
+        console.log();
+        unaligned_env_warning(config);
     }
 
     return server;
@@ -189,26 +193,21 @@ function getReframeConfigFile(config) {
 }
 
 function prettify_error(err) {
-    if( ! ((err||{}).message||'').includes('EADDRINUSE') ) {
-        throw err;
-    }
     const {colorError} = require('@brillout/cli-theme');
-    console.error();
-    console.error(err.stack);
-    console.error();
-    console.error([
-        "The server is starting on an "+colorError("address already in use")+".",
-        "Maybe you already started a server at this address?",
-    ].join('\n'));
-    console.error();
+
+    if( ((err||{}).message||'').includes('EADDRINUSE') ) {
+        err.stack += [
+            '',
+            '',
+            "The server is starting on an "+colorError("address already in use")+".",
+            "Maybe you already started a server at this address?",
+            '',
+        ].join('\n');
+    }
+
+    return err;
 }
 
-function log_server(server, config) {
- // const {symbolSuccess} = require('@brillout/cli-theme');
- // console.log(symbolSuccess+'Server running '+server.info.uri);
-    log_routes(config, server);
-    console.log();
-}
 function log_routes(config, server) {
     const {pageConfigs} = config.getBuildInfo();
     const {colorPkg, colorDim, indent} = require('@brillout/cli-theme');
