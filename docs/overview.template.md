@@ -37,15 +37,16 @@ backend only.
 **Rapid Development**
 
 You can create a web app by defining so-called "page configs".
-Reframe takes care of the rest:
+Reframe handles everything else:
 It automatically transpiles, bundles, routes, renders, and serves your pages.
 
 <p align="center">
     <img src='https://github.com/reframejs/reframe/raw/master/docs/images/previews/welcome.png?sanitize=true'/>
 </p>
 
-That's it, we created a web app simply by defining one React component and one page config.
-No build configuration required.
+That's it.
+A web application by simply defining a single React component and a single page config.
+No need for configuration.
 
 Yet, Reframe is designed from the ground up to be fully flexible.
 
