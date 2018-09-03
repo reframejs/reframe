@@ -57,6 +57,9 @@ async function execDev({options}) {
         if( isFirstBuild ) {
             return;
         }
+        if( ! serverIsTranspiled(config) ) {
+            return;
+        }
 
         // TODO - sometimes server.stop is not a function
         assert_internal(server.stop instanceof Function, server.stop);
@@ -88,11 +91,14 @@ async function execServer({options}) {
 }
 
 async function runServer(config, {quiet}={}) {
+    const assert_internal = require('reassert/internal');
     const forceRequire = require('@reframe/utils/forceRequire');
+
     assert_server(config);
 
     const buildInfo = config.getBuildInfo();
     const serverFileTranspiled = buildInfo.server && buildInfo.server.serverFileTranspiled;
+    assert_internal(!!serverFileTranspiled === serverIsTranspiled(config));
 
     const serverEntry = serverFileTranspiled || config.serverStartFile;
 
@@ -119,6 +125,9 @@ async function runServer(config, {quiet}={}) {
     }
 
     return server;
+}
+function serverIsTranspiled(config) {
+    return !!(config.transpileServerCode && config.serverStartFile);
 }
 function init({dev, log, doNotWatchBuildFiles, _description}) {
     if( _description ) {
