@@ -14,10 +14,10 @@ Add `@reframe/typescript` to your `reframe.config.js`.
 
 ### Example
 
-~~~js
-!INLINE ./example/reframe.config.js
-~~~
-
 ~~~tsx
 !INLINE ./example/pages/landing.config.tsx
+~~~
+
+~~~js
+!INLINE ./example/reframe.config.js
 ~~~

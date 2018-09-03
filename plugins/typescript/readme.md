@@ -92,50 +92,22 @@ module.exports = {
         require('@reframe/typescript') // npm install @reframe/typescript
     ],
 
-    typescript: {
-        // `loaderOptions` is passed to `ts-loader`.
-        loaderOptions: { // default value
-            transpileOnly: true
-        },
+    // Options for `require('@babel/preset-typescript')`
+    babelPresetTypescript: {
+        isTSX: true, // this is the default value
+        allExtensions: true, // this is the default value
+    },
 
-        // The `fork-ts-checker-webpack-plugin` plugin is not used if `dontUseForkChecker` is set to true.
-        dontUseForkChecker: false, // default value
-
-        // `forkCheckerOptions` is passed to `new ForkTsCheckerWebpackPlugin(forkCheckerOptions)`.
-        forkCheckerOptions: { // default value
-            silent: true,
-        },
-    }
+    // Options for `require('fork-ts-checker-webpack-plugin')`
+    forkTsCheckerWebpackPlugin: {
+        // The `fork-ts-checker-webpack-plugin` plugin is not used if `dontUse` is set to true.
+        dontUse: false, // this is the default value
+        silent: true, // this is the default value
+    },
 };
 ~~~
 
 ### Example
-
-~~~js
-// /plugins/typescript/example/reframe.config.js
-
-module.exports = {
-    $plugins: [
-        require('@reframe/react-kit'),
-        require('@reframe/typescript') // npm install @reframe/typescript
-    ],
-
-    typescript: {
-        // `loaderOptions` is passed to `ts-loader`.
-        loaderOptions: { // default value
-            transpileOnly: true
-        },
-
-        // The `fork-ts-checker-webpack-plugin` plugin is not used if `dontUseForkChecker` is set to true.
-        dontUseForkChecker: false, // default value
-
-        // `forkCheckerOptions` is passed to `new ForkTsCheckerWebpackPlugin(forkCheckerOptions)`.
-        forkCheckerOptions: { // default value
-            silent: true,
-        },
-    }
-};
-~~~
 
 ~~~tsx
 // /plugins/typescript/example/pages/landing.config.tsx
@@ -150,6 +122,30 @@ export default {
     route: '/',
     view: () => <Hello compiler="TypeScript" framework="React" />,
     doNotRenderInBrowser: true,
+};
+~~~
+
+~~~js
+// /plugins/typescript/example/reframe.config.js
+
+module.exports = {
+    $plugins: [
+        require('@reframe/react-kit'),
+        require('@reframe/typescript') // npm install @reframe/typescript
+    ],
+
+    // Options for `require('@babel/preset-typescript')`
+    babelPresetTypescript: {
+        isTSX: true, // this is the default value
+        allExtensions: true, // this is the default value
+    },
+
+    // Options for `require('fork-ts-checker-webpack-plugin')`
+    forkTsCheckerWebpackPlugin: {
+        // The `fork-ts-checker-webpack-plugin` plugin is not used if `dontUse` is set to true.
+        dontUse: false, // this is the default value
+        silent: true, // this is the default value
+    },
 };
 ~~~
 
