@@ -98,6 +98,7 @@ function run({
     let compiling = false;
     let compilation_info;
 
+    /*
     const TIMEOUT_SECONDS = 30;
     const compilation_timeout = setTimeout(() => {
         assert_warning(
@@ -105,6 +106,7 @@ function run({
             'First compilation not finished after '+TIMEOUT_SECONDS+' seconds for '+compilationName
         );
     },TIMEOUT_SECONDS*1000);
+    */
 
     const end_promise = genPromise();
     const suc_promise = genPromise();
@@ -126,7 +128,7 @@ function run({
     onCompileEnd.addListener(({webpack_stats, is_success}) => {
         assert_internal(compiling===true);
         compiling = false;
-        clearTimeout(compilation_timeout);
+     // clearTimeout(compilation_timeout);
 
         compilation_info = get_compilation_info({webpack_config, webpack_stats, is_success, loadEntryPoints});
         assert_internal(compilation_info);
@@ -156,7 +158,7 @@ function run({
     assert_tmp(server_start_promise===undefined);
 
     const stop_compilation = async () => {
-        clearTimeout(compilation_timeout);
+     // clearTimeout(compilation_timeout);
         global.DEBUG_WATCH && console.log('WEBPACK-ABORT-START '+compilationName);
         //*
         if( watching ) {
@@ -260,6 +262,22 @@ function get_webpack_compiler(webpack_config, compilationName) {
     */
 
     webpack_compiler.hooks.done.tap('weDontNeedToNameThis_apokminzbruunf', webpack_stats => {
+     // console.log('done', [...webpack_stats.compilation.fileTimestamps.keys()]);
+        /*
+        console.log(Object.keys(webpack_stats));
+        console.log(Object.keys(webpack_stats.compilation).sort());
+        console.log(compilationName);
+        if( compilationName==='browserCompilation') {
+        }
+        console.log(webpack_stats.compilation.assets);
+        */
+        /*
+        console.log(Object.keys(webpack_stats.compilation.assets).length);
+        const emittedAssets = Object.values(webpack_stats.compilation.assets).filter(asset => asset.emitted).map(asset => asset.existsAt);
+        console.log(emittedAssets);
+        console.log(emittedAssets.length);
+        */
+
         global.DEBUG_WATCH && console.log('WEBPACK-COMPILE-DONE '+compilationName);
 
         resolve_first_compilation(webpack_stats);
@@ -301,6 +319,7 @@ function catch_webpack_not_terminating(webpack_compiler, {timeout_seconds, compi
 }
 */
 
+// Adapated from https://webpack.js.org/contribute/plugin-patterns/#monitoring-the-watch-graph
 function print_changed_files(webpack_compiler) {
     const mem = {
         startTime: Date.now(),
