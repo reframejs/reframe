@@ -412,23 +412,24 @@ function config_static_files({is_node_target}={}) {
 
 function config_es_latest({is_node_target}) {
     assert_internal([true, false].includes(is_node_target));
+
     const babel_preset_env_opts = {
         modules: false,
-     // useBuiltIns: true,
-        useBuiltIns: 'usage',
-    };
-    if( is_node_target || ! is_production() ) {
-        babel_preset_env_opts.targets = (
-            is_node_target ? (
+        useBuiltIns: 'entry',
+        targets: (
+            is_node_target && (
                 {node: "8.9.0"}
-            ) : (
+            ) ||
+            ! is_node_target && ! is_production() && (
                 {browsers: [
                     "last 2 Chrome version",
                     "last 2 Firefox version",
                 ]}
-            )
-        );
-    }
+            ) ||
+            undefined
+        ),
+    };
+
     const conf = {
         module: {rules: {
             js: {
