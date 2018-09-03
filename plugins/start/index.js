@@ -154,7 +154,7 @@ function unaligned_env_warning(config) {
         serverEnv === buildEnv,
         colorWarning("Server and build don't target the same environment."),
         "Server is running for "+colorEmphasis(serverEnv)+".",
-        "Code is built for "+colorEmphasis(buildEnv)+".",
+        "Code was built for "+colorEmphasis(buildEnv)+".",
     );
 }
 function assert_build(config) {
