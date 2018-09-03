@@ -64,24 +64,30 @@ function BuildInstance() {
     isoBuilder.builder = (function* ({buildForNodejs, buildForBrowser}) {
         const pageFiles__by_interface = that.getPageFiles();
 
-        const configNodejs = getNodejsConfig.call(that, {pageFiles__by_interface});
+        const {serverEntryFile, getWebpackNodejsConfig} = that;
+        assert_usage(getWebpackNodejsConfig);
+        const configNodejs = getNodejsConfig({getWebpackNodejsConfig, serverEntryFile, pageFiles__by_interface, outputDir});
         const nodejsEntryPoints = yield buildForNodejs(configNodejs);
         assert_internal(Object.keys(nodejsEntryPoints).length>0, nodejsEntryPoints);
 
-        const pageFiles = getPageFiles.call(that, {configNodejs, pageFiles__by_interface});
+        const pageFiles = getPageFiles({configNodejs, pageFiles__by_interface});
         assert_internal(Object.keys(pageFiles).length>0);
 
-        that.pageModules = loadPageModules.call(that, {nodejsEntryPoints, pageFiles});
+        const pageModules = loadPageModules({nodejsEntryPoints, pageFiles});
+        assert_internal(pageModules.length>0);
 
-        that.pageBrowserEntries = getPageBrowserEntries.call(that);
+        const pageBrowserEntries = that.getPageBrowserEntries(pageModules);
 
-        const configBrowser = getBrowserConfig.call(that, {fileSets, autoReloadEnabled});
+        const {getWebpackBrowserConfig} = that;
+        assert_usage(getWebpackBrowserConfig);
+        const configBrowser = getBrowserConfig({pageBrowserEntries, outputDir, getWebpackBrowserConfig, fileSets, autoReloadEnabled});
         const browserEntryPoints = yield buildForBrowser(configBrowser);
         assert_internal(Object.values(browserEntryPoints).length>0, browserEntryPoints);
 
-        writeAssetMap.call(that, {browserEntryPoints, nodejsEntryPoints, fileSets, autoReloadEnabled, pageFiles});
+        writeAssetMap({pageBrowserEntries, pageModules, outputDir, browserEntryPoints, nodejsEntryPoints, fileSets, autoReloadEnabled, pageFiles});
 
-        yield writeHtmlFiles.call(that, {fileSets});
+        const {getPageHtmls} = that;
+        yield writeHtmlFiles({pageModules, getPageHtmls, fileSets});
 
         for(const listener of that.onBuildEnd) {
             yield listener({isFirstBuild});
@@ -99,38 +105,29 @@ function BuildInstance() {
     };
 }
 
-function getNodejsConfig({pageFiles__by_interface}) {
-    const nodejsEntries = getNodejsEntries.call(this, {pageFiles__by_interface});
-    const nodejsOutputPath = pathModule.resolve(this.outputDir, NODEJS_OUTPUT);
+function getNodejsConfig({getWebpackNodejsConfig, serverEntryFile, pageFiles__by_interface, outputDir}) {
+    const nodejsEntries = getNodejsEntries({pageFiles__by_interface});
+    const nodejsOutputPath = pathModule.resolve(outputDir, NODEJS_OUTPUT);
     const defaultNodejsConfig = getDefaultNodejsConfig({entries: nodejsEntries, outputPath: nodejsOutputPath, filename: '[name]-nodejs.js'});
-    const configNodejs = this.getWebpackNodejsConfig({config: defaultNodejsConfig, entries: nodejsEntries, outputPath: nodejsOutputPath, ...webpackConfigMod});
+    const configNodejs = getWebpackNodejsConfig({config: defaultNodejsConfig, entries: nodejsEntries, outputPath: nodejsOutputPath, ...webpackConfigMod});
     assert_config({config: configNodejs, webpackEntries: nodejsEntries, outputPath: nodejsOutputPath, getterName: 'getWebpackNodejsConfig'});
     addContext(configNodejs);
     return configNodejs;
 }
 
-function getBrowserConfig({fileSets, autoReloadEnabled}) {
-    const generatedEntries = generateBrowserEntries.call(this, {fileSets});
+function getBrowserConfig({pageBrowserEntries, outputDir, getWebpackBrowserConfig, fileSets, autoReloadEnabled}) {
+    const generatedEntries = generateBrowserEntries({pageBrowserEntries, fileSets});
     const browserEntries = getBrowserEntries({generatedEntries, autoReloadEnabled});
-    const browserOutputPath = pathModule.resolve(this.outputDir, BROWSER_OUTPUT);
+    const browserOutputPath = pathModule.resolve(outputDir, BROWSER_OUTPUT);
     const defaultBrowserConfig = getDefaultBrowserConfig({entries: browserEntries, outputPath: browserOutputPath});
     assert_internal(Object.keys(browserEntries).length>0);
-    const configBrowser = this.getWebpackBrowserConfig({config: defaultBrowserConfig, entries: browserEntries, outputPath: browserOutputPath, ...webpackConfigMod});
+    const configBrowser = getWebpackBrowserConfig({config: defaultBrowserConfig, entries: browserEntries, outputPath: browserOutputPath, ...webpackConfigMod});
     assert_config({config: configBrowser, webpackEntries: browserEntries, outputPath: browserOutputPath, getterName: 'getWebpackBrowserConfig'});
     addContext(configBrowser);
     return configBrowser;
 }
 
-function getPageBrowserEntries() {
-    const {pageModules} = this;
-    assert_internal(pageModules.length>0);
-    const pageBrowserEntries = this.getPageBrowserEntries(pageModules);
-    return pageBrowserEntries;
-}
-
-function getNodejsEntries({pageFiles__by_interface}) {
-    const {serverEntryFile} = this;
-
+function getNodejsEntries({serverEntryFile, pageFiles__by_interface}) {
     const server_entries = {};
 
     Object.entries(pageFiles__by_interface)
@@ -299,9 +296,7 @@ function getBrowserEntries({generatedEntries, autoReloadEnabled}) {
 
     return browserEntries;
 }
-function generateBrowserEntries({fileSets}) {
-    const {pageBrowserEntries} = this;
-
+function generateBrowserEntries({pageBrowserEntries, fileSets}) {
     const generatedEntries = {};
 
     fileSets.startFileSet('BROWSER_SOURCE_CODE');
@@ -331,11 +326,9 @@ function generateBrowserEntries({fileSets}) {
     return generatedEntries;
 }
 
-async function writeHtmlFiles({fileSets}) {
-    const {pageModules} = this;
-    assert_internal(pageModules);
+async function writeHtmlFiles({pageModules, getPageHtmls, fileSets}) {
 
-    const htmlStrings = await this.getPageHtmls();
+    const htmlStrings = await getPageHtmls();
     assert_usage(htmlStrings && htmlStrings.constructor===Array);
 
     fileSets.startFileSet('html_files');
@@ -368,13 +361,10 @@ async function writeHtmlFiles({fileSets}) {
     }
 }
 
-function writeAssetMap({browserEntryPoints, nodejsEntryPoints, fileSets, autoReloadEnabled, pageFiles}) {
-    const {pageBrowserEntries, pageModules} = this;
+function writeAssetMap({pageBrowserEntries, pageModules, outputDir, browserEntryPoints, nodejsEntryPoints, fileSets, autoReloadEnabled, pageFiles}) {
     assert_internal(pageBrowserEntries.length>0);
     const pageNames = Object.keys(pageFiles);
     assert_internal(pageNames.length===pageModules.length);
-
-    const {outputDir} = this;
 
     let buildTime = new Date();
     let buildEnv = process.env.NODE_ENV || 'development';
