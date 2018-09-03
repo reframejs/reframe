@@ -106,7 +106,7 @@ function BuildInstance() {
 }
 
 function getNodejsConfig({getWebpackNodejsConfig, serverEntryFile, pageFiles__by_interface, outputDir}) {
-    const nodejsEntries = getNodejsEntries({pageFiles__by_interface});
+    const nodejsEntries = getNodejsEntries({serverEntryFile, pageFiles__by_interface});
     const nodejsOutputPath = pathModule.resolve(outputDir, NODEJS_OUTPUT);
     const defaultNodejsConfig = getDefaultNodejsConfig({entries: nodejsEntries, outputPath: nodejsOutputPath, filename: '[name]-nodejs.js'});
     const configNodejs = getWebpackNodejsConfig({config: defaultNodejsConfig, entries: nodejsEntries, outputPath: nodejsOutputPath, ...webpackConfigMod});
