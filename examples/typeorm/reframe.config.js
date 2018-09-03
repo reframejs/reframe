@@ -4,5 +4,4 @@ module.exports = {
         require('@reframe/typescript'),
     ],
     serverStartFile: require.resolve('./server/start.js'),
-    transpileServerCode: true,
 };

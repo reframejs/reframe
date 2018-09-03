@@ -15,6 +15,7 @@ module.exports = {
     $getters,
     webpackBrowserConfig: webpackMod,
     webpackNodejsConfig: webpackMod,
+    transpileServerCode: true,
 };
 
 function webpackMod({config, getRule, setRule, addExtension}) {
