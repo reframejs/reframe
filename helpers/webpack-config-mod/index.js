@@ -76,8 +76,13 @@ function assert_filenameExtension(filenameExtension) {
 function modifyBabelOptions(config, action, {canBeMissing=true}) {
     const babelLoaders = getBabelLoaders(config, {canBeMissing});
 
+    const alreadyPassed = [];
     babelLoaders.forEach(babelLoader => {
+        if( alreadyPassed.includes(babelLoader) ) {
+            return;
+        }
         action(babelLoader);
+        alreadyPassed.push(babelLoader);
     });
 }
 
