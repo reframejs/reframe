@@ -4,18 +4,16 @@ module.exports = {
         require('..') // npm install @reframe/typescript
     ],
 
-    typescript: {
-        // `loaderOptions` is passed to `ts-loader`.
-        loaderOptions: { // default value
-            transpileOnly: true
-        },
+    // Options for `require('@babel/preset-typescript')`
+    babelPresetTypescript: {
+        isTSX: true, // this is the default value
+        allExtensions: true, // this is the default value
+    },
 
-        // The `fork-ts-checker-webpack-plugin` plugin is not used if `dontUseForkChecker` is set to true.
-        dontUseForkChecker: false, // default value
-
-        // `forkCheckerOptions` is passed to `new ForkTsCheckerWebpackPlugin(forkCheckerOptions)`.
-        forkCheckerOptions: { // default value
-            silent: true,
-        },
-    }
+    // Options for `require('fork-ts-checker-webpack-plugin')`
+    forkTsCheckerWebpackPlugin: {
+        // The `fork-ts-checker-webpack-plugin` plugin is not used if `dontUse` is set to true.
+        dontUse: false, // this is the default value
+        silent: true, // this is the default value
+    },
 };

@@ -5,12 +5,12 @@
     "docs": "mdocs"
   },
   "dependencies": {
+    "@babel/preset-typescript": "^7.0.0",
     "@brillout/get-user-dir": "^0.2.1",
     "@brillout/reconfig": "0.1.14",
     "find-up": "^2.1.0",
     "fork-ts-checker-webpack-plugin": "^0.4.0",
     "reassert": "^1.1.12",
-    "ts-loader": "^4.3.0",
     "typescript": "^2.8.3"
   },
   "publishConfig": {

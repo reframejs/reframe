@@ -1,8 +1,3 @@
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const assert_usage = require('reassert/usage');
-const find_up = require('find-up');
-const getUserDir = require('@brillout/get-user-dir');
-const reconfig = require('@brillout/reconfig');
 const {transparentGetter} = require('@brillout/reconfig/getters');
 
 const $name = require('./package.json').name;
@@ -18,59 +13,69 @@ module.exports = {
     transpileServerCode: true,
 };
 
-function webpackMod({config, getRule, setRule, addExtension}) {
-    const reframeConfig = reconfig.getConfig({configFileName: 'reframe.config.js'});
-    const {loaderOptions={transpileOnly: true}, dontUseForkChecker=false, forkCheckerOptions={silent: true}} = reframeConfig.typescript || {};
+function webpackMod({config: webpackConfig, getRule, setRule, addExtension, addBabelPreset}) {
+    const reframeConfig = getReframeConfig();
 
-    add_typescript({config, getRule, setRule, addExtension, loaderOptions, dontUseForkChecker, forkCheckerOptions});
+    addSyntaxPreset({webpackConfig, reframeConfig, addBabelPreset});
 
-    return config;
+    addCheckerPlugin({webpackConfig, reframeConfig});
+
+    addExtensions({webpackConfig, getRule, setRule, addExtension});
+
+    return webpackConfig;
 }
-function add_typescript({config, getRule, setRule, addExtension, loaderOptions, dontUseForkChecker, forkCheckerOptions}) {
-    const jsRule = getRule(config, '.js');
 
-    assert_usage([Object, Array].includes(jsRule.use && jsRule.use.constructor), jsRule);
-    const jsLoaders = (
-        jsRule.use.constructor===Array ? (
-            jsRule.use
-        ) : (
-            [jsRule.use]
-        )
-    );
-
-    const tsconfig_path = get_tsconfig_path(config, loaderOptions, forkCheckerOptions);
-    forkCheckerOptions.tsconfig = tsconfig_path;
-    loaderOptions.configFile = tsconfig_path;
-
-    const tsRule = {
-        use: [
-            ...jsLoaders,
-            {
-                loader: require.resolve('ts-loader'),
-                options: loaderOptions,
-            }
-        ]
+function addSyntaxPreset({webpackConfig, reframeConfig, addBabelPreset}) {
+    const presetOptions = {
+        isTSX: true,
+        allExtensions: true,
+        ...reframeConfig.babelPresetTypescript,
     };
-    setRule(config, '.ts', tsRule);
-    setRule(config, '.tsx', tsRule);
 
-    addExtension(config, '.ts');
-    addExtension(config, '.tsx');
-
-    if( ! dontUseForkChecker ) {
-        config.plugins = config.plugins || [];
-        config.plugins.push(new ForkTsCheckerWebpackPlugin(forkCheckerOptions));
-    }
+    const babelPresetTypeScriptPath = require.resolve('@babel/preset-typescript');
+    addBabelPreset(webpackConfig, [babelPresetTypeScriptPath, presetOptions]);
 }
 
-function get_tsconfig_path(config, loaderOptions, forkCheckerOptions) {
-    if( loaderOptions.configFile ) {
-        return loaderOptions.configFile;
+function addCheckerPlugin({webpackConfig, reframeConfig}) {
+    const tsconfig = (reframeConfig.forkTsCheckerWebpackPlugin||{}).tsconfig || get_tsconfig_path(webpackConfig);
+
+    const checkerOptions = {
+        silent: true,
+        tsconfig,
+        ...reframeConfig.forkTsCheckerWebpackPlugin,
+    };
+
+    if( checkerOptions.dontUse ) {
+        return;
     }
-    if( forkCheckerOptions.tsconfig ) {
-        return forkCheckerOptions.tsconfig;
-    }
-    const userDir = config.context || getUserDir();
+
+    const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+    webpackConfig.plugins = webpackConfig.plugins || [];
+    webpackConfig.plugins.push(new ForkTsCheckerWebpackPlugin(checkerOptions));
+}
+
+function addExtensions({webpackConfig, getRule, setRule, addExtension}) {
+    const jsRule = getRule(webpackConfig, '.js');
+    const rule = {...jsRule};
+    delete rule.test;
+    setRule(webpackConfig, '.ts', rule);
+    setRule(webpackConfig, '.tsx', rule);
+
+    addExtension(webpackConfig, '.ts');
+    addExtension(webpackConfig, '.tsx');
+}
+
+function getReframeConfig() {
+    const reconfig = require('@brillout/reconfig');
+    return reconfig.getConfig({configFileName: 'reframe.config.js'});
+}
+
+function get_tsconfig_path(webpackConfig) {
+    const find_up = require('find-up');
+    const assert_usage = require('reassert/usage');
+    const getUserDir = require('@brillout/get-user-dir');
+
+    const userDir = webpackConfig.context || getUserDir();
     const algorithmDesc = 'The "user directory" is determined by the `context` option of the webpack config and if missing then by using `@brillout/get-user-dir`';
     assert_usage(
         userDir,
