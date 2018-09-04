@@ -5,10 +5,10 @@ class User {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({unique: true})
+    @Column({type: "varchar", unique: true})
     username: string;
 
-    @Column()
+    @Column({type: "varchar"})
     password: string;
 }
 

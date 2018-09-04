@@ -5,10 +5,10 @@ class Todo {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({type: "varchar"})
     text: string;
 
-    @Column()
+    @Column({type: "boolean"})
     isCompleted: boolean;
 
     @ManyToOne("User", user => user.todos, {eager: true})

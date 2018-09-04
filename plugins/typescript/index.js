@@ -35,7 +35,7 @@ function addSyntaxTransforms({webpackConfig, reframeConfig, addBabelPreset, addB
 
     addBabelPreset(webpackConfig, [require.resolve('@babel/preset-typescript'), presetOptions]);
     addBabelPlugin(webpackConfig, [require.resolve('@babel/plugin-proposal-decorators'), {legacy: true}]);
-    addBabelPlugin(webpackConfig, require.resolve('@babel/plugin-proposal-class-properties', {loose: true}));
+    addBabelPlugin(webpackConfig, [require.resolve('@babel/plugin-proposal-class-properties'), {loose: true}]);
 }
 
 function addTypechecking({webpackConfig, reframeConfig}) {

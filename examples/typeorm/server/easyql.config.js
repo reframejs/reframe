@@ -17,7 +17,8 @@ const permissions = [
     {
         modelName: 'User',
         read: true,
-        write: isUser,
+        write: true,
+     // write: isUser,
     }
 ];
 
