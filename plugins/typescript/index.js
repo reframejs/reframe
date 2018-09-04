@@ -2,7 +2,8 @@ const {transparentGetter} = require('@brillout/reconfig/getters');
 
 const $name = require('./package.json').name;
 const $getters = [
-    transparentGetter('typescript')
+    transparentGetter('babelPresetTypescript'),
+    transparentGetter('forkTsCheckerWebpackPlugin'),
 ];
 
 module.exports = {
@@ -41,11 +42,12 @@ function addCheckerPlugin({webpackConfig, reframeConfig}) {
 
     const checkerOptions = {
         silent: true,
+        async: false,
         tsconfig,
         ...reframeConfig.forkTsCheckerWebpackPlugin,
     };
 
-    if( checkerOptions.dontUse ) {
+    if( ! checkerOptions.enable ) {
         return;
     }
 

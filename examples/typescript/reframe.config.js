@@ -4,16 +4,17 @@ module.exports = {
         require('@reframe/typescript') // npm install @reframe/typescript
     ],
 
-    // Options for `require('@babel/preset-typescript')`
+    // Syntax transformation is done with `@babel/preset-typescript`
+    // Options:
     babelPresetTypescript: {
-        isTSX: true, // this is the default value
-        allExtensions: true, // this is the default value
+        isTSX: true, // default value
+        allExtensions: true, // default value
     },
 
-    // Options for `require('fork-ts-checker-webpack-plugin')`
+    // Type checking is done with `fork-ts-checker-webpack-plugin`
+    // Options:
     forkTsCheckerWebpackPlugin: {
-        // The `fork-ts-checker-webpack-plugin` plugin is not used if `dontUse` is set to true.
-        dontUse: false, // this is the default value
-        silent: true, // this is the default value
+        // To enable type checking set `enable: true`
+        enable: true,
     },
 };
