@@ -1,7 +1,7 @@
 module.exports = {
     $plugins: [
         require('@reframe/react-kit'),
-        require('..') // npm install @reframe/typescript
+        require('@reframe/typescript') // npm install @reframe/typescript
     ],
 
     // Options for `require('@babel/preset-typescript')`
