@@ -14,30 +14,35 @@ module.exports = {
     transpileServerCode: true,
 };
 
-function webpackMod({config: webpackConfig, getRule, setRule, addExtension, addBabelPreset}) {
+function webpackMod({config: webpackConfig, getRule, setRule, addExtension, addBabelPreset, addBabelPlugin}) {
     const reframeConfig = getReframeConfig();
 
-    addSyntaxPreset({webpackConfig, reframeConfig, addBabelPreset});
+    addSyntaxTransforms({webpackConfig, reframeConfig, addBabelPreset, addBabelPlugin});
 
-    addCheckerPlugin({webpackConfig, reframeConfig});
+    addTypechecking({webpackConfig, reframeConfig});
 
     addExtensions({webpackConfig, getRule, setRule, addExtension});
 
     return webpackConfig;
 }
 
-function addSyntaxPreset({webpackConfig, reframeConfig, addBabelPreset}) {
+function addSyntaxTransforms({webpackConfig, reframeConfig, addBabelPreset, addBabelPlugin}) {
     const presetOptions = {
         isTSX: true,
         allExtensions: true,
         ...reframeConfig.babelPresetTypescript,
     };
 
-    const babelPresetTypeScriptPath = require.resolve('@babel/preset-typescript');
-    addBabelPreset(webpackConfig, [babelPresetTypeScriptPath, presetOptions]);
+    addBabelPreset(webpackConfig, [require.resolve('@babel/preset-typescript'), presetOptions]);
+    addBabelPlugin(webpackConfig, [require.resolve('@babel/plugin-proposal-decorators'), {legacy: true}]);
+    addBabelPlugin(webpackConfig, require.resolve('@babel/plugin-proposal-class-properties', {loose: true}));
 }
 
-function addCheckerPlugin({webpackConfig, reframeConfig}) {
+function addTypechecking({webpackConfig, reframeConfig}) {
+    if( ! (reframeConfig.forkTsCheckerWebpackPlugin||{}).enable ) {
+        return;
+    }
+
     const tsconfig = (reframeConfig.forkTsCheckerWebpackPlugin||{}).tsconfig || get_tsconfig_path(webpackConfig);
 
     const checkerOptions = {
@@ -46,10 +51,6 @@ function addCheckerPlugin({webpackConfig, reframeConfig}) {
         tsconfig,
         ...reframeConfig.forkTsCheckerWebpackPlugin,
     };
-
-    if( ! checkerOptions.enable ) {
-        return;
-    }
 
     const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
     webpackConfig.plugins = webpackConfig.plugins || [];

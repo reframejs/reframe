@@ -1,5 +1,5 @@
-const {createConnection, EntitySchema, getRepository} = require("typeorm");
 require("reflect-metadata");
+const {createConnection, EntitySchema, getRepository} = require("typeorm");
 const assert_internal = require('reassert/internal');
 const assert_usage = require('reassert/usage');
 const assert_warning = require('reassert/warning');
