@@ -16,7 +16,9 @@ async function checkIfPublished() {
         if( !hasEqualTags(tags, referenceTags) ){
             hasError = true;
             console.log(colorError("The two packages "+packageName+" and "+referencePackage.packageName+" have different tags:")),
+            console.log("Tags of "+packageName+":");
             console.log(tags);
+            console.log("Tags of "+referencePackage.packageName+":");
             console.log(referenceTags);
             console.log();
         }
