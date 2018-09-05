@@ -12,6 +12,7 @@
         "release": "node ./helpers/dev-utils/package-management/npm-registry/setNpmTag.js latest",
         "release-check": "node ./helpers/dev-utils/package-management/npm-registry/checkIfCorrectlyPublished.js",
         "deps": "check-deps",
+        "upgrade-deps": "node ./helpers/dev-utils/package-management/dependency-management/upgradeDeps.js",
         "clean": "git clean -xdff"
     },
     "devDependencies": {

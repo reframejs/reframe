@@ -20,6 +20,8 @@ function getPackages() {
 
             const {exec, execSync} = getExecFunctions({packageDir});
 
+            const {deps} = getDeps({packageJson});
+
             return {
                 packageDir,
                 packageJson,
@@ -48,6 +50,21 @@ function getNameAndVersion({packageJson}) {
     const packageNameAndVersion = name+'@'+version;
 
     return {packageName, packageVersion, packageNameAndVersion};
+}
+
+function getDeps({packageJson}) {
+    const deps = {};
+    [
+        ...(Object.entries(packageJson.dependencies    ||{}).map(([name, version]) => ({name, version}))),
+        ...(Object.entries(packageJson.devDependencies ||{}).map(([name, version]) => ({name, version, isDev: true}))),
+        ...(Object.entries(packageJson.peerDependencies||{}).map(([name, version]) => ({name, version, isPeer: true}))),
+    ]
+    .forEach(({name, version, isDev, isPeer}) => {
+        assert(!deps[name], name, packageJson.name);
+        deps[name] = {name, version, isDev, isPeer};
+    });
+
+    return {deps};
 }
 
 function getExecFunctions({packageDir}) {
