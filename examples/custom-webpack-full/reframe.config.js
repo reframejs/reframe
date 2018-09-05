@@ -5,11 +5,11 @@ const rules = [
             loader: require.resolve('babel-loader'),
             options: {
                 presets: [
-                    require.resolve('babel-preset-react'),
-                    require.resolve('babel-preset-env'),
+                    require.resolve('@babel/preset-react'),
+                    require.resolve('@babel/preset-env'),
                 ],
                 plugins: [
-                    require.resolve('babel-plugin-transform-object-rest-spread')
+                    require.resolve('@babel/plugin-proposal-object-rest-spread')
                 ],
             }
         },
@@ -19,8 +19,8 @@ const rules = [
 
 const webpackBrowserConfig = () => ({
     entry: [
-        require.resolve('babel-polyfill'),
-        require.resolve('../basics/pages/counter/CounterPage-entry-2.js'),
+        require.resolve('@babel/polyfill'),
+        require.resolve('../custom-browser/pages/custom-hydration.js'),
     ],
     output: {
         publicPath: '/',
@@ -31,7 +31,7 @@ const webpackBrowserConfig = () => ({
 });
 
 const webpackNodejsConfig = () => ({
-    entry: require.resolve('../basics/pages/counter/CounterPage.config.js'),
+    entry: require.resolve('../custom-browser/pages/custom-hydration.config.js'),
     target: 'node',
     output: {
         publicPath: '/',

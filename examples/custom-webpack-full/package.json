@@ -2,19 +2,19 @@
   "name": "_example-custom-webpack-full",
   "private": true,
   "dependencies": {
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/polyfill": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-react": "^7.0.0",
     "@reframe/react-kit": "0.1.14",
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-react": "^6.24.1",
-    "react": "^16.1.1"
+    "babel-loader": "^8.0.2",
+    "react": "^16.4.2"
   },
   "checkDeps": {
     "skip": [
       "@reframe/react-kit",
-      "babel-core",
+      "@babel/core",
       "react"
     ]
   },
