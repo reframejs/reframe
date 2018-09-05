@@ -20,7 +20,7 @@ function getPackages() {
 
             const {exec, execSync} = getExecFunctions({packageDir});
 
-            const {deps} = getDeps({packageJson});
+            const {depsAll, deps, depsDev, depsPeer} = getDeps({packageJson});
 
             return {
                 packageDir,
@@ -29,6 +29,8 @@ function getPackages() {
                 packageName,
                 packageVersion,
                 packageNameAndVersion,
+
+                depsAll, deps, depsDev, depsPeer,
 
                 exec,
                 execSync,
@@ -53,7 +55,7 @@ function getNameAndVersion({packageJson}) {
 }
 
 function getDeps({packageJson}) {
-    const deps = {};
+    const depsAll = {};
     [
         ...(Object.entries(packageJson.dependencies    ||{}).map(([name, version]) => ({name, version}))),
         ...(Object.entries(packageJson.devDependencies ||{}).map(([name, version]) => ({name, version, isDev: true}))),
@@ -64,7 +66,11 @@ function getDeps({packageJson}) {
         deps[name] = {name, version, isDev, isPeer};
     });
 
-    return {deps};
+    const deps = Object.values(depsAll).filter(({isDev, isPeer}) => !isDev && !isPeer);
+    const depsDev = Object.values(depsAll).filter(({isDev}) => isDev);
+    const depsPeer = Object.values(depsAll).filter(({isPeer}) => isPeer);
+
+    return {depsAll, deps, depsDev, depsPeer};
 }
 
 function getExecFunctions({packageDir}) {

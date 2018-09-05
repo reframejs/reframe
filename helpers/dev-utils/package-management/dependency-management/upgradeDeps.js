@@ -6,7 +6,7 @@ const currentPackageName = process.argv[2];
 
 upgradeDeps(currentPackageName);
 
-function upgradeDeps(currentPackageName) {
+async function upgradeDeps(currentPackageName) {
     const packages = getPackages();
 
     let currentPackage;
@@ -30,6 +30,11 @@ function upgradeDeps(currentPackageName) {
         assert(currentPackage, 'No package found at '+cwd);
     }
 
-    console.log(currentPackage);
+    const {depsAll, deps, depsDev, depsPeer} = currentPackage;
+
+    await exec
+    console.log("Upgrade dependencies ");
+    const 
+    await exec('yarn', ['add', ...deps.map(({name}) => name+'@latest').join(' ')]);
     console.log(currentPackage.deps);
 }
