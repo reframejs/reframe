@@ -50,7 +50,7 @@ async function upgrade(exec, depList, flag) {
         cmdArgs,
         {
             logCommand: true,
-            previewMode: true,
+         // previewMode: true,
         }
     );
 }
