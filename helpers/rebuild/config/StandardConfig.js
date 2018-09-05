@@ -442,13 +442,6 @@ function config_es_latest({is_node_target}) {
                         plugins: [
                             require.resolve("@babel/plugin-proposal-object-rest-spread"),
                             require.resolve("@babel/plugin-transform-strict-mode"),
-                            /*
-                            is_node_target ? (
-                                require.resolve("babel-plugin-dynamic-import-node")
-                            ) : (
-                                require.resolve("babel-plugin-syntax-dynamic-import")
-                            ),
-                            */
                         ],
                     },
                 },
