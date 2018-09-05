@@ -110,7 +110,7 @@ const config = {
                     {
                         loader: 'babel-loader',
                         options: {
-                            presets: ['babel-preset-env']
+                            presets: ['@babel/preset-env']
                         }
                     }
                 ]
@@ -120,14 +120,14 @@ const config = {
 };
 
 mod.setRule(config, '.css', {use: ['style-loader', 'css-loader']});
-mod.addBabelPreset(config, 'babel-preset-react');
-mod.addBabelPlugin(config, 'babel-plugin-transform-decorators');
+mod.addBabelPreset(config, '@babel/preset-react');
+mod.addBabelPlugin(config, '@babel/plugin-proposal-decorators');
 
 const jsRule = mod.getRule(config, '.js');
 const babelLoader = jsRule.use.find(({loader}) => loader==='babel-loader');
-assert(babelLoader.options.presets.includes('babel-preset-env'));
-assert(babelLoader.options.presets.includes('babel-preset-react'));
-assert(babelLoader.options.plugins.includes('babel-plugin-transform-decorators'));
+assert(babelLoader.options.presets.includes('@babel/preset-env'));
+assert(babelLoader.options.presets.find(preset => preset[0]==='@babel/preset-react'));
+assert(babelLoader.options.plugins.find(preset => preset[0]==='@babel/plugin-proposal-decorators'));
 
 const entries = mod.getEntries(config);
 assert(entries['main'][0] === './path/to/entry-file.js');
