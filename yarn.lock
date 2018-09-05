@@ -678,7 +678,7 @@
     find-up "^2.1.0"
     reassert "^1.1.8"
 
-"@brillout/mdocs@^0.1.15", "@brillout/mdocs@^0.1.16", "@brillout/mdocs@^0.1.19":
+"@brillout/mdocs@^0.1.15", "@brillout/mdocs@^0.1.16", "@brillout/mdocs@^0.1.19", "@brillout/mdocs@^0.1.20":
   version "0.1.20"
   resolved "https://registry.yarnpkg.com/@brillout/mdocs/-/mdocs-0.1.20.tgz#d04f74139b93876350d8137662a89bf8b756e7ae"
   dependencies:
@@ -1534,9 +1534,9 @@ babel-plugin-check-es2015-constants@^6.22.0:
   dependencies:
     babel-runtime "^6.22.0"
 
-babel-plugin-react-native-web@^0.6.1:
-  version "0.6.1"
-  resolved "https://registry.yarnpkg.com/babel-plugin-react-native-web/-/babel-plugin-react-native-web-0.6.1.tgz#9a1434235ead0e16725014367ac1b9cb109f4b27"
+babel-plugin-react-native-web@^0.8.9:
+  version "0.8.9"
+  resolved "https://registry.yarnpkg.com/babel-plugin-react-native-web/-/babel-plugin-react-native-web-0.8.9.tgz#3c7e94ddc542595b1b3a3d71c8e9c40ef7b05127"
 
 babel-plugin-syntax-async-functions@^6.8.0:
   version "6.13.0"
@@ -6669,7 +6669,7 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-art@^16.3.2:
+react-art@^16.4.2:
   version "16.4.2"
   resolved "https://registry.yarnpkg.com/react-art/-/react-art-16.4.2.tgz#df6846dab6e11ef13ae07d33d64cff50925de2da"
   dependencies:
@@ -6680,7 +6680,7 @@ react-art@^16.3.2:
     object-assign "^4.1.1"
     prop-types "^15.6.0"
 
-react-dom@^16.1.1:
+react-dom@^16.1.1, react-dom@^16.4.2:
   version "16.4.2"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.4.2.tgz#4afed569689f2c561d2b8da0b819669c38a0bda4"
   dependencies:

@@ -132,30 +132,50 @@ function getBabelLoaders(config, {canBeMissing}) {
 
 }
 
-function addBabelPreset(config, babelPreset, {canBeMissing=true}={}) {
+function addBabelPreset(...args) {
+    addBabelThing('presets', ...args)
+}
+
+function addBabelPlugin(...args) {
+    addBabelThing('plugins', ...args)
+}
+
+function addBabelThing(where, config, babelThing, {canBeMissing=true}={}) {
+    const {name, options, spec} = parseBabelThing(babelThing);
     modifyBabelOptions(
         config,
         loader => {
             assert_internal(isBabelLoader(loader));
             loader.options = loader.options || {};
-            loader.options.presets = loader.options.presets || [];
-            loader.options.presets.push(babelPreset);
+            loader.options[where] = loader.options[where] || [];
+            const idx = loader.options[where].findIndex(babelThing => parseBabelThing(babelThing).name===name);
+            if( idx !== -1 ) {
+                loader.options[where][idx] = spec;
+            } else {
+                loader.options[where].push(spec);
+            }
         },
         {canBeMissing}
     );
 }
 
-function addBabelPlugin(config, babelPlugin, {canBeMissing=true}={}) {
-    modifyBabelOptions(
-        config,
-        loader => {
-            assert_internal(isBabelLoader(loader));
-            loader.options = loader.options || {};
-            loader.options.plugins = loader.options.plugins || [];
-            loader.options.plugins.push(babelPlugin);
-        },
-        {canBeMissing}
-    );
+// Works for babel presets as well as for babel plugins
+function parseBabelThing(babelThing) {
+    assert_usage([String, Array].includes(babelThing.constructor));
+    let name;
+    let options;
+    if( babelThing.constructor === Array ) {
+        name = babelThing[0];
+        options = babelThing[1];
+    } else {
+        name = babelThing;
+    }
+    assert_usage(name.constructor===String, babelThing);
+    spec = [name];
+    if( options ) {
+        spec.push(options);
+    }
+    return {name, options, spec};
 }
 
 function addExtension(config, extension) {
