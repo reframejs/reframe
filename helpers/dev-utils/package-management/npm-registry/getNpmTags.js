@@ -1,4 +1,4 @@
-const getPackages = require('./getPackages');
+const getPackages = require('../getPackages');
 const assert = require('reassert');
 
 module.exports = getNpmTags;

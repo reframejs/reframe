@@ -9,8 +9,8 @@
         "publish-retry-npm": "lerna publish --force-publish=* --npm-tag=next --skip-git",
         "release-dry-run": "lerna publish --force-publish=* --npm-tag=next --skip-git --skip-npm",
         "release-prepare": "lerna publish --force-publish=* --npm-tag=next",
-        "release": "node ./helpers/dev-utils/npm/setNpmTag.js latest",
-        "release-check": "node ./helpers/dev-utils/npm/checkIfCorrectlyPublished.js",
+        "release": "node ./helpers/dev-utils/package-management/npm-registry/setNpmTag.js latest",
+        "release-check": "node ./helpers/dev-utils/package-management/npm-registry/checkIfCorrectlyPublished.js",
         "deps": "check-deps",
         "clean": "git clean -xdff"
     },
