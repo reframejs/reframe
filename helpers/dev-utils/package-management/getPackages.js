@@ -21,24 +21,27 @@ function getPackages() {
 
             const {exec, execSync} = getExecFunctions({packageDir});
 
-            const {depsAll, deps, depsDev, depsPeer} = getDeps({packageJson});
-
             return {
-                packageDir,
-                packageJson,
+                packageDir, packageJson,
 
-                packageName,
-                packageVersion,
-                packageNameAndVersion,
+                packageName, packageVersion, packageNameAndVersion,
 
-                depsAll, deps, depsDev, depsPeer,
-
-                exec,
-                execSync,
+                exec, execSync,
             };
         })
         .filter(({packageJson}) => !packageJson.private)
     );
+
+    packages.forEach(packageInfo => {
+        const {packageJson} = packageInfo;
+        const {depsAll, deps, depsDev, depsPeer} = getDeps(packages, {packageJson});
+        Object.assign(
+            packageInfo,
+            {
+                depsAll, deps, depsDev, depsPeer,
+            }
+        );
+    });
 
     assert_save_version(packages);
 
@@ -55,7 +58,7 @@ function getNameAndVersion({packageJson}) {
     return {packageName, packageVersion, packageNameAndVersion};
 }
 
-function getDeps({packageJson}) {
+function getDeps(packages, {packageJson}) {
     const depsAll = {};
     [
         ...(Object.entries(packageJson.dependencies    ||{}).map(([name, version]) => ({name, version}))),
@@ -64,7 +67,16 @@ function getDeps({packageJson}) {
     ]
     .forEach(({name, version, isDev, isPeer}) => {
         assert(!depsAll[name], name, packageJson.name);
-        depsAll[name] = {name, version, isDev, isPeer};
+
+        const isWorkspace = packages.find(({packageName}) => packageName===name);
+
+        depsAll[name] = {
+            name, version,
+
+            isDev, isPeer,
+
+            isWorkspace,
+        };
     });
 
     const deps = Object.values(depsAll).filter(({isDev, isPeer}) => !isDev && !isPeer);

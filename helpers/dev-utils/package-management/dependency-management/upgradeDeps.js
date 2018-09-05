@@ -41,7 +41,8 @@ async function upgrade(exec, depList, flag) {
     if( (depList||[]).length===0 ) {
         return;
     }
-    const cmdArgs = ['add', ...depList.map(({name}) => name+'@latest')];
+    const depsToUpdate = depList.filter(({isWorkspace}) => !isWorkspace);
+    const cmdArgs = ['add', ...depsToUpdate.map(({name}) => name+'@latest')];
     if( flag ) {
         cmdArgs.push(flag);
     }
