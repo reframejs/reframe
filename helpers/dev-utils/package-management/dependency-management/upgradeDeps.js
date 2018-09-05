@@ -45,11 +45,13 @@ async function upgrade(exec, depList, flag) {
     if( flag ) {
         cmdArgs.push(flag);
     }
+    console.log();
     await exec(
         'yarn',
         cmdArgs,
         {
             logCommand: true,
+            logOutput: true,
          // previewMode: true,
         }
     );

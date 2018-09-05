@@ -77,7 +77,7 @@ function getDeps({packageJson}) {
 function getExecFunctions({packageDir: cwd}) {
     const execGeneric = (
         (sync, cmd, cmdArgs=[], options={}) => {
-            const {logCommand, previewMode, ...execOpts} = {cwd, ...options};
+            const {logCommand, logOutput, previewMode, ...execOpts} = {cwd, ...options};
 
             if( logCommand ) {
                 console.log('Executing '+colorEmphasisLight([cmd, ...cmdArgs].join(' '))+' at '+colorEmphasis(cwd));
@@ -85,7 +85,13 @@ function getExecFunctions({packageDir: cwd}) {
 
             if( ! previewMode ) {
                 const executioner = (sync?execa.sync:execa);
-                return executioner(cmd, cmdArgs, execOpts);
+                const ret = executioner(cmd, cmdArgs, execOpts);
+                if( logOutput ) {
+                    if( logCommand ) console.log();
+                    const stream = ret.stdout;
+                    stream.pipe(process.stdout);
+                }
+                return ret;
             }
         }
     );
