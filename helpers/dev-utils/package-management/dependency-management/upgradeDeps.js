@@ -30,11 +30,27 @@ async function upgradeDeps(currentPackageName) {
         assert(currentPackage, 'No package found at '+cwd);
     }
 
-    const {depsAll, deps, depsDev, depsPeer} = currentPackage;
+    const {exec, depsAll, deps, depsDev, depsPeer} = currentPackage;
 
-    await exec
-    console.log("Upgrade dependencies ");
-    const 
-    await exec('yarn', ['add', ...deps.map(({name}) => name+'@latest').join(' ')]);
-    console.log(currentPackage.deps);
+    await upgrade(exec, deps);
+    await upgrade(exec, depsDev, '--dev');
+    await upgrade(exec, depsPeer, '--peer');
+}
+
+async function upgrade(exec, depList, flag) {
+    if( (depList||[]).length===0 ) {
+        return;
+    }
+    const cmdArgs = ['add', ...depList.map(({name}) => name+'@latest')];
+    if( flag ) {
+        cmdArgs.push(flag);
+    }
+    await exec(
+        'yarn',
+        cmdArgs,
+        {
+            logCommand: true,
+            previewMode: true,
+        }
+    );
 }

@@ -1,4 +1,5 @@
 process.on('unhandledRejection', err => {throw err});
+const {colorEmphasis, colorEmphasisLight} = require('@brillout/cli-theme');
 
 const assert = require('reassert');
 const rootPackageJsonFile = require.resolve('../../../package.json');
@@ -62,8 +63,8 @@ function getDeps({packageJson}) {
         ...(Object.entries(packageJson.peerDependencies||{}).map(([name, version]) => ({name, version, isPeer: true}))),
     ]
     .forEach(({name, version, isDev, isPeer}) => {
-        assert(!deps[name], name, packageJson.name);
-        deps[name] = {name, version, isDev, isPeer};
+        assert(!depsAll[name], name, packageJson.name);
+        depsAll[name] = {name, version, isDev, isPeer};
     });
 
     const deps = Object.values(depsAll).filter(({isDev, isPeer}) => !isDev && !isPeer);
@@ -73,8 +74,21 @@ function getDeps({packageJson}) {
     return {depsAll, deps, depsDev, depsPeer};
 }
 
-function getExecFunctions({packageDir}) {
-    const execGeneric = (sync, file, args=[], options={}) => (sync?execa.sync:execa)(file, args, {cwd: packageDir, ...options});
+function getExecFunctions({packageDir: cwd}) {
+    const execGeneric = (
+        (sync, cmd, cmdArgs=[], options={}) => {
+            const {logCommand, previewMode, ...execOpts} = {cwd, ...options};
+
+            if( logCommand ) {
+                console.log('Executing '+colorEmphasisLight([cmd, ...cmdArgs].join(' '))+' at '+colorEmphasis(cwd));
+            }
+
+            if( ! previewMode ) {
+                const executioner = (sync?execa.sync:execa);
+                return executioner(cmd, cmdArgs, execOpts);
+            }
+        }
+    );
 
     const exec = (...args) => execGeneric(false, ...args);
     const execSync = (...args) => execGeneric(true, ...args);
