@@ -15,9 +15,12 @@
 Framework to create web apps.
 Designed for high development speed with no sacrifice on flexibility.
 
-Assembles a JavaScript stack with integrations for Node.js servers (Express, Koa, Hapi), Node.js ORMs (TypeORM & more to come), React, React Router, React Native Web, Vue.js, TypeScript, PostCSS, etc.
+Assembles a JavaScript stack with integrations for:
+Node.js servers (Express, Koa, Hapi),
+Node.js ORMs (TypeORM & more to come),
+React, React Router, React Native Web, Vue.js, TypeScript, PostCSS, etc.
 
-All stacks are supported:
+All stacks supported:
 <br/> &nbsp; &#8226; &nbsp; frontend + backend + database/ORM (aka full-stack)
 <br/> &nbsp; &#8226; &nbsp; frontend + backend (aka SSR)
 <br/> &nbsp; &#8226; &nbsp; frontend only (aka static site)
@@ -69,11 +72,10 @@ Reframe's flexibility is based on three pillars:
    That way, we manage to keep the glue code to a tiny ~500 lines of code.
 
 3. **Flexible stack** -
-   Reframe assembles a flexible stack:
-   You can configure your app to have a frontend only (aka static site), a frontend + backend (aka SSR app), a backend only (aka old-school app with plain old HTML), or a frontend + backend + database/ORM (aka full-stack app).
-   Also, it is easy to later remove/add a backend, frontend, or database/ORM to an existing app.
+   You can configure your app to have a frontend only (aka static site), a frontend + backend (aka SSR), a backend only (aka old-school app with plain old HTML), or a frontend + backend + database/ORM (aka full-stack).
+   It is easy to later remove/add a backend, frontend, or database/ORM to an existing app.
 
-Some benefits of Reframe's flexibility:
+Some benefits of that flexibility:
 
 **Take Over Control** -
 You can eject and take control over Reframe parts

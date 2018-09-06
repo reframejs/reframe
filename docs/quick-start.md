@@ -3,15 +3,15 @@
    $ npm install -g @reframe/cli
    ~~~
 
-2. Initialize a new Reframe app.
+2. Create a new Reframe app.
    ~~~shell
-   $ reframe create !ARGUMENT-1 my-app
+   $ reframe create !ARGUMENT-1
    ~~~
-   A `my-app/` directory is created and populated with a scaffold.
+   A `my-reframe-app/` directory is created and populated with the !ARGUMENT-1 starter.
 
-3. Build the pages and start the server.
+3. Build and serve the app.
    ~~~shell
-   $ cd my-app
+   $ cd my-reframe-app/
    $ reframe dev
    ~~~
 
