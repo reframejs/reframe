@@ -3,7 +3,7 @@
 !INLINE ./header.md --hide-source-path
 <br/>
 !INLINE ./links.md --hide-source-path
-<br/>
+&nbsp;
 !MENU
 
 # Usage Manual
