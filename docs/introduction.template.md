@@ -12,16 +12,15 @@
 
 <br/>
 
-Framework to create web apps.
-Designed for high development speed with no sacrifice on flexibility.
+Framework to create web apps.<br/>Designed for high development speed with no sacrifice on flexibility.
 
 Assembles a JavaScript stack with integrations for Node.js servers (Express, Koa, Hapi), Node.js ORMs (TypeORM & more to come), React, React Router, React Native Web, Vue.js, TypeScript, PostCSS, etc.
 
 All stacks are supported:
-- frontend + backend + database/ORM (aka full-stack)
-- frontend + backend (aka SSR)
-- frontend only (aka static site)
-- backend only
+<br/> &8226; &nbsp; frontend + backend + database/ORM (aka full-stack)
+<br/> &8226; &nbsp; frontend + backend (aka SSR)
+<br/> &8226; &nbsp; frontend only (aka static site)
+<br/> &8226; &nbsp; backend only
 
 Example:
 <img src='https://github.com/reframejs/reframe/raw/master/docs/images/previews/welcome.png?sanitize=true'/>
