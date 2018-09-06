@@ -75,8 +75,7 @@
 
 
 -->
-<p align='center'>[**Introduction**](/../../) &nbsp; | &nbsp; [Starters](/docs/starters.md) &nbsp; | &nbsp; [Usage Manual](/docs/usage-manual.md) &nbsp; | &nbsp; [Concepts](/docs/concepts.md) &nbsp; | &nbsp; [Plugins](/docs/plugins.md)</p>
-<br/>
+<p align='center'><a href="/../../"><b>Introduction</b></a> &nbsp; | &nbsp; <a href="/docs/starters.md">Starters</a> &nbsp; | &nbsp; <a href="/docs/usage-manual.md">Usage Manual</a> &nbsp; | &nbsp; <a href="/docs/concepts.md">Concepts</a> &nbsp; | &nbsp; <a href="/docs/plugins.md">Plugins</a></p>
 <br/>
 <br/>
 <a href="https://github.com/reframejs/reframe">
