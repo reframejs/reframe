@@ -75,8 +75,6 @@
 
 
 -->
-<p align='center'><a href="/../../#readme"><b>Introduction</b></a> &nbsp; | &nbsp; <a href="/docs/starters.md#readme">Starters</a> &nbsp; | &nbsp; <a href="/docs/usage-manual.md#readme">Usage Manual</a> &nbsp; | &nbsp; <a href="/docs/concepts.md#readme">Concepts</a> &nbsp; | &nbsp; <a href="/docs/plugins.md#readme">Plugins</a></p>
-<br/>
 <a href="https://github.com/reframejs/reframe">
     <img align="left" src="https://github.com/reframejs/reframe/raw/master/docs/images/logo-with-title.min.svg?sanitize=true" width=399 height=79 style="max-width:100%;" alt="Reframe"/>
 </a>
@@ -127,11 +125,9 @@
         &nbsp;&nbsp;&nbsp;&nbsp;
     </sup>
 </p>
-
-
-<br/>
-
-<br/>
+&nbsp;
+<p align='center'><a href="/../../#readme"><b>Introduction</b></a> &nbsp; | &nbsp; <a href="/docs/starters.md#readme">Starters</a> &nbsp; | &nbsp; <a href="/docs/usage-manual.md#readme">Usage Manual</a> &nbsp; | &nbsp; <a href="/docs/concepts.md#readme">Concepts</a> &nbsp; | &nbsp; <a href="/docs/plugins.md#readme">Plugins</a></p>
+&nbsp;
 
 Framework to create web apps.
 Designed for high development speed with no sacrifice on flexibility.

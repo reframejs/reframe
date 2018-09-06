@@ -3,7 +3,8 @@
 !MENU_LINK /../../
 !OUTPUT ../readme.md
 !INLINE ./snippets/header.md --hide-source-path
-!INLINE ./snippets/header.md --hide-source-path
+!MENU
+&nbsp;
 
 Framework to create web apps.
 Designed for high development speed with no sacrifice on flexibility.

@@ -1,6 +1,8 @@
 !MENU_ORDER 30
 !MENU_INDENT 12
 !INLINE ./snippets/header.md --hide-source-path
+!MENU
+&nbsp;
 
 # Usage Manual
 
