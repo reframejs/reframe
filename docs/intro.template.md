@@ -15,12 +15,7 @@
 Framework to create web apps.
 Designed for high development speed with no sacrifice on flexibility.
 
-Assembles a JavaScript stack with integrations for:
- - Node.js servers (Express, Koa, Hapi)
- - Node.js ORMs (TypeORM & more to come)
- - React & Co (React Router, React Native Web)
- - Vue.js
- - Dev tools (TypeScript, PostCSS)
+Assembles a JavaScript stack with integrations for Node.js servers (Express, Koa, Hapi), Node.js ORMs (TypeORM & more to come), React, React Router, React Native Web, Vue.js, TypeScript, PostCSS, etc.
 
 All stacks are supported:
  - frontend + backend + database/ORM (aka full-stack)
