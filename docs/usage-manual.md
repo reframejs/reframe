@@ -127,7 +127,7 @@
 </p>
 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Introduction](/../../)<br/>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Starters: [React Server](/docs/react-server-starter.md) | [React Frontend](/docs/react-frontend-starter.md) | [React Database](/docs/react-database-starter.md)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Starters](/docs/starters.md)<br/>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [**Usage Manual**](/docs/usage-manual.md)<br/>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Concepts](/docs/concepts.md)<br/>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Plugins](/docs/plugins.md)
@@ -190,24 +190,29 @@
 
 ## Getting Started
 
-Choose a starter:
+1. Install the Reframe CLI.
+   ~~~shell
+   $ npm install -g @reframe/cli
+   ~~~
 
-- [React Server](/docs/react-server-starter.md)
-- [React Frontend](/docs/react-frontend-starter.md)
-- [React Database](/docs/react-database-starter.md) (Work-in-progress)
+2. Create a new Reframe app.
+   ~~~shell
+   $ reframe create react-frontend
+   ~~~
+   A `my-reframe-app/` directory is created and populated with the !ARGUMENT-1 starter.
 
-They scaffold the following:
+3. Build and serve the app.
+   ~~~shell
+   $ cd my-reframe-app/
+   $ reframe dev
+   ~~~
 
-&nbsp; | React Frontend | React Server | React Database
---- | :---: | :---: | :---:
-React Frontend | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:
-Node.js Server | :x: | :heavy_check_mark: | :heavy_check_mark:
-Database/ORM | :x: | :x: | :heavy_check_mark:
+4. Open [http://localhost:3000](http://localhost:3000).
 
-Don't bother choosing the right starter:
-You can easily add/remove a Node.js server and add/remove a database/ORM afterwards.
-Instead, quickly choose a starter and start write your prototype.
-As your prototype grows add/remove what you need.
+5. **Read the entire [Usage Basics](/plugins/create/starters/readme.md#react-frontend) section of the react-frontend starter**.
+
+We recommand the react-frontend starter for you first Reframe app.
+But you can also pick another starter from the [list of starters](/docs/starters.md).
 
 <b><sub><a href="#basics">&#8679; TOP &#8679;</a></sub></b>
 <br/>

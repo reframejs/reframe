@@ -7,7 +7,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/plugins.template.md` instead.
+    Edit `/docs/starters.template.md` instead.
 
 
 
@@ -22,7 +22,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/plugins.template.md` instead.
+    Edit `/docs/starters.template.md` instead.
 
 
 
@@ -37,7 +37,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/plugins.template.md` instead.
+    Edit `/docs/starters.template.md` instead.
 
 
 
@@ -52,7 +52,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/plugins.template.md` instead.
+    Edit `/docs/starters.template.md` instead.
 
 
 
@@ -67,7 +67,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/plugins.template.md` instead.
+    Edit `/docs/starters.template.md` instead.
 
 
 
@@ -127,38 +127,32 @@
 </p>
 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Introduction](/../../)<br/>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Starters](/docs/starters.md)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [**Starters**](/docs/starters.md)<br/>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Usage Manual](/docs/usage-manual.md)<br/>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Concepts](/docs/concepts.md)<br/>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [**Plugins**](/docs/plugins.md)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Plugins](/docs/plugins.md)
 
 <br/>
 
-# Plugins
+# Starters
 
-List of Reframe plugins. Make a PR to add yours.
 
-###### Languages
- - [@reframe/typescript](/plugins/typescript) - Use Reframe with TypeScript.
- - [@reframe/postcss](/plugins/postcss) - Use Reframe with PostCSS.
+- [React Server](/docs/react-server-starter.md)
+- [React Frontend](/docs/react-frontend-starter.md)
+- [React Database](/docs/react-database-starter.md) (Work-in-progress)
 
-###### Servers
- - [@reframe/koa](/plugins/koa) - Use Reframe with Koa.
- - [@reframe/hapi](/plugins/hapi) - Use Reframe with Hapi.
+They scaffold the following:
 
-###### Renderers
- - [@reframe/react](/plugins/react) - Use Reframe with React.
- - [@reframe/react-native-web](/plugins/react-native-web) - Use Reframe with [React Native Web](https://github.com/necolas/react-native-web).
- - [@reframe/vue](/plugins/vue) - Use Reframe with Vue.
+&nbsp; | React Frontend | React Server | React Database
+--- | :---: | :---: | :---:
+React Frontend | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:
+Node.js Server | :x: | :heavy_check_mark: | :heavy_check_mark:
+Database/ORM | :x: | :x: | :heavy_check_mark:
 
-###### Kits
- - [@reframe/react-kit](/plugins/react-kit) - Reframe's React-Kit.
-
-###### Routers
- - [@reframe/react-router](/plugins/react-router) - Use React Router's components.
- - [@reframe/crossroads](/plugins/crossroads) - Use Reframe with [Crossroads.js](https://github.com/millermedeiros/crossroads.js).
- - [@reframe/path-to-regexp](/plugins/path-to-regexp) - Use Reframe with [`path-to-regexp`](https://github.com/pillarjs/path-to-regexp).
-
+Don't bother choosing the right starter:
+You can easily add/remove a Node.js server and add/remove a database/ORM afterwards.
+Instead, quickly choose a starter and start write your prototype.
+As your prototype grows add/remove what you need.
 
 <!---
 
@@ -169,7 +163,7 @@ List of Reframe plugins. Make a PR to add yours.
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/plugins.template.md` instead.
+    Edit `/docs/starters.template.md` instead.
 
 
 
@@ -184,7 +178,7 @@ List of Reframe plugins. Make a PR to add yours.
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/plugins.template.md` instead.
+    Edit `/docs/starters.template.md` instead.
 
 
 
@@ -199,7 +193,7 @@ List of Reframe plugins. Make a PR to add yours.
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/plugins.template.md` instead.
+    Edit `/docs/starters.template.md` instead.
 
 
 
@@ -214,7 +208,7 @@ List of Reframe plugins. Make a PR to add yours.
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/plugins.template.md` instead.
+    Edit `/docs/starters.template.md` instead.
 
 
 
@@ -229,7 +223,7 @@ List of Reframe plugins. Make a PR to add yours.
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/plugins.template.md` instead.
+    Edit `/docs/starters.template.md` instead.
 
 
 

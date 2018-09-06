@@ -127,7 +127,7 @@
 </p>
 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [**Introduction**](/../../)<br/>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Starters: [React Server](/docs/react-server-starter.md) | [React Frontend](/docs/react-frontend-starter.md) | [React Database](/docs/react-database-starter.md)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Starters](/docs/starters.md)<br/>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Usage Manual](/docs/usage-manual.md)<br/>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Concepts](/docs/concepts.md)<br/>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Plugins](/docs/plugins.md)
@@ -139,15 +139,18 @@
 Framework to create web apps.
 Designed for high development speed with no sacrifice on flexibility.
 
-Assembles a JavaScript stack with integrations for Node.js servers (Express, Koa, Hapi), Node.js ORMs (TypeORM & more to come), React, React Router, React Native Web, Vue.js, TypeScript, PostCSS, etc.
+Assembles a JavaScript stack with integrations for:
+Node.js servers (Express, Koa, Hapi),
+Node.js ORMs (TypeORM & more to come),
+React, React Router, React Native Web, Vue.js, TypeScript, PostCSS, etc.
 
-All stacks are supported:
+All stacks supported:
 <br/> &nbsp; &#8226; &nbsp; frontend + backend + database/ORM (aka full-stack)
 <br/> &nbsp; &#8226; &nbsp; frontend + backend (aka SSR)
 <br/> &nbsp; &#8226; &nbsp; frontend only (aka static site)
 <br/> &nbsp; &#8226; &nbsp; backend only
 
-Hello world:
+Hello world app:
 <img src='https://github.com/reframejs/reframe/raw/master/docs/images/previews/welcome.png?sanitize=true'/>
 
 <br/>
@@ -155,7 +158,7 @@ Hello world:
 
  - [Introduction](#introduction)
  - [Examples](#examples)
- - [Getting Started](#getting-started)
+ - [Quick Start](#quick-start)
 
 ### Introduction
 
@@ -193,11 +196,10 @@ Reframe's flexibility is based on three pillars:
    That way, we manage to keep the glue code to a tiny ~500 lines of code.
 
 3. **Flexible stack** -
-   Reframe assembles a flexible stack:
-   You can configure your app to have a frontend only (aka static site), a frontend + backend (aka SSR app), a backend only (aka old-school app with plain old HTML), or a frontend + backend + database/ORM (aka full-stack app).
-   Also, it is easy to later remove/add a backend, frontend, or database/ORM to an existing app.
+   You can configure your app to have a frontend only (aka static site), a frontend + backend (aka SSR), a backend only (aka old-school app with plain old HTML), or a frontend + backend + database/ORM (aka full-stack).
+   It is easy to later remove/add a backend, frontend, or database/ORM to an existing app.
 
-Some benefits of Reframe's flexibility:
+Some benefits of that flexibility:
 
 **Take Over Control** -
 You can eject and take control over Reframe parts
@@ -212,10 +214,10 @@ At that point your code doesn't depend on Reframe anymore and only depends on do
 **Rapid Prototyping** -
 You can change your app's stack at any point in time which comes in handy for quick prototyping.
 For example,
-you can have your first prototype to be a frontend only (static site)
-that you can easily deploy (to a static host such as Netlify or GitHub Pages).
-You would skip a database by hard-writing the data in your code base.
-Then, at a later point when hard-writing data isn't sustainable anymore, you would add a server and a real database to your prototype.
+you can implement your first prototype as a frontend only (static site)
+so that you can deploy easily and for free (to a static host such as Netlify or GitHub Pages).
+You would first skip a real database by hard-writing the data in your code base.
+Then, at a later point when hard-writing data isn't sustainable anymore, you add a server and a real database to your prototype.
 
 **Learn Once, Write Any App** -
 Instead of learning different web frameworks depending on what JavaScript stack you need,
@@ -355,26 +357,31 @@ we simply defined pages, data models, and permissions to create a full-stack app
 
 
 
-### Getting Started
+### Quick Start
 
-Choose a starter:
+1. Install the Reframe CLI.
+   ~~~shell
+   $ npm install -g @reframe/cli
+   ~~~
 
-- [React Server](/docs/react-server-starter.md)
-- [React Frontend](/docs/react-frontend-starter.md)
-- [React Database](/docs/react-database-starter.md) (Work-in-progress)
+2. Create a new Reframe app.
+   ~~~shell
+   $ reframe create react-frontend
+   ~~~
+   A `my-reframe-app/` directory is created and populated with the !ARGUMENT-1 starter.
 
-They scaffold the following:
+3. Build and serve the app.
+   ~~~shell
+   $ cd my-reframe-app/
+   $ reframe dev
+   ~~~
 
-&nbsp; | React Frontend | React Server | React Database
---- | :---: | :---: | :---:
-React Frontend | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:
-Node.js Server | :x: | :heavy_check_mark: | :heavy_check_mark:
-Database/ORM | :x: | :x: | :heavy_check_mark:
+4. Open [http://localhost:3000](http://localhost:3000).
 
-Don't bother choosing the right starter:
-You can easily add/remove a Node.js server and add/remove a database/ORM afterwards.
-Instead, quickly choose a starter and start write your prototype.
-As your prototype grows add/remove what you need.
+5. **Read the entire [Usage Basics](/plugins/create/starters/readme.md#react-frontend) section of the react-frontend starter**.
+
+We recommand the react-frontend starter for you first Reframe app.
+But you can also pick another starter from the [list of starters](/docs/starters.md).
 
 <b><sub><a href="#introduction">&#8679; TOP &#8679;</a></sub></b>
 
