@@ -106,10 +106,10 @@ async function scaffoldProject({starter, projectRootDir, projectRootDir__pretty}
 
     await fs.copy(starterPath, projectRootDir);
 
-    await lopOffPackageJson(projectRootDir);
+    await cleanPackageJson(projectRootDir);
 }
 
-async function lopOffPackageJson(projectRootDir) {
+async function cleanPackageJson(projectRootDir) {
     const fs = require('fs-extra');
     const pathModule = require('path');
 
@@ -120,6 +120,7 @@ async function lopOffPackageJson(projectRootDir) {
     delete packageJson.version;
     delete packageJson.private;
     delete packageJson.checkDeps;
+    delete packageJson.devDependencies;
 
     await fs.outputFile(packageJsonFile, JSON.stringify(packageJson, null, 2));
 }
