@@ -1,12 +1,10 @@
+!MENU_INDENT 12
+!MENU_ORDER 30
 !INLINE ./header.md --hide-source-path
 <br/>
 !INLINE ./links.md --hide-source-path
-
-!MENU
-!MENU_INDENT 12
-!MENU_ORDER 30
-
 <br/>
+!MENU
 
 # Usage Manual
 

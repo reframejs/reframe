@@ -133,9 +133,9 @@
 # Starters
 
 
-- [react-frontend](/plugins/create/starters/react-frontend)
-- [react-app](/plugins/create/starters/react-app)
-- [react-fullstack-app](/plugins/create/starters/react-fullstack-app) (Work-in-progress)
+- [react-frontend](/plugins/create/starters/react-frontend#readme)
+- [react-app](/plugins/create/starters/react-app#readme)
+- [react-fullstack-app](/plugins/create/starters/react-fullstack-app#readme) (Work-in-progress)
 
 They scaffold the following:
 

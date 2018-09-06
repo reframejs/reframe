@@ -125,10 +125,8 @@
         &nbsp;&nbsp;&nbsp;&nbsp;
     </sup>
 </p>
-
-<p align='center'><a href="/../../#readme">Introduction</a> &nbsp; | &nbsp; <a href="/docs/starters.md#readme">Starters</a> &nbsp; | &nbsp; <a href="/docs/usage-manual.md#readme"><b>Usage Manual</b></a> &nbsp; | &nbsp; <a href="/docs/concepts.md#readme">Concepts</a> &nbsp; | &nbsp; <a href="/docs/plugins.md#readme">Plugins</a></p>
-
 <br/>
+<p align='center'><a href="/../../#readme">Introduction</a> &nbsp; | &nbsp; <a href="/docs/starters.md#readme">Starters</a> &nbsp; | &nbsp; <a href="/docs/usage-manual.md#readme"><b>Usage Manual</b></a> &nbsp; | &nbsp; <a href="/docs/concepts.md#readme">Concepts</a> &nbsp; | &nbsp; <a href="/docs/plugins.md#readme">Plugins</a></p>
 
 # Usage Manual
 
@@ -208,7 +206,7 @@
 5. Read the entire [Usage Basics](/plugins/create/starters/react-frontend#react-frontend) section of the react-frontend starter.
 
 We recommand the react-frontend starter for your first Reframe app
-but you can pick another one from the [list of starters](/docs/starters.md).
+but you can pick another one from the [list of starters](/docs/starters.md#readme).
 
 <b><sub><a href="#basics">&#8679; TOP &#8679;</a></sub></b>
 <br/>
