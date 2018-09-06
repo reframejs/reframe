@@ -22,6 +22,10 @@ All stacks supported:
 
 Hello world app:
 <img src='https://github.com/reframejs/reframe/raw/master/docs/images/previews/welcome.png?sanitize=true'/>
+That's it.
+We simply define a single React component and a single page config.
+No need for configuration.
+(But if you want to, you can configure anything.)
 
 <br/>
 <br/>
@@ -39,13 +43,9 @@ We believe it doesn't have to be that way.
 
 ##### Rapid Development
 
-You can create a web app by defining so-called "page configs".
-Reframe handles everything else:
-It automatically transpiles, bundles, routes, renders, and serves your pages.
-
-In the example above we created a
-web application by simply defining a single React component and a single page config.
-No need for configuration.
+As shown in the example above you create apps with so-called "page configs"
+and Reframe takes care of the rest:
+It automatically transpiles, bundles, routes, renders, and serves your app.
 
 Yet, Reframe is designed from the ground up to be entirely flexible.
 
@@ -66,8 +66,9 @@ Reframe's flexibility is based on three pillars:
    That way, we manage to keep the glue code to a tiny ~500 lines of code.
 
 3. **Flexible stack** -
-   You can configure your app to have a frontend only (aka static site), a frontend + backend (aka SSR), a backend only (aka old-school app with plain old HTML), or a frontend + backend + database/ORM (aka full-stack).
-   It is easy to later remove/add a backend, frontend, or database/ORM to an existing app.
+   You can change the stack of your app at anytime
+   and remove/add a frontend, backend, or database/ORM.
+   For example you can start with a frontend only (static site) and later add a Node.js server to it.
 
 Some benefits of that flexibility:
 
