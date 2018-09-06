@@ -18,22 +18,25 @@ Designed for high development speed with no sacrifice on flexibility.
 Assembles a JavaScript stack with integrations for Node.js servers (Express, Koa, Hapi), Node.js ORMs (TypeORM & more to come), React, React Router, React Native Web, Vue.js, TypeScript, PostCSS, etc.
 
 All stacks are supported:
- - frontend + backend + database/ORM (aka full-stack)
- - frontend + backend (aka SSR)
- - frontend only (aka static site)
- - backend only
+- frontend + backend + database/ORM (aka full-stack)
+- frontend + backend (aka SSR)
+- frontend only (aka static site)
+- backend only
+
+<br/>
 
 <p align="center">
     <img src='https://github.com/reframejs/reframe/raw/master/docs/images/previews/welcome.png?sanitize=true'/>
 </p>
 
 <br/>
+<br/>
 
- - [Intro](#intro)
+ - [Introduction](#introduction)
  - [Examples](#examples)
  - [Getting Started](#getting-started)
 
-### Intro
+### Introduction
 
 Web frameworks have a bad reputation regarding flexibility.
 There is a general belief that there is a trade off between development speed and flexibility
@@ -106,7 +109,7 @@ you can learn Reframe to implement apps with any JavaScript stack.
 
 
 
-!INLINE ./top-link.md #intro --hide-source-path
+!INLINE ./top-link.md #introduction --hide-source-path
 
 <br/>
 <br/>
@@ -212,7 +215,7 @@ export default {
 And that's it,
 we simply defined pages, data models, and permissions to create a full-stack app.
 
-!INLINE ./top-link.md #intro --hide-source-path
+!INLINE ./top-link.md #introduction --hide-source-path
 
 <br/>
 <br/>
@@ -225,7 +228,7 @@ we simply defined pages, data models, and permissions to create a full-stack app
 
 !INLINE ./getting-started.md --hide-source-path
 
-!INLINE ./top-link.md #intro --hide-source-path
+!INLINE ./top-link.md #introduction --hide-source-path
 
 <br/>
 <br/>

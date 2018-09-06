@@ -7,7 +7,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/intro.template.md` instead.
+    Edit `/docs/introduction.template.md` instead.
 
 
 
@@ -22,7 +22,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/intro.template.md` instead.
+    Edit `/docs/introduction.template.md` instead.
 
 
 
@@ -37,7 +37,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/intro.template.md` instead.
+    Edit `/docs/introduction.template.md` instead.
 
 
 
@@ -52,7 +52,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/intro.template.md` instead.
+    Edit `/docs/introduction.template.md` instead.
 
 
 
@@ -67,7 +67,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/intro.template.md` instead.
+    Edit `/docs/introduction.template.md` instead.
 
 
 
@@ -126,7 +126,7 @@
     </sup>
 </p>
 
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [**Intro**](/../../)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [**Introduction**](/../../)<br/>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Starters: [React Server](/docs/react-server-starter.md) | [React Frontend](/docs/react-frontend-starter.md) | [React Database](/docs/react-database-starter.md)<br/>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Usage Manual](/docs/usage-manual.md)<br/>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Concepts](/docs/concepts.md)<br/>
@@ -142,22 +142,25 @@ Designed for high development speed with no sacrifice on flexibility.
 Assembles a JavaScript stack with integrations for Node.js servers (Express, Koa, Hapi), Node.js ORMs (TypeORM & more to come), React, React Router, React Native Web, Vue.js, TypeScript, PostCSS, etc.
 
 All stacks are supported:
- - frontend + backend + database/ORM (aka full-stack)
- - frontend + backend (aka SSR)
- - frontend only (aka static site)
- - backend only
+- frontend + backend + database/ORM (aka full-stack)
+- frontend + backend (aka SSR)
+- frontend only (aka static site)
+- backend only
+
+<br/>
 
 <p align="center">
     <img src='https://github.com/reframejs/reframe/raw/master/docs/images/previews/welcome.png?sanitize=true'/>
 </p>
 
 <br/>
+<br/>
 
- - [Intro](#intro)
+ - [Introduction](#introduction)
  - [Examples](#examples)
  - [Getting Started](#getting-started)
 
-### Intro
+### Introduction
 
 Web frameworks have a bad reputation regarding flexibility.
 There is a general belief that there is a trade off between development speed and flexibility
@@ -230,7 +233,7 @@ you can learn Reframe to implement apps with any JavaScript stack.
 
 
 
-<b><sub><a href="#intro">&#8679; TOP &#8679;</a></sub></b>
+<b><sub><a href="#introduction">&#8679; TOP &#8679;</a></sub></b>
 
 <br/>
 <br/>
@@ -352,7 +355,7 @@ export default {
 And that's it,
 we simply defined pages, data models, and permissions to create a full-stack app.
 
-<b><sub><a href="#intro">&#8679; TOP &#8679;</a></sub></b>
+<b><sub><a href="#introduction">&#8679; TOP &#8679;</a></sub></b>
 
 <br/>
 <br/>
@@ -382,7 +385,7 @@ You can easily add/remove a Node.js server and add/remove a database/ORM afterwa
 Instead, quickly choose a starter and start write your prototype.
 As your prototype grows add/remove what you need.
 
-<b><sub><a href="#intro">&#8679; TOP &#8679;</a></sub></b>
+<b><sub><a href="#introduction">&#8679; TOP &#8679;</a></sub></b>
 
 <br/>
 <br/>
@@ -396,7 +399,7 @@ As your prototype grows add/remove what you need.
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/intro.template.md` instead.
+    Edit `/docs/introduction.template.md` instead.
 
 
 
@@ -411,7 +414,7 @@ As your prototype grows add/remove what you need.
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/intro.template.md` instead.
+    Edit `/docs/introduction.template.md` instead.
 
 
 
@@ -426,7 +429,7 @@ As your prototype grows add/remove what you need.
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/intro.template.md` instead.
+    Edit `/docs/introduction.template.md` instead.
 
 
 
@@ -441,7 +444,7 @@ As your prototype grows add/remove what you need.
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/intro.template.md` instead.
+    Edit `/docs/introduction.template.md` instead.
 
 
 
@@ -456,7 +459,7 @@ As your prototype grows add/remove what you need.
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/intro.template.md` instead.
+    Edit `/docs/introduction.template.md` instead.
 
 
 
