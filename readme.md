@@ -75,7 +75,9 @@
 
 
 -->
-<span align='center'>[**Introduction**](/../../) | [Starters](/docs/starters.md) | [Usage Manual](/docs/usage-manual.md) | [Concepts](/docs/concepts.md) | [Plugins](/docs/plugins.md)</span>
+<p align='center'>[**Introduction**](/../../) &nbsp; | &nbsp; [Starters](/docs/starters.md) &nbsp; | &nbsp; [Usage Manual](/docs/usage-manual.md) &nbsp; | &nbsp; [Concepts](/docs/concepts.md) &nbsp; | &nbsp; [Plugins](/docs/plugins.md)</p>
+<br/>
+<br/>
 <br/>
 <a href="https://github.com/reframejs/reframe">
     <img align="left" src="https://github.com/reframejs/reframe/raw/master/docs/images/logo-with-title.min.svg?sanitize=true" width=399 height=79 style="max-width:100%;" alt="Reframe"/>
