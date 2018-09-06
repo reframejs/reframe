@@ -126,7 +126,7 @@
     </sup>
 </p>
 
-<p align='center'><a href="/../../">Introduction</a> &nbsp; | &nbsp; <a href="/docs/starters.md">Starters</a> &nbsp; | &nbsp; <a href="/docs/usage-manual.md">Usage Manual</a> &nbsp; | &nbsp; <a href="/docs/concepts.md">Concepts</a> &nbsp; | &nbsp; <a href="/docs/plugins.md"><b>Plugins</b></a></p>
+<p align='center'><a href="/../../#readme">Introduction</a> &nbsp; | &nbsp; <a href="/docs/starters.md#readme">Starters</a> &nbsp; | &nbsp; <a href="/docs/usage-manual.md#readme">Usage Manual</a> &nbsp; | &nbsp; <a href="/docs/concepts.md#readme">Concepts</a> &nbsp; | &nbsp; <a href="/docs/plugins.md#readme"><b>Plugins</b></a></p>
 
 <br/>
 

@@ -75,8 +75,7 @@
 
 
 -->
-<p align='center'><a href="/../../"><b>Introduction</b></a> &nbsp; | &nbsp; <a href="/docs/starters.md">Starters</a> &nbsp; | &nbsp; <a href="/docs/usage-manual.md">Usage Manual</a> &nbsp; | &nbsp; <a href="/docs/concepts.md">Concepts</a> &nbsp; | &nbsp; <a href="/docs/plugins.md">Plugins</a></p>
-<br/>
+<p align='center'><a href="/../../#readme"><b>Introduction</b></a> &nbsp; | &nbsp; <a href="/docs/starters.md#readme">Starters</a> &nbsp; | &nbsp; <a href="/docs/usage-manual.md#readme">Usage Manual</a> &nbsp; | &nbsp; <a href="/docs/concepts.md#readme">Concepts</a> &nbsp; | &nbsp; <a href="/docs/plugins.md#readme">Plugins</a></p>
 <br/>
 <a href="https://github.com/reframejs/reframe">
     <img align="left" src="https://github.com/reframejs/reframe/raw/master/docs/images/logo-with-title.min.svg?sanitize=true" width=399 height=79 style="max-width:100%;" alt="Reframe"/>
