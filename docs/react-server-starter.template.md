@@ -3,20 +3,17 @@
 !INLINE ./links.md --hide-source-path
 
 !MENU
-!MENU_ORDER 21
-!MENU_SECTION Starters
-!MENU_TITLE React Server
-!MENU_INDENT 12
+!MENU_SKIP
 
 <br/>
 
-# React Server
+# react-app
 
 Starter to create a web app with:
  - React front-end
  - Node.js server
 
-For other starters, see the [list of starters](/../../#getting-started).
+For other starters, see the [list of starters](/docs/starters.md).
 
 - [Quick Start](#quick-start)
 - Usage Basics

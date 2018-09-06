@@ -3,18 +3,15 @@
 !INLINE ./links.md --hide-source-path
 
 !MENU
-!MENU_ORDER 23
-!MENU_SECTION Starters
-!MENU_TITLE React Database
-!MENU_INDENT 12
+!MENU_SKIP
 
 <br/>
 
-# React Database
+# react-fullstack-app
 
 Starter to create a web app with:
  - React front-end
  - Node.js server
- - Database + ORM
+ - Database + ORM (TypeORM)
 
 Work-in-progress. Stay tuned at [twitter.com/reframejs](https://twitter.com/reframejs).

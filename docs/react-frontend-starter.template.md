@@ -3,23 +3,20 @@
 !INLINE ./links.md --hide-source-path
 
 !MENU
-!MENU_ORDER 22
-!MENU_SECTION Starters
-!MENU_TITLE React Frontend
-!MENU_INDENT 12
+!MENU_SKIP
 
 <br/>
 
-# React Frontend
+# react-frontend
 
-Starter to create a React front-end.
+Starter to create a React frontend.
 
 Choose this starter if you don't need a backend or if you already have one.
 
 If you are not sure if you need a Node.js server, that's fine:
 You can use the React Frontend starter and easily add a Node.js server afterwards.
 
-For other starters, see the [list of starters](/../../#getting-started).
+For other starters, see the [list of starters](/docs/starters.md).
 
 - [Quick Start](#quick-start)
 - Usage Basics

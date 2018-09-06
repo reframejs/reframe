@@ -26,7 +26,7 @@ All stacks supported:
 <br/> &nbsp; &#8226; &nbsp; frontend only (aka static site)
 <br/> &nbsp; &#8226; &nbsp; backend only
 
-Hello world:
+Hello world app:
 <img src='https://github.com/reframejs/reframe/raw/master/docs/images/previews/welcome.png?sanitize=true'/>
 
 <br/>
@@ -34,7 +34,7 @@ Hello world:
 
  - [Introduction](#introduction)
  - [Examples](#examples)
- - [Getting Started](#getting-started)
+ - [Quick Start](#quick-start)
 
 ### Introduction
 
@@ -90,10 +90,10 @@ At that point your code doesn't depend on Reframe anymore and only depends on do
 **Rapid Prototyping** -
 You can change your app's stack at any point in time which comes in handy for quick prototyping.
 For example,
-you can have your first prototype to be a frontend only (static site)
-that you can easily deploy (to a static host such as Netlify or GitHub Pages).
-You would skip a database by hard-writing the data in your code base.
-Then, at a later point when hard-writing data isn't sustainable anymore, you would add a server and a real database to your prototype.
+you can implement your first prototype as a frontend only (static site)
+so that you can deploy easily and for free (to a static host such as Netlify or GitHub Pages).
+You would first skip a real database by hard-writing the data in your code base.
+Then, at a later point when hard-writing data isn't sustainable anymore, you add a server and a real database to your prototype.
 
 **Learn Once, Write Any App** -
 Instead of learning different web frameworks depending on what JavaScript stack you need,
@@ -217,7 +217,7 @@ we simply defined pages, data models, and permissions to create a full-stack app
 
 
 
-### Getting Started
+### Quick Start
 
 !INLINE ./getting-started.md --hide-source-path
 
