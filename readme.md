@@ -164,7 +164,7 @@ There is a general belief that there is a trade off between development speed an
 and that a web framework always comes with a lost in flexibility.
 We believe it doesn't have to be that way.
 
-**Rapid Development**
+##### Rapid Development
 
 You can create a web app by defining so-called "page configs".
 Reframe handles everything else:
@@ -176,9 +176,7 @@ No need for configuration.
 
 Yet, Reframe is designed from the ground up to be entirely flexible.
 
-<br/>
-
-**Flexible**
+##### Flexible
 
 Reframe greatly cares about flexibility.
 It is (to our knowledge) the most flexible web framework out there.
