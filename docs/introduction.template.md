@@ -1,8 +1,9 @@
+!MENU
+<br/>
 !INLINE ./header.md --hide-source-path
 <br/>
 !INLINE ./links.md --hide-source-path
 
-!MENU
 !MENU_INDENT 12
 !OUTPUT ../readme.md
 !MENU_LINK /../../
