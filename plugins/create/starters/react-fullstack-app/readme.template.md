@@ -1,11 +1,7 @@
-!INLINE /docs/header.md --hide-source-path
-<br/>
-!INLINE /docs/links.md --hide-source-path
-
-!MENU
 !MENU_SKIP
-
-<br/>
+!INLINE /docs/snippets/header.md --hide-source-path
+!MENU
+&nbsp;
 
 # react-fullstack-app
 
