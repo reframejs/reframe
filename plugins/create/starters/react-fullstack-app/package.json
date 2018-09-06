@@ -1,27 +1,15 @@
 {
   "scripts": {
-    "dev": "reframe dev",
-    "production": "npm run build && npm run start",
-    "build": "reframe build",
-    "start": "export NODE_ENV='production' && node ./server/start.js",
-    "reframe": "reframe"
   },
   "dependencies": {
-    "@brillout/cli-theme": "0.1.14",
-    "@brillout/fetch": "^0.1.0",
-    "@brillout/reconfig": "0.1.14",
-    "@reframe/react-kit": "0.1.14",
-    "@reframe/cli": "0.1.14",
-    "hapi": "^17.3.1",
-    "react": "^16.3.2"
-  },
-  "devDependencies": {
-    "@brillout/mdocs": "^0.1.19"
   },
   "name": "_starters-react-fullstack-app",
   "version": "0.1.14",
   "private": "true",
   "checkDeps": {
     "skip": true
+  },
+  "devDependencies": {
+    "@brillout/mdocs": "^0.1.19"
   }
 }

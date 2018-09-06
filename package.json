@@ -33,7 +33,6 @@
         "plugins/react-kit",
         "plugins/create",
         "plugins/create/starters/react-frontend",
-        "plugins/create/starters/react-backend",
         "plugins/create/starters/react-app",
         "plugins/create/starters/react-fullstack-app",
         "plugins/deploy-git",

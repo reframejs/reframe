@@ -10,7 +10,7 @@
 # react-app
 
 Starter to create a web app with:
- - React front-end
+ - React frontend
  - Node.js server
 
 For other starters, see the [list of starters](/docs/starters.md).

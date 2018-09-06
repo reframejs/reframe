@@ -18,5 +18,8 @@
   "private": "true",
   "checkDeps": {
     "skip": true
+  },
+  "devDependencies": {
+    "@brillout/mdocs": "^0.1.19"
   }
 }
