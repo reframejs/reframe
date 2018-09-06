@@ -137,7 +137,7 @@ Node.js servers (Express, Koa, Hapi),
 Node.js ORMs (TypeORM & more to come),
 React, React Router, React Native Web, Vue.js, TypeScript, PostCSS, etc.
 
-All stacks supported:
+All stacks are supported:
 <br/> &nbsp; &#8226; &nbsp; frontend + backend + database/ORM (aka full-stack)
 <br/> &nbsp; &#8226; &nbsp; frontend + backend (aka SSR)
 <br/> &nbsp; &#8226; &nbsp; frontend only (aka static site)
@@ -146,7 +146,7 @@ All stacks supported:
 Hello world app:
 <img src='https://github.com/reframejs/reframe/raw/master/docs/images/previews/welcome.png?sanitize=true'/>
 That's it.
-We simply define a single React component and a single page config.
+We simply define a single React component and a single so-called "page config".
 No need for configuration.
 (But if you want to, you can configure anything.)
 
