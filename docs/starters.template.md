@@ -1,15 +1,8 @@
-!INLINE ./header.md --hide-source-path
-<br/>
-!INLINE ./links.md --hide-source-path
-
-!MENU
 !MENU_ORDER 20
 !MENU_INDENT 12
-
-<br/>
+!INLINE ./snippets/header.md --hide-source-path
 
 # Starters
-
 
 - [react-frontend](/plugins/create/starters/react-frontend#readme)
 - [react-app](/plugins/create/starters/react-app#readme)

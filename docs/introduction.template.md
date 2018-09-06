@@ -1,17 +1,9 @@
-!MENU
-<br/>
-!INLINE ./header.md --hide-source-path
-<br/>
-!INLINE ./links.md --hide-source-path
-
-!MENU_INDENT 12
-!OUTPUT ../readme.md
-!MENU_LINK /../../
 !MENU_ORDER 10
-
-<br/>
-
-<br/>
+!MENU_INDENT 12
+!MENU_LINK /../../
+!OUTPUT ../readme.md
+!INLINE ./snippets/header.md --hide-source-path
+!INLINE ./snippets/header.md --hide-source-path
 
 Framework to create web apps.
 Designed for high development speed with no sacrifice on flexibility.

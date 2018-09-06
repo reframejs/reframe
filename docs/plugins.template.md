@@ -1,12 +1,6 @@
-!INLINE ./header.md --hide-source-path
-<br/>
-!INLINE ./links.md --hide-source-path
-
-!MENU
 !MENU_ORDER 50
 !MENU_INDENT 12
-
-<br/>
+!INLINE ./snippets/header.md --hide-source-path
 
 # Plugins
 
