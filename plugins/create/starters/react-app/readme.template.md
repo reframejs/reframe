@@ -1,6 +1,6 @@
-!INLINE ./header.md --hide-source-path
+!INLINE /docs/header.md --hide-source-path
 <br/>
-!INLINE ./links.md --hide-source-path
+!INLINE /docs/links.md --hide-source-path
 
 !MENU
 !MENU_SKIP
@@ -30,13 +30,13 @@ For other starters, see the [list of starters](/docs/starters.md).
 
 ## Quick Start
 
-!INLINE ./quick-start.md react-server --hide-source-path
+!INLINE /docs/quick-start.md react-server --hide-source-path
 
 5. **Read the entire [Usage Basics](#react-server) section**.
 
 For further usage information, lookup the [Usage Manual](/docs/usage-manual.md).
 
-!INLINE ./top-link.md #react-server --hide-source-path
+!INLINE /docs/top-link.md #react-server --hide-source-path
 
 <br/>
 <br/>
@@ -48,41 +48,41 @@ For further usage information, lookup the [Usage Manual](/docs/usage-manual.md).
 
 ## CSS & Static Assets
 
-!INLINE ./sections/usage-style.md --hide-source-path
-!INLINE ./snippets/section-footer.md #react-server --hide-source-path
+!INLINE /docs/sections/usage-style.md --hide-source-path
+!INLINE /docs/snippets/section-footer.md #react-server --hide-source-path
 
 
 
 
 ## Page Async Data
 
-!INLINE ./sections/usage-async-data.md --hide-source-path
-!INLINE ./snippets/section-footer.md #react-server --hide-source-path
+!INLINE /docs/sections/usage-async-data.md --hide-source-path
+!INLINE /docs/snippets/section-footer.md #react-server --hide-source-path
 
 
 
 
 ## `doNotRenderInBrowser`
 
-!INLINE ./sections/doNotRenderInBrowser.md --hide-source-path
+!INLINE /docs/sections/doNotRenderInBrowser.md --hide-source-path
 
-!INLINE ./snippets/section-footer.md #react-server --hide-source-path
+!INLINE /docs/snippets/section-footer.md #react-server --hide-source-path
 
 
 
 
 ## Custom Server Framework (Express, Koa, ...)
 
-!INLINE ./sections/custom-server-framework.md --hide-source-path
-!INLINE ./snippets/section-footer.md #react-server --hide-source-path
+!INLINE /docs/sections/custom-server-framework.md --hide-source-path
+!INLINE /docs/snippets/section-footer.md #react-server --hide-source-path
 
 
 
 
 ## Deploy
 
-!INLINE ./sections/deploy-serverless.md --hide-source-path
-!INLINE ./snippets/section-footer.md #react-server --hide-source-path
+!INLINE /docs/sections/deploy-serverless.md --hide-source-path
+!INLINE /docs/snippets/section-footer.md #react-server --hide-source-path
 
 
 

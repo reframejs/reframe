@@ -1,6 +1,6 @@
-!INLINE ./header.md --hide-source-path
+!INLINE /docs/header.md --hide-source-path
 <br/>
-!INLINE ./links.md --hide-source-path
+!INLINE /docs/links.md --hide-source-path
 
 !MENU
 !MENU_SKIP
