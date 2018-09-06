@@ -23,11 +23,8 @@ All stacks are supported:
 - frontend only (aka static site)
 - backend only
 
-<br/>
-
-<p align="center">
-    <img src='https://github.com/reframejs/reframe/raw/master/docs/images/previews/welcome.png?sanitize=true'/>
-</p>
+Example:
+<img src='https://github.com/reframejs/reframe/raw/master/docs/images/previews/welcome.png?sanitize=true'/>
 
 <br/>
 <br/>
@@ -86,7 +83,7 @@ Some benefits of Reframe's flexibility:
 
 **Take Over Control** -
 You can eject and take control over Reframe parts
-as your app grows and as the need arises.
+as your app grows and the need arises.
 All Reframe parts are ejectable which means that you can gain full control.
 
 **Removable** -
