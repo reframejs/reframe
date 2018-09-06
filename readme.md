@@ -378,7 +378,7 @@ we simply defined pages, data models, and permissions to create a full-stack app
 
 4. Open [http://localhost:3000](http://localhost:3000).
 
-5. **Read the entire [Usage Basics](/plugins/create/starters/readme.md#react-frontend) section of the react-frontend starter**.
+5. **Read the entire [Usage Basics](/plugins/create/starters/react-frontend#react-frontend) section of the react-frontend starter**.
 
 We recommand the react-frontend starter for you first Reframe app.
 But you can also pick another starter from the [list of starters](/docs/starters.md).

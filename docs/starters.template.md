@@ -11,13 +11,13 @@
 # Starters
 
 
-- [React Server](/docs/react-server-starter.md)
-- [React Frontend](/docs/react-frontend-starter.md)
-- [React Database](/docs/react-database-starter.md) (Work-in-progress)
+- [react-frontend](/plugins/create/starters/react-frontend)
+- [react-app](/plugins/create/starters/react-app)
+- [react-fullstack-app](/plugins/create/starters/react-fullstack-app) (Work-in-progress)
 
 They scaffold the following:
 
-&nbsp; | React Frontend | React Server | React Database
+&nbsp; | react-frontend | react-app | react-fullstack-app
 --- | :---: | :---: | :---:
 React Frontend | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:
 Node.js Server | :x: | :heavy_check_mark: | :heavy_check_mark:
