@@ -368,7 +368,7 @@ we simply defined pages, data models, and permissions to create a full-stack app
    ~~~shell
    $ reframe create react-frontend
    ~~~
-   A `my-reframe-app/` directory is created and populated with the !ARGUMENT-1 starter.
+   A `my-reframe-app/` directory is created and populated with the react-frontend starter.
 
 3. Build and serve the app.
    ~~~shell

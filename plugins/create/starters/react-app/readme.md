@@ -162,7 +162,7 @@ For other starters, see the [list of starters](/docs/starters.md).
    ~~~shell
    $ reframe create react-server
    ~~~
-   A `my-reframe-app/` directory is created and populated with the !ARGUMENT-1 starter.
+   A `my-reframe-app/` directory is created and populated with the react-server starter.
 
 3. Build and serve the app.
    ~~~shell
