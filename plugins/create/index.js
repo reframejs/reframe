@@ -29,7 +29,10 @@ async function getStarterList() {
     const pathModule = require('path');
 
     const startersDir = pathModule.resolve(__dirname, './starters');
-    const starters = await fs.readdir(startersDir);
+    let starters = await fs.readdir(startersDir);
+
+    starters = starters.filter(starterName => starterName!=='react-fullstack-app');
+
     return starters;
 }
 
@@ -106,23 +109,39 @@ async function scaffoldProject({starter, projectRootDir, projectRootDir__pretty}
 
     await fs.copy(starterPath, projectRootDir);
 
-    await cleanPackageJson(projectRootDir);
+    await removeNonStarterCode(projectRootDir);
 }
 
-async function cleanPackageJson(projectRootDir) {
+async function removeNonStarterCode(projectRootDir) {
     const fs = require('fs-extra');
     const pathModule = require('path');
 
-    const packageJsonFile = pathModule.resolve(projectRootDir, './package.json');
+    await removeReadmeFiles();
+    await cleanPackageJson();
 
-    const packageJson = require(packageJsonFile);
-    delete packageJson.name;
-    delete packageJson.version;
-    delete packageJson.private;
-    delete packageJson.checkDeps;
-    delete packageJson.devDependencies;
+    return;
 
-    await fs.outputFile(packageJsonFile, JSON.stringify(packageJson, null, 2));
+    async function removeReadmeFiles() {
+        const readmeFile = pathModule.resolve(projectRootDir, './readme.md');
+        const readmeTemplateFile = pathModule.resolve(projectRootDir, './readme.template.md');
+
+        await fs.remove(readmeFile);
+        await fs.remove(readmeTemplateFile);
+    }
+
+    async function cleanPackageJson() {
+        const packageJsonFile = pathModule.resolve(projectRootDir, './package.json');
+
+        const packageJson = require(packageJsonFile);
+        delete packageJson.name;
+        delete packageJson.version;
+        delete packageJson.private;
+        delete packageJson.checkDeps;
+        delete packageJson.devDependencies;
+        delete packageJson.scripts.docs;
+
+        await fs.outputFile(packageJsonFile, JSON.stringify(packageJson, null, 2));
+    }
 }
 
 async function showStarterDoesntExist({starter, starters}) {

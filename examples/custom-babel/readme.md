@@ -84,7 +84,7 @@ Example of an app that uses a custom babel config by defining a `.babelrc`:
 
 {
     "plugins": [
-        ["transform-class-properties", { "spec": true }]
+        ["@babel/plugin-proposal-class-properties", { "loose": true }]
     ]
 }
 ~~~

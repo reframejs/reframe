@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "docs": "mdocs"
   },
   "dependencies": {
   },

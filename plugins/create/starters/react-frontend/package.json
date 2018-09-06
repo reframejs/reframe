@@ -5,7 +5,8 @@
     "build": "reframe build",
     "start": "reframe server",
     "deploy": "reframe build && reframe deploy",
-    "reframe": "reframe"
+    "reframe": "reframe",
+    "docs": "mdocs"
   },
   "dependencies": {
     "@brillout/fetch": "^0.1.0",
