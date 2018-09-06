@@ -7,7 +7,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/overview.template.md` instead.
+    Edit `/docs/intro.template.md` instead.
 
 
 
@@ -22,7 +22,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/overview.template.md` instead.
+    Edit `/docs/intro.template.md` instead.
 
 
 
@@ -37,7 +37,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/overview.template.md` instead.
+    Edit `/docs/intro.template.md` instead.
 
 
 
@@ -52,7 +52,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/overview.template.md` instead.
+    Edit `/docs/intro.template.md` instead.
 
 
 
@@ -67,7 +67,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/overview.template.md` instead.
+    Edit `/docs/intro.template.md` instead.
 
 
 
@@ -126,7 +126,7 @@
     </sup>
 </p>
 
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [**Overview**](/../../)<br/>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [**Intro**](/../../)<br/>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Starters: [React Server](/docs/react-server-starter.md) | [React Frontend](/docs/react-frontend-starter.md) | [React Database](/docs/react-database-starter.md)<br/>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Usage Manual](/docs/usage-manual.md)<br/>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [Concepts](/docs/concepts.md)<br/>
@@ -134,29 +134,35 @@
 
 <br/>
 
-# Overview
+<br/>
 
- - [Introduction](#introduction)
+Framework to create web apps.
+Designed for high development speed with no sacrifice on flexibility.
+
+Assembles a JavaScript stack with integrations for Node.js servers (Express, Koa, Hapi), Node.js ORMs (TypeORM & more to come), React, React Router, React Native Web, Vue.js, TypeScript, PostCSS, etc.
+
+All stacks are supported:
+ - frontend + backend + database/ORM (aka full-stack)
+ - frontend + backend (aka SSR)
+ - frontend only (aka static site)
+ - backend only
+
+<p align="center">
+    <img src='https://github.com/reframejs/reframe/raw/master/docs/images/previews/welcome.png?sanitize=true'/>
+</p>
+
+<br/>
+
+ - [Intro](#intro)
  - [Examples](#examples)
  - [Getting Started](#getting-started)
 
-<br/>
+### Intro
 
-### Introduction
-
-Reframe is a framework to create web apps.
-It is designed to allow high development speed without sacrificing flexibility.
-
-A JavaScript stack is assembled for you that can integrate with
-Node.js, React, React Native Web, React Router, Vue.js, TypeScript, TypeORM, PostCSS, Webpack, Express, Koa, Hapi, etc.
-
-All JavaScript stacks are supported:
-Full-stack (frontend + backend + database with a Node.js ORM),
-frontend + backend (aka SSR app),
-frontend only (aka static site), and
-backend only.
-
-<br/>
+Web frameworks have a bad reputation regarding flexibility.
+There is a general belief that there is a trade off between development speed and flexibility
+and that a web framework always comes with a lost in flexibility.
+We believe it doesn't have to be that way.
 
 **Rapid Development**
 
@@ -177,11 +183,6 @@ Yet, Reframe is designed from the ground up to be fully flexible.
 <br/>
 
 **Flexible**
-
-Web frameworks have a bad reputation regarding flexibility.
-There is a general belief that there is a trade off between development speed and flexibility
-and that a web framework always comes with a lost in flexibility.
-We believe it doesn't have to be that way.
 
 Reframe greatly cares about flexibility.
 It is (to our knowledge) the most flexible web framework out there.
@@ -229,7 +230,7 @@ you can learn Reframe to implement apps with any JavaScript stack.
 
 
 
-<b><sub><a href="#overview">&#8679; TOP &#8679;</a></sub></b>
+<b><sub><a href="#intro">&#8679; TOP &#8679;</a></sub></b>
 
 <br/>
 <br/>
@@ -351,7 +352,7 @@ export default {
 And that's it,
 we simply defined pages, data models, and permissions to create a full-stack app.
 
-<b><sub><a href="#overview">&#8679; TOP &#8679;</a></sub></b>
+<b><sub><a href="#intro">&#8679; TOP &#8679;</a></sub></b>
 
 <br/>
 <br/>
@@ -381,7 +382,7 @@ You can easily add/remove a Node.js server and add/remove a database/ORM afterwa
 Instead, quickly choose a starter and start write your prototype.
 As your prototype grows add/remove what you need.
 
-<b><sub><a href="#overview">&#8679; TOP &#8679;</a></sub></b>
+<b><sub><a href="#intro">&#8679; TOP &#8679;</a></sub></b>
 
 <br/>
 <br/>
@@ -395,7 +396,7 @@ As your prototype grows add/remove what you need.
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/overview.template.md` instead.
+    Edit `/docs/intro.template.md` instead.
 
 
 
@@ -410,7 +411,7 @@ As your prototype grows add/remove what you need.
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/overview.template.md` instead.
+    Edit `/docs/intro.template.md` instead.
 
 
 
@@ -425,7 +426,7 @@ As your prototype grows add/remove what you need.
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/overview.template.md` instead.
+    Edit `/docs/intro.template.md` instead.
 
 
 
@@ -440,7 +441,7 @@ As your prototype grows add/remove what you need.
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/overview.template.md` instead.
+    Edit `/docs/intro.template.md` instead.
 
 
 
@@ -455,7 +456,7 @@ As your prototype grows add/remove what you need.
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/docs/overview.template.md` instead.
+    Edit `/docs/intro.template.md` instead.
 
 
 
