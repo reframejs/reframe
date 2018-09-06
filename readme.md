@@ -147,7 +147,7 @@ All stacks are supported:
 <br/> &nbsp; &#8226; &nbsp; frontend only (aka static site)
 <br/> &nbsp; &#8226; &nbsp; backend only
 
-Example:
+Hello world:
 <img src='https://github.com/reframejs/reframe/raw/master/docs/images/previews/welcome.png?sanitize=true'/>
 
 <br/>
@@ -170,15 +170,11 @@ You can create a web app by defining so-called "page configs".
 Reframe handles everything else:
 It automatically transpiles, bundles, routes, renders, and serves your pages.
 
-<p align="center">
-    <img src='https://github.com/reframejs/reframe/raw/master/docs/images/previews/welcome.png?sanitize=true'/>
-</p>
-
-That's it.
-A web application by simply defining a single React component and a single page config.
+In the example above we created a
+web application by simply defining a single React component and a single page config.
 No need for configuration.
 
-Yet, Reframe is designed from the ground up to be fully flexible.
+Yet, Reframe is designed from the ground up to be entirely flexible.
 
 <br/>
 
