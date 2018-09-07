@@ -146,9 +146,9 @@ All stacks are supported:
 Hello world app:
 <img src='https://github.com/reframejs/reframe/raw/master/docs/images/previews/welcome.png?sanitize=true'/>
 That's it.
-We simply define a single React component and a single so-called "page config".
+We simply define a single React component and a single "page config".
 No need for configuration.
-(But if you want to, you can configure anything.)
+(But if you want to, you can configure and take control over anything.)
 
 <br/>
 <br/>
@@ -167,8 +167,8 @@ We believe it doesn't have to be that way.
 ##### Rapid Development
 
 As shown in the example above you create apps with so-called "page configs"
-and Reframe takes care of the rest:
-It automatically transpiles, bundles, routes, renders, and serves your app.
+while Reframe takes care of the rest:
+It automatically transpiles, bundles, routes, renders, and serves your pages.
 
 Yet, Reframe is designed from the ground up to be entirely flexible.
 
@@ -357,16 +357,20 @@ we simply defined pages, data models, and permissions to create a full-stack app
    ~~~shell
    $ npm install -g @reframe/cli
    ~~~
+   Alternatively with yarn:
+   ~~~shell
+   $ yarn global add @reframe/cli
+   ~~~
 
 2. Create a new Reframe app.
    ~~~shell
    $ reframe create react-frontend
    ~~~
-   A `my-reframe-app/` directory is created and populated with the react-frontend starter.
+   A `my-frontend-app/` directory is created and populated with the react-frontend starter.
 
 3. Build and serve the app.
    ~~~shell
-   $ cd my-reframe-app/
+   $ cd my-frontend-app/
    $ reframe dev
    ~~~
 

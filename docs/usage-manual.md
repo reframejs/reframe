@@ -189,16 +189,20 @@
    ~~~shell
    $ npm install -g @reframe/cli
    ~~~
+   Alternatively with yarn:
+   ~~~shell
+   $ yarn global add @reframe/cli
+   ~~~
 
 2. Create a new Reframe app.
    ~~~shell
    $ reframe create react-frontend
    ~~~
-   A `my-reframe-app/` directory is created and populated with the react-frontend starter.
+   A `my-frontend-app/` directory is created and populated with the react-frontend starter.
 
 3. Build and serve the app.
    ~~~shell
-   $ cd my-reframe-app/
+   $ cd my-frontend-app/
    $ reframe dev
    ~~~
 
