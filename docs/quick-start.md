@@ -11,7 +11,7 @@
    ~~~shell
    $ reframe create !ARGUMENT-1
    ~~~
-   A `my-frontend-app/` directory is created and populated with the !ARGUMENT-1 starter.
+   A `my-!ARGUMENT-1/` directory is created and populated with the !ARGUMENT-1 starter.
 
 3. Build and serve the app.
    ~~~shell

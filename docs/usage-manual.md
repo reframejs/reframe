@@ -198,7 +198,7 @@
    ~~~shell
    $ reframe create react-frontend
    ~~~
-   A `my-frontend-app/` directory is created and populated with the react-frontend starter.
+   A `my-react-frontend/` directory is created and populated with the react-frontend starter.
 
 3. Build and serve the app.
    ~~~shell

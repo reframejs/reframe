@@ -165,7 +165,7 @@ For other starters, see the [list of starters](/docs/starters.md).
    ~~~shell
    $ reframe create react-app
    ~~~
-   A `my-frontend-app/` directory is created and populated with the react-app starter.
+   A `my-react-app/` directory is created and populated with the react-app starter.
 
 3. Build and serve the app.
    ~~~shell
