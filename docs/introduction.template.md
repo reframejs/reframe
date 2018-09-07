@@ -121,6 +121,11 @@ We define a page config `HelloPage`:
 And that's it,
 we created a frontend simply by defining one page config.
 
+!INLINE ./top-link.md #examples Examples --hide-source-path
+<br/>
+!INLINE ./top-link.md #contents Contents --hide-source-path
+<br/>
+
 ###### Full-stack
 
 Let's look at a Todo App.
@@ -200,7 +205,7 @@ we simply defined pages, data models, and permissions to create a full-stack app
 
 !INLINE ./top-link.md #examples Examples --hide-source-path
 <br/>
-!INLINE ./top-link.md #contents Readme --hide-source-path
+!INLINE ./top-link.md #contents Contents --hide-source-path
 
 <br/>
 <br/>

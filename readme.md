@@ -260,6 +260,11 @@ export default HelloPage;
 And that's it,
 we created a frontend simply by defining one page config.
 
+<b><sub><a href="#examples">&#8679; TOP Examples &#8679;</a></sub></b>
+<br/>
+<b><sub><a href="#contents">&#8679; TOP Contents &#8679;</a></sub></b>
+<br/>
+
 ###### Full-stack
 
 Let's look at a Todo App.
@@ -339,7 +344,7 @@ we simply defined pages, data models, and permissions to create a full-stack app
 
 <b><sub><a href="#examples">&#8679; TOP Examples &#8679;</a></sub></b>
 <br/>
-<b><sub><a href="#contents">&#8679; TOP Readme &#8679;</a></sub></b>
+<b><sub><a href="#contents">&#8679; TOP Contents &#8679;</a></sub></b>
 
 <br/>
 <br/>
