@@ -189,7 +189,7 @@ Reframe's flexibility is based on three pillars:
    That way, we manage to keep the glue code to a tiny ~500 lines of code.
 
 3. **Flexible stack** -
-   You can change the stack of your app at anytime
+   You can change the stack of your app at any time
    and remove/add a frontend, backend, or database/ORM.
    For example you can start with a frontend only (static site) and later add a Node.js server to it.
 
@@ -206,12 +206,12 @@ At that point your code doesn't depend on Reframe anymore and only depends on do
 (e.g. React, Webpack, etc.).
 
 **Rapid Prototyping** -
-You can change your app's stack at any point in time which comes in handy for quick prototyping.
+You can change your app's stack at any time which comes in handy for quick prototyping.
 For example,
-you can implement your first prototype as a frontend only (static site)
-so that you can deploy easily and for free (to a static host such as Netlify or GitHub Pages).
-You would first skip a real database by hard-writing the data in your code base.
-Then, at a later point when hard-writing data isn't sustainable anymore, you add a server and a real database to your prototype.
+you could implement your first prototype as a frontend only (static site)
+and skip a real database by hard-writing the data in your code base.
+You can then deploy easily and for free (to a static host such as Netlify or GitHub Pages).
+Later, when hard-writing data isn't sustainable anymore, you would add a server and a real database to your prototype.
 
 **Learn Once, Write Any App** -
 Instead of learning different web frameworks depending on what JavaScript stack you need,
