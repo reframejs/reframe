@@ -15,10 +15,10 @@ Node.js ORMs (TypeORM & more to come),
 React, React Router, React Native Web, Vue.js, TypeScript, PostCSS, etc.
 
 All stacks are supported:
-<br/> &nbsp; &#8226; &nbsp; frontend + backend + database/ORM (aka full-stack)
-<br/> &nbsp; &#8226; &nbsp; frontend + backend (aka SSR)
-<br/> &nbsp; &#8226; &nbsp; frontend only (aka static site)
-<br/> &nbsp; &#8226; &nbsp; backend only (aka old-school app with plain old HTML)
+<br/> &nbsp; &#8226; &nbsp; frontend + backend + database/ORM <small>(aka full-stack)</small>
+<br/> &nbsp; &#8226; &nbsp; frontend + backend <small>(aka SSR)</small>
+<br/> &nbsp; &#8226; &nbsp; frontend only <small>(aka static site)</small>
+<br/> &nbsp; &#8226; &nbsp; backend only <small>(aka old-school app with plain old HTML)</small>
 
 Hello world app:
 <img src='https://github.com/reframejs/reframe/raw/master/docs/images/previews/welcome.png?sanitize=true'/>
@@ -38,7 +38,7 @@ No need for configuration.
 
 ### Why Reframe
 
-There are many web frameworks out there with huge adoption, including RoR, Django and Next.js.
+There are many web frameworks out there with huge adoption, including Ruby on Rails, Django and Next.js.
 So why do we need another one?
 The main reasons are around flexibility.
 
@@ -81,8 +81,8 @@ At that point your code doesn't depend on Reframe anymore and only depends on do
 You can change your app's stack at any time which comes in handy for quick prototyping.
 For example,
 you could implement your first prototype as a frontend only (static site)
-and skip a real database by hard-writing the data in your code base.
-You can then deploy easily and for free (to a static host such as Netlify or GitHub Pages).
+and skip a real database by hard-writing the data in your codebase.
+You could then deploy easily and for free (to a static host such as Netlify or GitHub Pages).
 Later, when hard-writing data isn't sustainable anymore, you would add a server and a real database to your prototype.
 
 **Learn Once, Write Any App** -
