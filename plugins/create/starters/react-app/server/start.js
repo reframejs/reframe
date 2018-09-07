@@ -17,7 +17,7 @@ async function start() {
         method: 'GET',
         path:'/hello-from-hapi',
         handler: function (request, h) {
-            return 'Route defined with Hapi. Could be an API endpoint.'
+            return 'Route defined with Hapi. Could be an API endpoint.';
         }
     });
 
