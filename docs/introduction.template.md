@@ -15,9 +15,9 @@ Node.js ORMs (TypeORM & more to come),
 React, React Router, React Native Web, Vue.js, TypeScript, PostCSS, etc.
 
 All stacks are supported:
-<br/> &nbsp; &#8226; &nbsp; frontend + backend + database/ORM <small>(aka full-stack)</small>
-<br/> &nbsp; &#8226; &nbsp; frontend + backend <small>(aka SSR)</small>
-<br/> &nbsp; &#8226; &nbsp; frontend only <small>(aka static site)</small>
+<br/> &nbsp; &#8226; &nbsp; frontend + backend + database/ORM <sub><sup>(aka full-stack)<sup></sub>
+<br/> &nbsp; &#8226; &nbsp; frontend + backend <sub>(aka SSR)</sub>
+<br/> &nbsp; &#8226; &nbsp; frontend only <sup>(aka static site)</sup>
 <br/> &nbsp; &#8226; &nbsp; backend only <small>(aka old-school app with plain old HTML)</small>
 
 Hello world app:
