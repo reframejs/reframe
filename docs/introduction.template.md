@@ -23,11 +23,10 @@ All stacks are supported:
 Hello world app:
 <img src='https://github.com/reframejs/reframe/raw/master/docs/images/previews/welcome.png?sanitize=true'/>
 That's it.
-We simply define a single React component and a single "page config".
-No need for configuration.
+We simply define a React component and a so-called "page config".
+No build configuration.
 (But if you want to, you can configure and take control over anything.)
 
-<br/>
 <br/>
 
 #### Contents
