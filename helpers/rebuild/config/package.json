@@ -1,6 +1,6 @@
 {
   "name": "@rebuild/config",
-  "version": "0.1.14",
+  "version": "0.2.1",
   "dependencies": {
     "@babel/core": "^7.0.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",

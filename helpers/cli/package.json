@@ -1,17 +1,17 @@
 {
   "name": "@reframe/cli",
-  "version": "0.1.14",
+  "version": "0.2.1",
   "bin": {
     "reframe": "./bin.js"
   },
   "dependencies": {
-    "@brillout/cli-theme": "0.1.14",
+    "@brillout/cli-theme": "0.2.1",
     "@brillout/format-text": "^0.1.0",
     "@brillout/get-user-dir": "^0.2.1",
-    "@brillout/reconfig": "0.1.14",
-    "@reframe/create": "0.1.14",
-    "@reframe/project-files": "0.1.14",
-    "@reframe/utils": "0.1.14",
+    "@brillout/reconfig": "0.2.1",
+    "@reframe/create": "0.2.1",
+    "@reframe/project-files": "0.2.1",
+    "@reframe/utils": "0.2.1",
     "commander": "2.14.1",
     "reassert": "^1.1.12"
   },

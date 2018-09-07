@@ -1,13 +1,13 @@
 {
   "name": "_example-custom-babel",
   "private": true,
-  "version": "0.1.14",
+  "version": "0.2.1",
   "scripts": {
     "docs": "mdocs"
   },
   "dependencies": {
-    "@reframe/react-kit": "0.1.14",
     "@babel/plugin-proposal-class-properties": "^7.0.0",
+    "@reframe/react-kit": "0.2.1",
     "react": "^16.3.2"
   },
   "devDependencies": {

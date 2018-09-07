@@ -2,10 +2,8 @@
   "scripts": {
     "docs": "mdocs"
   },
-  "dependencies": {
-  },
   "name": "_starters-react-fullstack-app",
-  "version": "0.1.14",
+  "version": "0.2.1",
   "private": "true",
   "checkDeps": {
     "skip": true

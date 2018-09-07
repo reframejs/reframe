@@ -1,9 +1,9 @@
 {
   "name": "@rebuild/serve",
-  "version": "0.1.14",
+  "version": "0.2.1",
   "dependencies": {
-    "@brillout/cli-theme": "0.1.14",
-    "@rebuild/build": "0.1.14",
+    "@brillout/cli-theme": "0.2.1",
+    "@rebuild/build": "0.2.1",
     "chokidar": "^1.7.0",
     "parent-module": "^0.1.0",
     "reassert": "^1.1.12",

@@ -1,10 +1,10 @@
 {
   "name": "_example-postcss",
   "private": true,
-  "version": "0.1.14",
+  "version": "0.2.1",
   "dependencies": {
-    "@reframe/postcss": "0.1.14",
-    "@reframe/react-kit": "0.1.14",
+    "@reframe/postcss": "0.2.1",
+    "@reframe/react-kit": "0.2.1",
     "postcss-cssnext": "^3.1.0",
     "react": "^16.3.2",
     "sugarss": "^1.0.1"
