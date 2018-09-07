@@ -27,5 +27,8 @@
     "ts-node": "^7.0.0",
     "typeorm": "^0.2.7",
     "typescript": "^2.9.2"
+  },
+  "checkDeps": {
+    "skip": true
   }
 }
