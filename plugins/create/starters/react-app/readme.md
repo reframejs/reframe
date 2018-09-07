@@ -156,26 +156,30 @@ For other starters, see the [list of starters](/docs/starters.md).
    ~~~shell
    $ npm install -g @reframe/cli
    ~~~
+   Alternatively with yarn:
+   ~~~shell
+   $ yarn global add @reframe/cli
+   ~~~
 
 2. Create a new Reframe app.
    ~~~shell
-   $ reframe create react-server
+   $ reframe create react-app
    ~~~
-   A `my-reframe-app/` directory is created and populated with the react-server starter.
+   A `my-frontend-app/` directory is created and populated with the react-app starter.
 
 3. Build and serve the app.
    ~~~shell
-   $ cd my-reframe-app/
+   $ cd my-frontend-app/
    $ reframe dev
    ~~~
 
 4. Open [http://localhost:3000](http://localhost:3000).
 
-5. **Read the entire [Usage Basics](#react-server) section**.
+5. **Read the entire [Usage Basics](#react-app) section**.
 
 For further usage information, lookup the [Usage Manual](/docs/usage-manual.md).
 
-<b><sub><a href="#react-server">&#8679; TOP &#8679;</a></sub></b>
+<b><sub><a href="#react-app">&#8679; TOP  &#8679;</a></sub></b>
 
 <br/>
 <br/>
@@ -219,7 +223,7 @@ Example of a page using CSS, fonts, images and other static assets:
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 <br/>
 <br/>
-<b><sub><a href="#react-server">&#8679; TOP &#8679;</a></sub></b>
+<b><sub><a href="#react-app">&#8679; TOP  &#8679;</a></sub></b>
 <br/>
 <br/>
 <br/>
@@ -267,7 +271,7 @@ Deeper explanation and further examples of pages asynchronously loading data:
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 <br/>
 <br/>
-<b><sub><a href="#react-server">&#8679; TOP &#8679;</a></sub></b>
+<b><sub><a href="#react-app">&#8679; TOP  &#8679;</a></sub></b>
 <br/>
 <br/>
 <br/>
@@ -313,7 +317,7 @@ So if your page's view is composed of functional React components only, then you
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 <br/>
 <br/>
-<b><sub><a href="#react-server">&#8679; TOP &#8679;</a></sub></b>
+<b><sub><a href="#react-app">&#8679; TOP  &#8679;</a></sub></b>
 <br/>
 <br/>
 <br/>
@@ -336,7 +340,7 @@ At that point you can get rid of the current server framework and replace it any
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 <br/>
 <br/>
-<b><sub><a href="#react-server">&#8679; TOP &#8679;</a></sub></b>
+<b><sub><a href="#react-app">&#8679; TOP  &#8679;</a></sub></b>
 <br/>
 <br/>
 <br/>
@@ -366,7 +370,7 @@ If you want to persist data, you may consider using a cloud database.
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 <br/>
 <br/>
-<b><sub><a href="#react-server">&#8679; TOP &#8679;</a></sub></b>
+<b><sub><a href="#react-app">&#8679; TOP  &#8679;</a></sub></b>
 <br/>
 <br/>
 <br/>

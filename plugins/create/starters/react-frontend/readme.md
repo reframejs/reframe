@@ -156,16 +156,20 @@ For other starters, see the [list of starters](/docs/starters.md).
    ~~~shell
    $ npm install -g @reframe/cli
    ~~~
+   Alternatively with yarn:
+   ~~~shell
+   $ yarn global add @reframe/cli
+   ~~~
 
 2. Create a new Reframe app.
    ~~~shell
    $ reframe create react-frontend
    ~~~
-   A `my-reframe-app/` directory is created and populated with the react-frontend starter.
+   A `my-frontend-app/` directory is created and populated with the react-frontend starter.
 
 3. Build and serve the app.
    ~~~shell
-   $ cd my-reframe-app/
+   $ cd my-frontend-app/
    $ reframe dev
    ~~~
 
@@ -175,7 +179,7 @@ For other starters, see the [list of starters](/docs/starters.md).
 
 For further usage information, lookup the [Usage Manual](/docs/usage-manual.md).
 
-<b><sub><a href="#react-frontend">&#8679; TOP &#8679;</a></sub></b>
+<b><sub><a href="#react-frontend">&#8679; TOP  &#8679;</a></sub></b>
 
 <br/>
 <br/>
@@ -200,7 +204,7 @@ This directory contains all browser assets.
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 <br/>
 <br/>
-<b><sub><a href="#react-server">&#8679; TOP &#8679;</a></sub></b>
+<b><sub><a href="#react-server">&#8679; TOP  &#8679;</a></sub></b>
 <br/>
 <br/>
 <br/>
@@ -242,7 +246,7 @@ Example of a page using CSS, fonts, images and other static assets:
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 <br/>
 <br/>
-<b><sub><a href="#react-frontend">&#8679; TOP &#8679;</a></sub></b>
+<b><sub><a href="#react-frontend">&#8679; TOP  &#8679;</a></sub></b>
 <br/>
 <br/>
 <br/>
@@ -290,7 +294,7 @@ Deeper explanation and further examples of pages asynchronously loading data:
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 <br/>
 <br/>
-<b><sub><a href="#react-frontend">&#8679; TOP &#8679;</a></sub></b>
+<b><sub><a href="#react-frontend">&#8679; TOP  &#8679;</a></sub></b>
 <br/>
 <br/>
 <br/>
@@ -336,7 +340,7 @@ So if your page's view is composed of functional React components only, then you
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 <br/>
 <br/>
-<b><sub><a href="#react-frontend">&#8679; TOP &#8679;</a></sub></b>
+<b><sub><a href="#react-frontend">&#8679; TOP  &#8679;</a></sub></b>
 <br/>
 <br/>
 <br/>
