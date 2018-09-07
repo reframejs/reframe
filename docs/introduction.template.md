@@ -30,6 +30,8 @@ No need for configuration.
 <br/>
 <br/>
 
+#### Contents
+
  - [Why Reframe](#why-reframe)
  - [Examples](#examples)
  - [Quick Start](#quick-start)
@@ -90,7 +92,7 @@ you can learn Reframe to implement apps with any JavaScript stack.
 
 
 
-!INLINE ./top-link.md #introduction --hide-source-path
+!INLINE ./top-link.md #contents --hide-source-path
 
 <br/>
 <br/>
@@ -196,7 +198,8 @@ export default {
 And that's it,
 we simply defined pages, data models, and permissions to create a full-stack app.
 
-!INLINE ./top-link.md #introduction --hide-source-path
+!INLINE ./top-link.md #examples Examples--hide-source-path
+!INLINE ./top-link.md #contents Readme --hide-source-path
 
 <br/>
 <br/>
@@ -209,7 +212,7 @@ we simply defined pages, data models, and permissions to create a full-stack app
 
 !INLINE ./getting-started.md --hide-source-path
 
-!INLINE ./top-link.md #introduction --hide-source-path
+!INLINE ./top-link.md #contents --hide-source-path
 
 <br/>
 <br/>

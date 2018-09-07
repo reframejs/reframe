@@ -170,7 +170,7 @@ as if you would have implemented your app on top of these do-one-thing-do-it-wel
 
 > Quickly implement a prototype while staying fully flexible down the road.
 
-<b><sub><a href="#concepts">&#8679; TOP &#8679;</a></sub></b>
+<b><sub><a href="#concepts">&#8679; TOP  &#8679;</a></sub></b>
 
 <br/>
 <br/>
@@ -218,7 +218,7 @@ There are no other framework out there that give you such flexibility.
 
 > Reframe is the only universal framework.
 
-<b><sub><a href="#concepts">&#8679; TOP &#8679;</a></sub></b>
+<b><sub><a href="#concepts">&#8679; TOP  &#8679;</a></sub></b>
 
 <br/>
 <br/>
@@ -270,7 +270,7 @@ We call such apps *mixed web apps*.
 
 > Mixed web apps are the future and Reframe is the only framework supporting them.
 
-<b><sub><a href="#concepts">&#8679; TOP &#8679;</a></sub></b>
+<b><sub><a href="#concepts">&#8679; TOP  &#8679;</a></sub></b>
 
 <br/>
 <br/>
@@ -310,7 +310,7 @@ by changing the global config
 
 For example, using another build tool other than webpack is simply a matter of removing the webpack plugin and adding two functions `build()` and `getBuildInfo()` to the global config.
 
-<b><sub><a href="#concepts">&#8679; TOP &#8679;</a></sub></b>
+<b><sub><a href="#concepts">&#8679; TOP  &#8679;</a></sub></b>
 
 <br/>
 <br/>

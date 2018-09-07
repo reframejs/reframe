@@ -153,6 +153,8 @@ No need for configuration.
 <br/>
 <br/>
 
+#### Contents
+
  - [Why Reframe](#why-reframe)
  - [Examples](#examples)
  - [Quick Start](#quick-start)
@@ -213,7 +215,7 @@ you can learn Reframe to implement apps with any JavaScript stack.
 
 
 
-<b><sub><a href="#introduction">&#8679; TOP &#8679;</a></sub></b>
+<b><sub><a href="#contents">&#8679; TOP  &#8679;</a></sub></b>
 
 <br/>
 <br/>
@@ -335,7 +337,10 @@ export default {
 And that's it,
 we simply defined pages, data models, and permissions to create a full-stack app.
 
-<b><sub><a href="#introduction">&#8679; TOP &#8679;</a></sub></b>
+// /docs/top-link.md
+
+<b><sub><a href="#examples">&#8679; TOP Examples--hide-source-path &#8679;</a></sub></b>
+<b><sub><a href="#contents">&#8679; TOP Readme &#8679;</a></sub></b>
 
 <br/>
 <br/>
@@ -374,7 +379,7 @@ we simply defined pages, data models, and permissions to create a full-stack app
 We recommand the react-frontend starter for your first Reframe app
 but you can pick another one from the [list of starters](/docs/starters.md#readme).
 
-<b><sub><a href="#introduction">&#8679; TOP &#8679;</a></sub></b>
+<b><sub><a href="#contents">&#8679; TOP  &#8679;</a></sub></b>
 
 <br/>
 <br/>
