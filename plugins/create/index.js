@@ -71,7 +71,7 @@ async function runCreate({starter, appDir, skipNpm}) {
         'Inside that directory, you can run commands such as',
         '',
         `  ${colorCmd('reframe dev')}`,
-        '    Build and start server for development.',
+        '    Build pages and start server for development.',
         '',
         `  ${colorCmd('reframe')}`,
         '    List all commands.',
