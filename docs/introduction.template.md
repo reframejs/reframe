@@ -15,10 +15,10 @@ Node.js ORMs (TypeORM & more to come),
 React, React Router, React Native Web, Vue.js, TypeScript, PostCSS, etc.
 
 All stacks are supported:
-<br/> &nbsp; &#8226; &nbsp; frontend + backend + database/ORM <sub><sup>(aka full-stack)<sup></sub>
-<br/> &nbsp; &#8226; &nbsp; frontend + backend <sub>(aka SSR)</sub>
-<br/> &nbsp; &#8226; &nbsp; frontend only <sup>(aka static site)</sup>
-<br/> &nbsp; &#8226; &nbsp; backend only <small>(aka old-school app with plain old HTML)</small>
+<br/> &nbsp; &#8226; &nbsp; frontend + backend + database/ORM (aka full-stack)
+<br/> &nbsp; &#8226; &nbsp; frontend + backend (aka SSR)
+<br/> &nbsp; &#8226; &nbsp; frontend only (aka static site)
+<br/> &nbsp; &#8226; &nbsp; backend only (aka old-school app with plain old HTML)
 
 Hello world app:
 <img src='https://github.com/reframejs/reframe/raw/master/docs/images/previews/welcome.png?sanitize=true'/>
