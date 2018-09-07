@@ -6,11 +6,19 @@
 
 # Starters
 
+List of starters.
+
 - [react-frontend](/plugins/create/starters/react-frontend#readme)
 - [react-app](/plugins/create/starters/react-app#readme)
 - [react-fullstack-app](/plugins/create/starters/react-fullstack-app#readme) (Work-in-progress)
 
-They scaffold the following:
+When running
+
+~~~shell
+$ reframe create name-of-the-starter
+~~~
+
+the following is scaffoled:
 
 &nbsp; | react-frontend | react-app | react-fullstack-app
 --- | :---: | :---: | :---:

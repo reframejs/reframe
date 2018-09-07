@@ -210,8 +210,9 @@
 
 5. Read the entire [Usage Basics](/plugins/create/starters/react-frontend#react-frontend) section of the react-frontend starter.
 
-We recommand the react-frontend starter for your first Reframe app
-but you can pick another starter from the [list of starters](/docs/starters.md#readme).
+The [react-frontend starter](/plugins/create/starters/react-frontend#readme) is the recommanded starter for your first Reframe app.
+But if you already know for sure that you'll need a Node.js server then checkout the [react-app starter](/plugins/create/starters/react-app#readme).
+See the [list of starters](/docs/starters.md#readme) for more starters.
 
 <b><sub><a href="#basics">&#8679; TOP  &#8679;</a></sub></b>
 <br/>

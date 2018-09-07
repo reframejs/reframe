@@ -163,8 +163,10 @@ async function execEject({inputs: [ejectableName], options: {skipGit, skipNpm, i
         const deps = {};
         copyFiles({fileCopies, operations, deps});
 
-        console.log();
-        console.log(titleFormat('Preview of '+colorEmphasisLight('reframe '+CMD_EJECT+' '+ejectableName), {padding: 6}));
+        if( isPreview ) {
+            console.log();
+            console.log(titleFormat('Preview of '+colorEmphasisLight('reframe '+CMD_EJECT+' '+ejectableName), {padding: 6}));
+        }
         console.log();
 
         const {newDeps, newDepsStr} = getNewDeps({deps, ejecteePackageJsonFile});
