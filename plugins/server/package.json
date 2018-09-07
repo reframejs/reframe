@@ -1,10 +1,10 @@
 {
   "name": "@reframe/server",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "dependencies": {
     "@brillout/parse-uri": "^0.1.1",
-    "@brillout/reconfig": "0.2.1",
-    "@brillout/repage": "0.2.1",
+    "@brillout/reconfig": "0.2.2",
+    "@brillout/repage": "0.2.2",
     "fs-extra": "^6.0.1",
     "mimos": "^4.0.0",
     "reassert": "^1.1.12"

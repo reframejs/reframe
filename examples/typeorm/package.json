@@ -1,7 +1,7 @@
 {
   "name": "_example-typeorm",
   "private": true,
-  "version": "0.2.1",
+  "version": "0.2.2",
   "scripts": {
     "dev": "reframe dev",
     "production": "npm run build && npm run start",
@@ -11,12 +11,12 @@
     "reframe": "reframe"
   },
   "dependencies": {
-    "@brillout/cli-theme": "0.2.1",
+    "@brillout/cli-theme": "0.2.2",
     "@brillout/fetch": "^0.1.0",
-    "@brillout/reconfig": "0.2.1",
-    "@reframe/cli": "0.2.1",
-    "@reframe/react-kit": "0.2.1",
-    "@reframe/typescript": "0.2.1",
+    "@brillout/reconfig": "0.2.2",
+    "@reframe/cli": "0.2.2",
+    "@reframe/react-kit": "0.2.2",
+    "@reframe/typescript": "0.2.2",
     "@types/node": "^10.5.2",
     "body": "^5.1.0",
     "hapi": "^17.3.1",

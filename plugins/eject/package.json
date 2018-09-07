@@ -1,11 +1,11 @@
 {
     "name": "@reframe/eject",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "dependencies": {
-        "@brillout/cli-theme": "0.2.1",
+        "@brillout/cli-theme": "0.2.2",
         "@brillout/format-text": "^0.1.2",
-        "@brillout/reconfig": "0.2.1",
-        "@reframe/utils": "0.2.1",
+        "@brillout/reconfig": "0.2.2",
+        "@reframe/utils": "0.2.2",
         "builtins": "^2.0.0",
         "chalk": "^2.4.1",
         "detective": "^5.1.0",

@@ -1,14 +1,14 @@
 {
   "name": "_example-basic",
   "private": true,
-  "version": "0.2.1",
+  "version": "0.2.2",
   "scripts": {
     "docs": "mdocs"
   },
   "dependencies": {
     "@brillout/fetch": "^0.1.0",
-    "@reframe/browser": "0.2.1",
-    "@reframe/react-kit": "0.2.1",
+    "@reframe/browser": "0.2.2",
+    "@reframe/react-kit": "0.2.2",
     "react": "^16.3.2"
   },
   "devDependencies": {
