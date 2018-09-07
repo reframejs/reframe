@@ -3,21 +3,27 @@ module.exports = {
     cliCommands: [
         {
             name: 'create',
-            param: '[starter] [project-directory]',
-            description: 'Create a new Reframe project.',
+            param: '[starter] [app-directory]',
+            description: 'Create a new Reframe app.',
             options: [
                 {
                     name: "--skip-npm",
                     description: "Skip installing packages with npm. You will have to run `npm install` / `yarn` yourself. Do this if you use Yarn.",
                 }
             ],
-            action: async ({inputs: [starter='react-frontend', projectDir='my-'+starter], options: {skipNpm}}) => {
+            action: async ({inputs: [starter, appDir='my-'+starter], options: {skipNpm}, printHelp}) => {
+                if( ! starter ) {
+                    printHelp();
+                    return;
+                }
+
                 const starters = await getStarterList();
                 if( ! starters.includes(starter) ) {
                     await showStarterDoesntExist({starter, starters});
                     return;
                 }
-                await runCreate({starter, projectDir, skipNpm});
+
+                await runCreate({starter, appDir, skipNpm});
             },
             printAdditionalHelp,
         }
@@ -31,25 +37,36 @@ async function getStarterList() {
     const startersDir = pathModule.resolve(__dirname, './starters');
     let starters = await fs.readdir(startersDir);
 
-    starters = starters.filter(starterName => starterName!=='react-fullstack-app');
+    const RECOMMANDED = 'react-frontend';
+    const REMOVED = 'react-fullstack-app';
+
+    starters = (
+        starters
+        .filter(starterName => starterName!==REMOVED)
+        .sort((starterName1, starterName2) => (starterName2===RECOMMANDED) - (starterName1===RECOMMANDED))
+    );
 
     return starters;
 }
+async function getRecommandedStarter() {
+    const starters = await getStarterList();
+    return starters[0];
+}
 
-async function runCreate({starter, projectDir, skipNpm}) {
+async function runCreate({starter, appDir, skipNpm}) {
     const pathModule = require('path');
     const runNpmInstall = require('@reframe/utils/runNpmInstall');
 
     const {colorDir, colorCmd, colorPkg, colorUrl, symbolSuccess, strDir} = require('@brillout/cli-theme');
 
-    const projectRootDir = pathModule.resolve(process.cwd(), projectDir);
-    const projectRootDir__pretty = colorDir(strDir(projectRootDir))
+    const appRootDir = pathModule.resolve(process.cwd(), appDir);
+    const appRootDir__pretty = colorDir(strDir(appRootDir))
 
-    await scaffoldProject({starter, projectRootDir, projectRootDir__pretty});
+    await scaffoldApp({starter, appRootDir, appRootDir__pretty});
 
     const introText = [
         '',
-        `${symbolSuccess}Reframe app created in ${projectRootDir__pretty}.`,
+        `${symbolSuccess}Reframe app created in ${appRootDir__pretty}.`,
         '',
         'Inside that directory, you can run commands such as',
         '',
@@ -80,17 +97,17 @@ async function runCreate({starter, projectDir, skipNpm}) {
         console.log(`This might take a couple of minutes.`);
         console.log();
 
-        await runNpmInstall(projectRootDir);
+        await runNpmInstall(appRootDir);
 
         console.log(`${symbolSuccess}Packages installed.`);
         console.log();
     }
 
-    console.log(`Run ${colorCmd('cd '+projectDir+' && reframe dev')} and go to ${colorUrl('http://localhost:3000')} to open your new app.`);
+    console.log(`Run ${colorCmd('cd '+appDir+' && reframe dev')} and go to ${colorUrl('http://localhost:3000')} to open your new app.`);
     console.log();
 }
 
-async function scaffoldProject({starter, projectRootDir, projectRootDir__pretty}) {
+async function scaffoldApp({starter, appRootDir, appRootDir__pretty}) {
     const fs = require('fs-extra');
     const pathModule = require('path');
     const assert_internal = require('reassert/internal');
@@ -102,17 +119,17 @@ async function scaffoldProject({starter, projectRootDir, projectRootDir__pretty}
     assert_internal(await fs.pathExists(starterPath));
 
     assert_usage(
-        ! await fs.pathExists(projectRootDir),
-        colorError("Directory "+projectRootDir__pretty+" already exists."),
+        ! await fs.pathExists(appRootDir),
+        colorError("Directory "+appRootDir__pretty+" already exists."),
         "Remove it or create your app somewhere else."
     );
 
-    await fs.copy(starterPath, projectRootDir);
+    await fs.copy(starterPath, appRootDir);
 
-    await removeNonStarterCode(projectRootDir);
+    await removeNonStarterCode(appRootDir);
 }
 
-async function removeNonStarterCode(projectRootDir) {
+async function removeNonStarterCode(appRootDir) {
     const fs = require('fs-extra');
     const pathModule = require('path');
 
@@ -122,15 +139,15 @@ async function removeNonStarterCode(projectRootDir) {
     return;
 
     async function removeReadmeFiles() {
-        const readmeFile = pathModule.resolve(projectRootDir, './readme.md');
-        const readmeTemplateFile = pathModule.resolve(projectRootDir, './readme.template.md');
+        const readmeFile = pathModule.resolve(appRootDir, './readme.md');
+        const readmeTemplateFile = pathModule.resolve(appRootDir, './readme.template.md');
 
         await fs.remove(readmeFile);
         await fs.remove(readmeTemplateFile);
     }
 
     async function cleanPackageJson() {
-        const packageJsonFile = pathModule.resolve(projectRootDir, './package.json');
+        const packageJsonFile = pathModule.resolve(appRootDir, './package.json');
 
         const packageJson = require(packageJsonFile);
         delete packageJson.name;
@@ -153,23 +170,28 @@ async function showStarterDoesntExist({starter, starters}) {
     console.log();
 }
 
-function printUsageExample() {
+async function printUsageExample() {
     const {indent} = require('@brillout/cli-theme');
 
     console.log(indent+'For example:');
-    console.log(indent+indent+'reframe create react-server my-app');
+    const recommandedStarter = await getRecommandedStarter();
+    console.log(indent+indent+'reframe create '+recommandedStarter+' my-app');
 }
-
 
 async function printStarters() {
     const starters = await getStarterList();
     const {indent} = require('@brillout/cli-theme');
     console.log(indent+'Starters:');
-    console.log(starters.map(l => indent+indent+l).join('\n'));
+    const recommandedStarter = await getRecommandedStarter();
+    console.log(
+        starters
+        .map(starterName => indent+indent+starterName/*+(recommandedStarter===starterName?' (recommanded)':'')*/)
+        .join('\n')
+    );
 }
 
 async function printAdditionalHelp() {
-    printUsageExample();
+    await printUsageExample();
     console.log();
     await printStarters();
     console.log();
