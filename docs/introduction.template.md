@@ -198,7 +198,8 @@ export default {
 And that's it,
 we simply defined pages, data models, and permissions to create a full-stack app.
 
-!INLINE ./top-link.md #examples Examples--hide-source-path
+!INLINE ./top-link.md #examples Examples --hide-source-path
+<br/>
 !INLINE ./top-link.md #contents Readme --hide-source-path
 
 <br/>

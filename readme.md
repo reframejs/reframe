@@ -337,9 +337,8 @@ export default {
 And that's it,
 we simply defined pages, data models, and permissions to create a full-stack app.
 
-// /docs/top-link.md
-
-<b><sub><a href="#examples">&#8679; TOP Examples--hide-source-path &#8679;</a></sub></b>
+<b><sub><a href="#examples">&#8679; TOP Examples &#8679;</a></sub></b>
+<br/>
 <b><sub><a href="#contents">&#8679; TOP Readme &#8679;</a></sub></b>
 
 <br/>
