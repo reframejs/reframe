@@ -153,29 +153,22 @@ No need for configuration.
 <br/>
 <br/>
 
- - [Introduction](#introduction)
+ - [Why Reframe](#why-reframe)
  - [Examples](#examples)
  - [Quick Start](#quick-start)
 
-### Introduction
+### Why Reframe
+
+There are many web frameworks out there with huge adoption, including RoR, Django and Next.js.
+So why do we need another one?
+The main reasons are around flexibility.
 
 Web frameworks have a bad reputation regarding flexibility.
 There is a general belief that there is a trade off between development speed and flexibility
 and that a web framework always comes with a lost in flexibility.
 We believe it doesn't have to be that way.
 
-##### Rapid Development
-
-As shown in the example above you create apps with so-called "page configs"
-while Reframe takes care of the rest:
-It automatically transpiles, bundles, routes, renders, and serves your pages.
-
-Yet, Reframe is designed from the ground up to be entirely flexible.
-
-##### Flexible
-
-Reframe greatly cares about flexibility.
-It is (to our knowledge) the most flexible web framework out there.
+Reframe is designed from the ground up to be entirely flexible.
 We would even argue that Reframe is more flexible than gluying do-one-thing-do-it-well libraries yourself.
 
 Reframe's flexibility is based on three pillars:
@@ -193,7 +186,7 @@ Reframe's flexibility is based on three pillars:
    and remove/add a frontend, backend, or database/ORM.
    For example you can start with a frontend only (static site) and later add a Node.js server to it.
 
-Some benefits of that flexibility:
+Benefits of that flexibility:
 
 **Take Over Control** -
 You can eject and take control over Reframe parts
