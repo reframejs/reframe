@@ -47,7 +47,7 @@ For further usage information, lookup the [Usage Manual](/docs/usage-manual.md).
 Run `$ reframe deploy` to automatically deploy your app.
 
 !INLINE /docs/sections/deploy-static.md --hide-source-path
-!INLINE /docs/snippets/section-footer.md #react-server --hide-source-path
+!INLINE /docs/snippets/section-footer.md #react-frontend --hide-source-path
 
 
 

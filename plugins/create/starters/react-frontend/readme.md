@@ -204,7 +204,7 @@ This directory contains all browser assets.
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 <br/>
 <br/>
-<b><sub><a href="#react-server">&#8679; TOP  &#8679;</a></sub></b>
+<b><sub><a href="#react-frontend">&#8679; TOP  &#8679;</a></sub></b>
 <br/>
 <br/>
 <br/>
