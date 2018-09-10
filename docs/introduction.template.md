@@ -23,9 +23,9 @@ All stacks are supported:
 Hello world app:
 <img src='https://github.com/reframejs/reframe/raw/master/docs/images/previews/welcome.png?sanitize=true'/>
 That's it.
-We simply define a React component and a so-called "page config".
+We simply define a React component and a so-called page config.
 No build configuration.
-(But if you want to, you can configure and take control over anything.)
+(But if you want to, you can configure and take control over everything.)
 
 <br/>
 
@@ -57,22 +57,22 @@ Reframe's flexibility is based on three pillars:
 
 2. **Minimal glue code** -
    We isolate a maximum of code in do-one-thing-do-it-well libraries.
-   That way, we manage to keep the glue code to a tiny ~500 lines of code.
+   That way, we manage to keep glue code to a tiny ~500 lines of code.
 
 3. **Flexible stack** -
-   You can change the stack of your app at any time
-   and remove/add a frontend, backend, or database/ORM.
+   You can easily and at any time
+   remove/add a frontend, backend, or database/ORM to your app.
    For example you can start with a frontend only (static site) and later add a Node.js server to it.
 
 Benefits of that flexibility:
 
 **Take Over Control** -
-You can eject and take control over Reframe parts
+You can progressively eject and take control over Reframe parts
 as your app grows and the need arises.
 All Reframe parts are ejectable which means that you can gain full control.
 
 **Removable** -
-If you eject all Reframe parts then you effectively get rid of Reframe.
+If you eject gradually all Reframe parts then you effectively get rid of Reframe.
 At that point your code doesn't depend on Reframe anymore and only depends on do-one-thing-do-it-well libraries
 (e.g. React, Webpack, etc.).
 
@@ -80,7 +80,7 @@ At that point your code doesn't depend on Reframe anymore and only depends on do
 You can change your app's stack at any time which comes in handy for quick prototyping.
 For example,
 you could implement your first prototype as a frontend only (static site)
-and skip a real database by hard-writing the data in your codebase.
+and skip a real database by hard-writing data in your codebase.
 You could then deploy easily and for free (to a static host such as Netlify or GitHub Pages).
 Later, when hard-writing data isn't sustainable anymore, you would add a server and a real database to your prototype.
 
