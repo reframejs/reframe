@@ -195,7 +195,7 @@ as your app grows and the need arises.
 All Reframe parts are ejectable which means that you can gain full control.
 
 **Removable** -
-If you eject gradually all Reframe parts then you effectively get rid of Reframe.
+If you eject all Reframe parts then you effectively get rid of Reframe.
 At that point your code doesn't depend on Reframe anymore and only depends on do-one-thing-do-it-well libraries
 (e.g. React, Webpack, etc.).
 
