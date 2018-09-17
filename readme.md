@@ -380,7 +380,7 @@ we simply defined pages, data models, and permissions to create a full-stack app
 
 5. Read the entire [Usage Basics](/plugins/create/starters/react-frontend#react-frontend) section of the react-frontend starter.
 
-**Other starters**
+##### Other starters
 
 The [react-frontend starter](/plugins/create/starters/react-frontend#readme) is the recommanded starter for your first Reframe app.
 It will scaffold a frontend-only stack.
