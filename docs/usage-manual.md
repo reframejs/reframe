@@ -210,8 +210,15 @@
 
 5. Read the entire [Usage Basics](/plugins/create/starters/react-frontend#react-frontend) section of the react-frontend starter.
 
+**Other starters**
+
 The [react-frontend starter](/plugins/create/starters/react-frontend#readme) is the recommanded starter for your first Reframe app.
-But if you already know for sure that you'll need a Node.js server then checkout the [react-app starter](/plugins/create/starters/react-app#readme).
+It will scaffold a frontend-only stack.
+(Aka static site: An app that consists of static browser assets only and no Node.js is required.)
+
+But if you already know for sure that you need a Node.js server then checkout the [react-app starter](/plugins/create/starters/react-app#readme).
+(If you are not sure then use the react-frontend starter: You can easily add a Node.js server afterwards.)
+
 See the [list of starters](/docs/starters.md#readme) for more starters.
 
 <b><sub><a href="#basics">&#8679; TOP  &#8679;</a></sub></b>
@@ -1203,7 +1210,7 @@ If your app is html-static, you can deploy it to a static host.
 Your app is html-static when all your page configs have `renderHtmlAtBuildTime: true`.
 In that case,
 all HTMLs are rendered at build-time,
-your app consists of static assets only,
+your app consists of static browser assets only,
 no Node.js server is required,
 and your app can be statically served.
 
@@ -1242,7 +1249,7 @@ Serverless deployment solutions:
    Step-by-step guide on how to deploy a Reframe app on Up: [github.com/AurelienLourot/reframe-on-up](https://github.com/AurelienLourot/reframe-on-up).
  - [Now](https://zeit.co/now) - Serverless host.
    <br/>
-   The free tier doesn't support custom domains. (See [zeit.co/pricing](https://zeit.co/pricing).)
+   The free plan doesn't support private codebases. (See [zeit.co/pricing](https://zeit.co/pricing).)
 
 
 If you want to persist data, you may consider using a cloud database.

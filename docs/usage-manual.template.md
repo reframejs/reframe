@@ -557,7 +557,7 @@ If your app is html-static, you can deploy it to a static host.
 Your app is html-static when all your page configs have `renderHtmlAtBuildTime: true`.
 In that case,
 all HTMLs are rendered at build-time,
-your app consists of static assets only,
+your app consists of static browser assets only,
 no Node.js server is required,
 and your app can be statically served.
 

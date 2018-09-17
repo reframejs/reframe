@@ -15,9 +15,8 @@
     "@reframe/react-kit": "0.2.2",
     "react": "^16.3.2"
   },
-  "name": "_starters-react-frontend",
+  "name": "@reframe/starter-react-frontend",
   "version": "0.2.2",
-  "private": "true",
   "checkDeps": {
     "skip": true
   },

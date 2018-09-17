@@ -8,7 +8,7 @@ Serverless deployment solutions:
    Step-by-step guide on how to deploy a Reframe app on Up: [github.com/AurelienLourot/reframe-on-up](https://github.com/AurelienLourot/reframe-on-up).
  - [Now](https://zeit.co/now) - Serverless host.
    <br/>
-   The free tier doesn't support custom domains. (See [zeit.co/pricing](https://zeit.co/pricing).)
+   The free plan doesn't support private codebases. (See [zeit.co/pricing](https://zeit.co/pricing).)
 
 
 If you want to persist data, you may consider using a cloud database.

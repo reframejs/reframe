@@ -10,9 +10,9 @@ Starter to create a React frontend.
 Choose this starter if you don't need a backend or if you already have one.
 
 If you are not sure if you need a Node.js server, that's fine:
-You can use the React Frontend starter and easily add a Node.js server afterwards.
+You can use the react-frontend starter and easily add a Node.js server afterwards.
 
-For other starters, see the [list of starters](/docs/starters.md).
+For other starters, see the [list of starters](/docs/starters.md#readme).
 
 - [Quick Start](#quick-start)
 - Usage Basics

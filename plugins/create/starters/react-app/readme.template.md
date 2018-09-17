@@ -9,7 +9,7 @@ Starter to create a web app with:
  - React frontend
  - Node.js server
 
-For other starters, see the [list of starters](/docs/starters.md).
+For other starters, see the [list of starters](/docs/starters.md#readme).
 
 - [Quick Start](#quick-start)
 - Usage Basics
