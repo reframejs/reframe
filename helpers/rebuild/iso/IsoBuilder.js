@@ -126,7 +126,12 @@ function BuildManager({buildName, buildFunction, onSuccessfullWatchChange, onBui
         await _compiler.waitSuccessfullCompilation();
         if( runIsOutdated() ) return abortRun();
         const compilationInfo = _compiler.getInfo();
-        if( compilationInfo.is_compiling ) return abortRun();
+        if( compilationInfo.is_compiling ) {
+            // Seems like runIsOutdated() can be true here
+            //  - Not sure if that makes sense?
+            // Setting `dontAssertRunIsOutdated: true` to avoid the assertion inside `abortRun` to fail
+            return abortRun({dontAssertRunIsOutdated: true});
+        }
 
         global.DEBUG_WATCH && console.log(chalk.bold.blue('RUN-END ')+buildName+' '+_compiler.getCompilerId());
 
@@ -154,8 +159,8 @@ function BuildManager({buildName, buildFunction, onSuccessfullWatchChange, onBui
             }
         }
 
-        function abortRun() {
-            assert_internal(runIsOutdated());
+        function abortRun({dontAssertRunIsOutdated}={}) {
+            assert_internal(dontAssertRunIsOutdated || runIsOutdated());
             global.DEBUG_WATCH && console.log(chalk.bold.magenta('RUN-ABORT ')+buildName);
             return Promise.resolve({abortBuilder: true});
         }
