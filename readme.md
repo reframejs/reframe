@@ -134,8 +134,8 @@ Designed for high development speed with no sacrifice on flexibility.
 
 Assembles a JavaScript stack with integrations for:
 <br/> &nbsp; &#8226; &nbsp; Node.js servers (Express, Koa, Hapi, ...)
-<br/> &nbsp; &#8226; &nbsp; View libraries (React, Vue.js, React Native Web, ...)
-<br/> &nbsp; &#8226; &nbsp; Dev utils (TypeScript, PostCSS, ...)
+<br/> &nbsp; &#8226; &nbsp; Modern frontend (React, Vue.js, React Native Web, ...)
+<br/> &nbsp; &#8226; &nbsp; Dev utils (TypeScript, React Router, PostCSS, ...)
 <br/> &nbsp; &#8226; &nbsp; [WIP] Node.js ORMs (TypeORM & more to come)
 
 All stacks are supported:
@@ -144,9 +144,7 @@ All stacks are supported:
 <br/> &nbsp; &#8226; &nbsp; frontend only (aka static site)
 <br/> &nbsp; &#8226; &nbsp; backend only (aka old-school app with plain old HTML)
 
-<br/>
-
-<a href="/examples/simple/pages/welcome.config.js">
+<a href="/examples/simple/pages/welcome.config.js" target="_blank">
 <img src='https://github.com/reframejs/reframe/raw/master/docs/images/previews/welcome.png?sanitize=true' align="left"/>
 </a>
 That's it:
