@@ -21,7 +21,7 @@ All stacks are supported:
 <br/> &nbsp; &#8226; &nbsp; frontend only (aka static site)
 <br/> &nbsp; &#8226; &nbsp; backend only (aka old-school app with plain old HTML)
 
-&nbsp;
+<br/>
 
 <a href="/examples/simple/pages/welcome.config.js" target="_blank">
 <img src='https://github.com/reframejs/reframe/raw/master/docs/images/previews/welcome.png?sanitize=true' align="left"/>
@@ -90,10 +90,10 @@ The prototype can then be deployed easily and for free (to a static host such as
 Later, when hard-writing data isn't sustainable anymore, you can add a Node.js server with a real database to the prototype.
 
 **Learn Once, Write Any App** -
-Instead of learning several web frameworks,
-you can learn Reframe to implement apps with any JavaScript stack.
-For example you can use Reframe to implement an frontend only (static site) with Vue.js
-but you can as well use Reframe to create a frontend+backend (SSR app) with React.
+Instead of learning several frameworks,
+you can learn Reframe to be able to implement apps with any JavaScript stack.
+For example you can learn Reframe to implement a frontend only (static site) with Vue.js
+but you can as well learn Reframe to create a frontend+backend (SSR app) with React.
 
 **Resillient Framework** -
 Web dev technologies are rapidly evolving and,
