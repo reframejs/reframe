@@ -2,16 +2,14 @@ const assert_internal = require('reassert/internal');
 const assert_usage = require('reassert/usage');
 const assert_warning = require('reassert/warning');
 
-const EasyQL = require('./easyql/core/EasyQL');
-const UserManagement = require('./easyql/user/UserManagement');
+//const EasyQL = require('./easyql/core/EasyQL');
+//const UserManagement = require('./easyql/user/UserManagement');
 const typeormConfig = require('./typeorm.config.js');
-const User = require('../models/entity/User').default;
 const formBody = require("body/form")
-const {getRepository} = require("typeorm");
 const qs = require('querystring');
 
 const UniversalHapiAdapter = require('./universal-adapters/hapi');
-const TypeormAdapter = require('./universal-adapters/typeorm');
+const UniversalTypeormAdapter = require('./universal-adapters/typeorm');
 
 const permissions = [
     {
@@ -88,6 +86,10 @@ function getBodyPayload(req) {
 
 
 
+const UniversalDatabaseInterface = UniversalTypeormAdapter({
+  typeormConfig,
+});
+
 const HapiPlugin = UniversalHapiAdapter({
   paramHandlers: [
     loggedUserParamHandler,
@@ -98,7 +100,7 @@ const HapiPlugin = UniversalHapiAdapter({
     apiReqHandler,
   ],
   onServerClose: [
-    closeConnection,
+    UniversalDatabaseInterface.closeConnection,
   ],
 });
 
@@ -114,21 +116,6 @@ module.exports = {
 
 
 
-
-
-
-
-require("reflect-metadata");
-const {createConnection, EntitySchema/*, getRepository*/} = require("typeorm");
-/*
-const assert_internal = require('reassert/internal');
-const assert_usage = require('reassert/usage');
-const assert_warning = require('reassert/warning');
-*/
-
-let connection;
-
-const generatedEntities = [];
 
 function apiQueryParamHandler({req}) {
     const URL_BASE = process.env['EASYQL_URL_BASE'] || '/api/';
@@ -152,6 +139,7 @@ async function apiReqHandler(args) {
   }
 
   const result = await getApiRequestResult(args);
+  assert_internal(result===null || result);
 
   if( result ) {
     assert_internal(result.constructor===Object);
@@ -160,88 +148,58 @@ async function apiReqHandler(args) {
     };
   }
 
-  {
-      const params__light = Object.assign({}, params);
-      delete params__light.req;
-      assert_warning(
-          false,
-          "No matching permission found for the following apiQuery:",
-          params__light
-      );
-  }
+  return null;
 }
 
 async function getApiRequestResult(args) {
     assert_usage(permissions);
 
+    /*
+    const args__prettier = Object.assign({}, args);
+    delete args__prettier.req;
+    */
+
     const {req, apiQuery} = args;
     assert_internal(req && apiQuery, args);
+    assert_usage(apiQuery.modelName, apiQuery);
 
-    if( ! connection ) {
-        assert_usage(typeormConfig instanceof Function);
-        const con = typeormConfig();
-        const connectionOptions = Object.assign({}, con);
-        connectionOptions.entities = (connectionOptions.entities||[]).slice();
-    //  connectionOptions.entitySchemas = (connectionOptions.entitySchemas||[]).slice();
-    //  connectionOptions.entitySchemas.push(...generatedEntities);
-        connectionOptions.entities.push(...generatedEntities);
-        /*
-        console.log(connectionOptions.entities);
-        connectionOptions.entities.push(...connectionOptions.es.map(es => new EntitySchema(es)));
-        console.log('es',{
-        entities: connectionOptions.entities,
-        entitySchemas: connectionOptions.entitySchemas,
-        });
-        */
-        connection = await createConnection(connectionOptions);
+    const matchingPermissions = permissions.filter(({modelName}) => modelName===apiQuery.modelName);
+    assert_warning(
+        matchingPermissions.length>0,
+        "No permission spec found for `"+modelName+"`",
+    );
+    assert_usage(matchingPermissions.length<=1, matchingPermissions);
+    const permission = matchingPermissions[0];
+
+    const {queryType} = apiQuery;
+    assert_usage(['write', 'read'].includes(queryType), apiQuery);
+
+    if( queryType==='read' ) {
+        const queryResult = await UniversalDatabaseInterface.runQuery(apiQuery);
+        const {objects} = queryResult;
+        if( await hasPermission(objects, permission.read, args) ) {
+            return queryResult;
+        }
+        return permissionDenied();
     }
 
-    for(const permission of permissions) {
-        assert_usage(permission);
-        assert_usage(permission.modelName, permission);
-    //  const modelName = getModelName(permission.model);
-
-        if( apiQuery.modelName !== permission.modelName ) {
-            continue;
+    if( queryType==='write' ) {
+        const objectProps = apiQuery.object;
+        assert_usage(objectProps, apiQuery);
+        if( await hasPermission([objectProps], permission.write, args) ) {
+            const queryResult = await UniversalDatabaseInterface.runQuery(apiQuery);
+            return queryResult;
         }
-
-        const {queryType} = apiQuery;
-        assert_usage(queryType, apiQuery);
-
-        const repository = connection.getRepository(permission.modelName);
-
-        if( queryType==='read' ) {
-            const findOptions = {};
-            if( apiQuery.filter ) {
-                findOptions.where = apiQuery.filter;
-            }
-            const objects = await repository.find(findOptions);
-            if( await hasPermission(objects, permission.read, args) ) {
-                return {objects};
-            }
-        }
-
-        if( queryType==='write' ) {
-            const objectProps = apiQuery.object;
-            assert_usage(objectProps, apiQuery);
-            if( await hasPermission([objectProps], permission.write, args) ) {
-                let obj;
-                try {
-                    obj = await repository.save(objectProps);
-                } catch(err) {
-                    console.error(err);
-                    assert_warning(
-                        false,
-                        "Error while trying the following object to the database.",
-                        objectProps
-                    )
-                    return null;
-                }
-                return {objects: [obj]};
-            }
-        }
+        return permissionDenied();
     }
-    return null;
+
+    assert_internal(false);
+    return;
+
+    function permissionDenied() {
+        assert_warning("permission denied");
+        return null;
+    }
 }
 
 async function hasPermission(objects, permissionRequirement, args) {
@@ -259,70 +217,7 @@ async function hasPermission(objects, permissionRequirement, args) {
     assert_usage(false, permissionRequirement);
 }
 
-async function closeConnection() {
-    if( connection ) {
-        await connection.close();
-        connection = null;
-    }
-}
 
-function addModel(modelSpecFn) {
-    assert_usage(connection===undefined);
-
-    const types = {
-        ID: Symbol(),
-        STRING: Symbol(),
-    };
-
-    const modelSpec = modelSpecFn({
-        types,
-    });
-
-    const {modelName, props} = modelSpec;
-    assert_usage(modelName);
-    assert_usage(props && Object.entries(props).length>0);
-
-    const entityObject = {
-        name: modelName,
-        columns: {},
-    };
-    Object.entries(props).forEach(([propName, propType]) => {
-        entityObject.columns[propName] = getTypeormType(propType);
-    });
-
-    const entity = new EntitySchema(entityObject);
-
- // generatedEntities.push(entityObject);
-    generatedEntities.push(entity);
-
-    return entity;
-
-    function getTypeormType(propType) {
-        if( propType === types.ID ) {
-            return {
-                type: Number,
-                primary: true,
-                generated: true
-            };
-        }
-        if( propType === types.STRING ) {
-            return {
-                type: String,
-            };
-        }
-        assert_usage(false, propType.toString());
-    }
-}
-/*
-function getModelName(model) {
-    if( model instanceof EntitySchema ) {
-        assert_internal(model.options.name);
-        return model.options.name;
-    }
-    assert_internal(model.name);
-    return model.name;
-}
-*/
 
 
 
@@ -377,8 +272,15 @@ async function authReqsHandler({req, payload}) {
     if( authResponse===null ) {
         return null;
     }
-    const {loggedUser, redirect, err} = authResponse;
-    assert_usage(loggedUser && loggedUser.id, authResponse);
+    const {loggedUser, redirect, authError} = authResponse;
+
+    if( authError ) {
+      assert_internal(authError.constructor===String);
+      return {body: authError};
+    }
+
+    assert_internal(loggedUser && loggedUser.id, authResponse);
+    assert_internal(redirect, authResponse);
 
     const timestamp = new Date().getTime();
 
@@ -413,22 +315,37 @@ async function authStrategy({url, req, payload}) {
         return null;
     }
 
-    const repository = getRepository(User);
     payload = payload || await getBodyPayload(req, url);
+    const userProps = payload;
+    assert_internal('username' in userProps && 'password' in userProps.password && Object.keys(userProps).length===2, userProps);
 
     if( isSignin ) {
-        const user = await repository.findOne(payload);
+        const {objects} = await UniversalDatabaseInterface.runQuery({
+          queryType: 'read',
+          modelName: 'User',
+          filter: userProps,
+        });
+        assert_internal(objects.length<=1);
+        const [user] = objects;
+
         if( user ) {
             return {loggedUser: user, redirect: '/'};
         } else {
-            return {err: 'Wrong login information'};
+            return {authError: 'Wrong login information'};
         }
     }
 
     if( isSignup ) {
-        const newUser = new User();
-        Object.assign(newUser, payload);
-        await repository.save(newUser);
+        const {objects} = await UniversalDatabaseInterface.runQuery({
+          queryType: 'write',
+          modelName: 'User',
+          object: userProps,
+        });
+        assert_internal(objects.length<=1);
+        const [newUser] = objects;
+        if( ! newUser ) {
+          return {authError: "Couldn't save new user"};
+        }
         return {loggedUser: newUser, redirect: '/'};
     }
 }
