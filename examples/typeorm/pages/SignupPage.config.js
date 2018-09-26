@@ -1,10 +1,10 @@
 import React from 'react';
 
 const SignupForm = () => (
-    <form action="auth/signup">
-        <input name="username" id="username" defaultValue="u1"/>
-        <input name="password" id="password" defaultValue="testpw"/>
-        <button>Singup</button>
+    <form action="auth/signup" method="post">
+        <input type="text" name="username" defaultValue="u1"/>
+        <input type="password" name="password" defaultValue="testpw"/>
+        <button type="submit">Sign Up</button>
     </form>
 );
 

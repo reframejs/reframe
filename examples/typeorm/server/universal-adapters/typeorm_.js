@@ -39,7 +39,8 @@ function UniversalTypeormAdapter({typeormConfig}) {
       assert_usage(dbQuery.object && Object.keys(dbQuery.object).length>0, dbQuery);
       let newObject;
       try {
-        const newObject = await repository.save(dbQuery.object);
+        newObject = await repository.save(dbQuery.object);
+        assert_internal(newObject && newObject.constructor===Object, newObject);
       } catch(err) {
           console.error(err);
           assert_warning(

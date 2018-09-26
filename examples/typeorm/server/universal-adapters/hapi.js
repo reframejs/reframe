@@ -1,3 +1,5 @@
+const formBody = require("body/form")
+const qs = require('querystring');
 const assert_usage = require('reassert/usage');
 /*
 const assert_warning = require('reassert/warning');
@@ -55,7 +57,7 @@ function UniversalHapiAdapter({paramHandlers, reqHandlers, onServerClose}) {
         console.log('p2');
         */
         const {req} = request.raw;
-        const {payload} = request;
+        const payload = {...request.payload};
 
         const reqHandlerParams = {req, payload};
         for(const paramHandler of paramHandlers) {
@@ -98,3 +100,49 @@ function alreadyServed(request) {
         request.response.output.statusCode !== 404
     );
 }
+
+/*
+function getBodyPayload(req, url) {
+    if( req.method==='GET' ) {
+        return Object.assign({}, qs.parse(url.search.slice(1)));
+    }
+    let resolve;
+    let reject;
+    const promise = new Promise((resolve_, reject_) => {resolve = resolve_; reject = reject_;});
+
+    console.log(111);
+	let body = '';
+	req.on('data', function (data) {
+    console.log(222);
+		body += data;
+		if (body.length > 1e6)
+			req.connection.destroy();
+	});
+	req.on('end', function () {
+    console.log(333);
+		var post = qs.parse(body);
+        resolve(post);
+	});
+
+	return promise;
+}
+*/
+
+/*
+function getBodyPayload(req) {
+    let resolve;
+    let reject;
+    const promise = new Promise((resolve_, reject_) => {resolve = resolve_; reject = reject_;});
+    console.log(11111);
+    formBody(req, {}, (err, body) => {
+    console.log(22222);
+        if( err ) {
+            reject(err);
+        } else {
+            resolve(body);
+        }
+    });
+    return promise;
+}
+*/
+

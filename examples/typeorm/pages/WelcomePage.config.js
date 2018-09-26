@@ -19,6 +19,7 @@ const TodoList = ({todos}) => (
     }</div>
 );
 
+/*
 class UserAdder extends React.Component {
     render() {
         return (
@@ -47,6 +48,7 @@ class UserAdder extends React.Component {
         }
     }
 }
+*/
 
 class TodoAdder extends React.Component {
     render() {
@@ -80,7 +82,9 @@ class TodoAdder extends React.Component {
 
 const Welcome = ({users, todos}) => (
     <div>
+        {/*
         <UserAdder/>
+        */}
         <UserList users={users}/>
         <TodoAdder/>
         <TodoList todos={todos}/>

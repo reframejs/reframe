@@ -5,8 +5,6 @@ const assert_warning = require('reassert/warning');
 //const EasyQL = require('./easyql/core/EasyQL');
 //const UserManagement = require('./easyql/user/UserManagement');
 const typeormConfig = require('./typeorm.config.js');
-const formBody = require("body/form")
-const qs = require('querystring');
 
 const UniversalHapiAdapter = require('./universal-adapters/hapi');
 const UniversalTypeormAdapter = require('./universal-adapters/typeorm_');
@@ -36,49 +34,6 @@ function isUser({loggedUser, object: user}) {
 
 
 
-
-function getBodyPayload(req, url) {
-    if( req.method==='GET' ) {
-        return Object.assign({}, qs.parse(url.search.slice(1)));
-    }
-    let resolve;
-    let reject;
-    const promise = new Promise((resolve_, reject_) => {resolve = resolve_; reject = reject_;});
-
-    console.log(111);
-	let body = '';
-	req.on('data', function (data) {
-    console.log(222);
-		body += data;
-		if (body.length > 1e6)
-			req.connection.destroy();
-	});
-	req.on('end', function () {
-    console.log(333);
-		var post = qs.parse(body);
-        resolve(post);
-	});
-
-	return promise;
-}
-
-/*
-function getBodyPayload(req) {
-    let resolve;
-    let reject;
-    const promise = new Promise((resolve_, reject_) => {resolve = resolve_; reject = reject_;});
-    console.log(11111);
-    formBody(req, {}, (err, body) => {
-    console.log(22222);
-        if( err ) {
-            reject(err);
-        } else {
-            resolve(body);
-        }
-    });
-    return promise;
-}
-*/
 
 
 
@@ -325,7 +280,7 @@ async function authStrategy({url, req, payload}) {
           modelName: 'User',
           filter: userProps,
         });
-        assert_internal(objects.length<=1);
+        assert_internal(objects.length<=1, objects, userProps);
         const [user] = objects;
 
         if( user ) {
