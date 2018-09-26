@@ -57,10 +57,14 @@ function UnviersalHapiAdapter({paramAdders, reqHandlers, onServerClose}) {
         const {req} = request.raw;
         const {payload} = request;
 
+        console.log(211121,req.url);
         for(const handlerFn of reqHandlers) {
           const ret = await handlerFn({req, payload});
           if( ret !== null ) {
+            console.log(22,ret.body, 33);
             assert_internal(ret.body);
+            assert_internal(ret.body.constructor===String);
+            assert_internal(JSON.stringify(JSON.parse(ret.body))===ret.body, ret.body);
             const resp = h.response(ret.body);
             (ret.headers||[]).forEach(header => resp.header(header.name, header.value));
             if( ret.redirect ) {
@@ -69,6 +73,7 @@ function UnviersalHapiAdapter({paramAdders, reqHandlers, onServerClose}) {
             return resp;
           }
         }
+        console.log('no');
         return h.continue;
     }
 }

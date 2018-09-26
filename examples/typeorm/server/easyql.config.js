@@ -95,7 +95,8 @@ const HapiPlugin = UniversalHapiAdapter({
   ],
   */
   reqHandlers: [
-    authReqsHandler
+    authReqsHandler,
+    apiReqHandler,
   ],
   onServerClose: [
     closeConnection,
