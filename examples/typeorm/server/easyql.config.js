@@ -9,7 +9,7 @@ const formBody = require("body/form")
 const qs = require('querystring');
 
 const UniversalHapiAdapter = require('./universal-adapters/hapi');
-const UniversalTypeormAdapter = require('./universal-adapters/typeorm');
+const UniversalTypeormAdapter = require('./universal-adapters/typeorm_');
 
 const permissions = [
     {
@@ -166,7 +166,7 @@ async function getApiRequestResult(args) {
     const matchingPermissions = permissions.filter(({modelName}) => modelName===apiQuery.modelName);
     assert_warning(
         matchingPermissions.length>0,
-        "No permission spec found for `"+modelName+"`",
+        "No permission spec found for `"+apiQuery.modelName+"`",
     );
     assert_usage(matchingPermissions.length<=1, matchingPermissions);
     const permission = matchingPermissions[0];
