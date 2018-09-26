@@ -1,12 +1,12 @@
-/*
 const assert_usage = require('reassert/usage');
+/*
 const assert_warning = require('reassert/warning');
 */
 const assert_internal = require('reassert/internal');
 
 module.exports = UnviersalHapiAdapter;
 
-function UnviersalHapiAdapter({paramAdders, reqHandlers, onServerClose}) {
+function UnviersalHapiAdapter({paramHandlers, reqHandlers, onServerClose}) {
 
     const HapiPlugin = {
         name: 'UniversalHapiAdapter',
@@ -57,11 +57,17 @@ function UnviersalHapiAdapter({paramAdders, reqHandlers, onServerClose}) {
         const {req} = request.raw;
         const {payload} = request;
 
-        console.log(211121,req.url);
-        for(const handlerFn of reqHandlers) {
-          const ret = await handlerFn({req, payload});
+        const reqHandlerParams = {req, payload};
+        for(const paramHandler of paramHandlers) {
+            assert_usage(paramHandler instanceof Function);
+            const newParams = await paramHandler(reqHandlerParams);
+            assert_usage(newParams===null || newParams && newParams.constructor===Object);
+            Object.assign(reqHandlerParams, newParams);
+        }
+
+        for(const reqHandler of reqHandlers) {
+          const ret = await reqHandler(reqHandlerParams);
           if( ret !== null ) {
-            console.log(22,ret.body, 33);
             assert_internal(ret.body);
             assert_internal(ret.body.constructor===String);
             assert_internal(JSON.stringify(JSON.parse(ret.body))===ret.body, ret.body);
@@ -73,7 +79,6 @@ function UnviersalHapiAdapter({paramAdders, reqHandlers, onServerClose}) {
             return resp;
           }
         }
-        console.log('no');
         return h.continue;
     }
 }

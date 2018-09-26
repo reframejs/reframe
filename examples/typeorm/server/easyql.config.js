@@ -89,11 +89,10 @@ function getBodyPayload(req) {
 
 
 const HapiPlugin = UniversalHapiAdapter({
-  /*
-  paramAdders: [
-    reqParamHandler,
+  paramHandlers: [
+    loggedUserParamHandler,
+    apiQueryParamHandler,
   ],
-  */
   reqHandlers: [
     authReqsHandler,
     apiReqHandler,
@@ -131,38 +130,38 @@ let connection;
 
 const generatedEntities = [];
 
-async function apiReqHandler({req}) {
-    assert_internal(req);
-    assert_internal(req.url);
-    assert_internal(permissions);
-    assert_internal(reqParamHandler);
-    assert_internal(queryHandler);
-
+function apiQueryParamHandler({req}) {
     const URL_BASE = process.env['EASYQL_URL_BASE'] || '/api/';
 
     if( ! req.url.startsWith(URL_BASE) ) {
-        return null;
+        return {apiQuery: null};
+    }
+
+    const queryString = req.url.slice(URL_BASE.length);
+    assert_internal(queryString);
+    const apiQuery = JSON.parse(decodeURIComponent(queryString));
+
+    return {apiQuery};
+}
+
+async function apiReqHandler({req, loggedUser, apiQuery}) {
+    assert_internal(req);
+    assert_internal(req.url);
+    assert_internal(permissions);
+    assert_internal(queryHandler);
+
+    assert_internal(apiQuery===null || apiQuery);
+    if( apiQuery===null ) {
+      return null;
     }
 
     const QueryHandlers = [queryHandler];
-
-        const queryString = req.url.slice(URL_BASE.length);
-        assert_internal(queryString);
-        const query = JSON.parse(decodeURIComponent(queryString));
-
-        const params = {req, query};
-        for(const handler of [reqParamHandler]) {
-            assert_usage(handler instanceof Function);
-            const newParams = await handler(params);
-            assert_usage(newParams===null || newParams && newParams.constructor===Object);
-            Object.assign(params, newParams);
-        }
 
         assert_usage(QueryHandlers.constructor===Array);
         for(const handler of QueryHandlers) {
             assert_usage(handler instanceof Function);
             const NEXT = Symbol();
-            const result = await handler({...params, permissions, NEXT});
+            const result = await handler({req, apiQuery, loggedUser, permissions, NEXT});
             if( result !== NEXT ) {
                 return {
                   body: result,
@@ -174,7 +173,7 @@ async function apiReqHandler({req}) {
             delete params__light.req;
             assert_warning(
                 false,
-                "No matching permission found for the following query:",
+                "No matching permission found for the following apiQuery:",
                 params__light
             );
         }
@@ -182,9 +181,9 @@ async function apiReqHandler({req}) {
 }
 
 async function queryHandler(params) {
-    const {req, query, NEXT, permissions} = params;
+    const {req, apiQuery, NEXT, permissions} = params;
     assert_usage(permissions);
-    assert_internal(req && query && NEXT, params);
+    assert_internal(req && apiQuery && NEXT, params);
 
     if( ! connection ) {
         assert_usage(typeormConfig instanceof Function);
@@ -210,19 +209,19 @@ async function queryHandler(params) {
         assert_usage(permission.modelName, permission);
     //  const modelName = getModelName(permission.model);
 
-        if( query.modelName !== permission.modelName ) {
+        if( apiQuery.modelName !== permission.modelName ) {
             continue;
         }
 
-        const {queryType} = query;
-        assert_usage(queryType, query);
+        const {queryType} = apiQuery;
+        assert_usage(queryType, apiQuery);
 
         const repository = connection.getRepository(permission.modelName);
 
         if( queryType==='read' ) {
             const findOptions = {};
-            if( query.filter ) {
-                findOptions.where = query.filter;
+            if( apiQuery.filter ) {
+                findOptions.where = apiQuery.filter;
             }
             const objects = await repository.find(findOptions);
             if( await hasPermission(objects, permission.read, params) ) {
@@ -231,8 +230,8 @@ async function queryHandler(params) {
         }
 
         if( queryType==='write' ) {
-            const objectProps = query.object;
-            assert_usage(objectProps, query);
+            const objectProps = apiQuery.object;
+            assert_usage(objectProps, apiQuery);
             if( await hasPermission([objectProps], permission.write, params) ) {
                 let obj;
                 try {
@@ -356,7 +355,7 @@ const readAuthCookie = require('./easyql/core/readAuthCookie');
 // TODO
 const SECRET_KEY = 'not-secret-yet';
 
-function reqParamHandler({req}) {
+function loggedUserParamHandler({req}) {
     const cookieString = req.headers.cookie;
 
     const parsedInfo = readAuthCookie({cookieString});
