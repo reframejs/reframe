@@ -68,9 +68,8 @@ function UniversalHapiAdapter({paramHandlers, reqHandlers, onServerClose}) {
         for(const reqHandler of reqHandlers) {
           const ret = await reqHandler(reqHandlerParams);
           if( ret !== null ) {
-            assert_internal(ret.body);
-            assert_internal(ret.body.constructor===String, ret.body);
-            assert_internal(JSON.stringify(JSON.parse(ret.body))===ret.body, ret.body);
+            assert_usage(ret.body);
+            assert_usage(ret.body.constructor===String, ret.body);
             const resp = h.response(ret.body);
             (ret.headers||[]).forEach(header => resp.header(header.name, header.value));
             if( ret.redirect ) {

@@ -317,7 +317,7 @@ async function authStrategy({url, req, payload}) {
 
     payload = payload || await getBodyPayload(req, url);
     const userProps = payload;
-    assert_internal('username' in userProps && 'password' in userProps.password && Object.keys(userProps).length===2, userProps);
+    assert_internal('username' in userProps && 'password' in userProps && Object.keys(userProps).length===2, userProps);
 
     if( isSignin ) {
         const {objects} = await UniversalDatabaseInterface.runQuery({

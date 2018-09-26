@@ -45,7 +45,7 @@ function UniversalTypeormAdapter({typeormConfig}) {
           assert_warning(
               false,
               "Error while trying the following object to the database.",
-              objectProps
+              dbQuery
           );
           return {objects: [], err};
       }
