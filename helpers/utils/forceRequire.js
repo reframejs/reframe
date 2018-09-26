@@ -1,13 +1,18 @@
 const sourceMap = require('source-map-support');
+/*
 let sourceMapIsInstalled;
+*/
 
 module.exports = forceRequire;
 
 function forceRequire(modulePath) {
+    sourceMap.install();
+    /*
     if( ! sourceMapIsInstalled ) {
         sourceMap.install();
         sourceMapIsInstalled = true;
     }
+    */
 
     delete require.cache[modulePath];
     const moduleExports = require(modulePath);

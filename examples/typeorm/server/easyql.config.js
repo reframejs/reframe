@@ -144,46 +144,38 @@ function apiQueryParamHandler({req}) {
     return {apiQuery};
 }
 
-async function apiReqHandler({req, loggedUser, apiQuery}) {
-    assert_internal(req);
-    assert_internal(req.url);
-    assert_internal(permissions);
-    assert_internal(queryHandler);
+async function apiReqHandler(args) {
+  const {apiQuery} = args;
+  assert_internal(apiQuery===null || apiQuery);
+  if( apiQuery===null ) {
+    return null;
+  }
 
-    assert_internal(apiQuery===null || apiQuery);
-    if( apiQuery===null ) {
-      return null;
-    }
+  const result = await getApiRequestResult(args);
 
-    const QueryHandlers = [queryHandler];
+  if( result ) {
+    assert_internal(result.constructor===Object);
+    return {
+      body: JSON.stringify(result),
+    };
+  }
 
-        assert_usage(QueryHandlers.constructor===Array);
-        for(const handler of QueryHandlers) {
-            assert_usage(handler instanceof Function);
-            const NEXT = Symbol();
-            const result = await handler({req, apiQuery, loggedUser, permissions, NEXT});
-            if( result !== NEXT ) {
-                return {
-                  body: result,
-                };
-            }
-        }
-        {
-            const params__light = Object.assign({}, params);
-            delete params__light.req;
-            assert_warning(
-                false,
-                "No matching permission found for the following apiQuery:",
-                params__light
-            );
-        }
-
+  {
+      const params__light = Object.assign({}, params);
+      delete params__light.req;
+      assert_warning(
+          false,
+          "No matching permission found for the following apiQuery:",
+          params__light
+      );
+  }
 }
 
-async function queryHandler(params) {
-    const {req, apiQuery, NEXT, permissions} = params;
+async function getApiRequestResult(args) {
     assert_usage(permissions);
-    assert_internal(req && apiQuery && NEXT, params);
+
+    const {req, apiQuery} = args;
+    assert_internal(req && apiQuery, args);
 
     if( ! connection ) {
         assert_usage(typeormConfig instanceof Function);
@@ -224,15 +216,15 @@ async function queryHandler(params) {
                 findOptions.where = apiQuery.filter;
             }
             const objects = await repository.find(findOptions);
-            if( await hasPermission(objects, permission.read, params) ) {
-                return JSON.stringify({objects});
+            if( await hasPermission(objects, permission.read, args) ) {
+                return {objects};
             }
         }
 
         if( queryType==='write' ) {
             const objectProps = apiQuery.object;
             assert_usage(objectProps, apiQuery);
-            if( await hasPermission([objectProps], permission.write, params) ) {
+            if( await hasPermission([objectProps], permission.write, args) ) {
                 let obj;
                 try {
                     obj = await repository.save(objectProps);
@@ -243,24 +235,23 @@ async function queryHandler(params) {
                         "Error while trying the following object to the database.",
                         objectProps
                     )
-                    return NEXT;
+                    return null;
                 }
-                return JSON.stringify({objects: [obj]});
+                return {objects: [obj]};
             }
         }
     }
-    return NEXT;
+    return null;
 }
 
-async function hasPermission(objects, permissionRequirement, params) {
+async function hasPermission(objects, permissionRequirement, args) {
     if( permissionRequirement === true ) {
         return true;
     }
     if( permissionRequirement instanceof Function ) {
         const permitted = (
             objects.every(object => {
-                const args = {object, ...params};
-                return permissionRequirement(args);
+                return permissionRequirement({object, ...args});
             })
         );
         return permitted;

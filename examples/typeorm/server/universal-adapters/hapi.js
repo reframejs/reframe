@@ -4,9 +4,9 @@ const assert_warning = require('reassert/warning');
 */
 const assert_internal = require('reassert/internal');
 
-module.exports = UnviersalHapiAdapter;
+module.exports = UniversalHapiAdapter;
 
-function UnviersalHapiAdapter({paramHandlers, reqHandlers, onServerClose}) {
+function UniversalHapiAdapter({paramHandlers, reqHandlers, onServerClose}) {
 
     const HapiPlugin = {
         name: 'UniversalHapiAdapter',
@@ -69,7 +69,7 @@ function UnviersalHapiAdapter({paramHandlers, reqHandlers, onServerClose}) {
           const ret = await reqHandler(reqHandlerParams);
           if( ret !== null ) {
             assert_internal(ret.body);
-            assert_internal(ret.body.constructor===String);
+            assert_internal(ret.body.constructor===String, ret.body);
             assert_internal(JSON.stringify(JSON.parse(ret.body))===ret.body, ret.body);
             const resp = h.response(ret.body);
             (ret.headers||[]).forEach(header => resp.header(header.name, header.value));
