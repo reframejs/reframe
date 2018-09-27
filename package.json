@@ -23,6 +23,7 @@
         "yarn": "^1.6.0"
     },
     "workspaces": [
+        "plugins/aws",
         "plugins/build",
         "plugins/server",
         "plugins/browser",
