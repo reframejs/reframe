@@ -2,7 +2,7 @@ const UniversalTypeormAdapter = require('./universal-adapters/typeorm_');
 const typeormConfig = require('./typeorm.config.js');
 const easyql = require('./easyql/core');
 
-const UniversalDatabaseInterface = UniversalTypeormAdapter({
+const databaseInterface = UniversalTypeormAdapter({
   typeormConfig,
 });
 
@@ -36,7 +36,12 @@ const {
     apiQueryParamHandler,
     authReqsHandler,
     apiReqHandler,
-} = easyql.install({UniversalDatabaseInterface, permissions, SECRET_KEY});
+} = easyql.install({
+  databaseInterface,
+  permissions,
+  SECRET_KEY,
+  automaticallyAddServerHandlers: true,
+});
 
 
 const UniversalHapiAdapter = require('./universal-adapters/hapi');
@@ -51,7 +56,7 @@ const HapiPlugin = UniversalHapiAdapter({
     apiReqHandler,
   ],
   onServerClose: [
-    UniversalDatabaseInterface.closeConnection,
+    databaseInterface.closeConnection,
   ],
 });
 

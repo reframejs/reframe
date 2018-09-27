@@ -1,6 +1,6 @@
 module.exports = {install};
 
-function install({UniversalDatabaseInterface, permissions, SECRET_KEY}) {
+function install({databaseInterface, permissions, SECRET_KEY}) {
   const assert_internal = require('reassert/internal');
   const assert_usage = require('reassert/usage');
   const assert_warning = require('reassert/warning');
@@ -11,10 +11,11 @@ function install({UniversalDatabaseInterface, permissions, SECRET_KEY}) {
   const readAuthCookie = require('./readAuthCookie');
 
   return {
-      loggedUserParamHandler,
       apiQueryParamHandler,
-      authReqsHandler,
       apiReqHandler,
+
+      loggedUserParamHandler,
+      authReqsHandler,
   };
 
   function apiQueryParamHandler({req}) {
@@ -75,7 +76,7 @@ function install({UniversalDatabaseInterface, permissions, SECRET_KEY}) {
       assert_usage(['write', 'read'].includes(queryType), apiQuery);
 
       if( queryType==='read' ) {
-          const queryResult = await UniversalDatabaseInterface.runQuery(apiQuery);
+          const queryResult = await databaseInterface.runQuery(apiQuery);
           const {objects} = queryResult;
           if( await hasPermission(objects, permission.read, args) ) {
               return queryResult;
@@ -87,7 +88,7 @@ function install({UniversalDatabaseInterface, permissions, SECRET_KEY}) {
           const objectProps = apiQuery.object;
           assert_usage(objectProps, apiQuery);
           if( await hasPermission([objectProps], permission.write, args) ) {
-              const queryResult = await UniversalDatabaseInterface.runQuery(apiQuery);
+              const queryResult = await databaseInterface.runQuery(apiQuery);
               return queryResult;
           }
           return permissionDenied();
@@ -200,7 +201,7 @@ function install({UniversalDatabaseInterface, permissions, SECRET_KEY}) {
       assert_internal('username' in userProps && 'password' in userProps && Object.keys(userProps).length===2, userProps);
 
       if( isSignin ) {
-          const {objects} = await UniversalDatabaseInterface.runQuery({
+          const {objects} = await databaseInterface.runQuery({
             queryType: 'read',
             modelName: 'User',
             filter: userProps,
@@ -216,7 +217,7 @@ function install({UniversalDatabaseInterface, permissions, SECRET_KEY}) {
       }
 
       if( isSignup ) {
-          const {objects} = await UniversalDatabaseInterface.runQuery({
+          const {objects} = await databaseInterface.runQuery({
             queryType: 'write',
             modelName: 'User',
             object: userProps,
@@ -229,4 +230,4 @@ function install({UniversalDatabaseInterface, permissions, SECRET_KEY}) {
           return {loggedUser: newUser, redirect: '/'};
       }
   }
-  }
+}
