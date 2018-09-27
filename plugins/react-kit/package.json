@@ -3,6 +3,7 @@
   "version": "0.2.2",
   "reframePlugin": true,
   "dependencies": {
+    "@reframe/aws": "0.2.2",
     "@reframe/browser": "0.2.2",
     "@reframe/build": "0.2.2",
     "@reframe/eject": "0.2.2",
