@@ -135,14 +135,14 @@ Designed for high development speed with no sacrifice on flexibility.
 Assembles a JavaScript stack with integrations for:
 <br/> &nbsp; &#8226; &nbsp; Node.js servers (Express, Koa, Hapi, ...)
 <br/> &nbsp; &#8226; &nbsp; Modern frontend (React, Vue.js, React Native Web, ...)
-<br/> &nbsp; &#8226; &nbsp; Dev utils (TypeScript, React Router, PostCSS, ...)
+<br/> &nbsp; &#8226; &nbsp; Utils (TypeScript, React Router, PostCSS, ...)
 <br/> &nbsp; &#8226; &nbsp; [WIP] Node.js ORMs (TypeORM & more to come)
 
 All stacks are supported:
 <br/> &nbsp; &#8226; &nbsp; frontend + backend + database/ORM (aka full-stack) [WIP]
 <br/> &nbsp; &#8226; &nbsp; frontend + backend (aka SSR)
-<br/> &nbsp; &#8226; &nbsp; frontend only (aka static site)
-<br/> &nbsp; &#8226; &nbsp; backend only (aka old-school app with plain old HTML)
+<br/> &nbsp; &#8226; &nbsp; frontend-only (aka static site)
+<br/> &nbsp; &#8226; &nbsp; backend-only (aka old-school app with plain old HTML)
 
 <br/>
 
@@ -190,7 +190,7 @@ Reframe's flexibility is based on three pillars:
 3. **Flexible stack** -
    You can easily and at any time
    remove/add a frontend, backend, or database/ORM to your app.
-   For example you can start with a frontend only (static site) and later add a Node.js server to it.
+   For example you can start with a frontend-only (static site) and later add a Node.js server to it.
 
 Benefits of that flexibility:
 
@@ -205,24 +205,24 @@ At that point your code doesn't depend on Reframe anymore and only depends on do
 (such as React, Express, Webpack, etc.).
 
 **Rapid Prototyping** -
-You can change your app's stack at any time which comes in handy for quick prototyping.
+You can change your app's stack at any time which comes in handy for rapid prototyping.
 For example,
-you can implement a first prototype as a frontend only (static site)
+you can implement a first prototype as a frontend-only (static site)
 and skip a real database by hard-writing data in the codebase.
 The prototype can then be deployed easily and for free (to a static host such as Netlify or GitHub Pages).
-Later, when hard-writing data isn't sustainable anymore, you can add a Node.js server with a real database to the prototype.
+Later, when hard-writing data isn't sustainable anymore, you can add a Node.js server and database to the prototype.
 
 **Learn Once, Write Any App** -
 Instead of learning several frameworks,
-you can learn Reframe to be able to implement apps with any JavaScript stack.
-For example you can learn Reframe to implement a frontend only (static site) with Vue.js
-but you can as well learn Reframe to create a frontend+backend (SSR app) with React.
+learn Reframe to be able to implement apps with any JavaScript stack.
+For example you can use Reframe to implement a frontend-only (static site) with Vue.js
+but you can as well use Reframe to create a frontend+backend (SSR app) with React.
 
 **Resillient Framework** -
 Web dev technologies are rapidly evolving and,
 thanks to its flexible architecture,
-Reframe will be able to adapt and embrace what comes next.
-For example, we are currently evaluating to replace Webpack with Parcel.
+Reframe is able to adapt and embrace what comes next.
+For example, we are currently considering using Parcel.
 Reframe aims to be your long-term companion for building web apps.
 
 
