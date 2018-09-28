@@ -24,10 +24,6 @@ function getCliCommands() {
 
 async function execAws({inputs: [accessKeyId, secretAccessKey, region], printHelp}) {
     if( ! accessKeyId || ! secretAccessKey || ! region ) {
-        console.log(cmd);
-        console.log(accessKeyId);
-        console.log(secretAccessKey);
-        console.log(region);
         printHelp();
         return;
     }
