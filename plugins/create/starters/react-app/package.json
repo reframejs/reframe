@@ -11,6 +11,7 @@
     "@brillout/cli-theme": "0.2.2",
     "@brillout/fetch": "^0.1.0",
     "@brillout/reconfig": "0.2.2",
+    "@reframe/aws": "0.2.2",
     "@reframe/cli": "0.2.2",
     "@reframe/react-kit": "0.2.2",
     "hapi": "^17.3.1",

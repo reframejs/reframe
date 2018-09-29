@@ -10,6 +10,5 @@ module.exports = {
         require('@reframe/start'),
         require('@reframe/eject'),
         require('@reframe/build'),
-        require('@reframe/aws'),
     ],
 };
