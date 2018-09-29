@@ -8,7 +8,7 @@ function getCliCommands() {
         {
             name: 'aws-configure',
             param: '[access-key-id] [secret-access-key] [region]',
-            description: `Create/Overwrite ${getConfigFilePath('config', true)} and ${getConfigFilePath('credentials', true)}`,
+            description: `Create ${getConfigFilePath('config', true)} and ${getConfigFilePath('credentials', true)}`,
             action: execAws,
             printAdditionalHelp() {
                 const {colorCmd, colorEmphasisLight, colorUrl, indent} = require('@brillout/cli-theme');
@@ -33,18 +33,26 @@ async function execAws({inputs: [accessKeyId, secretAccessKey, region], printHel
     await fs.mkdirp(getConfigFolderPath());
     console.log(`${symbolSuccess}${getConfigFolderPath(true)} created.`);
 
-    fs.writeFileSync(getConfigFilePath('config'), `
+    for (const {fileName, template} of [{
+        fileName: 'config',
+        template: `
 [default]
 region = ${region}
-`, 'utf-8');
-    console.log(`${symbolSuccess}${getConfigFilePath('config', true)} created.`);
-
-    fs.writeFileSync(getConfigFilePath('credentials'), `
+`
+    }, {
+        fileName: 'credentials', template: `
 [default]
 aws_access_key_id = ${accessKeyId}
 aws_secret_access_key = ${secretAccessKey}
-`, 'utf-8');
-    console.log(`${symbolSuccess}${getConfigFilePath('credentials', true)} created.`);
+`
+    }]) {
+        if (fs.existsSync(getConfigFilePath(fileName))) {
+            console.log(`${symbolSuccess}${getConfigFilePath(fileName, true)} already exists, skipped.`);
+        } else {
+            fs.writeFileSync(getConfigFilePath(fileName), template, 'utf-8');
+            console.log(`${symbolSuccess}${getConfigFilePath(fileName, true)} created.`);
+        }
+    }
 }
 
 function getConfigFilePath(name, pretty=false) {
