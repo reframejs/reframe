@@ -2,13 +2,9 @@ const fetch = require('@brillout/fetch');
 const assert_usage = require('reassert/usage');
 const assert_internal = require('reassert/internal');
 
-const easyqlClient = {
-    query,
-    getLoggedUser,
-};
-module.exports = easyqlClient;
+module.exports = {runQuery};
 
-async function query({query: queryObject, requestHeaders}) {
+async function runQuery({query: queryObject, requestHeaders}) {
     const {queryType, modelName} = queryObject;
     assert_usage(['read', 'write'].includes(queryType));
     assert_usage(modelName && modelName.constructor===String);
@@ -36,14 +32,4 @@ function getOption(optionName) {
         (typeof process !== "undefined") && process && process.env && process.env[optionName] ||
         (typeof window !== "undefined") && window && window[optionName]
     );
-}
-
-// TODO
-function getLoggedUser({req}={}) {
-    const readAuthCookie = require('../core/readAuthCookie');
-
-    const cookieString = req ? req.headers.cookie : document.cookie;
-    const authCookie = readAuthCookie({cookieString});
-    const loggedUser = authCookie && authCookie.loggedUser;
-    return loggedUser;
 }

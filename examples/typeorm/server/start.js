@@ -1,7 +1,7 @@
 const Hapi = require('hapi');
 const config = require('@brillout/reconfig').getConfig({configFileName: 'reframe.config.js'});
 const {symbolSuccess, colorEmphasis} = require('@brillout/cli-theme');
-const easyql = require('./easyql.config.js');
+const apiConfig = require('./api.config.js');
 
 module.exports = start();
 
@@ -15,7 +15,7 @@ async function start() {
     await server.register(config.hapiIntegrationPlugin);
 
     // Add API generated with EasyQL
-    await server.register(easyql.HapiPlugin);
+    await server.register(apiConfig.HapiPlugin);
 
     await server.start();
 

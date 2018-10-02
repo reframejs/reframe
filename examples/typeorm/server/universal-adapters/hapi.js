@@ -8,7 +8,11 @@ const assert_internal = require('reassert/internal');
 
 module.exports = UniversalHapiAdapter;
 
-function UniversalHapiAdapter({paramHandlers, reqHandlers, onServerClose}) {
+function UniversalHapiAdapter({handlers}) {
+
+    const paramHandlers = handlers.map(({paramHandler}) => paramHandler).filter(Boolean);
+    const reqHandlers = handlers.map(({reqHandler}) => reqHandler).filter(Boolean);
+    const serverCloseHandlers = handlers.map(({serverCloseHandler}) => serverCloseHandler).filter(Boolean);
 
     const HapiPlugin = {
         name: 'UniversalHapiAdapter',
@@ -34,7 +38,7 @@ function UniversalHapiAdapter({paramHandlers, reqHandlers, onServerClose}) {
             */
 
             server.ext('onPostStop', async () => {
-                for(const cb of onServerClose) {
+                for(const cb of serverCloseHandlers) {
                   await cb();
                 }
             });

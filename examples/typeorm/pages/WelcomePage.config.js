@@ -1,5 +1,6 @@
 import React from 'react';
-import easyqlClient from '../server/easyql/client/easyqlClient';
+import {runQuery} from '../server/easyql/client';
+import {getLoggedUser} from '../server/auth/client';
 
 const UserList = ({users}) => (
     <div>{
@@ -42,7 +43,7 @@ class UserAdder extends React.Component {
             modelName: 'User',
             object,
         };
-        const response = await easyqlClient.query({query});
+        const response = await runQuery({query});
         if( ! response.error ) {
             window.document.location.reload();
         }
@@ -65,7 +66,7 @@ class TodoAdder extends React.Component {
     }
     async onSubmit(ev) {
         ev.preventDefault();
-        const loggedUser = easyqlClient.getLoggedUser();
+        const loggedUser = getLoggedUser();
         const {id} = loggedUser;
         const object = {user: {id}, isCompleted: false, ...this.state};
         const query = {
@@ -73,7 +74,7 @@ class TodoAdder extends React.Component {
             modelName: 'Todo',
             object,
         };
-        const response = await easyqlClient.query({query});
+        const response = await runQuery({query});
         if( ! response.error ) {
             window.document.location.reload();
         }
@@ -97,7 +98,7 @@ async function getUsers({req}) {
         modelName: 'User',
     };
     const requestHeaders = req && req.headers;
-    const response = await easyqlClient.query({query, requestHeaders});
+    const response = await runQuery({query, requestHeaders});
 
     const users = response.objects;
 
@@ -105,7 +106,7 @@ async function getUsers({req}) {
 }
 
 async function getTodos({req}) {
-    const loggedUser = easyqlClient.getLoggedUser({req});
+    const loggedUser = getLoggedUser({headers: req && req.headers});
     if( ! loggedUser ) {
         return [];
     }
@@ -121,7 +122,7 @@ async function getTodos({req}) {
         },
     };
     const requestHeaders = req && req.headers;
-    const response = await easyqlClient.query({query, requestHeaders});
+    const response = await runQuery({query, requestHeaders});
 
     const todos = response.objects;
 
