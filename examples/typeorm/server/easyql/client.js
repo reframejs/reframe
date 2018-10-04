@@ -4,13 +4,12 @@ const assert_internal = require('reassert/internal');
 
 module.exports = {runQuery};
 
-async function runQuery({query: queryObject, requestHeaders}) {
+async function runQuery({query: queryObject, requestHeaders, ...options}) {
     const {queryType, modelName} = queryObject;
     assert_usage(['read', 'write'].includes(queryType));
     assert_usage(modelName && modelName.constructor===String);
 
-    // TODO
-    const URL_BASE = getOption('EASYQL_URL_BASE') || 'http://localhost:3000/api/';
+    const URL_BASE = getOption('API_URL_BASE', options) || 'http://localhost:3000/api/';
 
     const queryString = encodeURIComponent(JSON.stringify(queryObject));
     const url = URL_BASE+queryString;
@@ -27,8 +26,9 @@ async function runQuery({query: queryObject, requestHeaders}) {
     return responseJson;
 }
 
-function getOption(optionName) {
-    return (
+function getOption(optionName, options) {
+  return (
+        options[optionName] ||
         (typeof process !== "undefined") && process && process.env && process.env[optionName] ||
         (typeof window !== "undefined") && window && window[optionName]
     );

@@ -1,6 +1,5 @@
 module.exports = {getLoggedUser};
 
-// TODO
 function getLoggedUser({headers}={}) {
     const readAuthCookie = require('./readAuthCookie');
 
