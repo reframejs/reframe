@@ -66,17 +66,19 @@ async function applyConfigHandlers(request) {
 }
 
 function alreadyServed(request) {
-    // TODO
     if( ! request.response ) {
         return false;
     }
 
-    if( ! request.response.output ) {
-        return false;
+    if( ! request.response.isBoom || request.response.output.statusCode !== 404 ) {
+        return true;
     }
 
-    return (
-        ! request.response.isBoom ||
-        request.response.output.statusCode !== 404
-    );
+    /*
+    if( request.response.headers===undefined && request.response.output===undefined ) {
+        return false;
+    }
+    */
+
+    return false;
 }
