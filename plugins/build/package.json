@@ -1,13 +1,13 @@
 {
    "name": "@reframe/build",
-   "version": "0.2.2",
+   "version": "0.2.3",
    "dependencies": {
-      "@brillout/browser-config": "0.2.2",
-      "@brillout/reconfig": "0.2.2",
-      "@brillout/repage": "0.2.2",
-      "@reframe/utils": "0.2.2",
+      "@brillout/browser-config": "0.2.3",
+      "@brillout/reconfig": "0.2.3",
+      "@brillout/repage": "0.2.3",
+      "@reframe/utils": "0.2.3",
       "reassert": "^1.1.12",
-      "webpack-ssr": "0.2.2"
+      "webpack-ssr": "0.2.3"
    },
    "publishConfig": {
       "access": "public"

@@ -3,7 +3,7 @@
     "docs": "mdocs"
   },
   "name": "_starters-react-fullstack-app",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "private": "true",
   "checkDeps": {
     "skip": true

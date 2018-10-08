@@ -1,6 +1,6 @@
 {
   "name": "@reframe/typescript",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "scripts": {
     "docs": "mdocs"
   },
@@ -9,7 +9,7 @@
     "@babel/plugin-proposal-decorators": "^7.0.0",
     "@babel/preset-typescript": "^7.0.0",
     "@brillout/get-user-dir": "^0.2.1",
-    "@brillout/reconfig": "0.2.2",
+    "@brillout/reconfig": "0.2.3",
     "find-up": "^2.1.0",
     "fork-ts-checker-webpack-plugin": "^0.4.9",
     "reassert": "^1.1.12",
