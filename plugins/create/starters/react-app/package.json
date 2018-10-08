@@ -18,8 +18,8 @@
     "react": "^16.3.2"
   },
   "name": "_starters-react-app",
-  "version": "0.2.3",
   "private": "true",
+  "version": "0.2.3",
   "checkDeps": {
     "skip": true
   },
