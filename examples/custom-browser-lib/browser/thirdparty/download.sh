@@ -11,7 +11,7 @@ curl -O https://oss.maxcdn.com/semantic-ui/2.1.8/semantic.min.js
 mkdir -p themes/default/assets/fonts/
 pushd themes/default/assets/fonts/
 for ext in eot otf svg ttf woff woff2; do
-  curl -O https://rawgit.com/Semantic-Org/Semantic-UI-CSS/2.1.8/themes/default/assets/fonts/icons.$ext
+  curl -O "https://cdn.jsdelivr.net/gh/Semantic-Org/Semantic-UI-CSS@2.1.8/themes/default/assets/fonts/icons.$ext"
 done
 popd
 
