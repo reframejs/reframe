@@ -212,12 +212,12 @@
 
 ##### Other starters
 
-The [react-frontend starter](/plugins/create/starters/react-frontend#readme) is the recommanded starter for your first Reframe app.
-It will scaffold a frontend-only stack.
-(Aka static site: An app that consists of static browser assets only and no Node.js server is required.)
+The [react-frontend starter](/plugins/create/starters/react-frontend#readme) is the recommended starter for your first Reframe app.
+It will scaffold a frontend-only (aka static site).
 
-But if you already know for sure that you need a Node.js server then checkout the [react-app starter](/plugins/create/starters/react-app#readme).
-(If you are not sure then use the react-frontend starter: You can easily add a Node.js server afterwards.)
+But if you need a Node.js server then use the [react-app starter](/plugins/create/starters/react-app#readme) instead.
+
+And if you don't know whether you need a Node.js server, then we still recommend to start with a frontend-only as you can easily add a Node.js server afterwards.
 
 See the [list of starters](/docs/starters.md#readme) for more starters.
 
@@ -402,10 +402,10 @@ But if a page has no interactive views then it is wasteful to render it in the b
 
 Setting `doNotRenderInBrowser: true` makes the page considerably faster as no (or much less) JavaScript is loaded and exectued.
 
-So if your page has no interactive views, then you should set `doNotRenderInBrowser: true`.
-More precisely, you should set `doNotRenderInBrowser: true` if your page's view is stateless.
-E.g. a functional React component is always stateless and non-interactive.
-So if your page's view is composed of functional React components only, then you should set `doNotRenderInBrowser: true`.
+So if your page has no interactive views, then you can set `doNotRenderInBrowser: true`.
+More precisely, you can set `doNotRenderInBrowser: true` if your page's view is stateless.
+E.g. a functional React component is always stateless and
+if your page is composed of functional React components only, then you can set `doNotRenderInBrowser: true`.
 
 <br/>
 

@@ -24,7 +24,7 @@ But if a page has no interactive views then it is wasteful to render it in the b
 
 Setting `doNotRenderInBrowser: true` makes the page considerably faster as no (or much less) JavaScript is loaded and exectued.
 
-So if your page has no interactive views, then you should set `doNotRenderInBrowser: true`.
-More precisely, you should set `doNotRenderInBrowser: true` if your page's view is stateless.
-E.g. a functional React component is always stateless and non-interactive.
-So if your page's view is composed of functional React components only, then you should set `doNotRenderInBrowser: true`.
+So if your page has no interactive views, then you can set `doNotRenderInBrowser: true`.
+More precisely, you can set `doNotRenderInBrowser: true` if your page's view is stateless.
+E.g. a functional React component is always stateless and
+if your page is composed of functional React components only, then you can set `doNotRenderInBrowser: true`.

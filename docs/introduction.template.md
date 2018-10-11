@@ -67,7 +67,7 @@ Reframe's flexibility is based on three pillars:
 3. **Flexible stack** -
    You can easily and at any time
    remove/add a frontend, backend, or database/ORM to your app.
-   For example you can start with a frontend-only (static site) and later add a Node.js server to it.
+   For example you can start with a frontend-only and later add a Node.js server to it.
 
 Benefits of that flexibility:
 
@@ -82,24 +82,24 @@ At that point your code doesn't depend on Reframe anymore and only depends on do
 (such as React, Express, Webpack, etc.).
 
 **Rapid Prototyping** -
-You can change your app's stack at any time which comes in handy for rapid prototyping.
+You can change your app's stack at any time.
+This comes in handy for rapid prototyping.
 For example,
 you can implement a first prototype as a frontend-only (static site)
 and skip a real database by hard-writing data in the codebase.
-The prototype can then be deployed easily and for free (to a static host such as Netlify or GitHub Pages).
-Later, when hard-writing data isn't sustainable anymore, you can add a Node.js server and database to the prototype.
+The prototype can then be deployed easily and for free. (To a static host such as Netlify or GitHub Pages).
+Later, when hard-writing data isn't sustainable anymore, you can add a Node.js server and a database to your prototype.
 
 **Learn Once, Write Any App** -
 Instead of learning several frameworks,
 learn Reframe to be able to implement apps with any JavaScript stack.
-For example you can use Reframe to implement a frontend-only (static site) with Vue.js
+For example you can use Reframe to implement a frontend-only with Vue.js
 but you can as well use Reframe to create a frontend+backend (SSR app) with React.
 
 **Resillient Framework** -
 Web dev technologies are rapidly evolving and,
 thanks to its flexible architecture,
 Reframe is able to adapt and embrace what comes next.
-For example, we are currently considering using Parcel.
 Reframe aims to be your long-term companion for building web apps.
 
 
