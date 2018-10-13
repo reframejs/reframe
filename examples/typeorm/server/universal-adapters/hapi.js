@@ -1,6 +1,7 @@
 const formBody = require("body/form")
 const qs = require('querystring');
 const assert_usage = require('reassert/usage');
+const Boom = require('boom'); 
 /*
 const assert_warning = require('reassert/warning');
 */
@@ -9,6 +10,14 @@ const assert_internal = require('reassert/internal');
 module.exports = UniversalHapiAdapter;
 
 function UniversalHapiAdapter({handlers}) {
+
+    handlers.forEach(handler => {
+      const handlerNames = ['paramHandler', 'reqHandler', 'serverCloseHandler'];
+      assert_usage(Object.keys(handler).filter(key => !handlerNames.includes(key)).length===0, handler);
+      handlerNames.forEach(handlerName => {
+        assert_usage(!handler[handlerName] || handler[handlerName] instanceof Function, handler, handlerName, handler[handlerName]);
+      });
+    });
 
     const paramHandlers = handlers.map(({paramHandler}) => paramHandler).filter(Boolean);
     const reqHandlers = handlers.map(({reqHandler}) => reqHandler).filter(Boolean);
@@ -29,7 +38,6 @@ function UniversalHapiAdapter({handlers}) {
                     console.log(req.payload);
                     */
                     return handleRequest(req, h);
-                 // return h.continue;
                 },
             });
 
@@ -84,7 +92,8 @@ function UniversalHapiAdapter({handlers}) {
             return resp;
           }
         }
-        return h.continue;
+
+        throw Boom.notFound(null, {});
     }
 }
 

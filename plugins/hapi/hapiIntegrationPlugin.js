@@ -70,7 +70,7 @@ function alreadyServed(request) {
         return false;
     }
 
-    if( ! request.response.isBoom || request.response.output.statusCode !== 404 ) {
+    if( ! request.response.isBoom || (request.response.output||{}).statusCode !== 404 ) {
         return true;
     }
 
