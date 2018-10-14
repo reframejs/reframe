@@ -142,7 +142,7 @@ const WelcomePage = {
         const users = await getUsers({req});
         const todos = await getTodos({req});
 
-        const test = await apiEndpoints.getTodos();
+        const test = await apiEndpoints.getTodos({req});
         console.log(213321, test);
 
         return {users, todos};

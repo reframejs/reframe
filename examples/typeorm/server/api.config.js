@@ -4,6 +4,7 @@ const {getApiRequestHandlers} = require('./easyql/server');
 const {getAuthRequestHandlers} = require('./auth/server');
 const permissions = require('./permissions');
 const {apiEndpoints, apiRequestsHandler} = require('./wildcard-api/server');
+const {getLoggedUser} = require('../server/auth/client');
 
 const databaseInterface = UniversalTypeormAdapter({
   typeormConfig,
@@ -27,7 +28,10 @@ const handlers = [
 
 const UniversalHapiAdapter = require('./universal-adapters/hapi');
 
-apiEndpoints.getTodos = ({req, loggedUser}={}) => {
+apiEndpoints.getTodos = ({req}={}) => {
+  const loggedUser = getLoggedUser({headers: req && req.headers});
+  console.log(req.headers);
+  console.log(loggedUser);
   return 'tmtes';
 };
 

@@ -14,10 +14,11 @@ function WildcardApiClient({
 
   return {apiEndpoints, fetchApiEndpoint};
 
-  function fetchApiEndpoint(endpointName, ...endpointArgs) {
+  function fetchApiEndpoint(endpointName, endpointArgs) {
     assert_usage(endpointName);
-    assert_internal(endpointArgs.constructor===Array);
+    assert_internal(endpointArgs.constructor===Object);
     if( isNodejs() ) {
+      assert_usage(endpointArgs.req);
       wildcardApi = wildcardApi || global.wildcardApi;
       assert_usage(wildcardApi, "Couldn't find a `WildcardApi` instance. Because `global.wildcardApi===undefined`. Are you running two different Node.js processes where one is running the client and the other one instantiating `WildcardApi`?");
       return wildcardApi.runApiEndpoint(endpointName, endpointArgs);
@@ -48,10 +49,10 @@ function WildcardApiClient({
 
     const apiEndpoints = (
       new Proxy({}, {get: (_, endpointName) => {
-        return (...endpointArgs) => {
+        return (endpointArgs) => {
           assert_internal(endpointName);
-          assert_internal(endpointArgs.constructor===Array);
-          return fetchApiEndpoint(endpointName, ...endpointArgs);
+          assert_usage(endpointArgs===undefined || endpointArgs && endpointArgs.constructor===Object);
+          return fetchApiEndpoint(endpointName, endpointArgs);
         }
       }})
     );
