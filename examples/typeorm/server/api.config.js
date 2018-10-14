@@ -27,7 +27,7 @@ const handlers = [
 
 const UniversalHapiAdapter = require('./universal-adapters/hapi');
 
-apiEndpoints.getTodos = ({req, loggedUser}) => {
+apiEndpoints.getTodos = ({req, loggedUser}={}) => {
   return 'tmtes';
 };
 

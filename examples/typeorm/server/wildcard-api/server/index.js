@@ -1,15 +1,12 @@
 const assert_internal = require('reassert/internal');
-//const assert_usage = require('reassert/usage');
+const assert_usage = require('reassert/usage');
 
-const {apiEndpoints, apiRequestsHandler} = new WildcardApi();
+module.exports = new WildcardApi();
+module.exports.WildcardApi = WildcardApi;
 
-module.exports = {
-  apiEndpoints,
-  apiRequestsHandler,
-  WildcardApi,
-};
-
-function WildcardApi() {
+function WildcardApi({
+  API_URL_BASE='/wildcard-api/',
+}={}) {
   const apiEndpoints = {};
 
   return {
@@ -17,33 +14,37 @@ function WildcardApi() {
     apiRequestsHandler: {
       reqHandler,
     },
+    runApiEndpoint,
   };
 
-  function reqHandler(args) {
+  async function runApiEndpoint(endpointName, endpointArgs=[]) {
+    assert_usage(endpointName);
+    assert_usage(endpointArgs && endpointArgs.constructor===Array);
+    if( ! apiEndpoints[endpointName] ) {
+      assert_usage(false, endpointName);
+      return {usageError: 'endpoint '+endpointName+" doesn't exist"};
+    }
+    const responseObj = await apiEndpoints[endpointName](...endpointArgs);
+    return responseObj;
+  }
+
+  async function reqHandler(args) {
     const {req, payload} = args;
 
-    const API_URL_BASE = 'wildcard-api';
-    const {url} = req;
-
-    if( ! url.startsWith('/'+API_URL_BASE+'/') ) {
+    let {url} = req;
+    if( ! url.startsWith(API_URL_BASE) ) {
         return null;
     }
+    url = url.slice(API_URL_BASE.length);
 
     const urlParts = url.split('/');
-    assert_internal(urlParts[0]==='' && urlParts[1]===API_URL_BASE, url);
-
-    if( urlParts.length!==3 ) {
+    const endpointName = urlParts[0];
+    if( urlParts.length!==1 || !endpointName ) {
       return response({usageError: 'malformatted API URL: '+url});
     }
 
-    const functionName = urlParts[2];
-
-    if( ! apiEndpoints[functionName] ) {
-      return response({usageError: 'malformatted API URL: '+url});
-    }
-
-    let argsObj = payload;
     /*
+    let argsObj = payload;
     try {
       argsObj = JSON.parse(payload);
     } catch(err) {
@@ -51,9 +52,10 @@ function WildcardApi() {
       return response({usageError: 'malformatted payload (API arguments). Payload: `'+payload+'`. Error: '+err});
     }
     */
-
-    const responseObj = apiEndpoints[functionName]({...args, ...argsObj});
-
+    const endpointArgs = [] || payload;
+    assert_internal(endpointName);
+    assert_internal(endpointArgs===undefined || endpointArgs.constructor===Array);
+    const responseObj = await runApiEndpoint(endpointName, endpointArgs);
     return response(responseObj);
   }
 
