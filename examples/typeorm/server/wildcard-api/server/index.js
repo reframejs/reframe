@@ -1,8 +1,10 @@
 const assert_internal = require('reassert/internal');
 const assert_usage = require('reassert/usage');
 
-module.exports = new WildcardApi();
-module.exports.WildcardApi = WildcardApi;
+assert_usage(isNodejs(), "The server-side module should be loaded in Node.js and not in the browser.");
+
+module.exports = global.wildcardApi = global.wildcardApi || new WildcardApi();
+module.exports.WildcardApi = module.exports.WildcardApi || WildcardApi;
 
 function WildcardApi({
   API_URL_BASE='/wildcard-api/',
@@ -21,7 +23,7 @@ function WildcardApi({
     assert_usage(endpointName);
     assert_usage(endpointArgs && endpointArgs.constructor===Array);
     if( ! apiEndpoints[endpointName] ) {
-      assert_usage(false, endpointName);
+   // assert_usage(false, apiEndpoints, Object.keys(apiEndpoints), endpointName);
       return {usageError: 'endpoint '+endpointName+" doesn't exist"};
     }
     const responseObj = await apiEndpoints[endpointName](...endpointArgs);
@@ -68,4 +70,8 @@ function WildcardApi({
     }
     return {body};
   }
+}
+
+function isNodejs() {
+  return typeof "process" !== "undefined" && process && process.versions && process.versions.node;
 }

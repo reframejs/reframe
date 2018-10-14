@@ -18,7 +18,8 @@ function WildcardApiClient({
     assert_usage(endpointName);
     assert_internal(endpointArgs.constructor===Array);
     if( isNodejs() ) {
-      wildcardApi = wildcardApi || require('../server');
+      wildcardApi = wildcardApi || global.wildcardApi;
+      assert_usage(wildcardApi, "Couldn't find a `WildcardApi` instance. Because `global.wildcardApi===undefined`. Are you running two different Node.js processes where one is running the client and the other one instantiating `WildcardApi`?");
       return wildcardApi.runApiEndpoint(endpointName, endpointArgs);
     }
     const url = API_URL_BASE+endpointName;
@@ -59,7 +60,7 @@ function WildcardApiClient({
 }
 
 function isNodejs() {
-  return typeof "process" !== "undefined";
+  return typeof "process" !== "undefined" && process && process.versions && process.versions.node;
 }
 
 function hasProxySupport() {
