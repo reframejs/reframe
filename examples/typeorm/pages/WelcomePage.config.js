@@ -1,6 +1,7 @@
 import React from 'react';
 import {runQuery} from '../server/easyql/client';
 import {getLoggedUser} from '../server/auth/client';
+import {apiEndpoints} from '../server/wildcard-api/client';
 
 const UserList = ({users}) => (
     <div>{
@@ -136,6 +137,9 @@ const WelcomePage = {
     getInitialProps: async ({req}) => {
         const users = await getUsers({req});
         const todos = await getTodos({req});
+
+        const test = await apiEndpoints.getTodos();
+        console.log(213321, test);
 
         return {users, todos};
     },
