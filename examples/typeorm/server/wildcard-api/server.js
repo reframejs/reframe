@@ -1,31 +1,69 @@
-module.exports = {listener, handleRequest};
+const assert_internal = require('reassert/internal');
+//const assert_usage = require('reassert/usage');
 
-function listener(...args) {
-  return JSON.stringify(args);
-}
+const {apiEndpoints, apiRequestsHandler} = new WildcardApi();
 
+module.exports = {
+  apiEndpoints,
+  apiRequestsHandler,
+  WildcardApi,
+};
 
-function handleRequest(handler) {
-  return (
-      /*
-      {
-        paramHandler: apiQueryParamHandler,
-      },
-      */
-      {
-        reqHandler,
-      }
-  );
+function WildcardApi() {
+  const apiEndpoints = {};
 
-  function reqHandler({req, payload}) {
-    const URL_BASE = '/wildcard-api/';
+  return {
+    apiEndpoints,
+    apiRequestsHandler: {
+      reqHandler,
+    },
+  };
 
-    if( ! req.url.startsWith(URL_BASE) ) {
+  function reqHandler(args) {
+    const {req, payload} = args;
+
+    const API_URL_BASE = 'wildcard-api';
+    const {url} = req;
+
+    if( ! url.startsWith('/'+API_URL_BASE+'/') ) {
         return null;
     }
 
-    return {
-      body: 'euwh',
-    };
+    const urlParts = url.split('/');
+    assert_internal(urlParts[0]==='' && urlParts[1]===API_URL_BASE, url);
+
+    if( urlParts.length!==3 ) {
+      return response({usageError: 'malformatted API URL: '+url});
+    }
+
+    const functionName = urlParts[2];
+
+    if( ! apiEndpoints[functionName] ) {
+      return response({usageError: 'malformatted API URL: '+url});
+    }
+
+    let argsObj = payload;
+    /*
+    try {
+      argsObj = JSON.parse(payload);
+    } catch(err) {
+      console.log(payload);
+      return response({usageError: 'malformatted payload (API arguments). Payload: `'+payload+'`. Error: '+err});
+    }
+    */
+
+    const responseObj = apiEndpoints[functionName]({...args, ...argsObj});
+
+    return response(responseObj);
+  }
+
+  function response(responseObj) {
+    let body;
+    try {
+      body = JSON.stringify(responseObj);
+    } catch(err) {
+      throw err;
+    }
+    return {body};
   }
 }

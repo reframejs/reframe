@@ -14,6 +14,7 @@ function UniversalHapiAdapter({handlers}) {
     handlers.forEach(handler => {
       const handlerNames = ['paramHandler', 'reqHandler', 'serverCloseHandler'];
       assert_usage(Object.keys(handler).filter(key => !handlerNames.includes(key)).length===0, handler);
+      assert_usage(Object.keys(handler).length>0, handler);
       handlerNames.forEach(handlerName => {
         assert_usage(!handler[handlerName] || handler[handlerName] instanceof Function, handler, handlerName, handler[handlerName]);
       });

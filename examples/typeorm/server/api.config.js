@@ -3,7 +3,7 @@ const typeormConfig = require('./typeorm.config.js');
 const {getApiRequestHandlers} = require('./easyql/server');
 const {getAuthRequestHandlers} = require('./auth/server');
 const permissions = require('./permissions');
-const {handleRequest} = require('./wildcard-api/server');
+const {apiEndpoints, apiRequestsHandler} = require('./wildcard-api/server');
 
 const databaseInterface = UniversalTypeormAdapter({
   typeormConfig,
@@ -27,11 +27,11 @@ const handlers = [
 
 const UniversalHapiAdapter = require('./universal-adapters/hapi');
 
-let handler = handleRequest(() => {
-   return 'yo wild';
-});
+apiEndpoints.getTodos = ({req, loggedUser}) => {
+  return 'tmtes';
+};
 
-handlers.push(handler);
+handlers.push(apiRequestsHandler);
 
 const HapiPlugin = UniversalHapiAdapter({handlers});
 
