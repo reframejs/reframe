@@ -53,7 +53,7 @@ async function execDev({options}) {
     assert_build(config);
 
     let server;
-    config.runBuild.onBuildEnd.push(async ({isFirstBuild}) => {
+    config.runBuild.onBuildDone = async ({isFirstBuild}) => {
         if( isFirstBuild ) {
             return;
         }
@@ -66,12 +66,12 @@ async function execDev({options}) {
 
         await server.stop();
         server = null;
-        server = await runServer(config, {quiet: true});
-    });
+        server = await runServer(config, {isRestart: true});
+    };
 
     await config.runBuild();
 
-    server = await runServer(config);
+    server = await runServer(config, {isRestart: false});
 }
 
 async function execBuild({options}) {
@@ -87,12 +87,14 @@ async function execBuild({options}) {
 async function execServer({options}) {
     const config = init(options);
     log_found_stuff({config, log_built_pages: true});
-    const server = await runServer(config);
+    const server = await runServer(config, {isRestart: false});
 }
 
-async function runServer(config, {quiet}={}) {
+async function runServer(config, {isRestart}) {
     const assert_internal = require('reassert/internal');
     const forceRequire = require('@reframe/utils/forceRequire');
+    const {symbolSuccess} = require('@brillout/cli-theme');
+    assert_internal([true, false].includes(isRestart));
 
     assert_server(config);
 
@@ -104,20 +106,26 @@ async function runServer(config, {quiet}={}) {
 
     let server;
     try {
-        if( quiet ) {
+        /*
+        if( isRestart ) {
             var consoleLog = console.log
             console.log = () => {};
         }
+        */
+        if( isRestart ) {
+          console.log(symbolSuccess+'Server stopped. Restarting...');
+        }
         server = await forceRequire(serverEntry);
-        if( quiet ) {
+        /*
+        if( isRestart ) {
             console.log = consoleLog;
         }
+        */
     } catch(err) {
         throw prettify_error(err);
     }
 
-    if( ! quiet ) {
-     // const {symbolSuccess} = require('@brillout/cli-theme');
+    if( ! isRestart ) {
      // console.log(symbolSuccess+'Server running '+server.info.uri);
         log_routes(config, server);
         console.log();

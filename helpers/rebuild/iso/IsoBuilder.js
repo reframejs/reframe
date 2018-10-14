@@ -20,6 +20,8 @@ module.exports = {IsoBuilder};
 function IsoBuilder() {
     const latestRun = {runNumber: 0, runPromise: null};
 
+    const isRebuild = {value: false};
+
     const isoBuilder = this;
 
     const browserBuild = new BuildManager({
@@ -69,6 +71,7 @@ function IsoBuilder() {
                 latestRun,
                 nodejsBuild,
                 browserBuild,
+                isRebuild,
             })
         );
     }
@@ -273,7 +276,7 @@ function WebpackCompilerWithCache() {
     }
 }
 
-async function buildAll({isoBuilder, latestRun, browserBuild, nodejsBuild}) {
+async function buildAll({isoBuilder, latestRun, browserBuild, nodejsBuild, isRebuild}) {
     global.DEBUG_WATCH && console.log(chalk.bold('START-OVERALL-BUILDER'));
 
     await waitOnLatestRun(latestRun);
@@ -331,6 +334,12 @@ async function buildAll({isoBuilder, latestRun, browserBuild, nodejsBuild}) {
     global.DEBUG_WATCH && console.log(chalk.bold("END-OVERALL-BUILDER "+(isOutdated?"[OUTDATED]":"[LATEST]")));
     if( ! isOutdated ) {
         log_state_end({logger, nodejsBuild, browserBuild});
+
+        const isFirstBuild = !isRebuild.value;
+        isRebuild.value = true;
+        if( isoBuilder.onBuildDone ) {
+            /*await */isoBuilder.onBuildDone({isFirstBuild});
+        }
     }
 }
 function log_state_end({logger, nodejsBuild, browserBuild}) {
@@ -353,6 +362,13 @@ function log_state_end({logger, nodejsBuild, browserBuild}) {
     });
 }
 function log_state_start({logger}){
+    /*
+    if( isoBuilder.onBuildBegin ) {
+        const promise = isoBuilder.onBuildBegin({isFirstBuild});
+        assert_usage(promise===undefined);
+    }
+    */
+
     logger.onNewBuildState({
         is_compiling: true,
     });

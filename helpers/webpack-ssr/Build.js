@@ -57,9 +57,15 @@ function BuildInstance() {
 
     const that = this;
 
-    that.onBuildEnd = [];
+    isoBuilder.onBuildDone = async (...args) => {
+        if( that.onBuildDone ) {
+             await that.onBuildDone(...args);
+        }
 
-    let isFirstBuild = true;
+        if( autoReloadEnabled ) {
+            reloadBrowser();
+        }
+    }
 
     isoBuilder.builder = (function* ({buildForNodejs, buildForBrowser}) {
         const pageFiles__by_interface = that.getPageFiles();
@@ -88,20 +94,11 @@ function BuildInstance() {
 
         const {getPageHtmls} = that;
         yield writeHtmlFiles({pageModules, getPageHtmls, fileSets});
-
-        for(const listener of that.onBuildEnd) {
-            yield listener({isFirstBuild});
-        }
-
-        if( autoReloadEnabled ) {
-            reloadBrowser();
-        }
     }).bind(this);
 
     return async () => {
         const ret = await isoBuilder.build();
         assert_internal(ret===undefined);
-        isFirstBuild = false;
     };
 }
 
