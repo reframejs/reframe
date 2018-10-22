@@ -3,9 +3,9 @@ const Todo = require('../db/models/Todo');
 
 const UniversalHapiAdapter = require('../../../examples/typeorm/server/universal-adapters/hapi');
 
-const {apiEndpoints, apiRequestsHandler} = require('../wildcard-api/server');
+const {endpoints, apiRequestsHandler} = require('../wildcard-api/server');
 
-apiEndpoints.getTodos = getTodos;
+endpoints.getTodos = getTodos;
 
 const handlers = [
   apiRequestsHandler,

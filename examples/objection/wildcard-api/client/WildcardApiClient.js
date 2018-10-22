@@ -2,17 +2,19 @@ const assert_warning = require('reassert/warning');
 const assert_usage = require('reassert/usage');
 const assert_internal = require('reassert/internal');
 
+const DEFAULT_API_URL_BASE = '/*/';
+
 module.exports = {WildcardApiClient};
 
 function WildcardApiClient({
   makeHttpRequest,
-  API_URL_BASE='/wildcard-api/',
+  apiUrlBase=DEFAULT_API_URL_BASE,
   wildcardApi,
   noProxyWarning,
 }={}) {
-  const apiEndpoints = getApiEndpoints();
+  const endpoints = getApiEndpoints();
 
-  return {apiEndpoints, fetchApiEndpoint};
+  return {endpoints, fetchApiEndpoint};
 
   function fetchApiEndpoint(endpointName, endpointArgs) {
     assert_usage(endpointName);
@@ -21,9 +23,9 @@ function WildcardApiClient({
       assert_usage(endpointArgs.req);
       wildcardApi = wildcardApi || global.wildcardApi;
       assert_usage(wildcardApi, "Couldn't find a `WildcardApi` instance. Because `global.wildcardApi===undefined`. Are you running two different Node.js processes where one is running the client and the other one instantiating `WildcardApi`?");
-      return wildcardApi.runApiEndpoint(endpointName, endpointArgs);
+      return wildcardApi.runEndpoint(endpointName, endpointArgs);
     }
-    const url = API_URL_BASE+endpointName;
+    const url = apiUrlBase+endpointName;
     let body;
     try {
       body = JSON.stringify(endpointArgs);

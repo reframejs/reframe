@@ -1,13 +1,15 @@
 const assert_internal = require('reassert/internal');
 const assert_usage = require('reassert/usage');
 
+const DEFAULT_API_URL_BASE = '/*/';
+
 assert_usage(isNodejs(), "The server-side module should be loaded in Node.js and not in the browser.");
 
 module.exports = global.wildcardApi = global.wildcardApi || new WildcardApi();
 module.exports.WildcardApi = module.exports.WildcardApi || WildcardApi;
 
 function WildcardApi({
-  API_URL_BASE='/wildcard-api/',
+  apiUrlBase=DEFAULT_API_URL_BASE,
 }={}) {
   const apiEndpoints = {};
 
@@ -35,10 +37,10 @@ function WildcardApi({
     const {req, payload} = args;
 
     let {url} = req;
-    if( ! url.startsWith(API_URL_BASE) ) {
+    if( ! url.startsWith(apiUrlBase) ) {
         return null;
     }
-    url = url.slice(API_URL_BASE.length);
+    url = url.slice(apiUrlBase.length);
 
     const urlParts = url.split('/');
     const endpointName = urlParts[0];
