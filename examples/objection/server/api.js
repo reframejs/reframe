@@ -1,12 +1,24 @@
 const knex = require('../db/setup');
 const Todo = require('../db/models/Todo');
 
-main();
+const UniversalHapiAdapter = require('../../../examples/typeorm/server/universal-adapters/hapi');
 
-async function main() {
-  console.log(await getTodos());
-  await knex.destroy();
-}
+const {apiEndpoints, apiRequestsHandler} = require('../wildcard-api/server');
+
+apiEndpoints.getTodos = getTodos;
+
+const handlers = [
+  apiRequestsHandler,
+  {
+    serverCloseHandler: () => {knex.destroy()},
+  }
+];
+
+const HapiPlugin = UniversalHapiAdapter({handlers});
+
+module.exports = {
+  HapiPlugin,
+};
 
 async function getTodos() {
   return await (

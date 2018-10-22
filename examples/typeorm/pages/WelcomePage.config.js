@@ -1,7 +1,6 @@
 import React from 'react';
 import {runQuery} from '../server/easyql/client';
 import {getLoggedUser} from '../server/auth/client';
-import {apiEndpoints} from '../server/wildcard-api/client';
 /*
 , setUrlOrigin
 setUrlOrigin('http://localhost:3000');
@@ -141,9 +140,6 @@ const WelcomePage = {
     getInitialProps: async ({req}) => {
         const users = await getUsers({req});
         const todos = await getTodos({req});
-
-        const test = await apiEndpoints.getTodos({req});
-        console.log(213321, test);
 
         return {users, todos};
     },
