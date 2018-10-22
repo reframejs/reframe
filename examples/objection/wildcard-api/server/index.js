@@ -11,25 +11,25 @@ module.exports.WildcardApi = module.exports.WildcardApi || WildcardApi;
 function WildcardApi({
   apiUrlBase=DEFAULT_API_URL_BASE,
 }={}) {
-  const apiEndpoints = {};
+  const endpoints = {};
 
   return {
-    apiEndpoints,
+    endpoints,
     apiRequestsHandler: {
       reqHandler,
     },
-    runApiEndpoint,
+    runEndpoint,
   };
 
-  async function runApiEndpoint(endpointName, endpointArgs={}) {
+  async function runEndpoint(endpointName, endpointArgs={}) {
     assert_usage(endpointName);
     assert_usage(endpointArgs && endpointArgs.constructor===Object, endpointArgs);
     assert_usage(endpointArgs.req, endpointArgs);
-    if( ! apiEndpoints[endpointName] ) {
-   // assert_usage(false, apiEndpoints, Object.keys(apiEndpoints), endpointName);
+    if( ! endpoints[endpointName] ) {
+   // assert_usage(false, endpoints, Object.keys(endpoints), endpointName);
       return {usageError: 'endpoint '+endpointName+" doesn't exist"};
     }
-    const responseObj = await apiEndpoints[endpointName](endpointArgs);
+    const responseObj = await endpoints[endpointName](endpointArgs);
     return responseObj;
   }
 
@@ -62,7 +62,7 @@ function WildcardApi({
     endpointArgs.req = req;
     assert_internal(endpointName);
     assert_internal(endpointArgs===undefined || endpointArgs.constructor===Object, endpointArgs, endpointArgs && endpointArgs.constructor);
-    const responseObj = await runApiEndpoint(endpointName, endpointArgs);
+    const responseObj = await runEndpoint(endpointName, endpointArgs);
     return response(responseObj);
   }
 

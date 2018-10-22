@@ -1,4 +1,3 @@
-const assert_warning = require('reassert/warning');
 const assert_usage = require('reassert/usage');
 const assert_internal = require('reassert/internal');
 
@@ -10,19 +9,28 @@ function WildcardApiClient({
   makeHttpRequest,
   apiUrlBase=DEFAULT_API_URL_BASE,
   wildcardApi,
-  noProxyWarning,
 }={}) {
-  const endpoints = getApiEndpoints();
 
-  return {endpoints, fetchApiEndpoint};
+  assert_usage(
+    makeHttpRequest,
+    "You need to provide a `makeHttpRequest` to `WildcardApiClient`",
+  );
 
-  function fetchApiEndpoint(endpointName, endpointArgs) {
+  return {
+    fetchEndpoint,
+    get endpoints(){ return getEndpointsProxy() },
+  };
+
+  function fetchEndpoint(endpointName, endpointArgs) {
     assert_usage(endpointName);
     assert_internal(endpointArgs.constructor===Object);
     if( isNodejs() ) {
       assert_usage(endpointArgs.req);
       wildcardApi = wildcardApi || global.wildcardApi;
-      assert_usage(wildcardApi, "Couldn't find a `WildcardApi` instance. Because `global.wildcardApi===undefined`. Are you running two different Node.js processes where one is running the client and the other one instantiating `WildcardApi`?");
+      assert_usage(
+        wildcardApi,
+        "Couldn't find a `WildcardApi` instance. Because `global.wildcardApi===undefined`. Are you running two different Node.js processes where one is running the client and the other one instantiating `WildcardApi`?"
+      );
       return wildcardApi.runEndpoint(endpointName, endpointArgs);
     }
     const url = apiUrlBase+endpointName;
@@ -41,24 +49,32 @@ function WildcardApiClient({
     return makeHttpRequest({url, body});
   }
 
-  function getApiEndpoints() {
-    if( ! hasProxySupport() ) {
-      if( !noProxyWarning ) {
-        assert_warning(false, "This JavaScript environment doesn't seem to support Proxy. Use `fetchApiEndpoint` instead of `apiEndpoints`.");
-      }
-      return null;
+  var endpointsProxy;
+  function getEndpointsProxy() {
+    assert_usage(
+      hasProxySupport(),
+      [
+        "This JavaScript environment doesn't seem to support Proxy.",
+        "Use `fetchEndpoint` instead of `endpoints`",
+        "",
+        "Note that all browsers support Proxy with the exception of Internet Explorer.",
+        "If you want to support IE then use `fetchEndpoint` instead.",
+      ].join('\n')
+    );
+
+    if( ! endpointsProxy ) {
+      endpointsProxy = (
+        new Proxy({}, {get: (_, endpointName) => {
+          return (endpointArgs) => {
+            assert_internal(endpointName);
+            assert_usage(endpointArgs===undefined || endpointArgs && endpointArgs.constructor===Object);
+            return fetchEndpoint(endpointName, endpointArgs);
+          }
+        }})
+      );
     }
 
-    const apiEndpoints = (
-      new Proxy({}, {get: (_, endpointName) => {
-        return (endpointArgs) => {
-          assert_internal(endpointName);
-          assert_usage(endpointArgs===undefined || endpointArgs && endpointArgs.constructor===Object);
-          return fetchApiEndpoint(endpointName, endpointArgs);
-        }
-      }})
-    );
-    return apiEndpoints;
+    return endpointsProxy;
   }
 }
 
