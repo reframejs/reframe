@@ -250,10 +250,10 @@ async function execEject({inputs: [ejectableName], options: {skipGit, skipNpm, i
         detective(fileContent)
         .forEach(requireString => {
             if( requireString.startsWith('.') ) {
-                const oldFilePath__dependee = require.resolve(pathModule.resolve(pathModule.dirname(oldFilePath), requireString));
-                const newFilePath__dependee = pathModule.resolve(newFilePath, pathModule.relative(oldFilePath, oldFilePath__dependee));
+                const dependee_oldFilePath = require.resolve(pathModule.resolve(pathModule.dirname(oldFilePath), requireString));
+                const dependee_newFilePath = pathModule.resolve(newFilePath, pathModule.relative(oldFilePath, dependee_oldFilePath));
 
-                addCopySpec({oldFilePath: oldFilePath__dependee, newFilePath: newFilePath__dependee, copySpecs, deps});
+                addCopySpec({oldFilePath: dependee_oldFilePath, newFilePath: dependee_newFilePath, copySpecs, deps});
             } else {
                 const pkgName = getPackageName(requireString);
                 if( builtins.includes(pkgName) ) {

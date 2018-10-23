@@ -68,7 +68,7 @@ function WildcardApiClient({
       envSupportsProxy(),
       [
         "This JavaScript environment doesn't seem to support Proxy.",
-        "Use `fetchEndpoint` instead of `endpoints`",
+        "Use `fetchEndpoint` instead of `endpoints`.",
         "",
         "Note that all browsers support Proxy with the exception of Internet Explorer.",
         "If you want to support IE then use `fetchEndpoint` instead.",

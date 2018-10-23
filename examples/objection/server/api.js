@@ -1,4 +1,4 @@
-const knex = require('../db/setup');
+require('../db/setup');
 const Todo = require('../db/models/Todo');
 
 const UniversalHapiAdapter = require('../../../examples/typeorm/server/universal-adapters/hapi');
@@ -9,9 +9,6 @@ endpoints.getTodos = getTodos;
 
 const handlers = [
   apiRequestsHandler,
-  {
-    serverCloseHandler: () => {knex.destroy()},
-  }
 ];
 
 const HapiPlugin = UniversalHapiAdapter({handlers});
