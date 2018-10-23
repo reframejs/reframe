@@ -1,5 +1,3 @@
-require('@brillout/trace-logs')();
-console.log('uheiqw');
 const assert_internal = require('reassert/internal');
 const reconfig = require('@brillout/reconfig');
 const pathModule = require('path');

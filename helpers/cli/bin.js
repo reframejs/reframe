@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-require('@brillout/trace-logs')();
+// require('@brillout/trace-logs')();
 
 process.on('unhandledRejection', err => {throw err});
 

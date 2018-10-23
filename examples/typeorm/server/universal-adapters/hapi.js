@@ -84,7 +84,7 @@ function UniversalHapiAdapter({handlers}) {
           const ret = await reqHandler(reqHandlerParams);
           if( ret !== null ) {
             assert_usage(ret.body);
-            assert_usage(ret.body.constructor===String, ret.body);
+            assert_usage([String, Buffer].includes(ret.body.constructor), ret.body, ret.body.constructor);
             const resp = h.response(ret.body);
             (ret.headers||[]).forEach(header => resp.header(header.name, header.value));
             if( ret.redirect ) {
