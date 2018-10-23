@@ -156,18 +156,27 @@ async function execEject({inputs: [ejectableName], options: {skipGit, skipNpm, i
         const configChanges = getConfigChanges(ejectableSpec);
         const operations = [];
         const fileCopies = [];
-        changeConfig({configChanges, operations, fileCopies, ejecteeRootDir, ejecteePackageName})
-        assert_internal(operations.length>0);
-        assert_internal(fileCopies.length>0);
-
-        const deps = {};
-        copyFiles({fileCopies, operations, deps});
+        const ejectError = changeConfig({configChanges, operations, fileCopies, ejecteeRootDir, ejecteePackageName});
+        assert_internal(ejectError===undefined || ejectError.constructor===String && ejectError.length>5);
+        assert_usage(isPreview || !ejectError, ejectError);
+        assert_internal(ejectError || operations.length>0);
+        assert_internal(ejectError || fileCopies.length>0);
 
         if( isPreview ) {
             console.log();
             console.log(titleFormat('Preview of '+colorEmphasisLight('reframe '+CMD_EJECT+' '+ejectableName), {padding: 6}));
+            if( ejectError ) {
+              console.log('SKIPPED');
+              console.log('Because:');
+              console.log(ejectError);
+              console.log();
+              return;
+            }
         }
         console.log();
+
+        const deps = {};
+        copyFiles({fileCopies, operations, deps});
 
         const {newDeps, newDepsStr} = getNewDeps({deps, ejecteePackageJsonFile});
 
@@ -293,8 +302,7 @@ async function execEject({inputs: [ejectableName], options: {skipGit, skipNpm, i
         const reframeConfigContentOld = reframeConfigFile && fs__read(reframeConfigFile);
         let newConfigContent = '';
 
-        configChanges
-        .forEach(configChange => {
+        for(const configChange of configChanges) {
             const {configPath, targetDir, configIsList, configIsFilePath, listElementKey, listElementKeyProp, newConfigValue} = configChange;
             assert_internal(configPath);
             assert_internal(targetDir);
@@ -302,7 +310,10 @@ async function execEject({inputs: [ejectableName], options: {skipGit, skipNpm, i
             assert_internal(!configIsList || listElementKey && listElementKeyProp);
             assert_internal(newConfigValue);
 
-            checkUserConfig({reframeConfigFile, configPath, configIsList, configIsFilePath, listElementKey, listElementKeyProp});
+            const ejectError = checkUserConfig({reframeConfigFile, configPath, configIsList, configIsFilePath, listElementKey, listElementKeyProp});
+            if( ejectError ) {
+                return ejectError;
+            }
 
             const ejecteeConfig = getEjecteeConfig({ejecteePackageName, configPath, configIsList, configIsFilePath, listElementKey, listElementKeyProp});
 
@@ -312,7 +323,7 @@ async function execEject({inputs: [ejectableName], options: {skipGit, skipNpm, i
 
             const newContent = applyConfigChange({configPath, newValue, configIsList, configIsFilePath});
             newConfigContent += '\n' + newContent + '\n';
-        });
+        }
 
         const reframeConfigContentNew = (
             (reframeConfigContentOld || 'module.exports = {};\n') +
@@ -433,33 +444,40 @@ async function execEject({inputs: [ejectableName], options: {skipGit, skipNpm, i
         const configFileValue = getPath(configFileObject, configPath);
 
         if( configIsList ) {
-            assert_usage(listElementKeyProp);
-            assert_usage(listElementKey);
-            assert_usage(
-                !configFileValue || configFileValue.find,
-                "The config `"+configPath+"` defined at `"+reframeConfigFile+"` should be an array but it isn't."
-            );
-            (configFileValue||[])
-            .forEach(configElement => {
-                assert_usage(
-                    configElement[listElementKeyProp],
-                    configElement,
-                    "The config printed above is missing the key `"+listElementKeyProp+"`"
-                );
-            });
-            assert_usage(
-                !configFileValue || !configFileValue.find(c1 => c1[listElementKeyProp]===listElementKey),
-                "The config `"+configPath+"` defined at `"+reframeConfigFile+"` already includes `"+listElementKey+"`.",
-                "Did you already eject?"
-            );
+            assert_internal(listElementKeyProp);
+            assert_internal(listElementKey);
+            if( configFileValue && !configFileValue.find ) {
+              return "The config `"+configPath+"` defined at `"+reframeConfigFile+"` should be an array but it isn't.";
+            }
+            for(const configElement of (configFileValue||[])) {
+                if( !configElement[listElementKeyProp] ) {
+                  return (
+                    [
+                      JSON.stringify(configElement, null, 2),
+                      "The config printed above is missing the key `"+listElementKeyProp+"`",
+                    ].join('\n')
+                  );
+                }
+            }
+            if( configFileValue && configFileValue.find(c1 => c1[listElementKeyProp]===listElementKey) ) {
+              return (
+                [
+                  "The config `"+configPath+"` defined at `"+reframeConfigFile+"` already includes `"+listElementKey+"`.",
+                  "Did you already eject?",
+                ].join('\n')
+              );
+            }
         }
 
         if( configIsFilePath ) {
-            assert_usage(
-                !configFileValue,
-                "Your config file `"+reframeConfigFile+"` already defines a `"+configPath+"`.",
-                "Remove `"+configPath+"` before ejecting."
-            );
+            if( configIsFilePath && configFileValue ) {
+              return (
+                [
+                  "Your config file `"+reframeConfigFile+"` already defines a `"+configPath+"`.",
+                  "Did you already eject?",
+                ].join('\n')
+              );
+            }
         }
     }
 
