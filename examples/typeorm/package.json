@@ -2,14 +2,6 @@
   "name": "_example-typeorm",
   "private": true,
   "version": "0.2.3",
-  "scripts": {
-    "dev": "reframe dev",
-    "production": "npm run build && npm run start",
-    "build": "reframe build",
-    "start": "export NODE_ENV='production' && ts-node ./server/start.js",
-    "s": "ts-node ./server/start.js",
-    "reframe": "reframe"
-  },
   "dependencies": {
     "@brillout/cli-theme": "0.2.3",
     "@brillout/fetch": "^0.1.0",
