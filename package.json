@@ -1,10 +1,14 @@
 {
     "private": true,
     "scripts": {
-        "install-all": "npm install yarn --no-save && yarn",
-        "i": "yarn",
+        "clean": "git clean -xdff",
+
         "docs": "mdocs ./docs/",
         "docs-all": "npm run docs && lerna run docs",
+
+        "deps": "check-deps",
+        "upgrade-deps": "node ./helpers/dev-utils/package-management/dependency-management/upgradeDeps.js",
+
         "release-next": "lerna publish --force-publish=* --npm-tag=next --cd-version=prerelease --preid=next",
         "release-dry-run": "lerna publish --force-publish=* --npm-tag=next --skip-git --skip-npm",
         "release-retry": "lerna publish --force-publish=* --npm-tag=next --skip-git",
@@ -12,9 +16,9 @@
         "release-final": "node ./helpers/dev-utils/package-management/npm-registry/setNpmTag.js latest",
         "release-check": "node ./helpers/dev-utils/package-management/npm-registry/checkIfCorrectlyPublished.js",
         "release-clean": "node ./helpers/dev-utils/package-management/npm-registry/removeNpmTags.js next",
-        "deps": "check-deps",
-        "upgrade-deps": "node ./helpers/dev-utils/package-management/dependency-management/upgradeDeps.js",
-        "clean": "git clean -xdff"
+
+        "install-all": "npm install yarn --no-save && yarn",
+        "i": "yarn"
     },
     "devDependencies": {
         "@brillout/check-deps": "^0.1.3",
@@ -64,6 +68,7 @@
         "examples/custom-browser",
         "examples/custom-browser-lib",
         "examples/dom-static",
+        "examples/objection",
         "examples/react-native-web",
         "examples/runtime-error",
         "examples/typeorm",

@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+require('@brillout/trace-logs')();
+
 process.on('unhandledRejection', err => {throw err});
 
 const {colorEmphasisLight, colorEmphasis, strDir, strDir_emphasisFile, strFile, colorFile, colorPkg, colorDir, colorError, loadingSpinner, indent} = require('@brillout/cli-theme');

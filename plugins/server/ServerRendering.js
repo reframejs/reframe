@@ -5,8 +5,8 @@ const reconfig = require('@brillout/reconfig');
 
 module.exports = ServerRendering;
 
-async function ServerRendering({url, req}) {
-    const html = await getHtml(url.uri, req);
+async function ServerRendering({req}) {
+    const html = await getHtml(req);
 
     if( html === null ) {
         return null;
@@ -24,7 +24,8 @@ async function ServerRendering({url, req}) {
     }
 }
 
-async function getHtml(uri, req) {
+async function getHtml(req) {
+    const uri = req.url;
     assert_internal(uri && uri.constructor===String, uri);
 
     const config = reconfig.getConfig({configFileName: 'reframe.config.js'});

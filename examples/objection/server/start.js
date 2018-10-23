@@ -1,8 +1,9 @@
 const Hapi = require('hapi');
 const config = require('@brillout/reconfig').getConfig({configFileName: 'reframe.config.js'});
 const {symbolSuccess, colorEmphasis} = require('@brillout/cli-theme');
-const {HapiPlugin} = require('./api');
+const {apiRequestsHandler} = require('./api');
 const knex = require('../db/setup');
+const UniversalHapiAdapter = require('../../../examples/typeorm/server/universal-adapters/hapi');
 
 module.exports = start();
 
@@ -13,12 +14,25 @@ async function start() {
     });
 
     // Run `$ reframe eject server-integration` to eject the integration plugin.
-    await server.register(config.hapiIntegrationPlugin);
-    await server.register(HapiPlugin);
+ // await server.register(config.hapiIntegrationPlugin);
+    await server.register(
+      UniversalHapiAdapter({
+        handlers: [
+          apiRequestsHandler,
+          {
+            reqHandler: require(config.ServerRenderingFile)
+          },
+          {
+            reqHandler: require(config.StaticAssetsFile)
+          },
+        ],
+      })
+    );
 
     server.ext('onPostStop', () => knex.destroy());
 
     await server.start();
+
 
     const env = colorEmphasis(process.env.NODE_ENV||'development');
     console.log(symbolSuccess+'Server running (for '+env+')');

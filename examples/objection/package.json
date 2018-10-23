@@ -1,4 +1,7 @@
 {
+  "name": "_example-objection",
+  "private": true,
+  "version": "0.2.3",
   "scripts": {
     "dev": "reframe dev",
     "production": "npm run build && npm run start",

@@ -1,15 +1,19 @@
+require('@brillout/trace-logs')();
+console.log('uheiqw');
 const assert_internal = require('reassert/internal');
 const reconfig = require('@brillout/reconfig');
 const pathModule = require('path');
 const crypto = require('crypto');
+const parseUri = require('@brillout/parse-uri');
 const fs = require('fs-extra');
 const Mimos = require('mimos');
 const mimos = new Mimos();
 
 module.exports = StaticAssets;
 
-async function StaticAssets({url}) {
-    const filePath = getFilePath({url});
+async function StaticAssets({req: {url}}) {
+    const {pathname} = parseUri(url);
+    const filePath = getFilePath({pathname});
 
     const fileContent = await getFileContent(filePath);
 
@@ -60,11 +64,10 @@ function getCacheHeader(filePath, fileContent) {
     }
 }
 
-function getFilePath({url}) {
+function getFilePath({pathname}) {
     const config = reconfig.getConfig({configFileName: 'reframe.config.js'});
     const {staticAssetsDir} = config.getBuildInfo();
 
-    const {pathname} = url;
     const filename = (
         pathname==='/' && '/index.html' ||
         pathname.split('/').slice(-1)[0].split('.').length===1 && pathname+'.html' ||
