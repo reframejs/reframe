@@ -61,10 +61,12 @@ async function execDev({options}) {
             return;
         }
 
-        // TODO - sometimes server.stop is not a function
-        assert_internal(server.stop instanceof Function, server.stop);
-
-        await server.stop();
+        assert_internal(server===null || server, server);
+        if( server ) {
+          // TODO - sometimes server.stop is not a function
+          assert_internal(server.stop instanceof Function, server, server.stop);
+          await server.stop();
+        }
         server = null;
         server = await runServer(config, {isRestart: true});
     };
@@ -87,7 +89,7 @@ async function execBuild({options}) {
 async function execServer({options}) {
     const config = init(options);
     log_found_stuff({config, log_built_pages: true});
-    const server = await runServer(config, {isRestart: false});
+    await runServer(config, {isRestart: false});
 }
 
 async function runServer(config, {isRestart}) {
@@ -100,7 +102,8 @@ async function runServer(config, {isRestart}) {
 
     const buildInfo = config.getBuildInfo();
     const serverFileTranspiled = buildInfo.server && buildInfo.server.serverFileTranspiled;
-    assert_internal(!!serverFileTranspiled === serverIsTranspiled(config));
+    const isTranspiled = serverIsTranspiled(config);
+    assert_internal(!!serverFileTranspiled === isTranspiled);
 
     const serverEntry = serverFileTranspiled || config.serverStartFile;
 
@@ -122,7 +125,8 @@ async function runServer(config, {isRestart}) {
         }
         */
     } catch(err) {
-        throw prettify_error(err);
+        handleServerError({err, isTranspiled});
+        return null;
     }
 
     if( ! isRestart ) {
@@ -209,8 +213,8 @@ function getReframeConfigFile(config) {
     return reframeConfigFile;
 }
 
-function prettify_error(err) {
-    const {colorError} = require('@brillout/cli-theme');
+function handleServerError({err, isTranspiled}) {
+    const {colorError, symbolError} = require('@brillout/cli-theme');
 
     if( ((err||{}).message||'').includes('EADDRINUSE') ) {
         err.stack += [
@@ -220,9 +224,15 @@ function prettify_error(err) {
             "Maybe you already started a server at this address?",
             '',
         ].join('\n');
+        throw err;
     }
 
-    return err;
+    console.log(symbolError+'Server error');
+    if( isTranspiled ) {
+      console.error(err);
+    } else {
+      throw err;
+    }
 }
 
 function log_routes(config, server) {
