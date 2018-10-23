@@ -20,10 +20,10 @@ async function start() {
         handlers: [
           apiRequestsHandler,
           {
-            reqHandler: require(config.ServerRenderingFile)
+            reqHandler: config.ServerRendering,
           },
           {
-            reqHandler: require(config.StaticAssetsFile)
+            reqHandler: config.StaticAssets,
           },
         ],
       })

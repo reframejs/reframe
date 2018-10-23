@@ -1,6 +1,6 @@
 const ServerRenderingFile = require.resolve('./ServerRendering');
 const StaticAssetsFile = require.resolve('./StaticAssets');
-const {transparentGetter} = require('@brillout/reconfig/getters');
+const {requireFileGetter} = require('@brillout/reconfig/getters');
 const packageName = require('./package.json').name;
 
 const ServerRenderingHandler = {
@@ -22,8 +22,8 @@ module.exports = {
             prop: 'applyRequestHandlers',
             getter: applyRequestHandlers_getter,
         },
-        transparentGetter('ServerRenderingFile'),
-        transparentGetter('StaticAssetsFile'),
+        requireFileGetter('ServerRenderingFile', 'ServerRendering'),
+        requireFileGetter('StaticAssetsFile', 'StaticAssets'),
     ],
     ServerRenderingFile,
     StaticAssetsFile,

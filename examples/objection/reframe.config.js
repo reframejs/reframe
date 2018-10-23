@@ -3,5 +3,5 @@ module.exports = {
         require('@reframe/react-kit'),
     ],
     serverStartFile: require.resolve('./server/start.js'),
- // transpileServerCode: true,
+    transpileServerCode: true,
 };
