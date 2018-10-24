@@ -1,58 +1,52 @@
 const formBody = require("body/form")
 const qs = require('querystring');
+const Boom = require('boom');
 const assert_usage = require('reassert/usage');
-const Boom = require('boom'); 
-/*
-const assert_warning = require('reassert/warning');
-*/
-const assert_internal = require('reassert/internal');
+
+const {getHandlers, getResponseObject} = require('./common');
 
 module.exports = UniversalHapiAdapter;
+module.exports.buildResponse = buildResponse;
+module.exports.addParams = addParams;
 
-function UniversalHapiAdapter({handlers}) {
 
-    handlers.forEach(handler => {
-      const handlerNames = ['paramHandler', 'reqHandler', 'serverCloseHandler'];
-      assert_usage(Object.keys(handler).filter(key => !handlerNames.includes(key)).length===0, handler);
-      assert_usage(Object.keys(handler).length>0, handler);
-      handlerNames.forEach(handlerName => {
-        assert_usage(!handler[handlerName] || handler[handlerName] instanceof Function, handler, handlerName, handler[handlerName]);
-      });
-    });
+function UniversalHapiAdapter(handlers, {useOnPreResponse: false}={}) {
 
-    const paramHandlers = handlers.map(({paramHandler}) => paramHandler).filter(Boolean);
-    const reqHandlers = handlers.map(({reqHandler}) => reqHandler).filter(Boolean);
-    const serverCloseHandlers = handlers.map(({serverCloseHandler}) => serverCloseHandler).filter(Boolean);
+    const {requestHandlers, paramHandlers, onServerCloseHandlers} = getHandlers(handlers);
 
     const HapiPlugin = {
         name: 'UniversalHapiAdapter',
         multiple: false,
         register: server => {
-            server.route({
-                method: ['GET', 'POST'],
-                path: '/{param*}',
-                handler: (req, h) => {
-                    /*
-                    console.log(121);
-                    console.log(req.url);
-                    console.log(req.method);
-                    console.log(req.payload);
-                    */
-                    return handleRequest(req, h);
-                },
-            });
+            if( ! useOnPreResponse ) {
+              server.route({
+                  method: ['GET', 'POST'],
+                  path: '/{param*}',
+                  handler: async (request, h) => {
+                    const resp = await buildResponse({requestHandlers, request, h});
+                    if( resp === null ) {
+                      throw Boom.notFound(null, {});
+                    }
+                    return resp;
+                  }
+              });
+            } else {
+              server.ext('onPreResponse', async (request, h) => {
+                const resp = await buildResponse({requestHandlers, request, h});
+                if( resp === null ) {
+                  return h.continue;
+                }
+                return resp;
+              });
+            }
 
-            /*
-            server.ext('onPreResponse', (req, h) => handleRequest(req, h));
-            */
-
-            server.ext('onRequest', (req, h) => {
-              req.testttt = 'hello addition param';
+            server.ext('onRequest', async (request, h) => {
+              await addParams({paramHandlers, request});
               return h.continue;
             });
 
             server.ext('onPostStop', async () => {
-                for(const cb of serverCloseHandlers) {
+                for(const cb of onServerCloseHandlers) {
                   await cb();
                 }
             });
@@ -61,64 +55,109 @@ function UniversalHapiAdapter({handlers}) {
 
     return HapiPlugin;
 
-    async function handleRequest(request, h) {
-     // console.log('pre', request.url, request.response && request.response.output, request.response && request.response.isBoom, !!request.response);
-        if( alreadyServed(request) ) {
-            return h.continue;
-        }
 
-        /*
-        console.log('p1');
-        console.log(Object.keys(request));
-        console.log(request.body);
-        console.log(request.payload);
-        console.log('p2');
-        */
-        const {req} = request.raw;
-        const payload = {...request.payload};
-
-     // console.log('yep', request.testttt);
-        const reqHandlerParams = {req, payload};
-        for(const paramHandler of paramHandlers) {
-            assert_usage(paramHandler instanceof Function);
-            const newParams = await paramHandler(reqHandlerParams);
-            assert_usage(newParams===null || newParams && newParams.constructor===Object);
-            Object.assign(reqHandlerParams, newParams);
-        }
-
-        for(const reqHandler of reqHandlers) {
-          const ret = await reqHandler(reqHandlerParams);
-          if( ret !== null ) {
-            assert_usage(ret.body);
-            assert_usage([String, Buffer].includes(ret.body.constructor), ret.body, ret.body.constructor);
-            const resp = h.response(ret.body);
-            (ret.headers||[]).forEach(header => resp.header(header.name, header.value));
-            if( ret.redirect ) {
-                resp.redirect(ret.redirect);
-            }
-            return resp;
-          }
-        }
-
-        throw Boom.notFound(null, {});
-    }
 }
 
-function alreadyServed(request) {
+async function buildResponse({requestHandlers, request, h}) {
+    assert_usage(requestHandlers);
+    assert_usage(request && request.raw && request.raw.req);
+    assert_usage(h && h.continue);
 
-    // TODO
+    if( isAlreadyServed(request) ) {
+        return h.continue;
+    }
+
+    const handlerArgs = getHandlerArgs({request});
+
+    for(const requestHandler of requestHandlers) {
+      const responseObject = getResponseObject(await requestHandler(handlerArgs));
+      if( resp === null ) {
+        continue;
+      }
+
+      const {body, redirect, headers} = responseObject;
+
+      const resp = h.response(body);
+
+      let etag;
+      headers
+      .filter(({name, value}) => {
+        if( name.toLowerCase()==='etag' ) {
+          etag = value;
+          assert_usage(
+            etag[0]==='"' && etag.slice(-1)[0]==='"',
+            "Malformatted etag",
+            etag
+          );
+          etag = etag.slice(1, -1);
+          return false;
+        }
+        return true;
+      });
+      .forEach(({name, value}) => resp.header(name, value));
+
+      // We use hapi's etag machinery instead of setting the etag header ourselves
+      if( etag ) {
+          const response_304 = h.entity({etag});
+          if( response_304 ) {
+              return response_304;
+          }
+          response.etag(etag);
+      }
+
+      if( redirect ) {
+          resp.redirect(redirect);
+      }
+
+      return resp;
+    }
+
+    return null;
+}
+
+function extractEtag(headers) {
+}
+
+async function addParams({paramHandlers, request}) {
+  assert_usage(paramHandlers);
+  assert_usage(request && request.raw && request.raw.req);
+
+  const handlerArgs = getHandlerArgs({request});
+
+  for(const paramHandler of paramHandlers) {
+    assert_usage(paramHandler instanceof Function);
+    const newParams = await paramHandler(handlerArgs);
+    assert_usage(newParams===null || newParams && newParams.constructor===Object);
+    Object.assign(request, newParams);
+  }
+}
+
+function getHandlerArgs({request}) {
+  assert_internal(request && request.raw && request.raw.req);
+  return (
+    {
+      ...request,
+      req: request.raw.req,
+    }
+  );
+}
+
+function isAlreadyServed(request) {
     if( ! request.response ) {
         return false;
     }
 
-    if( ! request.response.output ) {
-        return false;
+    if( ! request.response.isBoom || (request.response.output||{}).statusCode !== 404 ) {
+        return true;
     }
 
-    return (
-        ! request.response.isBoom ||
-        request.response.output.statusCode !== 404
-    );
+    /*
+    if( request.response.headers===undefined && request.response.output===undefined ) {
+        return false;
+    }
+    */
+
+    return false;
 }
 
 /*
@@ -165,4 +204,3 @@ function getBodyPayload(req) {
     return promise;
 }
 */
-
