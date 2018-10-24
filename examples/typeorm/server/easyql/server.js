@@ -10,7 +10,7 @@ function getApiRequestHandlers({databaseInterface, permissions}) {
         paramHandler: apiQueryParamHandler,
       },
       {
-        reqHandler: apiReqHandler,
+        requestHandler: apiReqHandler,
       },
   ];
 

@@ -88,6 +88,7 @@
         "helpers/rebuild/serve",
         "helpers/universal-adapter/hapi",
         "helpers/universal-adapter/server",
+        "helpers/universal-adapter/typeorm",
         "helpers/utils",
         "helpers/wildcard-api"
     ]

@@ -120,10 +120,23 @@ async function addParams({paramHandlers, request}) {
 
 function getHandlerArgs({request}) {
   assert_internal(request && request.raw && request.raw.req);
-  assert_internal(!request.payload || request.payload.constructor===String, request.payload, request.payload && request.payload.constructor);
+
+  // Sometimes `Object.getPrototypeOf(payload)===null` which leads to `payload.constructor===undefined`
+  // We normalize that case by doing `{...payload}`
+  let {payload} = request;
+  payload = (
+    (!payload || [String, Object].includes(payload.constructor)) ? (
+      payload
+    ) : (
+      {...payload}
+    )
+  );
+  assert_internal(!payload || [String, Object].includes(payload.constructor));
+
   return (
     {
       ...request,
+      payload,
       req: request.raw.req,
     }
   );

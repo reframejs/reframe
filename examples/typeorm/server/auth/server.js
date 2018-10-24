@@ -15,7 +15,7 @@ function getAuthRequestHandlers({databaseInterface, SECRET_KEY}) {
       paramHandler: loggedUserParamHandler,
     },
     {
-      reqHandler: authReqsHandler,
+      requestHandler: authReqsHandler,
     },
   ];
 

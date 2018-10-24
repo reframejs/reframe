@@ -1,7 +1,7 @@
 const Hapi = require('hapi');
 const config = require('@brillout/reconfig').getConfig({configFileName: 'reframe.config.js'});
 const {symbolSuccess, colorEmphasis} = require('@brillout/cli-theme');
-const apiConfig = require('./api.config.js');
+const handlers = require('./api.config.js');
 const UniversalHapiAdapter = require('@universal-adapter/hapi');
 
 module.exports = start();
@@ -16,11 +16,9 @@ async function start() {
       UniversalHapiAdapter([
         config.ServerRendering,
         config.StaticAssets,
+        ...handlers
       ])
     );
-
-    // Add API generated with EasyQL
-    await server.register(apiConfig.HapiPlugin);
 
     await server.start();
 

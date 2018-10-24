@@ -1,4 +1,5 @@
-const UniversalTypeormAdapter = require('./universal-adapters/typeorm_');
+require('reflect-metadata');
+const UniversalTypeormAdapter = require('@universal-adapter/typeorm/UniversalTypeormAdapter');
 const typeormConfig = require('./typeorm.config.js');
 const {getApiRequestHandlers} = require('./easyql/server');
 const {getAuthRequestHandlers} = require('./auth/server');
@@ -21,14 +22,8 @@ const handlers = [
     SECRET_KEY,
   }),
   {
-    serverCloseHandler: databaseInterface.closeConnection,
+    onServerCloseHandler: databaseInterface.closeConnection,
   },
 ];
 
-const UniversalHapiAdapter = require('./universal-adapters/hapi');
-
-const HapiPlugin = UniversalHapiAdapter({handlers});
-
-module.exports = {
-  HapiPlugin,
-};
+module.exports = handlers;

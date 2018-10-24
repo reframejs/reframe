@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "name": "@universal-adapter/typeorm",
+  "version": "0.2.3",
+  "main": "UniversalTypeormAdapter.js",
+  "dependencies": {
+    "reassert": "^1.1.16",
+    "typeorm": "^0.2.7"
+  },
+  "description": "Universal Server Adapter - Hapi",
+  "repository": "github:brillout/universal-adapter"
+}
