@@ -46,6 +46,11 @@ function UniversalHapiAdapter({handlers}) {
             server.ext('onPreResponse', (req, h) => handleRequest(req, h));
             */
 
+            server.ext('onRequest', (req, h) => {
+              req.testttt = 'hello addition param';
+              return h.continue;
+            });
+
             server.ext('onPostStop', async () => {
                 for(const cb of serverCloseHandlers) {
                   await cb();
@@ -72,6 +77,7 @@ function UniversalHapiAdapter({handlers}) {
         const {req} = request.raw;
         const payload = {...request.payload};
 
+     // console.log('yep', request.testttt);
         const reqHandlerParams = {req, payload};
         for(const paramHandler of paramHandlers) {
             assert_usage(paramHandler instanceof Function);

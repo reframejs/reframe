@@ -29,6 +29,15 @@ async function start() {
       })
     );
 
+    server.route({
+        method: 'GET',
+        path:'/hello-from-hapi',
+        handler: function (request, h) {
+            console.log('y2', request.testttt);
+            return 'Route defined with Hapi. Could be an API endpoint.';
+        }
+    });
+
     server.ext('onPostStop', () => knex.destroy());
 
     await server.start();
