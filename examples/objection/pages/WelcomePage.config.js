@@ -1,5 +1,5 @@
 import React from 'react';
-import {endpoints} from '../wildcard-api/client';
+import {endpoints} from 'wildcard-api/client';
 
 export default {
   route: '/',

@@ -1,10 +1,8 @@
-const formBody = require("body/form")
-const qs = require('querystring');
 const Boom = require('boom');
 const assert_usage = require('reassert/usage');
 const assert_internal = require('reassert/internal');
 
-const {getHandlers, getResponseObject} = require('./common');
+const {getHandlers, getResponseObject} = require('@universal-adapter/server');
 
 module.exports = UniversalHapiAdapter;
 module.exports.buildResponse = buildResponse;
@@ -150,6 +148,9 @@ function isAlreadyServed(request) {
 }
 
 /*
+const formBody = require("body/form")
+const qs = require('querystring');
+
 function getBodyPayload(req, url) {
     if( req.method==='GET' ) {
         return Object.assign({}, qs.parse(url.search.slice(1)));
@@ -174,9 +175,7 @@ function getBodyPayload(req, url) {
 
 	return promise;
 }
-*/
 
-/*
 function getBodyPayload(req) {
     let resolve;
     let reject;

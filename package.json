@@ -73,7 +73,6 @@
         "examples/runtime-error",
         "examples/typeorm",
         "examples/typescript",
-        "helpers/utils",
         "helpers/cli",
         "helpers/cli-theme",
         "helpers/webpack-ssr",
@@ -86,6 +85,10 @@
         "helpers/rebuild/build",
         "helpers/rebuild/iso",
         "helpers/rebuild/example",
-        "helpers/rebuild/serve"
+        "helpers/rebuild/serve",
+        "helpers/universal-adapter/hapi",
+        "helpers/universal-adapter/server",
+        "helpers/utils",
+        "helpers/wildcard-api"
     ]
 }

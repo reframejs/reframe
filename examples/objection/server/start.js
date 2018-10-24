@@ -3,7 +3,7 @@ const config = require('@brillout/reconfig').getConfig({configFileName: 'reframe
 const {symbolSuccess, colorEmphasis} = require('@brillout/cli-theme');
 const {apiRequestsHandler} = require('./api');
 const knex = require('../db/setup');
-const UniversalHapiAdapter = require('../../../examples/typeorm/server/universal-adapters/hapi');
+const UniversalHapiAdapter = require('@universal-adapter/hapi');
 
 module.exports = start();
 
@@ -13,8 +13,6 @@ async function start() {
         debug: {request: ['internal']},
     });
 
-    // Run `$ reframe eject server-integration` to eject the integration plugin.
- // await server.register(config.hapiIntegrationPlugin);
     await server.register(
       UniversalHapiAdapter([
         apiRequestsHandler,

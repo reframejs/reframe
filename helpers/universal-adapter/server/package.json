@@ -1,0 +1,10 @@
+{
+  "name": "@universal-adapter/server",
+  "version": "0.2.3",
+  "private": true,
+  "dependencies": {
+    "reassert": "^1.1.16"
+  },
+  "description": "Universal Server Adapter Interface",
+  "repository": "github:brillout/universal-adapter"
+}
