@@ -1,7 +1,8 @@
 const Hapi = require('hapi');
 const config = require('@brillout/reconfig').getConfig({configFileName: 'reframe.config.js'});
 const {symbolSuccess, colorEmphasis} = require('@brillout/cli-theme');
-const {apiRequestsHandler} = require('./api');
+const {apiRequestsHandler} = require('wildcard-api');
+require('./api');
 const knex = require('../db/setup');
 const UniversalHapiAdapter = require('@universal-adapter/hapi');
 
@@ -20,15 +21,6 @@ async function start() {
         config.StaticAssets,
       ])
     );
-
-    server.route({
-        method: 'GET',
-        path:'/hello-from-hapi',
-        handler: function (request, h) {
-            console.log('y2', request.testttt);
-            return 'Route defined with Hapi. Could be an API endpoint.';
-        }
-    });
 
     server.ext('onPostStop', () => knex.destroy());
 

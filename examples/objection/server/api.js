@@ -1,13 +1,6 @@
 require('../db/setup');
 const Todo = require('../db/models/Todo');
-
-const {endpoints, apiRequestsHandler} = require('wildcard-api');
-
-
-module.exports = {
-  apiRequestsHandler,
-};
-
+const {endpoints} = require('wildcard-api');
 
 endpoints.getTodos = getTodos;
 
