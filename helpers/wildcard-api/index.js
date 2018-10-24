@@ -16,17 +16,20 @@ function WildcardApi({
   return {
     endpoints,
     apiRequestsHandler,
-    runEndpoint,
+    __runEndpoint: runEndpoint,
   };
 
-  async function runEndpoint(endpointName, endpointArgs={}) {
-    assert_usage(endpointName);
-    assert_usage(endpointArgs && endpointArgs.constructor===Object, endpointArgs);
-    assert_usage(endpointArgs.req, endpointArgs);
+  async function runEndpoint(endpointName, ...args) {
+    assert_internal(endpointName.constructor===String);
+    assert_internal(args.length===1);
+    const endpointArgs = args[0];
+    assert_internal(endpointArgs.constructor===Object);
+    assert_internal(endpointArgs.req);
+
     if( ! endpoints[endpointName] ) {
-   // assert_usage(false, endpoints, Object.keys(endpoints), endpointName);
       return {usageError: 'endpoint '+endpointName+" doesn't exist"};
     }
+
     const responseObj = await endpoints[endpointName](endpointArgs);
     return responseObj;
   }
@@ -48,7 +51,7 @@ function WildcardApi({
 
     const endpointArgs = {
       ...args,
-      ...parsePayload(),
+      ...parsePayload(payload),
     };
     const responseObj = await runEndpoint(endpointName, endpointArgs);
     return response(responseObj);

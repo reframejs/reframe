@@ -22,22 +22,31 @@ function WildcardApiClient({
     get endpoints(){ return getEndpointsProxy(); },
   };
 
-  function fetchEndpoint(endpointName, endpointArgs) {
-    assert_usage(endpointName);
-    assert_internal(endpointArgs.constructor===Object);
+  function fetchEndpoint(endpointName, ...args) {
+    assert_usage(
+      endpointName && endpointName.constructor===String,
+      "The first argument of fetchEndpoint must be a string."
+    );
+    assert_usage(
+      args.length===1 && (args===undefined || args[0].constructor===Object),
+      "The arguments of an endpoint must be a (optional) single plain object.",
+      "E.g. `fetchEndpoint('getTodos', {userId: 1})` and `endpoints.getTodos({userId: 1, onlyCompleted: true})` are valid.",
+      "But `fetchEndpoint('getTodos', 1)` and `endpoints.getTodos({userId: 1}, {onlyCompleted: true})` are invalid.",
+    );
+    const endpointArgs = args[0];
 
     wildcardApi = wildcardApi || typeof global !== "undefined" && global && global.wildcardApi;
 
     if( wildcardApi ) {
       assert_usage(
-        endpointArgs.req,
+        endpointArgs && endpointArgs.req,
         [
           "The Node.js HTTP `req` object is missing.",
           "It is required when using the WildcardApiClient on server-side rendering.",
           "The `req` object is used to get the HTTP headers (which may include authentication information).",
         ].join('\n'),
       );
-      return wildcardApi.runEndpoint(endpointName, endpointArgs);
+      return wildcardApi.__runEndpoint(endpointName, endpointArgs);
     }
     const url = (serverAddress||'')+(apiUrlBase||'')+endpointName;
 
@@ -78,10 +87,8 @@ function WildcardApiClient({
     if( ! endpointsProxy ) {
       endpointsProxy = (
         new Proxy({}, {get: (_, endpointName) => {
-          return (endpointArgs) => {
-            assert_internal(endpointName);
-            assert_usage(endpointArgs===undefined || endpointArgs && endpointArgs.constructor===Object);
-            return fetchEndpoint(endpointName, endpointArgs);
+          return (...args) => {
+            return fetchEndpoint(endpointName, ...args);
           }
         }})
       );
