@@ -6447,8 +6447,8 @@ readline-utils@^2.2.1, readline-utils@^2.2.3:
     window-size "^1.1.0"
 
 reassert@^1.1.11, reassert@^1.1.12, reassert@^1.1.14, reassert@^1.1.16, reassert@^1.1.8, reassert@^1.1.9:
-  version "1.1.16"
-  resolved "https://registry.yarnpkg.com/reassert/-/reassert-1.1.16.tgz#5f5a3973598f08fbb3c23c3820a477c45cd201a8"
+  version "1.1.17"
+  resolved "https://registry.yarnpkg.com/reassert/-/reassert-1.1.17.tgz#3b70014f0122651ff7dd3f5f8ad30b17e2871877"
   dependencies:
     "@brillout/format-text" "^0.1.3"
 
