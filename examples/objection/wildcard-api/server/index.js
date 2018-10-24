@@ -15,9 +15,7 @@ function WildcardApi({
 
   return {
     endpoints,
-    apiRequestsHandler: {
-      reqHandler,
-    },
+    apiRequestsHandler,
     runEndpoint,
   };
 
@@ -33,7 +31,7 @@ function WildcardApi({
     return responseObj;
   }
 
-  async function reqHandler(args) {
+  async function apiRequestsHandler(args) {
     const {req, payload} = args;
 
     let {url} = req;
@@ -48,16 +46,13 @@ function WildcardApi({
       return response({usageError: 'malformatted API URL: '+url});
     }
 
-    /*
-    let argsObj = payload;
+    let endpointArgs;
     try {
-      argsObj = JSON.parse(payload);
+      endpointArgs = JSON.parse(payload||'{}');
     } catch(err) {
-      console.log(payload);
       return response({usageError: 'malformatted payload (API arguments). Payload: `'+payload+'`. Error: '+err});
     }
-    */
-    const endpointArgs = payload || {};
+    assert_usage(endpointArgs.constructor===Object, endpointArgs);
     assert_usage(!endpointArgs.req);
     endpointArgs.req = req;
     assert_internal(endpointName);

@@ -9,6 +9,10 @@ const mimos = new Mimos();
 
 module.exports = StaticAssets;
 
+// We set a high priority as every URL static asset URL contains a hash  has its hash in its URL
+// we certainly want static assests to be served for the universal adapters
+StaticAssets.executionPriority = 1000*1000;
+
 async function StaticAssets({req: {url}}) {
     const {pathname} = parseUri(url);
     const filePath = getFilePath({pathname});

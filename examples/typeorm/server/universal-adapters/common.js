@@ -1,7 +1,8 @@
 const assert_usage = require('reassert/usage');
 const assert_internal = require('reassert/internal');
+const assert_warning = require('reassert/warning');
 
-module.exports = {getHandlers};
+module.exports = {getHandlers, getResponseObject};
 
 function getHandlers(handlers) {
   assert_internal(handlers && (isHandler(handlers) || handlers.constructor===Array));
@@ -71,25 +72,64 @@ function sortHandlers(handlers) {
   );
 }
 
-function getResponseObject(responseSpec) {
+function getResponseObject(responseSpec, {extractEtagHeader=false}={}) {
   if( responseSpec === null ) {
     return null;
   }
-  const {body, headers=[], redirect} = responseSpec;
 
-  assert_usage(responseSpec.body);
-  assert_usage([String, Buffer].includes(responseSpec.body.constructor), responseSpec.body, responseSpec.body.constructor);
+  const responseObject = {};
 
-  assert_usage(headers && headers.constructor===Array, headers);
-  headers.forEach(headerSpec => {
-    assert_usage(headerSpec && headerSpec.name && headerSpec.value, headers, headerSpec);
-  });
+  {
+    const {body} = responseSpec;
+    assert_warning(
+      body && [String, Buffer].includes(body.constructor),
+      body,
+      body.constructor,
+      "response `body` is not a String nor a Buffer"
+    );
+    responseObject.body = body;
+  }
 
-  assert_usage(redirect===undefined || redirect && redirect.constructor===String, redirect);
+  {
+    const {headers=[]} = responseSpec;
+    assert_usage(headers && headers.forEach, headers);
+    headers.forEach(headerSpec => {
+      assert_usage(headerSpec && headerSpec.name && headerSpec.value, headers, headerSpec);
+    });
+    responseObject.headers = headers;
+  }
 
-  return {
-    body,
-    headers,
-    redirect,
-  };
+  if( extractEtagHeader ) {
+    let etag;
+    responseObject.headers = (
+      responseObject.headers
+      .filter(({name, value}) => {
+        const isEtagHeader = name.toLowerCase()==='etag';
+     // const isEtagHeader = name==='ETag';
+        if( isEtagHeader ) {
+          assert_warning(
+            value[0]==='"' && value.slice(-1)[0]==='"',
+            "Malformatted etag",
+            value
+          );
+          etag = value.slice(1, -1);
+          return false;
+        }
+        return true;
+      })
+    );
+    responseObject.etag = etag;
+  }
+
+  {
+    const {redirect} = responseSpec;
+    assert_warning(
+      redirect===undefined || redirect && redirect.constructor===String,
+      "response `redirect` is not a String",
+      redirect,
+    );
+    responseObject.redirect = redirect;
+  }
+
+  return responseObject;
 }

@@ -16,17 +16,11 @@ async function start() {
     // Run `$ reframe eject server-integration` to eject the integration plugin.
  // await server.register(config.hapiIntegrationPlugin);
     await server.register(
-      UniversalHapiAdapter({
-        handlers: [
-          apiRequestsHandler,
-          {
-            reqHandler: config.ServerRendering,
-          },
-          {
-            reqHandler: config.StaticAssets,
-          },
-        ],
-      })
+      UniversalHapiAdapter([
+        apiRequestsHandler,
+        config.ServerRendering,
+        config.StaticAssets,
+      ])
     );
 
     server.route({

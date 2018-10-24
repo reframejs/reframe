@@ -2,6 +2,7 @@ const formBody = require("body/form")
 const qs = require('querystring');
 const Boom = require('boom');
 const assert_usage = require('reassert/usage');
+const assert_internal = require('reassert/internal');
 
 const {getHandlers, getResponseObject} = require('./common');
 
@@ -10,7 +11,7 @@ module.exports.buildResponse = buildResponse;
 module.exports.addParams = addParams;
 
 
-function UniversalHapiAdapter(handlers, {useOnPreResponse: false}={}) {
+function UniversalHapiAdapter(handlers, {useOnPreResponse=false}={}) {
 
     const {requestHandlers, paramHandlers, onServerCloseHandlers} = getHandlers(handlers);
 
@@ -70,39 +71,29 @@ async function buildResponse({requestHandlers, request, h}) {
     const handlerArgs = getHandlerArgs({request});
 
     for(const requestHandler of requestHandlers) {
-      const responseObject = getResponseObject(await requestHandler(handlerArgs));
-      if( resp === null ) {
+      const responseObject = (
+        getResponseObject(
+          await requestHandler(handlerArgs),
+          {extractEtagHeader: true}
+        )
+      );
+
+      if( responseObject === null ) {
         continue;
       }
 
-      const {body, redirect, headers} = responseObject;
+      const {body, redirect, headers, etag} = responseObject;
 
       const resp = h.response(body);
 
-      let etag;
-      headers
-      .filter(({name, value}) => {
-        if( name.toLowerCase()==='etag' ) {
-          etag = value;
-          assert_usage(
-            etag[0]==='"' && etag.slice(-1)[0]==='"',
-            "Malformatted etag",
-            etag
-          );
-          etag = etag.slice(1, -1);
-          return false;
-        }
-        return true;
-      });
-      .forEach(({name, value}) => resp.header(name, value));
+      headers.forEach(({name, value}) => resp.header(name, value));
 
-      // We use hapi's etag machinery instead of setting the etag header ourselves
       if( etag ) {
-          const response_304 = h.entity({etag});
-          if( response_304 ) {
-              return response_304;
+          const resp_304 = h.entity({etag});
+          if( resp_304 ) {
+              return resp_304;
           }
-          response.etag(etag);
+          resp.etag(etag);
       }
 
       if( redirect ) {
@@ -113,9 +104,6 @@ async function buildResponse({requestHandlers, request, h}) {
     }
 
     return null;
-}
-
-function extractEtag(headers) {
 }
 
 async function addParams({paramHandlers, request}) {
@@ -134,6 +122,7 @@ async function addParams({paramHandlers, request}) {
 
 function getHandlerArgs({request}) {
   assert_internal(request && request.raw && request.raw.req);
+  assert_internal(!request.payload || request.payload.constructor===String, request.payload, request.payload && request.payload.constructor);
   return (
     {
       ...request,

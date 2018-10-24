@@ -5,6 +5,9 @@ const reconfig = require('@brillout/reconfig');
 
 module.exports = ServerRendering;
 
+// We set a low priority for the universal adapters
+ServerRendering.executionPriority = -1000;
+
 async function ServerRendering({req}) {
     const html = await getHtml(req);
 
