@@ -2,6 +2,7 @@ const Hapi = require('hapi');
 const config = require('@brillout/reconfig').getConfig({configFileName: 'reframe.config.js'});
 const {symbolSuccess, colorEmphasis} = require('@brillout/cli-theme');
 const apiConfig = require('./api.config.js');
+const UniversalHapiAdapter = require('@universal-adapter/hapi');
 
 module.exports = start();
 
@@ -11,8 +12,12 @@ async function start() {
         debug: {request: ['internal']},
     });
 
-    // Run `$ reframe eject server-integration` to eject the integration plugin.
-    await server.register(config.hapiIntegrationPlugin);
+    await server.register(
+      UniversalHapiAdapter([
+        config.ServerRendering,
+        config.StaticAssets,
+      ])
+    );
 
     // Add API generated with EasyQL
     await server.register(apiConfig.HapiPlugin);

@@ -10,8 +10,15 @@ async function start() {
         debug: {request: ['internal']},
     });
 
-    // Run `$ reframe eject server-integration` to eject the integration plugin.
-    await server.register(config.hapiIntegrationPlugin);
+    await server.register(
+      // We use `@universal-adapter` to integrate Reframe with Hapi
+      UniversalHapiAdapter([
+        // Run `$ reframe eject server-rendering` to eject the server rendering code
+        config.ServerRendering,
+        // Run `$ reframe eject server-assets` to eject the static asset serving code
+        config.StaticAssets,
+      ])
+    );
 
     server.route({
         method: 'GET',
