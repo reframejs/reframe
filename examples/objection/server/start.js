@@ -1,7 +1,7 @@
 const Hapi = require('hapi');
 const config = require('@brillout/reconfig').getConfig({configFileName: 'reframe.config.js'});
 const {symbolSuccess, colorEmphasis} = require('@brillout/cli-theme');
-const {apiRequestsHandler} = require('wildcard-api');
+const {apiRequestsHandler, version} = require('wildcard-api');
 require('./api');
 const knex = require('../db/setup');
 const UniversalHapiAdapter = require('@universal-adapter/hapi');

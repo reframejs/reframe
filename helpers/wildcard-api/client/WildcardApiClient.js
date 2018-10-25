@@ -1,5 +1,4 @@
-const assert_usage = require('reassert/usage');
-const assert_internal = require('reassert/internal');
+const assert = require('reassert');
 
 const DEFAULT_API_URL_BASE = '/*/';
 
@@ -11,7 +10,7 @@ function WildcardApiClient({
   wildcardApi,
 }={}) {
 
-  assert_usage(
+  assert.usage(
     makeHttpRequest,
     "You need to provide a `makeHttpRequest` to `WildcardApiClient`",
   );
@@ -23,11 +22,11 @@ function WildcardApiClient({
   };
 
   function fetchEndpoint(endpointName, ...args) {
-    assert_usage(
+    assert.usage(
       endpointName && endpointName.constructor===String,
       "The first argument of fetchEndpoint must be a string."
     );
-    assert_usage(
+    assert.usage(
       args.length===1 && (args===undefined || args[0].constructor===Object),
       "The arguments of an endpoint must be a (optional) single plain object.",
       "E.g. `fetchEndpoint('getTodos', {userId: 1})` and `endpoints.getTodos({userId: 1, onlyCompleted: true})` are valid.",
@@ -35,10 +34,10 @@ function WildcardApiClient({
     );
     const endpointArgs = args[0];
 
-    wildcardApi = wildcardApi || typeof global !== "undefined" && global && global.wildcardApi;
+    wildcardApi = wildcardApi || typeof global !== "undefined" && global && global.__globalWildcardApi;
 
     if( wildcardApi ) {
-      assert_usage(
+      assert.usage(
         endpointArgs && endpointArgs.req,
         [
           "The Node.js HTTP `req` object is missing.",
@@ -46,13 +45,13 @@ function WildcardApiClient({
           "The `req` object is used to get the HTTP headers (which may include authentication information).",
         ].join('\n'),
       );
-      return wildcardApi.__runEndpoint(endpointName, endpointArgs);
+      return wildcardApi.__directCall(endpointName, endpointArgs);
     }
     const url = (serverAddress||'')+(apiUrlBase||'')+endpointName;
 
     const urlRootIsMissing = !serverAddress && makeHttpRequest.isUsingBrowserBuiltIn && !makeHttpRequest.isUsingBrowserBuiltIn();
-    assert_internal(!urlRootIsMissing || isNodejs());
-    assert_usage(
+    assert.internal(!urlRootIsMissing || isNodejs());
+    assert.usage(
       !urlRootIsMissing,
       [
         "We can't fetch the resource `"+url+"` because the URL root is missing.",
@@ -73,7 +72,7 @@ function WildcardApiClient({
 
   var endpointsProxy;
   function getEndpointsProxy() {
-    assert_usage(
+    assert.usage(
       envSupportsProxy(),
       [
         "This JavaScript environment doesn't seem to support Proxy.",
@@ -111,7 +110,7 @@ function serializeArgs(argsObject, endpointName) {
   try {
     serializedArgs = JSON.stringify(argsObject);
   } catch(err) {
-    assert_usage(
+    assert.usage(
       false,
       err,
       argsObject,
@@ -121,7 +120,7 @@ function serializeArgs(argsObject, endpointName) {
         "The arguments in question and the `JSON.stringify` error are printed above.",
       ].join('\n')
     );
-    assert_internal(false);
+    assert.internal(false);
   }
   return serializedArgs;
 }

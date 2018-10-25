@@ -24,9 +24,9 @@ function getResponseObject(responseSpec, {extractEtagHeader=false}={}) {
   {
     const {body} = responseSpec;
     assert.warning(
-      body && [String, Buffer].includes(body.constructor),
+      !body || [String, Buffer].includes(body.constructor),
       body,
-      body.constructor,
+      body && body.constructor,
       "response `body` is not a String nor a Buffer"
     );
     responseObject.body = body;

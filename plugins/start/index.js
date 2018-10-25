@@ -46,6 +46,7 @@ function getCliCommands() {
 
 async function execDev({options}) {
     const assert_internal = require('reassert/internal');
+    const {symbolSuccess} = require('@brillout/cli-theme');
 
     const config = init({dev: true, ...options});
     log_found_stuff({config, log_page_configs: true});
@@ -66,6 +67,7 @@ async function execDev({options}) {
           // TODO - sometimes server.stop is not a function
           assert_internal(server.stop instanceof Function, server, server.stop);
           await server.stop();
+          console.log(symbolSuccess+'Server stopped.');
         }
         server = null;
         server = await runServer(config, {isRestart: true});
@@ -116,7 +118,7 @@ async function runServer(config, {isRestart}) {
         }
         */
         if( isRestart ) {
-          console.log(symbolSuccess+'Server stopped. Restarting...');
+          console.log(symbolSuccess+'Restarting server...');
         }
         server = await forceRequire(serverEntry);
         /*
