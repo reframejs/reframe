@@ -1,10 +1,12 @@
 const getAssetInfos = require('webpack-ssr/getAssetInfos');
 const config = require('@brillout/reconfig').getConfig({configFileName: 'reframe.config.js'});
+const assert = require('reassert');
 
 module.exports = getBuildInfo;
 
 function getBuildInfo({shouldBeProductionBuild}={}) {
     const outputDir = config.projectFiles.buildOutputDir;
+    assert.internal(outputDir);
 
     const assetInfos = getAssetInfos({outputDir, shouldBeProductionBuild});
 

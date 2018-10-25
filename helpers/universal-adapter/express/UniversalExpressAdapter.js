@@ -4,28 +4,57 @@ const getHandlers = require('@universal-adapter/server/getHandlers');
 
 module.exports = UniversalExpressAdapter;
 module.exports.buildResponse = buildResponse;
-module.exports.addParams = addParams;
+module.exports.addParameters = addParameters;
 
 function UniversalExpressAdapter(handlers) {
   const {requestHandlers, paramHandlers, onServerCloseHandlers} = getHandlers(handlers);
 
-  return (
-    async (req, res, next) => {
-      if( ! alreadyServed(res) ) {
-        try {
-          await buildResponse({requestHandlers, req, res});
-        } catch(err) {
-          next(err);
-          return;
-        }
+  Object.assign(universalAdapter, {universalAdapter, addParams, serveContent, onServerClose});
+
+  return universalAdapter;
+
+  async function universalAdapter(req, res, next) {
+    await addParameters({paramHandlers, req});
+
+    if( ! alreadyServed(res) ) {
+      try {
+        await buildResponse({requestHandlers, req, res});
+      } catch(err) {
+        next(err);
+        return;
       }
-      next();
     }
-  );
+
+    next();
+  }
+
+  async function addParams(req, res, next) {
+    await addParameters({paramHandlers, req});
+    next();
+  }
+
+  async function serveContent(req, res, next) {
+    if( ! alreadyServed(res) ) {
+      try {
+        await buildResponse({requestHandlers, req, res});
+      } catch(err) {
+        next(err);
+        return;
+      }
+    }
+    next();
+  }
+
+  async function onServerClose () {
+    for(const cb of onServerCloseHandlers) {
+      await cb();
+    }
+  }
 }
 
 async function buildResponse({requestHandlers, req, res}) {
     assert.usage(requestHandlers);
+    assert.usage(req);
     assert.usage(res);
 
     const handlerArgs = getHandlerArgs({req});
@@ -57,13 +86,27 @@ async function buildResponse({requestHandlers, req, res}) {
         res.send(body);
       }
 
-      return;
+      return true;
     }
+    return false;
 }
 
-function addParams(){}
+async function addParameters({paramHandlers, req}) {
+  assert.usage(paramHandlers);
+  assert.usage(req);
+
+  const handlerArgs = getHandlerArgs({req});
+
+  for(const paramHandler of paramHandlers) {
+    assert.usage(paramHandler instanceof Function);
+    const newParams = await paramHandler(handlerArgs);
+    assert.usage(newParams===null || newParams && newParams.constructor===Object);
+    Object.assign(req, newParams);
+  }
+}
 
 function getHandlerArgs({req}) {
+  assert.internal(req);
   return {...req, req};
 }
 

@@ -4,6 +4,7 @@ const config = require('@brillout/reconfig').getConfig({configFileName: 'reframe
 const UniversalExpressAdapter = require('@universal-adapter/express');
 const {symbolSuccess, colorEmphasis} = require('@brillout/cli-theme');
 const {apiRequestsHandler, version} = require('wildcard-api');
+const http = require('http');
 require('./api');
 const knex = require('../db/setup');
 
@@ -12,7 +13,7 @@ module.exports = start();
 async function start() {
     const app = express();
 
-    app.use(
+    const {universalAdapter, addParams, serveContent, onServerClose} = (
       UniversalExpressAdapter([
         apiRequestsHandler,
         config.ServerRendering,
@@ -21,32 +22,35 @@ async function start() {
     );
 
     /*
-    app.get('/', function (req, res) {
-      res.send('Hello Worl2d')
+    app.use(universalAdapter);
+    /*/
+    // The middleware `addParams` add parameters to the `req` object.
+    // (E.g. to be able to provide a `req.session` or a `req.loggedUser`.)
+    // We run this middleware first to make sure that the extra parameters are available to all routes
+    app.use(addParams);
+    app.use(serveContent);
+    //*/
+
+    // Define your routes after `addParams` and `serveContent`
+    app.get('/hello-from-express', (req, res, next) => {
+      res.send('hey there');
+      next();
     });
 
-    app.get('/', function (req, res) {
-      res.send('Hello World')
-    });
-    */
 
-    app.listen(3000);
+    const server = http.createServer(app);
+    // TODO
+    await server.listen(process.env.PORT || 3000);
 
-    /*
-    const server = Hapi.Server({
-        port: process.env.PORT || 3000,
-        debug: {request: ['internal']},
-    });
-
-    server.ext('onPostStop', () => knex.destroy());
-
-    await server.start();
-
+    server.stop = async () => {
+      await knex.destroy();
+      await onServerClose();
+      // TODO
+      await server.close();
+    };
 
     const env = colorEmphasis(process.env.NODE_ENV||'development');
     console.log(symbolSuccess+'Server running (for '+env+')');
 
     return server;
-    */
 }
-

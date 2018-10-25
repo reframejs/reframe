@@ -5,7 +5,7 @@ const getHandlers = require('@universal-adapter/server/getHandlers');
 
 module.exports = UniversalHapiAdapter;
 module.exports.buildResponse = buildResponse;
-module.exports.addParams = addParams;
+module.exports.addParameters = addParameters;
 
 function UniversalHapiAdapter(handlers, {useOnPreResponse=false}={}) {
 
@@ -42,7 +42,7 @@ function UniversalHapiAdapter(handlers, {useOnPreResponse=false}={}) {
             }
 
             server.ext('onRequest', async (request, h) => {
-              await addParams({paramHandlers, request});
+              await addParameters({paramHandlers, request});
               return h.continue;
             });
 
@@ -111,7 +111,7 @@ async function buildResponse({requestHandlers, request, h}) {
     return null;
 }
 
-async function addParams({paramHandlers, request}) {
+async function addParameters({paramHandlers, request}) {
   assert.usage(paramHandlers);
   assert.usage(request && request.raw && request.raw.req);
 
