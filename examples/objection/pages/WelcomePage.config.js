@@ -10,7 +10,7 @@ export default {
 async function getInitialProps({req}) {
   const todos = await endpoints.getTodos({req});
   const test = await endpoints.mirror({vali: 'heyoaaaaaaaa', req});
-//console.log(test);
+  console.log({test});
   return {todos};
 }
 

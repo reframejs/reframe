@@ -47,7 +47,10 @@ function WildcardApiClient({
       );
       return wildcardApi.__directCall(endpointName, endpointArgs);
     }
-    const url = (serverAddress||'')+(apiUrlBase||'')+endpointName;
+
+    const argsJson = serializeArgs(endpointArgs, endpointName);
+
+    const url = (serverAddress||'')+(apiUrlBase||'')+endpointName+'/'+encodeURIComponent(argsJson);
 
     const urlRootIsMissing = !serverAddress && makeHttpRequest.isUsingBrowserBuiltIn && !makeHttpRequest.isUsingBrowserBuiltIn();
     assert.internal(!urlRootIsMissing || isNodejs());
@@ -60,9 +63,7 @@ function WildcardApiClient({
       ].join('\n')
     );
 
-    const body = serializeArgs(endpointArgs, endpointName);
-
-    return makeHttpRequest({url, body});
+    return makeHttpRequest({url/*, body: argsJson*/});
   }
 
   var serverAddress;

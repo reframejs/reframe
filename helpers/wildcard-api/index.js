@@ -43,11 +43,28 @@ function WildcardApi({
     url = url.slice(apiUrlBase.length);
 
     const urlParts = url.split('/');
-    if( urlParts.length!==1 || !urlParts[0] ) {
+    if( urlParts.length<1 || urlParts.length>2 || !urlParts[0] ) {
       return responseError('Malformatted API URL: '+url, 400);
     }
     const endpointName = urlParts[0];
 
+    const endpointArgs = {
+      ...args,
+      createResponse,
+      notAuthorized,
+    };
+
+    let urlArgs = urlParts[1] && decodeURIComponent(urlParts[1]);
+    if( urlArgs ) {
+      try {
+        urlArgs = JSON.parse(urlArgs);
+      } catch(err) {
+        return responseError('Malformatted URL arguments (i.e. endpoint arguments). URL args don\'t seem to be a JSON. URL args: `'+urlArgs+'`. URL: `'+url+'`.', 400);
+      }
+      Object.assign(endpointArgs, urlArgs);
+    }
+
+    /*
     let payload = args.payload || {};
     assert.usage([Object, String].includes(payload.constructor), "Payload should either be an object or a string.");
     if( payload.constructor===String ) {
@@ -57,13 +74,8 @@ function WildcardApi({
         return responseError('Malformatted payload (i.e. endpoint arguments). Payload doesn\'t seem to be a JSON. Payload: `'+payload+'`.', 400);
       }
     }
-
-    const endpointArgs = {
-      ...args,
-      createResponse,
-      notAuthorized,
-      ...payload,
-    };
+    Object.assign(endpointArgs, payload);
+    */
 
     const endpoint = getEndpoint(endpointName);
     if( ! endpoint ) {
@@ -88,6 +100,7 @@ function WildcardApi({
       return responseObj;
     }
 
+    responseObj = responseObj=== undefined ? null : responseObj;
     let body;
     try {
       body = JSON.stringify(responseObj);
@@ -95,7 +108,7 @@ function WildcardApi({
       console.error(err);
       return couldNotHandle;
     }
-    assert.internal(body===undefined || body.constructor===String);
+    assert.internal(body.constructor===String);
     return {body};
   }
 

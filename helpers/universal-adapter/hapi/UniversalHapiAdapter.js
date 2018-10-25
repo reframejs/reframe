@@ -31,6 +31,10 @@ function UniversalHapiAdapter(handlers, {useOnPreResponse=false}={}) {
               });
             } else {
               server.ext('onPreResponse', async (request, h) => {
+
+                // The payload (aka POST request body) doesn't seem to be available at `onPreResponse`.
+                // console.log('where is my payload?', request.payload, request.body);
+
                 const resp = await buildResponse({requestHandlers, request, h});
                 if( resp === null ) {
                   return h.continue;
