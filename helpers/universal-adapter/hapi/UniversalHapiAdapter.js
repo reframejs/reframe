@@ -2,7 +2,8 @@ const Boom = require('boom');
 const assert_usage = require('reassert/usage');
 const assert_internal = require('reassert/internal');
 
-const {getHandlers, getResponseObject} = require('@universal-adapter/server');
+const getResponseObject = require('@universal-adapter/server/getResponseObject');
+const getHandlers = require('@universal-adapter/server/getHandlers');
 
 module.exports = UniversalHapiAdapter;
 module.exports.buildResponse = buildResponse;
@@ -80,22 +81,26 @@ async function buildResponse({requestHandlers, request, h}) {
         continue;
       }
 
-      const {body, redirect, headers, etag} = responseObject;
+      const {body, headers, redirect, statusCode, etag} = responseObject;
 
       const resp = h.response(body);
 
       headers.forEach(({name, value}) => resp.header(name, value));
 
       if( etag ) {
-          const resp_304 = h.entity({etag});
-          if( resp_304 ) {
-              return resp_304;
-          }
-          resp.etag(etag);
+        const resp_304 = h.entity({etag});
+        if( resp_304 ) {
+          return resp_304;
+        }
+        resp.etag(etag);
       }
 
       if( redirect ) {
-          resp.redirect(redirect);
+        resp.redirect(redirect);
+      }
+
+      if( statusCode ) {
+        resp.code(statusCode);
       }
 
       return resp;
