@@ -1,11 +1,9 @@
-const assert_usage = require('reassert/usage');
-const assert_internal = require('reassert/internal');
-const assert_warning = require('reassert/warning');
+const assert = require('reassert');
 
 module.exports = getHandlers;
 
 function getHandlers(handlers) {
-  assert_internal(handlers && (isHandler(handlers) || handlers.constructor===Array));
+  assert.internal(handlers && (isHandler(handlers) || handlers.constructor===Array));
   const handlerList = isHandler(handlers) ? [handlers] : handlers;
 
   const requestHandlers = [];
@@ -18,19 +16,19 @@ function getHandlers(handlers) {
       requestHandlers.push(handlerSpec);
       return;
     }
-    assert_usage(handlerSpec && handlerSpec.constructor===Object, handlerSpec);
+    assert.usage(handlerSpec && handlerSpec.constructor===Object, handlerSpec);
 
     const handlerNames = ['paramHandler', 'requestHandler', 'onServerCloseHandler'];
 
-    assert_usage(Object.keys(handlerSpec).filter(key => !handlerNames.includes(key)).length===0, handlerSpec);
-    assert_usage(Object.keys(handlerSpec).length>0, handlerSpec);
+    assert.usage(Object.keys(handlerSpec).filter(key => !handlerNames.includes(key)).length===0, handlerSpec);
+    assert.usage(Object.keys(handlerSpec).length>0, handlerSpec);
 
     handlerNames.forEach(handlerName => {
       const handler = handlerSpec[handlerName];
       if( ! handler ) {
         return;
       }
-      assert_usage(isHandler(handler), handlerSpec, handler, handlerName);
+      assert.usage(isHandler(handler), handlerSpec, handler, handlerName);
       if( handlerName==='paramHandler' ) {
         paramHandlers.push(handler);
         return;
@@ -43,7 +41,7 @@ function getHandlers(handlers) {
         onServerCloseHandlers.push(handler);
         return;
       }
-      assert_internal(false);
+      assert.internal(false);
     });
   });
 
@@ -61,12 +59,12 @@ function sortHandlers(handlers) {
   return (
     handlers
     .sort((h1, h2) => {
-      assert_internal(isHandler(h1));
-      assert_internal(isHandler(h2));
+      assert.internal(isHandler(h1));
+      assert.internal(isHandler(h2));
       const p1 = (h1.executionPriority||0);
       const p2 = (h2.executionPriority||0);
-      assert_internal(p1.constructor===Number);
-      assert_internal(p2.constructor===Number);
+      assert.internal(p1.constructor===Number);
+      assert.internal(p2.constructor===Number);
       return p2 - p1;
     })
   );

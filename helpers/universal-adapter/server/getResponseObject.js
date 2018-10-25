@@ -1,5 +1,4 @@
-const assert_usage = require('reassert/usage');
-const assert_warning = require('reassert/warning');
+const assert = require('reassert');
 
 module.exports = getResponseObject;
 
@@ -11,7 +10,7 @@ function getResponseObject(responseSpec, {extractEtagHeader=false}={}) {
   Object.keys(responseSpec)
   .forEach(respArg => {
     const argList = ['body', 'headers', 'redirect', 'statusCode'];
-    assert_usage(
+    assert.usage(
       argList.includes(respArg),
       responseSpec,
       "Unknown argument `"+respArg+"` in response object printed above.",
@@ -24,7 +23,7 @@ function getResponseObject(responseSpec, {extractEtagHeader=false}={}) {
 
   {
     const {body} = responseSpec;
-    assert_warning(
+    assert.warning(
       body && [String, Buffer].includes(body.constructor),
       body,
       body.constructor,
@@ -35,9 +34,9 @@ function getResponseObject(responseSpec, {extractEtagHeader=false}={}) {
 
   {
     const {headers=[]} = responseSpec;
-    assert_usage(headers && headers.forEach, headers);
+    assert.usage(headers && headers.forEach, headers);
     headers.forEach(headerSpec => {
-      assert_usage(headerSpec && headerSpec.name && headerSpec.value, headers, headerSpec);
+      assert.usage(headerSpec && headerSpec.name && headerSpec.value, headers, headerSpec);
     });
     responseObject.headers = headers;
   }
@@ -50,7 +49,7 @@ function getResponseObject(responseSpec, {extractEtagHeader=false}={}) {
         const isEtagHeader = name.toLowerCase()==='etag';
      // const isEtagHeader = name==='ETag';
         if( isEtagHeader ) {
-          assert_warning(
+          assert.warning(
             value[0]==='"' && value.slice(-1)[0]==='"',
             "Malformatted etag",
             value
@@ -66,7 +65,7 @@ function getResponseObject(responseSpec, {extractEtagHeader=false}={}) {
 
   {
     const {redirect} = responseSpec;
-    assert_warning(
+    assert.warning(
       redirect===undefined || redirect && redirect.constructor===String,
       "response `redirect` is not a String",
       redirect,

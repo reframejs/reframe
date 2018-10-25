@@ -1,6 +1,5 @@
 const Boom = require('boom');
-const assert_usage = require('reassert/usage');
-const assert_internal = require('reassert/internal');
+const assert = require('reassert');
 
 const getResponseObject = require('@universal-adapter/server/getResponseObject');
 const getHandlers = require('@universal-adapter/server/getHandlers');
@@ -59,9 +58,9 @@ function UniversalHapiAdapter(handlers, {useOnPreResponse=false}={}) {
 }
 
 async function buildResponse({requestHandlers, request, h}) {
-    assert_usage(requestHandlers);
-    assert_usage(request && request.raw && request.raw.req);
-    assert_usage(h && h.continue);
+    assert.usage(requestHandlers);
+    assert.usage(request && request.raw && request.raw.req);
+    assert.usage(h && h.continue);
 
     if( isAlreadyServed(request) ) {
         return h.continue;
@@ -110,21 +109,21 @@ async function buildResponse({requestHandlers, request, h}) {
 }
 
 async function addParams({paramHandlers, request}) {
-  assert_usage(paramHandlers);
-  assert_usage(request && request.raw && request.raw.req);
+  assert.usage(paramHandlers);
+  assert.usage(request && request.raw && request.raw.req);
 
   const handlerArgs = getHandlerArgs({request});
 
   for(const paramHandler of paramHandlers) {
-    assert_usage(paramHandler instanceof Function);
+    assert.usage(paramHandler instanceof Function);
     const newParams = await paramHandler(handlerArgs);
-    assert_usage(newParams===null || newParams && newParams.constructor===Object);
+    assert.usage(newParams===null || newParams && newParams.constructor===Object);
     Object.assign(request, newParams);
   }
 }
 
 function getHandlerArgs({request}) {
-  assert_internal(request && request.raw && request.raw.req);
+  assert.internal(request && request.raw && request.raw.req);
 
   // Sometimes `Object.getPrototypeOf(payload)===null` which leads to `payload.constructor===undefined`
   // We normalize that case by doing `{...payload}`
@@ -136,7 +135,7 @@ function getHandlerArgs({request}) {
       {...payload}
     )
   );
-  assert_internal(!payload || [String, Object].includes(payload.constructor));
+  assert.internal(!payload || [String, Object].includes(payload.constructor));
 
   return (
     {
