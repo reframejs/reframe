@@ -73,6 +73,12 @@ function getResponseObject(responseSpec, {extractEtagHeader=false}={}) {
     responseObject.redirect = redirect;
   }
 
+  assert.warning(
+    !responseObject.body || !responseObject.redirect,
+    "The response printed above has both a `body` and a `redirect` which doesn't make sense.",
+    "The body will never be shown as the page will be redirected.",
+  );
+
   {
     const {statusCode} = responseSpec;
     responseObject.statusCode = statusCode;

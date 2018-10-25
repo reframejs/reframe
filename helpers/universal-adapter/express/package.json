@@ -1,0 +1,12 @@
+{
+  "name": "@universal-adapter/express",
+  "version": "0.2.3",
+  "main": "UniversalExpressAdapter.js",
+  "private": true,
+  "dependencies": {
+    "@universal-adapter/server": "0.2.3",
+    "reassert": "^1.1.16"
+  },
+  "description": "Universal Server Adapter - Express",
+  "repository": "github:brillout/universal-adapter"
+}

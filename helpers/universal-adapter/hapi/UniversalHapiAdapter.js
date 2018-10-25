@@ -1,13 +1,11 @@
 const Boom = require('boom');
 const assert = require('reassert');
-
 const getResponseObject = require('@universal-adapter/server/getResponseObject');
 const getHandlers = require('@universal-adapter/server/getHandlers');
 
 module.exports = UniversalHapiAdapter;
 module.exports.buildResponse = buildResponse;
 module.exports.addParams = addParams;
-
 
 function UniversalHapiAdapter(handlers, {useOnPreResponse=false}={}) {
 
@@ -66,6 +64,7 @@ async function buildResponse({requestHandlers, request, h}) {
     assert.usage(request && request.raw && request.raw.req);
     assert.usage(h && h.continue);
 
+    // TODO re-work this
     if( isAlreadyServed(request) ) {
         return h.continue;
     }
@@ -95,7 +94,7 @@ async function buildResponse({requestHandlers, request, h}) {
         if( resp_304 ) {
           return resp_304;
         }
-        resp.etag(etag);
+        resp.etag(etag, {weak: false});
       }
 
       if( redirect ) {

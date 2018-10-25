@@ -86,6 +86,7 @@
         "helpers/rebuild/iso",
         "helpers/rebuild/example",
         "helpers/rebuild/serve",
+        "helpers/universal-adapter/express",
         "helpers/universal-adapter/hapi",
         "helpers/universal-adapter/server",
         "helpers/universal-adapter/typeorm",
