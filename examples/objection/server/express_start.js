@@ -4,7 +4,6 @@ const config = require('@brillout/reconfig').getConfig({configFileName: 'reframe
 const UniversalExpressAdapter = require('@universal-adapter/express');
 const {symbolSuccess, colorEmphasis} = require('@brillout/cli-theme');
 const {apiRequestsHandler, version} = require('wildcard-api');
-const http = require('http');
 require('./api');
 const knex = require('../db/setup');
 
@@ -37,20 +36,30 @@ async function start() {
       next();
     });
 
-
-    const server = http.createServer(app);
-    // TODO
-    await server.listen(process.env.PORT || 3000);
+    const server = await startServer(app);
 
     server.stop = async () => {
       await knex.destroy();
       await onServerClose();
-      // TODO
-      await server.close();
+      await closeServer(server);
     };
 
     const env = colorEmphasis(process.env.NODE_ENV||'development');
     console.log(symbolSuccess+'Server running (for '+env+')');
 
     return server;
+}
+
+async function startServer(app) {
+  const http = require('http');
+  const server = http.createServer(app);
+  server.listen(process.env.PORT || 3000);
+  // Wait until the server has started
+  await new Promise((r, f) => {server.on('listening', r); server.on('error', f);});
+  return server;
+}
+async function closeServer(server) {
+  server.close();
+  // Wait until server closes
+  await new Promise((r, f) => {server.on('close', r); server.on('error', f);});
 }
