@@ -2,18 +2,18 @@ const passport = require('passport');
 const GitHubStrategy = require('passport-github').Strategy;
 const User = require('../../db/models/User');
 
-module.exports = auth();
+const GITHUB_CLIENT_ID = '3c81714764dde8e268e1';
+const GITHUB_CLIENT_SECRET = (
+  '00b3e6dde42cadb2ffc88a'+
+  // At least we it less accessible to crawlers
+  975197.4979704999/Math.PI.toPrecision(8)+
+  'ab9840fc2339'
+);
+const SESSION_SECRET = 'very-secret';
 
-function auth() {
-  const GITHUB_CLIENT_ID = '3c81714764dde8e268e1';
+module.exports = auth;
 
-  const GITHUB_CLIENT_SECRET = (
-    '00b3e6dde42cadb2ffc88a'+
-    // At least we it less accessible to crawlers
-    975197.4979704999/Math.PI.toPrecision(8)+
-    'ab9840fc2339'
-  );
-
+function auth(app) {
   passport.use(new GitHubStrategy({
     clientID: GITHUB_CLIENT_ID,
     clientSecret: GITHUB_CLIENT_SECRET,
@@ -54,6 +54,22 @@ function auth() {
       done(err);
     }
   });
+
+  app.use(require('serve-static')(__dirname + '/../../public'));
+  app.use(require('cookie-parser')());
+  app.use(require('body-parser').urlencoded({ extended: true }));
+  app.use(require('express-session')({ secret: SESSION_SECRET, resave: true, saveUninitialized: true }));
+  app.use(passport.initialize());
+  app.use(passport.session());
+
+  app.get('/auth/github', passport.authenticate('github'));
+  app.get('/auth/github/failed', (req, res) => {res.send('Something went wrong while logging with GitHub');});
+  app.get('/auth/github/callback',
+    passport.authenticate('github', { failureRedirect: '/auth/github/failed' }),
+    // Successful authentication
+    (req, res) => {res.redirect('/');},
+  );
+
   return passport;
 }
 

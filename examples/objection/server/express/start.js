@@ -6,12 +6,14 @@ const {symbolSuccess, colorEmphasis} = require('@brillout/cli-theme');
 const {apiRequestsHandler, version} = require('wildcard-api');
 const knex = require('../../db/setup');
 require('../api');
-const passport = require('./auth');
+const auth = require('./auth');
 
 module.exports = start();
 
 async function start() {
     const app = express();
+
+    auth(app);
 
     const {universalAdapter, addParams, serveContent, onServerClose} = (
       UniversalExpressAdapter([
@@ -27,28 +29,12 @@ async function start() {
     // The middleware `addParams` add parameters to the `req` object.
     // (E.g. to be able to provide a `req.session` or a `req.loggedUser`.)
     // We run this middleware first to make sure that the extra parameters are available to all routes
- // app.use(addParams);
- // app.use(serveContent);
+    app.use(addParams);
+    app.use(serveContent);
     //*/
 
-    app.use(require('serve-static')(__dirname + '/../../public'));
-    app.use(require('cookie-parser')());
-    app.use(require('body-parser').urlencoded({ extended: true }));
-    app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
-    app.use(passport.initialize());
-    app.use(passport.session());
-    app.get('/auth/github', passport.authenticate('github'));
-    app.get('/auth/github/callback',
-      passport.authenticate('github', { failureRedirect: '/auth/github/failed' }),
-      function(req, res) {
-        // Successful authentication, redirect home.
-        res.redirect('/');
-      }
-    );
-
     // Define your routes after `addParams` and `serveContent`
-    app.get('/', (req, res, next) => {
-      console.log(req.user);
+    app.get('/hi', (req, res, next) => {
       const username = (req.user||{}).username || 'anon';
       res.send('hey '+username);
       next();
