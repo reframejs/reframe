@@ -8,8 +8,8 @@ module.exports = ServerRendering;
 // We set a low priority for the universal adapters
 ServerRendering.executionPriority = -1000;
 
-async function ServerRendering({req}) {
-    const html = await getHtml(req);
+async function ServerRendering(props) {
+    const html = await getHtml(props);
 
     if( html === null ) {
         return null;
@@ -27,8 +27,8 @@ async function ServerRendering({req}) {
     }
 }
 
-async function getHtml(req) {
-    const uri = req.url;
+async function getHtml(props) {
+    const uri = props.req.url;
     assert_internal(uri && uri.constructor===String, uri);
 
     const config = reconfig.getConfig({configFileName: 'reframe.config.js'});
@@ -36,7 +36,7 @@ async function getHtml(req) {
     const {pageConfigs} = config.getBuildInfo();
     const {renderToHtml, router} = config;
 
-    const html = await getPageHtml({pageConfigs, uri, renderToHtml, router, initialProps: {req}});
+    const html = await getPageHtml({pageConfigs, uri, renderToHtml, router, initialProps: props});
     assert_internal(html===null || html.constructor===String, html);
 
     return html;

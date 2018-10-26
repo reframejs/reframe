@@ -116,7 +116,7 @@ function WildcardApi({
     const endpoint = endpoints[endpointName];
     assert.usage(
       !endpoint || endpoint instanceof Function,
-      "An endpoint must be function but the endpoint `endpoints['"+endpointName+"']` is a `"+endpoint.constructor+"`",
+      "An endpoint must be function but the endpoint `endpoints['"+endpointName+"']` is a `"+(endpoint&&endpoint.constructor)+"`",
     )
     return endpoint;
   }

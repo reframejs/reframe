@@ -21,9 +21,6 @@ function auth(app) {
   },
     async function(accessToken, refreshToken, profile, done) {
       try {
-        console.log(accessToken);
-        console.log(refreshToken);
-        console.log(profile);
         const oauthProvider = 'github';
         const providerId = profile.id;
         let user = await User.query().findOne({oauthProvider, providerId});
@@ -32,7 +29,12 @@ function auth(app) {
           const avatarUrl = profile.photos[0].value;
           user = await User.query().insert({oauthProvider, providerId, username, avatarUrl, accessToken, refreshToken});
         }
+        /*
+        console.log(accessToken);
+        console.log(refreshToken);
+        console.log(profile);
         console.log(user, user.id);
+        */
         done(null, user);
       } catch(err) {
         console.error(err);
