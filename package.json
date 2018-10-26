@@ -1,7 +1,7 @@
 {
     "private": true,
     "scripts": {
-        "clean": "git clean -xdff",
+        "clean": "git clean -Xd",
 
         "docs": "mdocs ./docs/",
         "docs-all": "npm run docs && lerna run docs",
