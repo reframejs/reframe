@@ -26,13 +26,16 @@ function auth() {
         console.log(profile);
         const oauthProvider = 'github';
         const providerId = profile.id;
-        let user = await User.query().where({oauthProvider, providerId});
+        let user = await User.query().findOne({oauthProvider, providerId});
         if( ! user ) {
-          const {avatar_url: avatarUrl, username, accessToken, refreshToken} = profile;
+          const {username, accessToken, refreshToken} = profile;
+          const avatarUrl = profile.photos[0].value;
           user = await User.query().insert({oauthProvider, providerId, username, avatarUrl, accessToken, refreshToken});
         }
+        console.log(user, user.id);
         done(null, user);
       } catch(err) {
+        console.error(err);
         done(err);
       }
     }
@@ -44,23 +47,13 @@ function auth() {
 
   passport.deserializeUser(async function(id, done) {
     try {
-      const user = await User.query().where({id: user.id});
+      const user = await User.query().findOne({id});
       done(null, user);
     } catch(err) {
+      console.error(err);
       done(err);
     }
   });
-
-  app.get('/auth/github', passport.authenticate('github'));
-
-  app.get('/auth/github/callback',
-    passport.authenticate('github', { failureRedirect: '/auth/github/failed' }),
-    function(req, res) {
-      // Successful authentication, redirect home.
-      res.redirect('/');
-    }
-  );
-
   return passport;
 }
 
