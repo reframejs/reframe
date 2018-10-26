@@ -87,11 +87,18 @@ function WildcardApiClient({
   function getEndpointsProxy(requestContext) {
     assertProxySupport();
 
+    const dummyObject = {};
+
     if( ! endpointsProxy ) {
       endpointsProxy = (
-        new Proxy({}, {get: (_, endpointName) => {
+        new Proxy(dummyObject, {get: (target, prop) => {
+          if( (typeof prop !== "string") || (prop in dummyObject) ) {
+            return dummyObject[prop];
+          }
+          console.log(prop, target===dummyObject, typeof prop);
+          return () => {};
           return (...args) => {
-            return fetchEndpoint(endpointName, {requestContext}, ...args);
+            return fetchEndpoint(prop, {requestContext}, ...args);
           }
         }})
       );

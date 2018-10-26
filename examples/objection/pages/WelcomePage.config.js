@@ -10,6 +10,13 @@ export default {
 
 async function getInitialProps({requestContext, isBrowser}) {
 
+  console.log(2);
+  console.log(endpoints);
+  console.log(endpoints['ii']);
+  console.log(2.3);
+  endpoints = {aaa:1};
+  console.log(endpoints);
+  console.log(3);
   if( requestContext ) {
     assert(!isBrowser);
     endpoints = addRequestContext(endpoints, requestContext);
