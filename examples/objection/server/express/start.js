@@ -4,8 +4,8 @@ const config = require('@brillout/reconfig').getConfig({configFileName: 'reframe
 const UniversalExpressAdapter = require('@universal-adapter/express');
 const {symbolSuccess, colorEmphasis} = require('@brillout/cli-theme');
 const {apiRequestsHandler, version} = require('wildcard-api');
-require('./api');
-const knex = require('../db/setup');
+const knex = require('../../db/setup');
+require('../api');
 
 module.exports = start();
 
