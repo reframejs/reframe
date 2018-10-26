@@ -1,5 +1,6 @@
 import React from 'react';
-import {endpoints} from 'wildcard-api/client';
+import {endpoints, addRequestContext} from 'wildcard-api/client';
+import assert from 'reassert';
 
 export default {
   route: '/',
@@ -7,14 +8,12 @@ export default {
   getInitialProps,
 };
 
-async function getInitialProps({req}) {
+async function getInitialProps({requestContext, isBrowser}) {
 
-  /*
   if( requestContext ) {
     assert(!isBrowser);
-    endpoints = withRequestContext(endpoints, requestContext);
+    endpoints = addRequestContext(endpoints, requestContext);
   }
-  */
 
   const user = await endpoints.getLoggedUser({req});
   if( ! user ) {

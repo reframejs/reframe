@@ -7,14 +7,20 @@ endpoints.getLoggedUser = getLoggedUser;
 endpoints.mirror = mirror;
 endpoints.tmp = tmp;
 
-async function getTodos() {
+async function getTodos({}, {requestContext}) {
+  const user = getLoggedUser(user);
   return await (
     Todo.query()
   );
 }
 
-async function getLoggedUser({req}) {
-  return req.user;
+async function getLoggedUser({}, {requestContext}) {
+  const user = getLoggedUser(user);
+  return user;
+}
+
+function getLoggedUser(requestContext) {
+  return requestContext.req.user;
 }
 
 function mirror({vali}) {

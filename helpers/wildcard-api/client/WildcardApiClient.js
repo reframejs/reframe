@@ -16,79 +16,82 @@ function WildcardApiClient({
   );
 
   return {
-    setServerRootUrl,
     fetchEndpoint,
     get endpoints(){ return getEndpointsProxy(); },
+    addRequestContext: (/*Perception is sometimes more important than reality ;-)*/{}, requestContext) => getEndpointsProxy(requestContext),
   };
 
-  function fetchEndpoint(endpointName, ...args) {
+  // TODO - improve error messages
+  function fetchEndpoint(endpointName, endpointArgs, wildcardApiArgs={}, ...args) {
+    const {requestContext, serverRootUrl} = wildcardApiArgs;
+
+    const wrongUsageError = [
+      "The arguments of an endpoint must be a (optional) single plain object.",
+      "E.g. `fetchEndpoint('getTodos', {userId: 1})` and `endpoints.getTodos({userId: 1, onlyCompleted: true})` are valid.",
+      "But `fetchEndpoint('getTodos', 1)` and `endpoints.getTodos({userId: 1}, {onlyCompleted: true})` are invalid.",
+    ].join('\n');
+    assert.usage(
+      (
+        args.length===0 &&
+        (!endpointArgs || endpointArgs.constructor===Object) &&
+        wildcardApiArgs.constructor===Object && Object.keys(wildcardApiArgs).every(arg => ['requestContext', 'serverRootUrl'].includes(arg))
+      ),
+      wrongUsageError
+    );
     assert.usage(
       endpointName && endpointName.constructor===String,
       "The first argument of fetchEndpoint must be a string."
     );
-    assert.usage(
-      args.length===1 && (args===undefined || args[0].constructor===Object),
-      "The arguments of an endpoint must be a (optional) single plain object.",
-      "E.g. `fetchEndpoint('getTodos', {userId: 1})` and `endpoints.getTodos({userId: 1, onlyCompleted: true})` are valid.",
-      "But `fetchEndpoint('getTodos', 1)` and `endpoints.getTodos({userId: 1}, {onlyCompleted: true})` are invalid.",
-    );
-    const endpointArgs = args[0];
 
     wildcardApi = wildcardApi || typeof global !== "undefined" && global && global.__globalWildcardApi;
 
     if( wildcardApi ) {
+      assert.internal(isNodejs());
       assert.usage(
-        endpointArgs && endpointArgs.req,
+        requestContext,
         [
-          "The Node.js HTTP `req` object is missing.",
-          "It is required when using the WildcardApiClient on server-side rendering.",
-          "The `req` object is used to get the HTTP headers (which may include authentication information).",
+          "The request context is missing.",
+          "It is required when using the WildcardApiClient while doing server-side rendering.",
+          "The request context is used to get infos like the HTTP headers (which typically include authentication information).",
         ].join('\n'),
       );
-      return wildcardApi.__directCall(endpointName, endpointArgs);
+      return wildcardApi.__directCall(endpointName, endpointArgs, requestContext);
     }
+
+    assert.usage(
+      requestContext===undefined,
+      wrongUsageError
+    );
 
     const argsJson = serializeArgs(endpointArgs, endpointName);
 
-    const url = (serverAddress||'')+(apiUrlBase||'')+endpointName+'/'+encodeURIComponent(argsJson);
+    const url = (serverRootUrl||'')+(apiUrlBase||'')+endpointName+'/'+encodeURIComponent(argsJson);
 
-    const urlRootIsMissing = !serverAddress && makeHttpRequest.isUsingBrowserBuiltIn && !makeHttpRequest.isUsingBrowserBuiltIn();
-    assert.internal(!urlRootIsMissing || isNodejs());
-    assert.usage(
-      !urlRootIsMissing,
-      [
-        "We can't fetch the resource `"+url+"` because the URL root is missing.",
-        "(In Node.js URLs need to include the URL root.)",
-        "Use `setServerRootUrl` to set the URL root."
-      ].join('\n')
-    );
+    const urlRootIsMissing = !serverRootUrl && makeHttpRequest.isUsingBrowserBuiltIn && !makeHttpRequest.isUsingBrowserBuiltIn();
+    if( urlRootIsMissing ) {
+      assert.internal(isNodejs());
+      assert.usage(
+        false,
+        [
+          "We can't fetch the resource `"+url+"` because the URL root is missing.",
+          "(In Node.js URLs need to include the URL root.)",
+          "Use `await fetchEndpoint(endpointName, endpointArgs, {serverRootUrl});` to set the URL root."
+        ].join('\n')
+      );
+    }
 
     return makeHttpRequest({url/*, body: argsJson*/});
   }
 
-  var serverAddress;
-  function setServerRootUrl(serverAddress_) {
-    serverAddress = serverAddress_;
-  }
-
   var endpointsProxy;
-  function getEndpointsProxy() {
-    assert.usage(
-      envSupportsProxy(),
-      [
-        "This JavaScript environment doesn't seem to support Proxy.",
-        "Use `fetchEndpoint` instead of `endpoints`.",
-        "",
-        "Note that all browsers support Proxy with the exception of Internet Explorer.",
-        "If you want to support IE then use `fetchEndpoint` instead.",
-      ].join('\n')
-    );
+  function getEndpointsProxy(requestContext) {
+    assertProxySupport();
 
     if( ! endpointsProxy ) {
       endpointsProxy = (
         new Proxy({}, {get: (_, endpointName) => {
           return (...args) => {
-            return fetchEndpoint(endpointName, ...args);
+            return fetchEndpoint(endpointName, {requestContext}, ...args);
           }
         }})
       );
@@ -102,6 +105,18 @@ function isNodejs() {
   return typeof "process" !== "undefined" && process && process.versions && process.versions.node;
 }
 
+function assertProxySupport() {
+    assert.usage(
+      envSupportsProxy(),
+      [
+        "This JavaScript environment doesn't seem to support Proxy.",
+        "Use `fetchEndpoint` instead of `endpoints`.",
+        "",
+        "Note that all browsers support Proxy with the exception of Internet Explorer.",
+        "If you want to support IE then use `fetchEndpoint` instead.",
+      ].join('\n')
+    );
+}
 function envSupportsProxy() {
   return typeof "Proxy" !== "undefined";
 }

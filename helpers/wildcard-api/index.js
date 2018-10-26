@@ -21,9 +21,11 @@ function WildcardApi({
     __directCall,
   };
 
-  async function __directCall(endpointName, ...args) {
+  async function __directCall(endpointName, endpointArgs, requestContext, ...args) {
     assert.internal(endpointName);
-    assert.internal(args.length===1 && args[0].constructor===Object);
+    assert.internal(!endpointArgs || endpointArgs.constructor===Object);
+    assert.internal(requestContext);
+    assert.internal(args.length===0);
 
     const endpoint = getEndpoint(endpointName);
 
@@ -32,11 +34,15 @@ function WildcardApi({
       'Endpoint '+endpointName+" doesn't exist.",
     );
 
-    return await endpoint(args[0]);
+    return await endpoint(endpointArgs, {requestContext});
   }
 
-  async function apiRequestsHandler(args) {
-    let {req: {url}} = args;
+  async function apiRequestsHandler(requestContext) {
+    let url = requestContext && requestContext.req && requestContext.req.url;
+    assert.usage(
+      url,
+      "Missing `requestContext.req.url`."
+    );
     if( ! url.startsWith(apiUrlBase) ) {
         return null;
     }
@@ -48,20 +54,19 @@ function WildcardApi({
     }
     const endpointName = urlParts[0];
 
-    const endpointArgs = {
-      ...args,
+    const wildcardApiArgs = {
+      requestContext,
       createResponse,
       notAuthorized,
     };
 
-    let urlArgs = urlParts[1] && decodeURIComponent(urlParts[1]);
-    if( urlArgs ) {
+    let endpointArgs = urlParts[1] && decodeURIComponent(urlParts[1]);
+    if( endpointArgs ) {
       try {
-        urlArgs = JSON.parse(urlArgs);
+        endpointArgs = JSON.parse(endpointArgs);
       } catch(err) {
-        return responseError('Malformatted URL arguments (i.e. endpoint arguments). URL args don\'t seem to be a JSON. URL args: `'+urlArgs+'`. URL: `'+url+'`.', 400);
+        return responseError('Malformatted URL arguments (i.e. endpoint arguments). URL args don\'t seem to be a JSON. URL args: `'+endpointArgs+'`. URL: `'+url+'`.', 400);
       }
-      Object.assign(endpointArgs, urlArgs);
     }
 
     /*
@@ -86,7 +91,7 @@ function WildcardApi({
 
     let responseObj;
     try {
-      responseObj = await endpoint(endpointArgs);
+      responseObj = await endpoint(endpointArgs, wildcardApiArgs);
     } catch(err) {
       console.error(err);
       return couldNotHandle;
