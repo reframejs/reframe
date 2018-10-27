@@ -15,35 +15,56 @@ function WildcardApiClient({
     "You need to provide a `makeHttpRequest` to `WildcardApiClient`",
   );
 
+  const isCalledByProxy = symbol();
+
   return {
     fetchEndpoint,
-    get endpoints(){ return getEndpointsProxy(); },
-    addRequestContext: (/*Perception is sometimes more important than reality ;-)*/{}, requestContext) => getEndpointsProxy(requestContext),
+    getEndpoints,
+    addRequestContext,
   };
 
-  // TODO - improve error messages
-  function fetchEndpoint(endpointName, endpointArgs, wildcardApiArgs={}, ...args) {
-    const {requestContext, serverRootUrl} = wildcardApiArgs;
+  function getEndpoints() {
+    return getEndpointsProxy();
+  }
+  function addRequestContext({}, requestContext) {
+    return getEndpointsProxy(requestContext);
+  }
 
-    const wrongUsageError = [
-      "The arguments of an endpoint must be a (optional) single plain object.",
-      "E.g. `fetchEndpoint('getTodos', {userId: 1})` and `endpoints.getTodos({userId: 1, onlyCompleted: true})` are valid.",
-      "But `fetchEndpoint('getTodos', 1)` and `endpoints.getTodos({userId: 1}, {onlyCompleted: true})` are invalid.",
-    ].join('\n');
-    assert.usage(
-      (
-        args.length===0 &&
-        (!endpointArgs || endpointArgs.constructor===Object) &&
-        wildcardApiArgs.constructor===Object && Object.keys(wildcardApiArgs).every(arg => ['requestContext', 'serverRootUrl'].includes(arg))
-      ),
-      wrongUsageError
+  function validateArgs({endpointName, endpointArgs, wildcardApiArgs, restArgs}) {
+
+    const endpointArgs__valid = (
+      restArgs.length===0 &&
+      (!endpointArgs || endpointArgs.constructor===Object)
     );
+
+    const wildcardApiArgs__valid = (
+      wildcardApiArgs && wildcardApiArgs.constructor===Object &&
+      Object.keys(wildcardApiArgs).every(arg => ['requestContext', 'serverRootUrl', isCalledByProxy].includes(arg))
+    );
+
+    if( isCalledByProxy ) {
+      assert.internal(endpointName);
+      assert.internal(wildcardApiArgs__valid);
+      assert.usage(
+        endpointArgs__valid,
+        "The arguments of an endpoint should be a (optional) single plain object.",
+        "E.g. `endpoints.getLoggedUser()` and `endpoints.getTodos({tags=['food'], onlyCompleted: true})` are valid.",
+        "But `endpoints.getTodos(['food'], {onlyCompleted: true})` is invalid.",
+      );
+    } else {
+      assert.usage(
+        endpointName && endpointArgs__valid && wildcardApiArgs__valid,
+        "Correct usage: `fetchEndpoint(endpointName, endpointArguments, {requestContext, serverRootUrl})` where `endpointArguments`, `requestContext`, and `serverRootUrl` are optional.",
+        "E.g. `fetchEndpoint('getTodos', {userId: 1})` and `fetchEndpoint('getLoggedUser', {}, {userId: 1, onlyCompleted: true})` are valid.",
+        "But `fetchEndpoint('getTodos', 1)` and `endpoints.getTodos({userId: 1}, {onlyCompleted: true})` are invalid.",
+      );
+    }
+    const wrongUsageError = [
+    ].join('\n');
     assert.usage(
       endpointName && endpointName.constructor===String,
       "The first argument of fetchEndpoint must be a string."
     );
-
-    wildcardApi = wildcardApi || typeof global !== "undefined" && global && global.__globalWildcardApi;
 
     if( wildcardApi ) {
       assert.internal(isNodejs());
@@ -55,14 +76,34 @@ function WildcardApiClient({
           "The request context is used to get infos like the HTTP headers (which typically include authentication information).",
         ].join('\n'),
       );
-      return wildcardApi.__directCall(endpointName, endpointArgs, requestContext);
+    } else {
+      assert.usage(
+        requestContext===undefined,
+        wrongUsageError
+      );
     }
+  }
 
-    assert.usage(
-      requestContext===undefined,
-      wrongUsageError
-    );
+  // TODO - improve error messages
+  function fetchEndpoint(endpointName, endpointArgs, wildcardApiArgs, ...restArgs) {
+    endpointArgs = endpointArgs || {};
+    wildcardApiArgs = wildcardApiArgs || {};
 
+    const {requestContext, serverRootUrl, [isCalledByProxy]} = wildcardApiArgs;
+
+    wildcardApi = wildcardApi || typeof global !== "undefined" && global && global.__globalWildcardApi;
+
+    validateArgs({endpointName, endpointArgs, wildcardApiArgs, restArgs, wildcardApi, requestContext});
+
+    if( wildcardApi ) {
+      return wildcardApi.__directCall(endpointName, endpointArgs, requestContext);
+    } else {
+      const url = getUrl({endpointName, endpointArgs, serverRootUrl});
+      return makeHttpRequest({url});
+    }
+  }
+
+  function getUrl({endpointName, endpointArgs, serverRootUrl}) {
     const argsJson = serializeArgs(endpointArgs, endpointName);
 
     const url = (serverRootUrl||'')+(apiUrlBase||'')+endpointName+'/'+encodeURIComponent(argsJson);
@@ -73,14 +114,15 @@ function WildcardApiClient({
       assert.usage(
         false,
         [
-          "We can't fetch the resource `"+url+"` because the URL root is missing.",
-          "(In Node.js URLs need to include the URL root.)",
-          "Use `await fetchEndpoint(endpointName, endpointArgs, {serverRootUrl});` to set the URL root."
+          "Trying to fetch `"+url+"` from Node.js.",
+          "BUt cannot fetch the resource because the URL root is missing.",
+          "In Node.js URLs need to include the URL root.",
+          "Set the `serverRootUrl` parameter. E.g. `fetchEndpoint('getTodos', {onlyCompleted: true}, {serverRootUrl});`."
         ].join('\n')
       );
     }
 
-    return makeHttpRequest({url/*, body: argsJson*/});
+    return url;
   }
 
   var endpointsProxy;
@@ -89,16 +131,22 @@ function WildcardApiClient({
 
     const dummyObject = {};
 
+    const blackList = ['inspect'];
+
     if( ! endpointsProxy ) {
       endpointsProxy = (
         new Proxy(dummyObject, {get: (target, prop) => {
           if( (typeof prop !== "string") || (prop in dummyObject) ) {
             return dummyObject[prop];
           }
-          console.log(prop, target===dummyObject, typeof prop);
-          return () => {};
-          return (...args) => {
-            return fetchEndpoint(prop, {requestContext}, ...args);
+          /*
+          if( prop==='inspect' ) {
+            return undefined;
+          }
+          console.log(prop, target===dummyObject, typeof prop, new Error().stack);
+          */
+          return (endpointArgs, ...restArgs) => {
+            return fetchEndpoint(prop, endpointArgs, {requestContext, isCalledByProxy: true}, ...restArgs);
           }
         }})
       );

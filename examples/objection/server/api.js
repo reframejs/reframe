@@ -1,6 +1,8 @@
 const Todo = require('../db/models/Todo');
 const User = require('../db/models/User');
-const {endpoints} = require('wildcard-api');
+const {getEndpoints} = require('wildcard-api');
+
+const endpoints = getEndpoints();
 
 endpoints.getTodos = getTodos;
 endpoints.getLoggedUser = getLoggedUser;
@@ -8,14 +10,14 @@ endpoints.mirror = mirror;
 endpoints.tmp = tmp;
 
 async function getTodos({}, {requestContext}) {
-  const user = getLoggedUser(user);
+  const user = getLoggedUser(requestContext);
   return await (
     Todo.query()
   );
 }
 
 async function getLoggedUser({}, {requestContext}) {
-  const user = getLoggedUser(user);
+  const user = getLoggedUser(requestContext);
   return user;
 }
 
