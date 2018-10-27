@@ -2,9 +2,7 @@ import React from 'react';
 import {getEndpoints, addRequestContext} from 'wildcard-api/client';
 import assert from 'reassert';
 
-// TODO
 let endpoints = getEndpoints();
-console.log(31,endpoints);
 
 export default {
   route: '/',

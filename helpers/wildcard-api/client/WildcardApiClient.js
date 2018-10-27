@@ -12,7 +12,7 @@ function WildcardApiClient({
 
   assert.usage(
     makeHttpRequest,
-    "You need to provide a `makeHttpRequest` to `WildcardApiClient`",
+    "You need to provide a `makeHttpRequest` to `new WildcardApiClient({makeHttpRequest})`.",
   );
 
   const isCalledByProxy = Symbol();
@@ -26,7 +26,7 @@ function WildcardApiClient({
   function getEndpoints() {
     return getEndpointsProxy();
   }
-  function addRequestContext({}, requestContext) {
+  function addRequestContext(_, requestContext) {
     return getEndpointsProxy(requestContext);
   }
 
@@ -44,7 +44,7 @@ function WildcardApiClient({
     if( runDirectlyWithoutHTTP ) {
       assert.internal(isNodejs());
       assert.internal(requestContext);
-      return wildcardApiFound.__directCall(endpointName, endpointArgs, requestContext);
+      return wildcardApiFound.__directCall({endpointName, endpointArgs, requestContext});
     } else {
       assert.internal(!requestContext);
       const url = getUrl({endpointName, endpointArgs, serverRootUrl});
@@ -85,29 +85,36 @@ function WildcardApiClient({
 
     const {requestContext} = wildcardApiArgs;
     if( runDirectlyWithoutHTTP ) {
-      const errorIntro = (
-        "Trying to run endpoints directly (instead of doing HTTP requests)."+"\n"+
-        "(You are providing the `wildcardApi` parameter to `new WildcardApiClient({wildcardApi})`)."
-      );
+      const errorIntro = [
+        "You are trying to run an endpoint directly.",
+        "(Instead of going over the network with HTTP requests).",
+      ].join('\n');
       assert.usage(
         isNodejs(),
         errorIntro,
         "But you are trying to do so in the browser which doesn't make sense.",
+        "Running endpionts directly without HTTP should be done in Node.js only.",
       );
       assert.usage(
         wildcardApiFound.__directCall,
+        errorIntro,
+        "You are providing the `wildcardApi` parameter to `new WildcardApiClient({wildcardApi})`.",
         "But `wildcardApi` doesn't seem to be a instance of `new WildcardApi()`.",
       );
       assert.usage(
         requestContext,
+        errorIntro,
+        "(This usually means that you are using the Wildcard API Client on Node.js while doing server-side rendering.)",
         "But `requestContext` is missing.",
-        "It is required when using the WildcardApiClient while doing server-side rendering.",
-        "The request context is used to get infos like the HTTP headers (which typically include authentication information).",
+        "You should provive `requestContext`.",
+        "(`requestContext` should be an object holding information about the original HTTP request from the user's browser.)",
+        "(Such as HTTP headers that may for example include the user authentication information.)",
       );
     } else {
       assert.usage(
         requestContext===undefined,
-        wrongUsageError,
+        "You are fetching an API endpoint by doing an HTTP request.",
+        "You are providing `requestContext` but that doens't make sense. (Since we are doing an HTTP request anyways.)",
       );
     }
   }
@@ -161,12 +168,13 @@ function WildcardApiClient({
         if( (typeof prop !== "string") || (prop in dummyObject) ) {
           return dummyObject[prop];
         }
-        /* TODO
+
+        // TODO-enventually
         if( prop==='inspect' ) {
           return undefined;
         }
+
      // console.log(prop, target===dummyObject, typeof prop, new Error().stack);
-        */
         return (endpointArgs, ...restArgs) => {
           return fetchEndpoint(prop, endpointArgs, {requestContext, [isCalledByProxy]: true}, ...restArgs);
         }

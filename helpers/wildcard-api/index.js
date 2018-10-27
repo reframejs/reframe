@@ -23,16 +23,29 @@ function WildcardApi({
 
   async function __directCall({endpointName, endpointArgs, requestContext}) {
     assert.internal(endpointName);
-    assert.internal(!endpointArgs || endpointArgs.constructor===Object);
+    assert.internal(endpointArgs.constructor===Object);
     assert.internal(requestContext.req.url);
-    assert.internal(args.length===0);
 
     assert.usage(
       endpointExists(endpointName),
       'Endpoint '+endpointName+" doesn't exist.",
     );
 
-    return runEndpoint({endpointName, endpointArgs, requestContext});
+    const endpointRet = await runEndpoint({endpointName, endpointArgs, requestContext});
+
+    if( endpointRet && endpointRet[IS_RESPONSE_OBJECT] ) {
+      assert.internal(endpointRet.body.constructor===String);
+      return JSON.parse(endpointRet.body);
+    }
+
+    assert.usage(
+      endpointRet!==notAuthorized,
+      endpointArgs,
+      "Your code is doing an unauthorized request to the endpoint `"+endpointName+"`.",
+      "The endpoint arguments are printed above",
+    );
+
+    return endpointRet;
   }
 
   async function apiRequestsHandler(requestContext) {
@@ -44,19 +57,13 @@ function WildcardApi({
     if( ! url.startsWith(apiUrlBase) ) {
         return null;
     }
-    url = url.slice(apiUrlBase.length);
+    const urlArgs = url.slice(apiUrlBase.length);
 
-    const urlParts = url.split('/');
+    const urlParts = urlArgs.split('/');
     if( urlParts.length<1 || urlParts.length>2 || !urlParts[0] ) {
       return responseError('Malformatted API URL: '+url, 400);
     }
     const endpointName = urlParts[0];
-
-    const wildcardApiArgs = {
-      requestContext,
-      createResponse,
-      notAuthorized,
-    };
 
     let endpointArgs = urlParts[1] && decodeURIComponent(urlParts[1]);
     if( endpointArgs ) {
@@ -66,6 +73,7 @@ function WildcardApi({
         return responseError('Malformatted URL arguments (i.e. endpoint arguments). URL args don\'t seem to be a JSON. URL args: `'+endpointArgs+'`. URL: `'+url+'`.', 400);
       }
     }
+    endpointArgs = endpointArgs || {};
 
     /*
     let payload = args.payload || {};
@@ -86,26 +94,27 @@ function WildcardApi({
 
     const couldNotHandle = responseError('Endpoint could not handle request.', 400);
 
-    let responseObj;
+    let endpointRet;
     try {
-      responseObj = await endpoint(endpointArgs, wildcardApiArgs);
+      endpointRet = await runEndpoint({endpointName, endpointArgs, requestContext});
     } catch(err) {
       console.error(err);
       return couldNotHandle;
     }
 
-    if( responseObj===notAuthorized ) {
+    if( endpointRet===notAuthorized ) {
       return responseError("The request is not authorized.", 401);
     }
-    if( responseObj && responseObj[IS_RESPONSE_OBJECT] ) {
-      delete responseObj[IS_RESPONSE_OBJECT];
-      return responseObj;
+
+    if( endpointRet && endpointRet[IS_RESPONSE_OBJECT] ) {
+      delete endpointRet[IS_RESPONSE_OBJECT];
+      return endpointRet;
     }
 
-    responseObj = responseObj=== undefined ? null : responseObj;
+    endpointRet = endpointRet=== undefined ? null : endpointRet;
     let body;
     try {
-      body = JSON.stringify(responseObj);
+      body = JSON.stringify(endpointRet);
     } catch(err) {
       console.error(err);
       return couldNotHandle;
@@ -123,7 +132,7 @@ function WildcardApi({
       !endpoint || endpoint instanceof Function,
       "An endpoint must be function but the endpoint `endpoints['"+endpointName+"']` is a `"+(endpoint&&endpoint.constructor)+"`",
     )
-    return await endpoint(endpointArgs, {requestContext});
+    return await endpoint(endpointArgs, {requestContext, createResponse, notAuthorized});
   }
   function endpointExists(endpointName) {
     const endpoint = endpoints[endpointName];
