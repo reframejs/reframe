@@ -21,20 +21,18 @@ function WildcardApi({
     __directCall,
   };
 
-  async function __directCall(endpointName, endpointArgs, requestContext, ...args) {
+  async function __directCall({endpointName, endpointArgs, requestContext}) {
     assert.internal(endpointName);
     assert.internal(!endpointArgs || endpointArgs.constructor===Object);
-    assert.internal(requestContext);
+    assert.internal(requestContext.req.url);
     assert.internal(args.length===0);
 
-    const endpoint = getEndpoint(endpointName);
-
     assert.usage(
-      endpoint,
+      endpointExists(endpointName),
       'Endpoint '+endpointName+" doesn't exist.",
     );
 
-    return await endpoint(endpointArgs, {requestContext});
+    return runEndpoint({endpointName, endpointArgs, requestContext});
   }
 
   async function apiRequestsHandler(requestContext) {
@@ -82,8 +80,7 @@ function WildcardApi({
     Object.assign(endpointArgs, payload);
     */
 
-    const endpoint = getEndpoint(endpointName);
-    if( ! endpoint ) {
+    if( ! endpointExists(endpointName) ) {
       return responseError('Endpoint '+endpointName+" doesn't exist.", 404);
     }
 
@@ -117,13 +114,20 @@ function WildcardApi({
     return {body};
   }
 
-  function getEndpoint(endpointName) {
+  async function runEndpoint({endpointName, endpointArgs, requestContext}) {
+    assert.internal(endpointArgs.constructor===Object);
+    assert.internal(requestContext.req.url);
     const endpoint = endpoints[endpointName];
+    assert.internal(endpoint);
     assert.usage(
       !endpoint || endpoint instanceof Function,
       "An endpoint must be function but the endpoint `endpoints['"+endpointName+"']` is a `"+(endpoint&&endpoint.constructor)+"`",
     )
-    return endpoint;
+    return await endpoint(endpointArgs, {requestContext});
+  }
+  function endpointExists(endpointName) {
+    const endpoint = endpoints[endpointName];
+    return !!endpoint;
   }
 
   function responseError(usageError, statusCode) {

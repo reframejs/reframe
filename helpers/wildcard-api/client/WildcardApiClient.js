@@ -56,7 +56,7 @@ function WildcardApiClient({
     assert.internal(endpointArgs);
     const endpointArgs__valid = (
       restArgs.length===0 &&
-      (endpointArgs.constructor===Object)
+      endpointArgs.constructor===Object
     );
 
     assert.internal(wildcardApiArgs);
@@ -70,30 +70,24 @@ function WildcardApiClient({
       assert.internal(wildcardApiArgs__valid);
       assert.usage(
         endpointArgs__valid,
-        "The arguments of an endpoint should be a (optional) single plain object.",
-        "E.g. `endpoints.getLoggedUser()` and `endpoints.getTodos({tags=['food'], onlyCompleted: true})` are valid.",
-        "But `endpoints.getTodos(['food'], {onlyCompleted: true})` is invalid.",
+        "The arguments of an endpoint should be an (optional) single plain object.",
+        "E.g. `endpoints.getLoggedUser()` and `endpoints.getTodos({tags: ['food'], onlyCompleted: true})` are valid.",
+        "But `endpoints.getTodos(['food'])` and `endpoints.getTodos(['food'], {onlyCompleted: true})` are invalid.",
       );
     } else {
       assert.usage(
         endpointName && endpointArgs__valid && wildcardApiArgs__valid,
         "Correct usage: `fetchEndpoint(endpointName, endpointArguments, {requestContext, serverRootUrl})` where `endpointArguments`, `requestContext`, and `serverRootUrl` are optional.",
-        "E.g. `fetchEndpoint('getTodos', {userId: 1})` and `fetchEndpoint('getLoggedUser', {}, {userId: 1, onlyCompleted: true})` are valid.",
-        "But `fetchEndpoint('getTodos', 1)` and `endpoints.getTodos({userId: 1}, {onlyCompleted: true})` are invalid.",
+        "E.g. `fetchEndpoint('getTodos')` and `fetchEndpoint('getLoggedUser', {}, {tags: ['food'], onlyCompleted: true})` are valid.",
+        "But `fetchEndpoint('getTodos', ['food'])` and `fetchEndpoint('getTodos', {tags: ['food']}, {onlyCompleted: true})` are invalid.",
       );
     }
-    const wrongUsageError = [
-    ].join('\n');
-    assert.usage(
-      endpointName && endpointName.constructor===String,
-      "The first argument of fetchEndpoint must be a string."
-    );
 
     const {requestContext} = wildcardApiArgs;
     if( runDirectlyWithoutHTTP ) {
       const errorIntro = (
-        "Try to run endpoints directly (instead of doing an HTTP requests)."+"\n"+
-        "(You are providing the `wildcardApi` parameter to `new WildcardApiClient`."
+        "Trying to run endpoints directly (instead of doing HTTP requests)."+"\n"+
+        "(You are providing the `wildcardApi` parameter to `new WildcardApiClient({wildcardApi})`)."
       );
       assert.usage(
         isNodejs(),
@@ -102,19 +96,15 @@ function WildcardApiClient({
       );
       assert.usage(
         wildcardApiFound.__directCall,
-        "But `wildcardApi` doesn't seem to be a instance of `new WildcardApi`.",
+        "But `wildcardApi` doesn't seem to be a instance of `new WildcardApi()`.",
       );
       assert.usage(
         requestContext,
-        [
-          "The request context is missing.",
-          "It is required when using the WildcardApiClient while doing server-side rendering.",
-          "The request context is used to get infos like the HTTP headers (which typically include authentication information).",
-        ].join('\n'),
+        "But `requestContext` is missing.",
+        "It is required when using the WildcardApiClient while doing server-side rendering.",
+        "The request context is used to get infos like the HTTP headers (which typically include authentication information).",
       );
-    }
-
-    if( ! runDirectlyWithoutHTTP ) {
+    } else {
       assert.usage(
         requestContext===undefined,
         wrongUsageError,
