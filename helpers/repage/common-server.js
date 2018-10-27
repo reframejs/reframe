@@ -4,6 +4,9 @@ const generateHtml = require('@brillout/index-html');
 module.exports = {renderPageHtml};
 
 async function renderPageHtml({renderToHtml, pageConfig, url, router, initialProps}) {
+    initialProps = initialProps || {};
+    initialProps.isNodejs = initialProps.isNodejs || true;
+
     let html;
     try {
         initialProps = await getInitialProps({pageConfig, url, router, initialProps});

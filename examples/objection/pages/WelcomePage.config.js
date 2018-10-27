@@ -10,10 +10,10 @@ export default {
   getInitialProps,
 };
 
-async function getInitialProps({requestContext, isBrowser}) {
+async function getInitialProps({requestContext, isNodejs}) {
 
   if( requestContext ) {
-    assert(!isBrowser);
+    assert(isNodejs);
     endpoints = addRequestContext(endpoints, requestContext);
   }
 
