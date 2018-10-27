@@ -15,7 +15,7 @@ function WildcardApiClient({
     "You need to provide a `makeHttpRequest` to `WildcardApiClient`",
   );
 
-  const isCalledByProxy = symbol();
+  const isCalledByProxy = Symbol();
 
   return {
     fetchEndpoint,
@@ -30,19 +30,42 @@ function WildcardApiClient({
     return getEndpointsProxy(requestContext);
   }
 
-  function validateArgs({endpointName, endpointArgs, wildcardApiArgs, restArgs}) {
+  function fetchEndpoint(endpointName, endpointArgs, wildcardApiArgs, ...restArgs) {
+    endpointArgs = endpointArgs || {};
+    wildcardApiArgs = wildcardApiArgs || {};
 
+    const {requestContext, serverRootUrl} = wildcardApiArgs;
+
+    const wildcardApiFound = wildcardApi || typeof global !== "undefined" && global && global.__globalWildcardApi;
+    const runDirectlyWithoutHTTP = !!wildcardApiFound;
+
+    validateArgs({endpointName, endpointArgs, wildcardApiArgs, restArgs, wildcardApiFound, runDirectlyWithoutHTTP});
+
+    if( runDirectlyWithoutHTTP ) {
+      assert.internal(isNodejs());
+      assert.internal(requestContext);
+      return wildcardApiFound.__directCall(endpointName, endpointArgs, requestContext);
+    } else {
+      assert.internal(!requestContext);
+      const url = getUrl({endpointName, endpointArgs, serverRootUrl});
+      return makeHttpRequest({url});
+    }
+  }
+
+  function validateArgs({endpointName, endpointArgs, wildcardApiArgs, restArgs, wildcardApiFound, runDirectlyWithoutHTTP}) {
+    assert.internal(endpointArgs);
     const endpointArgs__valid = (
       restArgs.length===0 &&
-      (!endpointArgs || endpointArgs.constructor===Object)
+      (endpointArgs.constructor===Object)
     );
 
+    assert.internal(wildcardApiArgs);
     const wildcardApiArgs__valid = (
-      wildcardApiArgs && wildcardApiArgs.constructor===Object &&
+      wildcardApiArgs.constructor===Object &&
       Object.keys(wildcardApiArgs).every(arg => ['requestContext', 'serverRootUrl', isCalledByProxy].includes(arg))
     );
 
-    if( isCalledByProxy ) {
+    if( wildcardApiArgs[isCalledByProxy] ) {
       assert.internal(endpointName);
       assert.internal(wildcardApiArgs__valid);
       assert.usage(
@@ -66,8 +89,21 @@ function WildcardApiClient({
       "The first argument of fetchEndpoint must be a string."
     );
 
-    if( wildcardApi ) {
-      assert.internal(isNodejs());
+    const {requestContext} = wildcardApiArgs;
+    if( runDirectlyWithoutHTTP ) {
+      const errorIntro = (
+        "Try to run endpoints directly (instead of doing an HTTP requests)."+"\n"+
+        "(You are providing the `wildcardApi` parameter to `new WildcardApiClient`."
+      );
+      assert.usage(
+        isNodejs(),
+        errorIntro,
+        "But you are trying to do so in the browser which doesn't make sense.",
+      );
+      assert.usage(
+        wildcardApiFound.__directCall,
+        "But `wildcardApi` doesn't seem to be a instance of `new WildcardApi`.",
+      );
       assert.usage(
         requestContext,
         [
@@ -76,37 +112,37 @@ function WildcardApiClient({
           "The request context is used to get infos like the HTTP headers (which typically include authentication information).",
         ].join('\n'),
       );
-    } else {
+    }
+
+    if( ! runDirectlyWithoutHTTP ) {
       assert.usage(
         requestContext===undefined,
-        wrongUsageError
+        wrongUsageError,
       );
     }
   }
 
-  // TODO - improve error messages
-  function fetchEndpoint(endpointName, endpointArgs, wildcardApiArgs, ...restArgs) {
-    endpointArgs = endpointArgs || {};
-    wildcardApiArgs = wildcardApiArgs || {};
-
-    const {requestContext, serverRootUrl, [isCalledByProxy]} = wildcardApiArgs;
-
-    wildcardApi = wildcardApi || typeof global !== "undefined" && global && global.__globalWildcardApi;
-
-    validateArgs({endpointName, endpointArgs, wildcardApiArgs, restArgs, wildcardApi, requestContext});
-
-    if( wildcardApi ) {
-      return wildcardApi.__directCall(endpointName, endpointArgs, requestContext);
-    } else {
-      const url = getUrl({endpointName, endpointArgs, serverRootUrl});
-      return makeHttpRequest({url});
-    }
-  }
-
   function getUrl({endpointName, endpointArgs, serverRootUrl}) {
-    const argsJson = serializeArgs(endpointArgs, endpointName);
+    const endpointArgsJson = serializeArgs(endpointArgs, endpointName);
 
-    const url = (serverRootUrl||'')+(apiUrlBase||'')+endpointName+'/'+encodeURIComponent(argsJson);
+    serverRootUrl = serverRootUrl || '';
+    if( serverRootUrl.endsWith('/') ) {
+      serverRootUrl = serverRootUrl.slice(0, -1);
+    }
+    assert.usage(
+      apiUrlBase && apiUrlBase.length>0 && apiUrlBase.startsWith,
+      "Argument `apiUrlBase` in `new WildcardApiClient({apiUrlBase})` should be a non-empty string."
+    );
+    if( !apiUrlBase.endsWith('/') ) {
+      apiUrlBase += '/';
+    }
+    if( !apiUrlBase.startsWith('/') ) {
+      apiUrlBase = '/'+apiUrlBase;
+    }
+
+    assert.internal(apiUrlBase.startsWith('/') && apiUrlBase.endsWith('/'));
+    assert.internal(!serverRootUrl.startsWith('/'));
+    const url = serverRootUrl+apiUrlBase+endpointName+'/'+encodeURIComponent(endpointArgsJson);
 
     const urlRootIsMissing = !serverRootUrl && makeHttpRequest.isUsingBrowserBuiltIn && !makeHttpRequest.isUsingBrowserBuiltIn();
     if( urlRootIsMissing ) {
@@ -115,9 +151,9 @@ function WildcardApiClient({
         false,
         [
           "Trying to fetch `"+url+"` from Node.js.",
-          "BUt cannot fetch the resource because the URL root is missing.",
+          "But the URL root is missing.",
           "In Node.js URLs need to include the URL root.",
-          "Set the `serverRootUrl` parameter. E.g. `fetchEndpoint('getTodos', {onlyCompleted: true}, {serverRootUrl});`."
+          "Use the `serverRootUrl` parameter. E.g. `fetchEndpoint('getTodos', {onlyCompleted: true}, {serverRootUrl: 'https://api.example.org'});`.",
         ].join('\n')
       );
     }
@@ -125,34 +161,27 @@ function WildcardApiClient({
     return url;
   }
 
-  var endpointsProxy;
   function getEndpointsProxy(requestContext) {
     assertProxySupport();
 
     const dummyObject = {};
 
-    const blackList = ['inspect'];
-
-    if( ! endpointsProxy ) {
-      endpointsProxy = (
-        new Proxy(dummyObject, {get: (target, prop) => {
-          if( (typeof prop !== "string") || (prop in dummyObject) ) {
-            return dummyObject[prop];
-          }
-          /*
-          if( prop==='inspect' ) {
-            return undefined;
-          }
-          console.log(prop, target===dummyObject, typeof prop, new Error().stack);
-          */
-          return (endpointArgs, ...restArgs) => {
-            return fetchEndpoint(prop, endpointArgs, {requestContext, isCalledByProxy: true}, ...restArgs);
-          }
-        }})
-      );
-    }
-
-    return endpointsProxy;
+    return (
+      new Proxy(dummyObject, {get: (target, prop) => {
+        if( (typeof prop !== "string") || (prop in dummyObject) ) {
+          return dummyObject[prop];
+        }
+        /* TODO
+        if( prop==='inspect' ) {
+          return undefined;
+        }
+     // console.log(prop, target===dummyObject, typeof prop, new Error().stack);
+        */
+        return (endpointArgs, ...restArgs) => {
+          return fetchEndpoint(prop, endpointArgs, {requestContext, [isCalledByProxy]: true}, ...restArgs);
+        }
+      }})
+    );
   }
 }
 
