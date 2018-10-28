@@ -50,7 +50,10 @@ async function updateTodo({id, text, completed}, {requestContext, notAuthorized}
   return todo;
 }
 
-async function addTodo() {
+async function addTodo({text}, {requestContext}) {
+  const user = getUser(requestContext);
+  if( ! user ) return;
+  return await Todo.query().insert({text, authorId: user.id});
 }
 
 async function getTodos({}, {requestContext}) {
