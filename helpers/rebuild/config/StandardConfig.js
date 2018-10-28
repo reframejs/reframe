@@ -62,6 +62,10 @@ function config_target({libraryTarget}) {
     assert_usage(libraryTarget);
     return () => ({
         target: 'node',
+        node: {
+          __dirname: true,
+          __filename: true,
+        },
         output: {
             libraryTarget,
         },

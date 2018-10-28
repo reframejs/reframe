@@ -24,7 +24,7 @@ async function getInitialProps({requestContext, isNodejs}) {
 
   const todos = await endpoints.getTodos();
 
-  const toggleComplete = todo => endpoints.updateTodo({id: todo.id, completed: !todo.completed});
+  const toggleComplete = todo => endpoints.toggleComplete({id: todo.id});
 
   return {todos, user, toggleComplete};
 }
@@ -33,7 +33,7 @@ function MainPage(props) {
   if( ! props.user ) {
     return Login(props);
   } else {
-    return TodoList(props);
+    return <TodoList {...props}/>;
   }
 }
 
@@ -49,15 +49,44 @@ class Todo extends React.Component {
   }
 }
 */
-function Todo(todo, toggleComplete) {
+function Todo(todo, onCompleteToggle) {
     return (
       <div key={todo.id}>
-        <input checked={todo.completed} type="checkbox" onChange={() => toggleComplete(todo)}/>
+        <input checked={todo.completed} type="checkbox" onChange={onCompleteToggle}/>
         <span>{todo.text}</span>
       </div>
     );
 }
 
+class TodoList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {todos: props.todos};
+  }
+  async onCompleteToggle(todo) {
+    const todoUpdated = await this.props.toggleComplete({id: todo.id});
+    console.log('u', todoUpdated);
+    this.setState({
+      todos: (
+        this.state.todos.map(todo => {
+          if( todo.id===todoUpdated.id ) {
+            return todoUpdated;
+          }
+          return todo;
+        })
+      )
+    });
+  }
+  render() {
+    return (
+      <div>
+        <h1>Todos</h1>
+        { this.state.todos.map(todo => Todo(todo, () => this.onCompleteToggle(todo))) }
+      </div>
+    );
+  }
+}
+/*
 function TodoList({todos, user, toggleComplete}) {
   return (
     <div>
@@ -67,6 +96,7 @@ function TodoList({todos, user, toggleComplete}) {
     </div>
   );
 }
+*/
 
 function Login() {
   return (

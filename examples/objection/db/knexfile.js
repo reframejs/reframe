@@ -1,7 +1,10 @@
+const path = require('path');
+
 module.exports = {
   client: 'sqlite3',
-  useNullAsDefault: true,
   connection: {
-    filename: require.resolve('./data.sqlite'),
+ // filename: require.resolve('./data.sqlite'),
+    filename: path.resolve(__dirname)+'/data.sqlite',
   },
+  useNullAsDefault: true,
 };

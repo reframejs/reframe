@@ -7,14 +7,28 @@ const endpoints = getEndpoints();
 Object.assign(endpoints, {
   getTodos,
   getLoggedUser,
+  toggleComplete,
   updateTodo,
   addTodo,
   mirror,
   tmp,
 });
 
-async function updateTodo(newValues, {requestContext, notAuthorized}) {
-  console.log('np', newValues, Object.keys(newValues));
+async function toggleComplete({id}, {requestContext}) {
+  const user = getUser(requestContext);
+  if( ! user ) return;
+
+  const todo = await Todo.query().findOne({id});
+  if( ! todo ) return;
+
+  if( todo.authorId !== user.id ) return;
+
+  await todo.$query().update({completed: !todo.completed});
+
+  return todo;
+}
+
+async function updateTodo({id, text, completed}, {requestContext, notAuthorized}) {
   if(
     Object.keys(newValues).some(newProp => !['id', 'text', 'completed'].includes(newProp)) ||
     ! newValues.id
@@ -23,11 +37,9 @@ async function updateTodo(newValues, {requestContext, notAuthorized}) {
   }
 
   const user = getUser(requestContext);
-  console.log('cu', user);
   if( ! user ) return;
 
   const todo = await Todo.query().findOne({id: newValues.id});
-  console.log('ct', todo);
   if( ! todo ) return;
 
   if( todo.authorId !== user.id ) {
@@ -35,7 +47,6 @@ async function updateTodo(newValues, {requestContext, notAuthorized}) {
   }
 
   await todo.$query().update(newValues);
-  console.log('nt', todo);
   return todo;
 }
 
@@ -66,7 +77,6 @@ async function getTodos({}, {requestContext}) {
   );
   //*/
 
-  console.log(todos);
   return todos;
 }
 
