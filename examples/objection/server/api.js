@@ -10,10 +10,29 @@ endpoints.mirror = mirror;
 endpoints.tmp = tmp;
 
 async function getTodos({}, {requestContext}) {
-  const user = getUser(requestContext);
+  /*
   return await (
     Todo.query()
   );
+  */
+
+  /*
+  const {id} = getUser(requestContext);
+  const user = await User.query().findOne({id});
+  const todos = await user.$relatedQuery('todos');
+  return todos;
+  */
+
+  //*
+  const user = getUser(requestContext);
+  if( ! user ) {
+    return null;
+  }
+  return await (
+    user
+    .$relatedQuery('todos')
+  );
+  //*/
 }
 
 async function getLoggedUser({}, {requestContext}) {

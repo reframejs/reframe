@@ -120,8 +120,6 @@ function WildcardApiClient({
   }
 
   function getUrl({endpointName, endpointArgs, serverRootUrl}) {
-    const endpointArgsJson = serializeArgs(endpointArgs, endpointName);
-
     serverRootUrl = serverRootUrl || '';
     if( serverRootUrl.endsWith('/') ) {
       serverRootUrl = serverRootUrl.slice(0, -1);
@@ -137,9 +135,13 @@ function WildcardApiClient({
       apiUrlBase = '/'+apiUrlBase;
     }
 
+    let endpointArgsStr = serializeArgs(endpointArgs, endpointName);
+    endpointArgsStr = endpointArgsStr ? ('/'+encodeURIComponent(endpointArgsStr)) : '';
+
     assert.internal(apiUrlBase.startsWith('/') && apiUrlBase.endsWith('/'));
     assert.internal(!serverRootUrl.startsWith('/'));
-    const url = serverRootUrl+apiUrlBase+endpointName+'/'+encodeURIComponent(endpointArgsJson);
+    assert.internal(!endpointArgsStr || endpointArgsStr.startsWith('/'));
+    const url = serverRootUrl+apiUrlBase+endpointName+endpointArgsStr;
 
     const urlRootIsMissing = !serverRootUrl && makeHttpRequest.isUsingBrowserBuiltIn && !makeHttpRequest.isUsingBrowserBuiltIn();
     if( urlRootIsMissing ) {
@@ -204,6 +206,9 @@ function envSupportsProxy() {
 }
 
 function serializeArgs(argsObject, endpointName) {
+  if( Object.keys(argsObject).length===0 ) {
+    return undefined;
+  }
   let serializedArgs;
   try {
     serializedArgs = JSON.stringify(argsObject);
