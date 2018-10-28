@@ -18,6 +18,7 @@ exports.up = async knex => {
     .createTable('todos', table => {
       table.increments('id').primary();
       table.string('text').notNullable();
+      table.boolean('completed').notNullable().defaultTo(false);
       table.integer('authorId').unsigned().notNullable();
       table.foreign('authorId').references('id').inTable('users');
     })
