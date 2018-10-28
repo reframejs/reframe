@@ -60,7 +60,8 @@ function auth(app) {
   app.use(require('serve-static')(__dirname + '/../../public'));
   app.use(require('cookie-parser')());
   app.use(require('body-parser').urlencoded({ extended: true }));
-  app.use(require('express-session')({ secret: SESSION_SECRET, resave: true, saveUninitialized: true }));
+//app.use(require('express-session')({ secret: SESSION_SECRET, resave: true, saveUninitialized: true }));
+  app.use(require('cookie-session')({ secret: SESSION_SECRET}));
   app.use(passport.initialize());
   app.use(passport.session());
 
