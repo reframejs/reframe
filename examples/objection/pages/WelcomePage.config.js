@@ -2,7 +2,7 @@ import React from 'react';
 import {getEndpoints, addRequestContext} from 'wildcard-api/client';
 import assert from 'reassert';
 
-let endpoints = getEndpoints();
+const endpoints = getEndpoints();
 
 export default {
   route: '/',
@@ -11,22 +11,28 @@ export default {
 };
 
 async function getInitialProps({requestContext, isNodejs}) {
+  assert(!!requestContext === !!isNodejs);
 
-  if( requestContext ) {
-    assert(isNodejs);
-    endpoints = addRequestContext(endpoints, requestContext);
-  }
-
-  const user = await endpoints.getLoggedUser();
+  const user = (
+    isNodejs && false ? (
+      await addRequestContext(endpoints, requestContext).getLoggedUser()
+    ) : (
+      await endpoints.getLoggedUser()
+    )
+  );
   if( ! user ) {
     return null;
   }
 
-  const todos = await endpoints.getTodos();
+  const todos = (
+    isNodejs ? (
+      await addRequestContext(endpoints, requestContext).getTodos()
+    ) : (
+      await endpoints.getTodos()
+    )
+  );
 
-  const toggleComplete = todo => endpoints.toggleComplete({id: todo.id});
-
-  return {todos, user, toggleComplete, endpoints};
+  return {todos, user};
 }
 
 function MainPage(props) {
@@ -37,21 +43,9 @@ function MainPage(props) {
   }
 }
 
-/*
-class Todo extends React.Component {
-  render() {
+function Todo({todo, onCompleteToggle}) {
     return (
-      <div key={todo.id}>
-        <input checked={todo.completed} type="checkbox" onChange=
-        {todo.text}
-      </div>
-    );
-  }
-}
-*/
-function Todo(todo, onCompleteToggle) {
-    return (
-      <div key={todo.id}>
+      <div>
         <input checked={todo.completed} style={{cursor: 'pointer'}} type="checkbox" onChange={onCompleteToggle}/>
         <span style={{textDecoration: todo.completed&&'line-through'}}>{todo.text}</span>
       </div>
@@ -65,7 +59,7 @@ class TodoList extends React.Component {
     this.addTodo = this.addTodo.bind(this);
   }
   async onCompleteToggle(todo) {
-    const todoUpdated = await this.props.toggleComplete({id: todo.id});
+    const todoUpdated = await endpoints.toggleComplete({id: todo.id});
     this.setState({
       todos: (
         this.state.todos.map(todo => {
@@ -78,7 +72,7 @@ class TodoList extends React.Component {
     });
   }
   async addTodo(text) {
-    const todo = await this.props.endpoints.addTodo({text});
+    const todo = await endpoints.addTodo({text});
     this.setState({
       todos: [
         ...this.state.todos,
@@ -90,8 +84,16 @@ class TodoList extends React.Component {
     return (
       <div>
         <h1>Todos</h1>
-        { this.state.todos.map(todo => Todo(todo, () => this.onCompleteToggle(todo))) }
-        <NewTodo addTodo={this.addTodo}/>
+        {
+          this.state.todos.map(todo =>
+            <Todo
+              todo={todo}
+              key={todo.id}
+              onCompleteToggle={() => this.onCompleteToggle(todo)}
+            />
+          )
+        }
+        <NewTodo addTodo={this.addTodo} />
       </div>
     );
   }

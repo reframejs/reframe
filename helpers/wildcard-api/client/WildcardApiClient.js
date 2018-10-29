@@ -87,7 +87,7 @@ function WildcardApiClient({
     if( runDirectlyWithoutHTTP ) {
       const errorIntro = [
         "You are trying to run an endpoint directly.",
-        "(Instead of going over the network with HTTP requests).",
+        "(Instead of doing a HTTP request).",
       ].join('\n');
       assert.usage(
         isNodejs(),
@@ -108,7 +108,7 @@ function WildcardApiClient({
         "But `requestContext` is missing.",
         "You should provive `requestContext`.",
         "(`requestContext` should be an object holding information about the original HTTP request from the user's browser.)",
-        "(E.g. HTTP headers that may for example include the user authentication information.)",
+        "(Such as HTTP headers that would typically include the user authentication information.)",
       );
     } else {
       assert.usage(

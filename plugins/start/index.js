@@ -45,7 +45,7 @@ function getCliCommands() {
 }
 
 async function execDev({options}) {
-    const assert_internal = require('reassert/internal');
+    const assert = require('reassert');
     const {symbolSuccess} = require('@brillout/cli-theme');
 
     const config = init({dev: true, ...options});
@@ -53,7 +53,8 @@ async function execDev({options}) {
 
     assert_build(config);
 
-    let server;
+    let serverStarting;
+
     config.runBuild.onBuildDone = async ({isFirstBuild}) => {
         if( isFirstBuild ) {
             return;
@@ -62,20 +63,39 @@ async function execDev({options}) {
             return;
         }
 
-        assert_internal(server===null || server, server);
-        if( server ) {
-          // TODO - sometimes server.stop is not a function
-          assert_internal(server.stop instanceof Function, server, server.stop);
-          await server.stop();
-          console.log(symbolSuccess+'Server stopped.');
+        assert.internal(serverStarting.then);
+        const server = await serverStarting;
+
+        const serverStopFunctionIsMissing = assert_stop(server);
+        if( serverStopFunctionIsMissing ) {
+            return;
         }
-        server = null;
-        server = await runServer(config, {isRestart: true});
+
+        await server.stop();
+        console.log(symbolSuccess+'Server stopped.');
+
+        serverStarting = runServer(config, {isRestart: true});
+        await serverStarting;
     };
 
     await config.runBuild();
 
-    server = await runServer(config, {isRestart: false});
+    serverStarting = runServer(config, {isRestart: false});
+    await serverStarting;
+}
+
+function assert_stop(server) {
+  if( ! server && ! (server.stop instanceof Function) ) {
+    assert.warning(false,
+      "You need to restart the server manually.",
+      "",
+      "If you want the server to be automatically restarted then make sure the function exported by `serverStartFile` returns a stop function.",
+      "In other words, make sure that:",
+      "  `assert((await require(config.serverStartFile)()).server.stop instanceof Function)`",
+    );
+    return true;
+  }
+  return false;
 }
 
 async function execBuild({options}) {
@@ -109,30 +129,21 @@ async function runServer(config, {isRestart}) {
 
     const serverEntry = serverFileTranspiled || config.serverStartFile;
 
+    if( isRestart ) {
+      console.log(symbolSuccess+'Restarting server...');
+    }
+
     let server;
     try {
-        /*
-        if( isRestart ) {
-            var consoleLog = console.log
-            console.log = () => {};
-        }
-        */
-        if( isRestart ) {
-          console.log(symbolSuccess+'Restarting server...');
-        }
         server = await forceRequire(serverEntry);
-        /*
-        if( isRestart ) {
-            console.log = consoleLog;
-        }
-        */
     } catch(err) {
         handleServerError({err, isTranspiled});
         return null;
     }
 
+   // console.log(symbolSuccess+'Server running '+server.info.uri);
+
     if( ! isRestart ) {
-     // console.log(symbolSuccess+'Server running '+server.info.uri);
         log_routes(config, server);
         console.log();
         unaligned_env_warning(config);

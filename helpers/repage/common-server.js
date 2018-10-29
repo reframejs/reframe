@@ -31,7 +31,7 @@ function renderHtmlError({pageConfig, err}) {
 `<div>
     <h1>Internal Error 500</h1>
     <div>
-        <pre><code>${err.stack}</code></pre>
+        <pre><code>\n${err.stack}</code></pre>
     </div>
 </div>
 `
