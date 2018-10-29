@@ -1,35 +1,10 @@
 
-Wilcard API is a super easy alternative to GraphQL and RESTful APIs.
+Wilcard API is a (much) easier alternative to GraphQL and RESTful APIs.
 
 
-Wildcard-API is a small library that allows your client to load data from your server.
+Wilcard lets your client load data from your server in an easy, flexible, and performant way.
 
-~~~js
-// Server
-const {endpoints} = require('wilcard-api');
-const db = require('./db');
-
-endpoints.getTodos = async () => {
-  const todos = await db.query("SELECT * FROM todos");
-  return todos;
-};
-
-// Browser
-import {endpoints} from 'wildcard-api/client';
-import React from 'react';
-import ReactDOM from 'react-dom';
-
-(async () => {
-  const todos = await endpoints.getTodos();
-  ReactDOM.render(
-    <div>
-      { todos.map(({text}) => <div>{text}</div>) }
-    </div>,
-    document.body
-  );
-})();
-~~~
-
+EXAMPLE1
 
 #### Contents
 
@@ -40,36 +15,12 @@ import ReactDOM from 'react-dom';
 
 
 
-~~~js
-// Browser
-import {endpoints} from 'wildcard-api/client';
 
-(async () => {
-  await endpoints.getInitialData();
-})();
-async function getAllData() {
-  endpoints.get
-  console.log();
-}
 
-// Server
-const {endpoints} = require('wilcard-api');
 
-endpoints.getAllData = async () => {
-  const catPics = 
-  const dogPics = 
-  memeGifs
-  const getCatPictures
 
-  const topTags sort(
-
-  return {
-    topTags,
-    topPics,
-    topPicsByTags,
-  };
-}
-~~~
+Wilcard API is based on one simple trick:
+Instead of writing the logic to get data on the client, you write them on your server.
 
 
 
@@ -77,7 +28,23 @@ endpoints.getAllData = async () => {
 
 
 
-FAQ
+### Wildcard vs RESTful vs GraphQL
+
+|                        | Wildcard API  | RESTful API   | GraphQL API   |
+| ---------------------- | ------------- | ------------- | ------------- |
+| Easy to setup          | +++ | - | --- |
+| Performant             | +++ | -- | + |
+| Flexible               | +++ | - | ++ |
+| Flexible (third-party) | --- | + | +++ |
+
+
+
+
+
+
+
+
+### FAQ
 
 Isn't the same than writing one endpoint? Why do I need wildcard api?
 
@@ -90,78 +57,3 @@ Should I create my API with Wildcard API, RESTful, or GraphQL?
 Doesn't it mean that the server needs to be deployed more often?
 
 
-
-Wilcard API is based on one simple trick:
-Instead of writing the logic to get data on the client, you write them on your server.
-
-
-~~~js
-// Browser
-
-async function MainPage() {
-
-  const 
-
-  return (
-    <div>
-      Welcome back, {user.username}.
-      Your to-dos are:
-      {
-        todos.map(todo =>
-          <div>{todo.text}</div> )
-      }
-    </div>
-  );
-}
-
-// Node.js server
-~~~
-
-~~~js
-const {endpoints} = require('wildcard-api');
-const {getLoggedUser} = require('./auth');
-const {Todo} = require('./models');
-
-endpoints.getTodos = async ({requestContext}) => {
-  const user = await getLoggedUser(requestContext.req.headers.cookie);
-
-  // The user is not authenticated, we return nothing
-  if( ! user ) return;
-
-  // We get and return all the user's todos
-  const todos = await Todo.getAll().where({authorId: user.id});
-  return todos;
-};
-~~~
-
-~~~js
-import {endpoints} from 'wilcard-api/client';
-
-(async () => {
-  // We can now by simply "calling" the `getTodos` function we defined on the server
-  // The Wilcard API client takes care of making a HTTP request to the server and serializing the data to JSON
-  const todos = await endpoints.getTodos();
-  console.log(todos);
-})();
-~~~
-
-
-
-The trick 
-Instead of 
-
-No permission
-
-The trick 
-
-RESTful GraphQL
-
-Flexible for 
-Flexible for Third-party
-
-|                        | Wildcard API  | RESTful API   | GraphQL API   |
-| ---------------------- | ------------- | ------------- | ------------- |
-| Easy to setup          | +++ | - | --- |
-| Performant             | +++ | -- | + |
-| Flexible               | +++ | - | ++ |
-| Flexible (third-party) | --- | + | +++ |
