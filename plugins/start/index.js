@@ -54,6 +54,7 @@ async function execDev({options}) {
     assert_build(config);
 
     let serverStarting;
+    let isGoingToRestart;
 
     config.runBuild.onBuildDone = async ({isFirstBuild}) => {
         if( isFirstBuild ) {
@@ -63,7 +64,7 @@ async function execDev({options}) {
             return;
         }
 
-        assert.internal(serverStarting.then);
+        assert.internal(serverStarting.then instanceof Function);
         const server = await serverStarting;
 
         const serverStopFunctionIsMissing = assert_stop(server);
@@ -71,9 +72,17 @@ async function execDev({options}) {
             return;
         }
 
-        await server.stop();
+        if( isGoingToRestart ) {
+            return;
+        }
+        isGoingToRestart = true;
+
+        const stopPromise = server.stop();
+        assert_stopPromise(stopPromise);
+        await stopPromise;
         console.log(symbolSuccess+'Server stopped.');
 
+        isGoingToRestart = false;
         serverStarting = runServer(config, {isRestart: true});
         await serverStarting;
     };
@@ -85,6 +94,7 @@ async function execDev({options}) {
 }
 
 function assert_stop(server) {
+  const assert = require('reassert');
   if( ! server && ! (server.stop instanceof Function) ) {
     assert.warning(false,
       "You need to restart the server manually.",
@@ -96,6 +106,17 @@ function assert_stop(server) {
     return true;
   }
   return false;
+}
+function assert_stopPromise(stopPromise) {
+  const assert = require('reassert');
+  assert.usage(
+    stopPromise && stopPromise.then instanceof Function,
+    "The server stop function returns:",
+    stopPromise,
+    "The server stop function should return a promise.",
+    "In other words, make sure that:",
+    "  `assert((await require(config.serverStartFile)()).server.stop().then instanceof Function)`",
+  );
 }
 
 async function execBuild({options}) {

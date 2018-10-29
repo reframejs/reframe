@@ -14,7 +14,7 @@ async function getInitialProps({requestContext, isNodejs}) {
   assert(!!requestContext === !!isNodejs);
 
   const user = (
-    isNodejs && false ? (
+    isNodejs ? (
       await addRequestContext(endpoints, requestContext).getLoggedUser()
     ) : (
       await endpoints.getLoggedUser()
