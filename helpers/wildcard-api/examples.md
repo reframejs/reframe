@@ -1,3 +1,5 @@
+
+
 ~~~js
 // Server
 const {endpoints} = require('wilcard-api');
@@ -35,9 +37,9 @@ For that we need to extend our API:
 
 
 ~~~diff
-endpoints.getTodos = async done => {
-  if( ! [true, false].includes(done) ) return;
-  const todos = await db.query("SELECT * FROM todos WHERE done == false");
+endpoints.getTodos = async completed_at => {
+  if( ! [true, false].includes(completed_at) ) return;
+  const todos = await db.query(`SELECT * FROM todos WHERE completed_at == ${completed_at}"`);
   return todos;
 };
 ~~~
