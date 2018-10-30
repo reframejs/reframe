@@ -1,4 +1,22 @@
 
+Let's create an API for a Todo app.
+
+
+
+~~~js
+const {endpoints} = require('wilcard-api');
+const db = require('./db');
+
+endpoints.getTodos = async () => {
+  const todos = await db.query("SELECT * FROM todos;");
+  return todos;
+};
+~~~
+
+Let's imagine we want have a view showing the uncompleted todos and a second view showing the completed ones.
+
+One way to support is to extend our ""
+For that we extend our 
 
 ~~~js
 // Server

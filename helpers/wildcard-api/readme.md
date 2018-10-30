@@ -35,9 +35,6 @@ Thus creating a new endpoint is as easy as creating a new function.
 Wildcard introduces a profound paradigm shift.
 The intro shows why.
 
-Making endpoint creation cheap leads to a profound paradigm shift.
-The intro shows why.
-
 
 #### Contents
 
@@ -89,4 +86,29 @@ Should I create my API with Wildcard API, RESTful, or GraphQL?
 
 Doesn't it mean that the server needs to be deployed more often?
 
+Wildcard API is nothing, I've being a ad-hoc APIs for a while?
 
+What's the difference between Wildcard and a ad-hoc API?
+
+On a high level they are the same.
+Half the motivation of Wildcard just makes it easier to create a ad-hoc API.
+The other half is to make developers realize that,
+most of the time,
+they don't need a generic RESTful/GraphQL API,
+and a simple ad-hoc is not only enough but also much much simpler.
+
+If you are facebook and your API has many different types of consumers, then yes GraphQL makes a lot of sense.
+But if you are a startup and you have only one or two API consumers
+(e.g. your mobile app and your frontend code)
+, then GraphQL is most definitely the wrong choice.
+You are better off with a ad-hoc API and something like Wildcard.
+
+The enormous hype has lead to the general belief in the JavaScript community that GraphQL is a silver bullet and every API should be created with GraphQL.
+That's certainly a wrong belief and dangerous one:
+Creating a proper GraphQL API is time consuming and daunting task.
+If you are a startup, GraphQL may very well kill you.
+
+Still, GraphQL is great, but only for very specific use case: If your API has third-party consumers.
+
+Honestly, GraphQL's hype is a bubble.
+Wildcard would be very proud of itself, if it can be that needle that pops the GraphQL bubble.
