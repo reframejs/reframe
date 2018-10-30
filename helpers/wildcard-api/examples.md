@@ -15,94 +15,41 @@ endpoints.getTodos = async () => {
 
 Let's imagine we want have a view showing the uncompleted todos and a second view showing the completed ones.
 
-For that we add a paramter `completed` to our `getTodos` endpoint:
+For that we add a parameter `completed` to our `getTodos` endpoint:
 
 ~~~js
-endpoints.getTodos = async () => {
-  const todos = await db.query("SELECT * FROM todos;");
+endpoints.getTodos = async ({completed}) => {
+  if( ! [true, false].includes(completed) ) return;
+  const todos = await db.query("SELECT * FROM todos WHERE completed == ${completed};");
   return todos;
 };
 ~~~
 
-We could extend like 
-One way to support is to extend our ""
-For that we extend our 
+Since getTodos is basically publicly exposed, all arguments are unsafe and
+we need to make to.
+In general with Wildcard, the paramters can have arbitrary values.
+Note that we need the line `if( ! [true, false].includes(completed) ) return;` 
 
-~~~js
-// Server
-const {endpoints} = require('wilcard-api');
-const db = require('./db');
-
-// Wildcard-API makes `getTodos` "callable" from wihtin the browser
-endpoints.getTodos = async () => {
-  // We only want the todos that aren't already done
-  const todos = await db.query("SELECT * FROM todos WHERE done == false");
-  return todos;
-};
-
-// Browser
-import {endpoints} from 'wildcard-api/client';
-import React from 'react';
-import ReactDOM from 'react-dom';
-
-(async () => {
-  // We can call `getTodos` as if it would have been defined in the browser
-  const todos = await endpoints.getTodos();
-  ReactDOM.render(
-    <div>
-      { todos.map(({text}) => <div>{text}</div>) }
-    </div>,
-    document.body
-  );
-})();
-~~~
-
-Notice how `WHERE done == false` is hard-written in the SQL query.
-
-Now let's imagine that we implement a new feature that requires
-
-For that we need to extend our API:
-
+Now let's imagine that we want to show the 
 
 ~~~diff
-endpoints.getTodos = async completed_at => {
-  if( ! [true, false].includes(completed_at) ) return;
-  const todos = await db.query(`SELECT * FROM todos WHERE completed_at == ${completed_at}"`);
-  return todos;
-};
-~~~
-
-~~~diff
-endpoints.getTodos = async (done, order='ASC') => {
+endpoints.getTodos = async ({completed, orderBy='created_at'}) => {
   if( ! [true, false].includes(done) ) return;
-  if( ! [].includes(order) 'ASC'|'DESC'
-  if( order !== DE
-  const todos = await db.query(`SELECT * FROM todos WHERE done == %{done} ORDER BY created_at %{order}`);
+  if( ! ['created_at', 'completed_at'].includes(orderProp) ) return;
+  const todos = await db.query(`SELECT * FROM todos WHERE done == %{done} ORDER BY created_at`);
   return todos;
 };
 ~~~
 
 Ok, great, we now have our flexible endpoint `getTodos`.
-
-
-But wouldn't it be cooler if the complated todo ? To do so we could extend the order paramater to 
-But let's not do that.
-Actually, the last couple of changes we did is an antipattern with Wildcard.
-The way to do it with Wildcard is that:
+But actually, what we did here is an antipattern with Wildcard.
+The Wildcard way to do it that:
 
 ~~~diff
-endpoints.getTodos = async () => await db.query("SELECT * FROM todos WHERE completed === false ORDER BY created_at");
-endpoints.getCompletedTodos = async () => await db.query("SELECT * FROM todos WHERE completed === true ORDER BY completed_at");
-endpoints.getAllTodos = async () => await db.query("SELECT * FROM todos WHERE ORDER BY created_at");
-~~~
-
-But actullay, what we just did here is an antipattern with Wildcard.
-Instead we should do this
-
-~~~diff
-endpoints.getTodos = async () => await db.query("SELECT text FROM todos WHERE completed === false ORDER BY created_at");
-endpoints.getCompletedTodos = async () => await db.query("SELECT text, completed_at FROM todos WHERE completed === true ORDER BY completed_at");
-endpoints.getAllTodos = async () => await db.query("SELECT * FROM todos ORDER BY created_at");
+endpoints.getTodos = async () =>
+  await db.query("SELECT * FROM todos WHERE completed === false ORDER BY created_at");
+endpoints.getCompletedTodos = async () =>
+  await db.query("SELECT * FROM todos WHERE completed === true ORDER BY completed_at");
 ~~~
 
 This makes the whole power of SQL available to the frontend.
