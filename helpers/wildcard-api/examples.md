@@ -34,9 +34,9 @@ Now let's imagine that we want to show the
 
 ~~~diff
 endpoints.getTodos = async ({completed, orderBy='created_at'}) => {
-  if( ! [true, false].includes(done) ) return;
+  if( ! [true, false].includes(completed) ) return;
   if( ! ['created_at', 'completed_at'].includes(orderProp) ) return;
-  const todos = await db.query(`SELECT * FROM todos WHERE done == %{done} ORDER BY created_at`);
+  const todos = await db.query(`SELECT * FROM todos WHERE completed == ${completed} ORDER BY ${orderBy}`);
   return todos;
 };
 ~~~
@@ -46,120 +46,59 @@ But actually, what we did here is an antipattern with Wildcard.
 The Wildcard way to do it that:
 
 ~~~diff
-endpoints.getTodos = async () =>
+endpoints.getLandingPageData = async () =>
   await db.query("SELECT * FROM todos WHERE completed === false ORDER BY created_at");
-endpoints.getCompletedTodos = async () =>
+endpoints.getCompletedPageData = async () =>
   await db.query("SELECT * FROM todos WHERE completed === true ORDER BY completed_at");
 ~~~
 
-This makes the whole power of SQL available to the frontend.
-**Endpoints are cheap**:
+We have two views and we create exactly one endpoint for each one of them.
+We call such endpoint a "view-data endpoint".
+
+With Wildcard endpoints are cheap:
 Creating a new endpoint is as easy as creating a new function.
-**We create an endpoint for every client request.**
+This allows us to:
 
-Is cheap: You just define a new function on the `endpoints` object.
-100% tailored to a specific view
+> Create a new endpoint for every view
 
-Basically we give the.
-That's the , you simply can't get more flexible and powerful than that.
+Giving us improvements in terms of:
+1. Flexiblity:
+   What data a view receives can be changed by changing its view-data endpoint independently of other endpoints and independently of other views.
+2. Performance:
+   Each view-data endpoint can return exactly and only what its view needs.
+3. Powerfullness:
+   Because a view-data endpoint is defined on the server, we can use anything available to the server to retrieve the data a view needs.
+   The server has vastly more things as its disposal than the browser.
+   In our examples above, we can use any arbitrary SQL query to retrieve the data that a view needs.
+   SQL is vastly more powerful over [level-1](https://martinfowler.com/articles/richardsonMaturityModel.html#level1) REST or over GraphQL's query language.
 
-The first thing that you may notice is that  we don't is hard written in the SQL query.
-With the RESTful  approach
-This is not a bug, it's a feature: Instead of creating a generic API we create a very specific 
+In a sense:
 
-Drastic shift in how we create APIs:
-We shift the logic from the browser to the server.
-This mental shift makes API creation much easier, much more flefixble and much more performant and we will show in the introduction why.
+ > Wildcard exposes the whole power of your server to your client in a secure way.
 
+Basically, with Wildcard, we move the entire data retrieval logic from the client to the server.
 
-~~~js
-// Browser
-import {endpoints} from 'wildcard-api/client';
-
-(async () => {
-  await endpoints.getInitialData();
-})();
-async function getAllData() {
-  endpoints.get
-  console.log();
-}
-
-// Server
-const {endpoints} = require('wilcard-api');
-
-endpoints.getAllData = async () => {
-  const catPics = 
-  const dogPics = 
-  memeGifs
-  const getCatPictures
-
-  const topTags sort(
-
-  return {
-    topTags,
-    topPics,
-    topPicsByTags,
-  };
-}
-~~~
+And that's a big paradigm shift.
 
 
+#### Authentication
 
+Wildcard provides a `requestContext` object that holds information about the HTTP request, for example HTTP authentication headers.
 
 ~~~js
-// Browser
-
-async function MainPage() {
-
-  const user = await endpoints.getUser();
-
-  const todos = await endpoints.getTodos();
-
-  return (
-    <div>
-      Welcome back, {user.username}.
-      Your to-dos are:
-      {
-        todos.map(todo =>
-          <div>{todo.text}</div> )
-      }
-    </div>
-  );
-}
-~~~
-
-~~~js
-// Node.js server
+// Node.js Server
 
 const {endpoints} = require('wildcard-api');
 const {getLoggedUser} = require('./auth');
-const {Todo} = require('./models');
 
-endpoints.getUser = async ({requestContext}) => {
-  const user = await getLoggedUser(requestContext.req.headers.cookie);
-};
-
-endpoints.getTodos = async ({requestContext}) => {
+endpoints.getLandingPageData = async ({requestContext}) => {
   const user = await getLoggedUser(requestContext.req.headers.cookie);
 
   // The user is not authenticated, we return nothing
   if( ! user ) return;
 
-  // We get and return all the user's todos
-  const todos = await Todo.getAll().where({authorId: user.id});
-  return todos;
+  const todos = await db.query("SELECT * FROM todos WHERE authorId == ${user.id};");
+  return {user, todos};
 };
 ~~~
-
-~~~js
-import {endpoints} from 'wilcard-api/client';
-
-(async () => {
-  // We can now by simply "calling" the `getTodos` function we defined on the server
-  // The Wilcard API client takes care of making a HTTP request to the server and serializing the data to JSON
-  const todos = await endpoints.getTodos();
-  console.log(todos);
-})();
-~~~
-
 
