@@ -15,6 +15,16 @@ endpoints.getTodos = async () => {
 
 Let's imagine we want have a view showing the uncompleted todos and a second view showing the completed ones.
 
+For that we add a paramter `completed` to our `getTodos` endpoint:
+
+~~~js
+endpoints.getTodos = async () => {
+  const todos = await db.query("SELECT * FROM todos;");
+  return todos;
+};
+~~~
+
+We could extend like 
 One way to support is to extend our ""
 For that we extend our 
 

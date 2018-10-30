@@ -29,7 +29,7 @@ import {endpoints} from 'wildcard-api/client';
 ~~~
 
 You define functions on the server and Wildcard makes them callable in the browser.
-(Wildcard takes care of HTTP requests and JSON serialization.)
+(Behind the curtain, Wildcard does HTTP requests and JSON serialization.)
 Thus creating a new endpoint is as easy as creating a new function.
 
 Wildcard introduces a profound paradigm shift.
@@ -62,13 +62,13 @@ Instead of writing the logic to get data on the client, you write them on your s
 
 |                        | Wildcard API  | RESTful API   | GraphQL API   |
 | ---------------------- | ------------- | ------------- | ------------- |
-| Easy to setup          | +++ | - | --- |
-| Performant             | +++ | -- | + |
-| Flexible               | +++ | - | ++ |
-| Flexible (third-party) | --- | + | +++ |
+| Easy to setup          | ++ | - | -- |
+| Performant             | ++ | -- | + |
+| Flexible               | ++ | -- | + |
+| Flexible (third-party) | -- | + | ++ |
 
 
-
+With a RESTful API we denote a level-1 REST"stric and generic 
 
 
 
@@ -82,9 +82,16 @@ Isn't the point of creating an API to have a generic public interface?
 
 Isn't Wildcard just a RESTful API with a single endpoint?
 
+Isn't Wildcard just a RPC API?
+
+Isn't Wildcard just a level-0 REST API?
+
 Should I create my API with Wildcard API, RESTful, or GraphQL?
 
 Doesn't it mean that the server needs to be deployed more often?
+
+What about Caching?
+
 
 Wildcard API is nothing, I've being a ad-hoc APIs for a while?
 
@@ -97,18 +104,20 @@ most of the time,
 they don't need a generic RESTful/GraphQL API,
 and a simple ad-hoc is not only enough but also much much simpler.
 
-If you are facebook and your API has many different types of consumers, then yes GraphQL makes a lot of sense.
-But if you are a startup and you have only one or two API consumers
-(e.g. your mobile app and your frontend code)
-, then GraphQL is most definitely the wrong choice.
+
+
+If you are facebook and your API has many different types of consumers, then yes, GraphQL makes a lot of sense.
+But if you are a startup and your API is consumed by
+your mobile app and/or web app only,
+then GraphQL is most definitely the wrong choice.
 You are better off with a ad-hoc API and something like Wildcard.
 
 The enormous hype has lead to the general belief in the JavaScript community that GraphQL is a silver bullet and every API should be created with GraphQL.
 That's certainly a wrong belief and dangerous one:
-Creating a proper GraphQL API is time consuming and daunting task.
+Creating a proper GraphQL API can be very time consuming.
 If you are a startup, GraphQL may very well kill you.
 
-Still, GraphQL is great, but only for very specific use case: If your API has third-party consumers.
+Still, GraphQL is great but only for a very specific use case: If your API has third-party consumers.
 
-Honestly, GraphQL's hype is a bubble.
+GraphQL's hype is a bubble.
 Wildcard would be very proud of itself, if it can be that needle that pops the GraphQL bubble.
