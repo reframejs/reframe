@@ -1,7 +1,11 @@
+The intro shows how to use Wildcard and why we believe Wildarcd to be so powerful.
 
-Let's create an API for a Todo app.
+- [Example]
+- [Benefits]
+- [Deployment]
+- [Authentication]
 
-
+Let's create a (simplistic) API for a Todo app:
 
 ~~~js
 const {endpoints} = require('wilcard-api');
@@ -13,7 +17,7 @@ endpoints.getTodos = async () => {
 };
 ~~~
 
-Let's imagine we want have a view showing the uncompleted todos and a second view showing the completed ones.
+Now let's imagine we want a view showing the uncompleted todos and a second view showing the completed ones.
 
 For that we add a parameter `completed` to our `getTodos` endpoint:
 
@@ -25,12 +29,16 @@ endpoints.getTodos = async ({completed}) => {
 };
 ~~~
 
-Since getTodos is basically publicly exposed, all arguments are unsafe and
-we need to make to.
-In general with Wildcard, the paramters can have arbitrary values.
-Note that we need the line `if( ! [true, false].includes(completed) ) return;` 
+Note that we need the line `if( ! [true, false].includes(completed) ) return;` because
+Wildcard publicly exposes `getTodos`.
+This means that the the parameter can take any arbitrary value and we need to make sure
+that the argument we get are what we expect.
 
-Now let's imagine that we want to show the 
+> Paramters can have arbitrary values and always need to be validated.
+
+Now let's imagine that we want to sort the completed todos views by the .
+
+For that purpose, we add a second parameter `orderBy`:
 
 ~~~diff
 endpoints.getTodos = async ({completed, orderBy='created_at'}) => {
@@ -41,9 +49,9 @@ endpoints.getTodos = async ({completed, orderBy='created_at'}) => {
 };
 ~~~
 
-Ok, great, we now have our flexible endpoint `getTodos`.
-But actually, what we did here is an antipattern with Wildcard.
-The Wildcard way to do it that:
+We may now think "Ok great, we now have our flexible endpoint `getTodos`."
+But actually, what we have been doing is an antipattern with Wildcard.
+The Wildcard way to do it is this:
 
 ~~~diff
 endpoints.getLandingPageData = async () =>
@@ -61,7 +69,12 @@ This allows us to:
 
 > Create a new endpoint for every view
 
-Giving us improvements in terms of:
+Creating such view-data endpoints leads to important benefits.
+
+### Benefits
+
+The benefits of creating these highly tailored view-data endpoints (instead of creating generic endpoints) are considerable:
+
 1. Flexiblity:
    What data a view receives can be changed by changing its view-data endpoint independently of other endpoints and independently of other views.
 2. Performance:
@@ -76,9 +89,22 @@ In a sense:
 
  > Wildcard exposes the whole power of your server to your client in a secure way.
 
+Another way to think about Wildcard is that it eases and encourages the creation of an RPC API.
+
 Basically, with Wildcard, we move the entire data retrieval logic from the client to the server.
 
 And that's a big paradigm shift.
+
+#### Deployement
+
+One drawback of Wildarcd is that,
+everytime the client needs changes in what data it retrieves,
+the endpoint defined on the server needs to be adapated,
+and the server re-deployed.
+
+But the aforementioned benefits most likely vastly outweighted this drawback.
+
+Also, there is no extra effort if you have continous deployment (which you should do!) or if your client and server live on the same machine.
 
 
 #### Authentication
@@ -101,4 +127,5 @@ endpoints.getLandingPageData = async ({requestContext}) => {
   return {user, todos};
 };
 ~~~
+
 

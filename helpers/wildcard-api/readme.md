@@ -1,7 +1,6 @@
+Wildcard lets your client load data from your server in an easy, flexible, and performant way.
 
-Wilcard API is a (much) easier alternative to GraphQL and RESTful APIs.
-
-It lets your client load data from your server in an easy, flexible, and performant way.
+It's a (much) easier alternative to GraphQL and RESTful APIs.
 
 ~~~js
 // Server
@@ -30,7 +29,7 @@ import {endpoints} from 'wildcard-api/client';
 
 You define functions on the server and Wildcard makes them callable in the browser.
 (Behind the curtain, Wildcard does HTTP requests and JSON serialization.)
-Thus creating a new endpoint is as easy as creating a new function.
+Thus creating a new API endpoint is as easy as creating a new function.
 
 Wildcard introduces a profound paradigm shift.
 The intro shows why.
@@ -68,9 +67,9 @@ Instead of writing the logic to get data on the client, you write them on your s
 | Flexible (third-party) | -- | + | ++ |
 
 
-With a RESTful API we denote a level-1 REST"stric and generic 
+With a RESTful API we denote a [level-1]() RESTful API
 
-
+Basically: There are no reason to choose RESTful or GraphQL if your API isn't consumed by third parties.
 
 
 
@@ -89,6 +88,19 @@ Isn't Wildcard just a level-0 REST API?
 Should I create my API with Wildcard API, RESTful, or GraphQL?
 
 Doesn't it mean that the server needs to be deployed more often?
+
+RPC APIs are nothing new, right?
+
+Very right.
+And actually, RPC APIs existed even before REST.
+That said, we are observing an alarming trend of developers being negatively influence by the GraphQL hype.
+Using GraphQL to create an API that is going to be consumed by clients that you have under control is very wrong.
+Setting up a GraphQL API and caring the considerable increased complexity of your architecture that comes with.
+The only justification for that added complexity is if you have third parties consuming your API.
+Otherwise (which is like 99% of the time), a good old RPC API is just fine.
+Half the motivation of Wildard is to spread that knowledge.
+And Wildcard makes it trivial to implement a safe RPC API.
+
 
 What about Caching?
 
