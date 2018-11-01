@@ -342,9 +342,9 @@ Feel free to open a GitHub issue if you have any question.
 
 |                        | Wildcard API (2) | RESTful API (1)  | GraphQL API   |
 | ---------------------- | ------------- | ------------- | ------------- |
-| Easy to setup          | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true' align="left"/><img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true' align="left"/> | - | -- |
+| Easy to setup          | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> | - | -- |
 | Performant             | ++ | -- | + |
-| Flexible               | ++ | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true' align="left"/><img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true' align="left"/> | + |
+| Flexible               | ++ | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true'/> <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true'/> | + |
 | Flexible (third-party) | -- | + | ++ |
 
 
