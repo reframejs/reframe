@@ -88,22 +88,16 @@ In a sense:
 
  > Wildcard exposes the whole power of your server to your client in a secure way.
 
-Another way to think about Wildcard is that it encourages and eases the creation of an RPC style API.
+Another way to think this is that Wildcard eases and encourages the implementation of RPC.
+The entire data retrieval logic is moved from the client to the server.
+That's a big paradigm shift with considerable benefits.
 
-Basically, with Wildcard, we move the entire data retrieval logic from the client to the server.
-
-And that's a big paradigm shift.
-
-#### Deployement
-
-One drawback of Wildarcd is that,
+Note that,
 everytime the client needs changes in what data it retrieves,
 the endpoint defined on the server needs to be adapated,
 and the server re-deployed.
-
-But the aforementioned benefits most likely vastly outweighted this drawback.
-
-Also, there is no extra effort if you have continous deployment (which you should do!) or if your client and server live on the same machine.
+This can be inconvenient if, 1. the server is not continously deployed and, 2. if the client code and the server code live in separate production environments.
+But we believe that the aforementioned benefits considerably outweighted this potential inconvenience.
 
 
 #### Authentication & Mutations
@@ -115,6 +109,7 @@ Wildcard provides a `requestContext` object that holds information about the HTT
 
 const {endpoints} = require('wildcard-api');
 const {getLoggedUser} = require('./auth');
+const db = require('./db');
 
 endpoints.getLandingPageData = async ({requestContext}) => {
   const user = await getLoggedUser(requestContext.req.headers.cookie);
@@ -129,11 +124,12 @@ endpoints.getLandingPageData = async ({requestContext}) => {
 };
 ~~~
 
-An endpoint simply being function, anything a function can do including side effects like mutations:
+An endpoint simply being function, we can also make side effects such as mutations:
 
 ~~~js
 const {endpoints} = require('wildcard-api');
 const {getLoggedUser} = require('./auth');
+const db = require('./db');
 
 endpoints.toggleAction = async (todoId, {requestContext}) => {
   const user = await getLoggedUser(requestContext.req.headers.cookie);
@@ -141,52 +137,68 @@ endpoints.toggleAction = async (todoId, {requestContext}) => {
   // We abort if the user is not authenticated
   if( ! user ) return;
 
-  const todo = await db.query("SELECT * FROM todos WHERE id = ${todoId};");
+  const [todo] = await db.query("SELECT * FROM todos WHERE id = ${todoId};");
   if( !todo ) return;
 
   // We abort if the user is not the author of the todo
   if( todo.authorId !== user.id ) return;
 
-  const todoUpdated = await db.query("UPDATE todos SET completed = ${!todo.completed} WHERE id = ${todo.id};");
+  const [todoUpdated] = await db.query("UPDATE todos SET completed = ${!todo.completed} WHERE id = ${todo.id};");
   return todoUpdated;
 };
 ~~~
 
-Similarly to our view-data endpoints, we create a tailord for a specific action.
+We could as well made a more generic endpoint
 
-In general, 
+~~~js
+endpoints.updateCompleted = async (todoId, newCompletedValue, {requestContext}) => {
+  // ...
+}
+~~~
 
-If you want reusable code you can always do so in the server side.
-something like that
+But because creating a new enpdoint is so cheap, we prefer to create many many highly tailored endpoints over few generic ones.
+Leading to improved flexibility and performance.
+
+Similarly to our view-data enpdoints where one view has its own endpoint, we create "action endpoints" so that each action has its own endpoint.
+
+We can have reusable code, it's just that,
+instead of living in the client, the reusable code lives on the server.
+For example:
 
 ~~~js
 const {endpoints} = require('wildcard-api');
 const {getLoggedUser} = require('./auth');
+const db = require('./db');
 
+// Specific endpoint for one specific action
 endpoints.toggleAction = (
   (todoId, {requestContext}) =>
     updateTodo(todoId, 'completed', todo => !todo.completed, requestContext)
 );
 
+// Specific endpoint for one specific action
 endpoints.updateTextAction = (
   (todoId, newText, {requestContext}) =>
     updateTodo(todoId, 'text', () => newText, requestContext)
 );
 
+// Generic function to update todos.
+// This function is private and is only used by our "action enpdoints".
 async function updateTodo(todoId, column, getNewValue, requestContext) {
   const todo = await getTodo(todoId, requestContext);
   if( ! todo ) return;
 
-  const todoUpdated = await db.query("UPDATE todos SET ${column} = ${getNewValue(todo)} WHERE id = ${todo.id};");
+  const [todoUpdated] = await db.query("UPDATE todos SET ${column} = ${getNewValue(todo)} WHERE id = ${todo.id};");
   return todoUpdated;
 }
 
+// Private generic function to get a todo of the user
 async function getTodo(todoId, requestContext) {
   const user = await getLoggedUser(requestContext.req.headers.cookie);
 
   if( ! user ) return;
 
-  const todo = await db.query("SELECT * FROM todos WHERE id = ${todoId};");
+  const [todo] = await db.query("SELECT * FROM todos WHERE id = ${todoId};");
   if( !todo ) return;
 
   if( todo.authorId !== user.id ) return;
@@ -195,8 +207,7 @@ async function getTodo(todoId, requestContext) {
 }
 ~~~
 
-In general with Wilcard there data logic should preferably live on the server.
+You now have a solid basis for how to use Wildcard.
+Check out the [Quick Start](#quick-start) to build your first Wildcard API.
 
-If a user event leads to several 
-Note that again we make this endpoint specific to one .
-In general, one action should 
+Feel free to open a GitHub issue if you any question.
