@@ -32,12 +32,12 @@ You define functions on the server and Wildcard makes them callable in the brows
 Thus creating a new API endpoint is as easy as creating a new function.
 
 Wildcard introduces a profound paradigm shift.
-The intro shows why.
+The overview shows why.
 
 
 #### Contents
 
- - Intro
+ - Overview
  - Wildcard vs RESTful vs GraphQL
  - Quick Start
  - FAQ

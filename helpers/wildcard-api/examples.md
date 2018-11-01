@@ -1,4 +1,4 @@
-The intro shows how to use Wildcard and shows Wildcard's benefits.
+The overview shows how to use Wildcard and lists Wildcard's benefits and drawbacks.
 
 - [Example]
 - [Tailored endpoints]
@@ -33,15 +33,15 @@ endpoints.getTodos = async ({completed}) => {
 Note that we need the line `if( ! [true, false].includes(completed) ) return;` because
 Wildcard publicly exposes `getTodos`.
 In other words,
-anyone can "call" the `getTodos` function,
+anyone on the internet can "call" the `getTodos` function,
 therefore `getTodos`'s parameters
 can take any arbitrary value.
-So we need to make sure
+Thus we make sure
 that the values passed to `getTodos` are what we expect.
 
-> Paramters can have arbitrary values and always need to be vetted.
+> Paramters always need to be vetted.
 
-Now let's imagine that we want to sort the completed todos views by the .
+Now let's imagine that we want to sort the completed todos by the time a todo was completed and sort the uncompleted todos by the time a todo was created.
 
 For that purpose, we add a second parameter `orderBy`:
 
@@ -56,9 +56,9 @@ endpoints.getTodos = async ({completed, orderBy='created_at'}) => {
 
 Again, we vet that `orderProp` is holding our expected values `created_at` or `completed_at`.
 
-We may think "Ok great, we now have our flexible endpoint `getTodos`."
-But actually, there is a another way that makes more sense with Wildcard.
-The Wildcard way to do it is this:
+The `getTodos` endpoint we created is a generic endpoint:
+It's parameters makes it flexible and suitable for more than one view.
+This may sound great but, actually, there is another way that makes even more sense:
 
 ~~~diff
 endpoints.getLandingPageData = async () =>
@@ -67,29 +67,34 @@ endpoints.getCompletedPageData = async () =>
   await db.query("SELECT * FROM todos WHERE completed = true ORDER BY completed_at");
 ~~~
 
-We have two views and we create exactly one endpoint for each one of them.
-We call such endpoint a "view endpoint".
+We create one endpoint for each view.
+An endpoint is then tailored specifically for one view.
+We call such endpoint a "view-endpoint".
 
-### Tailored endpoints
+### Tailored-endpoints approach
 
-With Wildcard endpoints are cheap:
+With Wildcard, endpoints are cheap:
 Creating a new endpoint is as easy as creating a new function.
-This allows us to:
 
-> Create a new endpoint for every view
+Because creating a new enpdoint is so cheap, we can create many many endpoints.
+For each view, we can create an endpoint tailored specifically for that view.
 
-Creating such view endpoints leads to important benefits.
+We call this the "tailored-endpoints approach"
+
+> Create many tailored endpoints instead of few generic endpoints
+
+This approach leads to considerable benefits.
 
 ### Benefits
 
-The benefits of creating these highly tailored endpoints (instead of creating generic endpoints) are significant:
+Creating many tailored endpoints over few generic endpoints improves:
 
 1. **Flexiblity** -
-   What data a view receives can be changed by changing its view endpoint independently of other endpoints and independently of other views.
+   What data a view receives can be changed by changing its view-endpoint independently of other endpoints and independently of other views.
 2. **Performance** -
-   Each view endpoint returns only and exactly what its view needs in a single round-trip.
+   Each view-endpoint returns only and exactly what its view needs in a single round-trip.
 3. **Powerfullness** -
-   Because a view endpoint is defined on the server, we can use anything available to the server to retrieve the data a view needs.
+   Because a view-endpoint is defined on the server, we can use anything available to the server to retrieve the data a view needs.
    The server has vastly more capabilities as its disposal than the browser.
    In our example above, we can use any arbitrary SQL query to retrieve the data that a view needs.
    SQL is vastly more powerful over [level-1 REST](https://martinfowler.com/articles/richardsonMaturityModel.html#level1) or over GraphQL's query language.
@@ -107,28 +112,42 @@ That's a big paradigm shift.
 **Deployment**
 
 Note that,
-everytime the client needs changes in the data it retrieves,
+everytime the client needs a change in the data it retrieves,
 the endpoint defined on the server needs to be adapated,
 and the server re-deployed.
-This can be inconvenient if, 1. the server is not continously deployed and, 2. if the client code and server code live in separate production environments.
+This can be inconvenient if,
+1. the server is not continuously deployed and,
+2. if the client code and server code live in separate production environments.
 
 **Third-party clients**
 
-**Wildcard or RESTful/GraphQL?**
+A Wildcard API following the tailored-endpoints approach is
+designed hand-in-hand with
+the client(s) consuming the API.
+Such highly tailored API is not suitable for other clients.
 
-So if your API is consumed by clients you control and if your server is continously deployed or if your client code and server code live in the same production environment,
+So if you want third parties to be able to use your API, you'll have to create an API that is generic.
+In that case following the REST principles or using GraphQL makes more sense than following the tailored-endpoints approach.
+Although nothing stops you for have two APIs:
+A Wildcard API for your clients and
+a RESTful/GraphQL API for third-party clients.
+
+**Wildcard or not**
+
+As long as your API is consumed only by your clients,
+we believe the aforementioned benefits to considerably outweighted the aforementioned drawbacks.
+
+And if your server is continuously deployed or if your client code and server code live in the same production environment,
 then we don't see any reason
 for not choosing Wildcard over RESTful/GraphQL.
-In that case, a Wildcard API is much much easier to setup and is also considerably more flexible and performant.
-Basically: There are no reasons to choose RESTful or GraphQL
+
+A Wildcard API is much much easier to setup and is also considerably more flexible and performant.
 
 #### Authentication & Mutations
 
-Wildcard provides a `requestContext` object that holds information about the HTTP request, for example HTTP authentication headers.
+Wildcard provides a `requestContext` object that holds information about the HTTP request, for example authentication headers.
 
 ~~~js
-// Node.js Server
-
 const {endpoints} = require('wildcard-api');
 const {getLoggedUser} = require('./auth');
 const db = require('./db');
@@ -146,7 +165,7 @@ endpoints.getLandingPageData = async ({requestContext}) => {
 };
 ~~~
 
-An endpoint simply being function, we can also make side effects such as mutations:
+Also, an endpoint can make side effects such as mutations.
 
 ~~~js
 const {endpoints} = require('wildcard-api');
@@ -170,13 +189,17 @@ endpoints.toggleAction = async (todoId, {requestContext}) => {
 };
 ~~~
 
-We could as well made a more generic endpoint
+We could as well create a generic endpoint
 
 ~~~js
 endpoints.updateCompleted = async (todoId, newCompletedValue, {requestContext}) => {
   // ...
 }
 ~~~
+
+But since endpoints are so cheap with Wildcard, we prefer to create many tailored specific endpoints over generic endpoints.
+following
+we can follow the tailored-endpoints approach for increased flexibility and performance.
 
 But because creating a new enpdoint is so cheap, we prefer to create many many highly tailored endpoints over few generic ones.
 Leading to improved flexibility and performance.
@@ -192,13 +215,13 @@ const {endpoints} = require('wildcard-api');
 const {getLoggedUser} = require('./auth');
 const db = require('./db');
 
-// Specific endpoint for one specific action
+// Specific endpoint for a single action
 endpoints.toggleAction = (
   (todoId, {requestContext}) =>
     updateTodo(todoId, 'completed', todo => !todo.completed, requestContext)
 );
 
-// Specific endpoint for one specific action
+// Specific endpoint for a single action
 endpoints.updateTextAction = (
   (todoId, newText, {requestContext}) =>
     updateTodo(todoId, 'text', () => newText, requestContext)
@@ -214,7 +237,7 @@ async function updateTodo(todoId, column, getNewValue, requestContext) {
   return todoUpdated;
 }
 
-// Private generic function to get a todo of the user
+// Generic private function to get a todo of the logged in user
 async function getTodo(todoId, requestContext) {
   const user = await getLoggedUser(requestContext.req.headers.cookie);
 
@@ -232,4 +255,4 @@ async function getTodo(todoId, requestContext) {
 You now have a solid basis for how to use Wildcard.
 Check out the [Quick Start](#quick-start) to build your first Wildcard API.
 
-Feel free to open a GitHub issue if you any question.
+Feel free to open a GitHub issue if you have any question.
