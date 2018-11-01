@@ -370,6 +370,12 @@ Read the [overview](#overview) for an explanation of why Wildcard is easy, flexi
 5:
 <img src='https://github.com/reframejs/reframe/raw/master/docs/images/t.svg?sanitize=true'/>
 
+2a:
+<img src='https://github.com/reframejs/reframe/raw/master/docs/images/logo-twitter.svg?sanitize=true'/>
+
+2b:
+<img src='https://github.com/reframejs/reframe/raw/master/docs/images/tw.svg?sanitize=true'/>
+
 6:
 <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/>
 
