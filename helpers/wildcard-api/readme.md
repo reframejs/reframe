@@ -348,10 +348,13 @@ Feel free to open a GitHub issue if you have any question.
 | Flexible (third-party) | -- | + | ++ |
 
 
-<img align="left" src="https://github.com/reframejs/reframe/raw/master/docs/images/logo-with-title-and-slogan.min.svg?sanitize=true" width=296 height=79 style="max-width:100%;" alt="Reframe"/>
-<img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true' align="left"/>
-<img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg' align="left"/>
-<img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true' align="left"/>
+<img src='https://github.com/reframejs/reframe/raw/master/docs/images/logo-with-title-and-slogan.min.svg?sanitize=true" width=296 height=79 style="max-width:100%;'/>
+<img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/>
+<img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg'/>
+<img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true'/>
+<img src='https://github.com/reframejs/reframe/raw/master/docs/images/twitter-logo.svg?sanitize=true'/>
+<img src='https://github.com/reframejs/reframe/raw/master/docs/images/star.svg?sanitize=true'/>
+<img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/>
 
 
 (1) RESTful API following at least [REST level-1](https://martinfowler.com/articles/richardsonMaturityModel.html#level1).
