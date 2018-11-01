@@ -356,6 +356,7 @@ Feel free to open a GitHub issue if you have any question.
 <img src='https://github.com/reframejs/reframe/raw/master/docs/images/star.svg?sanitize=true'/>
 <img src='https://github.com/reframejs/reframe/raw/master/docs/images/twitter.min.svg?sanitize=true'/>
 <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/>
+<img src='https://github.com/reframejs/reframe/raw/master/docs/images/testtw.svg?sanitize=true'/>
 
 
 (1) RESTful API following at least [REST level-1](https://martinfowler.com/articles/richardsonMaturityModel.html#level1).
