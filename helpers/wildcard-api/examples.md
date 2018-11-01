@@ -61,15 +61,28 @@ It's parameters makes it flexible and suitable for more than one view.
 This may sound great but, actually, there is another way that makes even more sense:
 
 ~~~diff
-endpoints.getLandingPageData = async () =>
+endpoints.getUncompletedViewData = async () =>
   await db.query("SELECT * FROM todos WHERE completed = false ORDER BY created_at");
-endpoints.getCompletedPageData = async () =>
+endpoints.getCompletedViewData = async () =>
   await db.query("SELECT * FROM todos WHERE completed = true ORDER BY completed_at");
 ~~~
 
 We create one endpoint for each view.
-An endpoint is then tailored specifically for one view.
-We call such endpoint a "view-endpoint".
+This allows to make changes to a view more easily and independently of other views:
+
+~~~js
+endpoints.getUncompletedViewData = async () =>
+  await db.query("SELECT id, text, created_at FROM todos WHERE completed = false ORDER BY created_at DESC LIMIT 20");
+endpoints.getCompletedViewData = async () =>
+  await db.query("SELECT id, text, completed_at FROM todos WHERE completed = true ORDER BY completed_at DESC");
+~~~js
+
+Applying our last change on our previous generic endpoint would be much more cumbersome.
+Also note that we can be more effecient:
+The uncompleted todos view receives the `created_at` time for each todo
+whereas the completed todos view receives the `completed_at` time.
+
+We call such endpoint tailored to a view a *view-endpoint*.
 
 ### Tailored-endpoints approach
 
@@ -77,27 +90,29 @@ With Wildcard, endpoints are cheap:
 Creating a new endpoint is as easy as creating a new function.
 
 Because creating a new enpdoint is so cheap, we can create many many endpoints.
-For each view, we can create an endpoint tailored specifically for that view.
+And for each view we can create an endpoint specifically tailored for that view.
 
-We call this the "tailored-endpoints approach"
+Leading to the *tailored-endpoints approach*:
 
-> Create many tailored endpoints instead of few generic endpoints
+> Create lot's of tailored endpoints instead of few generic endpoints
 
-This approach leads to considerable benefits.
+This approach has considerable benefits.
 
 ### Benefits
 
-Creating many tailored endpoints over few generic endpoints improves:
+Having many tailored endpoints improves:
 
 1. **Flexiblity** -
-   What data a view receives can be changed by changing its view-endpoint independently of other endpoints and independently of other views.
+   The data a view receives can be changed independently of other endpoints and views.
 2. **Performance** -
    Each view-endpoint returns only and exactly what its view needs in a single round-trip.
 3. **Powerfullness** -
    Because a view-endpoint is defined on the server, we can use anything available to the server to retrieve the data a view needs.
    The server has vastly more capabilities as its disposal than the browser.
-   In our example above, we can use any arbitrary SQL query to retrieve the data that a view needs.
-   SQL is vastly more powerful over [level-1 REST](https://martinfowler.com/articles/richardsonMaturityModel.html#level1) or over GraphQL's query language.
+   For example,
+   if your data is saved in a SQL database,
+   then any arbitrary SQL query can be used to retrieve the data that a view needs.
+   SQL is vastly more powerful over [level-1 REST](https://martinfowler.com/articles/richardsonMaturityModel.html#level1) and over GraphQL's query language.
 
 In a sense:
 
@@ -112,40 +127,41 @@ That's a big paradigm shift.
 **Deployment**
 
 Note that,
-everytime the client needs a change in the data it retrieves,
-the endpoint defined on the server needs to be adapated,
+everytime the client needs a change in the data it receives,
+the endpoint defined on the server needs to be changed,
 and the server re-deployed.
 This can be inconvenient if,
 1. the server is not continuously deployed and,
-2. if the client code and server code live in separate production environments.
+2. the client code and server code live in separate production environments.
 
 **Third-party clients**
 
 A Wildcard API following the tailored-endpoints approach is
-designed hand-in-hand with
+designed hand in hand with
 the client(s) consuming the API.
-Such highly tailored API is not suitable for other clients.
+Such highly tailored API is not suitable for arbitrary third-party clients.
 
-So if you want third parties to be able to use your API, you'll have to create an API that is generic.
+So if you want third parties to be able to access your data, you'll have to create an API that is generic.
 In that case following the REST principles or using GraphQL makes more sense than following the tailored-endpoints approach.
-Although nothing stops you for have two APIs:
+Although nothing stops you from creating two APIs:
 A Wildcard API for your clients and
 a RESTful/GraphQL API for third-party clients.
 
 **Wildcard or not**
 
 As long as your API is consumed only by your clients,
-we believe the aforementioned benefits to considerably outweighted the aforementioned drawbacks.
+we believe the aforementioned benefits to largely outweigh the deployment inconvenience.
 
 And if your server is continuously deployed or if your client code and server code live in the same production environment,
 then we don't see any reason
 for not choosing Wildcard over RESTful/GraphQL.
 
-A Wildcard API is much much easier to setup and is also considerably more flexible and performant.
+Even if you need a generic API for third parties,
+it can make sense to have a second API tailored to your clients.
 
 #### Authentication & Mutations
 
-Wildcard provides a `requestContext` object that holds information about the HTTP request, for example authentication headers.
+Wildcard provides a `requestContext` object that holds information about the HTTP request such as authentication headers.
 
 ~~~js
 const {endpoints} = require('wildcard-api');
@@ -158,10 +174,19 @@ endpoints.getLandingPageData = async ({requestContext}) => {
   // The user is not authenticated, we return nothing
   if( ! user ) return;
 
-  const todos = await db.query("SELECT * FROM todos WHERE authorId = ${user.id};");
+  const todos = await db.query(`SELECT text FROM todos WHERE authorId = ${user.id};`);
 
-  // We return both the user data and the user todos
-  return {user, todos};
+  // In addition to the list of todos, we also return the username
+  // So that the landing page can show something like that:
+  //
+  //    Welcome back, ${username}.
+  //
+  //    Your todos are:
+  //      - Chocolate
+  //      - Milk
+  //      - Bananas
+  //
+  return {username: user.name, todos};
 };
 ~~~
 
@@ -192,21 +217,19 @@ endpoints.toggleAction = async (todoId, {requestContext}) => {
 We could as well create a generic endpoint
 
 ~~~js
-endpoints.updateCompleted = async (todoId, newCompletedValue, {requestContext}) => {
+endpoints.updateTodoCompleted = async (todoId, newCompletedValue, {requestContext}) => {
   // ...
-}
+};
 ~~~
 
-But since endpoints are so cheap with Wildcard, we prefer to create many tailored specific endpoints over generic endpoints.
-following
-we can follow the tailored-endpoints approach for increased flexibility and performance.
+But endpoints are cheap, so we follow the tailored-endpoints approach and create many specific endpoints.
 
-But because creating a new enpdoint is so cheap, we prefer to create many many highly tailored endpoints over few generic ones.
-Leading to improved flexibility and performance.
+Similarly to view enpdoints where one view has its own endpoint,
+we create *action endpoints* so that each action has its own endpoint.
+Increasing flexibility and performance.
 
-Similarly to our view-data enpdoints where one view has its own endpoint, we create "action endpoints" so that each action has its own endpoint.
-
-We can have reusable code, it's just that,
+That doesn't prevent us from having reusable code.
+It's just that,
 instead of living in the client, the reusable code lives on the server.
 For example:
 
