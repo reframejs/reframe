@@ -48,12 +48,6 @@ The intro shows why.
 
 
 
-Wilcard API is based on one simple trick:
-Instead of writing the logic to get data on the client, you write them on your server.
-
-
-
-
 
 
 
@@ -66,11 +60,15 @@ Instead of writing the logic to get data on the client, you write them on your s
 | Flexible               | ++ | -- | + |
 | Flexible (third-party) | -- | + | ++ |
 
+(1) RESTful API following at least [REST level-1](https://martinfowler.com/articles/richardsonMaturityModel.html#level1).
+<br/>
+(2) Wildcard API created with the [tailored endpoints approach](#tailored-endpoints).
 
-With a RESTful API we denote a [level-1]() RESTful API
+**Flexible (third-party)**
 
-Basically: There are no reason to choose RESTful or GraphQL if your API isn't consumed by third parties.
-
+Works only for specific client.
+they don't make sense outside specific clients.
+Because 
 
 
 ### FAQ
