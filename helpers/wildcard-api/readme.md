@@ -37,10 +37,10 @@ The overview shows why.
 
 #### Contents
 
- - Overview
- - Wildcard vs RESTful vs GraphQL
- - Quick Start
- - FAQ
+ - [Overview](#overview)
+ - [Wildcard vs RESTful vs GraphQL](#wildcard-vs-restful-vs-graphql)
+ - [Quick Start](#quick-start)
+ - [FAQ](#faq)
 
 
 ## Overview
@@ -122,7 +122,7 @@ endpoints.getUncompletedViewData = async () =>
   await db.query("SELECT id, text, created_at FROM todos WHERE completed = false ORDER BY created_at DESC LIMIT 20");
 endpoints.getCompletedViewData = async () =>
   await db.query("SELECT id, text, completed_at FROM todos WHERE completed = true ORDER BY completed_at DESC");
-~~~js
+~~~
 
 Applying our last change on our previous generic endpoint would be much more cumbersome.
 Also note that we can be more effecient:
@@ -348,7 +348,9 @@ Feel free to open a GitHub issue if you have any question.
 | Flexible (third-party) | -- | + | ++ |
 
 
+<img align="left" src="https://github.com/reframejs/reframe/raw/master/docs/images/logo-with-title-and-slogan.min.svg?sanitize=true" width=296 height=79 style="max-width:100%;" alt="Reframe"/>
 <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.png?sanitize=true' align="left"/>
+<img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg' align="left"/>
 <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.png?sanitize=true' align="left"/>
 
 
