@@ -342,16 +342,16 @@ Feel free to open a GitHub issue if you have any question.
 
 |                        | Wildcard API (2) | RESTful API (1)  | GraphQL API   |
 | ---------------------- | ------------- | ------------- | ------------- |
-| Easy to setup          | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.png?sanitize=true' align="left"/><img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.png?sanitize=true' align="left"/> | - | -- |
+| Easy to setup          | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true' align="left"/><img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true' align="left"/> | - | -- |
 | Performant             | ++ | -- | + |
-| Flexible               | ++ | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.png?sanitize=true' align="left"/><img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.png?sanitize=true' align="left"/> | + |
+| Flexible               | ++ | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true' align="left"/><img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true' align="left"/> | + |
 | Flexible (third-party) | -- | + | ++ |
 
 
 <img align="left" src="https://github.com/reframejs/reframe/raw/master/docs/images/logo-with-title-and-slogan.min.svg?sanitize=true" width=296 height=79 style="max-width:100%;" alt="Reframe"/>
-<img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.png?sanitize=true' align="left"/>
+<img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true' align="left"/>
 <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg' align="left"/>
-<img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.png?sanitize=true' align="left"/>
+<img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true' align="left"/>
 
 
 (1) RESTful API following at least [REST level-1](https://martinfowler.com/articles/richardsonMaturityModel.html#level1).
