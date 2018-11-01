@@ -118,10 +118,10 @@ We create one endpoint for each view.
 This allows to make changes to a view more easily and independently of other views:
 
 ~~~js
-endpoints.getUncompletedViewData = async () =>
-  await db.query("SELECT id, text, created_at FROM todos WHERE completed = false ORDER BY created_at DESC LIMIT 20");
-endpoints.getCompletedViewData = async () =>
-  await db.query("SELECT id, text, completed_at FROM todos WHERE completed = true ORDER BY completed_at DESC");
+endpoints.getUncompletedViewData = () =>
+  db.query("SELECT id, text, created_at FROM todos WHERE completed = false ORDER BY created_at LIMIT 20;");
+endpoints.getCompletedViewData = () =>
+  db.query("SELECT id, text, completed_at FROM todos WHERE completed = true ORDER BY completed_at DESC;");
 ~~~
 
 Applying our last change on our previous generic endpoint would be much more cumbersome.
@@ -340,30 +340,40 @@ Feel free to open a GitHub issue if you have any question.
 
 ## Wildcard vs RESTful vs GraphQL
 
-|                        | Wildcard API (2) | RESTful API (1) | GraphQL API |
+|                        | Wildcard API * | RESTful API ** | GraphQL API |
 | ---------------------- | :--------------: | :-------------: | :---------: |
 | Easy to setup          | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true'/> | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true'/> <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true'/> |
 | Performant             | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true'/> <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true'/> | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> |
 | Flexible               | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true'/> <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true'/> | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> |
 | Flexible (third-party) | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true'/> <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true'/> | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> |
 
-sep
+* Wildcard API following the [tailored-endpoints approach](#tailored-endpoints-approach).
+<br/>
+** RESTful API following [REST level-1](https://martinfowler.com/articles/richardsonMaturityModel.html#level1).
 
-to:
+Read the [overview](#overview) for an explanation of why Wildcard is easy, flexible and performant but not suitable for third party clients.
+
+## Quick Start
+
+1:
 <img src='https://github.com/reframejs/reframe/raw/master/docs/images/twitter.min.svg?sanitize=true'/>
 
-tc:
+2:
+<img src='https://github.com/reframejs/reframe/raw/master/docs/images/twitter.svg?sanitize=true'/>
+
+3:
+<img src='https://github.com/reframejs/reframe/raw/master/docs/images/twitter-icon.svg?sanitize=true'/>
+
+4:
+<img src='https://github.com/reframejs/reframe/raw/master/docs/images/twitter-logo.svg?sanitize=true'/>
+
+5:
 <img src='https://github.com/reframejs/reframe/raw/master/docs/images/t.svg?sanitize=true'/>
 
-te:
+6:
 <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/>
 
 
-(1) RESTful API following at least [REST level-1](https://martinfowler.com/articles/richardsonMaturityModel.html#level1).
-<br/>
-(2) Wildcard API created with the [tailored endpoints approach](#tailored-endpoints).
-
-Read the overview for an explanation of why Wildcard is easy, flexible and performant but not suitable for third party clients.
 
 ## FAQ
 
