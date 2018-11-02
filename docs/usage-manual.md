@@ -105,7 +105,7 @@
     <sup>
         <a href="https://twitter.com/reframejs">
             <img
-              src="https://github.com/reframejs/reframe/raw/master/docs/images/tw-logo.svg?sanitize=true"
+              src="https://github.com/reframejs/reframe/raw/master/docs/images/tw.svg?sanitize=true"
               width="15"
               height="13"
             >
