@@ -29,10 +29,12 @@ import {endpoints} from 'wildcard-api/client';
 
 You define functions on the server and Wildcard makes them callable in the browser.
 (Behind the curtain, Wildcard makes an HTTP request and serializes with JSON.)
-
 Creating a new API endpoint is as easy as creating a new function.
 
-Wildcard is ideal for rapid prototyping and quickly delivering an MVP and iterating on it.
+With Wildcard,
+instead of creating a generic API,
+you create an API that is tailored to your client(s).
+Which is ideal for rapid prototyping and quickly delivering an MVP and iterating on it.
 And, depending on the requirements, it can lead to improved productivity for large scale applications as well.
 
 #### Contents
@@ -171,16 +173,6 @@ That's a big paradigm shift.
 
 ### Drawbacks
 
-**Deployment**
-
-Note that,
-everytime the client needs a change in the data it receives,
-the endpoint defined on the server needs to be changed,
-and the server re-deployed.
-This can be inconvenient if,
-1. the server is not continuously deployed and,
-2. the client code and server code live in separate production environments.
-
 **Third-party clients**
 
 A Wildcard API following the tailored-endpoints approach is
@@ -196,8 +188,9 @@ a RESTful/GraphQL API for third-party clients.
 
 **Many clients**
 
-Many clients with different data requirements means that you have to maintain an API that is tailored to many different clients.
-This can become cumbersome.
+Many clients with many different data requirements means that you have to maintain an API that is tailored to many different clients.
+Having a tailored API for a few clients is usually not a problem.
+But if you have lot's of clients this this can become cumbersome.
 
 For example:
 
@@ -207,7 +200,7 @@ endpoints.client2_getTodos = () => db.query('SELECT id, text, created_at FROM to
 endpoints.client3_getTodos = () => db.query('SELECT id, text, created_at, completed_at FROM todos');
 ~~~
 
-In that case having a more generic API could be better suited.
+Having a more generic API can be better suited.
 We can alleviate the tailored approach and create a generic endpoint:
 
 ~~~js
@@ -224,7 +217,6 @@ endpoints.getTodos = fields => {
 ~~~
 
 But, depending on how generic your API would need to be, using REST/GraphQL can be more suited.
-
 
 
 **Wildcard or not**
