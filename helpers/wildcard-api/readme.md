@@ -39,7 +39,8 @@ And, depending on the requirements, it can lead to improved productivity for lar
 
 #### Contents
 
- - [Overview](#overview)
+ - [Example](#example)
+ - [Philosophy](#philosophy)
  - [Wildcard vs RESTful vs GraphQL](#wildcard-vs-restful-vs-graphql)
  - [Quick Start](#quick-start)
  - [FAQ](#faq)
@@ -377,7 +378,24 @@ Feel free to open a GitHub issue if you have any question.
 <br/>
 \*\* RESTful API following [REST level-1](https://martinfowler.com/articles/richardsonMaturityModel.html#level1)
 
-Read the [overview](#overview) for an explanation of why Wildcard is easy, flexible and performant but not suitable for third party clients.
+Read the [overview](#overview) for an explanation of why Wildcard is easy, flexible and performant but not suitable for third-party clients.
+
+In a nutshell:
+Use Wildcard to create an API that is consumed by few clients that you control.
+
+For your first MVP, Wildcard is mostly likely the better choice.
+
+As your MVP grows into a big application with a growing number of clients,
+you can create a new API with RESTful/GraphQL in parallel to the existing Wildcard API,
+and progressively migrate your clients to use
+the new RESTful/GraphQL API.
+
+Having both a tailored API and a generic API can make sense.
+For example,
+a Wildcard API (consumed by your clients) combined with a RESTful API (consumed by third-party clients)
+can sometimes make more sense than a single GraphQL API.
+
+
 
 ## Quick Start
 

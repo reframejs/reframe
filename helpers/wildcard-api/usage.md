@@ -39,8 +39,19 @@ Synchronised deployments comes for free.
 This is the easiest but doesn't scale.
 We recommended this strategy.
 
+This is not suitable for mobile and desktop clients where you don't control when the client is updated.
+
 ### 2. Endpoint versioning
 
+We can use the fact that endpionts are cheap
+With Wildcard endpoints are cheap and we can use that fac
+We can use the fact that with Wildcard endpoints are cheap to version endpoints instead of versioning the whole API.
+
+For example:
+~~~js
+endpoints.getTodos_v1 = () => db.query('SELECT id, text FROM todos');
+endpoints.getTodos_v2 = () => db.query('SELECT id, text, created_at FROM todos');
+~~~
 
 
 ### 3. API Server
