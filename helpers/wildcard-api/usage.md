@@ -1,11 +1,42 @@
 
-### Java, python, Go, Rust, and any non-Node.js Server
+Usage
+ - [Server API]
+ - [Client API]
+ - [SSR]
+ - [Authentication]
+ - [Authorization]
+Setup
+ - [Deployment strategies]
+ - [Non-Node.js Server (Java, python, Go, Rust, etc.)]
+ - [Mobile & desktop]
+ - [API Server]
+
+
+
+### Non-Node.js Server (Java, python, Go, Rust, etc.)
 
 There is currently only a an implementation for Node.js.
 But creating an implementation for other platforms is easy.
 Open a GitHub issue if you want to write one.
 
-Stateless API Server.
+See [API Server](#api-server).
+
+### API Server
+
+In some situations creating a dedicated server to serve a Wildcard API can make sense.
+
+Such API server is stateless, uses Node.js, and talks to your database to retrieve data.
+
+you can setup a stateless Node.js API server.
+This API server  takes request clients and retrieves the data from your non-Node.js server.
+
+For example if you 
+For example for a web app
+A tailored API is tighly coupled to the client(s) with the API.
+
+Therefore it makes sense for the infrastructure to reflect this tigh coupling and API+Client
+
+deployed on a stateless
 
 A RPC like API Wildcard tighly couples the client with the API.
 
@@ -13,39 +44,36 @@ Therefore it makes sense for the infrastructure to reflect this tighly coupling 
 
 deployed on a stateless
 
+
 ### Deployment strategies
 
 When the client needs a non-backwards compatible change in the API,
 then the client and server need to be deployed hand in hand.
 Such synchronised deployments are cumbersome.
+That said, there are two strategies to ease deployments:
+ 1. Client distributed by server
+ 2. API server
+ 3. Endpoint versioning
 
-Some strategies to easy deployments:
- 1. Same production environment for the client code and server code
- 2. Endpoint versioning
- 3. Create an API server
+##### 1. Client distributed by server
 
-A tailored API changes more frequently than a generic one and can increase the number of synchronised deployments.
-That said a generic API (with RESTful/GraphQL) will often need synchronised deployments.
-There are just 
-It's just that synchronised deployments are more tend to be more frequent with a tailored API.
-A Wildcard API tends to need more synchronised deployments over a RESTful/GraphQL API.
+Having the client code served by the server gives us
+synchronised deployments for free.
+If a client hits a new server deployment it will also receive the new client code.
 
+This is the easiest and recommended strategy.
 
-### 1. Same prod env
+But it is not applicable for mobile and desktop environments where client distribution is not under our control.
 
-Meaning that each deployement will deploy the client and.
-Synchronised deployments comes for free.
+##### 2. API server
 
-This is the easiest but doesn't scale.
-We recommended this strategy.
+You can set up a (serverless) API server if you want to decouple the deployment of the Wildcard API from the rest of your server.
 
-This is not suitable for mobile and desktop clients where you don't control when the client is updated.
+If applicable, that API server would naturally distributed the client code.
 
-### 2. Endpoint versioning
+##### 3. Endpoint versioning
 
-We can use the fact that endpionts are cheap
-With Wildcard endpoints are cheap and we can use that fac
-We can use the fact that with Wildcard endpoints are cheap to version endpoints instead of versioning the whole API.
+With Wildcard endpoints are cheap which we can use to version endpoints (instead of versioning the whole API).
 
 For example:
 ~~~js
@@ -53,17 +81,17 @@ endpoints.getTodos_v1 = () => db.query('SELECT id, text FROM todos');
 endpoints.getTodos_v2 = () => db.query('SELECT id, text, created_at FROM todos');
 ~~~
 
+Note that a tailored API tends to change more frequently
+leading to more deployments.
+This is an inherent drawback to tailored APIs.
+On the other, Wildcard allows us to version individual endpoints
+giving us finer grained versioning.
 
-### 3. API Server
-**Deployment**
+Having to serve too many versions of a tailored API can be argument against tailored APIs.
+Creating a more generic with RESTful/GraphQL can be better suited.
 
-Note that,
-everytime the client needs a change in the data it receives,
-the endpoint defined on the server needs to be changed,
-and the server re-deployed.
-This can be inconvenient if,
-1. the server is not continuously deployed and,
-2. the client code and server code live in separate production environments.
+
+
 
 
 ### SSR
