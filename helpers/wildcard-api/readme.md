@@ -1,6 +1,6 @@
 Wildcard lets your client load data from your server in an easy, flexible, and performant way.
 
-It's a (much) easier alternative to GraphQL and RESTful APIs.
+In a (much) easier way than GraphQL and RESTful APIs.
 
 ~~~js
 // Server
@@ -9,7 +9,7 @@ const db = require('./db');
 
 // We define a `getTodos` function on the server
 endpoints.getTodos = async () => {
-  const todos = await db.query("SELECT * FROM todos;");
+  const todos = await db.query("SELECT text FROM todos;");
   return todos;
 };
 
@@ -28,12 +28,12 @@ import {endpoints} from 'wildcard-api/client';
 ~~~
 
 You define functions on the server and Wildcard makes them callable in the browser.
-(Behind the curtain, Wildcard does HTTP requests and JSON serialization.)
-Thus creating a new API endpoint is as easy as creating a new function.
+(Behind the curtain, Wildcard makes an HTTP request and serializes with JSON.)
 
-Wildcard introduces a profound paradigm shift.
-The overview shows why.
+Creating a new API endpoint is as easy as creating a new function.
 
+Wildcard is ideal for rapid prototyping and quickly delivering an MVP and iterating on it.
+And, depending on the requirements, it can lead to improved productivity for large scale applications as well.
 
 #### Contents
 
@@ -194,6 +194,39 @@ Although nothing stops you from creating two APIs:
 A Wildcard API for your clients and
 a RESTful/GraphQL API for third-party clients.
 
+**Many clients**
+
+Many clients with different data requirements means that you have to maintain an API that is tailored to many different clients.
+This can become cumbersome.
+
+For example:
+
+~~~js
+endpoints.client1_getTodos = () => db.query('SELECT id, text FROM todos');
+endpoints.client2_getTodos = () => db.query('SELECT id, text, created_at FROM todos');
+endpoints.client3_getTodos = () => db.query('SELECT id, text, created_at, completed_at FROM todos');
+~~~
+
+In that case having a more generic API could be better suited.
+We can alleviate the tailored approach and create a generic endpoint:
+
+~~~js
+// A generic `getTodos` that work for all clients
+endpoints.getTodos = fields => {
+  if(
+    !fields || !fields.length ||
+    !fields.every(field => ['id', 'text', 'created_at', 'completed_at'].includes(field))
+  ) {
+    return;
+  }
+  return db.query('SELECT '+fields.join(', ')+' FROM todos');
+};
+~~~
+
+But, depending on how generic your API would need to be, using REST/GraphQL can be more suited.
+
+
+
 **Wildcard or not**
 
 As long as your API is consumed only by your clients,
@@ -340,12 +373,13 @@ Feel free to open a GitHub issue if you have any question.
 
 ## Wildcard vs RESTful vs GraphQL
 
-|                        | Wildcard API \* | RESTful API \*\* | GraphQL API |
-| ---------------------- | :--------------: | :-------------: | :---------: |
-| Easy to setup          | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true'/> | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true'/> <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true'/> |
-| Performant             | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true'/> <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true'/> | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> |
-| Flexible               | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true'/> <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true'/> | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> |
-| Flexible (third-party) | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true'/> <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true'/> | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> |
+|                         | Wildcard API \*  | RESTful API \*\* | GraphQL API |
+| ----------------------- | :--------------: | :--------------: | :---------: |
+| Easy to setup           | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true'/> | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true'/> <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true'/> |
+| Performant              | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true'/> <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true'/> | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> |
+| Flexible (few clients)  | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true'/> <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true'/> | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> |
+| Flexible (many clients) | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true'/> <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true'/> | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> |
+| Flexible (third-party)  | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true'/> <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true'/> | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> |
 
 \* Wildcard API following the [tailored-endpoints approach](#tailored-endpoints-approach)
 <br/>
@@ -358,6 +392,12 @@ Read the [overview](#overview) for an explanation of why Wildcard is easy, flexi
 TODO
 
 ## FAQ
+
+Isn't Wildcard just a RPC style API?
+
+Yes and RPC-like APIs are nothing new and existed even before REST.
+Wildcard is about making it easier to create RPC APIs
+
 
 Isn't Wilcard the same than writing one endpoint? Why do I need Wildcard?
 
@@ -372,6 +412,8 @@ Isn't Wildcard just a level-0 REST API?
 Should I create my API with Wildcard API, RESTful, or GraphQL?
 
 Doesn't it mean that the server needs to be deployed more often?
+
+What about mobile & desktop and non-JavaScript clients
 
 RPC APIs are nothing new, right?
 
