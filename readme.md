@@ -210,21 +210,22 @@ You can change your app's stack at any time.
 This comes in handy for rapid prototyping.
 For example,
 you can implement a first prototype as a frontend-only
-and skip a real database by hard-writing data in the codebase.
-The prototype can then be deployed easily and for free. (To a static host such as Netlify or GitHub Pages).
-Later, when hard-writing data isn't sustainable anymore, you can add a Node.js server and a database to your prototype.
+while skipping a real database by hard-writing data in the codebase.
+You can then easily deploy your first prototype.
+(E.g. to a free static host such as GitHub Pages or Netlify.)
+Later, when hard-writing data isn't sustainable anymore,
+you can add a Node.js server and a database to your prototype.
 
 **Learn Once, Write Any App** -
 Instead of learning several frameworks,
 learn Reframe to be able to implement apps with any JavaScript stack.
-For example, you can use Reframe to implement a frontend-only with Vue.js
-but you can as well use Reframe to create a frontend+backend (SSR app) with React.
+For example, you can implement a frontend-only with Vue.js
+but you can as well implement a frontend+backend with React.
 
 **Resillient Framework** -
 Web dev technologies are rapidly evolving and,
 thanks to its flexible architecture,
 Reframe is able to adapt and embrace what comes next.
-Reframe aims to be your long-term companion for building web apps.
 
 
 
