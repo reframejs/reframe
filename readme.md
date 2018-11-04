@@ -212,7 +212,7 @@ For example,
 you can implement a first prototype as a frontend-only
 while skipping a real database by hard-writing data in the codebase.
 You can then easily deploy your first prototype.
-(E.g. to a free static host such as GitHub Pages or Netlify.)
+(To a free static host such as GitHub Pages or Netlify.)
 Later, when hard-writing data isn't sustainable anymore,
 you can add a Node.js server and a database to your prototype.
 
@@ -277,7 +277,7 @@ we created a frontend simply by defining one page config.
 
 <b><sub><a href="#examples">&#8679; TOP Examples &#8679;</a></sub></b>
 <br/>
-<b><sub><a href="#contents">&#8679; TOP Contents &#8679;</a></sub></b>
+<b><sub><a href="#contents">&#8679; TOP  &#8679;</a></sub></b>
 <br/>
 <br/>
 
@@ -360,7 +360,7 @@ we simply defined pages, data models, and permissions to create a full-stack app
 
 <b><sub><a href="#examples">&#8679; TOP Examples &#8679;</a></sub></b>
 <br/>
-<b><sub><a href="#contents">&#8679; TOP Contents &#8679;</a></sub></b>
+<b><sub><a href="#contents">&#8679; TOP  &#8679;</a></sub></b>
 
 <br/>
 <br/>
