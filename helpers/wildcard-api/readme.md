@@ -95,7 +95,27 @@ In the next section we compare the benefits and drawbacks of such tailored API.
 
 For a web app where the browser is our only client,
 a generic API is an unecessary indirection.
-Let's imagine we want our todo app to show
+Let's imagine we want to implement a new feature for our todo app that shows all the todos the user has shared with someone.
+
+Getting the list of shared todos from a RESTful/GraphQL API
+is painful.
+(you'd basically need to extend the API to have a new "resource" SharedRelation exposing the relation between a todo a users)
+
+But with Wildcard and a tailored API, it's easy:
+We simply create a new endpoint that performance the corresponding SQL query.
+We don't have to go over some .
+We directly "run" the SQL query.
+One way to think about Wildcard, is that exposes the whole power of SQL to client.
+that it allows "directly"  eases and encourages the implementation of a RPC-style API.
+The frontend developer can create any arbitrary SQL query to retrieve whatever the frontend needs.
+(In that in a secure way.)
+SQL is a much much more powerful tool than any RESTful or GraphQL API.
+Behing the curtain a RESTful/GraphQL will perform SQL queries anyways.
+It's simply a net loss of power.
+In a sense going over the generic API indirection, we loose power whereas with Wildcard we preserve the power of SQL.
+
+With RESTful/GraphQL we would need to perform that SQL query anyways.
+It's a indirection that can cost a consider of developing time.
 
 
 You develop against SQL queries (instead of being limited by a generic API).
