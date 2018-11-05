@@ -16,24 +16,6 @@ Virtually no reason to create a tailored API instead.
 ## Example
 
 ~~~js
-// Endpoint to get all the data that the landing page needs
-endpoints.getLandingPageData = ({requestContext}) => {
-  const user = await getLoggedUser(requestContext.req.headers.cookie);
-  if( ! user ) return {userIsNotLoggedIn: true};
-
-  const todos = await db.query("SELECT id, text, created_at FROM todos WHERE completed = false AND authorId = ${userId}");
-  return {user, todos};
-};
-
-// Endpoint to get all the data that the page showing the completed todos needs
-endpoints.getCompletedTodosPageData = async ({requestContext}) => {
-  const user = await getLoggedUser(requestContext.req.headers.cookie);
-  if( ! user ) return;
-
-  const todos = await db.query("SELECT id, text, completed_at FROM todos WHERE completed = true AND authorId = ${userId}");
-  return {user, todos};
-};
-
 // Endpoint for when the user changes the text of a todo
 endpoints.updateTodoText = async (todoId, newText, {requestContext}) => {
   const user = await getLoggedUser(requestContext.req.headers.cookie);
@@ -51,7 +33,6 @@ endpoints.updateTodoText = async (todoId, newText, {requestContext}) => {
 
   return todoUpdated;
 };
-
 ~~~
 
 

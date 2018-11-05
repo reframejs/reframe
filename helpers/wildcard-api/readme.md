@@ -97,9 +97,21 @@ In the next section we compare the benefits and drawbacks of such tailored API.
 
 ## Tailored Approach
 
-In the example above we have only have a single client: A web client.
+In the example above we have only have one client: A web app.
 
-You develop against SQL queries VS developing against a generic API.
+You don't need a generic API.
+And actually a generic API is an unecessary indirection.
+Let's imagine we want our todo app to show
+
+
+Now the downside is that such tailored API is tighly coupled to the client.
+If you have few this is ok.
+But if you have (which can happen quickly on mobile)
+Our recommandation is to start with a tailored API and when you reallize you develop one (for example with GraphQL) in parallel.
+and progressively make your clients use more and more the generic API over time to finally remove the tailored API.
+
+You develop against SQL queries (instead of being limited by a generic API).
+
 
 
 
