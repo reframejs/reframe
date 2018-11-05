@@ -41,7 +41,81 @@ And, depending on the requirements, it can lead to improved productivity for lar
 #### Contents
 
  - [Example](#example)
+ - [Tailored Approach](#tailored-endpoints-approach)
  - [Wildcard vs RESTful vs GraphQL](#wildcard-vs-restful-vs-graphql)
+
+
+## Example
+
+Let's consider a (simplistic) API for a todo list app.
+
+~~~js
+// Endpoint to get all the data that the landing page needs
+endpoints.getLandingPageData = ({requestContext}) => {
+  const user = await getLoggedUser(requestContext.req.headers.cookie);
+  if( ! user ) return {userIsNotLoggedIn: true};
+
+  const todos = await db.query("SELECT * FROM todos WHERE authorId = ${user.id} AND completed = false;");
+
+  return {user, todos};
+};
+
+// Endpoint to get all the data that the page showing the completed todos needs
+endpoints.getCompletedTodosPageData = async ({requestContext}) => {
+  const user = await getLoggedUser(requestContext.req.headers.cookie);
+  if( ! user ) return;
+
+  const todos = await db.query("SELECT * FROM todos WHERE authorId = ${user.id} AND completed = true;");
+
+  return {user, todos};
+};
+~~~
+
+To see how the frontend consumes this API, see .
+
+The endpoints above are tailored to our frontend: The endpoint `getCompletedTodosPageData` returns exactly what and is suitable only for that 
+
+Instead of tailored endpoints, we could have create generic endpoints:
+
+~~~js
+endpoints.getUser = ({requestContext}) => getLoggedUser(requestContext.req.headers.cookie);
+
+endpoints.getTodos = async (completed, {requestContext}) => {
+  const user = await getLoggedUser(requestContext.req.headers.cookie);
+  if( ! user ) return;
+
+  if( [true, false].includes(completed) ) return;
+
+  const todos = await db.query("SELECT * FROM todos WHERE authorId = ${user.id} AND completed = ${completed};");
+  return {user, todos};
+};
+~~~
+
+But we deliberately choose a tailored API over a generic one.
+
+In the next section we compare the benefits and drawbacks of such tailored API.
+
+## Tailored Approach
+
+In the example above we have only have a single client: A web client.
+
+You develop against SQL queries VS developing against a generic API.
+
+
+
+With RESTful and GraphQL you create generic APIs.
+This makes if you are Facebook and your API is consumed by many clients where data requirements are unknown.
+
+Much easier to create a tailored API while developing your protoype.
+
+
+But for your first prototype, RESTful and GraphQL are overkill and you don't need.
+You'll likely start with 
+
+As your prototype matures into a  
+
+
+
 
 
 ## Overview
