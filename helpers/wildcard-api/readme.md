@@ -101,44 +101,21 @@ Getting the list of shared todos from a RESTful/GraphQL API
 is painful.
 (you'd basically need to extend the API to have a new "resource" SharedRelation exposing the relation between a todo a users)
 
-But with Wildcard and a tailored API, it's easy:
-We simply create a new endpoint that performance the corresponding SQL query.
+But with a tailored API, it's easy:
+We simply create a new endpoint that runs a SQL query that gets the list of shared todos.
 We don't have to go over some .
 We directly "run" the SQL query.
-One way to think about Wildcard, is that exposes the whole power of SQL to client.
-that it allows "directly"  eases and encourages the implementation of a RPC-style API.
+
+One way to think about Wildcard, is that it exposes the whole power of SQL to the client in a secure way.
+
 The frontend developer can create any arbitrary SQL query to retrieve whatever the frontend needs.
-(In that in a secure way.)
-SQL is a much much more powerful tool than any RESTful or GraphQL API.
-Behing the curtain a RESTful/GraphQL will perform SQL queries anyways.
-It's simply a net loss of power.
-In a sense going over the generic API indirection, we loose power whereas with Wildcard we preserve the power of SQL.
+SQL is a much much more powerful than any RESTful or GraphQL API.
+Behind the curtain a RESTful/GraphQL will perform SQL queries anyways.
+It's a net loss of power.
+Going over a generic API indirection, we loose power, whereas with Wildcard we preserve the power of SQL.
 
-With RESTful/GraphQL we would need to perform that SQL query anyways.
-It's a indirection that can cost a consider of developing time.
-
-
-You develop against SQL queries (instead of being limited by a generic API).
-
-But we, we directly talk to the database.
-
-exposes
-This is powerful and flexible.
-
-finer control over what data is sent over the wire.
-Also efficient as a tailored endpoint returns exactly and only the data the client needs.
-
-With RESTful and GraphQL you create generic APIs.
-This makes if you are Facebook and your API is consumed by many clients where data requirements are unknown.
-
-Much easier to create a tailored API while developing your prototype.
-
-
-But for your first prototype, RESTful and GraphQL are overkill and you don't need.
-You'll likely start with 
-
-As your prototype matures into a  
-
+Wildcard is also effecient:
+A tailored endpoint can return exactly and only the data the client needs.
 
 Now the downside is that such tailored API is tighly coupled to the client.
 If you have few this is ok.
@@ -146,6 +123,12 @@ But if you have (which can happen quickly on mobile)
 Our recommandation is to start with a tailored API and when you reallize you develop one (for example with GraphQL) in parallel.
 and progressively make your clients use more and more the generic API over time to finally remove the tailored API.
 
+An example is by third parties.
+You have an unlimited amount of clients leaving no choice than to have
+making tailored API
+
+But, if your API is consumed by only few clients,
+then a generic API is just an indirection and Wildcard a superior alternative to RESTful/GraphQL.
 
 
 
@@ -157,20 +140,19 @@ and progressively make your clients use more and more the generic API over time 
 | Performant              | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true'/> <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true'/> | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> |
 | Flexible (few clients)  | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true'/> <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true'/> | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> |
 | Flexible (many clients) | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true'/> <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true'/> | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> |
-| Flexible (third-party)  | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true'/> <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/minus.svg?sanitize=true'/> | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> | <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> <img src='https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/plus.svg?sanitize=true'/> |
 
-\* Wildcard API following the [tailored-endpoints approach](#tailored-endpoints-approach)
+\* Wildcard API following the [Tailored Approach](#tailored-approach)
 <br/>
 \*\* RESTful API following [REST level-1](https://martinfowler.com/articles/richardsonMaturityModel.html#level1)
-
-Read the [overview](#overview) for an explanation of why Wildcard is easy, flexible and performant but not suitable for third-party clients.
 
 In a nutshell:
 Use Wildcard to create an API that is consumed by few clients that you control.
 
+Read the Example and Tailored Approach sections above for an explanation of this table.
+
 For your first MVP, Wildcard is most likely the better choice.
 
-As your MVP grows into a big application with a growing number of clients,
+As your MVP matures into a big application with a growing number of clients,
 you can progressively create a new API with RESTful/GraphQL in parallel to the existing Wildcard API.
 web app and migrating your mobile clients to use 
 
