@@ -19,14 +19,10 @@ function WildcardApiClient({
 
   return {
     fetchEndpoint,
-    endpoints: getEndpoints(),
-    getEndpoints,
+    endpoints: getEndpointsProxy(),
     addRequestContext,
   };
 
-  function getEndpoints() {
-    return getEndpointsProxy();
-  }
   function addRequestContext(_, requestContext) {
     return getEndpointsProxy(requestContext);
   }

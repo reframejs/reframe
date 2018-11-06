@@ -1,8 +1,6 @@
 const Todo = require('../db/models/Todo');
 const User = require('../db/models/User');
-const {getEndpoints} = require('wildcard-api');
-
-const endpoints = getEndpoints();
+const {endpoints} = require('wildcard-api');
 
 Object.assign(endpoints, {
   getTodos,
@@ -14,8 +12,8 @@ Object.assign(endpoints, {
   tmp,
 });
 
-async function toggleComplete({id}, {requestContext}) {
-  const user = getUser(requestContext);
+async function toggleComplete({id}) {
+  const user = getUser(this);
   if( ! user ) return;
 
   const todo = await Todo.query().findOne({id});
@@ -28,7 +26,8 @@ async function toggleComplete({id}, {requestContext}) {
   return todo;
 }
 
-async function updateTodo({id, text, completed}, {requestContext, notAuthorized}) {
+async function updateTodo({id, text, completed}) {
+  const {notAuthorized} = this;
   if(
     Object.keys(newValues).some(newProp => !['id', 'text', 'completed'].includes(newProp)) ||
     ! newValues.id
@@ -36,7 +35,7 @@ async function updateTodo({id, text, completed}, {requestContext, notAuthorized}
     return notAuthorized;
   }
 
-  const user = getUser(requestContext);
+  const user = getUser(this);
   if( ! user ) return;
 
   const todo = await Todo.query().findOne({id: newValues.id});
@@ -50,13 +49,13 @@ async function updateTodo({id, text, completed}, {requestContext, notAuthorized}
   return todo;
 }
 
-async function addTodo({text}, {requestContext}) {
-  const user = getUser(requestContext);
+async function addTodo({text}) {
+  const user = getUser(this);
   if( ! user ) return;
   return await Todo.query().insert({text, authorId: user.id});
 }
 
-async function getTodos({}, {requestContext}) {
+async function getTodos() {
   /*
   return await (
     Todo.query()
@@ -64,13 +63,13 @@ async function getTodos({}, {requestContext}) {
   */
 
   /*
-  const {id} = getUser(requestContext);
+  const {id} = getUser(this);
   const user = await User.query().findOne({id});
   const todos = await user.$relatedQuery('todos');
   */
 
   //*
-  const user = getUser(requestContext);
+  const user = getUser(this);
   if( ! user ) {
     return null;
   }
@@ -83,13 +82,13 @@ async function getTodos({}, {requestContext}) {
   return todos;
 }
 
-async function getLoggedUser({}, {requestContext}) {
-  const user = getUser(requestContext);
+async function getLoggedUser() {
+  const user = getUser(this);
   return user;
 }
 
-function getUser(requestContext) {
-  return requestContext.req.user;
+function getUser(context) {
+  return context.req.user;
 }
 
 function mirror({vali}) {

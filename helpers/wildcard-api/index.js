@@ -16,7 +16,6 @@ function WildcardApi({
   const notAuthorized = Symbol();
 
   return {
-    getEndpoints: () => endpoints,
     endpoints,
     apiRequestsHandler,
     __directCall,
