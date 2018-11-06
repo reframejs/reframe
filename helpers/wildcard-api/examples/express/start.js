@@ -25,6 +25,6 @@ async function start() {
 
 const {endpoints} = require('../../');
 
-endpoints.hello = () => 'yep';
+endpoints.hello = function() { return 'yep' };
 
-endpoints.test = () => db.query('SELECT * FROM todos;');
+endpoints.test = function () { return db.query('SELECT * FROM todos;') };

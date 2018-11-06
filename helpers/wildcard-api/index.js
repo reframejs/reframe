@@ -24,7 +24,7 @@ function WildcardApi({
 
   async function __directCall({endpointName, endpointArgs, requestContext}) {
     assert.internal(endpointName);
-    assert.internal(endpointArgs.constructor===Object);
+    assert.internal(endpointArgs.constructor===Array);
     assert.internal(requestContext.req.url);
 
     assert.usage(
@@ -41,7 +41,7 @@ function WildcardApi({
 
     assert.usage(
       endpointRet!==notAuthorized,
-      endpointArgs,
+      {endpointArgs},
       "Your code is doing an unauthorized request to the endpoint `"+endpointName+"`.",
       "The endpoint arguments are printed above",
     );
@@ -67,19 +67,30 @@ function WildcardApi({
 
     const urlParts = urlArgs.split('/');
     if( urlParts.length<1 || urlParts.length>2 || !urlParts[0] ) {
-      return responseError('Malformatted API URL: '+url, 400);
+      return responseError(
+        'Malformatted API URL `'+url+'`',
+        400
+      );
     }
     const endpointName = urlParts[0];
 
-    let endpointArgs = urlParts[1] && decodeURIComponent(urlParts[1]);
-    if( endpointArgs ) {
+    const endpointArgsString = urlParts[1] && decodeURIComponent(urlParts[1]);
+    let endpointArgs;
+    if( endpointArgsString ) {
       try {
-        endpointArgs = JSON.parse(endpointArgs);
+        endpointArgs = JSON.parse(endpointArgsString);
       } catch(err) {
-        return responseError('Malformatted URL arguments (i.e. endpoint arguments). URL args don\'t seem to be a JSON. URL args: `'+endpointArgs+'`. URL: `'+url+'`.', 400);
+        return responseError(
+          [
+            'Malformatted API URL `'+url+'`.',
+            'API URL arguments (i.e. endpoint arguments) don\'t seem to be a JSON.',
+            'API URL arguments: `'+endpointArgsString+'`',
+          ].join('\n'),
+          400
+        );
       }
     }
-    endpointArgs = endpointArgs || {};
+    endpointArgs = endpointArgs || [];
 
     /*
     let payload = args.payload || {};
@@ -93,6 +104,18 @@ function WildcardApi({
     }
     Object.assign(endpointArgs, payload);
     */
+
+    if( endpointArgs.constructor!==Array ) {
+      return responseError(
+        [
+          'Malformatted API URL `'+url+'`.',
+          'API URL arguments (i.e. endpoint arguments) should be an array.',
+          "Instead we got `"+endpointArgs.constructor+"`.",
+          'API URL arguments: `'+endpointArgsString+'`',
+        ].join('\n'),
+        400
+      );
+    }
 
     if( ! endpointExists(endpointName) ) {
       return responseError('Endpoint '+endpointName+" doesn't exist.", 404);
@@ -130,7 +153,7 @@ function WildcardApi({
   }
 
   async function runEndpoint({endpointName, endpointArgs, requestContext}) {
-    assert.internal(endpointArgs.constructor===Object);
+    assert.internal(endpointArgs.constructor===Array);
     assert.internal(requestContext.req.url);
     const endpoint = endpoints[endpointName];
     assert.internal(endpoint);

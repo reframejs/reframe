@@ -32,8 +32,8 @@ function WildcardApiClient({
   }
 
   function fetchEndpoint(endpointName, endpointArgs, wildcardApiArgs, ...restArgs) {
-    endpointArgs = endpointArgs || {};
     wildcardApiArgs = wildcardApiArgs || {};
+    endpointArgs = endpointArgs || [];
 
     const {requestContext, serverRootUrl} = wildcardApiArgs;
 
@@ -54,33 +54,32 @@ function WildcardApiClient({
   }
 
   function validateArgs({endpointName, endpointArgs, wildcardApiArgs, restArgs, wildcardApiFound, runDirectlyWithoutHTTP}) {
-    assert.internal(endpointArgs);
-    const endpointArgs__valid = (
-      restArgs.length===0 &&
-      endpointArgs.constructor===Object
-    );
-
     assert.internal(wildcardApiArgs);
-    const wildcardApiArgs__valid = (
+    const fetchEndpoint__validArgs = (
+      endpointName &&
+      endpointArgs.constructor===Array,
+      restArgs.length===0,
       wildcardApiArgs.constructor===Object &&
       Object.keys(wildcardApiArgs).every(arg => ['requestContext', 'serverRootUrl', isCalledByProxy].includes(arg))
     );
 
     if( wildcardApiArgs[isCalledByProxy] ) {
-      assert.internal(endpointName);
-      assert.internal(wildcardApiArgs__valid);
-      assert.usage(
-        endpointArgs__valid,
-        "The arguments of an endpoint should be an (optional) single plain object.",
-        "E.g. `endpoints.getLoggedUser()` and `endpoints.getTodos({tags: ['food'], onlyCompleted: true})` are valid.",
-        "But `endpoints.getTodos(['food'])` and `endpoints.getTodos(['food'], {onlyCompleted: true})` are invalid.",
-      );
+      assert.internal(fetchEndpoint__validArgs);
     } else {
       assert.usage(
-        endpointName && endpointArgs__valid && wildcardApiArgs__valid,
-        "Correct usage: `fetchEndpoint(endpointName, endpointArguments, {requestContext, serverRootUrl})` where `endpointArguments`, `requestContext`, and `serverRootUrl` are optional.",
-        "E.g. `fetchEndpoint('getTodos')` and `fetchEndpoint('getLoggedUser', {}, {tags: ['food'], onlyCompleted: true})` are valid.",
-        "But `fetchEndpoint('getTodos', ['food'])` and `fetchEndpoint('getTodos', {tags: ['food']}, {onlyCompleted: true})` are invalid.",
+        fetchEndpoint__validArgs,
+        "Correct usage:"+
+        "",
+        "  `fetchEndpoint(endpointName, endpointArgs, {requestContext, serverRootUrl})`",
+        "",
+        "    where:",
+        "      - `endpointName` is the name of the endpoint (required)",
+        "      - `endpointArgs` is the argument list of the endpoint (optional)",
+        "      - `requestContext` (optional)",
+        "      - `serverRootUrl` is the URL root of the server (optional)",
+        "",
+        "    For example:",
+        "      `fetchEndpoint('getTodos')` and `fetchEndpoint('getTodos', [{tags: ['food']}, {onlyCompleted: true}])` are valid.",
       );
     }
 
@@ -178,8 +177,8 @@ function WildcardApiClient({
         }
 
      // console.log(prop, target===dummyObject, typeof prop, new Error().stack);
-        return (endpointArgs, ...restArgs) => {
-          return fetchEndpoint(prop, endpointArgs, {requestContext, [isCalledByProxy]: true}, ...restArgs);
+        return (...endpointArgs) => {
+          return fetchEndpoint(prop, endpointArgs, {requestContext, [isCalledByProxy]: true});
         }
       }})
     );
@@ -206,22 +205,23 @@ function envSupportsProxy() {
   return typeof "Proxy" !== "undefined";
 }
 
-function serializeArgs(argsObject, endpointName) {
-  if( Object.keys(argsObject).length===0 ) {
+function serializeArgs(endpointArgs, endpointName) {
+  assert.internal(endpointArgs.length>=0);
+  if( endpointArgs.length===0 ) {
     return undefined;
   }
   let serializedArgs;
   try {
-    serializedArgs = JSON.stringify(argsObject);
+    serializedArgs = JSON.stringify(endpointArgs);
   } catch(err) {
     assert.usage(
       false,
-      err,
-      argsObject,
+      {err},
+      {endpointArgs},
       [
         "Couldn't serialize arguments for `"+endpointName+"`.",
         "Using `JSON.stringify`.",
-        "The arguments in question and the `JSON.stringify` error are printed above.",
+        "The endpoint arguments in question and the `JSON.stringify` error are printed above.",
       ].join('\n')
     );
     assert.internal(false);
