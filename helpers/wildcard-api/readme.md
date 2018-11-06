@@ -4,7 +4,7 @@ Wildcard is super easy:
 
 ~~~js
 // Server
-const {endpoints} = require('wilcard-api');
+const {endpoints} = require('wildcard-api');
 const db = require('./db');
 
 // We define a `getTodos` function on the server
@@ -156,26 +156,15 @@ Wildcard is vastly easier, more performant, and more flexible than REST/GraphQL.
 On the other hand, if you have many clients, then using REST/GraphQL can make more sense.
 
 For your first prototype, Wildcard is most likely the better choice.
-As your prototype matures into a big application with a growing number of clients,
-you can start create a RESTful/GraphQL API in parallel to your existing Wildcard API.
+As your prototype matures into a big application and with a growing number of clients,
+your Wildcard API can start to become cumbersome to maintain.
+(Depending on how many tailored endpionts your clients you have and how much their data requirements differ)
+At that point you can start create a RESTful/GraphQL API in parallel to your existing Wildcard API.
 You can then progressively remove the Wildcard API one tailored endpoint at a time.
-Or you keep both APIs.
+You can also keep both APIs.
 
 For large scale applications,
 combining Wildcard with RESTful/GraphQL can be a fruitful strategy.
-For example, you can combine a RESTful API for for third party clients with a Wildcard API for your clients.
+For example, you can combine a RESTful API for third-party clients with a Wildcard API for your clients.
 Or you can use a GraphQL API for most of your data requirements and use a Wildcard API
 for couple of data requirements that cannot be fulfilled with your GraphQL API.
-
-
-
-Our recommandation is to start with a tailored API and when you reallize you develop one (for example with GraphQL) in parallel.
-and progressively make your clients use more and more the generic API over time to finally remove the tailored API.
-
-Since Wildcard is easy to setup,
-you can use a tailored API to implement your first prototype,
-and as your prototypes grows into a big application,
-then you can start implementing a generic API with RESTful/GraphQL.
-More about such combinational strategy in the section.
-
-Especially early days where data schema changes a lot, having to adapt everytime the data schema changes is a drag
