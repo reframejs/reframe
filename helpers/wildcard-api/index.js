@@ -138,7 +138,18 @@ function WildcardApi({
       !endpoint || endpoint instanceof Function,
       "An endpoint must be function but the endpoint `endpoints['"+endpointName+"']` is a `"+(endpoint&&endpoint.constructor)+"`",
     )
-    return await endpoint(endpointArgs, {requestContext, createResponse, notAuthorized});
+    assert.usage(
+      !isArrowFunction(endpoint),
+      "The endpoint `"+endpointName+"` is defined with an arrow function.",
+      "Arrow functions (`() => {}`) are not allowed to be used to define endpoints.",
+      "Use a plain function (`function(){}`) instead.",
+    );
+    const context = new WildcardContext({
+      ...(requestContext||{}),
+      createResponse,
+      notAuthorized,
+    });
+    return await endpoint.apply(context, endpointArgs);
   }
   function endpointExists(endpointName) {
     const endpoint = endpoints[endpointName];
@@ -188,3 +199,28 @@ function WildcardApi({
 function isNodejs() {
   return typeof "process" !== "undefined" && process && process.versions && process.versions.node;
 }
+
+function isArrowFunction(fn) {
+  // https://stackoverflow.com/questions/28222228/javascript-es6-test-for-arrow-function-built-in-function-regular-function
+  // https://gist.github.com/brillout/51da4cb90a5034e503bc2617070cfbde
+
+  assert.internal(!yes(function(){}));
+  assert.internal(yes(()=>{}));
+  assert.internal(!yes(async function(){}));
+  assert.internal(yes(async ()=>{}));
+
+  return yes(fn);
+
+  function yes(fn) {
+    if( fn.hasOwnProperty("prototype") ) {
+      return false;
+    }
+    const fnStr = fn.toString();
+    if( fnStr.startsWith('async') ) {
+      return !fnStr.startsWith('async function');
+    }
+    return true;
+  }
+}
+
+function WildcardContext(contextObject) {Object.assign(this, contextObject);}
