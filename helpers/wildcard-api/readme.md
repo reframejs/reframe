@@ -150,60 +150,24 @@ strategies to combine a tailored API with a generic API.
 <br/>
 \*\* Following at least [REST level-1](https://martinfowler.com/articles/richardsonMaturityModel.html#level1)
 
-If you have only one or few clients,
+If you have only one or few clients, then
 Wildcard is vastly easier, more performant, and more flexible than REST/GraphQL.
-(The previous section shows why.)
-
+(See the previous section for a rationale.)
 On the other hand, if you have many clients, then using REST/GraphQL can make more sense.
 
 For your first prototype, Wildcard is most likely the better choice.
 As your prototype matures into a big application with a growing number of clients,
-you can start create a RESTful/GraphQL API.
-At this point you 
-
-You then progressively make your clients use less and less your Wildcard API and more and more until your remove the Wildcard API.
-Or you maintain and use both APIs.
+you can start create a RESTful/GraphQL API in parallel to your existing Wildcard API.
+You can then progressively remove the Wildcard API one tailored endpoint at a time.
+Or you keep both APIs.
 
 For large scale applications,
-Combining Wildcard with RESTful/GraphQL can make sense.
-
-For example, you can combine a Wildcard API for your clients with a RESTful API for for third party clients.
+combining Wildcard with RESTful/GraphQL can be a fruitful strategy.
+For example, you can combine a RESTful API for for third party clients with a Wildcard API for your clients.
 Or you can use a GraphQL API for most of your data requirements and use a Wildcard API
 for couple of data requirements that cannot be fulfilled with your GraphQL API.
 
-is not (or less efficient)
-(easily) feasible with GraphQL.
-Or you can as well
-For example,
-a Wildcard API for your clients combined with a RESTful API for third-party clients.
-Or for example to mostly use GraphQL for both your clients and third party clients and
-use a Wildcard API for couple of specific data requirements that would difficult to fulfill with GraphQL.
 
-
-
-
-
-Your first prototype is likely to have only one or few clients.
-
-You can implement your first
-Your first prototype using Wildcard exclusively.
-As your prototype you can start implementing a RESTful/GraphQL API.
-
-At this point
-For prototypes, using Wildcard exclusively most likely 
-
-and progressively migrate your clients to use
-the new RESTful/GraphQL API.
-
-Even for large applications, 
-Also, having both a tailored API and a generic API can make sense.
-For example,
-a Wildcard API for your clients combined with a RESTful/GraphQL API for third-party clients.
-Or a Wildcard API for your web app
-
-Our recommandation:
-Start with a Wildcard API and
-at a later point
 
 Our recommandation is to start with a tailored API and when you reallize you develop one (for example with GraphQL) in parallel.
 and progressively make your clients use more and more the generic API over time to finally remove the tailored API.
