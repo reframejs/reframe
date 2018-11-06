@@ -1,6 +1,6 @@
 const assert = require('reassert');
 
-const DEFAULT_API_URL_BASE = '/*/';
+const DEFAULT_API_URL_BASE = '/wildcard/';
 
 assert.usage(isNodejs(), "The server-side module should be loaded in Node.js and not in the browser.");
 
@@ -17,6 +17,7 @@ function WildcardApi({
 
   return {
     getEndpoints: () => endpoints,
+    endpoints,
     apiRequestsHandler,
     __directCall,
   };
@@ -54,6 +55,11 @@ function WildcardApi({
       url,
       "Missing `requestContext.req.url`."
     );
+
+    if( url===apiUrlBase || apiUrlBase.endsWith('/') && url===apiUrlBase.slice(0, -1) ) {
+      return {body: getListOfEndpoints()};
+    }
+
     if( ! url.startsWith(apiUrlBase) ) {
         return null;
     }
@@ -151,6 +157,31 @@ function WildcardApi({
     assert.usage(obj.body && obj.body.constructor===String);
     obj[IS_RESPONSE_OBJECT] = true;
     return obj;
+  }
+
+  function getListOfEndpoints() {
+    return (
+      [
+        '<html>',
+        '  Endpoints:',
+        '  <ul>',
+        ...(
+          Object.keys(endpoints)
+          .map(endpointName => {
+            const endpointURL = DEFAULT_API_URL_BASE+endpointName;
+            return '    <li><a href="'+endpointURL+'">'+endpointURL+'</a></li>'
+          })
+        ),
+        '  </ul>',
+        '  <br/>',
+        '  <small>',
+        '    This page only exists in development.',
+        '    <br/>',
+        '    (When server has `process.env.NODE_ENV===undefined`.)',
+        '  </small>',
+        '</html>',
+      ].join('\n')
+    );
   }
 }
 

@@ -1,13 +1,14 @@
 const {apiRequestsHandler} = require('../../');
 const express = require('express');
 const db = require('./db');
+require('./api/view-endpoints');
 
 start();
 
 async function start() {
   const app = express();
 
-  app.all('/\*/*' , async(req, res, next) => {
+  app.all('/wildcard/*' , async(req, res, next) => {
  // const {method, url, headers} = req;
     const apiResponse = await apiRequestsHandler({req});
 
@@ -22,9 +23,7 @@ async function start() {
   app.listen(3000);
 }
 
-const {getEndpoints} = require('../../');
-
-const endpoints = getEndpoints();
+const {endpoints} = require('../../');
 
 endpoints.hello = () => 'yep';
 
