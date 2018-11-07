@@ -2,9 +2,9 @@ const assert = require('reassert');
 
 const DEFAULT_API_URL_BASE = '/wildcard/';
 
-module.exports = {WildcardApiClient};
+module.exports = {WildcardClient};
 
-function WildcardApiClient({
+function WildcardClient({
   makeHttpRequest,
   apiUrlBase=DEFAULT_API_URL_BASE,
   wildcardApi,
@@ -12,7 +12,7 @@ function WildcardApiClient({
 
   assert.usage(
     makeHttpRequest,
-    "You need to provide a `makeHttpRequest` to `new WildcardApiClient({makeHttpRequest})`.",
+    "You need to provide a `makeHttpRequest` to `new WildcardClient({makeHttpRequest})`.",
   );
 
   const isCalledByProxy = Symbol();
@@ -95,7 +95,7 @@ function WildcardApiClient({
       assert.usage(
         wildcardApiFound.__directCall,
         errorIntro,
-        "You are providing the `wildcardApi` parameter to `new WildcardApiClient({wildcardApi})`.",
+        "You are providing the `wildcardApi` parameter to `new WildcardClient({wildcardApi})`.",
         "But `wildcardApi` doesn't seem to be a instance of `new WildcardApi()`.",
       );
       assert.usage(
@@ -123,7 +123,7 @@ function WildcardApiClient({
     }
     assert.usage(
       apiUrlBase && apiUrlBase.length>0 && apiUrlBase.startsWith,
-      "Argument `apiUrlBase` in `new WildcardApiClient({apiUrlBase})` should be a non-empty string."
+      "Argument `apiUrlBase` in `new WildcardClient({apiUrlBase})` should be a non-empty string."
     );
     if( !apiUrlBase.endsWith('/') ) {
       apiUrlBase += '/';

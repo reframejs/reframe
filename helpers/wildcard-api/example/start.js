@@ -13,7 +13,7 @@ async function start() {
     const apiResponse = await getApiResponse({method, url, headers});
 
     if( apiResponse ) {
-   // res.status(apiResponse.statusCode);
+      res.status(apiResponse.statusCode);
       res.send(apiResponse.body);
     }
 
@@ -22,9 +22,3 @@ async function start() {
 
   app.listen(3000);
 }
-
-const {endpoints} = require('../');
-
-endpoints.hello = function() { return 'yep' };
-
-endpoints.test = function () { return db.query('SELECT * FROM todos;') };

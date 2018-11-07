@@ -1,10 +1,10 @@
 const fetch = require('@brillout/fetch');
-const {WildcardApiClient} = require('./WildcardApiClient');
+const {WildcardClient} = require('./WildcardClient');
 
-const apiClient = new WildcardApiClient({makeHttpRequest});
+const apiClient = new WildcardClient({makeHttpRequest});
 
 module.exports = apiClient;
-module.exports.WildcardApiClient = WildcardApiClient;
+module.exports.WildcardClient = WildcardClient;
 module.exports.makeHttpRequest = makeHttpRequest;
 
 async function makeHttpRequest({url, ...args}) {
