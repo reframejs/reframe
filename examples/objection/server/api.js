@@ -27,12 +27,12 @@ async function toggleComplete({id}) {
 }
 
 async function updateTodo({id, text, completed}) {
-  const {notAuthorized} = this;
+  const {__experimental_notAuthorized} = this;
   if(
     Object.keys(newValues).some(newProp => !['id', 'text', 'completed'].includes(newProp)) ||
     ! newValues.id
   ) {
-    return notAuthorized;
+    return __experimental_notAuthorized;
   }
 
   const user = getUser(this);
@@ -42,7 +42,7 @@ async function updateTodo({id, text, completed}) {
   if( ! todo ) return;
 
   if( todo.authorId !== user.id ) {
-    return notAuthorized;
+    return __experimental_notAuthorized;
   }
 
   await todo.$query().update(newValues);

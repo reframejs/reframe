@@ -13,7 +13,7 @@ function WildcardApi({
   const endpoints = {};
 
   const IS_RESPONSE_OBJECT = Symbol();
-  const notAuthorized = Symbol();
+  const __experimental_notAuthorized = Symbol();
 
   return {
     endpoints,
@@ -25,8 +25,7 @@ function WildcardApi({
   async function __directCall({endpointName, endpointArgs, context}) {
     assert.internal(endpointName);
     assert.internal(endpointArgs.constructor===Array);
-    assert.internal(context.url);
-    assert.internal(context.method);
+    assert.internal(!context || context.constructor===Object);
 
     assert.usage(
       endpointExists(endpointName),
@@ -41,7 +40,7 @@ function WildcardApi({
     }
 
     assert.usage(
-      endpointRet!==notAuthorized,
+      endpointRet!==__experimental_notAuthorized,
       {endpointArgs},
       "Your code is doing an unauthorized request to the endpoint `"+endpointName+"`.",
       "The endpoint arguments are printed above",
@@ -152,7 +151,7 @@ function WildcardApi({
       return couldNotHandle;
     }
 
-    if( endpointRet===notAuthorized ) {
+    if( endpointRet===__experimental_notAuthorized ) {
       return responseError("The request is not authorized.", 401);
     }
 
@@ -174,27 +173,29 @@ function WildcardApi({
   }
 
   async function runEndpoint({endpointName, endpointArgs, context}) {
+    assert.internal(endpointName);
     assert.internal(endpointArgs.constructor===Array);
-    assert.internal(context.url);
-    assert.internal(context.method);
+    assert.internal(!context || context.constructor===Object);
+
     const endpoint = endpoints[endpointName];
     assert.internal(endpoint);
     assert.usage(
       !endpoint || endpoint instanceof Function,
       "An endpoint must be function but the endpoint `endpoints['"+endpointName+"']` is a `"+(endpoint&&endpoint.constructor)+"`",
-    )
+    );
     assert.usage(
       !isArrowFunction(endpoint),
       "The endpoint `"+endpointName+"` is defined with an arrow function.",
       "Arrow functions (`() => {}`) are not allowed to be used to define endpoints.",
       "Use a plain function (`function(){}`) instead.",
     );
+
     return (
       await endpoint.apply(
         new WildcardContext({
           ...(context||{}),
-          createResponse,
-          notAuthorized,
+          __experimental_createResponse,
+          __experimental_notAuthorized,
         }),
         endpointArgs,
       )
@@ -213,7 +214,7 @@ function WildcardApi({
     };
   }
 
-  function createResponse(obj) {
+  function __experimental_createResponse(obj) {
     assert.usage(obj.body && obj.body.constructor===String);
     obj[IS_RESPONSE_OBJECT] = true;
     return obj;

@@ -64,18 +64,19 @@ function WildcardApiClient({
     } else {
       assert.usage(
         fetchEndpoint__validArgs,
-        "Correct usage:"+
+        "Usage:"+
         "",
         "  `fetchEndpoint(endpointName, endpointArgs, {context, serverRootUrl})`",
         "",
-        "    where:",
-        "      - `endpointName` is the name of the endpoint (required)",
-        "      - `endpointArgs` is the argument list of the endpoint (optional)",
-        "      - `context` is an object holding context information (optional)",
-        "      - `serverRootUrl` is the URL root of the server (optional)",
+        "    Where:",
+        "      - `endpointName` is the name of the endpoint (required string)",
+        "      - `endpointArgs` is the argument list of the endpoint (optional array)",
+        "      - `context` is an object holding contextual information (optional object)",
+        "      - `serverRootUrl` is the URL root of the server (optional string)",
         "",
-        "    For example:",
-        "      `fetchEndpoint('getTodos')` and `fetchEndpoint('getTodos', [{tags: ['food']}, {onlyCompleted: true}])` are valid.",
+        "    Examples:",
+        "      `fetchEndpoint('getTodos')`",
+        "      `fetchEndpoint('getTodos', [{tags: ['food']}, {onlyCompleted: true}])`",
       );
     }
 
