@@ -80,8 +80,14 @@ async function execDev({options}) {
         if( serverRet && serverRet.stop ) {
           const stopPromise = serverRet.stop();
           assert_stopPromise(stopPromise);
+          logPromiseState(
+            stopPromise,
+            {
+              progressText: 'Stopping server...',
+              successText: 'Server stopped.',
+            }
+          );
           await stopPromise;
-          console.log(symbolSuccess+'Server stopped.');
         }
 
         isGoingToRestart = false;
@@ -93,6 +99,36 @@ async function execDev({options}) {
 
     serverStarting = runServer(config, {isRestart: false});
     await serverStarting;
+}
+
+async function logPromiseState(promise, {progressText, successText, failureText}) {
+  const {symbolSuccess, symbolWarning, symbolError, loadingSpinner} = require('@brillout/cli-theme');
+
+  loadingSpinner.start({text: progressText});
+
+  let checkIfFinished;
+  checkIn(2);
+
+  try {
+    await promise;
+  } catch(err) {
+    loadingSpinner.stop();
+    console.log(symbolError+failureText);
+  }
+
+  clearTimeout(checkIfFinished);
+
+  loadingSpinner.stop();
+  console.log(symbolSuccess+successText);
+
+  return;
+
+  function checkIn(seconds) {
+    checkIfFinished = setTimeout(() => {
+      loadingSpinner.changeText(progressText+' ('+symbolWarning+'Not finished after '+(2*seconds-2)+' seconds. )');
+      checkIn(seconds*2)
+    }, seconds*1000);
+  }
 }
 
 function assert_stop(serverRet) {
@@ -166,9 +202,26 @@ async function runServer(config, {isRestart}) {
       console.log(symbolSuccess+'Restarting server...');
     }
 
+    let startPromise;
+    try {
+        startPromise = forceRequire(serverEntry);
+    } catch(err) {
+        handleServerError({err, isTranspiled});
+        return null;
+    }
+    /*
+    logPromiseState(
+      startPromise,
+      {
+        progressText: 'Starting server...',
+        successText: 'Server started.',
+      }
+    );
+    */
+
     let serverRet;
     try {
-        serverRet = await forceRequire(serverEntry);
+        serverRet = await startPromise;
     } catch(err) {
         handleServerError({err, isTranspiled});
         return null;

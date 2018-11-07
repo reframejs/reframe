@@ -25,7 +25,8 @@ const cliTheme = {
 
     symbolSuccess: chalk.cyan(' '+symbols.success+' '),
     symbolError: chalk.red(' '+symbols.error+' '),
-    symbolInfo: chalk.yellow(' '+symbols.info+' '),
+    symbolInfo: chalk.blue(' '+symbols.info+' '),
+    symbolWarning: chalk.yellow(' '+symbols.warning+' '),
 
     indent: '   ',
 
@@ -47,6 +48,7 @@ const cliTheme = {
     loadingSpinner: {
         start: startLoadingSpinner,
         stop: stopLoadingSpinner,
+        changeText: changeLoadingSpinnerText,
     },
 };
 
@@ -74,6 +76,8 @@ function startLoadingSpinner({text}={}) {
 
     currentLoadingSpinner = ora(oraOpts);
 
+    currentLoadingSpinner.spinner = {frames: currentLoadingSpinner.spinner.frames.map(frame => ' '+frame)};
+
     currentLoadingSpinner.start();
 }
 
@@ -94,6 +98,13 @@ function stopLoadingSpinner() {
     currentLoadingSpinner.stop();
 
     currentLoadingSpinner = null;
+}
+
+function changeLoadingSpinnerText(newText) {
+    if( ! currentLoadingSpinner ) {
+        return;
+    }
+    currentLoadingSpinner.text = newText;
 }
 
 // Copied and adapted from https://www.npmjs.com/package/log-symbols

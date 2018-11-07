@@ -8,10 +8,9 @@ export default {
   getInitialProps,
 };
 
-async function getInitialProps({requestContext, isNodejs}) {
-  assert(!!requestContext === !!isNodejs);
-
+async function getInitialProps({context, isNodejs}) {
   if( isNodejs ) {
+    assert(context.request.headers);
     var {user, todos} = await addContext(endpoints, requestContext).getLandingPageData();
   } else {
     var {user, todos} = await endpoints.getLandingPageData();
