@@ -95,9 +95,11 @@ endpoints.getTodos = async (completed, {requestContext}) => {
 
 But we deliberately choose to implement a tailored API instead of a generic API.
 
-We explain why in the next section.
+Let's see why.
 
 ## Tailored Approach
+
+###### Why tailored
 
 To see why a tailored API makes sense,
 let's imagine we want to implement a new feature for our todo example app:
@@ -112,6 +114,8 @@ But with a tailored API, it's easy:
 We simply create a new endpoint that uses SQL to query the list of shared todos.
 (In our example the SQL query would join the tables `Todo` and `SharedWith`.)
 We can "directly" run SQL queries and we don't have to go over the indirection of a generic API.
+
+###### Full backend power
 
 A frontend developer can use any arbitrary SQL query to retrieve whatever the frontend needs.
 SQL is much (much!) more powerful than any RESTful or GraphQL API.
@@ -128,6 +132,8 @@ etc.
 
 Wildcard is also effecient:
 A tailored endpoint can return exactly and only the data the client needs.
+
+###### But...
 
 A potential downside of a tailored API
 is in case you have many clients with many distinct data requirements:
@@ -155,28 +161,28 @@ and a generic API is required.
 <br/>
 \*\* Following at least [REST level-1](https://martinfowler.com/articles/richardsonMaturityModel.html#level1)
 
-With many endpoints we actually a high number of endpoints
+With many endpoints we denote a high number of endpoints
 to the point of being unmanageable.
-The criteria is basically this:
+The criteria is this:
 For a database change, how much effort is required to adapt the affected endpoints?
 With a large amount of endpoints,
 that effort can become high and using REST/GraphQL can be more appropriate.
-The following is a rough estimate of when that may happen.
 
-A **prototype** typically has few endpoints and
-**Wildcard** is certainly the better choice.
-<br/>
-Example: You're a startup and you need to ship an MVP ASAP.
+Rough estimate of when to use what:
+- A **prototype** typically has few endpoints and
+  **Wildcard** is certainly the better choice.
+  <br/>
+  Example: You're a startup and you need to ship an MVP ASAP.
+- A **medium-sized application** typically has a manageable amount of endpoints and
+  **Wildcard** is most likely the better choice.
+  <br/>
+  Example: A team of 4-5 developers implementing a Q&A website like StackOverflow.
+- A **large application** may have so many endpoints that maintaining a Wildcard API can become cumbersome and
+  at that point **REST/GraphQL** starts to make more sense.
 
-A **medium-sized application** typically has a manageable amount of endpoints and
-**Wildcard** is most likely the better choice.
-<br/>
-Example: A team of 4-5 developers implementing a Q&A website like StackOverflow.
-
-A **large applications** may have so many endpoints that maintaining a Wildcard API can become cumbersome and
-at that point **REST/GraphQL** starts to make more sense.
-
-You can implement your prototype with Wildcard and later, if your prototype grows into a large application having so many endpoints that your Wildcard API becomes cumbersome to maintain,
+You can implement your prototype with Wildcard,
+and later,
+if your prototype grows into a large application having so many endpoints that your Wildcard API becomes cumbersome to maintain,
 migrate to a RESTful/GraphQL API.
 Migration is easily manageable by progressively replacing Wildcard endpoints with RESTful/GraphQL endpoints.
 
