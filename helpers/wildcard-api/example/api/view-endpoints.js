@@ -1,6 +1,6 @@
 const {endpoints} = require('../../');
 const db = require('../db');
-const getLoggedUser = () => ({id: 1});
+const {getLoggedUser} = require('../auth');
 
 // Endpoint to get all the data that the landing page needs
 endpoints.getLandingPageData = async function () {

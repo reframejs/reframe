@@ -1,6 +1,5 @@
-const {getApiResponse} = require('../');
 const express = require('express');
-const db = require('./db');
+const {getApiResponse} = require('../');
 require('./api/view-endpoints');
 
 start();
