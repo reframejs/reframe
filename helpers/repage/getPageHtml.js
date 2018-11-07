@@ -4,7 +4,7 @@ const {renderPageHtml} = require('./common-server');
 
 module.exports = getPageHtml;
 
-async function getPageHtml({pageConfigs, uri, renderToHtml, router, initialProps}) {
+async function getPageHtml({pageConfigs, uri, renderToHtml, router, context}) {
     const url = getUrl({uri});
 
     const pageConfigMatches = (
@@ -23,7 +23,7 @@ async function getPageHtml({pageConfigs, uri, renderToHtml, router, initialProps
         'Performance warning; dynamically rendering a static page at `'+uri+'`.'
     );
 
-    const html = await renderPageHtml({renderToHtml, pageConfig, url, router, initialProps});
+    const html = await renderPageHtml({renderToHtml, pageConfig, url, router, context});
 
     return html;
 }
