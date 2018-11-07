@@ -17,7 +17,7 @@ function WildcardApi({
 
   return {
     endpoints,
-    universalServerAdapter,
+    universalPlug,
     getApiResponse,
     __directCall,
   };
@@ -49,7 +49,9 @@ function WildcardApi({
     return endpointRet;
   }
 
-  async function universalServerAdapter() {}
+  async function universalPlug(context) {
+    return getApiResponse(context);
+  }
 
   async function getApiResponse(context) {
     const {url, method} = context;

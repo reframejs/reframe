@@ -11,26 +11,17 @@ export default {
 async function getInitialProps({requestContext, isNodejs}) {
   assert(!!requestContext === !!isNodejs);
 
-  const user = (
-    isNodejs ? (
-      await addContext(endpoints, requestContext).getLoggedUser()
-    ) : (
-      await endpoints.getLoggedUser()
-    )
-  );
+  if( isNodejs ) {
+    var {user, todos} = await addContext(endpoints, requestContext).getLandingPageData();
+  } else {
+    var {user, todos} = await endpoints.getLandingPageData();
+  }
+
   if( ! user ) {
     return null;
   }
 
-  const todos = (
-    isNodejs ? (
-      await addContext(endpoints, requestContext).getTodos()
-    ) : (
-      await endpoints.getTodos()
-    )
-  );
-
-  return {todos, user};
+  return {user, todos};
 }
 
 function MainPage(props) {
@@ -57,7 +48,7 @@ class TodoList extends React.Component {
     this.addTodo = this.addTodo.bind(this);
   }
   async onCompleteToggle(todo) {
-    const todoUpdated = await endpoints.toggleComplete({id: todo.id});
+    const todoUpdated = await endpoints.toggleComplete(todo.id);
     this.setState({
       todos: (
         this.state.todos.map(todo => {
@@ -70,7 +61,7 @@ class TodoList extends React.Component {
     });
   }
   async addTodo(text) {
-    const todo = await endpoints.addTodo({text});
+    const todo = await endpoints.addTodo(text);
     this.setState({
       todos: [
         ...this.state.todos,

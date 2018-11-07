@@ -3,16 +3,30 @@ const User = require('../db/models/User');
 const {endpoints} = require('wildcard-api');
 
 Object.assign(endpoints, {
-  getTodos,
-  getLoggedUser,
+  // view endpoints
+  getLandingPageData,
+
+  // action endpoints
   toggleComplete,
-  updateTodo,
   addTodo,
+
   mirror,
   tmp,
 });
 
-async function toggleComplete({id}) {
+async function getLandingPageData() {
+  const user = getUser(this);
+  if( ! user ) return {user: null, todos: null};
+
+  const todos = await (
+    user
+    .$relatedQuery('todos')
+  );
+
+  return {user, todos};
+}
+
+async function toggleComplete(id) {
   const user = getUser(this);
   if( ! user ) return;
 
@@ -26,6 +40,7 @@ async function toggleComplete({id}) {
   return todo;
 }
 
+/*
 async function updateTodo({id, text, completed}) {
   const {__experimental_notAuthorized} = this;
   if(
@@ -48,8 +63,9 @@ async function updateTodo({id, text, completed}) {
   await todo.$query().update(newValues);
   return todo;
 }
+*/
 
-async function addTodo({text}) {
+async function addTodo(text) {
   const user = getUser(this);
   if( ! user ) return;
   return await Todo.query().insert({text, authorId: user.id});
@@ -88,10 +104,10 @@ async function getLoggedUser() {
 }
 
 function getUser(context) {
-  return context.req.user;
+  return context.user;
 }
 
-function mirror({vali}) {
+function mirror(vali) {
   return vali;
 }
 

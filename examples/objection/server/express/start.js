@@ -3,7 +3,7 @@ const express = require('express');
 const config = require('@brillout/reconfig').getConfig({configFileName: 'reframe.config.js'});
 const UniversalExpressAdapter = require('@universal-adapter/express');
 const {symbolSuccess, colorEmphasis} = require('@brillout/cli-theme');
-const {apiRequestsHandler, version} = require('wildcard-api');
+const {universalPlug, version} = require('wildcard-api');
 const knex = require('../../db/setup');
 require('../api');
 const auth = require('./auth');
@@ -17,7 +17,7 @@ async function start() {
 
     const {universalAdapter, addParams, serveContent, onServerClose} = (
       UniversalExpressAdapter([
-        apiRequestsHandler,
+        universalPlug,
         config.ServerRendering,
         config.StaticAssets,
       ])

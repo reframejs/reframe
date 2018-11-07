@@ -64,10 +64,10 @@ async function execDev({options}) {
             return;
         }
 
-        assert.internal(serverStarting.then instanceof Function);
-        const server = await serverStarting;
+        assert.internal(isCallable(serverStarting.then));
+        const serverRet = await serverStarting;
 
-        const serverStopFunctionIsMissing = assert_stop(server);
+        const serverStopFunctionIsMissing = assert_stop(serverRet);
         if( serverStopFunctionIsMissing ) {
             return;
         }
@@ -77,10 +77,12 @@ async function execDev({options}) {
         }
         isGoingToRestart = true;
 
-        const stopPromise = server.stop();
-        assert_stopPromise(stopPromise);
-        await stopPromise;
-        console.log(symbolSuccess+'Server stopped.');
+        if( serverRet && serverRet.stop ) {
+          const stopPromise = serverRet.stop();
+          assert_stopPromise(stopPromise);
+          await stopPromise;
+          console.log(symbolSuccess+'Server stopped.');
+        }
 
         isGoingToRestart = false;
         serverStarting = runServer(config, {isRestart: true});
@@ -93,30 +95,40 @@ async function execDev({options}) {
     await serverStarting;
 }
 
-function assert_stop(server) {
+function assert_stop(serverRet) {
   const assert = require('reassert');
-  if( ! server && ! (server.stop instanceof Function) ) {
+
+  if( serverRet === null ) return false;
+
+  if( ! serverRet || ! isCallable(serverRet.stop) ) {
     assert.warning(false,
       "You need to restart the server manually.",
       "",
-      "If you want the server to be automatically restarted then make sure the function exported by `serverStartFile` returns a stop function.",
+      "If you want the server to be automatically restarted then make sure the object exported by `serverStartFile` has a stop function.",
+      "",
       "In other words, make sure that:",
-      "  `assert((await require(config.serverStartFile)()).server.stop instanceof Function)`",
+      "  `assert((await require(config.serverStartFile)()).stop instanceof Function)`",
+      "(But the exported object is `"+serverRet+"` and `stop` is `"+(serverRet ? serverRet.stop : undefined)+"`.)",
     );
     return true;
   }
+
   return false;
 }
 function assert_stopPromise(stopPromise) {
   const assert = require('reassert');
   assert.usage(
-    stopPromise && stopPromise.then instanceof Function,
+    stopPromise && isCallable(stopPromise.then),
     "The server stop function returns:",
     stopPromise,
     "The server stop function should return a promise.",
     "In other words, make sure that:",
-    "  `assert((await require(config.serverStartFile)()).server.stop().then instanceof Function)`",
+    "  `assert((await require(config.serverStartFile)()).stop().then instanceof Function)`",
   );
+}
+
+function isCallable(thing) {
+  return typeof thing === "function";
 }
 
 async function execBuild({options}) {
@@ -154,23 +166,23 @@ async function runServer(config, {isRestart}) {
       console.log(symbolSuccess+'Restarting server...');
     }
 
-    let server;
+    let serverRet;
     try {
-        server = await forceRequire(serverEntry);
+        serverRet = await forceRequire(serverEntry);
     } catch(err) {
         handleServerError({err, isTranspiled});
         return null;
     }
 
-   // console.log(symbolSuccess+'Server running '+server.info.uri);
+   // console.log(symbolSuccess+'Server running '+serverRet.info.uri);
 
     if( ! isRestart ) {
-        log_routes(config, server);
+        log_routes(config, serverRet);
         console.log();
         unaligned_env_warning(config);
     }
 
-    return server;
+    return serverRet;
 }
 function serverIsTranspiled(config) {
     return !!(config.transpileServerCode && config.serverStartFile);
@@ -269,11 +281,11 @@ function handleServerError({err, isTranspiled}) {
     }
 }
 
-function log_routes(config, server) {
+function log_routes(config, serverRet) {
     const {pageConfigs} = config.getBuildInfo();
     const {colorPkg, colorDim, indent} = require('@brillout/cli-theme');
 
-    const serverUrl = server && server.info && server.info.uri || '';
+    const serverUrl = serverRet && serverRet.info && serverRet.info.uri || '';
 
     const routes = (
         pageConfigs

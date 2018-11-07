@@ -1,7 +1,7 @@
 const Hapi = require('hapi');
 const config = require('@brillout/reconfig').getConfig({configFileName: 'reframe.config.js'});
 const {symbolSuccess, colorEmphasis} = require('@brillout/cli-theme');
-const {apiRequestsHandler, version} = require('wildcard-api');
+const {universalPlug, version} = require('wildcard-api');
 const knex = require('../db/setup');
 require('./api');
 const UniversalHapiAdapter = require('@universal-adapter/hapi');
@@ -16,7 +16,7 @@ async function start() {
 
     await server.register(
       UniversalHapiAdapter([
-        apiRequestsHandler,
+        universalPlug,
         config.ServerRendering,
         config.StaticAssets,
       ])

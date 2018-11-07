@@ -3,8 +3,8 @@ const assert = require('reassert');
 module.exports = getHandlers;
 
 function getHandlers(handlers) {
-  assert.internal(handlers && (isHandler(handlers) || handlers.constructor===Array));
-  const handlerList = isHandler(handlers) ? [handlers] : handlers;
+  assert.internal(handlers && (isCallable(handlers) || handlers.constructor===Array));
+  const handlerList = isCallable(handlers) ? [handlers] : handlers;
 
   const requestHandlers = [];
   const paramHandlers = [];
@@ -12,11 +12,15 @@ function getHandlers(handlers) {
 
   handlerList
   .forEach(handlerSpec => {
-    if( isHandler(handlerSpec) ) {
+    if( isCallable(handlerSpec) ) {
       requestHandlers.push(handlerSpec);
       return;
     }
-    assert.usage(handlerSpec && handlerSpec.constructor===Object, handlerSpec);
+    assert.usage(
+      handlerSpec && handlerSpec.constructor===Object,
+      handlerSpec,
+      "Provided universal plug is not an object nor a function"
+    );
 
     const handlerNames = ['paramHandler', 'requestHandler', 'onServerCloseHandler'];
 
@@ -28,7 +32,7 @@ function getHandlers(handlers) {
       if( ! handler ) {
         return;
       }
-      assert.usage(isHandler(handler), handlerSpec, handler, handlerName);
+      assert.usage(isCallable(handler), handlerSpec, handler, handlerName);
       if( handlerName==='paramHandler' ) {
         paramHandlers.push(handler);
         return;
@@ -51,16 +55,16 @@ function getHandlers(handlers) {
 
   return {requestHandlers, paramHandlers, onServerCloseHandlers};
 }
-function isHandler(thing) {
-  return thing instanceof Function;
+function isCallable(thing) {
+  return typeof thing === "function";
 }
 
 function sortHandlers(handlers) {
   return (
     handlers
     .sort((h1, h2) => {
-      assert.internal(isHandler(h1));
-      assert.internal(isHandler(h2));
+      assert.internal(isCallable(h1));
+      assert.internal(isCallable(h2));
       const p1 = (h1.executionPriority||0);
       const p2 = (h2.executionPriority||0);
       assert.internal(p1.constructor===Number);
