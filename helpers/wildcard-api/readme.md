@@ -144,8 +144,8 @@ where the browser is our only cient and we have only few endpoints,
 there are virtually no reasons to not prefer a tailored API over a generic one.
 
 On the other side of the spectrum,
-if you want third parties to be able to access your data,
-then you have an unlimited number of clients
+if you want third parties to access your data,
+then you basically have an unlimited number of clients
 and a generic API is required.
 
 ## Wildcard vs REST vs GraphQL
@@ -171,11 +171,9 @@ that effort can become high and using REST/GraphQL can be more appropriate.
 Rough estimate of when to use what:
 - A **prototype** typically has few endpoints and
   **Wildcard** is certainly the better choice.
-  <br/>
   Example: You're a startup and you need to ship an MVP ASAP.
 - A **medium-sized application** typically has a manageable amount of endpoints and
   **Wildcard** is most likely the better choice.
-  <br/>
   Example: A team of 4-5 developers implementing a Q&A website like StackOverflow.
 - A **large application** may have so many endpoints that maintaining a Wildcard API can become cumbersome and
   at that point **REST/GraphQL** starts to make more sense.
