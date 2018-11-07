@@ -1,4 +1,4 @@
-const {apiRequestsHandler} = require('../../');
+const {getApiResponse} = require('../../');
 const express = require('express');
 const db = require('./db');
 require('./api/view-endpoints');
@@ -9,8 +9,8 @@ async function start() {
   const app = express();
 
   app.all('/wildcard/*' , async(req, res, next) => {
- // const {method, url, headers} = req;
-    const apiResponse = await apiRequestsHandler({req});
+    const {method, url, headers} = req;
+    const apiResponse = await getApiResponse({method, url, headers});
 
     if( apiResponse ) {
    // res.status(apiResponse.statusCode);

@@ -17,21 +17,23 @@ function WildcardApi({
 
   return {
     endpoints,
-    apiRequestsHandler,
+    universalServerAdapter,
+    getApiResponse,
     __directCall,
   };
 
-  async function __directCall({endpointName, endpointArgs, requestContext}) {
+  async function __directCall({endpointName, endpointArgs, context}) {
     assert.internal(endpointName);
     assert.internal(endpointArgs.constructor===Array);
-    assert.internal(requestContext.req.url);
+    assert.internal(context.url);
+    assert.internal(context.method);
 
     assert.usage(
       endpointExists(endpointName),
       'Endpoint '+endpointName+" doesn't exist.",
     );
 
-    const endpointRet = await runEndpoint({endpointName, endpointArgs, requestContext});
+    const endpointRet = await runEndpoint({endpointName, endpointArgs, context});
 
     if( endpointRet && endpointRet[IS_RESPONSE_OBJECT] ) {
       assert.internal(endpointRet.body.constructor===String);
@@ -48,11 +50,31 @@ function WildcardApi({
     return endpointRet;
   }
 
-  async function apiRequestsHandler(requestContext) {
-    let url = requestContext && requestContext.req && requestContext.req.url;
+  async function universalServerAdapter() {}
+
+  async function getApiResponse(context) {
+    const {url, method} = context;
+    const correctUsage = [
+      "Usage:",
+      "",
+      "  `const apiResponse = await getApiResponse({method, url, ...context});`",
+      "",
+      "where",
+      "  - `method` is the HTTP method of the request",
+      "  - `url` is the HTTP URI of the request",
+      "  - `context` are optional additional context information such as logged-in user, HTTP headers, etc.",
+    ];
     assert.usage(
       url,
-      "Missing `requestContext.req.url`."
+      "Context is missing `url`.",
+      ...correctUsage,
+      "Correct usage"
+    );
+    assert.usage(
+      method,
+      "Context is missing `method`.",
+      ...correctUsage,
+      "Correct usage"
     );
 
     if( url===apiUrlBase || apiUrlBase.endsWith('/') && url===apiUrlBase.slice(0, -1) ) {
@@ -124,7 +146,7 @@ function WildcardApi({
 
     let endpointRet;
     try {
-      endpointRet = await runEndpoint({endpointName, endpointArgs, requestContext});
+      endpointRet = await runEndpoint({endpointName, endpointArgs, context});
     } catch(err) {
       console.error(err);
       return couldNotHandle;
@@ -151,9 +173,10 @@ function WildcardApi({
     return {body};
   }
 
-  async function runEndpoint({endpointName, endpointArgs, requestContext}) {
+  async function runEndpoint({endpointName, endpointArgs, context}) {
     assert.internal(endpointArgs.constructor===Array);
-    assert.internal(requestContext.req.url);
+    assert.internal(context.url);
+    assert.internal(context.method);
     const endpoint = endpoints[endpointName];
     assert.internal(endpoint);
     assert.usage(
@@ -166,12 +189,16 @@ function WildcardApi({
       "Arrow functions (`() => {}`) are not allowed to be used to define endpoints.",
       "Use a plain function (`function(){}`) instead.",
     );
-    const context = new WildcardContext({
-      ...(requestContext||{}),
-      createResponse,
-      notAuthorized,
-    });
-    return await endpoint.apply(context, endpointArgs);
+    return (
+      await endpoint.apply(
+        new WildcardContext({
+          ...(context||{}),
+          createResponse,
+          notAuthorized,
+        }),
+        endpointArgs,
+      )
+    );
   }
   function endpointExists(endpointName) {
     const endpoint = endpoints[endpointName];

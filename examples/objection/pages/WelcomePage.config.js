@@ -1,5 +1,5 @@
 import React from 'react';
-import {endpoints, addRequestContext} from 'wildcard-api/client';
+import {endpoints, addContext} from 'wildcard-api/client';
 import assert from 'reassert';
 
 export default {
@@ -13,7 +13,7 @@ async function getInitialProps({requestContext, isNodejs}) {
 
   const user = (
     isNodejs ? (
-      await addRequestContext(endpoints, requestContext).getLoggedUser()
+      await addContext(endpoints, requestContext).getLoggedUser()
     ) : (
       await endpoints.getLoggedUser()
     )
@@ -24,7 +24,7 @@ async function getInitialProps({requestContext, isNodejs}) {
 
   const todos = (
     isNodejs ? (
-      await addRequestContext(endpoints, requestContext).getTodos()
+      await addContext(endpoints, requestContext).getTodos()
     ) : (
       await endpoints.getTodos()
     )

@@ -20,18 +20,18 @@ function WildcardApiClient({
   return {
     fetchEndpoint,
     endpoints: getEndpointsProxy(),
-    addRequestContext,
+    addContext,
   };
 
-  function addRequestContext(_, requestContext) {
-    return getEndpointsProxy(requestContext);
+  function addContext(_, context) {
+    return getEndpointsProxy(context);
   }
 
   function fetchEndpoint(endpointName, endpointArgs, wildcardApiArgs, ...restArgs) {
     wildcardApiArgs = wildcardApiArgs || {};
     endpointArgs = endpointArgs || [];
 
-    const {requestContext, serverRootUrl} = wildcardApiArgs;
+    const {context, serverRootUrl} = wildcardApiArgs;
 
     const wildcardApiFound = wildcardApi || typeof global !== "undefined" && global && global.__globalWildcardApi;
     const runDirectlyWithoutHTTP = !!wildcardApiFound;
@@ -40,10 +40,10 @@ function WildcardApiClient({
 
     if( runDirectlyWithoutHTTP ) {
       assert.internal(isNodejs());
-      assert.internal(requestContext);
-      return wildcardApiFound.__directCall({endpointName, endpointArgs, requestContext});
+      assert.internal(context);
+      return wildcardApiFound.__directCall({endpointName, endpointArgs, context});
     } else {
-      assert.internal(!requestContext);
+      assert.internal(!context);
       const url = getUrl({endpointName, endpointArgs, serverRootUrl});
       return makeHttpRequest({url});
     }
@@ -56,7 +56,7 @@ function WildcardApiClient({
       endpointArgs.constructor===Array,
       restArgs.length===0,
       wildcardApiArgs.constructor===Object &&
-      Object.keys(wildcardApiArgs).every(arg => ['requestContext', 'serverRootUrl', isCalledByProxy].includes(arg))
+      Object.keys(wildcardApiArgs).every(arg => ['context', 'serverRootUrl', isCalledByProxy].includes(arg))
     );
 
     if( wildcardApiArgs[isCalledByProxy] ) {
@@ -66,12 +66,12 @@ function WildcardApiClient({
         fetchEndpoint__validArgs,
         "Correct usage:"+
         "",
-        "  `fetchEndpoint(endpointName, endpointArgs, {requestContext, serverRootUrl})`",
+        "  `fetchEndpoint(endpointName, endpointArgs, {context, serverRootUrl})`",
         "",
         "    where:",
         "      - `endpointName` is the name of the endpoint (required)",
         "      - `endpointArgs` is the argument list of the endpoint (optional)",
-        "      - `requestContext` (optional)",
+        "      - `context` is an object holding context information (optional)",
         "      - `serverRootUrl` is the URL root of the server (optional)",
         "",
         "    For example:",
@@ -79,7 +79,7 @@ function WildcardApiClient({
       );
     }
 
-    const {requestContext} = wildcardApiArgs;
+    const {context} = wildcardApiArgs;
     if( runDirectlyWithoutHTTP ) {
       const errorIntro = [
         "You are trying to run an endpoint directly.",
@@ -98,19 +98,19 @@ function WildcardApiClient({
         "But `wildcardApi` doesn't seem to be a instance of `new WildcardApi()`.",
       );
       assert.usage(
-        requestContext,
+        context,
         errorIntro,
         "(This usually means that you are using the Wildcard API Client on Node.js while doing server-side rendering.)",
-        "But `requestContext` is missing.",
-        "You should provive `requestContext`.",
-        "(`requestContext` should be an object holding information about the original HTTP request from the user's browser.)",
+        "But `context` is missing.",
+        "You should provive `context`.",
+        "(`context` should be an object holding information about the original HTTP request from the user's browser.)",
         "(Such as HTTP headers that would typically include the user authentication information.)",
       );
     } else {
       assert.usage(
-        requestContext===undefined,
+        context===undefined,
         "You are fetching an API endpoint by doing an HTTP request.",
-        "You are providing `requestContext` but that doens't make sense. (Since we are doing an HTTP request anyways.)",
+        "You are providing `context` but that doens't make sense. (Since we are doing an HTTP request anyways.)",
       );
     }
   }
@@ -156,7 +156,7 @@ function WildcardApiClient({
     return url;
   }
 
-  function getEndpointsProxy(requestContext) {
+  function getEndpointsProxy(context) {
     assertProxySupport();
 
     const dummyObject = {};
@@ -174,7 +174,7 @@ function WildcardApiClient({
 
      // console.log(prop, target===dummyObject, typeof prop, new Error().stack);
         return (...endpointArgs) => {
-          return fetchEndpoint(prop, endpointArgs, {requestContext, [isCalledByProxy]: true});
+          return fetchEndpoint(prop, endpointArgs, {context, [isCalledByProxy]: true});
         }
       }})
     );

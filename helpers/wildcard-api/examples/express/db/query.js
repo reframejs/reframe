@@ -7,6 +7,5 @@ const knex = Knex(knexfile);
 
 async function query(SQL) {
   const ret = await knex.raw(SQL);
-  console.log(ret);
   return ret;
 }
