@@ -99,31 +99,29 @@ We explain why in the next section.
 
 ## Tailored Approach
 
-For a web app,
-such as our example above,
-where the browser is the only client,
-a generic API is an unecessary indirection.
+To see why a tailored API makes sense,
+let's imagine we want to implement a new feature for our todo example app:
+We want a page that shows all the todos that the user has shared with someone.
 
-Let's imagine we want to implement a new feature for our todo example app:
-We want to implement a new page that shows all the todos that the user has shared with someone.
-
-Such data requirements, like getting the list of shared todos,
-are very difficult to fulfil from a RESTful/GraphQL API.
-(You'd either need to overfetch a lot of data (which sometimes can be prohibitive)
+Such data requirements (like getting the list of shared todos)
+are very difficult to fulfil with a RESTful/GraphQL API.
+(You'd either need to overfetch a lot of data (which can be prohibitive)
 or extend the RESTful/GraphQL API in a clunky and unnatural way.)
 
 But with a tailored API, it's easy:
 We simply create a new endpoint that runs a SQL query that gets the list of shared todos.
-(By filtering and joining the tables `Todo` and `SharedWith`.)
+(By joining the tables `Todo` and `SharedWith`.)
 We can "directly" run SQL queries and we don't have to go over the indirection of a generic API.
-
-One way to think about Wildcard is that it exposes the whole power of SQL to the client in a secure way.
 
 A frontend developer can use any arbitrary SQL query to retrieve whatever the frontend needs.
 SQL is much (much!) more powerful than any RESTful or GraphQL API.
 Behind the curtain a RESTful/GraphQL will perform SQL queries anyways.
 Going over a generic API is simply an indirection and a net loss in power.
 Whereas with Wildcard we preserve the full power of SQL.
+
+One way to think about Wildcard is that it exposes the whole power of your backend to the client in a secure way.
+The server has vastly more capabilities as its disposal than the browser:
+It can do SQL queries, NoSQL queries, use an embedded key value store, etc.
 
 Wildcard is also effecient:
 A tailored endpoint can return exactly and only the data the client needs.
@@ -132,13 +130,13 @@ A potential downside of a tailored API
 is in case you have many clients with many distinct data requirements:
 Maintaining a huge amount of tailored endpoints can become cumbersome.
 
-If you have only few clients then a tailored API is most likely the better choice.
-In our example above where the browser is our only cient,
-there are virtually no reason to not prefer a tailored API over a generic one.
+In our todo app example above,
+where the browser is our only cient and we have only few endpoints,
+there are virtually no reasons to not prefer a tailored API over a generic one.
 
 On the other side of the spectrum,
 if you want third parties to be able to access your data,
-you'd then have an unlimited number of clients,
+then you have an unlimited number of clients
 and a generic API is required.
 
 ## Wildcard vs REST vs GraphQL
