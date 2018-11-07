@@ -187,16 +187,16 @@ function isNodejs() {
 }
 
 function assertProxySupport() {
-    assert.usage(
-      envSupportsProxy(),
-      [
-        "This JavaScript environment doesn't seem to support Proxy.",
-        "Use `fetchEndpoint` instead of `endpoints`.",
-        "",
-        "Note that all browsers support Proxy with the exception of Internet Explorer.",
-        "If you want to support IE then use `fetchEndpoint` instead.",
-      ].join('\n')
-    );
+  assert.usage(
+    envSupportsProxy(),
+    [
+      "This JavaScript environment doesn't seem to support Proxy.",
+      "Use `fetchEndpoint` instead of `endpoints`.",
+      "",
+      "Note that all browsers support Proxy with the exception of Internet Explorer.",
+      "If you want to support IE then use `fetchEndpoint` instead.",
+    ].join('\n')
+  );
 }
 function envSupportsProxy() {
   return typeof "Proxy" !== "undefined";

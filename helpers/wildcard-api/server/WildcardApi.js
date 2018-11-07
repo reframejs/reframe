@@ -4,8 +4,7 @@ const DEFAULT_API_URL_BASE = '/wildcard/';
 
 assert.usage(isNodejs(), "The server-side module should be loaded in Node.js and not in the browser.");
 
-module.exports = global.__globalWildcardApi = new WildcardApi();
-module.exports.WildcardApi = module.exports.WildcardApi || WildcardApi;
+module.exports = WildcardApi;
 
 function WildcardApi({
   apiUrlBase=DEFAULT_API_URL_BASE,
