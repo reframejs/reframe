@@ -80,6 +80,11 @@
 
 # Wildcard API
 
+*Cheap 'n Easy.*
+
+<br/>
+<br/>
+
 Wildcard lets your client load data from your server in an easy, flexible, and performant way.
 
 Wildcard is super easy:
