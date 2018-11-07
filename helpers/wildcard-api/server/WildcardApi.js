@@ -78,7 +78,7 @@ function WildcardApi({
     );
 
     if( url===apiUrlBase || apiUrlBase.endsWith('/') && url===apiUrlBase.slice(0, -1) ) {
-      return {body: getListOfEndpoints()};
+      return {body: getListOfEndpoints(), statusCode: 200};
     }
 
     if( ! url.startsWith(apiUrlBase) ) {
@@ -170,7 +170,7 @@ function WildcardApi({
       return couldNotHandle;
     }
     assert.internal(body.constructor===String);
-    return {body};
+    return {body, statusCode: 200};
   }
 
   async function runEndpoint({endpointName, endpointArgs, context}) {
@@ -199,6 +199,7 @@ function WildcardApi({
   }
 
   function responseError(usageError, statusCode) {
+    assert.internal(statusCode);
     const body = JSON.stringify({usageError});
     return {
       body,
@@ -208,7 +209,11 @@ function WildcardApi({
 
   function __experimental_createResponse(obj) {
     assert.usage(obj.body && obj.body.constructor===String);
-    obj[IS_RESPONSE_OBJECT] = true;
+    obj = {
+      IS_RESPONSE_OBJECT: true,
+      ...obj,
+      statusCode: obj.statusCode || 200,
+    };
     return obj;
   }
 
