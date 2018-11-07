@@ -10,13 +10,13 @@ module.exports.WildcardApi = module.exports.WildcardApi || WildcardApi;
 function WildcardApi({
   apiUrlBase=DEFAULT_API_URL_BASE,
 }={}) {
-  const endpoints = {};
+  const endpoints__source = {};
 
   const IS_RESPONSE_OBJECT = Symbol();
   const __experimental_notAuthorized = Symbol();
 
   return {
-    endpoints,
+    endpoints: new Proxy(endpoints__source, {set: validateEndpoint}),
     universalPlug,
     getApiResponse,
     __directCall,
@@ -179,18 +179,9 @@ function WildcardApi({
     assert.internal(endpointArgs.constructor===Array);
     assert.internal(!context || context.constructor===Object);
 
-    const endpoint = endpoints[endpointName];
+    const endpoint = endpoints__source[endpointName];
     assert.internal(endpoint);
-    assert.usage(
-      !endpoint || endpoint instanceof Function,
-      "An endpoint must be function but the endpoint `endpoints['"+endpointName+"']` is a `"+(endpoint&&endpoint.constructor)+"`",
-    );
-    assert.usage(
-      !isArrowFunction(endpoint),
-      "The endpoint `"+endpointName+"` is defined with an arrow function.",
-      "Arrow functions (`() => {}`) are not allowed to be used to define endpoints.",
-      "Use a plain function (`function(){}`) instead.",
-    );
+    assert.internal(endpointIsValid(endpoint));
 
     return (
       await endpoint.apply(
@@ -204,7 +195,7 @@ function WildcardApi({
     );
   }
   function endpointExists(endpointName) {
-    const endpoint = endpoints[endpointName];
+    const endpoint = endpoints__source[endpointName];
     return !!endpoint;
   }
 
@@ -229,7 +220,7 @@ function WildcardApi({
         '  Endpoints:',
         '  <ul>',
         ...(
-          Object.keys(endpoints)
+          Object.keys(endpoints__source)
           .map(endpointName => {
             const endpointURL = DEFAULT_API_URL_BASE+endpointName;
             return '    <li><a href="'+endpointURL+'">'+endpointURL+'</a></li>'
@@ -250,6 +241,39 @@ function WildcardApi({
 
 function isNodejs() {
   return typeof "process" !== "undefined" && process && process.versions && process.versions.node;
+}
+
+function endpointIsValid(endpoint) {
+    return isCallable(endpoint) && !isArrowFunction(endpoint);
+}
+
+function isCallable(thing) {
+  return thing instanceof Function || typeof thing === "function";
+}
+
+function validateEndpoint(obj, prop, value) {
+  const endpoints__source = obj;
+  const endpoint = value;
+  const endpointName = prop;
+
+  assert.usage(
+    isCallable(endpoint),
+    "An endpoint must be function.",
+    "But `endpoints['"+endpointName+"']` is "+((endpoint&&endpoint.constructor)?'a ':'')+"`"+(endpoint&&endpoint.constructor)+"`",
+  );
+
+  assert.usage(
+    !isArrowFunction(endpoint),
+    "The endpoint `"+endpointName+"` is defined with an arrow function.",
+    "Endpoints are not allowed to be defined with arrow functions (`() => {}`).",
+    "Use a plain function (`function(){}`) instead.",
+  );
+
+  assert.internal(endpointIsValid);
+
+  obj[prop] = value;
+
+  return true;
 }
 
 function isArrowFunction(fn) {

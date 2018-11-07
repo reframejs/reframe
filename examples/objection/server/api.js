@@ -12,6 +12,11 @@ Object.assign(endpoints, {
 
   mirror,
   tmp,
+
+  //te: () => 'euhwir',
+  //te2: async () => 'euhwir',
+  te: function () {return'euhwir'},
+  te2: async function () {return 'euhwir'},
 });
 
 async function getLandingPageData() {
