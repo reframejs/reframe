@@ -1,4 +1,80 @@
-!OUTPUT ../readme.md
+<!---
+
+
+
+
+
+
+    WARNING, READ THIS.
+    This is a computed file. Do not edit.
+    Edit `/helpers/wildcard-api/docs/intro.template.md` instead.
+
+
+
+
+
+
+
+
+
+
+
+
+    WARNING, READ THIS.
+    This is a computed file. Do not edit.
+    Edit `/helpers/wildcard-api/docs/intro.template.md` instead.
+
+
+
+
+
+
+
+
+
+
+
+
+    WARNING, READ THIS.
+    This is a computed file. Do not edit.
+    Edit `/helpers/wildcard-api/docs/intro.template.md` instead.
+
+
+
+
+
+
+
+
+
+
+
+
+    WARNING, READ THIS.
+    This is a computed file. Do not edit.
+    Edit `/helpers/wildcard-api/docs/intro.template.md` instead.
+
+
+
+
+
+
+
+
+
+
+
+
+    WARNING, READ THIS.
+    This is a computed file. Do not edit.
+    Edit `/helpers/wildcard-api/docs/intro.template.md` instead.
+
+
+
+
+
+
+-->
 
 Wildcard lets your client load data from your server in an easy, flexible, and performant way.
 
@@ -48,7 +124,29 @@ Wildcard is ideal for rapid prototyping, quickly delivering an MVP, and fast dev
 Let's consider a API for a simple todo list app.
 
 ~~~js
-!INLINE ../example/api/view-endpoints --hide-source-path
+const {endpoints} = require('../../');
+const db = require('../db');
+const {getLoggedUser} = require('../auth');
+
+// Endpoint to get all the data that the landing page needs
+endpoints.getLandingPageData = async function () {
+  const user = await getLoggedUser(this.headers.cookie);
+  if( ! user ) return {userIsNotLoggedIn: true};
+
+  const todos = await db.query(`SELECT * FROM todos WHERE authorId = ${user.id} AND completed = false;`);
+
+  return {user, todos};
+};
+
+// Endpoint to get all the data that the page showing the completed todos needs
+endpoints.getCompletedTodosPageData = async function () {
+  const user = await getLoggedUser(this.headers.cookie);
+  if( ! user ) return;
+
+  const todos = await db.query(`SELECT * FROM todos WHERE authorId = ${user.id} AND completed = true;`);
+
+  return {user, todos};
+};
 ~~~
 
 (You can read and run the entire example's code at [./example](/example/).)
@@ -62,7 +160,26 @@ which shows user information and all todos that aren't completed.
 We could have created generic endpoints instead:
 
 ~~~js
-!INLINE ../example/api/generic-endpoints --hide-source-path
+const {endpoints} = require('../../');
+const db = require('../db');
+const {getLoggedUser} = require('../auth');
+
+endpoints.getUser = async function() {
+  const user = await getLoggedUser(this.headers.cookie);
+  return user;
+};
+
+endpoints.getTodos = async function (completed) {
+  const user = await getLoggedUser(this.headers.cookie);
+  if( ! user ) return;
+
+  if( ![true, false].includes(completed) ) return;
+
+  const todos = await (
+    db.query(`SELECT * FROM todos WHERE authorId = ${user.id} AND completed = ${completed};`)
+  );
+  return {todos};
+};
 ~~~
 
 But we deliberately choose to implement a tailored API instead of a generic API.
@@ -160,3 +277,81 @@ Also, combining a Wildcard API with RESTful/GraphQL API can be a fruitful strate
 For example, a RESTful API for third-party clients combined with a Wildcard API for your clients.
 Or a GraphQL API for most of your data requirements combined with a Wildcard API
 for couple of data requirements that cannot be fulfilled with your GraphQL API.
+
+<!---
+
+
+
+
+
+
+    WARNING, READ THIS.
+    This is a computed file. Do not edit.
+    Edit `/helpers/wildcard-api/docs/intro.template.md` instead.
+
+
+
+
+
+
+
+
+
+
+
+
+    WARNING, READ THIS.
+    This is a computed file. Do not edit.
+    Edit `/helpers/wildcard-api/docs/intro.template.md` instead.
+
+
+
+
+
+
+
+
+
+
+
+
+    WARNING, READ THIS.
+    This is a computed file. Do not edit.
+    Edit `/helpers/wildcard-api/docs/intro.template.md` instead.
+
+
+
+
+
+
+
+
+
+
+
+
+    WARNING, READ THIS.
+    This is a computed file. Do not edit.
+    Edit `/helpers/wildcard-api/docs/intro.template.md` instead.
+
+
+
+
+
+
+
+
+
+
+
+
+    WARNING, READ THIS.
+    This is a computed file. Do not edit.
+    Edit `/helpers/wildcard-api/docs/intro.template.md` instead.
+
+
+
+
+
+
+-->
