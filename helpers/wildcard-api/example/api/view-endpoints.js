@@ -1,4 +1,4 @@
-const {endpoints} = require('../../../');
+const {endpoints} = require('../../');
 const db = require('../db');
 const getLoggedUser = () => ({id: 1});
 

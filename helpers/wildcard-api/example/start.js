@@ -1,4 +1,4 @@
-const {getApiResponse} = require('../../');
+const {getApiResponse} = require('../');
 const express = require('express');
 const db = require('./db');
 require('./api/view-endpoints');
@@ -23,7 +23,7 @@ async function start() {
   app.listen(3000);
 }
 
-const {endpoints} = require('../../');
+const {endpoints} = require('../');
 
 endpoints.hello = function() { return 'yep' };
 
