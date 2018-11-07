@@ -1,3 +1,5 @@
+!OUTPUT ../readme.md
+
 Wildcard lets your client load data from your server in an easy, flexible, and performant way.
 
 Wildcard is super easy:
@@ -46,25 +48,7 @@ Wildcard is ideal for rapid prototyping, quickly delivering an MVP, and fast dev
 Let's consider a API for a simple todo list app.
 
 ~~~js
-// Endpoint to get all the data that the landing page needs
-endpoints.getLandingPageData = async ({requestContext}) => {
-  const user = await getLoggedUser(requestContext.req.headers.cookie);
-  if( ! user ) return {userIsNotLoggedIn: true};
-
-  const todos = await db.query("SELECT * FROM todos WHERE authorId = ${user.id} AND completed = false;");
-
-  return {user, todos};
-};
-
-// Endpoint to get all the data that the page showing the completed todos needs
-endpoints.getCompletedTodosPageData = async ({requestContext}) => {
-  const user = await getLoggedUser(requestContext.req.headers.cookie);
-  if( ! user ) return;
-
-  const todos = await db.query("SELECT * FROM todos WHERE authorId = ${user.id} AND completed = true;");
-
-  return {todos};
-};
+!INLINE /example/api/view-endpoints --hide-source-path
 ~~~
 
 (You can read and run the entire example's code at [./example](/example/).)
@@ -78,19 +62,7 @@ which shows user information and all todos that aren't completed.
 We could have created generic endpoints instead:
 
 ~~~js
-endpoints.getUser = ({requestContext}) => getLoggedUser(requestContext.req.headers.cookie);
-
-endpoints.getTodos = async (completed, {requestContext}) => {
-  const user = await getLoggedUser(requestContext.req.headers.cookie);
-  if( ! user ) return;
-
-  if( [true, false].includes(completed) ) return;
-
-  const todos = await (
-    db.query("SELECT * FROM todos WHERE authorId = ${user.id} AND completed = ${completed};")
-  );
-  return {user, todos};
-};
+!INLINE /example/api/generic-endpoints --hide-source-path
 ~~~
 
 But we deliberately choose to implement a tailored API instead of a generic API.
