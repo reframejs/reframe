@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "express": "^4.16.4",
+    "knex": "^0.15.2"
+  },
+  "private": true,
+  "name": "wildcard-api-example",
+  "version": "0.2.3"
+}

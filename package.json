@@ -91,6 +91,7 @@
         "helpers/universal-adapter/server",
         "helpers/universal-adapter/typeorm",
         "helpers/utils",
-        "helpers/wildcard-api"
+        "helpers/wildcard-api",
+        "helpers/wildcard-api/example"
     ]
 }

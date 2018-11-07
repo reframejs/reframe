@@ -11,10 +11,9 @@ endpoints.getTodos = async function (completed) {
   const user = await getLoggedUser(this.headers.cookie);
   if( ! user ) return;
 
-  if( [true, false].includes(completed) ) return;
+  if( ![true, false].includes(completed) ) return;
 
   const todos = await (
-//  db.query(`SELECT * FROM todos WHERE authorId = ${user.id} AND completed = true;`)
     db.query(`SELECT * FROM todos WHERE authorId = ${user.id} AND completed = ${completed};`)
   );
   return {todos};
