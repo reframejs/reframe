@@ -7,7 +7,7 @@ endpoints.getUser = async function() {
   return user;
 };
 
-endpoints.getTodos = async function (completed) {
+endpoints.getTodos = async function(completed) {
   const user = await getLoggedUser(this.headers.cookie);
   if( ! user ) return;
 

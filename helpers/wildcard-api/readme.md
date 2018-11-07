@@ -76,6 +76,10 @@
 
 -->
 
+[<img src="https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/logo.svg?sanitize=true" align="left" width="128" height="128">](https://github.com/reframejs/reframe)
+
+# Wildcard API
+
 Wildcard lets your client load data from your server in an easy, flexible, and performant way.
 
 Wildcard is super easy:
@@ -169,7 +173,7 @@ endpoints.getUser = async function() {
   return user;
 };
 
-endpoints.getTodos = async function (completed) {
+endpoints.getTodos = async function(completed) {
   const user = await getLoggedUser(this.headers.cookie);
   if( ! user ) return;
 
