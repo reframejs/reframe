@@ -43,7 +43,7 @@ Wildcard is ideal for rapid prototyping, quickly delivering an MVP, and fast dev
 
 ## Example
 
-Let's consider a (simplistic) API for a todo list app.
+Let's consider a API for a simple todo list app.
 
 ~~~js
 // Endpoint to get all the data that the landing page needs
@@ -109,8 +109,8 @@ are very difficult to fulfil with a RESTful/GraphQL API.
 or extend the RESTful/GraphQL API in a clunky and unnatural way.)
 
 But with a tailored API, it's easy:
-We simply create a new endpoint that runs a SQL query that gets the list of shared todos.
-(By joining the tables `Todo` and `SharedWith`.)
+We simply create a new endpoint that uses SQL to query the list of shared todos.
+(In our example the SQL query would join the tables `Todo` and `SharedWith`.)
 We can "directly" run SQL queries and we don't have to go over the indirection of a generic API.
 
 A frontend developer can use any arbitrary SQL query to retrieve whatever the frontend needs.
@@ -120,8 +120,11 @@ Going over a generic API is simply an indirection and a net loss in power.
 Whereas with Wildcard we preserve the full power of SQL.
 
 One way to think about Wildcard is that it exposes the whole power of your backend to the client in a secure way.
-The server has vastly more capabilities as its disposal than the browser:
-It can do SQL queries, NoSQL queries, use an embedded key value store, etc.
+The server has vastly more capabilities as its disposal than the browser.
+Not only SQL queries,
+but also NoSQL queries,
+cross-origin HTTP requests,
+etc.
 
 Wildcard is also effecient:
 A tailored endpoint can return exactly and only the data the client needs.
