@@ -76,7 +76,7 @@
 
 -->
 
-[<img src="https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/logo.svg?sanitize=true" align="left" width="128" height="128">](https://github.com/reframejs/reframe)
+[<img src="https://github.com/reframejs/reframe/raw/master/helpers/wildcard-api/docs/images/logo.svg?sanitize=true" align="left" width="128" height="128">](https://github.com/brillout/wildcard-api)
 
 # Wildcard API
 
