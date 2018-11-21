@@ -1,6 +1,8 @@
 import React from 'react';
 import {endpoints, addContext} from 'wildcard-api/client';
 import assert from 'reassert';
+import fetch from '@brillout/fetch';
+import errorHandler from 'handli';
 
 export default {
   route: '/',
@@ -8,13 +10,62 @@ export default {
   getInitialProps,
 };
 
-async function getInitialProps(context) {
-  if( context.isNodejs ) {
-    assert(context.request.headers);
-    var {user, todos} = await addContext(endpoints, context.request).getLandingPageData();
-  } else {
-    var {user, todos} = await endpoints.getLandingPageData();
+
+async function test() {
+    /*
+    const resp = await errorHandler(() => window.fetch('https://cors.io/?https://brillout-misc.github.io/game-of-thrones/characters/list.json'));
+    const resp = await errorHandler(() => window.fetch('http://unreachable-server.example.org'));
+    */
+    const resp = await errorHandler(() => window.fetch('https://cors.io/?https://euwqhei.github.io'));
+    console.log(1111, await resp.json());
+
+  /*
+  console.log(1);
+  let resp;
+  try {
+// await endpoints.ewuiqh();
+//resp = await fetch('/euqwieh');
+//resp = await fetch('https://brillout-misc.github.io/game-of-thrones/characters/list.json');
+  resp = await (
+    window.fetch('https://cors.io/?https://brillout-misc.github.io/game-of-thrones/characters/list.json')
+    .catch(function(err) {
+  console.log(0.3);
+  console.log(arguments);
+  console.log(err);
+  throw err;
+    })
+  );
+  console.log(resp);
+  console.log(2);
+  } catch(err) {
+  console.log(3);
+  console.log(arguments);
+  console.log(err);
+    throw err;
   }
+  //console.log(await resp.text());
+//*/
+}
+
+async function getInitialProps(context) {
+  let {getLandingPageData} = endpoints;
+
+  if( context.isNodejs ) {
+    /*
+    const {headers, method, url, user} = context.request;
+    const ctx = {headers, method, url, user};
+    getLandingPageData = getLandingPageData.bind(ctx);
+   */
+    getLandingPageData = getLandingPageData.bind(context.request);
+  }
+
+  const {user, todos} = await getLandingPageData();
+
+  /*
+  if( !context.isNodejs ) {
+    await test();
+  }
+  //*/
 
   if( ! user ) {
     return null;
