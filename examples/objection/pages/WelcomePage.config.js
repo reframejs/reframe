@@ -47,22 +47,17 @@ async function test() {
 //*/
 }
 
-async function getInitialProps(context) {
+async function getInitialProps({isNodejs, request}) {
   let {getLandingPageData} = endpoints;
 
-  if( context.isNodejs ) {
-    /*
-    const {headers, method, url, user} = context.request;
-    const ctx = {headers, method, url, user};
-    getLandingPageData = getLandingPageData.bind(ctx);
-   */
-    getLandingPageData = getLandingPageData.bind(context.request);
+  if( isNodejs ) {
+    getLandingPageData = getLandingPageData.bind({user: request.user});
   }
 
   const {user, todos} = await getLandingPageData();
 
   /*
-  if( !context.isNodejs ) {
+  if( !isNodejs ) {
     await test();
   }
   //*/
