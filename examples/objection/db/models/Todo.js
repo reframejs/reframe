@@ -5,7 +5,17 @@ class Todo extends Model {
     return 'todos';
   }
 
-  /*
+  static jsonSchema = {
+    type: 'object',
+    required: ['id', 'text', 'completed', 'authorId'],
+    properties: {
+      id: {type: 'integer'},
+      text: {type: 'string'},
+      completed: {type: 'boolean'},
+      authorId: {type: 'integer'},
+    },
+  };
+
   static get relationMappings() {
     const User = require('./User');
     return {
@@ -19,7 +29,10 @@ class Todo extends Model {
       }
     };
   }
-  */
+
+  static get relatedFindQueryMutates() {
+    return false;
+  }
 }
 
 module.exports = Todo;

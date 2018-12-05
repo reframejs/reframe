@@ -5,11 +5,11 @@ const User = require('../../db/models/User');
 const GITHUB_CLIENT_ID = '3c81714764dde8e268e1';
 const GITHUB_CLIENT_SECRET = (
   '00b3e6dde42cadb2ffc88a'+
-  // At least we it less accessible to crawlers
+  // At least we make it less accessible to crawlers
   975197.4979704999/Math.PI.toPrecision(8)+
   'ab9840fc2339'
 );
-const SESSION_SECRET = 'very-secret';
+const SESSION_SECRET = 'not-very-secret';
 
 module.exports = auth;
 
@@ -48,13 +48,20 @@ function auth(app) {
   });
 
   passport.deserializeUser(async function(id, done) {
+    let query = User.query().findOne({id});
+    let user;
     try {
-      const user = await User.query().findOne({id});
-      done(null, user);
+      user = await query;
     } catch(err) {
       console.error(err);
       done(err);
+      return;
     }
+    /*
+    console.log(query.toString());
+    console.log(user);
+    */
+    done(null, user);
   });
 
   app.use(require('serve-static')(__dirname + '/../../public'));

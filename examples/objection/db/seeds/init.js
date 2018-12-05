@@ -1,8 +1,8 @@
-exports.seed = coupleOfTodos;
+exports.seed = initialSeed;
 
-exports.coupleOfTodos = coupleOfTodos;
+exports.initialSeed = initialSeed;
 
-async function coupleOfTodos(knex) {
+async function initialSeed(knex) {
   await knex('users').del();
   await knex('users').insert([
     {id: 1, username: 'brillout', providerId: '1005638', oauthProvider: 'github', avatarUrl: 'https://avatars2.githubusercontent.com/u/1005638?v=4'},

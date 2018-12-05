@@ -5,7 +5,8 @@ const UniversalExpressAdapter = require('@universal-adapter/express');
 const {symbolSuccess, colorEmphasis} = require('@brillout/cli-theme');
 const {universalPlug, version} = require('wildcard-api');
 const knex = require('../../db/setup');
-require('../api');
+require('../endpoints/view-endpoints');
+require('../endpoints/action-endpoints');
 const auth = require('./auth');
 
 module.exports = start();

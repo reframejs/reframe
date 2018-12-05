@@ -3,7 +3,8 @@ const config = require('@brillout/reconfig').getConfig({configFileName: 'reframe
 const {symbolSuccess, colorEmphasis} = require('@brillout/cli-theme');
 const {universalPlug, version} = require('wildcard-api');
 const knex = require('../db/setup');
-require('./api');
+require('./endpoints/view-endpoints');
+require('./endpoints/action-endpoints');
 const UniversalHapiAdapter = require('@universal-adapter/hapi');
 
 module.exports = start();

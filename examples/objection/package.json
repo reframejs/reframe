@@ -10,6 +10,7 @@
     "reframe": "reframe"
   },
   "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.2.1",
     "@brillout/cli-theme": "0.2.3",
     "@brillout/reconfig": "0.2.3",
     "@reframe/cli": "0.2.3",
