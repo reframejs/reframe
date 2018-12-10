@@ -1,9 +1,9 @@
 process.on('unhandledRejection', err => {throw err});
 const express = require('express');
 const config = require('@brillout/reconfig').getConfig({configFileName: 'reframe.config.js'});
-const UniversalExpressAdapter = require('@universal-adapter/express');
+const ExpressAdater = require('@universal-adapter/express');
 const {symbolSuccess, colorEmphasis} = require('@brillout/cli-theme');
-const {wildcardUniversalPlug} = require('wildcard-api');
+const {wildcardPlug} = require('wildcard-api');
 const knex = require('../../db/setup');
 require('../endpoints/view-endpoints');
 require('../endpoints/action-endpoints');
@@ -17,8 +17,8 @@ async function start() {
     auth(app);
 
     const {universalAdapter, onServerClose} = (
-      UniversalExpressAdapter([
-        wildcardUniversalPlug,
+      ExpressAdater([
+        wildcardPlug,
         config.ServerRendering,
         config.StaticAssets,
       ], {

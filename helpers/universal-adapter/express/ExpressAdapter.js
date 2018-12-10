@@ -2,10 +2,10 @@ const assert = require('reassert');
 const getResponseObject = require('@universal-adapter/server/getResponseObject');
 const getHandlers = require('@universal-adapter/server/getHandlers');
 
-module.exports = UniversalExpressAdapter;
+module.exports = ExpressAdapter;
 module.exports.buildResponse = buildResponse;
 
-function UniversalExpressAdapter(handlers, {addRequestContext}={}) {
+function ExpressAdapter(handlers, {addRequestContext}={}) {
   const {requestHandlers, paramHandlers, onServerCloseHandlers} = getHandlers(handlers);
   assert_notImplemented(paramHandlers.length===0)
 

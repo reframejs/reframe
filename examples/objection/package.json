@@ -15,6 +15,7 @@
     "@brillout/reconfig": "0.2.3",
     "@reframe/cli": "0.2.3",
     "@reframe/react-kit": "0.2.3",
+    "bell": "^9.4.0",
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.3",
     "cookie-session": "^2.0.0-beta.3",

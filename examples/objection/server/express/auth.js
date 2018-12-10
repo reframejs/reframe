@@ -2,14 +2,7 @@ const passport = require('passport');
 const GitHubStrategy = require('passport-github').Strategy;
 const User = require('../../db/models/User');
 
-const GITHUB_CLIENT_ID = '3c81714764dde8e268e1';
-const GITHUB_CLIENT_SECRET = (
-  '00b3e6dde42cadb2ffc88a'+
-  // At least we make it less accessible to crawlers
-  975197.4979704999/Math.PI.toPrecision(8)+
-  'ab9840fc2339'
-);
-const SESSION_SECRET = 'not-very-secret';
+const {GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, COOKIE_SECRET} = require('../.env');
 
 module.exports = auth;
 
@@ -67,8 +60,8 @@ function auth(app) {
   app.use(require('serve-static')(__dirname + '/../../public'));
   app.use(require('cookie-parser')());
   app.use(require('body-parser').urlencoded({ extended: true }));
-//app.use(require('express-session')({ secret: SESSION_SECRET, resave: true, saveUninitialized: true }));
-  app.use(require('cookie-session')({ secret: SESSION_SECRET}));
+//app.use(require('express-session')({ secret: COOKIE_SECRET, resave: true, saveUninitialized: true }));
+  app.use(require('cookie-session')({ secret: COOKIE_SECRET}));
   app.use(passport.initialize());
   app.use(passport.session());
 

@@ -1,7 +1,7 @@
 {
   "name": "@universal-adapter/express",
   "version": "0.2.3",
-  "main": "UniversalExpressAdapter.js",
+  "main": "ExpressAdapter.js",
   "private": true,
   "dependencies": {
     "@universal-adapter/server": "0.2.3",

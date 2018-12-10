@@ -3,15 +3,15 @@ const assert = require('reassert');
 const getResponseObject = require('@universal-adapter/server/getResponseObject');
 const getHandlers = require('@universal-adapter/server/getHandlers');
 
-module.exports = UniversalHapiAdapter;
+module.exports = HapiAdapter;
 module.exports.buildResponse = buildResponse;
 
-function UniversalHapiAdapter(handlers, {useOnPreResponse=false, addRequestContext}={}) {
+function HapiAdapter(handlers, {useOnPreResponse=false, addRequestContext}={}) {
   const {requestHandlers, paramHandlers, onServerCloseHandlers} = getHandlers(handlers);
   assert_notImplemented(paramHandlers.length===0)
 
   const HapiPlugin = {
-    name: 'UniversalHapiAdapter',
+    name: 'HapiAdapter',
     multiple: false,
     register: server => {
       if( ! useOnPreResponse ) {

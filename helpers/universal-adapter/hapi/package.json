@@ -1,7 +1,7 @@
 {
   "name": "@universal-adapter/hapi",
   "version": "0.2.3",
-  "main": "UniversalHapiAdapter.js",
+  "main": "HapiAdapter.js",
   "private": true,
   "dependencies": {
     "@universal-adapter/server": "0.2.3",
