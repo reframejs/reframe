@@ -7,7 +7,6 @@ class Todo extends Model {
 
   static jsonSchema = {
     type: 'object',
-    required: ['id', 'text', 'completed', 'authorId'],
     properties: {
       id: {type: 'integer'},
       text: {type: 'string'},

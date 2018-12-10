@@ -4,9 +4,8 @@ const getHandlers = require('@universal-adapter/server/getHandlers');
 
 module.exports = UniversalExpressAdapter;
 module.exports.buildResponse = buildResponse;
-module.exports.addParameters = addParameters;
 
-function UniversalExpressAdapter(handlers) {
+function UniversalExpressAdapter(handlers, {addRequestContext}={}) {
   const {requestHandlers, paramHandlers, onServerCloseHandlers} = getHandlers(handlers);
 
   Object.assign(universalAdapter, {universalAdapter, addParams, serveContent, onServerClose});
@@ -16,16 +15,8 @@ function UniversalExpressAdapter(handlers) {
   async function universalAdapter(req, res, next) {
     await addParameters({paramHandlers, req});
 
-    if( ! alreadyServed(res) ) {
-      try {
-        await buildResponse({requestHandlers, req, res});
-      } catch(err) {
-        next(err);
-        return;
-      }
-    }
-
-    next();
+    const err = await handleResponse(req, res);
+    next(err);
   }
 
   async function addParams(req, res, next) {
@@ -34,15 +25,8 @@ function UniversalExpressAdapter(handlers) {
   }
 
   async function serveContent(req, res, next) {
-    if( ! alreadyServed(res) ) {
-      try {
-        await buildResponse({requestHandlers, req, res});
-      } catch(err) {
-        next(err);
-        return;
-      }
-    }
-    next();
+    const err = await handleResponse(req, res);
+    next(err);
   }
 
   async function onServerClose () {
@@ -50,9 +34,20 @@ function UniversalExpressAdapter(handlers) {
       await cb();
     }
   }
+
+  async function handleResponse(req, res) {
+    if( alreadyServed(res) ) {
+      return;
+    }
+    try {
+      await buildResponse({requestHandlers, req, res, addRequestContext});
+    } catch(err) {
+      return err;
+    }
+  }
 }
 
-async function buildResponse({requestHandlers, req, res}) {
+async function buildResponse({requestHandlers, req, res}={}) {
     assert.usage(requestHandlers);
     assert.usage(req);
     assert.usage(res);

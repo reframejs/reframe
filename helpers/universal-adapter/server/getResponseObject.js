@@ -14,7 +14,7 @@ function getResponseObject(responseSpec, {extractEtagHeader=false}={}) {
       argList.includes(respArg),
       responseSpec,
       "Unknown argument `"+respArg+"` in response object printed above.",
-      "The list of arguments is:",
+      "The list of known arguments is:",
       argList
     );
   });

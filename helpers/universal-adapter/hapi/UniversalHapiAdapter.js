@@ -5,7 +5,6 @@ const getHandlers = require('@universal-adapter/server/getHandlers');
 
 module.exports = UniversalHapiAdapter;
 module.exports.buildResponse = buildResponse;
-module.exports.addParameters = addParameters;
 
 function UniversalHapiAdapter(handlers, {useOnPreResponse=false}={}) {
 
@@ -20,6 +19,11 @@ function UniversalHapiAdapter(handlers, {useOnPreResponse=false}={}) {
                   method: ['GET', 'POST'],
                   path: '/{param*}',
                   handler: async (request, h) => {
+                    // TODO re-work this
+                    if( isAlreadyServed(request) ) {
+                        return h.continue;
+                    }
+
                     const resp = await buildResponse({requestHandlers, request, h});
                     if( resp === null ) {
                       throw Boom.notFound(null, {});
@@ -29,6 +33,11 @@ function UniversalHapiAdapter(handlers, {useOnPreResponse=false}={}) {
               });
             } else {
               server.ext('onPreResponse', async (request, h) => {
+
+                // TODO re-work this
+                if( isAlreadyServed(request) ) {
+                    return h.continue;
+                }
 
                 // The payload (aka POST request body) doesn't seem to be available at `onPreResponse`.
                 // console.log('where is my payload?', request.payload, request.body);
@@ -64,17 +73,12 @@ async function buildResponse({requestHandlers, request, h}) {
     assert.usage(request && request.raw && request.raw.req);
     assert.usage(h && h.continue);
 
-    // TODO re-work this
-    if( isAlreadyServed(request) ) {
-        return h.continue;
-    }
-
-    const handlerArgs = getHandlerArgs({request});
+    const requestContext = getRequestContext({request});
 
     for(const requestHandler of requestHandlers) {
       const responseObject = (
         getResponseObject(
-          await requestHandler(handlerArgs),
+          await requestHandler(requestContext),
           {extractEtagHeader: true}
         )
       );
@@ -112,22 +116,43 @@ async function buildResponse({requestHandlers, request, h}) {
 }
 
 async function addParameters({paramHandlers, request}) {
+  assert.internal(false, 'NOT-IMPLEMENTED');
+  /*
   assert.usage(paramHandlers);
   assert.usage(request && request.raw && request.raw.req);
 
-  const handlerArgs = getHandlerArgs({request});
+  const requestContext = getRequestContext({request});
 
   for(const paramHandler of paramHandlers) {
     assert.usage(paramHandler instanceof Function);
-    const newParams = await paramHandler(handlerArgs);
+    const newParams = await paramHandler(requestContext);
     assert.usage(newParams===null || newParams && newParams.constructor===Object);
     Object.assign(request, newParams);
   }
+  */
 }
 
-function getHandlerArgs({request}) {
-  assert.internal(request && request.raw && request.raw.req);
+function getRequestContext({request}) {
+  assert.internal(request);
 
+  const headers = getHeaders();
+  const body = getBody();
+
+  return (
+    {
+      headers,
+      body,
+    }
+  );
+
+  function getHeaders() {
+    assert.internal(request && request.raw && request.raw.req);
+    const {headers} = request.raw.req;
+    assert.internal(headers.constructor===Array);
+    return headers;
+  }
+
+  function getBody() {
   // Sometimes `Object.getPrototypeOf(payload)===null` which leads to `payload.constructor===undefined`
   // We normalize that case by doing `{...payload}`
   let {payload} = request;
@@ -140,13 +165,12 @@ function getHandlerArgs({request}) {
   );
   assert.internal(!payload || [String, Object].includes(payload.constructor));
 
-  return (
-    {
-      ...request,
-      payload,
-      req: request.raw.req,
-    }
-  );
+  // The proper name is "body" not "payload"
+  const body = payload;
+
+    return body;
+
+  }
 }
 
 function isAlreadyServed(request) {

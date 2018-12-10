@@ -10,12 +10,13 @@ async function getLandingPageData() {
   const user = getUser(this);
   if( ! user ) return {user: null, todos: null};
 
-  console.log(1, user);
-  const todos = await (
-    user
-    .$relatedQuery('todos')
-  );
-  console.log(2, user);
+  const query = user.$relatedQuery('todos');
+  const query2 = User.loadRelated([user], 'todos');
+  console.log(query.toString());
+  console.log(query2.toString());
+  const todos = await query;
+  const ret = await query2;
+  console.log(ret);
 
   return {user, todos};
 }

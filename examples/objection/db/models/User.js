@@ -9,7 +9,7 @@ class User extends Model {
     const Todo = require('./Todo');
     return {
       todos: {
-        relation: Model.BelongsToOneRelation,
+        relation: Model.HasManyRelation,
         modelClass: Todo,
         join: {
           from: 'users.id',

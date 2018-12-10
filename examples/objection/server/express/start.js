@@ -21,7 +21,9 @@ async function start() {
         universalPlug,
         config.ServerRendering,
         config.StaticAssets,
-      ])
+      ], {
+        addRequestContext: req => ({user: req.user}),
+      })
     );
 
     /*
