@@ -13,7 +13,8 @@ module.exports = StaticAssets;
 // we certainly want static assests to be served for the universal adapters
 StaticAssets.executionPriority = 1000*1000;
 
-async function StaticAssets({req: {url}}) {
+async function StaticAssets(requestContext) {
+    const {url} = requestContext;
     const {pathname} = parseUri(url);
     const filePath = getFilePath({pathname});
 

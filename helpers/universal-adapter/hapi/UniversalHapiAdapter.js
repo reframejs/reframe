@@ -6,74 +6,77 @@ const getHandlers = require('@universal-adapter/server/getHandlers');
 module.exports = UniversalHapiAdapter;
 module.exports.buildResponse = buildResponse;
 
-function UniversalHapiAdapter(handlers, {useOnPreResponse=false}={}) {
+function UniversalHapiAdapter(handlers, {useOnPreResponse=false, addRequestContext}={}) {
+  const {requestHandlers, paramHandlers, onServerCloseHandlers} = getHandlers(handlers);
+  assert_notImplemented(paramHandlers.length===0)
 
-    const {requestHandlers, paramHandlers, onServerCloseHandlers} = getHandlers(handlers);
+  const HapiPlugin = {
+    name: 'UniversalHapiAdapter',
+    multiple: false,
+    register: server => {
+      if( ! useOnPreResponse ) {
+        server.route({
+          method: '*',
+          path: '/{param*}',
+          handler: catchAllRoute,
+        });
+      } else {
+        server.ext('onPreResponse', onPreResponse);
+      }
 
-    const HapiPlugin = {
-        name: 'UniversalHapiAdapter',
-        multiple: false,
-        register: server => {
-            if( ! useOnPreResponse ) {
-              server.route({
-                  method: ['GET', 'POST'],
-                  path: '/{param*}',
-                  handler: async (request, h) => {
-                    // TODO re-work this
-                    if( isAlreadyServed(request) ) {
-                        return h.continue;
-                    }
+      /*
+      server.ext('onRequest', async (request, h) => {
+        await addParameters({paramHandlers, request, addRequestContext});
+        return h.continue;
+      });
+      */
 
-                    const resp = await buildResponse({requestHandlers, request, h});
-                    if( resp === null ) {
-                      throw Boom.notFound(null, {});
-                    }
-                    return resp;
-                  }
-              });
-            } else {
-              server.ext('onPreResponse', async (request, h) => {
+      server.ext('onPostStop', async () => {
+        for(const cb of onServerCloseHandlers) {
+          await cb();
+        }
+      });
+    },
+  };
 
-                // TODO re-work this
-                if( isAlreadyServed(request) ) {
-                    return h.continue;
-                }
+  return HapiPlugin;
 
-                // The payload (aka POST request body) doesn't seem to be available at `onPreResponse`.
-                // console.log('where is my payload?', request.payload, request.body);
+  async function catchAllRoute(request, h) {
+    // TODO re-work this
+    if( isAlreadyServed(request) ) {
+        return h.continue;
+    }
 
-                const resp = await buildResponse({requestHandlers, request, h});
-                if( resp === null ) {
-                  return h.continue;
-                }
-                return resp;
-              });
-            }
+    const resp = await buildResponse({requestHandlers, request, h, addRequestContext});
+    if( resp === null ) {
+      throw Boom.notFound(null, {});
+    }
+    return resp;
+  }
 
-            server.ext('onRequest', async (request, h) => {
-              await addParameters({paramHandlers, request});
-              return h.continue;
-            });
+  async function onPreResponse(request, h) {
+    // TODO re-work this
+    if( isAlreadyServed(request) ) {
+        return h.continue;
+    }
 
-            server.ext('onPostStop', async () => {
-                for(const cb of onServerCloseHandlers) {
-                  await cb();
-                }
-            });
-        },
-    };
+    // The payload (aka POST request body) doesn't seem to be available at `onPreResponse`.
+    // console.log('where is my payload?', request.payload, request.body);
 
-    return HapiPlugin;
-
-
+    const resp = await buildResponse({requestHandlers, request, h, addRequestContext});
+    if( resp === null ) {
+      return h.continue;
+    }
+    return resp;
+  }
 }
 
-async function buildResponse({requestHandlers, request, h}) {
+async function buildResponse({requestHandlers, request, h, addRequestContext}) {
     assert.usage(requestHandlers);
     assert.usage(request && request.raw && request.raw.req);
     assert.usage(h && h.continue);
 
-    const requestContext = getRequestContext({request});
+    const requestContext = getRequestContext({request, addRequestContext});
 
     for(const requestHandler of requestHandlers) {
       const responseObject = (
@@ -115,13 +118,13 @@ async function buildResponse({requestHandlers, request, h}) {
     return null;
 }
 
-async function addParameters({paramHandlers, request}) {
-  assert.internal(false, 'NOT-IMPLEMENTED');
+async function addParameters({paramHandlers, request, addRequestContext}) {
+  assert_notImplemented(false);
   /*
   assert.usage(paramHandlers);
   assert.usage(request && request.raw && request.raw.req);
 
-  const requestContext = getRequestContext({request});
+  const requestContext = getRequestContext({request, addRequestContext});
 
   for(const paramHandler of paramHandlers) {
     assert.usage(paramHandler instanceof Function);
@@ -132,44 +135,59 @@ async function addParameters({paramHandlers, request}) {
   */
 }
 
-function getRequestContext({request}) {
-  assert.internal(request);
+function getRequestContext({request, addRequestContext}) {
+  const url = getRequestUrl();
+  const method = getRequestMethod();
+  const headers = getRequestHeaders();
+  const body = getRequestBody();
 
-  const headers = getHeaders();
-  const body = getBody();
+  const requestContext = {
+    url,
+    headers,
+    body,
+  };
 
-  return (
-    {
-      headers,
-      body,
-    }
-  );
+  if( addRequestContext ) {
+    Object.assign(requestContext, addRequestContext(request));
+  }
 
-  function getHeaders() {
-    assert.internal(request && request.raw && request.raw.req);
+  return requestContext;
+
+  function getRequestUrl() {
+    const {url} = request.raw.req;
+    assert.internal(url.constructor===String);
+    return url;
+  }
+
+  function getRequestMethod() {
+    const {method} = request.raw.req;
+    assert.internal(url.constructor===String);
+    return method;
+  }
+
+  function getRequestHeaders() {
     const {headers} = request.raw.req;
-    assert.internal(headers.constructor===Array);
+    assert.internal(headers.constructor===Object);
     return headers;
   }
 
-  function getBody() {
-  // Sometimes `Object.getPrototypeOf(payload)===null` which leads to `payload.constructor===undefined`
-  // We normalize that case by doing `{...payload}`
-  let {payload} = request;
-  payload = (
-    (!payload || [String, Object].includes(payload.constructor)) ? (
-      payload
-    ) : (
-      {...payload}
-    )
-  );
-  assert.internal(!payload || [String, Object].includes(payload.constructor));
+  function getRequestBody() {
+    // Sometimes `Object.getPrototypeOf(payload)===null` which leads to `payload.constructor===undefined`
+    // We normalize that case by doing `{...payload}`
+    let {payload} = request;
+    payload = (
+      (!payload || [String, Object].includes(payload.constructor)) ? (
+        payload
+      ) : (
+        {...payload}
+      )
+    );
+    assert.internal(!payload || [String, Object].includes(payload.constructor));
 
-  // The proper name is "body" not "payload"
-  const body = payload;
+    // The proper name is "body" not "payload"
+    const body = payload;
 
     return body;
-
   }
 }
 
@@ -236,3 +254,7 @@ function getBodyPayload(req) {
     return promise;
 }
 */
+
+function assert_notImplemented(val) {
+  assert.internal(val, 'NOT-IMPLEMENTED');
+}

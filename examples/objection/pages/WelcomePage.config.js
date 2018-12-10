@@ -47,14 +47,14 @@ async function test() {
 //*/
 }
 
-async function getInitialProps({isNodejs, request}) {
+async function getInitialProps({isNodejs, user}) {
   let {getLandingPageData} = endpoints;
 
   if( isNodejs ) {
-    getLandingPageData = getLandingPageData.bind({user: request.user});
+    getLandingPageData = getLandingPageData.bind({user});
   }
 
-  const {user, todos} = await getLandingPageData();
+  const landingPageData = await getLandingPageData();
 
   /*
   if( !isNodejs ) {
@@ -62,15 +62,11 @@ async function getInitialProps({isNodejs, request}) {
   }
   //*/
 
-  if( ! user ) {
-    return null;
-  }
-
-  return {user, todos};
+  return landingPageData;
 }
 
 function MainPage(props) {
-  if( ! props.user ) {
+  if( ! props.username ) {
     return Login(props);
   } else {
     return <TodoList {...props}/>;
@@ -170,10 +166,10 @@ class NewTodo extends React.Component {
 }
 
 /*
-function TodoList({todos, user, toggleComplete}) {
+function TodoList({todos, username, toggleComplete}) {
   return (
     <div>
-      Hi, <span>{user.username}</span>.
+      Hi, <span>{username}</span>.
       <h1>Todos</h1>
       { todos.map(todo => Todo(todo, toggleComplete)) }
     </div>

@@ -26,17 +26,8 @@ async function start() {
       })
     );
 
-    /*
     app.use(universalAdapter);
-    /*/
-    // The middleware `addParams` add parameters to the `req` object.
-    // (E.g. to be able to provide a `req.session` or a `req.loggedUser`.)
-    // We run this middleware first to make sure that the extra parameters are available to all routes
-    app.use(addParams);
-    app.use(serveContent);
-    //*/
 
-    // Define your routes after `addParams` and `serveContent`
     app.get('/hi', (req, res, next) => {
       const username = (req.user||{}).username || 'anon';
       res.send('hey '+username);

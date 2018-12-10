@@ -18,7 +18,10 @@ async function getLandingPageData() {
   const ret = await query2;
   console.log(ret);
 
-  return {user, todos};
+  return {
+    username: user.username,
+    todos,
+  };
 }
 
 function getUser(context) {
