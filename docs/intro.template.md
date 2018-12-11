@@ -147,27 +147,27 @@ we created a frontend simply by defining one page config.
 ###### Full-stack
 
 Let's look at a Todo app implemented with
- - Reframe
- - [Objection.js](https://github.com/Vincit/objection.js)
- - [Wildcard API](https://github.com/brillout/wildcard-api)
+[Objection.js](https://github.com/Vincit/objection.js)
+and
+[Wildcard API](https://github.com/brillout/wildcard-api).
 
 First we define our models with Objection.js:
 
+~~~js
+!INLINE ../examples/objection/db/models/Todo.js --hide-source-path
 ~~~
-!INLINE ../examples/objection/models/User.js --hide-source-path
-~~~
-~~~
-!INLINE ../examples/objection/models/Todo.js --hide-source-path
+~~~js
+!INLINE ../examples/objection/db/models/User.js --hide-source-path
 ~~~
 
 Then we create an API endpoint:
-~~~
+~~~js
 !INLINE ../examples/objection/server/endpoints/view-endpoints.js --hide-source-path
 ~~~
 
 We use our API endpoint to retrieve the data from the frontend:
-~~~
-!INLINE ../examples/objection/pages/LandingPage.js --hide-source-path
+~~~js
+!INLINE ../examples/objection/pages/LandingPage.config.js --hide-source-path
 ~~~
 
 <br/>

@@ -1,9 +1,7 @@
 const {Model} = require('objection');
 
 class Todo extends Model {
-  static get tableName() {
-    return 'todos';
-  }
+  static tableName = 'todos';
   static jsonSchema = {
     type: 'object',
     properties: {
@@ -14,5 +12,4 @@ class Todo extends Model {
     },
   };
 }
-
 module.exports = Todo;

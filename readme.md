@@ -285,84 +285,107 @@ we created a frontend simply by defining one page config.
 
 ###### Full-stack
 
-Let's look at a Todo App.
-(Note that the database/ORM integration shown here is work-in-progress.)
+Let's look at a Todo app implemented with
+[Objection.js](https://github.com/Vincit/objection.js)
+and
+[Wildcard API](https://github.com/brillout/wildcard-api).
 
-~~~ts
-import {Entity, PrimaryGeneratedColumn, Column, ManyToOne} from "typeorm";
+First we define our models with Objection.js:
 
-@Entity()
-export class Todo {
-    @PrimaryGeneratedColumn()
-    id: number;
+~~~js
+const {Model} = require('objection');
 
-    @Column()
-    text: string;
+class Todo extends Model {
+  static tableName = 'todos';
+  static jsonSchema = {
+    type: 'object',
+    properties: {
+      id: {type: 'integer'},
+      text: {type: 'string'},
+      completed: {type: 'boolean'},
+      authorId: {type: 'integer'},
+    },
+  };
+}
+module.exports = Todo;
+~~~
+~~~js
+const {Model} = require('objection');
 
-    @Column()
-    isCompleted: boolean;
+class User extends Model {
+  static tableName = 'users';
+  static relationMappings = {
+    todos: {
+      relation: Model.HasManyRelation,
+      modelClass: require('./Todo'),
+      join: {
+        from: 'users.id',
+        to: 'todos.authorId',
+      }
+    }
+  }
+  static jsonSchema = {
+    type: 'object',
+    properties: {
+      id: {type: 'integer'},
+      username: {type: 'string'},
+      avatarUrl: {type: 'string'},
+      oauthProvider: {type: 'string'},
+      userProviderId: {type: 'string'},
+    },
+  };
+}
+module.exports = User;
+~~~
 
-    @ManyToOne("User")
-    author: "User";
+Then we create an API endpoint:
+~~~js
+const Todo = require('../../db/models/Todo');
+const {endpoints} = require('wildcard-api');
+const {getUser} = require('./common');
+
+endpoints.getLandingPageData = getLandingPageData;
+
+async function getLandingPageData() {
+  const user = await getUser(this);
+  if( ! user ) {
+    return {isNotLoggedIn: true};
+  }
+
+  const todos = await user.$relatedQuery('todos');
+  return {todos};
 }
 ~~~
 
-To make our `Todo` entries accessible from our views, we define permissions:
-
-~~~js
-// Only the author of a todo item should be allowed to read & write
-const isTodoAuthor = ({loggedUser, object: todo}) => loggedUser && loggedUser.id===todo.author.id;
-
-const permissions = [
-    {
-        modelName: 'Todo',
-        write: isTodoAuthor,
-        read: isTodoAuthor,
-    },
-];
-~~~
-
-We can now access `Todo` entries from our view:
-
+We use our API endpoint to retrieve the data from the frontend:
 ~~~js
 import React from 'react';
-import easyqlClient from '@easyql/client';
-
-const TodoList = ({todos}) => (
-    <div>{ todos.map(todo =>
-        <div key={todo.id}>{todo.text}</div>
-    )}</div>
-);
-
-const getInitialProps = async ({req}) => {
-    const loggedUser = easyqlClient.getLoggedUser({req});
-    const query = {
-        queryType: 'read',
-        modelName: 'Todo',
-        filter: {
-            author: {
-                id: loggedUser.id,
-            },
-        },
-    };
-    const response = await easyqlClient.query({query, req});
-    const todos = response.objects;
-    return {todos};
-};
+import {endpoints} from 'wildcard-api/client';
+import TodoList from '../views/TodoList';
+import LoginView from '../views/LoginView';
 
 export default {
-    route: '/',
-    view: TodoList,
-    getInitialProps,
+  route: '/',
+  view: LandingPage,
+  getInitialProps,
 };
+
+async function getInitialProps({isNodejs, user}) {
+  let {getLandingPageData} = endpoints;
+  if( isNodejs ) { getLandingPageData = getLandingPageData.bind({user}); }
+
+  const {todos, isNotLoggedIn} = await getLandingPageData();
+  return {todos, isNotLoggedIn};
+}
+
+function LandingPage({todos, isNotLoggedIn}) {
+  if( isNotLoggedIn ) {
+    return <LoginView/>;
+  } else {
+    return <TodoList todos={todos}/>;
+  }
+}
 ~~~
-
-And that's it,
-we simply defined pages, data models, and permissions to create a full-stack app.
-
-<b><sub><a href="#examples">&#8679; TOP Examples &#8679;</a></sub></b>
-<br/>
-<b><sub><a href="#contents">&#8679; TOP  &#8679;</a></sub></b>
 
 <br/>
 <br/>
