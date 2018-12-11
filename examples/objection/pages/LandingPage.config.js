@@ -10,42 +10,6 @@ export default {
 };
 
 
-async function test() {
-    /*
-    const resp = await errorHandler(() => window.fetch('https://cors.io/?https://brillout-misc.github.io/game-of-thrones/characters/list.json'));
-    const resp = await errorHandler(() => window.fetch('http://unreachable-server.example.org'));
-    */
-    const resp = await errorHandler(() => window.fetch('https://cors.io/?https://euwqhei.github.io'));
-    console.log(1111, await resp.json());
-
-  /*
-  console.log(1);
-  let resp;
-  try {
-// await endpoints.ewuiqh();
-//resp = await fetch('/euqwieh');
-//resp = await fetch('https://brillout-misc.github.io/game-of-thrones/characters/list.json');
-  resp = await (
-    window.fetch('https://cors.io/?https://brillout-misc.github.io/game-of-thrones/characters/list.json')
-    .catch(function(err) {
-  console.log(0.3);
-  console.log(arguments);
-  console.log(err);
-  throw err;
-    })
-  );
-  console.log(resp);
-  console.log(2);
-  } catch(err) {
-  console.log(3);
-  console.log(arguments);
-  console.log(err);
-    throw err;
-  }
-  //console.log(await resp.text());
-//*/
-}
-
 async function getInitialProps({isNodejs, user}) {
   let {getLandingPageData} = endpoints;
 
@@ -54,13 +18,6 @@ async function getInitialProps({isNodejs, user}) {
   }
 
   const landingPageData = await getLandingPageData();
-
-  /*
-  if( !isNodejs ) {
-    await test();
-  }
-  //*/
-
   return landingPageData;
 }
 
