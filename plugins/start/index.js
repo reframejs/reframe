@@ -54,7 +54,7 @@ async function execDev({options}) {
     assert_build(config);
 
     let serverStarting;
-    let isGoingToRestart;
+    let isRestarting;
 
     config.runBuild.onBuildDone = async ({isFirstBuild}) => {
         if( isFirstBuild ) {
@@ -72,61 +72,97 @@ async function execDev({options}) {
             return;
         }
 
-        if( isGoingToRestart ) {
+        if( isRestarting ) {
             return;
         }
-        isGoingToRestart = true;
 
-        if( serverRet && serverRet.stop ) {
+        if( serverRet ) {
+          isRestarting = true;
+
           const stopPromise = serverRet.stop();
           assert_stopPromise(stopPromise);
-          logPromiseState(
+          await handlePromise(
             stopPromise,
             {
               progressText: 'Stopping server...',
-              successText: 'Server stopped.',
+              successText: 'Server stopped',
+              failureText: "Couldn't stop server",
+              terminateOnError: true,
             }
           );
-          await stopPromise;
+
+          isRestarting = false;
         }
 
-        isGoingToRestart = false;
-        serverStarting = runServer(config, {isRestart: true});
+        serverStarting = runServer(config, {isAutoRebuilding: true});
         await serverStarting;
     };
 
     await config.runBuild();
 
-    serverStarting = runServer(config, {isRestart: false});
+    serverStarting = runServer(config, {isFirstStart: true, isAutoRebuilding: true});
     await serverStarting;
 }
 
-async function logPromiseState(promise, {progressText, successText, failureText}) {
+async function handlePromise(promise, {progressText, successText, failureText, terminateOnError}) {
   const {symbolSuccess, symbolWarning, symbolError, loadingSpinner} = require('@brillout/cli-theme');
+  const assert = require('reassert');
+  assert.internal(progressText && failureText);
 
-  loadingSpinner.start({text: progressText});
+  let spinnerText = progressText;
+  const spinnerStart = () => loadingSpinner.start({text: spinnerText});
+  const spinnerStop = () => loadingSpinner.stop();
+
+  spinnerStart();
 
   let checkIfFinished;
   checkIn(2);
 
+  let logHandler;
+  //*
+  logHandler = new LogHandler(
+    execLog => {
+      console.log('ecca');
+      console.log(new Error().stack);
+      console.log('ecca2');
+      spinnerStop();
+      execLog();
+      spinnerStart();
+    },
+    () => {
+      spinnerStop();
+    },
+  );
+  process.stdout.write('we');
+  //*/
+  let promiseRet;
   try {
-    await promise;
+    promiseRet = await promise;
   } catch(err) {
-    loadingSpinner.stop();
-    console.log(symbolError+failureText);
+    logHandler.terminate();
+    console.error(symbolError+failureText);
+    console.error(err);
+    if( terminateOnError ) {
+      process.exit(1);
+    }
+    return undefined;
   }
+  logHandler.terminate();
 
   clearTimeout(checkIfFinished);
 
-  loadingSpinner.stop();
-  console.log(symbolSuccess+successText);
+  if( successText ) {
+    console.log(symbolSuccess+successText);
+  }
 
-  return;
+  return promiseRet;
 
   function checkIn(seconds) {
     checkIfFinished = setTimeout(() => {
-      loadingSpinner.changeText(progressText+' ('+symbolWarning+'Not finished after '+(2*seconds-2)+' seconds. )');
-      checkIn(seconds*2)
+      spinnerStop();
+      spinnerText = progressText+' ('+symbolWarning+'Not finished after '+(2*seconds-2)+' seconds. Still trying...)';
+      spinnerStart();
+      checkIn(1)
     }, seconds*1000);
   }
 }
@@ -180,14 +216,12 @@ async function execBuild({options}) {
 async function execServer({options}) {
     const config = init(options);
     log_found_stuff({config, log_built_pages: true});
-    await runServer(config, {isRestart: false});
+    await runServer(config, {isFirstStart: true});
 }
 
-async function runServer(config, {isRestart}) {
+async function runServer(config, {isFirstStart, isAutoRebuilding}) {
     const assert_internal = require('reassert/internal');
-    const forceRequire = require('@reframe/utils/forceRequire');
     const {symbolSuccess} = require('@brillout/cli-theme');
-    assert_internal([true, false].includes(isRestart));
 
     assert_server(config);
 
@@ -198,38 +232,19 @@ async function runServer(config, {isRestart}) {
 
     const serverEntry = serverFileTranspiled || config.serverStartFile;
 
-    if( isRestart ) {
-      console.log(symbolSuccess+'Restarting server...');
-    }
-
-    let startPromise;
-    try {
-        startPromise = forceRequire(serverEntry);
-    } catch(err) {
-        handleServerError({err, isTranspiled});
-        return null;
-    }
-    /*
-    logPromiseState(
-      startPromise,
-      {
-        progressText: 'Starting server...',
-        successText: 'Server started.',
-      }
+    const serverRet = await (
+      handlePromise(
+        loadAndRunServerCode(serverEntry),
+        {
+          progressText: 'Starting server...',
+          failureText: "Couldn't start server",
+          terminateOnError: !isTranspiled || !isAutoRebuilding,
+        }
+      )
     );
-    */
 
-    let serverRet;
-    try {
-        serverRet = await startPromise;
-    } catch(err) {
-        handleServerError({err, isTranspiled});
-        return null;
-    }
-
-   // console.log(symbolSuccess+'Server running '+serverRet.info.uri);
-
-    if( ! isRestart ) {
+    if( serverRet && isFirstStart ) {
+     // console.log(symbolSuccess+'Server running '+serverRet.info.uri);
         log_routes(config, serverRet);
         console.log();
         unaligned_env_warning(config);
@@ -237,6 +252,30 @@ async function runServer(config, {isRestart}) {
 
     return serverRet;
 }
+async function loadAndRunServerCode(serverEntry) {
+  const forceRequire = require('@reframe/utils/forceRequire');
+  try {
+    const serverRet = await forceRequire(serverEntry);
+    return serverRet;
+  } catch(err) {
+    handleServerError(err);
+    throw err;
+  }
+}
+function handleServerError(err) {
+  const {colorError, symbolError} = require('@brillout/cli-theme');
+
+  if( ((err||{}).message||'').includes('EADDRINUSE') ) {
+    err.stack += [
+      '',
+      '',
+      "The server is starting on an "+colorError("address already in use")+".",
+      "Maybe you already started a server at this address?",
+      '',
+    ].join('\n');
+  }
+}
+
 function serverIsTranspiled(config) {
     return !!(config.transpileServerCode && config.serverStartFile);
 }
@@ -310,28 +349,6 @@ function getReframeConfigFile(config) {
     const reframeConfigFile = config.$configFile;
     assert_internal(reframeConfigFile);
     return reframeConfigFile;
-}
-
-function handleServerError({err, isTranspiled}) {
-    const {colorError, symbolError} = require('@brillout/cli-theme');
-
-    if( ((err||{}).message||'').includes('EADDRINUSE') ) {
-        err.stack += [
-            '',
-            '',
-            "The server is starting on an "+colorError("address already in use")+".",
-            "Maybe you already started a server at this address?",
-            '',
-        ].join('\n');
-        throw err;
-    }
-
-    console.log(symbolError+'Server error');
-    if( isTranspiled ) {
-      console.error(err);
-    } else {
-      throw err;
-    }
 }
 
 function log_routes(config, serverRet) {
@@ -507,3 +524,62 @@ function getIndent(str) {
     const stringWidth = require('string-width');
     return new Array(stringWidth(str)).fill(' ').join('');
 }
+function LogHandler(handler, onTermination) {
+  const assert = require('reassert');
+
+  let terminated;
+
+  let restoreFunctions = [];
+  const restore = () => {
+    restoreFunctions.forEach(restoreFn => restoreFn());
+    restoreFunctions = [];
+  };
+
+  const mock = () => {
+    restoreFunctions = [];
+    ['stdout', 'stderr'].forEach(pipeName => {
+      const pipe = process[pipeName];
+      const writeFn = (...args) => {
+   //   console.log(22, args);
+        const execLog = () => writeOrgFn.apply(pipe, args);
+        if( terminated ) {
+          assert.warning(false);
+          execLog();
+          return;
+        }
+        restore();
+        handler(execLog);
+        mock();
+      };
+      const writeOrgFn = pipe.write;
+      pipe.write = writeFn;
+      const pipeProxy = (
+        new Proxy(pipe, {get: (pipe, prop) => {
+      //  console.log('pro', pipeName, prop);
+          if( prop!=='write' ) {
+            terminate();
+          }
+          return pipe[prop];
+        }})
+      );
+      const writePropDescriptor = Object.getOwnPropertyDescriptor(process, pipeName)
+      Object.defineProperty(process, pipeName, {value: pipeProxy});
+      restoreFunctions.push(() => {
+     // Object.defineProperty(process, pipeName, {value: pipe});
+        Object.defineProperty(process, pipeName, writePropDescriptor);
+        pipe.write = writeOrgFn;
+      });
+    });
+  };
+
+  mock();
+
+  const terminate = () => {
+    if( terminated ) return;
+    terminated = true;
+    restore();
+    onTermination();
+  };
+
+  return {terminate};
+};

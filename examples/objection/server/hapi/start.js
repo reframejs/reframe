@@ -42,8 +42,17 @@ async function start() {
 
     await server.start();
 
+    await wait(5);
+
     const env = colorEmphasis(process.env.NODE_ENV||'development');
     console.log(symbolSuccess+'Server running (for '+env+')');
 
     return server;
+}
+
+function wait(seconds) {
+  let resolve;
+  const p = new Promise(r => resolve=r);
+  setTimeout(resolve, seconds*1000);
+  return p;
 }

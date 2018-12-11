@@ -2,8 +2,6 @@ const chalk = require('chalk');
 
 const symbols = getSymbols();
 
-let currentLoadingSpinner = null;
-
 const cliTheme = {
     /*
     colorDir: chalk.green,
@@ -45,16 +43,23 @@ const cliTheme = {
         const relativeToHomedir = require('@brillout/relative-to-homedir');
         return relativeToHomedir(filePath);
     },
-    loadingSpinner: {
-        start: startLoadingSpinner,
-        stop: stopLoadingSpinner,
-        changeText: changeLoadingSpinnerText,
-    },
+    loadingSpinner: LoadingSpinner(),
+    LoadingSpinner,
 };
 
 module.exports = cliTheme;
 
-function startLoadingSpinner({text}={}) {
+function LoadingSpinner() {
+  let currentLoadingSpinner = null;
+
+  return {
+    start: startLoadingSpinner,
+    stop: stopLoadingSpinner,
+    changeText: changeLoadingSpinnerText,
+  };
+
+  function startLoadingSpinner({text}={}) {
+    console.log('star');
     const ora = require('ora');
     const assert_usage = require('reassert/usage');
 
@@ -79,9 +84,10 @@ function startLoadingSpinner({text}={}) {
     currentLoadingSpinner.spinner = {frames: currentLoadingSpinner.spinner.frames.map(frame => ' '+frame)};
 
     currentLoadingSpinner.start();
-}
+  }
 
-function stopLoadingSpinner() {
+  function stopLoadingSpinner() {
+    console.log('stop');
     const assert_usage = require('reassert/usage');
 
     /*
@@ -98,13 +104,14 @@ function stopLoadingSpinner() {
     currentLoadingSpinner.stop();
 
     currentLoadingSpinner = null;
-}
+  }
 
-function changeLoadingSpinnerText(newText) {
+  function changeLoadingSpinnerText(newText) {
     if( ! currentLoadingSpinner ) {
         return;
     }
     currentLoadingSpinner.text = newText;
+  }
 }
 
 // Copied and adapted from https://www.npmjs.com/package/log-symbols
