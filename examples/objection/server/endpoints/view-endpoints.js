@@ -1,6 +1,6 @@
 const Todo = require('../../db/models/Todo');
-const User = require('../../db/models/User');
 const {endpoints} = require('wildcard-api');
+const {getUser} = require('./common');
 
 Object.assign(endpoints, {
   getLandingPageData,
@@ -11,10 +11,10 @@ async function getLandingPageData() {
   if( ! user ) return {user: null, todos: null};
 
   const query = user.$relatedQuery('todos');
-  const query2 = User.loadRelated([user], 'todos');
   const todos = await query;
-  const ret = await query2;
   /*
+  const ret = await query2;
+  const query2 = User.loadRelated([user], 'todos');
   console.log(query.toString());
   console.log(query2.toString());
   console.log(ret);
@@ -24,12 +24,4 @@ async function getLandingPageData() {
     username: user.username,
     todos,
   };
-}
-
-function getUser(context) {
-//console.log(context);
-  const providerId = (context.user||{}).id;
-  if( providerId ) {
-    return User.query().findOne({oauthProvider: 'github', providerId});
-  }
 }

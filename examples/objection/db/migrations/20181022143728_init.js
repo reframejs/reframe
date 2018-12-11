@@ -7,7 +7,7 @@ exports.up = async knex => {
       table.string('avatarUrl');
 
       table.string('oauthProvider').notNullable();
-      table.string('providerId').notNullable();
+      table.string('userProviderId').notNullable();
       table.string('accessToken');
       table.string('refreshToken');
     })

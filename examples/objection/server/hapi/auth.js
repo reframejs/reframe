@@ -9,9 +9,6 @@ async function auth(server) {
   await server.register(AuthCookie);
   server.auth.strategy('session', 'cookie', {
     password: COOKIE_SECRET,
-    /*
-    mode: 'try',
-    */
     isSecure: false,
   });
 
@@ -37,12 +34,10 @@ async function auth(server) {
 					return `Authentication failed due to: ${request.auth.error.message}`;
 				}
 
-        console.log(request.auth);
-
-        const {username, id} = request.auth.credentials.profile;
+        const {id: userProviderId} = request.auth.credentials.profile;
         request.cookieAuth.set({
-          username,
-          id,
+          oauthProvider: 'github',
+          userProviderId,
         });
 
 				return h.redirect('/');

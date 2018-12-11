@@ -1,6 +1,6 @@
 const Todo = require('../../db/models/Todo');
-const User = require('../../db/models/User');
 const {endpoints} = require('wildcard-api');
+const {getUser} = require('./common');
 
 Object.assign(endpoints, {
   toggleComplete,
@@ -8,13 +8,13 @@ Object.assign(endpoints, {
 });
 
 async function addTodo(text) {
-  const user = getUser(this);
+  const user = await getUser(this);
   if( ! user ) return;
   return await Todo.query().insert({text, authorId: user.id});
 }
 
 async function toggleComplete(id) {
-  const user = getUser(this);
+  const user = await getUser(this);
   if( ! user ) return;
 
   const todo = await Todo.query().findOne({id});
@@ -25,8 +25,4 @@ async function toggleComplete(id) {
   await todo.$query().update({completed: !todo.completed});
 
   return todo;
-}
-
-function getUser(context) {
-  return context.user;
 }

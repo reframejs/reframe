@@ -28,12 +28,6 @@ async function start() {
 
     app.use(universalAdapter);
 
-    app.get('/hi', (req, res, next) => {
-      const username = (req.user||{}).username || 'anon';
-      res.send('hey '+username);
-      next();
-    });
-
     const server = await startServer(app);
 
     server.stop = async () => {

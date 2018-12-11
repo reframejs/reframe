@@ -26,12 +26,12 @@ class User extends Model {
   /*
   static jsonSchema = {
     type: 'object',
-    required: ['id', 'username', 'oauthProvider', 'providerId'],
+    required: ['id', 'username', 'oauthProvider', 'userProviderId'],
     properties: {
       id: {type: 'integer'},
       username: {type: 'string'},
       oauthProvider: {},
-      providerId: {},
+      userProviderId: {},
     },
   };
   */

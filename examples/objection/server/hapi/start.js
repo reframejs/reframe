@@ -30,12 +30,11 @@ async function start() {
         config.ServerRendering,
         config.StaticAssets,
       ], {
-        addRequestContext: request => {console.log(request.auth);return ({
-          user: (
-            request.auth.isAuthenticated &&
-            request.auth.credentials
-          ),
-        })},
+        addRequestContext: request => {
+          if( request.auth.isAuthenticated ) {
+            return {user: request.auth.credentials};
+          }
+        },
       })
     );
 

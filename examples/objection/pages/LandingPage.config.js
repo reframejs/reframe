@@ -2,7 +2,6 @@ import React from 'react';
 import {endpoints, addContext} from 'wildcard-api/client';
 import assert from 'reassert';
 import fetch from '@brillout/fetch';
-import errorHandler from 'handli';
 
 export default {
   route: '/',
