@@ -10,7 +10,7 @@ function auth(app) {
   passport.use(new GitHubStrategy({
     clientID: GITHUB_CLIENT_ID,
     clientSecret: GITHUB_CLIENT_SECRET,
-    callbackURL: "http://localhost:3000/auth/github/callback"
+    callbackURL: "http://localhost:3000/auth/github"
   },
     async function(accessToken, refreshToken, profile, done) {
       try {
@@ -65,9 +65,8 @@ function auth(app) {
   app.use(passport.initialize());
   app.use(passport.session());
 
-  app.get('/auth/github', passport.authenticate('github'));
   app.get('/auth/github/failed', (req, res) => {res.send('Something went wrong while logging with GitHub');});
-  app.get('/auth/github/callback',
+  app.get('/auth/github',
     passport.authenticate('github', { failureRedirect: '/auth/github/failed' }),
     // Successful authentication
     (req, res) => {res.redirect('/');},

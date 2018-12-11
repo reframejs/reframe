@@ -12,8 +12,14 @@ module.exports = start();
 
 async function start() {
     const server = Hapi.Server({
-        port: process.env.PORT || 3000,
-        debug: {request: ['internal']},
+      port: process.env.PORT || 3000,
+      debug: {request: ['internal']},
+      routes: {
+        auth: {
+          strategy: 'session',
+          mode: 'optional',
+        },
+      },
     });
 
     await auth(server);
@@ -24,7 +30,12 @@ async function start() {
         config.ServerRendering,
         config.StaticAssets,
       ], {
-        addRequestContext: request => ({user: request.user}),
+        addRequestContext: request => {console.log(request.auth);return ({
+          user: (
+            request.auth.isAuthenticated &&
+            request.auth.credentials
+          ),
+        })},
       })
     );
 

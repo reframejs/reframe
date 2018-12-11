@@ -10,7 +10,7 @@ const GITHUB_CLIENT_SECRET = (
 );
 
 // We don't deploy this example, so it's fine to have this secret public
-const COOKIE_SECRET = '6978801547562701';
+const COOKIE_SECRET = '697880154756270109959458430812076';
 
 module.exports = {
   GITHUB_CLIENT_ID,
