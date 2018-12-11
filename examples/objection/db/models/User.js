@@ -4,7 +4,6 @@ class User extends Model {
   static get tableName() {
     return 'users';
   }
-  //*
   static get relationMappings() {
     const Todo = require('./Todo');
     return {
@@ -18,23 +17,17 @@ class User extends Model {
       }
     };
   }
-  static get relatedFindQueryMutates() {
-    return false;
-  }
-  //*/
 
-  /*
   static jsonSchema = {
     type: 'object',
-    required: ['id', 'username', 'oauthProvider', 'userProviderId'],
     properties: {
       id: {type: 'integer'},
       username: {type: 'string'},
-      oauthProvider: {},
-      userProviderId: {},
+      avatarUrl: {type: 'string'},
+      oauthProvider: {type: 'string'},
+      userProviderId: {type: 'string'},
     },
   };
-  */
 }
 
 module.exports = User;

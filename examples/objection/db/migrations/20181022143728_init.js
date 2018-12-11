@@ -5,11 +5,8 @@ exports.up = async knex => {
       table.increments('id').primary();
       table.string('username').notNullable();
       table.string('avatarUrl');
-
       table.string('oauthProvider').notNullable();
       table.string('userProviderId').notNullable();
-      table.string('accessToken');
-      table.string('refreshToken');
     })
   );
 
