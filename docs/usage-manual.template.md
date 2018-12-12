@@ -126,9 +126,9 @@ Example:
 ## `renderHtmlAtBuildTime`
 
 Every page is rendered to HTML.
-(React and Vue.js components can be rendered to the DOM as well as to HTML.)
+(React and Vue components can be rendered to the DOM as well as to HTML.)
 
-The page config option `renderHtmlAtBuildTime` allows you to control whether the page should be rendered statically at build-time or dynamically at request-time.
+The page config option `renderHtmlAtBuildTime` allows you to control whether the page is rendered statically at build-time or dynamically at request-time.
 
  - `renderHtmlAtBuildTime: false` (default value)
    <br/>
@@ -139,11 +139,14 @@ The page config option `renderHtmlAtBuildTime` allows you to control whether the
    <br/>
    The page is rendered to **HTML at build-time**.
    <br/>
-   The page is rendered to HTML only once, when Reframe is building your app's pages.
+   The page is rendered to HTML only once, when Reframe is building and transpiling your app.
 
 By default a page is rendered to HTML at request-time.
 But if a page is static
-(a landing page, a blog post, a personal homepage, etc.) it would be wasteful to re-render its HTML on every page request.
+(a landing page, a blog post, a personal homepage, etc.) it is wasteful to re-render its HTML on every page request.
+
+Also setting `renderHtmlAtBuildTime: true` to all your pages effectively makes your app a static site.
+You can then deploy your app to a static host such as Netlify or GitHub Pages.
 
 !INLINE ./snippets/section-footer.md #basics --hide-source-path
 

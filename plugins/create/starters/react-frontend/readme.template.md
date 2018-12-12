@@ -1,7 +1,6 @@
 !MENU_SKIP
 !INLINE /docs/snippets/header.md --hide-source-path
 !MENU
-&nbsp;
 
 # react-frontend
 
@@ -10,7 +9,7 @@ Starter to create a React frontend.
 Choose this starter if you don't need a backend or if you already have one.
 
 If you are not sure if you need a Node.js server, that's fine:
-You can use the react-frontend starter and easily add a Node.js server afterwards.
+You can add a Node.js server afterwards.
 
 For other starters, see the [list of starters](/docs/starters.md#readme).
 

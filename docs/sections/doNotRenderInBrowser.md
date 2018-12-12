@@ -2,15 +2,15 @@ The page config option `doNotRenderInBrowser` allow you to control whether or no
 
 By default a page is rendered in the browser so that it can have interactive views
 (a like button, an interactive graph, a To-Do list, etc.).
-But if a page has no interactive views then it is wasteful to render it in the browser.
+But if a page has no interactive views then browser rendering is wasteful.
 
  - `doNotRenderInBrowser: false` (default value)
    <br/>
    The page is **rendered in the browser**.
    <br/>
-   The page's view (e.g. React components) and the view renderer (e.g. React) are loaded in the browser.
+   The page's code (e.g. React components) and the view library (e.g. React) are loaded in the browser.
    <br/>
-   The page's view is rendered to the DOM.
+   The page's views are rendered to the DOM.
    (E.g. with `ReactDOM.hydrate`.)
    <br/>
    The DOM may change.
@@ -22,9 +22,6 @@ But if a page has no interactive views then it is wasteful to render it in the b
    <br/>
    The DOM will not change.
 
-Setting `doNotRenderInBrowser: true` makes the page considerably faster as no (or much less) JavaScript is loaded and exectued.
-
-So if your page has no interactive views, then you can set `doNotRenderInBrowser: true`.
-More precisely, you can set `doNotRenderInBrowser: true` if your page's view is stateless.
-E.g. a functional React component is always stateless and
-if your page is composed of functional React components only, then you can set `doNotRenderInBrowser: true`.
+Setting `doNotRenderInBrowser: true` makes the page considerably faster.
+So if your page has no interactive views, then you should set `doNotRenderInBrowser: true`.
+(Precisely speaking, you should set `doNotRenderInBrowser: true` if and only if your page's views are stateless.)

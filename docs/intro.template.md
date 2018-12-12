@@ -41,7 +41,7 @@ No build configuration.
  - [Examples](#examples)
  - [Quick Start](#quick-start)
 
-### Why Reframe
+## Why Reframe
 
 There are many web frameworks out there with huge adoption, including Ruby on Rails, Django and Next.js.
 So why do we need another one?
@@ -116,12 +116,12 @@ Reframe is able to adapt and embrace what comes next.
 
 
 
-### Examples
+## Examples
 
 - [Frontend](#frontend)
 - [Full-stack](#full-stack)
 
-###### Frontend
+### Frontend
 
 We define a page config `HelloPage`:
 
@@ -144,7 +144,7 @@ we created a frontend simply by defining one page config.
 <br/>
 <br/>
 
-###### Full-stack
+### Full-stack
 
 Let's look at a Todo app implemented with
 [Objection.js](https://github.com/Vincit/objection.js)
@@ -177,7 +177,7 @@ We use our API endpoint to retrieve the data from the frontend:
 
 
 
-### Quick Start
+## Quick Start
 
 !INLINE ./getting-started.md --hide-source-path
 
