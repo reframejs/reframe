@@ -110,12 +110,6 @@ async function handlePromise(promise, {progressText, successText, failureText, t
   assert.internal(progressText && failureText);
 
   const loadingSpinner = new LoadingSpinner({stream: copyStream(process.stderr)});
-  /*
-  try {
-  } catch(err) {
-    console.log(err);
-  }
-  */
   let spinnerText = progressText;
   const spinnerStart = () => loadingSpinner.start({text: spinnerText});
   const spinnerStop = () => loadingSpinner.stop();
