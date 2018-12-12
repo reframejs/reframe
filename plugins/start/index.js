@@ -105,10 +105,17 @@ async function execDev({options}) {
 }
 
 async function handlePromise(promise, {progressText, successText, failureText, terminateOnError}) {
-  const {symbolSuccess, symbolWarning, symbolError, loadingSpinner} = require('@brillout/cli-theme');
+  const {symbolSuccess, symbolWarning, symbolError, LoadingSpinner} = require('@brillout/cli-theme');
   const assert = require('reassert');
   assert.internal(progressText && failureText);
 
+  const loadingSpinner = new LoadingSpinner({stream: copyStream(process.stderr)});
+  /*
+  try {
+  } catch(err) {
+    console.log(err);
+  }
+  */
   let spinnerText = progressText;
   const spinnerStart = () => loadingSpinner.start({text: spinnerText});
   const spinnerStop = () => loadingSpinner.stop();
@@ -116,15 +123,11 @@ async function handlePromise(promise, {progressText, successText, failureText, t
   spinnerStart();
 
   let checkIfFinished;
+  let checkStart = new Date();
   checkIn(2);
 
-  let logHandler;
-  //*
-  logHandler = new LogHandler(
+  const logHandler = new LogHandler(
     execLog => {
-      console.log('ecca');
-      console.log(new Error().stack);
-      console.log('ecca2');
       spinnerStop();
       execLog();
       spinnerStart();
@@ -133,8 +136,6 @@ async function handlePromise(promise, {progressText, successText, failureText, t
       spinnerStop();
     },
   );
-  process.stdout.write('we');
-  //*/
   let promiseRet;
   try {
     promiseRet = await promise;
@@ -160,10 +161,24 @@ async function handlePromise(promise, {progressText, successText, failureText, t
   function checkIn(seconds) {
     checkIfFinished = setTimeout(() => {
       spinnerStop();
-      spinnerText = progressText+' ('+symbolWarning+'Not finished after '+(2*seconds-2)+' seconds. Still trying...)';
+      const timePassed = Math.round((new Date() - checkStart)/1000);
+      spinnerText = progressText+' ('+symbolWarning+'Not finished after '+timePassed+' seconds. Still trying...)';
       spinnerStart();
       checkIn(1)
     }, seconds*1000);
+  }
+
+  function copyStream(pipe) {
+    const writeCopy = pipe.write.bind(pipe);
+    const pipeCopy = new Proxy(pipe, {
+      get: (pipe, prop) => {
+        if( prop === 'write' ) {
+          return writeCopy;
+        }
+        return pipe[prop];
+      },
+    });
+    return pipeCopy;
   }
 }
 

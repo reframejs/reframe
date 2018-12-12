@@ -49,7 +49,7 @@ const cliTheme = {
 
 module.exports = cliTheme;
 
-function LoadingSpinner() {
+function LoadingSpinner(oraOptions) {
   let currentLoadingSpinner = null;
 
   return {
@@ -59,7 +59,6 @@ function LoadingSpinner() {
   };
 
   function startLoadingSpinner({text}={}) {
-    console.log('star');
     const ora = require('ora');
     const assert_usage = require('reassert/usage');
 
@@ -79,7 +78,7 @@ function LoadingSpinner() {
         oraOpts.text = text;
     }
 
-    currentLoadingSpinner = ora(oraOpts);
+    currentLoadingSpinner = ora({...oraOpts, ...oraOptions});
 
     currentLoadingSpinner.spinner = {frames: currentLoadingSpinner.spinner.frames.map(frame => ' '+frame)};
 
@@ -87,7 +86,6 @@ function LoadingSpinner() {
   }
 
   function stopLoadingSpinner() {
-    console.log('stop');
     const assert_usage = require('reassert/usage');
 
     /*
