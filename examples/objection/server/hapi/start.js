@@ -42,7 +42,11 @@ async function start() {
 
     await server.start();
 
-    await wait(5);
+    await wait(1);
+    console.log(2331);
+    await wait(2);
+    process.stdout.write('euhwq\n');
+    await wait(4);
 
     const env = colorEmphasis(process.env.NODE_ENV||'development');
     console.log(symbolSuccess+'Server running (for '+env+')');

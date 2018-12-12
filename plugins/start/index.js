@@ -140,6 +140,7 @@ async function handlePromise(promise, {progressText, successText, failureText, t
   try {
     promiseRet = await promise;
   } catch(err) {
+    clearTimeout(checkIfFinished);
     logHandler.terminate();
     console.error(symbolError+failureText);
     console.error(err);
@@ -148,9 +149,8 @@ async function handlePromise(promise, {progressText, successText, failureText, t
     }
     return undefined;
   }
-  logHandler.terminate();
-
   clearTimeout(checkIfFinished);
+  logHandler.terminate();
 
   if( successText ) {
     console.log(symbolSuccess+successText);
@@ -555,7 +555,6 @@ function LogHandler(handler, onTermination) {
     ['stdout', 'stderr'].forEach(pipeName => {
       const pipe = process[pipeName];
       const writeFn = (...args) => {
-   //   console.log(22, args);
         const execLog = () => writeOrgFn.apply(pipe, args);
         if( terminated ) {
           assert.warning(false);
@@ -570,7 +569,6 @@ function LogHandler(handler, onTermination) {
       pipe.write = writeFn;
       const pipeProxy = (
         new Proxy(pipe, {get: (pipe, prop) => {
-      //  console.log('pro', pipeName, prop);
           if( prop!=='write' ) {
             terminate();
           }
@@ -580,7 +578,6 @@ function LogHandler(handler, onTermination) {
       const writePropDescriptor = Object.getOwnPropertyDescriptor(process, pipeName)
       Object.defineProperty(process, pipeName, {value: pipeProxy});
       restoreFunctions.push(() => {
-     // Object.defineProperty(process, pipeName, {value: pipe});
         Object.defineProperty(process, pipeName, writePropDescriptor);
         pipe.write = writeOrgFn;
       });
