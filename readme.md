@@ -133,14 +133,14 @@ Framework to create web apps.
 
 Designed for high development speed with no sacrifice on flexibility.
 
-Assembles a JavaScript stack with integrations for:
+Assembles a JavaScript stack that integrates with:
 <br/> &nbsp; &#8226; &nbsp; Node.js servers (Express, Koa, Hapi, ...)
 <br/> &nbsp; &#8226; &nbsp; Modern frontend (React, Vue.js, React Native Web, ...)
-<br/> &nbsp; &#8226; &nbsp; Node.js ORMs (Objection.js, TypeORM, ...) [WIP]
+<br/> &nbsp; &#8226; &nbsp; Node.js ORMs (Objection.js, TypeORM, ...)
 <br/> &nbsp; &#8226; &nbsp; Utils (TypeScript, React Router, PostCSS, ...)
 
 All stacks are supported:
-<br/> &nbsp; &#8226; &nbsp; frontend + backend + database/ORM (aka full-stack) [WIP]
+<br/> &nbsp; &#8226; &nbsp; frontend + backend + database/ORM (aka full-stack)
 <br/> &nbsp; &#8226; &nbsp; frontend + backend (aka SSR)
 <br/> &nbsp; &#8226; &nbsp; frontend-only (aka static site)
 <br/> &nbsp; &#8226; &nbsp; backend-only (aka old-school app with plain old HTML)
@@ -153,6 +153,7 @@ All stacks are supported:
 That's it:
 We simply define a React component and a so-called page config.
 No build configuration.
+No server configuration.
 (But if you want to, you can configure and take control over everything.)
 
 <br/>
@@ -182,15 +183,15 @@ Reframe's flexibility is based on three pillars:
 
 1. **Progressive Eject** -
    All Reframe parts are ejectable:
-   You can eject the build configuration (the webpack config), and/or the render code, and/or the routing code, and/or the server code, etc.
+   You can eject the build configuration (the webpack config), the render code, the routing code, the server code, etc.
 
 2. **Minimal glue code** -
    We isolate a maximum of code in do-one-thing-do-it-well libraries.
    That way, we manage to keep glue code to a tiny ~500 lines of code.
 
 3. **Flexible stack** -
-   You can easily,
-   and at any time,
+   You can easily
+   and at any time
    remove/add a frontend, backend, or database/ORM to your app.
    For example, you can start with a static site and later add a Node.js server.
 
@@ -198,8 +199,8 @@ Benefits of that flexibility:
 
 **Take Over Control** -
 You can eject and take control over Reframe parts.
-And you can do this progressively
-as your app grows into a large application.
+You can progressively eject parts
+as your prototype grows into a large application.
 
 **Removable** -
 If you eject all Reframe parts then you effectively get rid of Reframe.
@@ -224,11 +225,6 @@ to implement a static site with Vue.js but
 you can also use Reframe
 to implement a SSR app with React.
 
-**Resillient Framework** -
-Web dev technologies are rapidly evolving and,
-thanks to its flexible architecture,
-Reframe is able to adapt and embrace what comes next.
-
 <b><sub><a href="#contents">&#8679; TOP  &#8679;</a></sub></b>
 
 <br/>
@@ -250,40 +246,33 @@ Reframe is able to adapt and embrace what comes next.
    ~~~shell
    $ yarn global add @reframe/cli
    ~~~
-   ---
-   <br/>
    </details>
    <details>
-   <summary>With npx</summary>
+   <summary>With npx (local install)</summary>
+
    With
    <a href="https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b">npx</a>
-   you can create a Reframe app without globally installing reframe:
-
+   you can run the Reframe CLI without global install:
    ~~~shell
    $ npx reframe create react-frontend
    ~~~
 
-   Note that you will then to prefix every `$ reframe` command call with `npx`.
-   For example for strep 3:
-
+   You then prefix every `$ reframe <command>` with `npx`.
+   For example for step 3:
    ~~~shell
-   $ cd my-frontend-app/
+   $ cd `my-react-frontend/`
    $ npx reframe dev
    ~~~
-
-   ---
-   <br/>
    </details>
 
-2. Create a new Reframe app.
+2. Create a new app with the `react-frontend` starter.
    ~~~shell
    $ reframe create react-frontend
    ~~~
-   A `my-react-frontend/` directory is created and populated with the react-frontend starter.
 
 3. Build and serve the app.
    ~~~shell
-   $ cd my-frontend-app/
+   $ cd `my-react-frontend/`
    $ reframe dev
    ~~~
 
@@ -292,8 +281,9 @@ Reframe is able to adapt and embrace what comes next.
 5. Read [Usage Manual - Basics](/docs/usage-manual.md#basics).
 
 The `react-frontend` starter scaffolds a static site.
-If instead you want to create a SSR app, a backend-only app, or a full-stack app
-then see [Starters](/docs/starters.md#readme).
+If you want a SSR app, a backend-only app, or a full-stack app
+then choose another starter.
+See [Starters](/docs/starters.md#readme).
 
 <b><sub><a href="#contents">&#8679; TOP  &#8679;</a></sub></b>
 

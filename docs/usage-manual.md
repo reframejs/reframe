@@ -163,7 +163,7 @@
 
 ### Custom
 
-*Full and in-depth customization using eject.*
+*Full customization. Based on eject.*
 
 - Server
   - [Custom Server](#custom-server)
@@ -204,40 +204,33 @@
    ~~~shell
    $ yarn global add @reframe/cli
    ~~~
-   ---
-   <br/>
    </details>
    <details>
-   <summary>With npx</summary>
+   <summary>With npx (local install)</summary>
+
    With
    <a href="https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b">npx</a>
-   you can create a Reframe app without globally installing reframe:
-
+   you can run the Reframe CLI without global install:
    ~~~shell
    $ npx reframe create react-frontend
    ~~~
 
-   Note that you will then to prefix every `$ reframe` command call with `npx`.
-   For example for strep 3:
-
+   You then prefix every `$ reframe <command>` with `npx`.
+   For example for step 3:
    ~~~shell
-   $ cd my-frontend-app/
+   $ cd `my-react-frontend/`
    $ npx reframe dev
    ~~~
-
-   ---
-   <br/>
    </details>
 
-2. Create a new Reframe app.
+2. Create a new app with the `react-frontend` starter.
    ~~~shell
    $ reframe create react-frontend
    ~~~
-   A `my-react-frontend/` directory is created and populated with the react-frontend starter.
 
 3. Build and serve the app.
    ~~~shell
-   $ cd my-frontend-app/
+   $ cd `my-react-frontend/`
    $ reframe dev
    ~~~
 
@@ -246,8 +239,9 @@
 5. Read [Usage Manual - Basics](/docs/usage-manual.md#basics).
 
 The `react-frontend` starter scaffolds a static site.
-If instead you want to create a SSR app, a backend-only app, or a full-stack app
-then see [Starters](/docs/starters.md#readme).
+If you want a SSR app, a backend-only app, or a full-stack app
+then choose another starter.
+See [Starters](/docs/starters.md#readme).
 
 <b><sub><a href="#basics">&#8679; TOP  &#8679;</a></sub></b>
 <br/>
