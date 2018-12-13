@@ -53,12 +53,12 @@ async function buildResponse({requestHandlers, req, res, addRequestContext}) {
     assert.usage(req);
     assert.usage(res);
 
-    const handlerArgs = getRequestContext({req, addRequestContext});
+    const requestContext = getRequestContext({req, addRequestContext});
 
     for(const requestHandler of requestHandlers) {
       const responseObject = (
         getResponseObject(
-          await requestHandler(handlerArgs),
+          await requestHandler(requestContext),
           {extractEtagHeader: false}
         )
       );
@@ -93,11 +93,11 @@ async function addParameters({paramHandlers, req}) {
   assert.usage(paramHandlers);
   assert.usage(req);
 
-  const handlerArgs = getRequestContext({req});
+  const requestContext = getRequestContext({req});
 
   for(const paramHandler of paramHandlers) {
     assert.usage(paramHandler instanceof Function);
-    const newParams = await paramHandler(handlerArgs);
+    const newParams = await paramHandler(requestContext);
     assert.usage(newParams===null || newParams && newParams.constructor===Object);
     Object.assign(req, newParams);
   }
@@ -111,6 +111,7 @@ function getRequestContext({req, addRequestContext}) {
   const body = getRequestBody();
 
   const requestContext = {
+    ...req,
     url,
     method,
     headers,

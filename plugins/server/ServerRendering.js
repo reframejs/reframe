@@ -15,11 +15,9 @@ async function ServerRendering(requestContext) {
         return null;
     }
 
-    const hash = computeHash(html);
-
     const headers = [];
     headers.push({name: 'Content-Type', value: 'text/html'});
-    headers.push({name: 'ETag', value: '"'+hash+'"'});
+    headers.push({name: 'ETag', value: '"'+computeHash(html)+'"'});
 
     return {
         body: html,
@@ -36,7 +34,7 @@ async function getHtml(requestContext) {
     const {pageConfigs} = config.getBuildInfo();
     const {renderToHtml, router} = config;
 
-    const context = requestContext;
+    const context = {requestContext};
 
     const html = await getPageHtml({pageConfigs, uri, renderToHtml, router, context});
     assert_internal(html===null || html.constructor===String, html);

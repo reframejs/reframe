@@ -142,6 +142,7 @@ function getRequestContext({request, addRequestContext}) {
   const body = getRequestBody();
 
   const requestContext = {
+    ...request,
     url,
     method,
     headers,

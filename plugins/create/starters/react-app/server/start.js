@@ -1,7 +1,7 @@
 const Hapi = require('hapi');
 const config = require('@brillout/reconfig').getConfig({configFileName: 'reframe.config.js'});
 const {symbolSuccess, colorEmphasis} = require('@brillout/cli-theme');
-const UniversalHapiAdapter = require('@universal-adapter/hapi');
+const HapiAdapter = require('@universal-adapter/hapi');
 
 module.exports = start();
 
@@ -13,7 +13,7 @@ async function start() {
 
     await server.register(
       // We use `@universal-adapter` to integrate Reframe with Hapi
-      UniversalHapiAdapter([
+      HapiAdapter([
         // Run `$ reframe eject server-rendering` to eject the server rendering code
         config.ServerRendering,
         // Run `$ reframe eject server-assets` to eject the static asset serving code

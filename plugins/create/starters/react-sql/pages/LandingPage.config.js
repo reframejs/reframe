@@ -1,12 +1,11 @@
 import React from 'react';
-import Header from '../views/Header';
+import {endpoints} from 'wildcard-api/client';
 
-const Welcome = () => (
+const Welcome = ({msg}) => (
     <div>
-        <Header/>
         <div style={{margin: 'auto', maxWidth: 500}}>
             <h2 style={{fontWeight: 'normal'}}>
-                Welcome to Reframe
+                Welcome to Reframe {msg}
             </h2>
 
             Interactive pages:
@@ -40,17 +39,19 @@ const Welcome = () => (
     </div>
 );
 
+async function getInitialProps({isNodejs, requestContext}) {
+  let {getLandingPageData} = endpoints;
+  if( isNodejs ) getLandingPageData = getLandingPageData.bind(requestContext);
+  return getLandingPageData();
+}
+
 const WelcomePage = {
     route: '/',
     view: Welcome,
 
     title: 'Welcome', // <title>
     description: 'This is a Reframe App.', // <meta name="description">
-
-    // The landing page doesn't contain any interactive views.
-    // Thus we don't have to render it in the browser.
-    // More infos at "Usage Manual - doNotRenderInBrowser".
-    doNotRenderInBrowser: true,
+    getInitialProps,
 };
 
 export default WelcomePage;

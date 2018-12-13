@@ -2,7 +2,7 @@ const Hapi = require('hapi');
 const config = require('@brillout/reconfig').getConfig({configFileName: 'reframe.config.js'});
 const {symbolSuccess, colorEmphasis} = require('@brillout/cli-theme');
 const handlers = require('./api.config.js');
-const UniversalHapiAdapter = require('@universal-adapter/hapi');
+const HapiAdapter = require('@universal-adapter/hapi');
 
 module.exports = start();
 
@@ -13,7 +13,7 @@ async function start() {
     });
 
     await server.register(
-      UniversalHapiAdapter([
+      HapiAdapter([
         config.ServerRendering,
         config.StaticAssets,
         ...handlers

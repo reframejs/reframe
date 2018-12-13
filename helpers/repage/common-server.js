@@ -4,8 +4,10 @@ const generateHtml = require('@brillout/index-html');
 module.exports = {renderPageHtml};
 
 async function renderPageHtml({renderToHtml, pageConfig, url, router, context}) {
-    context = {...(context||{})};
-    context.isNodejs = context.isNodejs || true;
+    context = {
+      isNodejs: true,
+      ...context,
+    };
 
     let html;
     try {
