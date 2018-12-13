@@ -102,11 +102,6 @@ to implement a static site with Vue.js but
 you can also use Reframe
 to implement a SSR app with React.
 
-**Resillient Framework** -
-Web dev technologies are rapidly evolving and,
-thanks to its flexible architecture,
-Reframe is able to adapt and embrace what comes next.
-
 !INLINE ./top-link.md #contents --hide-source-path
 
 <br/>
