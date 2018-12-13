@@ -200,12 +200,15 @@
    ~~~
    <details>
    <summary>With yarn</summary>
+
    ---
+
    Alternatively with yarn:
 
    ~~~shell
    $ yarn global add @reframe/cli
    ~~~
+
    ---
    </details>
    <details>

@@ -246,12 +246,15 @@ Reframe is able to adapt and embrace what comes next.
    ~~~
    <details>
    <summary>With yarn</summary>
+
    ---
+
    Alternatively with yarn:
 
    ~~~shell
    $ yarn global add @reframe/cli
    ~~~
+
    ---
    </details>
    <details>
