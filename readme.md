@@ -157,6 +157,7 @@ no server configuration.
 (But if you want to, you can configure and take control over everything.)
 
 <br/>
+<br/>
 
 #### Contents
 
@@ -184,24 +185,29 @@ Reframe's flexibility is based on three pillars:
 
 1. **Progressive Eject** -
    All Reframe parts are ejectable:
-   You can eject the build configuration (the webpack config), the render code, the routing code, the server code, etc.
+   You can eject and take control over
+   the build configuration (the webpack config),
+   the render code,
+   the routing code,
+   the server code,
+   etc.
 
-2. **Minimal glue code** -
+2. **Slim core** -
    We isolate a maximum of code in do-one-thing-do-it-well libraries.
-   That way, we manage to keep glue code to a tiny ~500 lines of code.
+   That way, we manage to keep Reframe to a tiny ~500 lines of code.
+   This means that ejecting everything leaves you with only ~500 LOC.
 
 3. **Flexible stack** -
    You can easily
    and at any time
-   remove/add a frontend, backend, or database/ORM to your app.
+   remove/add a frontend, backend, and database/ORM to your app.
    For example, you can start with a static site and later add a Node.js server.
 
 Benefits of that flexibility:
 
 **Take Over Control** -
-You can eject and take control over Reframe parts.
-You can progressively eject parts
-as your prototype grows into a large application.
+As your prototype grows into a large application,
+you progressively eject and take control over Reframe parts.
 
 **Removable** -
 If you eject all Reframe parts then you effectively get rid of Reframe.
@@ -209,8 +215,9 @@ At that point your code doesn't depend on Reframe anymore and only depends on do
 (such as React, Express, Webpack, etc.).
 
 **Rapid Prototyping** -
-You can change your app's stack at any time
-which is crucial when prototyping.
+When starting out, you most often don't know what stack is right.
+Reframe embraces that:
+You can change your app's stack at any time.
 For example,
 you can implement a prototype as a static site
 while skipping a real database by hard-writing data in the codebase.
@@ -224,7 +231,7 @@ For example,
 you can use Reframe
 to implement a static site with Vue.js but
 you can also use Reframe
-to implement a SSR app with React.
+to implement a React SSR app.
 
 <b><sub><a href="#contents">&#8679; TOP  &#8679;</a></sub></b>
 
