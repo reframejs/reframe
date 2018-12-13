@@ -2,10 +2,26 @@
    ~~~shell
    $ npm install -g @reframe/cli
    ~~~
+   <details>
+   <summary>With yarn</summary>
    Alternatively with yarn:
    ~~~shell
    $ yarn global add @reframe/cli
    ~~~
+   </details>
+   <details>
+   <summary>With npx</summary>
+   With npx you can create a Reframe app without globally installing reframe:
+   ~~~shell
+   $ npx reframe create !ARGUMENT-1
+   ~~~
+
+   Note that you will then to prefix every `reframe` command call with `npx`.
+   For example:
+   ~~~shell
+   $ npx reframe dev
+   ~~~
+   </details>
 
 2. Create a new Reframe app.
    ~~~shell
@@ -20,3 +36,5 @@
    ~~~
 
 4. Open [http://localhost:3000](http://localhost:3000).
+
+5. Read [Usage Manual - Basics](/docs/usage-manual.md#basics).

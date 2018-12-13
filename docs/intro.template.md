@@ -38,8 +38,8 @@ No build configuration.
 #### Contents
 
  - [Why Reframe](#why-reframe)
- - [Examples](#examples)
  - [Quick Start](#quick-start)
+ - [Examples](#examples)
 
 ## Why Reframe
 
@@ -106,13 +106,25 @@ Web dev technologies are rapidly evolving and,
 thanks to its flexible architecture,
 Reframe is able to adapt and embrace what comes next.
 
+!INLINE ./top-link.md #contents --hide-source-path
+
+<br/>
+<br/>
 
 
+
+
+
+## Quick Start
+
+!INLINE ./getting-started.md --hide-source-path
 
 !INLINE ./top-link.md #contents --hide-source-path
 
 <br/>
 <br/>
+
+
 
 
 
@@ -169,19 +181,6 @@ We use our API endpoint to retrieve the data from the frontend:
 ~~~js
 !INLINE ../examples/objection/pages/LandingPage.config.js --hide-source-path
 ~~~
-
-<br/>
-<br/>
-
-
-
-
-
-## Quick Start
-
-!INLINE ./getting-started.md --hide-source-path
-
-!INLINE ./top-link.md #contents --hide-source-path
 
 <br/>
 <br/>

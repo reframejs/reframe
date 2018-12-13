@@ -6,16 +6,39 @@
 
 # Usage Manual
 
-#### Basics
+### Basics
 
 - [Getting Started](#getting-started)
-- [CSS & Static Assets](#css--static-assets)
-- [Page Async Data](#page-async-data)
-- [Page Navigation & Links](#page-navigation--links)
+- [CSS](#css)
+- [Static Assets](#static-assets)
+- [Async Data](#async-data)
+- [Navigation & Links](#navigation--links)
 - [`doNotRenderInBrowser`](#donotrenderinbrowser)
 - [`renderHtmlAtBuildTime`](#renderhtmlatbuildtime)
 
-#### Custom
+### Use Cases
+
+- Flexible stack
+  - [Add/Remove Server](#add-remove-server)
+  - [Add/Remove Frontend](#add-remove-frontend)
+  - [Add/Remove Database](#add-remove-database)
+- Deploy
+  - [Static Deploy](#static-deploy)
+  - [Serverless Deploy](#serverless-deploy)
+- Integrations
+  - [Vue](#vue)
+  - [React Router](#react-router)
+  - [TypeScript](#typescript)
+  - [PostCSS](#postcss)
+  - [React Native (Web)](#react-native-web)
+  - [React Native (Web) + React Router](#react-native-web--react-router)
+  - [Bootstrap](#boostrap)
+  - [Semantic UI](#semantic-ui)
+  - [Frontend Libraries](#frontend-libraries)
+
+### Custom
+
+*Full and in-depth customization using eject.*
 
 - Server
   - [Custom Server](#custom-server)
@@ -35,20 +58,6 @@
   - [Custom Babel](#custom-babel)
   - [Custom Webpack](#custom-webpack)
   - [Fully Custom Build](#fully-custom-build)
-
-#### Use Cases
-
-- Deploy
-  - [Static Deploy](#static-deploy)
-  - [Serverless Deploy](#serverless-deploy)
-- Integrations
-  - [Vue](#vue)
-  - [React Router](#react-router)
-  - [TypeScript](#typescript)
-  - [PostCSS](#postcss)
-  - [React Native (Web)](#react-native-web)
-  - [React Native (Web) + React Router](#react-native-web--react-router)
-  - [Frontend Libraries](#frontend-libraries)
 
 
 <br/>
@@ -71,9 +80,43 @@
 
 
 
-## CSS & Static Assets
+## CSS
 
-!INLINE ./sections/usage-style.md --hide-source-path
+A CSS file can be loaded and applied by importing it.
+
+~~~js
+import './GlitterStyle.css';
+~~~
+
+Example of a page using CSS:
+ - [/examples/basics/pages/glitter/](/examples/basics/pages/glitter/)
+
+!INLINE ./snippets/section-footer.md #basics --hide-source-path
+
+
+## Static Assets
+
+Static assets (images, fonts, videos, etc.) can be imported as well
+but importing an asset doesn't actually load it:
+Only the URL of the asset is returned.
+It is up to us to use/fetch the URL of the asset.
+
+~~~js
+import diamondUrl from './diamond.png';
+
+// do something with diamondUrl, e.g. `await fetch(diamondUrl)` or `<img src={diamondUrl}/>`
+~~~
+
+In addition, static assets can be referenced in CSS by using the `url` data type.
+
+~~~css
+.diamond-background {
+    background-image: url('./diamond.png');
+}
+~~~
+
+Example of a page using fonts, images and other static assets:
+ - [/examples/basics/pages/glitter/](/examples/basics/pages/glitter/)
 
 !INLINE ./snippets/section-footer.md #basics --hide-source-path
 
@@ -82,7 +125,7 @@
 
 
 
-## Page Async Data
+## Async Data
 
 !INLINE ./sections/usage-async-data.md --hide-source-path
 
@@ -92,7 +135,7 @@
 
 
 
-## Page Navigation & Links
+## Navigation & Links
 
 The standard way to navigate between pages is to use the HTML link tag `<a>`.
 
@@ -145,10 +188,203 @@ By default a page is rendered to HTML at request-time.
 But if a page is static
 (a landing page, a blog post, a personal homepage, etc.) it is wasteful to re-render its HTML on every page request.
 
-Also setting `renderHtmlAtBuildTime: true` to all your pages effectively makes your app a static site.
+By setting `renderHtmlAtBuildTime: true` to all your pages,
+you effectively remove the need of a Node.js server.
 You can then deploy your app to a static host such as Netlify or GitHub Pages.
 
 !INLINE ./snippets/section-footer.md #basics --hide-source-path
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Static Deploy
+
+If your app is html-static, you can deploy it to a static host.
+
+Your app is html-static when all your page configs have `renderHtmlAtBuildTime: true`.
+In that case,
+all HTMLs are rendered at build-time,
+your app consists of static browser assets only,
+no Node.js server is required,
+and your app can be statically served.
+
+If you add the `@reframe/deploy-git` plugin you can then
+run `$ reframe deploy` to automatically deploy your app.
+
+!INLINE ./sections/deploy-static.md --hide-source-path
+
+!INLINE ./snippets/section-footer.md #use-cases --hide-source-path
+
+
+
+
+## Serverless Deploy
+
+!INLINE ./sections/deploy-serverless.md --hide-source-path
+!INLINE ./snippets/section-footer.md #use-cases --hide-source-path
+
+
+
+
+## Add/Remove Server
+
+By setting `renderHtmlAtBuildTime: true` to all your pages you remove the need for a Node.js server.
+See
+[`renderHtmlAtBuildTime`](#renderhtmlatbuildtime).
+
+On the other hand,
+if you need a Node.js server
+you can eject Reframe's server code:
+~~~shell
+$ reframe eject server
+~~~
+You then have full control over the Node.js server.
+
+!INLINE ./snippets/section-footer.md #use-cases --hide-source-path
+
+
+
+## Add/Remove Frontend
+
+By setting `doNotRenderInBrowser: true` to all your page configs you remove browser-side JavaScript.
+
+You app is then only a backend with plain old HTML.
+
+You can't have interactive views but
+you can still have dynamic content by rendering the HTML dynamically at request-time.
+
+More infos at
+[`doNotRenderInBrowser`](#donotrenderinbrowser)
+and
+[`renderHtmlAtBuildTime`](#renderhtmlatbuildtime).
+
+!INLINE ./snippets/section-footer.md #use-cases --hide-source-path
+
+
+
+## Add/Remove Database
+
+By running
+
+~~~js
+$ reframe eject server
+~~~
+
+you gain full control over the Node.js server.
+You can then use any database and ORM.
+
+
+
+
+
+## Vue
+
+With the
+[`@reframe/vue`](/plugins/vue) plugin
+you can use Reframe with Vue instead of React.
+
+!INLINE ./snippets/section-footer.md #use-cases --hide-source-path
+
+## React Router
+
+You can use the React Router components by adding the [@reframe/react-router](/plugins/react-router) plugin.
+
+!INLINE ./snippets/section-footer.md #use-cases --hide-source-path
+
+## TypeScript
+
+You can write your app with TypeScript by adding the [@reframe/typescript](/plugins/typescript) plugin.
+
+!INLINE ./snippets/section-footer.md #use-cases --hide-source-path
+
+## PostCSS
+
+You can write your styles with PostCSS by adding the [@reframe/postcss](/plugins/postcss) plugin.
+
+!INLINE ./snippets/section-footer.md #use-cases --hide-source-path
+
+
+
+
+## React Native (Web)
+
+If you want an app on the web and on mobile,
+you may consider create a web app with Reframe and [React Native Web](https://github.com/necolas/react-native-web)
+and a mobile app with [React Native](https://facebook.github.io/react-native/).
+Both app will then share most/lots of code.
+
+Add the [`@reframe/react-native-web`](/plugins/react-native-web) plugin to render your page's React components with React Native Web.
+
+Examples of apps using Reframe + RNW:
+ - [/plugins/react-native-web/example](/plugins/react-native-web/example)
+ - [/examples/react-native-web-and-react-router](/examples/react-native-web-and-react-router)
+
+!INLINE ./snippets/section-footer.md #use-cases --hide-source-path
+
+
+
+
+
+
+## React Native (Web) + React Router
+
+As mentioned in the previous section you can use Reframe + React Native Web to share code with your React Native mobile app.
+
+And you can share routing logic by using Reframe + React Native Web + [React Router Web](https://reacttraining.com/react-router/web) for your web app and React Native + [React Router Native](https://reacttraining.com/react-router/native) for your mobile app.
+
+For example:
+ - [/examples/react-native-web-and-react-router](/examples/react-native-web-and-react-router)
+
+!INLINE ./snippets/section-footer.md #use-cases --hide-source-path
+
+
+
+
+
+
+## Bootstrap
+
+See section [Frontend Libraries](#frontend-libraries) below.
+
+## Semantic UI
+
+See section [Frontend Libraries](#frontend-libraries) below.
+
+## Frontend Libraries
+
+There are two ways to add third party browser code:
+ - Directly add the code with `<script>` and `<link>` tags.
+ - Include the code into Reframe's bundles with `import 'thirdparty/main.js';` and `import 'thirdparty/style.css';`.
+
+See
+[Custom HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ...](#custom-html-head-meta-html-)
+for how to change the HTML to add `<script>` and `<link>` tags.
+
+See
+[Custom Default Browser Entry](#custom-default-browser-entry)
+for how to eject the browser entry to add
+`import 'thirdparty/main.js';` and `import 'thirdparty/style.css';`.
+
+Example that uses jQuery and Semantic UI:
+ - [/examples/custom-browser-lib](/examples/custom-browser-lib)
+
+!INLINE ./snippets/section-footer.md #use-cases --hide-source-path
+
+
+
+
+
 
 
 
@@ -317,8 +553,6 @@ Running `$reframe eject browser` ejects the following code.
 ~~~js
 !INLINE ../plugins/browser/browserInit.js
 ~~~
-
-At this point you can [add a frontend library](#frontend-libraries).
 
 !INLINE ./snippets/section-footer.md #custom --hide-source-path
 
@@ -518,9 +752,6 @@ Examples:
 
 
 
-
-
-
 ## Fully Custom Build
 
 Run `$ reframe eject build` to eject the overall build code.
@@ -546,135 +777,6 @@ Use this ejectable as last resort.
 If you eject all build ejectables, then you have full control over the build logic.
 
 !INLINE ./snippets/section-footer.md #custom --hide-source-path
-
-
-
-
-
-
-
-## Static Deploy
-
-If your app is html-static, you can deploy it to a static host.
-
-Your app is html-static when all your page configs have `renderHtmlAtBuildTime: true`.
-In that case,
-all HTMLs are rendered at build-time,
-your app consists of static browser assets only,
-no Node.js server is required,
-and your app can be statically served.
-
-If you add the `@reframe/deploy-git` plugin you can then
-run `$ reframe deploy` to automatically deploy your app.
-
-!INLINE ./sections/deploy-static.md --hide-source-path
-
-!INLINE ./snippets/section-footer.md #use-cases --hide-source-path
-
-
-
-
-## Serverless Deploy
-
-!INLINE ./sections/deploy-serverless.md --hide-source-path
-!INLINE ./snippets/section-footer.md #use-cases --hide-source-path
-
-
-
-
-## Vue
-
-You can also use Reframe with Vue instead of React.
-
-Check out the [`@reframe/vue`](/plugins/vue) plugin.
-
-!INLINE ./snippets/section-footer.md #use-cases --hide-source-path
-
-## React Router
-
-You can use the React Router components by adding the [@reframe/react-router](/plugins/react-router) plugin.
-
-!INLINE ./snippets/section-footer.md #use-cases --hide-source-path
-
-## TypeScript
-
-You can write your app with TypeScript by adding the [@reframe/typescript](/plugins/typescript) plugin.
-
-!INLINE ./snippets/section-footer.md #use-cases --hide-source-path
-
-## PostCSS
-
-You can write your styles with PostCSS by adding the [@reframe/postcss](/plugins/postcss) plugin.
-
-!INLINE ./snippets/section-footer.md #use-cases --hide-source-path
-
-
-
-
-## React Native (Web)
-
-If you want an app on the web and on mobile,
-you may consider create a web app with Reframe and [React Native Web](https://github.com/necolas/react-native-web)
-and a mobile app with [React Native](https://facebook.github.io/react-native/).
-Both app will then share most/lots of code.
-
-Add the [`@reframe/react-native-web`](/plugins/react-native-web) plugin to render your page's React components with React Native Web.
-
-Examples of apps using Reframe + RNW:
- - [/plugins/react-native-web/example](/plugins/react-native-web/example)
- - [/examples/react-native-web-and-react-router](/examples/react-native-web-and-react-router)
-
-!INLINE ./snippets/section-footer.md #use-cases --hide-source-path
-
-
-
-
-
-
-## React Native (Web) + React Router
-
-As mentioned in the previous section you can use Reframe + React Native Web to share code with your React Native mobile app.
-
-And you can share routing logic by using Reframe + React Native Web + [React Router Web](https://reacttraining.com/react-router/web) for your web app and React Native + [React Router Native](https://reacttraining.com/react-router/native) for your mobile app.
-
-For example:
- - [/examples/react-native-web-and-react-router](/examples/react-native-web-and-react-router)
-
-!INLINE ./snippets/section-footer.md #use-cases --hide-source-path
-
-
-
-
-
-
-## Frontend Libraries
-
-As mentioned in [this section](#custom-default-browser-entry) you can add frontend libraries such as
-Bootstrap or Semantic UI to your Reframe app. Such a library is usually made of `.css` and `.js`
-assets and without Reframe you would link to them via `<link>` and `<script>`.
-
-After having [ejected the browser entry code](#custom-default-browser-entry) import these assets
-in your `browserInit.js`:
-
-~~~js
-import browserConfig from '@brillout/browser-config';
-
-import './thirdparty/awesome-frontend-lib.js';
-import './thirdparty/awesome-frontend-lib.css';
-
-initBrowser();
-
-async function initBrowser() {
-    await browserConfig.hydratePage();
-}
-~~~
-
-Note that you can also import `awesome-frontend-lib.css` in your pages and/or views instead.
-
-For example:
- - [/examples/custom-browser-lib](/examples/custom-browser-lib)
-
-!INLINE ./snippets/section-footer.md #use-cases --hide-source-path
 
 
 

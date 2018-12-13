@@ -4,22 +4,23 @@
 
 # react-sql
 
-Starter to create a web app with:
- - Client (React)
+This starter scaffolds an app with:
+ - Frontend (React)
  - Server (Node.js)
- - SQL Database (SQLite) + ORM (Objection.js)
+ - SQL Database (SQLite) +
+   ORM ([Objection.js](https://github.com/Vincit/objection.js)) +
+   API ([Wildcard API](https://github.com/brillout/wildcard-api))
 
 You can also
- - Use another database such as PostgreSQL
- - Use another ORM such as TypeORM
+ - Use another database (e.g. PostgreSQL)
+ - Use another ORM (e.g. TypeORM)
  - Use TypeScript
  - Use another view library such as Vue.js
+ - Remove the frontend
 
-- [Quick Start](#quick-start)
-- Usage Basics
-  - [CSS & Static Assets](#css--static-assets)
-  - [Page Async Data](#page-async-data)
-  - [`doNotRenderInBrowser`](#donotrenderinbrowser)
+The [Usage Manual](/docs/usage-manual.md#readme) explains how to achieve these customizations.
 
+### Getting Started
 
-Work-in-progress. Stay tuned at [twitter.com/reframejs](https://twitter.com/reframejs).
+!INLINE /docs/quick-start.md react-sql --hide-source-path
+

@@ -25,3 +25,7 @@ But if a page has no interactive views then browser rendering is wasteful.
 Setting `doNotRenderInBrowser: true` makes the page considerably faster.
 So if your page has no interactive views, then you should set `doNotRenderInBrowser: true`.
 (Precisely speaking, you should set `doNotRenderInBrowser: true` if and only if your page's views are stateless.)
+
+By setting `doNotRenderInBrowser: true` to all your pages,
+you remove browser-side JavaScript.
+In other words you remove the frontend and the view library (React/Vue/etc.) is only used on the server as an HTML template engine.
