@@ -8,40 +8,33 @@
    ~~~shell
    $ yarn global add @reframe/cli
    ~~~
-   ---
-   <br/>
    </details>
    <details>
-   <summary>With npx</summary>
+   <summary>With npx (local install)</summary>
+
    With
    <a href="https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b">npx</a>
-   you can create a Reframe app without globally installing reframe:
-
+   you can run the Reframe CLI without global install:
    ~~~shell
    $ npx reframe create !ARGUMENT-1
    ~~~
 
-   Note that you will then to prefix every `$ reframe` command call with `npx`.
-   For example for strep 3:
-
+   You then prefix every `$ reframe <command>` with `npx`.
+   For example for step 3:
    ~~~shell
-   $ cd my-frontend-app/
+   $ cd `my-!ARGUMENT-1/`
    $ npx reframe dev
    ~~~
-
-   ---
-   <br/>
    </details>
 
-2. Create a new Reframe app.
+2. Create a new app with the `!ARGUMENT-1` starter.
    ~~~shell
    $ reframe create !ARGUMENT-1
    ~~~
-   A `my-!ARGUMENT-1/` directory is created and populated with the !ARGUMENT-1 starter.
 
 3. Build and serve the app.
    ~~~shell
-   $ cd my-frontend-app/
+   $ cd `my-!ARGUMENT-1/`
    $ reframe dev
    ~~~
 

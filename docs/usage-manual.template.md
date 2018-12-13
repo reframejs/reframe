@@ -38,7 +38,7 @@
 
 ### Custom
 
-*Full and in-depth customization using eject.*
+*Full customization. Based on eject.*
 
 - Server
   - [Custom Server](#custom-server)

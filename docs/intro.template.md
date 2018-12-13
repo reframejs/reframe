@@ -10,14 +10,14 @@ Framework to create web apps.
 
 Designed for high development speed with no sacrifice on flexibility.
 
-Assembles a JavaScript stack with integrations for:
+Assembles a JavaScript stack that integrates with:
 <br/> &nbsp; &#8226; &nbsp; Node.js servers (Express, Koa, Hapi, ...)
 <br/> &nbsp; &#8226; &nbsp; Modern frontend (React, Vue.js, React Native Web, ...)
-<br/> &nbsp; &#8226; &nbsp; Node.js ORMs (Objection.js, TypeORM, ...) [WIP]
+<br/> &nbsp; &#8226; &nbsp; Node.js ORMs (Objection.js, TypeORM, ...)
 <br/> &nbsp; &#8226; &nbsp; Utils (TypeScript, React Router, PostCSS, ...)
 
 All stacks are supported:
-<br/> &nbsp; &#8226; &nbsp; frontend + backend + database/ORM (aka full-stack) [WIP]
+<br/> &nbsp; &#8226; &nbsp; frontend + backend + database/ORM (aka full-stack)
 <br/> &nbsp; &#8226; &nbsp; frontend + backend (aka SSR)
 <br/> &nbsp; &#8226; &nbsp; frontend-only (aka static site)
 <br/> &nbsp; &#8226; &nbsp; backend-only (aka old-school app with plain old HTML)
@@ -30,6 +30,7 @@ All stacks are supported:
 That's it:
 We simply define a React component and a so-called page config.
 No build configuration.
+No server configuration.
 (But if you want to, you can configure and take control over everything.)
 
 <br/>
@@ -59,15 +60,15 @@ Reframe's flexibility is based on three pillars:
 
 1. **Progressive Eject** -
    All Reframe parts are ejectable:
-   You can eject the build configuration (the webpack config), and/or the render code, and/or the routing code, and/or the server code, etc.
+   You can eject the build configuration (the webpack config), the render code, the routing code, the server code, etc.
 
 2. **Minimal glue code** -
    We isolate a maximum of code in do-one-thing-do-it-well libraries.
    That way, we manage to keep glue code to a tiny ~500 lines of code.
 
 3. **Flexible stack** -
-   You can easily,
-   and at any time,
+   You can easily
+   and at any time
    remove/add a frontend, backend, or database/ORM to your app.
    For example, you can start with a static site and later add a Node.js server.
 
@@ -75,8 +76,8 @@ Benefits of that flexibility:
 
 **Take Over Control** -
 You can eject and take control over Reframe parts.
-And you can do this progressively
-as your app grows into a large application.
+You can progressively eject parts
+as your prototype grows into a large application.
 
 **Removable** -
 If you eject all Reframe parts then you effectively get rid of Reframe.
