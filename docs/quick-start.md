@@ -4,6 +4,7 @@
    ~~~
    <details>
    <summary>With yarn</summary>
+
    ~~~shell
    $ yarn global add @reframe/cli
    ~~~
@@ -27,6 +28,7 @@
    $ cd my-frontend-app/
    $ npx reframe dev
    ~~~
+
    ---
    <br/>
    </details>

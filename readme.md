@@ -246,6 +246,7 @@ Reframe is able to adapt and embrace what comes next.
    ~~~
    <details>
    <summary>With yarn</summary>
+
    ~~~shell
    $ yarn global add @reframe/cli
    ~~~
@@ -269,6 +270,7 @@ Reframe is able to adapt and embrace what comes next.
    $ cd my-frontend-app/
    $ npx reframe dev
    ~~~
+
    ---
    <br/>
    </details>
