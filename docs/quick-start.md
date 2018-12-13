@@ -4,8 +4,6 @@
    ~~~
    <details>
    <summary>With yarn</summary>
-   Alternatively with yarn:
-
    ~~~shell
    $ yarn global add @reframe/cli
    ~~~
@@ -15,7 +13,7 @@
    <details>
    <summary>With npx</summary>
    With
-   [npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b)
+   <a href="https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b">npx</a>
    you can create a Reframe app without globally installing reframe:
 
    ~~~shell
@@ -24,6 +22,7 @@
 
    Note that you will then to prefix every `$ reframe` command call with `npx`.
    For example for strep 3:
+
    ~~~shell
    $ cd my-frontend-app/
    $ npx reframe dev
