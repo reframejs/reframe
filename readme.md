@@ -152,9 +152,11 @@ All stacks are supported:
 </a>
 That's it:
 We simply define a React component and a so-called page config.
-No build configuration.
-No server configuration.
+No build configuration,
+no server configuration.
 (But if you want to, you can configure and take control over everything.)
+
+<br/>
 
 #### Contents
 
@@ -162,7 +164,6 @@ No server configuration.
  - [Quick Start](#quick-start)
  - [Examples](#examples)
 
-<br/>
 <br/>
 
 ## Why Reframe
