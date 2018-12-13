@@ -247,13 +247,16 @@ Reframe is able to adapt and embrace what comes next.
    <details>
    <summary>With yarn</summary>
    Alternatively with yarn:
+
    ~~~shell
    $ yarn global add @reframe/cli
    ~~~
+   <br/>
    </details>
    <details>
    <summary>With npx</summary>
    With npx you can create a Reframe app without globally installing reframe:
+
    ~~~shell
    $ npx reframe create react-frontend
    ~~~
@@ -263,6 +266,7 @@ Reframe is able to adapt and embrace what comes next.
    ~~~shell
    $ npx reframe dev
    ~~~
+   <br/>
    </details>
 
 2. Create a new Reframe app.
