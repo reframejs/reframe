@@ -19,10 +19,10 @@
    $ npx reframe create !ARGUMENT-1
    ~~~
 
-   You then prefix every `$ reframe <command>` with `npx`.
+   You then prefix `$ reframe <command>` with `npx`.
    For example for step 3:
    ~~~shell
-   $ cd `my-!ARGUMENT-1/`
+   $ cd my-!ARGUMENT-1/
    $ npx reframe dev
    ~~~
    </details>
@@ -34,7 +34,7 @@
 
 3. Build and serve the app.
    ~~~shell
-   $ cd `my-!ARGUMENT-1/`
+   $ cd my-!ARGUMENT-1/
    $ reframe dev
    ~~~
 

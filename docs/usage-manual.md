@@ -215,10 +215,10 @@
    $ npx reframe create react-frontend
    ~~~
 
-   You then prefix every `$ reframe <command>` with `npx`.
+   You then prefix `$ reframe <command>` with `npx`.
    For example for step 3:
    ~~~shell
-   $ cd `my-react-frontend/`
+   $ cd my-react-frontend/
    $ npx reframe dev
    ~~~
    </details>
@@ -230,7 +230,7 @@
 
 3. Build and serve the app.
    ~~~shell
-   $ cd `my-react-frontend/`
+   $ cd my-react-frontend/
    $ reframe dev
    ~~~
 

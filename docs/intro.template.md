@@ -33,14 +33,14 @@ No build configuration.
 No server configuration.
 (But if you want to, you can configure and take control over everything.)
 
-<br/>
-<br/>
-
 #### Contents
 
  - [Why Reframe](#why-reframe)
  - [Quick Start](#quick-start)
  - [Examples](#examples)
+
+<br/>
+<br/>
 
 ## Why Reframe
 

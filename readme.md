@@ -156,14 +156,14 @@ No build configuration.
 No server configuration.
 (But if you want to, you can configure and take control over everything.)
 
-<br/>
-<br/>
-
 #### Contents
 
  - [Why Reframe](#why-reframe)
  - [Quick Start](#quick-start)
  - [Examples](#examples)
+
+<br/>
+<br/>
 
 ## Why Reframe
 
@@ -257,10 +257,10 @@ to implement a SSR app with React.
    $ npx reframe create react-frontend
    ~~~
 
-   You then prefix every `$ reframe <command>` with `npx`.
+   You then prefix `$ reframe <command>` with `npx`.
    For example for step 3:
    ~~~shell
-   $ cd `my-react-frontend/`
+   $ cd my-react-frontend/
    $ npx reframe dev
    ~~~
    </details>
@@ -272,7 +272,7 @@ to implement a SSR app with React.
 
 3. Build and serve the app.
    ~~~shell
-   $ cd `my-react-frontend/`
+   $ cd my-react-frontend/
    $ reframe dev
    ~~~
 
