@@ -4,7 +4,6 @@
     "production": "npm run build && npm run start",
     "build": "reframe build",
     "start": "export NODE_ENV='production' && node ./server/start.js",
-    "reframe": "reframe",
     "docs": "mdocs"
   },
   "dependencies": {
