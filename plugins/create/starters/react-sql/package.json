@@ -2,7 +2,7 @@
   "scripts": {
     "docs": "mdocs"
   },
-  "name": "_starters-react-fullstack-app",
+  "name": "_starters-react-sql",
   "version": "0.2.3",
   "private": "true",
   "checkDeps": {

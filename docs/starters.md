@@ -135,7 +135,7 @@ List of starters.
 
 - [react-frontend](/plugins/create/starters/react-frontend#readme)
 - [react-app](/plugins/create/starters/react-app#readme)
-- [react-fullstack-app](/plugins/create/starters/react-fullstack-app#readme) (Work-in-progress)
+- [react-sql](/plugins/create/starters/react-sql#readme)
 
 When running
 
@@ -145,7 +145,7 @@ $ reframe create name-of-the-starter
 
 the following is scaffoled:
 
-&nbsp; | react-frontend | react-app | react-fullstack-app
+&nbsp; | react-frontend | react-app | react-sql
 --- | :---: | :---: | :---:
 React Frontend | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:
 Node.js Server | :x: | :heavy_check_mark: | :heavy_check_mark:

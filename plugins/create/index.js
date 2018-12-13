@@ -38,11 +38,9 @@ async function getStarterList() {
     let starters = await fs.readdir(startersDir);
 
     const RECOMMANDED = 'react-frontend';
-    const REMOVED = 'react-fullstack-app';
 
     starters = (
         starters
-        .filter(starterName => starterName!==REMOVED)
         .sort((starterName1, starterName2) => (starterName2===RECOMMANDED) - (starterName1===RECOMMANDED))
     );
 

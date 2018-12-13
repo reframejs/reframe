@@ -7,7 +7,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/plugins/create/starters/react-fullstack-app/readme.template.md` instead.
+    Edit `/plugins/create/starters/react-sql/readme.template.md` instead.
 
 
 
@@ -22,7 +22,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/plugins/create/starters/react-fullstack-app/readme.template.md` instead.
+    Edit `/plugins/create/starters/react-sql/readme.template.md` instead.
 
 
 
@@ -37,7 +37,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/plugins/create/starters/react-fullstack-app/readme.template.md` instead.
+    Edit `/plugins/create/starters/react-sql/readme.template.md` instead.
 
 
 
@@ -52,7 +52,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/plugins/create/starters/react-fullstack-app/readme.template.md` instead.
+    Edit `/plugins/create/starters/react-sql/readme.template.md` instead.
 
 
 
@@ -67,7 +67,7 @@
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/plugins/create/starters/react-fullstack-app/readme.template.md` instead.
+    Edit `/plugins/create/starters/react-sql/readme.template.md` instead.
 
 
 
@@ -127,16 +127,71 @@
 </p>
 &nbsp;
 <p align='center'></p>
-&nbsp;
 
-# react-fullstack-app
+# react-sql
 
-Starter to create a web app with:
- - React front-end
- - Node.js server
- - Database + ORM (TypeORM)
+This starter scaffolds an app with:
+ - Frontend (React)
+ - Server (Node.js)
+ - SQL Database (SQLite) +
+   ORM ([Objection.js](https://github.com/Vincit/objection.js)) +
+   API ([Wildcard API](https://github.com/brillout/wildcard-api))
 
-Work-in-progress. Stay tuned at [twitter.com/reframejs](https://twitter.com/reframejs).
+You can also
+ - Use another database (e.g. PostgreSQL)
+ - Use another ORM (e.g. TypeORM)
+ - Use TypeScript
+ - Use another view library such as Vue.js
+ - Remove the frontend
+
+The [Usage Manual](/docs/usage-manual.md#readme) explains how to achieve these customizations.
+
+### Getting Started
+
+1. Install the Reframe CLI.
+   ~~~shell
+   $ npm install -g @reframe/cli
+   ~~~
+   <details>
+   <summary>With yarn</summary>
+
+   ~~~shell
+   $ yarn global add @reframe/cli
+   ~~~
+   </details>
+   <details>
+   <summary>With npx (local install)</summary>
+
+   With
+   <a href="https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b">npx</a>
+   you can run the Reframe CLI without global install:
+   ~~~shell
+   $ npx reframe create react-sql
+   ~~~
+
+   You then prefix `$ reframe <command>` with `npx`.
+   For example for step 3:
+   ~~~shell
+   $ cd my-react-sql/
+   $ npx reframe dev
+   ~~~
+   </details>
+
+2. Create a new app with the `react-sql` starter.
+   ~~~shell
+   $ reframe create react-sql
+   ~~~
+
+3. Build and serve the app.
+   ~~~shell
+   $ cd my-react-sql/
+   $ reframe dev
+   ~~~
+
+4. Open [http://localhost:3000](http://localhost:3000).
+
+5. Read [Usage Manual - Basics](/docs/usage-manual.md#basics).
+
 
 <!---
 
@@ -147,7 +202,7 @@ Work-in-progress. Stay tuned at [twitter.com/reframejs](https://twitter.com/refr
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/plugins/create/starters/react-fullstack-app/readme.template.md` instead.
+    Edit `/plugins/create/starters/react-sql/readme.template.md` instead.
 
 
 
@@ -162,7 +217,7 @@ Work-in-progress. Stay tuned at [twitter.com/reframejs](https://twitter.com/refr
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/plugins/create/starters/react-fullstack-app/readme.template.md` instead.
+    Edit `/plugins/create/starters/react-sql/readme.template.md` instead.
 
 
 
@@ -177,7 +232,7 @@ Work-in-progress. Stay tuned at [twitter.com/reframejs](https://twitter.com/refr
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/plugins/create/starters/react-fullstack-app/readme.template.md` instead.
+    Edit `/plugins/create/starters/react-sql/readme.template.md` instead.
 
 
 
@@ -192,7 +247,7 @@ Work-in-progress. Stay tuned at [twitter.com/reframejs](https://twitter.com/refr
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/plugins/create/starters/react-fullstack-app/readme.template.md` instead.
+    Edit `/plugins/create/starters/react-sql/readme.template.md` instead.
 
 
 
@@ -207,7 +262,7 @@ Work-in-progress. Stay tuned at [twitter.com/reframejs](https://twitter.com/refr
 
     WARNING, READ THIS.
     This is a computed file. Do not edit.
-    Edit `/plugins/create/starters/react-fullstack-app/readme.template.md` instead.
+    Edit `/plugins/create/starters/react-sql/readme.template.md` instead.
 
 
 
