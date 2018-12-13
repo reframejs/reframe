@@ -131,7 +131,7 @@
 
 # Plugins
 
-List of plugins. Make a PR to add yours.
+List of plugins.
 
 ###### Languages
  - [@reframe/typescript](/plugins/typescript#readme) - Use Reframe with TypeScript.
@@ -147,13 +147,12 @@ List of plugins. Make a PR to add yours.
  - [@reframe/vue](/plugins/vue#readme) - Use Reframe with Vue.
 
 ###### Kits
- - [@reframe/react-kit](/plugins/react-kit#readme) - Reframe's React-Kit.
+ - [@reframe/react-kit](/plugins/react-kit#readme) - Reframe's default kit that includes `@reframe/react`, `@reframe/hapi`, `@reframe/path-to-regexp`, among others.
 
 ###### Routers
- - [@reframe/react-router](/plugins/react-router#readme) - Use React Router's components.
+ - [@reframe/react-router](/plugins/react-router#readme) - Use React Router.
  - [@reframe/crossroads](/plugins/crossroads#readme) - Use Reframe with [Crossroads.js](https://github.com/millermedeiros/crossroads.js#readme).
  - [@reframe/path-to-regexp](/plugins/path-to-regexp#readme) - Use Reframe with [`path-to-regexp`](https://github.com/pillarjs/path-to-regexp#readme).
-
 
 <!---
 

@@ -131,16 +131,39 @@
 
 # Usage Manual
 
-#### Basics
+### Basics
 
 - [Getting Started](#getting-started)
-- [CSS & Static Assets](#css--static-assets)
-- [Page Async Data](#page-async-data)
-- [Page Navigation & Links](#page-navigation--links)
+- [CSS](#css)
+- [Static Assets](#static-assets)
+- [Async Data](#async-data)
+- [Navigation & Links](#navigation--links)
 - [`doNotRenderInBrowser`](#donotrenderinbrowser)
 - [`renderHtmlAtBuildTime`](#renderhtmlatbuildtime)
 
-#### Custom
+### Use Cases
+
+- Flexible stack
+  - [Add/Remove Server](#add-remove-server)
+  - [Add/Remove Frontend](#add-remove-frontend)
+  - [Add/Remove Database](#add-remove-database)
+- Deploy
+  - [Static Deploy](#static-deploy)
+  - [Serverless Deploy](#serverless-deploy)
+- Integrations
+  - [Vue](#vue)
+  - [React Router](#react-router)
+  - [TypeScript](#typescript)
+  - [PostCSS](#postcss)
+  - [React Native (Web)](#react-native-web)
+  - [React Native (Web) + React Router](#react-native-web--react-router)
+  - [Bootstrap](#boostrap)
+  - [Semantic UI](#semantic-ui)
+  - [Frontend Libraries](#frontend-libraries)
+
+### Custom
+
+*Full and in-depth customization using eject.*
 
 - Server
   - [Custom Server](#custom-server)
@@ -161,20 +184,6 @@
   - [Custom Webpack](#custom-webpack)
   - [Fully Custom Build](#fully-custom-build)
 
-#### Use Cases
-
-- Deploy
-  - [Static Deploy](#static-deploy)
-  - [Serverless Deploy](#serverless-deploy)
-- Integrations
-  - [Vue](#vue)
-  - [React Router](#react-router)
-  - [TypeScript](#typescript)
-  - [PostCSS](#postcss)
-  - [React Native (Web)](#react-native-web)
-  - [React Native (Web) + React Router](#react-native-web--react-router)
-  - [Frontend Libraries](#frontend-libraries)
-
 
 <br/>
 <br/>
@@ -189,10 +198,26 @@
    ~~~shell
    $ npm install -g @reframe/cli
    ~~~
+   <details>
+   <summary>With yarn</summary>
    Alternatively with yarn:
    ~~~shell
    $ yarn global add @reframe/cli
    ~~~
+   </details>
+   <details>
+   <summary>With npx</summary>
+   With npx you can create a Reframe app without globally installing reframe:
+   ~~~shell
+   $ npx reframe create react-frontend
+   ~~~
+
+   Note that you will then to prefix every `reframe` command call with `npx`.
+   For example:
+   ~~~shell
+   $ npx reframe dev
+   ~~~
+   </details>
 
 2. Create a new Reframe app.
    ~~~shell
@@ -208,18 +233,11 @@
 
 4. Open [http://localhost:3000](http://localhost:3000).
 
-5. Read the entire [Usage Basics](/plugins/create/starters/react-frontend#react-frontend) section of the react-frontend starter.
+5. Read [Usage Manual - Basics](/docs/usage-manual.md#basics).
 
-##### Other starters
-
-The [react-frontend starter](/plugins/create/starters/react-frontend#readme) is the recommended starter for your first Reframe app.
-It will scaffold a frontend-only (aka static site).
-
-But if you need a Node.js server then use the [react-app starter](/plugins/create/starters/react-app#readme) instead.
-
-And if you don't know whether you need a Node.js server, then we still recommend to start with a frontend-only as you can easily add a Node.js server afterwards.
-
-See the [list of starters](/docs/starters.md#readme) for more starters.
+The `react-frontend` starter scaffolds a static site.
+If instead you want to create a SSR app, a backend-only app, or a full-stack app
+then see [Starters](/docs/starters.md#readme).
 
 <b><sub><a href="#basics">&#8679; TOP  &#8679;</a></sub></b>
 <br/>
@@ -230,13 +248,29 @@ See the [list of starters](/docs/starters.md#readme) for more starters.
 
 
 
-## CSS & Static Assets
+## CSS
 
 A CSS file can be loaded and applied by importing it.
 
 ~~~js
 import './GlitterStyle.css';
 ~~~
+
+Example of a page using CSS:
+ - [/examples/basics/pages/glitter/](/examples/basics/pages/glitter/)
+
+<br/>
+
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+<br/>
+<br/>
+<b><sub><a href="#basics">&#8679; TOP  &#8679;</a></sub></b>
+<br/>
+<br/>
+<br/>
+
+
+## Static Assets
 
 Static assets (images, fonts, videos, etc.) can be imported as well
 but importing an asset doesn't actually load it:
@@ -257,7 +291,7 @@ In addition, static assets can be referenced in CSS by using the `url` data type
 }
 ~~~
 
-Example of a page using CSS, fonts, images and other static assets:
+Example of a page using fonts, images and other static assets:
  - [/examples/basics/pages/glitter/](/examples/basics/pages/glitter/)
 
 <br/>
@@ -275,7 +309,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-## Page Async Data
+## Async Data
 
 The page config `async getInitialProps()` can be used to fetch data before your page's view is rendered.
 The value returned by `async getInitialProps()` is then available to your page's view.
@@ -325,7 +359,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-## Page Navigation & Links
+## Navigation & Links
 
 The standard way to navigate between pages is to use the HTML link tag `<a>`.
 
@@ -380,15 +414,15 @@ The page config option `doNotRenderInBrowser` allow you to control whether or no
 
 By default a page is rendered in the browser so that it can have interactive views
 (a like button, an interactive graph, a To-Do list, etc.).
-But if a page has no interactive views then it is wasteful to render it in the browser.
+But if a page has no interactive views then browser rendering is wasteful.
 
  - `doNotRenderInBrowser: false` (default value)
    <br/>
    The page is **rendered in the browser**.
    <br/>
-   The page's view (e.g. React components) and the view renderer (e.g. React) are loaded in the browser.
+   The page's code (e.g. React components) and the view library (e.g. React) are loaded in the browser.
    <br/>
-   The page's view is rendered to the DOM.
+   The page's views are rendered to the DOM.
    (E.g. with `ReactDOM.hydrate`.)
    <br/>
    The DOM may change.
@@ -400,12 +434,13 @@ But if a page has no interactive views then it is wasteful to render it in the b
    <br/>
    The DOM will not change.
 
-Setting `doNotRenderInBrowser: true` makes the page considerably faster as no (or much less) JavaScript is loaded and exectued.
+Setting `doNotRenderInBrowser: true` makes the page considerably faster.
+So if your page has no interactive views, then you should set `doNotRenderInBrowser: true`.
+(Precisely speaking, you should set `doNotRenderInBrowser: true` if and only if your page's views are stateless.)
 
-So if your page has no interactive views, then you can set `doNotRenderInBrowser: true`.
-More precisely, you can set `doNotRenderInBrowser: true` if your page's view is stateless.
-E.g. a functional React component is always stateless and
-if your page is composed of functional React components only, then you can set `doNotRenderInBrowser: true`.
+By setting `doNotRenderInBrowser: true` to all your pages,
+you remove browser-side JavaScript.
+In other words you remove the frontend and the view library (React/Vue/etc.) is only used on the server as an HTML template engine.
 
 <br/>
 
@@ -422,9 +457,9 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 ## `renderHtmlAtBuildTime`
 
 Every page is rendered to HTML.
-(React and Vue.js components can be rendered to the DOM as well as to HTML.)
+(React and Vue components can be rendered to the DOM as well as to HTML.)
 
-The page config option `renderHtmlAtBuildTime` allows you to control whether the page should be rendered statically at build-time or dynamically at request-time.
+The page config option `renderHtmlAtBuildTime` allows you to control whether the page is rendered statically at build-time or dynamically at request-time.
 
  - `renderHtmlAtBuildTime: false` (default value)
    <br/>
@@ -435,11 +470,15 @@ The page config option `renderHtmlAtBuildTime` allows you to control whether the
    <br/>
    The page is rendered to **HTML at build-time**.
    <br/>
-   The page is rendered to HTML only once, when Reframe is building your app's pages.
+   The page is rendered to HTML only once, when Reframe is building and transpiling your app.
 
 By default a page is rendered to HTML at request-time.
 But if a page is static
-(a landing page, a blog post, a personal homepage, etc.) it would be wasteful to re-render its HTML on every page request.
+(a landing page, a blog post, a personal homepage, etc.) it is wasteful to re-render its HTML on every page request.
+
+By setting `renderHtmlAtBuildTime: true` to all your pages,
+you effectively remove the need of a Node.js server.
+You can then deploy your app to a static host such as Netlify or GitHub Pages.
 
 <br/>
 
@@ -450,6 +489,306 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 <br/>
 <br/>
 <br/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Static Deploy
+
+If your app is html-static, you can deploy it to a static host.
+
+Your app is html-static when all your page configs have `renderHtmlAtBuildTime: true`.
+In that case,
+all HTMLs are rendered at build-time,
+your app consists of static browser assets only,
+no Node.js server is required,
+and your app can be statically served.
+
+If you add the `@reframe/deploy-git` plugin you can then
+run `$ reframe deploy` to automatically deploy your app.
+
+The deploy command works with any static host that integrates with Git such as
+[Netlify](https://www.netlify.com/) (recommanded) or
+[GitHub Pages](https://pages.github.com/).
+
+If you want to manually deploy then simply copy/serve the `dist/browser/` directory.
+This directory contains all browser assets.
+
+<br/>
+
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+<br/>
+<br/>
+<b><sub><a href="#use-cases">&#8679; TOP  &#8679;</a></sub></b>
+<br/>
+<br/>
+<br/>
+
+
+
+
+## Serverless Deploy
+
+If your app is stateless then we recommand serverless deployment.
+
+Serverless deployment solutions:
+ - [Up](https://github.com/apex/up) - CLI tool to manage serverless deployement on AWS.
+   <br/>
+   The free tier is generous and will likely be enough for your first prototype.
+   <br/>
+   Step-by-step guide on how to deploy a Reframe app on Up: [github.com/AurelienLourot/reframe-on-up](https://github.com/AurelienLourot/reframe-on-up).
+ - [Now](https://zeit.co/now) - Serverless host.
+   <br/>
+   Includes a free plan, albeit less generous than Up/AWS.
+   (See [zeit.co/pricing](https://zeit.co/pricing).)
+
+
+If you want to persist data, you may consider using a cloud database.
+ - [List of cloud databases](/docs/cloud-databases.md)
+<br/>
+
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+<br/>
+<br/>
+<b><sub><a href="#use-cases">&#8679; TOP  &#8679;</a></sub></b>
+<br/>
+<br/>
+<br/>
+
+
+
+
+## Add/Remove Server
+
+By setting `renderHtmlAtBuildTime: true` to all your pages you remove the need for a Node.js server.
+See
+[`renderHtmlAtBuildTime`](#renderhtmlatbuildtime).
+
+On the other hand,
+if you need a Node.js server
+you can eject Reframe's server code:
+~~~shell
+$ reframe eject server
+~~~
+You then have full control over the Node.js server.
+
+<br/>
+
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+<br/>
+<br/>
+<b><sub><a href="#use-cases">&#8679; TOP  &#8679;</a></sub></b>
+<br/>
+<br/>
+<br/>
+
+
+
+## Add/Remove Frontend
+
+By setting `doNotRenderInBrowser: true` to all your page configs you remove browser-side JavaScript.
+
+You app is then only a backend with plain old HTML.
+
+You can't have interactive views but
+you can still have dynamic content by rendering the HTML dynamically at request-time.
+
+More infos at
+[`doNotRenderInBrowser`](#donotrenderinbrowser)
+and
+[`renderHtmlAtBuildTime`](#renderhtmlatbuildtime).
+
+<br/>
+
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+<br/>
+<br/>
+<b><sub><a href="#use-cases">&#8679; TOP  &#8679;</a></sub></b>
+<br/>
+<br/>
+<br/>
+
+
+
+## Add/Remove Database
+
+By running
+
+~~~js
+$ reframe eject server
+~~~
+
+you gain full control over the Node.js server.
+You can then use any database and ORM.
+
+
+
+
+
+## Vue
+
+With the
+[`@reframe/vue`](/plugins/vue) plugin
+you can use Reframe with Vue instead of React.
+
+<br/>
+
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+<br/>
+<br/>
+<b><sub><a href="#use-cases">&#8679; TOP  &#8679;</a></sub></b>
+<br/>
+<br/>
+<br/>
+
+## React Router
+
+You can use the React Router components by adding the [@reframe/react-router](/plugins/react-router) plugin.
+
+<br/>
+
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+<br/>
+<br/>
+<b><sub><a href="#use-cases">&#8679; TOP  &#8679;</a></sub></b>
+<br/>
+<br/>
+<br/>
+
+## TypeScript
+
+You can write your app with TypeScript by adding the [@reframe/typescript](/plugins/typescript) plugin.
+
+<br/>
+
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+<br/>
+<br/>
+<b><sub><a href="#use-cases">&#8679; TOP  &#8679;</a></sub></b>
+<br/>
+<br/>
+<br/>
+
+## PostCSS
+
+You can write your styles with PostCSS by adding the [@reframe/postcss](/plugins/postcss) plugin.
+
+<br/>
+
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+<br/>
+<br/>
+<b><sub><a href="#use-cases">&#8679; TOP  &#8679;</a></sub></b>
+<br/>
+<br/>
+<br/>
+
+
+
+
+## React Native (Web)
+
+If you want an app on the web and on mobile,
+you may consider create a web app with Reframe and [React Native Web](https://github.com/necolas/react-native-web)
+and a mobile app with [React Native](https://facebook.github.io/react-native/).
+Both app will then share most/lots of code.
+
+Add the [`@reframe/react-native-web`](/plugins/react-native-web) plugin to render your page's React components with React Native Web.
+
+Examples of apps using Reframe + RNW:
+ - [/plugins/react-native-web/example](/plugins/react-native-web/example)
+ - [/examples/react-native-web-and-react-router](/examples/react-native-web-and-react-router)
+
+<br/>
+
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+<br/>
+<br/>
+<b><sub><a href="#use-cases">&#8679; TOP  &#8679;</a></sub></b>
+<br/>
+<br/>
+<br/>
+
+
+
+
+
+
+## React Native (Web) + React Router
+
+As mentioned in the previous section you can use Reframe + React Native Web to share code with your React Native mobile app.
+
+And you can share routing logic by using Reframe + React Native Web + [React Router Web](https://reacttraining.com/react-router/web) for your web app and React Native + [React Router Native](https://reacttraining.com/react-router/native) for your mobile app.
+
+For example:
+ - [/examples/react-native-web-and-react-router](/examples/react-native-web-and-react-router)
+
+<br/>
+
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+<br/>
+<br/>
+<b><sub><a href="#use-cases">&#8679; TOP  &#8679;</a></sub></b>
+<br/>
+<br/>
+<br/>
+
+
+
+
+
+
+## Bootstrap
+
+See section [Frontend Libraries](#frontend-libraries) below.
+
+## Semantic UI
+
+See section [Frontend Libraries](#frontend-libraries) below.
+
+## Frontend Libraries
+
+There are two ways to add third party browser code:
+ - Directly add the code with `<script>` and `<link>` tags.
+ - Include the code into Reframe's bundles with `import 'thirdparty/main.js';` and `import 'thirdparty/style.css';`.
+
+See
+[Custom HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ...](#custom-html-head-meta-html-)
+for how to change the HTML to add `<script>` and `<link>` tags.
+
+See
+[Custom Default Browser Entry](#custom-default-browser-entry)
+for how to eject the browser entry to add
+`import 'thirdparty/main.js';` and `import 'thirdparty/style.css';`.
+
+Example that uses jQuery and Semantic UI:
+ - [/examples/custom-browser-lib](/examples/custom-browser-lib)
+
+<br/>
+
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+<br/>
+<br/>
+<b><sub><a href="#use-cases">&#8679; TOP  &#8679;</a></sub></b>
+<br/>
+<br/>
+<br/>
+
+
+
+
+
 
 
 
@@ -849,8 +1188,6 @@ async function initBrowser() {
 }
 ~~~
 
-At this point you can [add a frontend library](#frontend-libraries).
-
 <br/>
 
 In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
@@ -1138,9 +1475,6 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-
-
-
 ## Fully Custom Build
 
 Run `$ reframe eject build` to eject the overall build code.
@@ -1201,226 +1535,6 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 <br/>
 <br/>
 <b><sub><a href="#custom">&#8679; TOP  &#8679;</a></sub></b>
-<br/>
-<br/>
-<br/>
-
-
-
-
-
-
-
-## Static Deploy
-
-If your app is html-static, you can deploy it to a static host.
-
-Your app is html-static when all your page configs have `renderHtmlAtBuildTime: true`.
-In that case,
-all HTMLs are rendered at build-time,
-your app consists of static browser assets only,
-no Node.js server is required,
-and your app can be statically served.
-
-If you add the `@reframe/deploy-git` plugin you can then
-run `$ reframe deploy` to automatically deploy your app.
-
-The deploy command works with any static host that integrates with Git such as
-[Netlify](https://www.netlify.com/) (recommanded) or
-[GitHub Pages](https://pages.github.com/).
-
-If you want to manually deploy then simply copy/serve the `dist/browser/` directory.
-This directory contains all browser assets.
-
-<br/>
-
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
-<br/>
-<br/>
-<b><sub><a href="#use-cases">&#8679; TOP  &#8679;</a></sub></b>
-<br/>
-<br/>
-<br/>
-
-
-
-
-## Serverless Deploy
-
-If your app is stateless then we recommand serverless deployment.
-
-Serverless deployment solutions:
- - [Up](https://github.com/apex/up) - CLI tool to manage serverless deployement on AWS.
-   <br/>
-   The free tier is generous and will likely be enough for your first prototype.
-   <br/>
-   Step-by-step guide on how to deploy a Reframe app on Up: [github.com/AurelienLourot/reframe-on-up](https://github.com/AurelienLourot/reframe-on-up).
- - [Now](https://zeit.co/now) - Serverless host.
-   <br/>
-   The free plan doesn't support private codebases. (See [zeit.co/pricing](https://zeit.co/pricing).)
-
-
-If you want to persist data, you may consider using a cloud database.
- - [List of cloud databases](/docs/cloud-databases.md)
-<br/>
-
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
-<br/>
-<br/>
-<b><sub><a href="#use-cases">&#8679; TOP  &#8679;</a></sub></b>
-<br/>
-<br/>
-<br/>
-
-
-
-
-## Vue
-
-You can also use Reframe with Vue instead of React.
-
-Check out the [`@reframe/vue`](/plugins/vue) plugin.
-
-<br/>
-
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
-<br/>
-<br/>
-<b><sub><a href="#use-cases">&#8679; TOP  &#8679;</a></sub></b>
-<br/>
-<br/>
-<br/>
-
-## React Router
-
-You can use the React Router components by adding the [@reframe/react-router](/plugins/react-router) plugin.
-
-<br/>
-
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
-<br/>
-<br/>
-<b><sub><a href="#use-cases">&#8679; TOP  &#8679;</a></sub></b>
-<br/>
-<br/>
-<br/>
-
-## TypeScript
-
-You can write your app with TypeScript by adding the [@reframe/typescript](/plugins/typescript) plugin.
-
-<br/>
-
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
-<br/>
-<br/>
-<b><sub><a href="#use-cases">&#8679; TOP  &#8679;</a></sub></b>
-<br/>
-<br/>
-<br/>
-
-## PostCSS
-
-You can write your styles with PostCSS by adding the [@reframe/postcss](/plugins/postcss) plugin.
-
-<br/>
-
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
-<br/>
-<br/>
-<b><sub><a href="#use-cases">&#8679; TOP  &#8679;</a></sub></b>
-<br/>
-<br/>
-<br/>
-
-
-
-
-## React Native (Web)
-
-If you want an app on the web and on mobile,
-you may consider create a web app with Reframe and [React Native Web](https://github.com/necolas/react-native-web)
-and a mobile app with [React Native](https://facebook.github.io/react-native/).
-Both app will then share most/lots of code.
-
-Add the [`@reframe/react-native-web`](/plugins/react-native-web) plugin to render your page's React components with React Native Web.
-
-Examples of apps using Reframe + RNW:
- - [/plugins/react-native-web/example](/plugins/react-native-web/example)
- - [/examples/react-native-web-and-react-router](/examples/react-native-web-and-react-router)
-
-<br/>
-
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
-<br/>
-<br/>
-<b><sub><a href="#use-cases">&#8679; TOP  &#8679;</a></sub></b>
-<br/>
-<br/>
-<br/>
-
-
-
-
-
-
-## React Native (Web) + React Router
-
-As mentioned in the previous section you can use Reframe + React Native Web to share code with your React Native mobile app.
-
-And you can share routing logic by using Reframe + React Native Web + [React Router Web](https://reacttraining.com/react-router/web) for your web app and React Native + [React Router Native](https://reacttraining.com/react-router/native) for your mobile app.
-
-For example:
- - [/examples/react-native-web-and-react-router](/examples/react-native-web-and-react-router)
-
-<br/>
-
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
-<br/>
-<br/>
-<b><sub><a href="#use-cases">&#8679; TOP  &#8679;</a></sub></b>
-<br/>
-<br/>
-<br/>
-
-
-
-
-
-
-## Frontend Libraries
-
-As mentioned in [this section](#custom-default-browser-entry) you can add frontend libraries such as
-Bootstrap or Semantic UI to your Reframe app. Such a library is usually made of `.css` and `.js`
-assets and without Reframe you would link to them via `<link>` and `<script>`.
-
-After having [ejected the browser entry code](#custom-default-browser-entry) import these assets
-in your `browserInit.js`:
-
-~~~js
-import browserConfig from '@brillout/browser-config';
-
-import './thirdparty/awesome-frontend-lib.js';
-import './thirdparty/awesome-frontend-lib.css';
-
-initBrowser();
-
-async function initBrowser() {
-    await browserConfig.hydratePage();
-}
-~~~
-
-Note that you can also import `awesome-frontend-lib.css` in your pages and/or views instead.
-
-For example:
- - [/examples/custom-browser-lib](/examples/custom-browser-lib)
-
-<br/>
-
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
-<br/>
-<br/>
-<b><sub><a href="#use-cases">&#8679; TOP  &#8679;</a></sub></b>
 <br/>
 <br/>
 <br/>

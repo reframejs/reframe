@@ -161,10 +161,10 @@ No build configuration.
 #### Contents
 
  - [Why Reframe](#why-reframe)
- - [Examples](#examples)
  - [Quick Start](#quick-start)
+ - [Examples](#examples)
 
-### Why Reframe
+## Why Reframe
 
 There are many web frameworks out there with huge adoption, including Ruby on Rails, Django and Next.js.
 So why do we need another one?
@@ -229,8 +229,61 @@ Web dev technologies are rapidly evolving and,
 thanks to its flexible architecture,
 Reframe is able to adapt and embrace what comes next.
 
+<b><sub><a href="#contents">&#8679; TOP  &#8679;</a></sub></b>
+
+<br/>
+<br/>
 
 
+
+
+
+## Quick Start
+
+1. Install the Reframe CLI.
+   ~~~shell
+   $ npm install -g @reframe/cli
+   ~~~
+   <details>
+   <summary>With yarn</summary>
+   Alternatively with yarn:
+   ~~~shell
+   $ yarn global add @reframe/cli
+   ~~~
+   </details>
+   <details>
+   <summary>With npx</summary>
+   With npx you can create a Reframe app without globally installing reframe:
+   ~~~shell
+   $ npx reframe create react-frontend
+   ~~~
+
+   Note that you will then to prefix every `reframe` command call with `npx`.
+   For example:
+   ~~~shell
+   $ npx reframe dev
+   ~~~
+   </details>
+
+2. Create a new Reframe app.
+   ~~~shell
+   $ reframe create react-frontend
+   ~~~
+   A `my-react-frontend/` directory is created and populated with the react-frontend starter.
+
+3. Build and serve the app.
+   ~~~shell
+   $ cd my-frontend-app/
+   $ reframe dev
+   ~~~
+
+4. Open [http://localhost:3000](http://localhost:3000).
+
+5. Read [Usage Manual - Basics](/docs/usage-manual.md#basics).
+
+The `react-frontend` starter scaffolds a static site.
+If instead you want to create a SSR app, a backend-only app, or a full-stack app
+then see [Starters](/docs/starters.md#readme).
 
 <b><sub><a href="#contents">&#8679; TOP  &#8679;</a></sub></b>
 
@@ -239,12 +292,14 @@ Reframe is able to adapt and embrace what comes next.
 
 
 
-### Examples
+
+
+## Examples
 
 - [Frontend](#frontend)
 - [Full-stack](#full-stack)
 
-###### Frontend
+### Frontend
 
 We define a page config `HelloPage`:
 
@@ -283,7 +338,7 @@ we created a frontend simply by defining one page config.
 <br/>
 <br/>
 
-###### Full-stack
+### Full-stack
 
 Let's look at a Todo app implemented with
 [Objection.js](https://github.com/Vincit/objection.js)
@@ -386,53 +441,6 @@ function LandingPage({todos, isNotLoggedIn}) {
   }
 }
 ~~~
-
-<br/>
-<br/>
-
-
-
-
-
-### Quick Start
-
-1. Install the Reframe CLI.
-   ~~~shell
-   $ npm install -g @reframe/cli
-   ~~~
-   Alternatively with yarn:
-   ~~~shell
-   $ yarn global add @reframe/cli
-   ~~~
-
-2. Create a new Reframe app.
-   ~~~shell
-   $ reframe create react-frontend
-   ~~~
-   A `my-react-frontend/` directory is created and populated with the react-frontend starter.
-
-3. Build and serve the app.
-   ~~~shell
-   $ cd my-frontend-app/
-   $ reframe dev
-   ~~~
-
-4. Open [http://localhost:3000](http://localhost:3000).
-
-5. Read the entire [Usage Basics](/plugins/create/starters/react-frontend#react-frontend) section of the react-frontend starter.
-
-##### Other starters
-
-The [react-frontend starter](/plugins/create/starters/react-frontend#readme) is the recommended starter for your first Reframe app.
-It will scaffold a frontend-only (aka static site).
-
-But if you need a Node.js server then use the [react-app starter](/plugins/create/starters/react-app#readme) instead.
-
-And if you don't know whether you need a Node.js server, then we still recommend to start with a frontend-only as you can easily add a Node.js server afterwards.
-
-See the [list of starters](/docs/starters.md#readme) for more starters.
-
-<b><sub><a href="#contents">&#8679; TOP  &#8679;</a></sub></b>
 
 <br/>
 <br/>
