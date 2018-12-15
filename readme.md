@@ -194,8 +194,8 @@ Reframe's flexibility is based on three pillars:
 
 2. **Slim core** -
    We isolate a maximum of code in do-one-thing-do-it-well libraries.
-   That way, we manage to keep Reframe to a tiny ~500 lines of code.
-   This means that ejecting everything leaves you with only ~500 LOC.
+   That way, we manage to keep glue code to a tiny ~500 lines of code.
+   Ejecting everything leaves you with only ~500 LOC.
 
 3. **Flexible stack** -
    You can easily
@@ -259,14 +259,14 @@ to implement a React SSR app.
    <summary>With npx (local install)</summary>
 
    With
-   <a href="https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b">npx</a>
-   you can run the Reframe CLI without global install:
+   <a href="https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b">npx</a>,
+   instead of having a global install,
+   you prefix `$ reframe <command>` with `npx`.
+   That is:
    ~~~shell
    $ npx reframe create react-frontend
    ~~~
-
-   You then prefix `$ reframe <command>` with `npx`.
-   For example for step 3:
+   and
    ~~~shell
    $ cd my-react-frontend/
    $ npx reframe dev
@@ -289,9 +289,9 @@ to implement a React SSR app.
 5. Read [Usage Manual - Basics](/docs/usage-manual.md#basics).
 
 The `react-frontend` starter scaffolds a static site.
-If you want a SSR app, a backend-only app, or a full-stack app
-then choose another starter.
-See [Starters](/docs/starters.md#readme).
+Choose another starter
+if you want a SSR app, a backend-only app, or a full-stack app,
+see [Starters](/docs/starters.md#readme).
 
 <b><sub><a href="#contents">&#8679; TOP  &#8679;</a></sub></b>
 

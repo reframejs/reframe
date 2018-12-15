@@ -1,18 +1,14 @@
 import React from 'react';
 import {endpoints} from 'wildcard-api/client';
 
-const Pets = ({person, pets}) => (
-    <div>
-      <div>{
-        person.name+"'s pets:"
-      }</div>
-      <div>{
-        pets.map(pet =>
-          <div key={pet.id}>{pet.name}</div>
-        )
-      }</div>
-    </div>
-);
+const Pets = ({person, pets}) => <>
+  {person.name+"'s pets:"}
+  <ul>
+    { pets.map(pet =>
+      <li key={pet.id}>{pet.name}</li>
+    ) }
+  </ul>
+</>
 
 async function getInitialProps({isNodejs, requestContext, route: {args: {personId}}}) {
   let {getPetsPageData} = endpoints;

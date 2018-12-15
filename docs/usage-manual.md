@@ -209,14 +209,14 @@
    <summary>With npx (local install)</summary>
 
    With
-   <a href="https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b">npx</a>
-   you can run the Reframe CLI without global install:
+   <a href="https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b">npx</a>,
+   instead of having a global install,
+   you prefix `$ reframe <command>` with `npx`.
+   That is:
    ~~~shell
    $ npx reframe create react-frontend
    ~~~
-
-   You then prefix `$ reframe <command>` with `npx`.
-   For example for step 3:
+   and
    ~~~shell
    $ cd my-react-frontend/
    $ npx reframe dev
@@ -239,9 +239,9 @@
 5. Read [Usage Manual - Basics](/docs/usage-manual.md#basics).
 
 The `react-frontend` starter scaffolds a static site.
-If you want a SSR app, a backend-only app, or a full-stack app
-then choose another starter.
-See [Starters](/docs/starters.md#readme).
+Choose another starter
+if you want a SSR app, a backend-only app, or a full-stack app,
+see [Starters](/docs/starters.md#readme).
 
 <b><sub><a href="#basics">&#8679; TOP  &#8679;</a></sub></b>
 <br/>
@@ -822,7 +822,7 @@ Running `$ reframe eject server` will copy the following code to your codebase.
 const Hapi = require('hapi');
 const config = require('@brillout/reconfig').getConfig({configFileName: 'reframe.config.js'});
 const {symbolSuccess, colorEmphasis} = require('@brillout/cli-theme');
-const UniversalHapiAdapter = require('@universal-adapter/hapi');
+const HapiAdapter = require('@universal-adapter/hapi');
 
 module.exports = start();
 
@@ -834,7 +834,7 @@ async function start() {
 
     await server.register(
       // We use `@universal-adapter` to integrate Reframe with Hapi
-      UniversalHapiAdapter([
+      HapiAdapter([
         // Run `$ reframe eject server-rendering` to eject the server rendering code
         config.ServerRendering,
         // Run `$ reframe eject server-assets` to eject the static asset serving code

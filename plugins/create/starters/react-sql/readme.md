@@ -163,14 +163,14 @@ The [Usage Manual](/docs/usage-manual.md#readme) explains how to achieve these c
    <summary>With npx (local install)</summary>
 
    With
-   <a href="https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b">npx</a>
-   you can run the Reframe CLI without global install:
+   <a href="https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b">npx</a>,
+   instead of having a global install,
+   you prefix `$ reframe <command>` with `npx`.
+   That is:
    ~~~shell
    $ npx reframe create react-sql
    ~~~
-
-   You then prefix `$ reframe <command>` with `npx`.
-   For example for step 3:
+   and
    ~~~shell
    $ cd my-react-sql/
    $ npx reframe dev

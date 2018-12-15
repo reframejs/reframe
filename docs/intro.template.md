@@ -71,8 +71,8 @@ Reframe's flexibility is based on three pillars:
 
 2. **Slim core** -
    We isolate a maximum of code in do-one-thing-do-it-well libraries.
-   That way, we manage to keep Reframe to a tiny ~500 lines of code.
-   This means that ejecting everything leaves you with only ~500 LOC.
+   That way, we manage to keep glue code to a tiny ~500 lines of code.
+   Ejecting everything leaves you with only ~500 LOC.
 
 3. **Flexible stack** -
    You can easily
