@@ -8,6 +8,10 @@ Starter to create a React frontend.
 
 Choose this starter if you don't need a backend or if you already have one.
 
+With automatic deployment to GitHub Pages or Netlify.
+
+ (Python, Java, Node.js, etc.)
+
 You can:
  - Add a Node.js afterwards
  - 

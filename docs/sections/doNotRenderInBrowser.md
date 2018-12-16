@@ -2,7 +2,6 @@ The page config option `doNotRenderInBrowser` allow you to control whether or no
 
 By default a page is rendered in the browser so that it can have interactive views
 (a like button, an interactive graph, a To-Do list, etc.).
-But if a page has no interactive views then browser rendering is wasteful.
 
  - `doNotRenderInBrowser: false` (default value)
    <br/>
@@ -24,8 +23,9 @@ But if a page has no interactive views then browser rendering is wasteful.
 
 Setting `doNotRenderInBrowser: true` makes the page considerably faster.
 So if your page has no interactive views, then you should set `doNotRenderInBrowser: true`.
-(Precisely speaking, you should set `doNotRenderInBrowser: true` if and only if your page's views are stateless.)
+(Precisely speaking, you should set `doNotRenderInBrowser: true` when your page's views are stateless.)
 
 By setting `doNotRenderInBrowser: true` to all your pages,
 you remove browser-side JavaScript.
-In other words you remove the frontend and the view library (React/Vue/etc.) is only used on the server as an HTML template engine.
+In other words you remove the frontend:
+The view library (React/Vue/etc.) is only used on the server as an HTML template engine.

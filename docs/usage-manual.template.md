@@ -275,14 +275,15 @@ and
 
 ## Add/Remove Database
 
-By running
+If you didn't eject the server code already then eject it:
 
 ~~~js
 $ reframe eject server
 ~~~
 
-you gain full control over the Node.js server.
-You can then use any database and ORM.
+(All starters, with the exception of the `react-frontend` starter, have already have ejected the server code for you.)
+
+Once you have eject and gained control over the server, you are free to use add/remove any database/ORM.
 
 
 
