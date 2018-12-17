@@ -150,11 +150,10 @@ All stacks are supported:
 <a href="/examples/simple/pages/welcome.config.js" target="_blank">
 <img src='https://github.com/reframejs/reframe/raw/master/docs/images/previews/welcome.png?sanitize=true' align="left"/>
 </a>
-That's it:
-We simply define a React component and a so-called page config.
+We create an app simply by defining a React component and a so-called page config.
 No build configuration,
 no server configuration.
-(But if you want to, you can configure and take control over everything.)
+(But, if you want to, you can configure and take control over everything.)
 
 <br/>
 <br/>
@@ -183,7 +182,7 @@ We would even argue that Reframe is more flexible than gluying do-one-thing-do-i
 
 Reframe's flexibility is based on three pillars:
 
-1. **Progressive Eject** -
+1. **Eject** -
    All Reframe parts are ejectable:
    You can eject and take control over
    the build configuration (the webpack config),
@@ -192,7 +191,7 @@ Reframe's flexibility is based on three pillars:
    the server code,
    etc.
 
-2. **Slim core** -
+2. **Slim** -
    We isolate a maximum of code in do-one-thing-do-it-well libraries.
    That way, we manage to keep glue code to a tiny ~500 lines of code.
    Ejecting everything leaves you with only ~500 LOC.
@@ -200,14 +199,16 @@ Reframe's flexibility is based on three pillars:
 3. **Flexible stack** -
    You can easily
    and at any time
-   remove/add a frontend, backend, and database/ORM to your app.
-   For example, you can start with a static site and later add a Node.js server.
+   change the stack of your app.
+   For example, you can start writing a prototype as a static site
+   and add a Node.js server afterwards.
 
 Benefits of that flexibility:
 
 **Take Over Control** -
-As your prototype grows into a large application,
-you progressively eject and take control over Reframe parts.
+You can eject and take control over Reframe parts.
+You can do so progressively
+as your prototype grows into a large application,
 
 **Removable** -
 If you eject all Reframe parts then you effectively get rid of Reframe.
@@ -226,7 +227,7 @@ you can add a Node.js server and a real database.
 
 **Learn Once, Write Any App** -
 Instead of learning several frameworks,
-learn Reframe to be able to implement any app.
+learn Reframe to be able to implement all kinds of apps.
 For example,
 you can use Reframe
 to implement a static site with Vue.js but
@@ -453,6 +454,9 @@ function LandingPage({todos, isNotLoggedIn}) {
 }
 ~~~
 
+<b><sub><a href="#examples">&#8679; TOP Examples &#8679;</a></sub></b>
+<br/>
+<b><sub><a href="#contents">&#8679; TOP  &#8679;</a></sub></b>
 <br/>
 <br/>
 

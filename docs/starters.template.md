@@ -10,15 +10,22 @@
 As described in [Usage Manual - Flexible Stack](/docs/plugins.md#use-cases),
 a Node.js server and a database/ORM can easily be removed/added afterwards.
 
+<p align="center">
+
 &nbsp; | react-frontend | react-app | react-sql
 --- | :---: | :---: | :---:
 React Frontend | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:
 Node.js Server | :x: | :heavy_check_mark: | :heavy_check_mark:
 Database/ORM | :x: | :x: | :heavy_check_mark:
 
+</p>
+
 - [react-frontend](/plugins/create/starters/react-frontend#readme)
   Scaffolds a static site.
   (A static site is an app that consists of only static browser assets such as JavaScript, CSS, images, fonts, etc.)
+  test:
+   - bla
+   - blue
   You can use this starter if you already have a backend
   or if your app doesn't need one.
   <br/>

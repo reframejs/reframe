@@ -132,7 +132,7 @@
 
 Starter to create a static site.
 
-You can use this starter if you don't need a backend or if you already have one.
+Use this starter if you don't need a backend or if you already have one.
 
 You can:
  - Run `$ reframe deploy` to deploy to GitHub Pages or Netlify
