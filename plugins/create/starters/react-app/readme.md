@@ -135,17 +135,21 @@ This starter scaffolds an app with:
  - Frontend (React)
  - Server (Node.js + Hapi)
 
+Same than
+[react-sql](/plugins/create/starters/react-sql#readme)
+but without database/ORM.
+
 You can:
  - Add a database + ORM + API
- - Remove the Node.js server (making
- - Use another server frameworch such as Express or Koa
+ - Remove the Node.js server
+ - Use another server framework such as Express, Koa, etc.
 
-For other starters, see the [list of starters](/docs/starters.md#readme).
+See [Usage Manual](/docs/usage-manual.md#readme).
 
 <br/>
 <br/>
 
-## Quick Start
+### Getting Started
 
 1. Install the Reframe CLI.
    ~~~shell
@@ -191,12 +195,8 @@ For other starters, see the [list of starters](/docs/starters.md#readme).
 
 5. Read [Usage Manual - Basics](/docs/usage-manual.md#basics).
 
-<b><sub><a href="#react-app">&#8679; TOP  &#8679;</a></sub></b>
-
 <br/>
 <br/>
-
-
 
 <!---
 

@@ -238,10 +238,13 @@
 
 5. Read [Usage Manual - Basics](/docs/usage-manual.md#basics).
 
-The `react-frontend` starter scaffolds a static site.
-Choose another starter
-if you want a SSR app, a backend-only app, or a full-stack app,
-see [Starters](/docs/starters.md#readme).
+The
+[react-frontend](/plugins/create/starters/react-frontend#readme)
+starter scaffolds a static site.
+Alternatively,
+you can use another starter
+to scaffold a SSR app, a full-stack app, etc.
+See [Starters](/docs/starters.md#readme).
 
 <b><sub><a href="#basics">&#8679; TOP  &#8679;</a></sub></b>
 <br/>
@@ -418,7 +421,6 @@ The page config option `doNotRenderInBrowser` allow you to control whether or no
 
 By default a page is rendered in the browser so that it can have interactive views
 (a like button, an interactive graph, a To-Do list, etc.).
-But if a page has no interactive views then browser rendering is wasteful.
 
  - `doNotRenderInBrowser: false` (default value)
    <br/>
@@ -440,11 +442,12 @@ But if a page has no interactive views then browser rendering is wasteful.
 
 Setting `doNotRenderInBrowser: true` makes the page considerably faster.
 So if your page has no interactive views, then you should set `doNotRenderInBrowser: true`.
-(Precisely speaking, you should set `doNotRenderInBrowser: true` if and only if your page's views are stateless.)
+(Precisely speaking, you should set `doNotRenderInBrowser: true` when your page's views are stateless.)
 
 By setting `doNotRenderInBrowser: true` to all your pages,
 you remove browser-side JavaScript.
-In other words you remove the frontend and the view library (React/Vue/etc.) is only used on the server as an HTML template engine.
+In other words you remove the frontend:
+The view library (React/Vue/etc.) is only used on the server as an HTML template engine.
 
 <br/>
 
@@ -627,14 +630,15 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 ## Add/Remove Database
 
-By running
+If you didn't eject the server code already then eject it:
 
 ~~~js
 $ reframe eject server
 ~~~
 
-you gain full control over the Node.js server.
-You can then use any database and ORM.
+(All starters, with the exception of the `react-frontend` starter, have already have ejected the server code for you.)
+
+Once you have eject and gained control over the server, you are free to use add/remove any database/ORM.
 
 
 

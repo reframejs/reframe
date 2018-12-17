@@ -24,7 +24,7 @@ Database/ORM | :x: | :x: | :heavy_check_mark:
   <br/>
   *Examples:*
   <br/>
-  Websites such as a homepage, a landing page, or a blog typically don't require a server
+  Simple websites such as a homepage, a landing page, or a blog typically don't require a server
   and can be implemented using this starter.
   <br>
   Or if you have a python backend with a RESTful API
@@ -34,7 +34,7 @@ Database/ORM | :x: | :x: | :heavy_check_mark:
   Scaffolds a React frontend with a Node.js server,
   a SQL database,
   an ORM ([Objection.js](https://github.com/Vincit/objection.js)),
-  and an API (made with [Wildcard](https://github.com/brillout/wildcard-api)).
+  and an API ([Wildcard API](https://github.com/brillout/wildcard-api)).
   You can use this starter to create a SSR app and a backend-only app.
   <br/>
   *Examples:*

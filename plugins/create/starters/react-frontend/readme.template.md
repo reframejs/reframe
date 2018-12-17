@@ -4,29 +4,21 @@
 
 # react-frontend
 
-Starter to create a React frontend.
+Starter to create a static site.
 
-Choose this starter if you don't need a backend or if you already have one.
-
-With automatic deployment to GitHub Pages or Netlify.
-
- (Python, Java, Node.js, etc.)
+You can use this starter if you don't need a backend or if you already have one.
 
 You can:
- - Add a Node.js afterwards
- - 
+ - Run `$ reframe deploy` to deploy to GitHub Pages or Netlify
+ - Add a Node.js server afterwards
+ - Use another view library such as Vue.js
+ - Use TypeScript
 
+See [Usage Manual](/docs/usage-manual.md#readme).
 
-### Quick Start
+### Getting Started
 
 !INLINE /docs/quick-start.md react-frontend --hide-source-path
 
-5. **Read the entire [Usage Basics](#react-frontend) section**.
-
-For further usage information, lookup the [Usage Manual](/docs/usage-manual.md).
-
-!INLINE /docs/top-link.md #react-frontend --hide-source-path
-
 <br/>
 <br/>
-
