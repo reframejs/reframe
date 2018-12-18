@@ -9,8 +9,7 @@
     "dev": "reframe dev",
     "production": "npm run build && npm run start",
     "build": "reframe build",
-    "start": "export NODE_ENV='production' && node ./server/start.js",
-    "docs": "mdocs"
+    "start": "export NODE_ENV='production' && node ./server/start.js"
   },
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.2.1",

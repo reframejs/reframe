@@ -1,16 +1,10 @@
 {
   "name": "@reframe/react-router",
   "version": "0.2.3",
-  "scripts": {
-    "docs": "mdocs"
-  },
   "dependencies": {
     "react": "^16.2.0",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2"
-  },
-  "devDependencies": {
-    "@brillout/mdocs": "^0.1.15"
   },
   "repository": "https://github.com/reframejs/reframe/tree/master/plugins/react-router",
   "publishConfig": {

@@ -4,8 +4,7 @@
     "production": "npm run build && npm run start",
     "build": "reframe build",
     "start": "reframe server",
-    "deploy": "reframe build && reframe deploy",
-    "docs": "mdocs"
+    "deploy": "reframe build && reframe deploy"
   },
   "dependencies": {
     "@brillout/fetch": "^0.1.0",
@@ -19,8 +18,5 @@
   "version": "0.2.3",
   "checkDeps": {
     "skip": true
-  },
-  "devDependencies": {
-    "@brillout/mdocs": "^0.1.19"
   }
 }

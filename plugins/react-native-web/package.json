@@ -1,9 +1,6 @@
 {
   "name": "@reframe/react-native-web",
   "version": "0.2.3",
-  "scripts": {
-    "docs": "mdocs"
-  },
   "dependencies": {
     "@brillout/browser-config": "0.2.3",
     "@brillout/index-html": "^0.1.2",
@@ -13,9 +10,6 @@
     "react-art": "^16.4.2",
     "react-dom": "^16.4.2",
     "react-native-web": "^0.6.1"
-  },
-  "devDependencies": {
-    "@brillout/mdocs": "^0.1.20"
   },
   "repository": "https://github.com/reframejs/reframe/tree/master/plugins/react-native-web",
   "publishConfig": {
