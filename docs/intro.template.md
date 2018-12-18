@@ -163,29 +163,35 @@ we created a frontend simply by defining one page config.
 
 ### Full-stack
 
-Let's look at a Todo app implemented with
-[Objection.js](https://github.com/Vincit/objection.js)
-and
-[Wildcard API](https://github.com/brillout/wildcard-api).
+We create an app composed of a database, a server, and a frontend.
 
-First we define our models with Objection.js:
+We first define our data models with
+[Objection.js](https://github.com/Vincit/objection.js):
 
 ~~~js
-!INLINE ../examples/objection/db/models/Todo.js --hide-source-path
+!INLINE ../examples/fullstack-objection/db/models/Person.js --hide-source-path
 ~~~
 ~~~js
-!INLINE ../examples/objection/db/models/User.js --hide-source-path
+!INLINE ../examples/fullstack-objection/db/models/Animal.js --hide-source-path
 ~~~
 
-Then we create an API endpoint:
+Then, we create an API with [Wildcard API](https://github.com/brillout/wildcard-api):
 ~~~js
-!INLINE ../examples/objection/server/endpoints/view-endpoints.js --hide-source-path
+!INLINE ../examples/fullstack-objection/server/api.js --hide-source-path
 ~~~
 
-We use our API endpoint to retrieve the data from the frontend:
+Finally, we create a page to view a person's pets and we use our `getPetsPageData` API endpoint:
 ~~~js
-!INLINE ../examples/objection/pages/LandingPage.config.js --hide-source-path
+!INLINE ../examples/fullstack-objection/pages/PetsPage.config.js --hide-source-path
 ~~~
+
+The whole example is at
+[/examples/fullstack-objection](/examples/fullstack-objection)
+and an example of a to-do app with user authentication is at
+[/examples/fullstack-objection-auth](/examples/fullstack-objection-auth).
+
+You can use the [react-sql](/plugins/create/starters/react-sql#readme)
+starter to scaffold such full stack app.
 
 !INLINE ./top-link.md #examples Examples --hide-source-path
 <br/>

@@ -131,33 +131,31 @@
 
 # Starters
 
-**Don't bother choosing the right starter**:
-As described in [Usage Manual - Flexible Stack](/docs/plugins.md#use-cases),
-a Node.js server and a database/ORM can easily be removed/added afterwards.
-
-<center>
-
 &nbsp; | react-frontend | react-app | react-sql
 --- | :---: | :---: | :---:
 React Frontend | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:
 Node.js Server | :x: | :heavy_check_mark: | :heavy_check_mark:
 Database/ORM | :x: | :x: | :heavy_check_mark:
 
-</center>
+*Note*:
+Reframe apps have a flexible stack:
+You can easily add/remove a frontend or backend.
+For example you can start with a static site and add a Node.js server afterwards.
 
 - [react-frontend](/plugins/create/starters/react-frontend#readme)
   <br/>
   Scaffolds a static site.
-  (A static site is an app that consists of only static browser assets such as JavaScript, CSS, images, fonts, etc.)
   You can use this starter if you already have a backend
   or if your app doesn't need one.
+  (A static site is an app that consists of only static browser assets such as JavaScript, CSS, images, fonts, etc.)
   <br/>
   Examples:
-   - Simple websites such as a homepage, a landing page, or a blog typically don't require a server
-     and can be implemented using this starter.
-   - Or if you have a python backend with a RESTful API
-     then you can use this starter to scaffold a React frontend
-     that interacts with the backend over the API.
+  <br/> &nbsp;&nbsp;&nbsp;&#x25cb;&nbsp;
+  Simple websites such as a homepage, a landing page, or a blog typically don't require a server.
+  <br/> &nbsp;&nbsp;&nbsp;&#x25cb;&nbsp;
+  You have a python backend with a RESTful API.
+  You can then use this starter to scaffold a React frontend
+  that interacts with the backend over the API.
 
 - [react-sql](/plugins/create/starters/react-sql#readme)
   <br/>

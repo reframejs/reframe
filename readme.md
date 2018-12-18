@@ -292,9 +292,9 @@ to implement a React SSR app.
 The
 [react-frontend](/plugins/create/starters/react-frontend#readme)
 starter scaffolds a static site.
-Alternatively,
-you can use another starter
-to scaffold a SSR app, a full-stack app, etc.
+There are other starters that scaffold
+other kinds of apps such as
+SSR app, full-stack app, etc.
 See [Starters](/docs/starters.md#readme).
 
 <b><sub><a href="#contents">&#8679; TOP  &#8679;</a></sub></b>
@@ -352,107 +352,91 @@ we created a frontend simply by defining one page config.
 
 ### Full-stack
 
-Let's look at a Todo app implemented with
-[Objection.js](https://github.com/Vincit/objection.js)
-and
-[Wildcard API](https://github.com/brillout/wildcard-api).
+We create an app composed of a database, a server, and a frontend.
 
-First we define our models with Objection.js:
+We first define our data models with
+[Objection.js](https://github.com/Vincit/objection.js):
 
 ~~~js
 const {Model} = require('objection');
 
-class Todo extends Model {
-  static tableName = 'todos';
+class Person extends Model {
+  static tableName = 'persons';
   static jsonSchema = {
-    type: 'object',
     properties: {
       id: {type: 'integer'},
-      text: {type: 'string'},
-      completed: {type: 'boolean'},
-      authorId: {type: 'integer'},
+      name: {type: 'string'},
     },
   };
 }
-module.exports = Todo;
+
+module.exports = Person;
 ~~~
 ~~~js
 const {Model} = require('objection');
 
-class User extends Model {
-  static tableName = 'users';
-  static relationMappings = {
-    todos: {
-      relation: Model.HasManyRelation,
-      modelClass: require('./Todo'),
-      join: {
-        from: 'users.id',
-        to: 'todos.authorId',
-      }
-    }
-  }
+class Animal extends Model {
+  static tableName = 'animals';
   static jsonSchema = {
-    type: 'object',
     properties: {
       id: {type: 'integer'},
-      username: {type: 'string'},
-      avatarUrl: {type: 'string'},
-      oauthProvider: {type: 'string'},
-      userProviderId: {type: 'string'},
+      name: {type: 'string'},
+      ownerId: {type: 'integer'},
     },
   };
 }
-module.exports = User;
+
+module.exports = Animal;
 ~~~
 
-Then we create an API endpoint:
+Then, we create an API with [Wildcard API](https://github.com/brillout/wildcard-api):
 ~~~js
-const Todo = require('../../db/models/Todo');
 const {endpoints} = require('wildcard-api');
-const {getUser} = require('./common');
+const Person = require('../db/models/Person');
+const Animal = require('../db/models/Animal');
 
-endpoints.getLandingPageData = getLandingPageData;
-
-async function getLandingPageData() {
-  const user = await getUser(this);
-  if( ! user ) {
-    return {isNotLoggedIn: true};
-  }
-
-  const todos = await user.$relatedQuery('todos');
-  return {todos};
-}
+endpoints.getPetsPageData = async function(personId) {
+  const person = await Person.query().findOne('id', personId);
+  const pets = await Animal.query().where('ownerId', personId);
+  return {person, pets};
+};
 ~~~
 
-We use our API endpoint to retrieve the data from the frontend:
+Finally, we create a page to view a person's pets and we use our `getPetsPageData` API endpoint:
 ~~~js
 import React from 'react';
 import {endpoints} from 'wildcard-api/client';
-import TodoList from '../views/TodoList';
-import LoginView from '../views/LoginView';
 
 export default {
-  route: '/',
-  view: LandingPage,
+  route: '/pets/:personId',
+  view: Pets,
   getInitialProps,
 };
 
-async function getInitialProps({isNodejs, user}) {
-  let {getLandingPageData} = endpoints;
-  if( isNodejs ) { getLandingPageData = getLandingPageData.bind({user}); }
-
-  const {todos, isNotLoggedIn} = await getLandingPageData();
-  return {todos, isNotLoggedIn};
+function Pets({person, pets}) {
+  return (
+    <div>
+      {person.name}'s pets:
+      { pets.map(pet =>
+        <div key={pet.id}>{pet.name}</div>
+      ) }
+    </div>
+  );
 }
 
-function LandingPage({todos, isNotLoggedIn}) {
-  if( isNotLoggedIn ) {
-    return <LoginView/>;
-  } else {
-    return <TodoList todos={todos}/>;
-  }
+async function getInitialProps({route: {args: {personId}}}) {
+  const {person, pets} = await endpoints.getPetsPageData(personId);
+  return {person, pets};
 }
 ~~~
+
+The whole example is at
+[/examples/fullstack-objection](/examples/fullstack-objection)
+and an example of a to-do app with user authentication is at
+[/examples/fullstack-objection-auth](/examples/fullstack-objection-auth).
+
+You can use the [react-sql](/plugins/create/starters/react-sql#readme)
+starter to scaffold such full stack app.
 
 <b><sub><a href="#examples">&#8679; TOP Examples &#8679;</a></sub></b>
 <br/>
