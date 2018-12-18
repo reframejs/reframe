@@ -1,0 +1,11 @@
+{
+  "name": "@universal-adapter/koa",
+  "version": "0.2.3",
+  "main": "KoaAdapter.js",
+  "dependencies": {
+    "@universal-adapter/server": "0.2.3",
+    "reassert": "^1.1.16"
+  },
+  "description": "Universal Server Adapter - Koa",
+  "repository": "github:brillout/universal-adapter"
+}

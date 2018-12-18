@@ -8,7 +8,7 @@ function start() {
   const app = express();
 
   app.use(
-    ExpressAdater([
+    new ExpressAdater([
       helloPlug,
     ])
   );
