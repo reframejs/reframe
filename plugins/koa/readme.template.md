@@ -12,11 +12,15 @@ Add `@reframe/koa` to your `reframe.config.js`:
 !INLINE ./example/reframe.config.js --hide-source-path
 ~~~
 
-### Example
+Then eject the server code:
 
 ~~~js
-!INLINE ./example/reframe.config.js
+$ reframe eject server
 ~~~
+
+### Example
+
+Example of a reframe app with ejected Koa server code.
 
 ~~~js
 !INLINE ./example/server/start.js

@@ -97,22 +97,15 @@ module.exports = {
 module.exports['serverStartFile'] = require.resolve('./server/start.js');
 ~~~
 
-### Example
+Then eject the server code:
 
 ~~~js
-// /plugins/express/example/reframe.config.js
-
-const koaServer = require('@reframe/koa');
-
-module.exports = {
-  $plugins: [
-    require('@reframe/react-kit'),
-    require('@reframe/express')
-  ]
-};
-
-module.exports['serverStartFile'] = require.resolve('./server/start.js');
+$ reframe eject server
 ~~~
+
+### Example
+
+Example of a reframe app with ejected Express server code.
 
 ~~~js
 // /plugins/express/example/server/start.js
