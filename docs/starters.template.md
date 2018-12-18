@@ -12,10 +12,10 @@ React Frontend | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:
 Node.js Server | :x: | :heavy_check_mark: | :heavy_check_mark:
 Database/ORM | :x: | :x: | :heavy_check_mark:
 
-*Note*:
-Reframe apps have a flexible stack:
-You can easily add/remove a frontend or backend.
-For example you can start with a static site and add a Node.js server afterwards.
+> Note:
+> Reframe apps have a flexible stack:
+j You can easily add/remove a frontend or backend.
+> For example you can start with a static site and add a Node.js server afterwards.
 
 - [react-frontend](/plugins/create/starters/react-frontend#readme)
   <br/>
@@ -25,9 +25,9 @@ For example you can start with a static site and add a Node.js server afterwards
   (A static site is an app that consists of only static browser assets such as JavaScript, CSS, images, fonts, etc.)
   <br/>
   Examples:
-  <br/> &nbsp;&nbsp;&nbsp;&#x25e6;&nbsp;
+  <br/> &nbsp;&nbsp;&nbsp;&#x25cb;&nbsp;
   Simple websites such as a homepage, a landing page, or a blog typically don't require a server.
-  <br/> &nbsp;&nbsp;&nbsp;&#x25e6;&nbsp;
+  <br/> &nbsp;&nbsp;&nbsp;&#x25cb;&nbsp;
   Python backend with a RESTful API + React frontend using the API
 
 - [react-sql](/plugins/create/starters/react-sql#readme)
@@ -39,12 +39,15 @@ For example you can start with a static site and add a Node.js server afterwards
   You can use this starter to create a SSR app and a backend-only app.
   <br/>
   Examples:
-   - To-do list app
-   - Q&A site like Stack Overflow
-   - Social site like Reddit
+  <br/> &nbsp;&nbsp;&nbsp;&#x25cb;&nbsp;
+  To-do list app
+  <br/> &nbsp;&nbsp;&nbsp;&#x25cb;&nbsp;
+  Q&A site like Stack Overflow
+  <br/> &nbsp;&nbsp;&nbsp;&#x25cb;&nbsp;
+  Social site like Reddit
 
 - [react-app](/plugins/create/starters/react-app#readme)
   <br/>
   Scaffolds a React frontend with a Node.js server.
-  So the same than the `react-app` starter but without database, ORM and API.
+  Same than the `react-app` starter but without database, ORM and API.
   This starter gives you more freedom to choose the tech stack you want.
