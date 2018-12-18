@@ -15,7 +15,7 @@ function KoaAdapter(handlers, {addRequestContext}={}) {
 
   router.get('*', async (ctx, next) => {
     const err = await handleResponse(ctx);
-    return next(err);
+ // return next(err);
   });
 
   return router.routes();
@@ -51,11 +51,14 @@ async function buildResponse({requestHandlers, ctx, addRequestContext}) {
 
     if( etag ) {
       ctx.set('ETag', etag);
+      ctx.status = 200;
+      if( ctx.fresh ) {
+        ctx.status = 304;
+        return true;
+      }
     }
 
-    if (ctx.fresh) {
-      ctx.status = 304;
-    } else if( statusCode ) {
+    if( statusCode ) {
       ctx.status = statusCode;
     }
 
