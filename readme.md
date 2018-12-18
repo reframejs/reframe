@@ -412,7 +412,7 @@ endpoints.getPetsPageData = async function(personId) {
 ~~~
 
 Finally, we create a page to view a person's pets and we use our `getPetsPageData` API endpoint:
-~~~js
+~~~jsx
 import React from 'react';
 import {endpoints} from 'wildcard-api/client';
 

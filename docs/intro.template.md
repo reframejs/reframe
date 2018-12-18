@@ -190,7 +190,7 @@ Then, we create an API with [Wildcard API](https://github.com/brillout/wildcard-
 ~~~
 
 Finally, we create a page to view a person's pets and we use our `getPetsPageData` API endpoint:
-~~~js
+~~~jsx
 !INLINE ../examples/fullstack-objection/pages/PetsPage.config.js --hide-source-path
 ~~~
 
