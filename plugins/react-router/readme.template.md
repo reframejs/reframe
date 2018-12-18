@@ -1,3 +1,5 @@
+!MENU_SKIP
+
 Reframe + React Router v4 = :heart:
 
 # `@reframe/react-router`

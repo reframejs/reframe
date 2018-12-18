@@ -1,3 +1,5 @@
+!MENU_SKIP
+
 Reframe + PostCSS = :heart:
 
 # `@reframe/postcss`

@@ -1,3 +1,5 @@
+!MENU_SKIP
+
 Reframe + TypeScript = :heart:
 
 # `@reframe/typescript`

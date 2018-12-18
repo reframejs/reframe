@@ -75,6 +75,7 @@
 
 
 -->
+
 # `@brillout/browser-config`
 
 A 1-LOC package to have a global configuration object in the browser. (Works in Node.js too.)

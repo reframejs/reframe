@@ -1,3 +1,5 @@
+!MENU_SKIP
+
 Reframe + Vue = :heart:
 
 # `@reframe/vue`

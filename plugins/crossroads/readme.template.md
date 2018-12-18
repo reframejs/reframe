@@ -1,3 +1,5 @@
+!MENU_SKIP
+
 Reframe + Crossroads = :heart:
 
 # `@reframe/crossroads`

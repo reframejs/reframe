@@ -75,6 +75,7 @@
 
 
 -->
+
 This page exhibits code that uses CSS and static assets.
 
 ~~~js
