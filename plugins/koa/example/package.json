@@ -7,6 +7,7 @@
     "@brillout/reconfig": "0.2.3",
     "@reframe/koa": "0.2.3",
     "@reframe/react-kit": "0.2.3",
+    "@universal-adapter/koa": "^0.1.1",
     "koa": "^2.5.1",
     "koa-router": "^7.4.0",
     "react": "^16.3.2"

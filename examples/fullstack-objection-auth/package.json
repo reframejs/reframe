@@ -14,6 +14,8 @@
     "@brillout/reconfig": "0.2.3",
     "@reframe/cli": "0.2.3",
     "@reframe/react-kit": "0.2.3",
+    "@universal-adapter/express": "^0.1.1",
+    "@universal-adapter/hapi": "^0.1.1",
     "bell": "^9.4.0",
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.3",
