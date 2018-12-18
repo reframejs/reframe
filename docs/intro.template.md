@@ -11,16 +11,24 @@ Framework to create web apps.
 Designed for high development speed with no sacrifice on flexibility.
 
 Assembles a JavaScript stack that integrates with:
-<br/> &nbsp; &#8226; &nbsp; Node.js servers (Express, Koa, Hapi, ...)
-<br/> &nbsp; &#8226; &nbsp; Modern frontend (React, Vue.js, React Native Web, ...)
-<br/> &nbsp; &#8226; &nbsp; Node.js ORMs (Objection.js, TypeORM, ...)
-<br/> &nbsp; &#8226; &nbsp; Utils (TypeScript, React Router, PostCSS, ...)
+<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
+Node.js servers (Express, Koa, Hapi, ...)
+<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
+Modern frontend (React, Vue.js, React Native Web, ...)
+<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
+Node.js ORMs (Objection.js, TypeORM, ...)
+<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
+Utils (TypeScript, React Router, PostCSS, ...)
 
 All stacks are supported:
-<br/> &nbsp; &#8226; &nbsp; frontend + backend + database/ORM (aka full-stack)
-<br/> &nbsp; &#8226; &nbsp; frontend + backend (aka SSR)
-<br/> &nbsp; &#8226; &nbsp; frontend-only (aka static site)
-<br/> &nbsp; &#8226; &nbsp; backend-only (aka old-school app with plain old HTML)
+<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
+frontend + backend + database/ORM (aka full-stack)
+<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
+frontend + backend (aka SSR)
+<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
+frontend-only (aka static site)
+<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
+backend-only (aka old-school app with plain old HTML)
 
 <br/>
 
