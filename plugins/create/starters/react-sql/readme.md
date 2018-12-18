@@ -130,7 +130,7 @@
 
 # react-sql
 
-This starter scaffolds an app with:
+Starter to create an app with:
  - Frontend (React)
  - Server (Node.js + [Hapi](https://github.com/hapijs/hapi))
  - SQL Database (SQLite) +
@@ -169,9 +169,6 @@ See [Usage Manual](/docs/usage-manual.md#readme).
    That is:
    ~~~shell
    $ npx reframe create react-sql
-   ~~~
-   and
-   ~~~shell
    $ cd my-react-sql/
    $ npx reframe dev
    ~~~

@@ -275,9 +275,6 @@ to implement a React SSR app.
    That is:
    ~~~shell
    $ npx reframe create react-frontend
-   ~~~
-   and
-   ~~~shell
    $ cd my-react-frontend/
    $ npx reframe dev
    ~~~

@@ -133,7 +133,7 @@
 
 This starter scaffolds an app with:
  - Frontend (React)
- - Server (Node.js + Hapi)
+ - Server (Node.js + [hapi](https://github.com/hapijs/hapi))
 
 Same than
 [react-sql](/plugins/create/starters/react-sql#readme)
@@ -172,9 +172,6 @@ See [Usage Manual](/docs/usage-manual.md#readme).
    That is:
    ~~~shell
    $ npx reframe create react-app
-   ~~~
-   and
-   ~~~shell
    $ cd my-react-app/
    $ npx reframe dev
    ~~~

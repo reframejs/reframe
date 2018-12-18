@@ -19,9 +19,6 @@
    That is:
    ~~~shell
    $ npx reframe create !ARGUMENT-1
-   ~~~
-   and
-   ~~~shell
    $ cd my-!ARGUMENT-1/
    $ npx reframe dev
    ~~~

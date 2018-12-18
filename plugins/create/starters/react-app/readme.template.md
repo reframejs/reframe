@@ -7,7 +7,7 @@
 
 This starter scaffolds an app with:
  - Frontend (React)
- - Server (Node.js + Hapi)
+ - Server (Node.js + [hapi](https://github.com/hapijs/hapi))
 
 Same than
 [react-sql](/plugins/create/starters/react-sql#readme)

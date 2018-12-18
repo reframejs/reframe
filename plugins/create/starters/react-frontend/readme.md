@@ -165,9 +165,6 @@ See [Usage Manual](/docs/usage-manual.md#readme).
    That is:
    ~~~shell
    $ npx reframe create react-frontend
-   ~~~
-   and
-   ~~~shell
    $ cd my-react-frontend/
    $ npx reframe dev
    ~~~

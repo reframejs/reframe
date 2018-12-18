@@ -8,14 +8,14 @@
 
 &nbsp; | react-frontend | react-app | react-sql
 --- | :---: | :---: | :---:
-React Frontend | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:
-Node.js Server | :x: | :heavy_check_mark: | :heavy_check_mark:
+React frontend | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:
+Node.js server | :x: | :heavy_check_mark: | :heavy_check_mark:
 Database/ORM | :x: | :x: | :heavy_check_mark:
 
 > Note that
 > Reframe apps have a flexible stack:
 > You can easily add/remove a frontend or backend.
-> So you can start with a static site and add a Node.js server afterwards.
+> For example, you can start with a static site and add a Node.js server afterwards.
 
 [**react-frontend**](/plugins/create/starters/react-frontend#readme)
 <br/>
@@ -28,7 +28,7 @@ Examples:
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
 Simple websites such as a homepage, a landing page, or a blog typically don't require a server.
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-Python backend with a RESTful API + React frontend using the API
+Python backend with a RESTful API + static site using the API
 
 [**react-sql**](/plugins/create/starters/react-sql#readme)
 <br/>

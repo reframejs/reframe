@@ -1,13 +1,12 @@
 {
-  "name": "_example-objection",
-  "private": true,
   "version": "0.2.3",
+  "name": "_example_fullstack-objection-auth",
+  "private": true,
+  "checkDeps": {
+    "skip": true
+  },
   "scripts": {
-    "dev": "reframe dev",
-    "production": "npm run build && npm run start",
-    "build": "reframe build",
-    "start": "export NODE_ENV='production' && node ./server/start.js",
-    "reframe": "reframe"
+    "dev": "reframe dev"
   },
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.2.1",
