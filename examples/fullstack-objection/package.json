@@ -1,5 +1,5 @@
 {
-  "version": "0.2.3",
+  "version": "0.3.0",
   "name": "_example_fullstack-objection",
   "private": true,
   "checkDeps": {
@@ -10,11 +10,11 @@
   },
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.2.1",
-    "@brillout/cli-theme": "0.2.3",
+    "@brillout/cli-theme": "0.3.0",
     "@brillout/fetch": "^0.1.0",
-    "@brillout/reconfig": "0.2.3",
-    "@reframe/cli": "0.2.3",
-    "@reframe/react-kit": "0.2.3",
+    "@brillout/reconfig": "0.3.0",
+    "@reframe/cli": "0.3.0",
+    "@reframe/react-kit": "0.3.0",
     "@universal-adapter/hapi": "^0.1.1",
     "hapi": "^17.3.1",
     "react": "^16.3.2",

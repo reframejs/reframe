@@ -1,12 +1,12 @@
 {
   "name": "_example-koa",
   "private": true,
-  "version": "0.2.3",
+  "version": "0.3.0",
   "dependencies": {
-    "@brillout/cli-theme": "0.2.3",
-    "@brillout/reconfig": "0.2.3",
-    "@reframe/koa": "0.2.3",
-    "@reframe/react-kit": "0.2.3",
+    "@brillout/cli-theme": "0.3.0",
+    "@brillout/reconfig": "0.3.0",
+    "@reframe/koa": "0.3.0",
+    "@reframe/react-kit": "0.3.0",
     "@universal-adapter/koa": "^0.1.1",
     "koa": "^2.5.1",
     "koa-router": "^7.4.0",

@@ -1,11 +1,11 @@
 {
   "name": "_example-basic",
   "private": true,
-  "version": "0.2.3",
+  "version": "0.3.0",
   "dependencies": {
     "@brillout/fetch": "^0.1.0",
-    "@reframe/browser": "0.2.3",
-    "@reframe/react-kit": "0.2.3",
+    "@reframe/browser": "0.3.0",
+    "@reframe/react-kit": "0.3.0",
     "react": "^16.3.2"
   },
   "checkDeps": {

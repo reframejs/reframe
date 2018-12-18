@@ -1,10 +1,10 @@
 {
   "name": "_example-crossroads",
   "private": true,
-  "version": "0.2.3",
+  "version": "0.3.0",
   "dependencies": {
-    "@reframe/crossroads": "0.2.3",
-    "@reframe/react-kit": "0.2.3",
+    "@reframe/crossroads": "0.3.0",
+    "@reframe/react-kit": "0.3.0",
     "react": "^16.3.2"
   },
   "checkDeps": {

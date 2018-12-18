@@ -1,8 +1,8 @@
 {
   "name": "@reframe/path-to-regexp",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "dependencies": {
-    "@brillout/reconfig": "0.2.3",
+    "@brillout/reconfig": "0.3.0",
     "react-router": "4.2.0",
     "reassert": "^1.1.12"
   },

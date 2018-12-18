@@ -1,6 +1,6 @@
 {
   "name": "@reframe/react-router",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "dependencies": {
     "react": "^16.2.0",
     "react-router": "^4.2.0",
