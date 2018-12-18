@@ -1,6 +1,6 @@
 {
   "name": "@brillout/webpack-config-mod",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "dependencies": {
     "lodash.escaperegexp": "^4.1.2",
     "reassert": "^1.1.12"

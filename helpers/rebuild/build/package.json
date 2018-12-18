@@ -1,10 +1,10 @@
 {
   "name": "@rebuild/build",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "dependencies": {
-    "@brillout/cli-theme": "0.3.0",
+    "@brillout/cli-theme": "0.3.1",
     "@brillout/format-text": "^0.1.0",
-    "@reframe/utils": "0.3.0",
+    "@reframe/utils": "0.3.1",
     "bluebird": "^3.5.1",
     "commondir": "^1.0.1",
     "lodash": "^4.17.4",

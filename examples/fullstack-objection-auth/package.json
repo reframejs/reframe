@@ -1,5 +1,5 @@
 {
-  "version": "0.3.0",
+  "version": "0.3.1",
   "name": "_example_fullstack-objection-auth",
   "private": true,
   "checkDeps": {
@@ -10,10 +10,10 @@
   },
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.2.1",
-    "@brillout/cli-theme": "0.3.0",
-    "@brillout/reconfig": "0.3.0",
-    "@reframe/cli": "0.3.0",
-    "@reframe/react-kit": "0.3.0",
+    "@brillout/cli-theme": "0.3.1",
+    "@brillout/reconfig": "0.3.1",
+    "@reframe/cli": "0.3.1",
+    "@reframe/react-kit": "0.3.1",
     "@universal-adapter/express": "^0.1.1",
     "@universal-adapter/hapi": "^0.1.1",
     "bell": "^9.4.0",

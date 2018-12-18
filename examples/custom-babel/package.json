@@ -1,10 +1,10 @@
 {
   "name": "_example-custom-babel",
   "private": true,
-  "version": "0.3.0",
+  "version": "0.3.1",
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.0.0",
-    "@reframe/react-kit": "0.3.0",
+    "@reframe/react-kit": "0.3.1",
     "react": "^16.3.2"
   },
   "checkDeps": {

@@ -1,9 +1,9 @@
 {
   "name": "_example-custom-html",
   "private": true,
-  "version": "0.3.0",
+  "version": "0.3.1",
   "dependencies": {
-    "@reframe/react-kit": "0.3.0",
+    "@reframe/react-kit": "0.3.1",
     "react": "^16.3.2"
   },
   "checkDeps": {

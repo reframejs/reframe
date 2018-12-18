@@ -1,12 +1,12 @@
 {
     "name": "@reframe/aws",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "publishConfig": {
         "access": "public"
     },
     "repository": "github:reframejs/reframe",
     "dependencies": {
-        "@brillout/cli-theme": "0.3.0",
+        "@brillout/cli-theme": "0.3.1",
         "fs-extra": "^7.0.1"
     }
 }

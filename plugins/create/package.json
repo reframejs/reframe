@@ -1,11 +1,11 @@
 {
     "name": "@reframe/create",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "bin": "./bin.js",
     "dependencies": {
-        "@brillout/cli-theme": "0.3.0",
-        "@reframe/cli": "0.3.0",
-        "@reframe/utils": "0.3.0",
+        "@brillout/cli-theme": "0.3.1",
+        "@reframe/cli": "0.3.1",
+        "@reframe/utils": "0.3.1",
         "fs-extra": "^6.0.1",
         "reassert": "^1.1.12"
     },

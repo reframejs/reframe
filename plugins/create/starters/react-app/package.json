@@ -6,18 +6,18 @@
     "start": "export NODE_ENV='production' && node ./server/start.js"
   },
   "dependencies": {
-    "@brillout/cli-theme": "0.3.0",
+    "@brillout/cli-theme": "0.3.1",
     "@brillout/fetch": "^0.1.0",
-    "@brillout/reconfig": "0.3.0",
-    "@reframe/cli": "0.3.0",
-    "@reframe/react-kit": "0.3.0",
+    "@brillout/reconfig": "0.3.1",
+    "@reframe/cli": "0.3.1",
+    "@reframe/react-kit": "0.3.1",
     "@universal-adapter/hapi": "^0.1.1",
     "hapi": "^17.3.1",
     "react": "^16.3.2"
   },
   "name": "_starters-react-app",
   "private": "true",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "checkDeps": {
     "skip": true
   }

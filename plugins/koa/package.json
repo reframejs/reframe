@@ -1,9 +1,9 @@
 {
   "name": "@reframe/koa",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "dependencies": {
-    "@brillout/cli-theme": "0.3.0",
-    "@brillout/reconfig": "0.3.0",
+    "@brillout/cli-theme": "0.3.1",
+    "@brillout/reconfig": "0.3.1",
     "@universal-adapter/koa": "^0.1.1",
     "koa": "^2.5.1"
   },
