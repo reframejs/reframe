@@ -9,7 +9,12 @@ Use Reframe with Koa.
 Add `@reframe/koa` to your `reframe.config.js`:
 
 ~~~js
-!INLINE ./example/reframe.config.js --hide-source-path
+module.exports = {
+  $plugins: [
+    require('@reframe/react-kit'),
+    require('@reframe/koa')
+  ]
+};
 ~~~
 
 Then eject the server code:
