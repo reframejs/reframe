@@ -210,15 +210,15 @@
    <details>
    <summary>With npx (local install)</summary>
 
-   With <a href="https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b">npx</a>,
-   you don't have to install Reframe globally.
-
-   First, use npx to create a new app with npx.
+   Instead of globally installing Reframe, you can use
+   [npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b)
+   to create a new app:
    ~~~shell
    $ npx @reframe/cli create react-frontend
    ~~~
 
    Then prefix every `$ reframe <command>` with `npx`.
+   For example:
    ~~~shell
    $ cd my-react-frontend/
    $ npx reframe dev
