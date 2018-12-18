@@ -27,6 +27,6 @@
     "passport-github": "^1.1.0",
     "react": "^16.3.2",
     "sqlite3": "^4.0.2",
-    "wildcard-api": "^0.0.2"
+    "wildcard-api": "^0.1.0"
   }
 }

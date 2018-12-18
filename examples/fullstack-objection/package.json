@@ -17,6 +17,6 @@
     "@reframe/react-kit": "0.2.3",
     "hapi": "^17.3.1",
     "react": "^16.3.2",
-    "wildcard-api": "^0.0.4"
+    "wildcard-api": "^0.1.0"
   }
 }
