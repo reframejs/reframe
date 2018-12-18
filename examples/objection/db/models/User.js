@@ -13,7 +13,6 @@ class User extends Model {
     }
   }
   static jsonSchema = {
-    type: 'object',
     properties: {
       id: {type: 'integer'},
       username: {type: 'string'},

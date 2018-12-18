@@ -9,11 +9,8 @@ export default {
   getInitialProps,
 };
 
-async function getInitialProps({isNodejs, user}) {
-  let {getLandingPageData} = endpoints;
-  if( isNodejs ) { getLandingPageData = getLandingPageData.bind({user}); }
-
-  const {todos, isNotLoggedIn} = await getLandingPageData();
+async function getInitialProps({isNodejs, requestContext}) {
+  const {todos, isNotLoggedIn} = await endpoints.getLandingPageData.bind(requestContext)();
   return {todos, isNotLoggedIn};
 }
 

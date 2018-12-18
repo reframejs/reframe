@@ -10,15 +10,11 @@
 As described in [Usage Manual - Flexible Stack](/docs/plugins.md#use-cases),
 a Node.js server and a database/ORM can easily be removed/added afterwards.
 
-<center>
-
 &nbsp; | react-frontend | react-app | react-sql
 --- | :---: | :---: | :---:
 React Frontend | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:
 Node.js Server | :x: | :heavy_check_mark: | :heavy_check_mark:
 Database/ORM | :x: | :x: | :heavy_check_mark:
-
-</center>
 
 - [react-frontend](/plugins/create/starters/react-frontend#readme)
   <br/>

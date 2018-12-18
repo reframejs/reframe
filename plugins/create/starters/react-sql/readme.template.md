@@ -4,7 +4,7 @@
 
 # react-sql
 
-This starter scaffolds an app with:
+Starter to create an app with:
  - Frontend (React)
  - Server (Node.js + [Hapi](https://github.com/hapijs/hapi))
  - SQL Database (SQLite) +
