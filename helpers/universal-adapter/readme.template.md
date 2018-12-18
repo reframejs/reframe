@@ -39,4 +39,4 @@ We can now use `helloPlug` with either Express, Hapi, or Koa:
 ~~~
 ~~~js
 !INLINE ./server/example/koa
-~~~js
+~~~

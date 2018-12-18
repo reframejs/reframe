@@ -212,7 +212,7 @@ function start() {
 
   return server;
 }
-~~~js
+~~~
 
 <!---
 
