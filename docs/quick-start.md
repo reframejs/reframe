@@ -15,14 +15,12 @@
    With <a href="https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b">npx</a>,
    you don't have to install Reframe globally.
 
-   First use the starter
-   allows to use Reframe CLI without globally installing Reframe
-   With
-   instead of having a global install,
-   you prefix `$ reframe <command>` with `npx`.
+   First, use npx to create a new app with npx.
    ~~~shell
    $ npx @reframe/cli create !ARGUMENT-1
    ~~~
+
+   Then prefix every `$ reframe <command>` with `npx`.
    ~~~shell
    $ cd my-!ARGUMENT-1/
    $ npx reframe dev
