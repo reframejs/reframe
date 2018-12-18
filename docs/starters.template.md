@@ -12,10 +12,10 @@ React Frontend | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:
 Node.js Server | :x: | :heavy_check_mark: | :heavy_check_mark:
 Database/ORM | :x: | :x: | :heavy_check_mark:
 
-> Note:
-> Reframe apps have a flexible stack:
-j You can easily add/remove a frontend or backend.
-> For example you can start with a static site and add a Node.js server afterwards.
+> Note that
+> Reframe apps have a flexible stack
+> You can easily add/remove a frontend or backend.
+> So you can start with a static site and add a Node.js server afterwards.
 
 - [react-frontend](/plugins/create/starters/react-frontend#readme)
   <br/>

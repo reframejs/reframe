@@ -169,7 +169,7 @@ no server configuration.
 ## Why Reframe
 
 There are many web frameworks out there with huge adoption, including Ruby on Rails, Django and Next.js.
-So why do we need another one?
+So, why do we need another one?
 The main reasons are around flexibility.
 
 Web frameworks have a bad reputation regarding flexibility.
@@ -182,7 +182,7 @@ We would even argue that Reframe is more flexible than gluying do-one-thing-do-i
 
 Reframe's flexibility is based on three pillars:
 
-1. **Eject** -
+1. **Progressive Eject** -
    All Reframe parts are ejectable:
    You can eject and take control over
    the build configuration (the webpack config),
@@ -191,7 +191,7 @@ Reframe's flexibility is based on three pillars:
    the server code,
    etc.
 
-2. **Slim** -
+2. **Minimal glue code** -
    We isolate a maximum of code in do-one-thing-do-it-well libraries.
    That way, we manage to keep glue code to a tiny ~500 lines of code.
    Ejecting everything leaves you with only ~500 LOC.
@@ -216,13 +216,14 @@ At that point your code doesn't depend on Reframe anymore and only depends on do
 (such as React, Express, Webpack, etc.).
 
 **Rapid Prototyping** -
-When starting out, you most often don't know what stack is right.
+When starting out,
+you most often don't know what stack your application will end up needing.
 Reframe embraces that:
 You can change your app's stack at any time.
 For example,
 you can implement a prototype as a static site
 while skipping a real database by hard-writing data in the codebase.
-Later, when hard-writing data isn't sustainable anymore,
+Later, if hard-writing data isn't sustainable anymore,
 you can add a Node.js server and a real database.
 
 **Learn Once, Write Any App** -
