@@ -4,5 +4,9 @@
     "publishConfig": {
         "access": "public"
     },
-    "repository": "github:reframejs/reframe"
+    "repository": "github:reframejs/reframe",
+    "dependencies": {
+        "@brillout/cli-theme": "^0.2.3",
+        "fs-extra": "^7.0.1"
+    }
 }

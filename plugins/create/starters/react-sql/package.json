@@ -18,7 +18,10 @@
     "@reframe/cli": "0.2.3",
     "@reframe/react-kit": "0.2.3",
     "@universal-adapter/hapi": "^0.1.1",
+    "fs-extra": "^7.0.1",
     "hapi": "^17.3.1",
+    "knex": "^0.16.2",
+    "objection": "^1.4.0",
     "react": "^16.3.2",
     "wildcard-api": "^0.1.0"
   }
