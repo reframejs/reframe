@@ -23,6 +23,7 @@
     "knex": "^0.16.2",
     "objection": "^1.4.0",
     "react": "^16.3.2",
-    "wildcard-api": "^0.1.0"
+    "sqlite3": "^4.0.4",
+    "wildcard-api": "^0.1.1"
   }
 }

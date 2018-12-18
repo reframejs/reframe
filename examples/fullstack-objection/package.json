@@ -18,6 +18,6 @@
     "@universal-adapter/hapi": "^0.1.1",
     "hapi": "^17.3.1",
     "react": "^16.3.2",
-    "wildcard-api": "^0.1.0"
+    "wildcard-api": "^0.1.1"
   }
 }
