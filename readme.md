@@ -254,7 +254,7 @@ to implement a React SSR app.
 
 ## Quick Start
 
-1. Install the Reframe CLI.
+1. Install the Reframe CLI:
    ~~~shell
    $ npm install -g @reframe/cli
    ~~~
@@ -271,7 +271,7 @@ to implement a React SSR app.
    With
    <a href="https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b">npx</a>,
    instead of having a global install,
-   you prefix `$ reframe <command>` with `npx`.
+   you prefix `$ reframe <command>` with `npx`:
    ~~~shell
    $ npx reframe create react-frontend
    $ cd my-react-frontend/
@@ -279,12 +279,12 @@ to implement a React SSR app.
    ~~~
    </details>
 
-2. Create a new app with the `react-frontend` starter.
+2. Create a new app with the `react-frontend` starter:
    ~~~shell
    $ reframe create react-frontend
    ~~~
 
-3. Build and serve the app.
+3. Build and serve the app:
    ~~~shell
    $ cd my-react-frontend/
    $ reframe dev

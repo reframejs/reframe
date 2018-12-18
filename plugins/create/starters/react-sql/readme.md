@@ -151,7 +151,7 @@ See [Usage Manual](/docs/usage-manual.md#readme).
 
 ### Getting Started
 
-1. Install the Reframe CLI.
+1. Install the Reframe CLI:
    ~~~shell
    $ npm install -g @reframe/cli
    ~~~
@@ -168,7 +168,7 @@ See [Usage Manual](/docs/usage-manual.md#readme).
    With
    <a href="https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b">npx</a>,
    instead of having a global install,
-   you prefix `$ reframe <command>` with `npx`.
+   you prefix `$ reframe <command>` with `npx`:
    ~~~shell
    $ npx reframe create react-sql
    $ cd my-react-sql/
@@ -176,12 +176,12 @@ See [Usage Manual](/docs/usage-manual.md#readme).
    ~~~
    </details>
 
-2. Create a new app with the `react-sql` starter.
+2. Create a new app with the `react-sql` starter:
    ~~~shell
    $ reframe create react-sql
    ~~~
 
-3. Build and serve the app.
+3. Build and serve the app:
    ~~~shell
    $ cd my-react-sql/
    $ reframe dev

@@ -1,4 +1,4 @@
-1. Install the Reframe CLI.
+1. Install the Reframe CLI:
    ~~~shell
    $ npm install -g @reframe/cli
    ~~~
@@ -15,7 +15,7 @@
    With
    <a href="https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b">npx</a>,
    instead of having a global install,
-   you prefix `$ reframe <command>` with `npx`.
+   you prefix `$ reframe <command>` with `npx`:
    ~~~shell
    $ npx reframe create !ARGUMENT-1
    $ cd my-!ARGUMENT-1/
@@ -23,12 +23,12 @@
    ~~~
    </details>
 
-2. Create a new app with the `!ARGUMENT-1` starter.
+2. Create a new app with the `!ARGUMENT-1` starter:
    ~~~shell
    $ reframe create !ARGUMENT-1
    ~~~
 
-3. Build and serve the app.
+3. Build and serve the app:
    ~~~shell
    $ cd my-!ARGUMENT-1/
    $ reframe dev
