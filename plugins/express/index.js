@@ -16,7 +16,7 @@ function getEjectables() {
     return [
         {
             name: ejectName_server,
-            description: 'Eject the code that creates the Node.js/Koa server.',
+            description: 'Eject the code that creates the Node.js/Express server.',
             actions: [
                 {
                     targetDir: 'server/',

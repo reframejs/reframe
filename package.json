@@ -40,6 +40,8 @@
         "plugins/create/starters/react-frontend",
         "plugins/create/starters/react-app",
         "plugins/create/starters/react-sql",
+        "plugins/express",
+        "plugins/express/example",
         "plugins/deploy-git",
         "plugins/deploy-git/example",
         "plugins/path-to-regexp",
