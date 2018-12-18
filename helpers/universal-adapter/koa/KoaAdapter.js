@@ -15,7 +15,7 @@ function KoaAdapter(handlers, {addRequestContext}={}) {
 
   router.get('*', async (ctx, next) => {
     const err = await handleResponse(ctx);
- // return next(err);
+    return next(err);
   });
 
   return router.routes();

@@ -11,9 +11,6 @@ async function start () {
 
   server.listen(3000);
 
-  /*
-  server.use(config.koaIntegration);
-  */
   server.use(
     // We use https://github.com/brillout/universal-adapter to integrate Reframe with Koa
     new KoaAdapter([
