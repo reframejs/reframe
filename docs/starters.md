@@ -150,12 +150,10 @@ For example you can start with a static site and add a Node.js server afterwards
   (A static site is an app that consists of only static browser assets such as JavaScript, CSS, images, fonts, etc.)
   <br/>
   Examples:
-  <br/> &nbsp;&nbsp;&nbsp;&#x25cb;&nbsp;
+  <br/> &nbsp;&nbsp;&nbsp;&#x25e6;&nbsp;
   Simple websites such as a homepage, a landing page, or a blog typically don't require a server.
-  <br/> &nbsp;&nbsp;&nbsp;&#x25cb;&nbsp;
-  You have a python backend with a RESTful API.
-  You can then use this starter to scaffold a React frontend
-  that interacts with the backend over the API.
+  <br/> &nbsp;&nbsp;&nbsp;&#x25e6;&nbsp;
+  Python backend with a RESTful API + React frontend using the API
 
 - [react-sql](/plugins/create/starters/react-sql#readme)
   <br/>
