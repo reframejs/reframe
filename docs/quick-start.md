@@ -16,7 +16,6 @@
    <a href="https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b">npx</a>,
    instead of having a global install,
    you prefix `$ reframe <command>` with `npx`.
-   That is:
    ~~~shell
    $ npx reframe create !ARGUMENT-1
    $ cd my-!ARGUMENT-1/

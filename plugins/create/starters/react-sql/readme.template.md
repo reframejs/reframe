@@ -13,12 +13,15 @@ Starter to create an app with:
 
 You can
  - Use another database (e.g. PostgreSQL)
- - Use another ORM (e.g. TypeORM)
+ - Use another ORM
  - Use TypeScript
+ - Use REST/GraphQL instead of Wildcard API
  - Use another view library such as Vue.js
- - Remove the frontend (to have a backend-only app with plain old HTML while using React as HTML template engine.)
+ - Remove the frontend (to have a backend-only app with plain old HTML while using React as HTML template engine)
 
 See [Usage Manual](/docs/usage-manual.md#readme).
+
+<br/>
 
 ### Getting Started
 

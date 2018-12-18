@@ -16,6 +16,8 @@ You can:
 
 See [Usage Manual](/docs/usage-manual.md#readme).
 
+<br/>
+
 ### Getting Started
 
 !INLINE /docs/quick-start.md react-frontend --hide-source-path

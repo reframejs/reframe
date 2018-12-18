@@ -139,12 +139,15 @@ Starter to create an app with:
 
 You can
  - Use another database (e.g. PostgreSQL)
- - Use another ORM (e.g. TypeORM)
+ - Use another ORM
  - Use TypeScript
+ - Use REST/GraphQL instead of Wildcard API
  - Use another view library such as Vue.js
- - Remove the frontend (to have a backend-only app with plain old HTML while using React as HTML template engine.)
+ - Remove the frontend (to have a backend-only app with plain old HTML while using React as HTML template engine)
 
 See [Usage Manual](/docs/usage-manual.md#readme).
+
+<br/>
 
 ### Getting Started
 
@@ -166,7 +169,6 @@ See [Usage Manual](/docs/usage-manual.md#readme).
    <a href="https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b">npx</a>,
    instead of having a global install,
    you prefix `$ reframe <command>` with `npx`.
-   That is:
    ~~~shell
    $ npx reframe create react-sql
    $ cd my-react-sql/

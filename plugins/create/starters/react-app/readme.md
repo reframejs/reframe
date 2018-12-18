@@ -127,11 +127,10 @@
 </p>
 &nbsp;
 <p align='center'><a href="/../../#readme">Intro</a> &nbsp; | &nbsp; <a href="/docs/starters.md#readme">Starters</a> &nbsp; | &nbsp; <a href="/docs/usage-manual.md#readme">Usage Manual</a> &nbsp; | &nbsp; <a href="/docs/concepts.md#readme">Concepts</a> &nbsp; | &nbsp; <a href="/docs/plugins.md#readme">Plugins</a></p>
-&nbsp;
 
 # react-app
 
-This starter scaffolds an app with:
+Starter to create an app with:
  - Frontend (React)
  - Server (Node.js + [hapi](https://github.com/hapijs/hapi))
 
@@ -139,14 +138,17 @@ Same than
 [react-sql](/plugins/create/starters/react-sql#readme)
 but without database/ORM.
 
+You can use this starter if you want a different tech stack than react-sql's one,
+if you want SSR and you already have a backend,
+or if your app doesn't need a database.
+
 You can:
  - Add a database + ORM + API
- - Remove the Node.js server
+ - Remove the Node.js server afterwards (turning your app to a static site)
  - Use another server framework such as Express, Koa, etc.
 
 See [Usage Manual](/docs/usage-manual.md#readme).
 
-<br/>
 <br/>
 
 ### Getting Started
@@ -169,7 +171,6 @@ See [Usage Manual](/docs/usage-manual.md#readme).
    <a href="https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b">npx</a>,
    instead of having a global install,
    you prefix `$ reframe <command>` with `npx`.
-   That is:
    ~~~shell
    $ npx reframe create react-app
    $ cd my-react-app/

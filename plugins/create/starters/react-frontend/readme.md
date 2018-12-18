@@ -142,6 +142,8 @@ You can:
 
 See [Usage Manual](/docs/usage-manual.md#readme).
 
+<br/>
+
 ### Getting Started
 
 1. Install the Reframe CLI.
@@ -162,7 +164,6 @@ See [Usage Manual](/docs/usage-manual.md#readme).
    <a href="https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b">npx</a>,
    instead of having a global install,
    you prefix `$ reframe <command>` with `npx`.
-   That is:
    ~~~shell
    $ npx reframe create react-frontend
    $ cd my-react-frontend/
