@@ -180,6 +180,7 @@ See [Usage Manual](/docs/usage-manual.md#readme).
    $ cd my-react-app/
    $ npx reframe dev
    ~~~
+   <br/>
    </details>
 
 2. Create a new app with the `react-app` starter:

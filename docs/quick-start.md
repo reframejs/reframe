@@ -25,6 +25,7 @@
    $ cd my-!ARGUMENT-1/
    $ npx reframe dev
    ~~~
+   <br/>
    </details>
 
 2. Create a new app with the `!ARGUMENT-1` starter:

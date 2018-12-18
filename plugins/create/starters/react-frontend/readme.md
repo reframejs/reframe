@@ -173,6 +173,7 @@ See [Usage Manual](/docs/usage-manual.md#readme).
    $ cd my-react-frontend/
    $ npx reframe dev
    ~~~
+   <br/>
    </details>
 
 2. Create a new app with the `react-frontend` starter:

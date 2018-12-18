@@ -178,6 +178,7 @@ See [Usage Manual](/docs/usage-manual.md#readme).
    $ cd my-react-sql/
    $ npx reframe dev
    ~~~
+   <br/>
    </details>
 
 2. Create a new app with the `react-sql` starter:
