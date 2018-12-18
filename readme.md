@@ -298,13 +298,12 @@ to implement a React SSR app.
 
 5. Read [Usage Manual - Basics](/docs/usage-manual.md#basics).
 
-The
-[react-frontend](/plugins/create/starters/react-frontend#readme)
-starter scaffolds a static site.
-There are other starters that scaffold
-other kinds of apps such as
-SSR app, full-stack app, etc.
-See [Starters](/docs/starters.md#readme).
+> Note that the
+> [react-frontend](/plugins/create/starters/react-frontend#readme)
+> starter scaffolds a static site but there
+> are other starters to scaffold
+> a SSR app, a full-stack app, etc.
+> See [Starters](/docs/starters.md#readme).
 
 <b><sub><a href="#contents">&#8679; TOP  &#8679;</a></sub></b>
 

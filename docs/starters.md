@@ -142,7 +142,7 @@ Database/ORM | :x: | :x: | :heavy_check_mark:
 > You can easily add/remove a frontend or backend.
 > So you can start with a static site and add a Node.js server afterwards.
 
-[react-frontend](/plugins/create/starters/react-frontend#readme)
+[**react-frontend**](/plugins/create/starters/react-frontend#readme)
 <br/>
 Scaffolds a static site.
 You can use this starter if you already have a backend
@@ -155,7 +155,7 @@ Simple websites such as a homepage, a landing page, or a blog typically don't re
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
 Python backend with a RESTful API + React frontend using the API
 
-[react-sql](/plugins/create/starters/react-sql#readme)
+[**react-sql**](/plugins/create/starters/react-sql#readme)
 <br/>
 Scaffolds a React frontend with a Node.js server,
 a SQL database,
@@ -171,7 +171,7 @@ Q&A site like Stack Overflow
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
 Social site like Reddit
 
-[react-app](/plugins/create/starters/react-app#readme)
+[**react-app**](/plugins/create/starters/react-app#readme)
 <br/>
 Scaffolds a React frontend with a Node.js server.
 Same than the `react-app` starter but without database, ORM and API.
