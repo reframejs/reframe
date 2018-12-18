@@ -29,6 +29,8 @@
   - [Vue](#vue)
   - [React Router](#react-router)
   - [TypeScript](#typescript)
+  - [Express](#express)
+  - [Koa](#koa)
   - [PostCSS](#postcss)
   - [React Native (Web)](#react-native-web)
   - [React Native (Web) + React Router](#react-native-web--react-router)
@@ -306,6 +308,18 @@ You can use the React Router components by adding the [@reframe/react-router](/p
 ## TypeScript
 
 You can write your app with TypeScript by adding the [@reframe/typescript](/plugins/typescript) plugin.
+
+!INLINE ./snippets/section-footer.md #use-cases --hide-source-path
+
+## Express
+
+You can use Express (instead of Hapi) by using the [@reframe/express](/plugins/express) plugin.
+
+!INLINE ./snippets/section-footer.md #use-cases --hide-source-path
+
+## Koa
+
+You can use Koa (instead of Hapi) by using the [@reframe/koa](/plugins/koa) plugin.
 
 !INLINE ./snippets/section-footer.md #use-cases --hide-source-path
 

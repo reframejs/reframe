@@ -137,7 +137,8 @@ List of plugins.
  - [@reframe/typescript](/plugins/typescript#readme) - Use Reframe with TypeScript.
  - [@reframe/postcss](/plugins/postcss#readme) - Use Reframe with PostCSS.
 
-###### Servers
+###### Server frameworks
+ - [@reframe/express](/plugins/express#readme) - Use Reframe with Express.
  - [@reframe/koa](/plugins/koa#readme) - Use Reframe with Koa.
  - [@reframe/hapi](/plugins/hapi#readme) - Use Reframe with Hapi.
 

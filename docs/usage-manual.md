@@ -154,6 +154,8 @@
   - [Vue](#vue)
   - [React Router](#react-router)
   - [TypeScript](#typescript)
+  - [Express](#express)
+  - [Koa](#koa)
   - [PostCSS](#postcss)
   - [React Native (Web)](#react-native-web)
   - [React Native (Web) + React Router](#react-native-web--react-router)
@@ -672,6 +674,34 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 ## TypeScript
 
 You can write your app with TypeScript by adding the [@reframe/typescript](/plugins/typescript) plugin.
+
+<br/>
+
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+<br/>
+<br/>
+<b><sub><a href="#use-cases">&#8679; TOP  &#8679;</a></sub></b>
+<br/>
+<br/>
+<br/>
+
+## Express
+
+You can use Express (instead of Hapi) by using the [@reframe/express](/plugins/express) plugin.
+
+<br/>
+
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+<br/>
+<br/>
+<b><sub><a href="#use-cases">&#8679; TOP  &#8679;</a></sub></b>
+<br/>
+<br/>
+<br/>
+
+## Koa
+
+You can use Koa (instead of Hapi) by using the [@reframe/koa](/plugins/koa) plugin.
 
 <br/>
 
