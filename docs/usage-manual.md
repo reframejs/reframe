@@ -833,7 +833,7 @@ async function start() {
 
     await server.register(
       // We use `@universal-adapter` to integrate Reframe with Hapi
-      HapiAdapter([
+      new HapiAdapter([
         // Run `$ reframe eject server-rendering` to eject the server rendering code
         config.ServerRendering,
         // Run `$ reframe eject server-assets` to eject the static asset serving code

@@ -90,6 +90,7 @@
         "helpers/universal-adapter/hapi",
         "helpers/universal-adapter/koa",
         "helpers/universal-adapter/server",
+        "helpers/universal-adapter/server/example",
         "helpers/universal-adapter/typeorm",
         "helpers/utils"
     ]
