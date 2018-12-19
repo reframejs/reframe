@@ -25,7 +25,7 @@
    $ npx reframe dev
    ~~~
    npx uses the local `@reframe/cli` installed at `my-!ARGUMENT-1/node_modules/@reframe/cli`.
-   <br/>
+   <br/><br/>
    </details>
 
 2. Create a new app with the `!ARGUMENT-1` starter:

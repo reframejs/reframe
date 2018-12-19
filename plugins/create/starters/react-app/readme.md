@@ -180,7 +180,7 @@ See [Usage Manual](/docs/usage-manual.md#readme).
    $ npx reframe dev
    ~~~
    npx uses the local `@reframe/cli` installed at `my-react-app/node_modules/@reframe/cli`.
-   <br/>
+   <br/><br/>
    </details>
 
 2. Create a new app with the `react-app` starter:

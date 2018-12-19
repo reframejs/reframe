@@ -67,7 +67,7 @@ We would even argue that Reframe is more flexible than gluying do-one-thing-do-i
 
 Reframe's flexibility is based on three pillars:
 
-1. **Progressive Eject** -
+1. **Eject** -
    All Reframe parts are ejectable:
    You can eject and take control over
    the build configuration (the webpack config),
@@ -76,7 +76,7 @@ Reframe's flexibility is based on three pillars:
    the server code,
    etc.
 
-2. **Minimal glue code** -
+2. **Slim** -
    We isolate a maximum of code in do-one-thing-do-it-well libraries.
    That way, we manage to keep glue code to a tiny ~500 lines of code.
    Ejecting everything leaves you with only ~500 LOC.
@@ -91,13 +91,15 @@ Reframe's flexibility is based on three pillars:
 Benefits of that flexibility:
 
 **Take Over Control** -
-You can eject and take control over Reframe parts.
-You can do so progressively
-as your prototype grows into a large application,
+Not only can you eject and take control over everything,
+but you can do so
+progressively
+as your prototype grows into a large application.
+This makes taking over control a smooth experience.
 
 **Removable** -
 If you eject all Reframe parts then you effectively get rid of Reframe.
-At that point your code doesn't depend on Reframe anymore and only depends on do-one-thing-do-it-well libraries
+Your code then doesn't depend on `@reframe` packages anymore but only on do-one-thing-do-it-well libraries
 (such as React, Express, Webpack, etc.).
 
 **Rapid Prototyping** -
@@ -158,7 +160,7 @@ We define a page config `HelloPage`:
 ~~~
 
 <p align="center">
-    <img src='https://github.com/reframejs/reframe/raw/master/docs/images/previews/hello.png?sanitize=true' width="780" style="max-width:100%;"/>
+  <img src='https://github.com/reframejs/reframe/raw/master/docs/images/previews/hello.png?sanitize=true' width="780" style="max-width:100%;"/>
 </p>
 
 And that's it,
@@ -172,9 +174,9 @@ we created a frontend simply by defining one page config.
 
 ### Full-stack
 
-We create an app composed of a database, a server, and a frontend.
+We create an app composed of a database, server, and frontend.
 
-We first define our data models with
+First, we define our data models with
 [Objection.js](https://github.com/Vincit/objection.js):
 
 ~~~js
@@ -189,18 +191,28 @@ Then, we create an API with [Wildcard API](https://github.com/brillout/wildcard-
 !INLINE ../examples/fullstack-objection/server/api.js --hide-source-path
 ~~~
 
-Finally, we create a page to view a person's pets and we use our `getPetsPageData` API endpoint:
+Finally, we create `PetsPage`, a page to view a person's pets:
 ~~~jsx
 !INLINE ../examples/fullstack-objection/pages/PetsPage.config.js --hide-source-path
 ~~~
 
-The whole example is at
-[/examples/fullstack-objection](/examples/fullstack-objection)
-and an example of a to-do app with user authentication is at
-[/examples/fullstack-objection-auth](/examples/fullstack-objection-auth).
+The `getPetsPageData` endpoint is tailored to our frontend:
+It returns exactly and only what PetsPage needs.
+We deliberately choose a custom API over a generic API (REST/GraphQL).
+See [Wildcard's documentation](https://github.com/brillout/wildcard-api) for a rationale.
+
+To our knowledge,
+the Reframe + Objection + Wildcard API stack is the easiest way to create an app with a SQL database and interactive views.
+And thanks to Reframe's and Objection's focus on flexibilty,
+it is also the most flexible way (to our knowledge).
 
 You can use the [react-sql](/plugins/create/starters/react-sql#readme)
-starter to scaffold such full stack app.
+starter to scaffold an app with Reframe + Objection + Wildcard API.
+
+More:
+ - [/examples/fullstack-objection](/examples/fullstack-objection) - The whole codebase of this example.
+ - [/examples/fullstack-objection-auth](/examples/fullstack-objection-auth) - A to-do list app with user authentication using Reframe + Objection + Wildcard API + Node.js server (with a express/passport variant and a hapi/bell variant)
+
 
 !INLINE ./top-link.md #examples Examples --hide-source-path
 <br/>
