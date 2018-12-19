@@ -131,10 +131,111 @@
 
 # Concepts
 
- - [Progressive Eject](#progressive-eject)
  - [Universal Framework](#universal-framework)
  - [Non-Interactive-First Approach](#non-interactive-first-approach)
+ - [Progressive Eject](#progressive-eject)
  - [Simple Architecture](#simple-architecture)
+
+<br/>
+<br/>
+
+
+
+
+## Universal Framework
+
+> TL;DR
+> - Universal framework: A framework that supports all JavaScript stacks.
+> - Reframe is the only universal framework.
+> - Start write your prototype and decide later the type of your app.
+> - Whatever type of app you end up needing, Reframe's got your back.
+
+Reframe is a what we call a *universal framework*, that is, a framework that supports all JavaScript stacks.
+You can create a frontend without backend, a backend without frontend, or a frontend + backend.
+And you can use any view library such as React or Vue.js.
+
+And, maybe even more importantly, changing from one app type to another is easy.
+With Reframe, changing the type of your application is simply a matter of changing plugins or changing your page configs.
+
+It is often, at first, not clear what type of app is the right one.
+So instead of having to decide the type of your app before starting your project,
+you start with your best guess.
+And, as your app matures and as it becomes more clear what type of app is right for you,
+you can change the type of your app.
+For example,
+you can start writing a React static site (that is a frontend without a backend) and
+if you later realize that you actually need a backend,
+then you can easily add one.
+
+> Start write your prototype and decide later the type of your app.
+
+That Reframe allows you to easily switch between any type of app is crucial.
+For example, CRA
+([github.com/facebook/create-react-app](https://github.com/facebook/create-react-app))
+doesn't support SSR.
+This means that
+if you write your app with CRA and realize afterwards that you need SSR,
+then you'll have to get rid of CRA and refactor your app.
+In contrast, adding SSR to Reframe static site is easy.
+
+> Whatever type of app you end up needing, Reframe's got your back.
+
+To our knowledge, Reframe is the only universal framework.
+
+<b><sub><a href="#concepts">&#8679; TOP  &#8679;</a></sub></b>
+
+<br/>
+<br/>
+
+
+
+
+
+
+## Non-Interactive-First Approach
+
+> TL;DR
+> - Prefer to implement non-interactive views over interactive views to considerably increase dev speed.
+> - Reframe is the only framework that embraces the non-interative-first approach.
+> - Mixed web apps are the future and Reframe is the only framework supporting them.
+
+Interactive views (an interactive graph, a like button, a To-Do list, etc.) are a powerful addition to our dev toolbox.
+They allow us to implement incredible things and Reframe has first-class support for interactive views.
+
+But they come with a downside:
+They are complex and take considerably more time to implement.
+
+In general:
+- **Interactive** views are **difficult** to implement **but powerful**.
+- **Non-interactive** views are considerably **easier** to implement but limited.
+
+People new to web dev are often not aware of that and make the mistake to implement interactive views
+where good old-school non-interactive HTML pages would do the job just fine.
+
+Using interactive views all over the place is fine if you are Netflix and have lot's of devS.
+But if you have limited resources then you may want to reconsider and prefer non-interactive views over interactive views.
+
+Leading us to what we call the *non-interactive-first approach*:
+ - Whenever possible implement features with non-interactive views.
+ - First, implement a prototype with a minimal amount of interactive views, then gradually add interactive views to improve your app's UX.
+
+> Increase dev speed by preferring implementing features with non-interactive views
+
+Reframe allows you to create non-interactive pages:
+Set `doNotRenderInBrowser: true` to a page's config and the page will not be rendered in the browser.
+(More at [Usage Manual - `doNotRenderInBrowser`](/docs/usage-manual.md#donotrenderinbrowser).)
+
+This means that you can create an app that has interactive pages as well as non-interactive pages.
+For example an `/about` page that is non-interactive
+(browser doesn't load any JavaScript and the DOM is static)
+and a `/search` page that is interactive
+(browser loads React components and the DOM is dynamic).
+
+We call such apps *mixed web apps*.
+
+> Mixed web apps are the future and Reframe is the only framework supporting them.
+
+<b><sub><a href="#concepts">&#8679; TOP  &#8679;</a></sub></b>
 
 <br/>
 <br/>
@@ -169,106 +270,6 @@ At that point you have the same flexibility
 as if you would have implemented your app on top of these do-one-thing-do-it-well libraries.
 
 > Quickly implement a prototype while staying fully flexible down the road.
-
-<b><sub><a href="#concepts">&#8679; TOP  &#8679;</a></sub></b>
-
-<br/>
-<br/>
-
-
-
-
-## Universal Framework
-
-> TL;DR
-> - Universal framework: A framework that supports all types of apps.
-> - Reframe is the only universal framework.
-> - Start write your prototype and decide later the type of your app.
-> - Whatever type of app you end up needing, Reframe's got your back.
-
-Reframe is a what we call a *universal framework*, that is, a framework that supports all types of apps.
-You can create a frontend without backend, a backend without frontend, or a frontend + backend.
-And you can use any view library such as React or Vue.js.
-
-And, maybe even more importantly, changing from one app type to another is easy.
-With Reframe, changing the type of your application is simply a matter of changing plugins or changing your page configs.
-
-It is often, at first, not clear what type of app is the right the one.
-So instead of having to decide the type of your app before starting to code,
-you start with your best guess and as your app matures you change the type of your application.
-For example, you can start writing a React frontend without a backend and
-if you realize at a later point that you do need a backend after all,
-you can easily add one afterwards.
-
-> Start write your prototype and decide later the type of your app.
-
-That Reframe allows you to easily switch between any type of app is crucial.
-For example, CRA
-([github.com/facebook/create-react-app](https://github.com/facebook/create-react-app))
-doesn't support SSR
-(Server-side Rendering, that is the rendering of your pages to HTML)
-and, if you write your app with CRA and realize afterwards that you need SSR (for SEO reasons e.g.),
-then you'll have to get rid of CRA.
-In contrast, adding SSR with Reframe is simply a matter of setting `renderHtmlAtBuildTime: false`.
-
-> Whatever type of app you end up needing, Reframe's got your back.
-
-Most of Reframe's flexibility is a consequence of Reframe's simple architecture.
-There are no other framework out there that give you such flexibility.
-
-> Reframe is the only universal framework.
-
-<b><sub><a href="#concepts">&#8679; TOP  &#8679;</a></sub></b>
-
-<br/>
-<br/>
-
-
-
-
-
-
-## Non-Interactive-First Approach
-
-> TL;DR
-> - Prefer to implement non-interactive views over interactive views to considerably increase dev speed.
-> - Reframe is the only framework that embraces the non-interative-first approach.
-
-Interactive views (an interactive graph, a like button, a To-Do list, etc.) are a powerful addition to our dev toolbox.
-They allow us to implement incredible things and Reframe has first-class support for interactive views.
-
-But they come with a downside: They are often complex and take considerably more time to implement.
-
-In general:
-- **Interactive** views are **difficult** to implement **but powerful**.
-- **Non-interactive** views are considerably **easier** to implement.
-
-People new to web dev are often not aware of that and make the mistake to implement interactive views
-where good old-school non-interactive HTML pages would have done the job just fine.
-Even senior devS often overly use interactive views.
-
-Using interactive views all over the place is fine if you are Netflix and have lot's of devS.
-But if you have limited resources then you may want to reconsider and choose non-interactive views over interactive views.
-
-Leading us to what we call the *non-interactive-first approach*:
- - Whenever possible implement features with non-interactive views.
- - First, implement a prototype with a minimal amount of interactive views, then gradually add interactive views to improve your app's UX.
-
-> Increase dev speed by preferring implementing features with non-interactive views
-
-Reframe allows you to create non-interactive pages:
-Set `doNotRenderInBrowser: true` to a page's config and the page will not be rendered in the browser.
-(More at [Usage Manual - `doNotRenderInBrowser`](/docs/usage-manual.md#donotrenderinbrowser).)
-
-This means that you can create an app that has interactive pages as well as non-interactive pages.
-For example an `/about` page that is static and non-interactive
-(browser doesn't load any JavaScript and the DOM is static)
-and a `/search` page that is dynamic and interactive
-(browser loads React components and the DOM is dynamic).
-
-We call such apps *mixed web apps*.
-
-> Mixed web apps are the future and Reframe is the only framework supporting them.
 
 <b><sub><a href="#concepts">&#8679; TOP  &#8679;</a></sub></b>
 

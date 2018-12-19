@@ -58,5 +58,3 @@ Why should I become a maintainer?
 - Before working on a big PR, open an issue so we can discuss your changes before you work on them.
 - Opening smallish PRs without prior discussion is fine.
 - There is no code style (yet).
-
-!INLINE ./chat-with-authors.md --hide-source-path

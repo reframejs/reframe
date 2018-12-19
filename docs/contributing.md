@@ -135,13 +135,6 @@ Why should I become a maintainer?
 - Opening smallish PRs without prior discussion is fine.
 - There is no code style (yet).
 
-<br/>
-
-[Chat with Reframe authors on Discord](https://discord.gg/kqXf65G) for more infos.
-
-<br/>
-<br/>
-
 <!---
 
 
