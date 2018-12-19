@@ -6,15 +6,14 @@
 
 # Concepts
 
+High-level Reframe fundations that distinguishes it from the rest.
+
  - [Universal Framework](#universal-framework)
  - [Non-Interactive-First Approach](#non-interactive-first-approach)
  - [Progressive Eject](#progressive-eject)
- - [Simple Architecture](#simple-architecture)
 
 <br/>
 <br/>
-
-
 
 
 ## Universal Framework
