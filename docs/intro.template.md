@@ -99,7 +99,7 @@ This makes taking over control a smooth experience.
 
 **Removable** -
 If you eject all Reframe parts then you effectively get rid of Reframe.
-Your code then doesn't depend on `@reframe` packages anymore but only on do-one-thing-do-it-well libraries
+Your code then doesn't depend on @reframe packages anymore but only on do-one-thing-do-it-well libraries
 (such as React, Express, Webpack, etc.).
 
 **Rapid Prototyping** -
@@ -212,7 +212,7 @@ starter to scaffold an app with Reframe + Objection + Wildcard API.
 More:
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
 [/examples/fullstack-objection](/examples/fullstack-objection) -
-The whole codebase of this example.
+The entire codebase of this example.
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
 [/examples/fullstack-objection-auth](/examples/fullstack-objection-auth) -
 A to-do list app with user authentication using Reframe + Objection + Wildcard API + Node.js server (with a express/passport variant and a hapi/bell variant)
