@@ -694,7 +694,7 @@ and pages defined with React Router components will share the same browser-side 
 
 Reframe can be used with any routing library.
 
-Either use another plugin in the [list of router plugins](/docs/plugins.md#routers) or eject the router with `$ reframe eject router`.
+Either use another plugin in the [list of router plugins](/docs/plugins.md#routing) or eject the router with `$ reframe eject router`.
 
 !INLINE ./snippets/section-footer.md #custom --hide-source-path
 

@@ -222,7 +222,7 @@
    $ cd my-react-frontend/
    $ npx reframe dev
    ~~~
-   npx uses the local `@reframe/cli` installed at `my-react-frontend/node_modules/@reframe/cli`.
+   npx uses the `@reframe/cli` locally installed at `my-react-frontend/node_modules/@reframe/cli`.
    <br/><br/>
    </details>
 
@@ -1416,7 +1416,7 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 Reframe can be used with any routing library.
 
-Either use another plugin in the [list of router plugins](/docs/plugins.md#routers) or eject the router with `$ reframe eject router`.
+Either use another plugin in the [list of router plugins](/docs/plugins.md#routing) or eject the router with `$ reframe eject router`.
 
 <br/>
 

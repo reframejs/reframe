@@ -282,7 +282,7 @@ to implement a React SSR app.
    $ cd my-react-frontend/
    $ npx reframe dev
    ~~~
-   npx uses the local `@reframe/cli` installed at `my-react-frontend/node_modules/@reframe/cli`.
+   npx uses the `@reframe/cli` locally installed at `my-react-frontend/node_modules/@reframe/cli`.
    <br/><br/>
    </details>
 
@@ -456,8 +456,12 @@ You can use the [react-sql](/plugins/create/starters/react-sql#readme)
 starter to scaffold an app with Reframe + Objection + Wildcard API.
 
 More:
- - [/examples/fullstack-objection](/examples/fullstack-objection) - The whole codebase of this example.
- - [/examples/fullstack-objection-auth](/examples/fullstack-objection-auth) - A to-do list app with user authentication using Reframe + Objection + Wildcard API + Node.js server (with a express/passport variant and a hapi/bell variant)
+<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
+[/examples/fullstack-objection](/examples/fullstack-objection) -
+The whole codebase of this example.
+<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
+[/examples/fullstack-objection-auth](/examples/fullstack-objection-auth) -
+A to-do list app with user authentication using Reframe + Objection + Wildcard API + Node.js server (with a express/passport variant and a hapi/bell variant)
 
 
 <b><sub><a href="#examples">&#8679; TOP Examples &#8679;</a></sub></b>

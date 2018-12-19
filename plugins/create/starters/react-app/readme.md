@@ -179,7 +179,7 @@ See [Usage Manual](/docs/usage-manual.md#readme).
    $ cd my-react-app/
    $ npx reframe dev
    ~~~
-   npx uses the local `@reframe/cli` installed at `my-react-app/node_modules/@reframe/cli`.
+   npx uses the `@reframe/cli` locally installed at `my-react-app/node_modules/@reframe/cli`.
    <br/><br/>
    </details>
 

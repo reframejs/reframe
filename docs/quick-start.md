@@ -24,7 +24,7 @@
    $ cd my-!ARGUMENT-1/
    $ npx reframe dev
    ~~~
-   npx uses the local `@reframe/cli` installed at `my-!ARGUMENT-1/node_modules/@reframe/cli`.
+   npx uses the `@reframe/cli` locally installed at `my-!ARGUMENT-1/node_modules/@reframe/cli`.
    <br/><br/>
    </details>
 
