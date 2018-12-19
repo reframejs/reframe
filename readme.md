@@ -268,9 +268,8 @@ to implement a React SSR app.
    <details>
    <summary>With npx (local install)</summary>
 
-   Instead of globally installing Reframe, you can use
-   [npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b)
-   to create a new app:
+   Instead of globally installing `@reframe/cli`, you can use
+   [npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b):
    ~~~shell
    $ npx @reframe/cli create react-frontend
    ~~~
@@ -281,6 +280,7 @@ to implement a React SSR app.
    $ cd my-react-frontend/
    $ npx reframe dev
    ~~~
+   npx uses the local `@reframe/cli` installed at `my-react-frontend/node_modules/@reframe/cli`.
    <br/>
    </details>
 
