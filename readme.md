@@ -201,15 +201,15 @@ Reframe's flexibility is based on three pillars:
    the server code,
    etc.
 
-2. **Do one thing, do it well** -
-   We keep Reframe slim by
-   creating do-one-thing-do-it-well libraries
-   such as
+2. **Slim** -
+   Whenever it makes sense,
+   we create do-one-thing-do-it-well libraries.
+   (For example
    [Wildcard API](https://github.com/brillout/wildcard-api)
-   or
-   [JSON-S](https://github.com/brillout/json-s).
-   That way, we manage to keep Reframe's codebase to a tiny ~500 lines of code.
-   This also means that ejecting everything leaves you with only ~500 LOC.
+   and
+   [JSON-S](https://github.com/brillout/json-s).)
+   That way, Reframe stays slim.
+   Reframe's codebase is a tiny ~500 lines of code.
 
 3. **Flexible stack** -
    You can easily
@@ -225,7 +225,10 @@ Not only can you eject and take control over everything,
 but you can do so
 progressively
 as your prototype grows into a large application.
-This makes taking over control a smooth experience.
+Also,
+because Reframe is slim,
+ejecting everything leaves you with only ~500 LOC.
+Taking over control is a smooth experience.
 
 **Removable** -
 If you eject all Reframe parts then you effectively get rid of Reframe.
