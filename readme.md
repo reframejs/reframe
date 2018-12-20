@@ -170,7 +170,7 @@ no server configuration.
 
  - [Why Reframe](#why-reframe)
  - [Quick Start](#quick-start)
- - [Examples](#examples)
+ - [Example](#example)
 
 <br/>
 
@@ -327,53 +327,14 @@ to implement a React SSR app.
 
 
 
-## Examples
+## Example
 
-- [Frontend](#frontend)
-- [Full-stack](#full-stack)
+Showcase of a database + server + frontend stack with Reframe.
 
-### Frontend
+If you are interested in other kinds of stacks then check out the
+[/examples](/examples) folder.
 
-We define a page config `HelloPage`:
-
-~~~jsx
-// ~/my-app/pages/HelloPage.config.js
-
-// By default you write your views with React.
-// You can use another view library such as Vue.
-import React from 'react';
-
-const HelloPage = {
-  route: '/hello/:name', // Parameterized route
-  title: 'Hi there', // Page's <title>
-  view: props => {
-    // The route argument `name` is available at `props.route.args`
-    const name = props.route.args.name;
-    return (
-      <div>Hello {name}</div>
-    );
-  }
-};
-
-export default HelloPage;
-~~~
-
-<p align="center">
-  <img src='https://github.com/reframejs/reframe/raw/master/docs/images/previews/hello.png?sanitize=true' width="780" style="max-width:100%;"/>
-</p>
-
-And that's it,
-we created a frontend simply by defining one page config.
-
-<b><sub><a href="#examples">&#8679; TOP Examples &#8679;</a></sub></b>
-<br/>
-<b><sub><a href="#contents">&#8679; TOP  &#8679;</a></sub></b>
-<br/>
-<br/>
-
-### Full-stack
-
-We create an app composed of a database, server, and frontend.
+Let's create our app.
 
 First, we define our data models with
 [Objection.js](https://github.com/Vincit/objection.js):
@@ -465,14 +426,8 @@ it is also the most flexible way (to our knowledge).
 You can use the [react-sql](/plugins/create/starters/react-sql#readme)
 starter to scaffold an app with Reframe + Objection + Wildcard API.
 
-More:
-<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-[/examples/fullstack-objection](/examples/fullstack-objection) -
-The entire codebase of this example.
-<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-[/examples/fullstack-objection-auth](/examples/fullstack-objection-auth) -
-A to-do list app with user authentication using Reframe + Objection + Wildcard API.
-It comes with express/passport variant and a hapi/bell variant.
+The entire codebase of this example can be found at
+[/examples/fullstack-objection](/examples/fullstack-objection).
 
 
 <b><sub><a href="#examples">&#8679; TOP Examples &#8679;</a></sub></b>
