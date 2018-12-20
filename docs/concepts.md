@@ -131,7 +131,7 @@
 
 # Concepts
 
-Reframe conceputal fundations.
+Reframe conceputal fundation.
 
  - [Truly Flexible](#truly-flexible)
  - [Non-interactive-first Approach](#non-interactive-first-approach)
