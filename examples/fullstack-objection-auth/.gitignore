@@ -1,1 +1,1 @@
-../fullstack-objection/.gitignore
+*.sqlite
