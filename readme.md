@@ -206,7 +206,7 @@ Reframe's flexibility is based on three pillars:
    we create do-one-thing-do-it-well libraries.
    (For example
    [Wildcard API](https://github.com/brillout/wildcard-api)
-   and
+   or
    [JSON-S](https://github.com/brillout/json-s).)
    That way, Reframe stays slim.
    Reframe's codebase is a tiny ~500 lines of code.
@@ -237,7 +237,7 @@ Your code then doesn't depend on @reframe packages anymore but only on do-one-th
 
 **Rapid Prototyping** -
 When starting out,
-you most often don't know what stack your application will end up needing.
+you most often don't know what stack is right for you.
 Reframe embraces that:
 You can change your app's stack at any time.
 For example,
@@ -313,7 +313,7 @@ to implement a React SSR app.
 
 > Note that the
 > [react-frontend](/plugins/create/starters/react-frontend#readme)
-> starter scaffolds a static site but there
+> starter scaffolds a static site. There
 > are other starters to scaffold
 > a SSR app, a full-stack app, etc.
 > See [Starters](/docs/starters.md#readme).
