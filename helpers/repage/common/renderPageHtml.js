@@ -1,4 +1,4 @@
-const {getInitialProps} = require('./common');
+const {getInitialProps} = require('./getInitialProps');
 const generateHtml = require('@brillout/index-html');
 
 module.exports = {renderPageHtml};

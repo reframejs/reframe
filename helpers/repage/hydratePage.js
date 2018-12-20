@@ -1,4 +1,5 @@
-const {getUrl, getInitialProps} = require('./common');
+const {getUrl} = require('./common/getUrl');
+const {getInitialProps} = require('./common/getInitialProps');
 
 module.exports = hydratePage;
 

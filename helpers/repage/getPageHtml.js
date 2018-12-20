@@ -1,6 +1,6 @@
 const assert_warning = require('reassert/warning');
-const {getUrl} = require('./common');
-const {renderPageHtml} = require('./common-server');
+const {getUrl} = require('./common/getUrl');
+const {renderPageHtml} = require('./common/renderPageHtml');
 
 module.exports = getPageHtml;
 
