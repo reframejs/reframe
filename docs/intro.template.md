@@ -63,23 +63,30 @@ and that a web framework always comes with a lost in flexibility.
 We believe it doesn't have to be that way.
 
 Reframe is designed from the ground up to be entirely flexible.
-We would even argue that Reframe is more flexible than gluying do-one-thing-do-it-well libraries yourself.
+We would even argue that
+[Reframe is more flexible than gluying do-one-thing-do-it-well libraries yourself](/docs/concepts.md#truly-flexible).
 
 Reframe's flexibility is based on three pillars:
 
 1. **Eject** -
    All Reframe parts are ejectable:
    You can eject and take control over
-   the build configuration (the webpack config),
+   the build code,
+   the webpack config,
    the render code,
    the routing code,
    the server code,
    etc.
 
-2. **Slim** -
-   We isolate a maximum of code in do-one-thing-do-it-well libraries.
-   That way, we manage to keep glue code to a tiny ~500 lines of code.
-   Ejecting everything leaves you with only ~500 LOC.
+2. **Do one thing, do it well** -
+   We keep Reframe slim by
+   creating do-one-thing-do-it-well libraries
+   such as
+   [Wildcard API](https://github.com/brillout/wildcard-api)
+   or
+   [JSON-S](https://github.com/brillout/json-s).
+   That way, we manage to keep Reframe's codebase to a tiny ~500 lines of code.
+   This also means that ejecting everything leaves you with only ~500 LOC.
 
 3. **Flexible stack** -
    You can easily

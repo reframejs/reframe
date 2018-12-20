@@ -19,9 +19,9 @@
 ### Use Cases
 
 - Flexible stack
-  - [Add/Remove Server](#add-remove-server)
-  - [Add/Remove Frontend](#add-remove-frontend)
-  - [Add/Remove Database](#add-remove-database)
+  - [Add/Remove Server](#addremove-server)
+  - [Add/Remove Frontend](#addremove-frontend)
+  - [Add/Remove Database](#addremove-database)
 - Deploy
   - [Static Deploy](#static-deploy)
   - [Serverless Deploy](#serverless-deploy)
@@ -206,39 +206,6 @@ You can then deploy your app to a static host such as Netlify or GitHub Pages.
 
 
 
-
-
-
-
-## Static Deploy
-
-If your app is html-static, you can deploy it to a static host.
-
-Your app is html-static when all your page configs have `renderHtmlAtBuildTime: true`.
-In that case,
-all HTMLs are rendered at build-time,
-your app consists of static browser assets only,
-no Node.js server is required,
-and your app can be statically served.
-
-If you add the `@reframe/deploy-git` plugin you can then
-run `$ reframe deploy` to automatically deploy your app.
-
-!INLINE ./sections/deploy-static.md --hide-source-path
-
-!INLINE ./snippets/section-footer.md #use-cases --hide-source-path
-
-
-
-
-## Serverless Deploy
-
-!INLINE ./sections/deploy-serverless.md --hide-source-path
-!INLINE ./snippets/section-footer.md #use-cases --hide-source-path
-
-
-
-
 ## Add/Remove Server
 
 By setting `renderHtmlAtBuildTime: true` to all your pages you remove the need for a Node.js server.
@@ -286,6 +253,42 @@ $ reframe eject server
 (All starters, with the exception of the `react-frontend` starter, have already have ejected the server code for you.)
 
 Once you have eject and gained control over the server, you are free to use add/remove any database/ORM.
+
+
+
+
+
+
+
+
+
+
+## Static Deploy
+
+If your app is html-static, you can deploy it to a static host.
+
+Your app is html-static when all your page configs have `renderHtmlAtBuildTime: true`.
+In that case,
+all HTMLs are rendered at build-time,
+your app consists of static browser assets only,
+no Node.js server is required,
+and your app can be statically served.
+
+If you add the `@reframe/deploy-git` plugin you can then
+run `$ reframe deploy` to automatically deploy your app.
+
+!INLINE ./sections/deploy-static.md --hide-source-path
+
+!INLINE ./snippets/section-footer.md #use-cases --hide-source-path
+
+
+## Serverless Deploy
+
+!INLINE ./sections/deploy-serverless.md --hide-source-path
+!INLINE ./snippets/section-footer.md #use-cases --hide-source-path
+
+
+
 
 
 

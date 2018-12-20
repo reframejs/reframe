@@ -1,4 +1,5 @@
 !MENU_SKIP
+!OUTPUT ../contributing.md
 
 Reframe is **looking for a co-maintainer** and warmly welcomes contributions.
 
@@ -40,7 +41,7 @@ Why should I become a maintainer?
   Going deep brings invaluable lessons on many levels.
 - Opens new doors.
   <br/>
-  Being a maintainer of a widely-used open source project is highly regarded by companies, startups, investors, etc.
+  Being a open source developers is highly regarded by companies, startups, investors, etc.
   <br/>
   That **should not** be your primary reason.
 - Jobs
