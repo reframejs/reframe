@@ -255,6 +255,7 @@ $ reframe eject server
 Once you have eject and gained control over the server, you are free to use add/remove any database/ORM.
 
 
+!INLINE ./snippets/section-footer.md #use-cases --hide-source-path
 
 
 
