@@ -34,9 +34,7 @@ async function getHtml(requestContext) {
     const {pageConfigs} = config.getBuildInfo();
     const {renderToHtml, router} = config;
 
-    const context = {requestContext};
-
-    const html = await getPageHtml({pageConfigs, uri, renderToHtml, router, context});
+    const html = await getPageHtml({pageConfigs, uri, renderToHtml, router, requestContext});
     assert_internal(html===null || html.constructor===String, html);
 
     return html;

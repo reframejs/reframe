@@ -18,7 +18,7 @@ function Pets({person, pets}) {
   );
 }
 
-async function getInitialProps({route: {args: {personId}}}) {
+async function getInitialProps({personId}) {
   const {person, pets} = await endpoints.getPetsPageData(personId);
   return {person, pets};
 }

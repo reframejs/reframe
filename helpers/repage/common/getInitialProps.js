@@ -1,24 +1,33 @@
+const assert = require('reassert');
+
 module.exports = {getInitialProps};
 
-async function getInitialProps({pageConfig, url, router, context}) {
-    const route = getRouteInfo({url, router, pageConfig});
+async function getInitialProps({pageConfig, url, router, requestContext, isNodejs=false}) {
+    assert.internal(url.constructor===Object && url.url.constructor===String && url.pathname.constructor===String);
+    assert.internal([true,false].includes(isNodejs));
+    const routeArguments = router.getRouteArguments(url, pageConfig);
+
+    assert.internal(requestContext.constructor===Object);
+    assert.internal(url.constructor===Object);
+    assert.internal((routeArguments||{}).constructor===Object);
+    const getProps = loadedProps => ({
+      ...requestContext,
+      ...url,
+      ...routeArguments,
+      ...loadedProps,
+      loadedProps,
+      requestContext,
+      route: {
+        url,
+        args: routeArguments,
+      },
+      isNodejs,
+    });
 
     const loadedProps = (
       pageConfig.getInitialProps &&
-      await pageConfig.getInitialProps({route, ...context})
+      await pageConfig.getInitialProps(getProps())
     );
 
-    return {route, ...context, ...loadedProps};
-}
-
-function getRouteInfo({url, router, pageConfig}) {
-    const routeArguments = router.getRouteArguments(url, pageConfig);
-
-    // TODO-eventually check if same value than on server
-    const route = {
-        args: routeArguments || {},
-        url,
-    };
-
-    return route;
+    return getProps(loadedProps);
 }

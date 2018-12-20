@@ -21,7 +21,7 @@ async function startExpressServer() {
 
     // Render pages to HTML
     app.get('*', async function(req, res, next) {
-        const html = await getHtml(req.url);
+        const html = await getHtml(req);
 
         if( ! html ) {
             next();
@@ -35,12 +35,15 @@ async function startExpressServer() {
     });
 }
 
-async function getHtml(uri) {
+async function getHtml(req) {
+    const uri = req.url;
+    const requestContext = req;
+
     const {pageConfigs} = reframeConfig.getBuildInfo();
 
     const {renderToHtml, router} = reframeConfig;
 
-    const html = await getPageHtml({pageConfigs, uri, renderToHtml, router});
+    const html = await getPageHtml({pageConfigs, uri, renderToHtml, router, requestContext});
 
     return html;
 }
