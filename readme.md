@@ -429,10 +429,8 @@ starter to scaffold an app with Reframe + Objection + Wildcard API.
 The entire codebase of this example can be found at
 [/examples/fullstack-objection](/examples/fullstack-objection).
 
-
-<b><sub><a href="#examples">&#8679; TOP Examples &#8679;</a></sub></b>
-<br/>
 <b><sub><a href="#contents">&#8679; TOP  &#8679;</a></sub></b>
+
 <br/>
 <br/>
 
