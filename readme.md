@@ -471,7 +471,8 @@ More:
 The entire codebase of this example.
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
 [/examples/fullstack-objection-auth](/examples/fullstack-objection-auth) -
-A to-do list app with user authentication using Reframe + Objection + Wildcard API + {"express/passport variant" || "hapi/bell variant"}
+A to-do list app with user authentication using Reframe + Objection + Wildcard API.
+It comes with express/passport variant and a hapi/bell variant.
 
 
 <b><sub><a href="#examples">&#8679; TOP Examples &#8679;</a></sub></b>
