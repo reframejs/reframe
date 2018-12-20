@@ -7,7 +7,7 @@ async function getInitialProps({pageConfig, url, router, requestContext, isNodej
     assert.internal([true,false].includes(isNodejs));
     const routeArguments = router.getRouteArguments(url, pageConfig);
 
-    assert.internal(requestContext.constructor===Object);
+    assert.internal((requestContext||{}).constructor===Object);
     assert.internal(url.constructor===Object);
     assert.internal((routeArguments||{}).constructor===Object);
     const getProps = loadedProps => ({

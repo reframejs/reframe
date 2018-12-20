@@ -14,7 +14,7 @@ async function reset() {
   await fs.remove(dbPath);
   await fs.ensureFile(dbPath);
 
-  const knex = require('./knex');
+  const knex = require('./setup');
 
   await knex.migrate.latest();
   await knex.seed.run();
@@ -23,5 +23,5 @@ async function reset() {
 }
 
 function isCli() {
-  return require.main === module;
+  return eval('require.main === module');
 }

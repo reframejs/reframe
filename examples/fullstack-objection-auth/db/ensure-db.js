@@ -1,7 +1,10 @@
+const fs = require('fs-extra');
 const reset = require('./reset');
 
-var databaseExists;
-async function ensureDatabase() {
+module.exports = ensureDb;
+
+let databaseExists;
+async function ensureDb() {
   if( databaseExists ) {
     return;
   }
