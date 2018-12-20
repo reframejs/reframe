@@ -5,6 +5,7 @@ const ExpressAdater = require('@universal-adapter/express');
 const {symbolSuccess, colorEmphasis} = require('@brillout/cli-theme');
 const {wildcardPlug} = require('wildcard-api');
 const knex = require('../../db/setup');
+const ensureDb = require('../../db/ensure-db');
 require('../endpoints/view-endpoints');
 require('../endpoints/action-endpoints');
 const auth = require('./auth');
@@ -12,6 +13,8 @@ const auth = require('./auth');
 module.exports = start();
 
 async function start() {
+    await ensureDb();
+
     const app = express();
 
     auth(app);

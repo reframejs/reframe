@@ -3,6 +3,7 @@ const config = require('@brillout/reconfig').getConfig({configFileName: 'reframe
 const {symbolSuccess, colorEmphasis} = require('@brillout/cli-theme');
 const {wildcardPlug} = require('wildcard-api');
 const knex = require('../../db/setup');
+const ensureDb = require('../../db/ensure-db');
 require('../endpoints/view-endpoints');
 require('../endpoints/action-endpoints');
 const HapiAdapter = require('@universal-adapter/hapi');
@@ -11,6 +12,8 @@ const auth = require('./auth');
 module.exports = start();
 
 async function start() {
+    await ensureDb();
+
     const server = Hapi.Server({
       port: process.env.PORT || 3000,
       debug: {request: ['internal']},

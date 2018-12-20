@@ -3,7 +3,7 @@ const assert = require('reassert');
 module.exports = {getInitialProps};
 
 async function getInitialProps({pageConfig, url, router, requestContext, isNodejs=false}) {
-    assert.internal(url.constructor===Object && url.url.constructor===String && url.pathname.constructor===String);
+    assert.internal(url && url.constructor===Object && url.uri && url.uri.constructor===String && url.pathname && url.pathname.constructor===String, url);
     assert.internal([true,false].includes(isNodejs));
     const routeArguments = router.getRouteArguments(url, pageConfig);
 

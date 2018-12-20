@@ -1,0 +1,1 @@
+../../fullstack-objection/db/reset.js
