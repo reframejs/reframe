@@ -19,7 +19,7 @@ function Pets({person, pets}) {
   </>;
 }
 
-async function getInitialProps({isNodejs, requestContext, route: {args: {personId}}}) {
+async function getInitialProps({isNodejs, requestContext, personId}) {
   let {getPetsPageData} = endpoints;
   if( isNodejs ) getPetsPageData = getPetsPageData.bind(requestContext);
   const {person, pets} = await getPetsPageData(personId);
