@@ -92,7 +92,7 @@
         &nbsp;&nbsp;&nbsp;&nbsp;
         &nbsp;&nbsp;&nbsp;&nbsp;
         &nbsp;&nbsp;
-        <a href="https://github.com/reframejs/reframe/blob/master/docs/contributing.md">
+        <a href="https://github.com/reframejs/reframe/blob/master/contributing.md">
             <img
               src="https://github.com/reframejs/reframe/raw/master/docs/images/biceps.min.svg?sanitize=true"
               width="16"

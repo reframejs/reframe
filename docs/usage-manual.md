@@ -92,7 +92,7 @@
         &nbsp;&nbsp;&nbsp;&nbsp;
         &nbsp;&nbsp;&nbsp;&nbsp;
         &nbsp;&nbsp;
-        <a href="https://github.com/reframejs/reframe/blob/master/docs/contributing.md">
+        <a href="https://github.com/reframejs/reframe/blob/master/contributing.md">
             <img
               src="https://github.com/reframejs/reframe/raw/master/docs/images/biceps.min.svg?sanitize=true"
               width="16"
@@ -144,9 +144,9 @@
 ### Use Cases
 
 - Flexible stack
-  - [Add/Remove Server](#add-remove-server)
-  - [Add/Remove Frontend](#add-remove-frontend)
-  - [Add/Remove Database](#add-remove-database)
+  - [Add/Remove Server](#addremove-server)
+  - [Add/Remove Frontend](#addremove-frontend)
+  - [Add/Remove Database](#addremove-database)
 - Deploy
   - [Static Deploy](#static-deploy)
   - [Serverless Deploy](#serverless-deploy)
@@ -509,75 +509,6 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 
 
-
-
-
-
-## Static Deploy
-
-If your app is html-static, you can deploy it to a static host.
-
-Your app is html-static when all your page configs have `renderHtmlAtBuildTime: true`.
-In that case,
-all HTMLs are rendered at build-time,
-your app consists of static browser assets only,
-no Node.js server is required,
-and your app can be statically served.
-
-If you add the `@reframe/deploy-git` plugin you can then
-run `$ reframe deploy` to automatically deploy your app.
-
-The deploy command works with any static host that integrates with Git such as
-[Netlify](https://www.netlify.com/) (recommanded) or
-[GitHub Pages](https://pages.github.com/).
-
-If you want to manually deploy then simply copy/serve the `dist/browser/` directory.
-This directory contains all browser assets.
-
-<br/>
-
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
-<br/>
-<br/>
-<b><sub><a href="#use-cases">&#8679; TOP  &#8679;</a></sub></b>
-<br/>
-<br/>
-<br/>
-
-
-
-
-## Serverless Deploy
-
-If your app is stateless then we recommand serverless deployment.
-
-Serverless deployment solutions:
- - [Up](https://github.com/apex/up) - CLI tool to manage serverless deployement on AWS.
-   <br/>
-   The free tier is generous and will likely be enough for your first prototype.
-   <br/>
-   Step-by-step guide on how to deploy a Reframe app on Up: [github.com/AurelienLourot/reframe-on-up](https://github.com/AurelienLourot/reframe-on-up).
- - [Now](https://zeit.co/now) - Serverless host.
-   <br/>
-   Includes a free plan, albeit less generous than Up/AWS.
-   (See [zeit.co/pricing](https://zeit.co/pricing).)
-
-
-If you want to persist data, you may consider using a cloud database.
- - [List of cloud databases](/docs/cloud-databases.md)
-<br/>
-
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
-<br/>
-<br/>
-<b><sub><a href="#use-cases">&#8679; TOP  &#8679;</a></sub></b>
-<br/>
-<br/>
-<br/>
-
-
-
-
 ## Add/Remove Server
 
 By setting `renderHtmlAtBuildTime: true` to all your pages you remove the need for a Node.js server.
@@ -641,6 +572,78 @@ $ reframe eject server
 (All starters, with the exception of the `react-frontend` starter, have already have ejected the server code for you.)
 
 Once you have eject and gained control over the server, you are free to use add/remove any database/ORM.
+
+
+
+
+
+
+
+
+
+
+## Static Deploy
+
+If your app is html-static, you can deploy it to a static host.
+
+Your app is html-static when all your page configs have `renderHtmlAtBuildTime: true`.
+In that case,
+all HTMLs are rendered at build-time,
+your app consists of static browser assets only,
+no Node.js server is required,
+and your app can be statically served.
+
+If you add the `@reframe/deploy-git` plugin you can then
+run `$ reframe deploy` to automatically deploy your app.
+
+The deploy command works with any static host that integrates with Git such as
+[Netlify](https://www.netlify.com/) (recommanded) or
+[GitHub Pages](https://pages.github.com/).
+
+If you want to manually deploy then simply copy/serve the `dist/browser/` directory.
+This directory contains all browser assets.
+
+<br/>
+
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+<br/>
+<br/>
+<b><sub><a href="#use-cases">&#8679; TOP  &#8679;</a></sub></b>
+<br/>
+<br/>
+<br/>
+
+
+## Serverless Deploy
+
+If your app is stateless then we recommand serverless deployment.
+
+Serverless deployment solutions:
+ - [Up](https://github.com/apex/up) - CLI tool to manage serverless deployement on AWS.
+   <br/>
+   The free tier is generous and will likely be enough for your first prototype.
+   <br/>
+   Step-by-step guide on how to deploy a Reframe app on Up: [github.com/AurelienLourot/reframe-on-up](https://github.com/AurelienLourot/reframe-on-up).
+ - [Now](https://zeit.co/now) - Serverless host.
+   <br/>
+   Includes a free plan, albeit less generous than Up/AWS.
+   (See [zeit.co/pricing](https://zeit.co/pricing).)
+
+
+If you want to persist data, you may consider using a cloud database.
+ - [List of cloud databases](/docs/cloud-databases.md)
+<br/>
+
+In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+<br/>
+<br/>
+<b><sub><a href="#use-cases">&#8679; TOP  &#8679;</a></sub></b>
+<br/>
+<br/>
+<br/>
+
+
+
 
 
 

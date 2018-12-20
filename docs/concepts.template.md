@@ -147,32 +147,36 @@ We call this a *flexible stack*.
 
 ## Flexible Stack
 
+> TL;DR
 > - You can change your app's stack easily and at any time
-> - Start write your prototype and decide later the type of your app.
-> - Whatever type of app you end up needing, Reframe's got your back.
+> - Start write your prototype and decide your app's stack later.
+> - Whatever stack you end up needing, Reframe's got your back.
 
 With Reframe, changing your app's stack is simply a matter of changing plugins or changing your page configs.
 
 It is often, at first, not clear what stack is the right one.
-So instead of having to decide the stack before starting your project,
+With Reframe,
+instead of spending hours researching what stack is best suited for your application,
 you start with your best guess.
-And, as your app matures and as it becomes more clear what type of app is right for you,
-you can change the type of your app.
+And, as your prototype evolves and as it becomes clearer what stack is right,
+you change your app's stack.
 For example,
-you can start writing a React static site (that is a frontend without a backend) and
-if you later realize that you actually need a backend,
-then you can easily add one.
+you can start writing a static site (that is a frontend without a backend) and
+later,
+if you come to the realization that you need one,
+you can add a Node.js server to it.
 
-> Start write your prototype and decide later the type of your app.
+> Start write your prototype and decide your app's stack later.
 
-That Reframe allows you to easily switch between any type of app is crucial.
+That Reframe allows you to easily change the stack is crucial.
 For example, CRA
 ([github.com/facebook/create-react-app](https://github.com/facebook/create-react-app))
-doesn't support SSR.
+doesn't support
+[SSR](https://github.com/brillout/awesome-universal-rendering#techniques).
 This means that
 if you write your app with CRA and realize afterwards that you need SSR,
 then you'll have to get rid of CRA and refactor your app.
-In contrast, adding SSR to Reframe static site is easy.
+In contrast, adding SSR to a static site created with Reframe is easy.
 
 > Whatever stack you end up needing, Reframe's got your back.
 
