@@ -82,10 +82,10 @@ Reframe is **looking for a co-maintainer** and warmly welcomes contributions.
   - You do one or couple of commits to Reframe's codebase.
 - **_Maintainer_**
   - You own substantial parts of Reframe's codebase.
-  - You work closely with Romuald ([twitter.com/brillout](https://twitter.com/brillout)).
+  - You work closely with Romuald.
   - You are a senior dev.
     It doesn't matter whether you have experience with JavaScript or not.
-    What matters is that you are well-versed with programming / computer science stuff.
+    What matters is that you are well-versed in software engineering.
 
 <br/>
 
@@ -100,7 +100,7 @@ Reframe is **looking for a co-maintainer** and warmly welcomes contributions.
 # Maintainer
 
 Reframe is currently maintained by Romuald ([twitter.com/brillout](https://twitter.com/brillout))
-who is commited to the project for the years/decades to come.
+who is commited to the project for the years and decades to come.
 
 To expand the project's scope, Reframe is looking for a co-maintainer.
 There are a lot of unexplored territories such as automatic deployment

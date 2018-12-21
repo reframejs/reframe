@@ -22,25 +22,23 @@ Reframe conceputal fundation.
 
 > TL;DR
 > - It is a common misconception to think that gluying do-one-thing-do-it-well libaries yourself provides the highest flexibility
-> - The problem with stiching things yourself is that you end up with a rigid architecture
-> - Reframe is actullay more flexible than gluying do-one-thing-do-it-well libraries yourself
-> - We think that Reframe is the best tool out there for rapid prototyping
+> - The problem with stiching things yourself is that you most often end up with a rigid architecture
+> - Reframe is more flexible than gluying do-one-thing-do-it-well libraries yourself
 
 We developers cherish freedom.
-Especially after the bad experiences we had with big and monstrous monoliths such as GWT or Meteor.
+Even more so after the bad experiences we had with big and monstrous monoliths such as GWT or Meteor.
 They tightly tied our hands and restricted our expressive freedom.
 That's not cool.
-We are inclined into thinking
+We got into thinking
 "I will not use a big framework again.
-Instead I build things on top of rock-solid do-one-thing-do-it-well libraries and stay 100% free."
-This seems a sensible choice.
-Especially with tools such as React or PostgreSQL that are here to stay.
+Instead I build things on top of rock-solid do-one-thing-do-it-well libraries and stay free."
+This seems a sensible choice,
+especially with tools such as React or PostgreSQL that are here to stay.
 
-But orchestrating these rock-solid do-one-thing-do-it-well libraries into a solid and flexible architecture
+But orchestrating these do-one-thing-do-it-well libraries into a solid and flexible architecture
 is a challanging and time consuming task.
-And even more so when using a view library such as React or Vue.
-The time consuming part is not the biggest the problem
-(and it actually can be fun and insightful).
+The time consuming part is actually not the biggest the problem
+(it can be fun and insightful).
 The biggest problem is that you most likely end up writing an architecture that is rigid.
 
 For example
@@ -54,10 +52,15 @@ you need high development speed combined with high flexibility to be able to ada
 while testing your prototypes.
 For example,
 instead of researching for hours whether or not you need SSR,
-with Reframe you can first write a prototype and worry about that question afterwards.
-Later,
-once you have a functioning prototype,
+with Reframe you can first write a prototype and worry about that question later.
+Once you have a functioning prototype,
 you can make real world tests to see if you need SSR.
+
+Staying flexible is crucial at the early stage of a project.
+Once a project grows into a large application,
+rigidity becomes affordable and can actually help scaling.
+At that point you can fully eject Reframe and
+inherit an architecture that has been designed with great care.
 
 !INLINE ./top-link.md #concepts --hide-source-path
 

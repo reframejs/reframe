@@ -79,14 +79,13 @@ Reframe's flexibility is based on three pillars:
    etc.
 
 2. **Slim** -
-   Whenever it makes sense,
-   we create do-one-thing-do-it-well libraries.
-   (For example
+   Reframe in itslef is only a tiny ejectable wrapper on top of do-one-thing-do-it-well libraries.
+   Most of the code we write are for do-one-thing-do-it-well libraries that can be used independently of Reframe
+   (such as
    [Wildcard API](https://github.com/brillout/wildcard-api)
    or
-   [JSON-S](https://github.com/brillout/json-s).)
-   That way, Reframe stays slim.
-   Reframe's codebase is a tiny ~500 lines of code.
+   [JSON-S](https://github.com/brillout/json-s)
+   ).
 
 3. **Flexible stack** -
    You can easily
@@ -102,10 +101,8 @@ Not only can you eject and take control over everything,
 but you can do so
 progressively
 as your prototype grows into a large application.
-Also,
-because Reframe is slim,
+And since Reframe is slim
 ejecting everything leaves you with only ~500 LOC.
-Taking over control is a smooth experience.
 
 **Removable** -
 If you eject all Reframe parts then you effectively get rid of Reframe.
@@ -162,7 +159,6 @@ If you are interested in other kinds of stacks then check out the
 [/examples](/examples) folder.
 
 Let's create our app.
-
 First, we define our data models with
 [Objection.js](https://github.com/Vincit/objection.js):
 
@@ -173,7 +169,7 @@ First, we define our data models with
 !INLINE ../examples/fullstack-objection/db/models/Animal.js --hide-source-path
 ~~~
 
-Then, we create an API with [Wildcard API](https://github.com/brillout/wildcard-api):
+Then, we create an API with [Wildcard API](https://github.com/brillout/wildcard-api#readme):
 ~~~js
 !INLINE ../examples/fullstack-objection/server/api.js --hide-source-path
 ~~~
@@ -185,13 +181,11 @@ Finally, we create `PetsPage`, a page to view a person's pets:
 
 The `getPetsPageData` endpoint is tailored to our frontend:
 It returns exactly and only what PetsPage needs.
-We deliberately choose a custom API over a generic API (REST/GraphQL).
-See [Wildcard's documentation](https://github.com/brillout/wildcard-api) for a rationale.
+We deliberately choose a custom API over a generic API (REST/GraphQL),
+see [Wildcard's docs](https://github.com/brillout/wildcard-api#readme) for a rationale.
 
 To our knowledge,
-the Reframe + Objection + Wildcard API stack is the easiest way to create an app with a SQL database and interactive views.
-And thanks to Reframe's and Objection's focus on flexibilty,
-it is also the most flexible way (to our knowledge).
+the Reframe + Objection + Wildcard API stack is the easiest way to create an app that has a SQL database and interactive views.
 
 You can use the [react-sql](/plugins/create/starters/react-sql#readme)
 starter to scaffold an app with Reframe + Objection + Wildcard API.
