@@ -326,7 +326,7 @@ to implement a React SSR app.
 
 ## Example
 
-Showcase of a database + server + frontend stack with Reframe.
+Showcase of a database + server + frontend stack.
 
 If you are interested in other kinds of stacks then check out the
 [/examples](/examples) folder.
