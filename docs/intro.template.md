@@ -188,7 +188,7 @@ To our knowledge,
 the Reframe + Objection + Wildcard API stack is the easiest way to create an app that has a SQL database and interactive views.
 
 You can use the [react-sql](/plugins/create/starters/react-sql#readme)
-starter to scaffold an app with Reframe + Objection + Wildcard API.
+starter to scaffold a Reframe + Objection + Wildcard API stack.
 
 The entire codebase of this example can be found at
 [/examples/fullstack-objection](/examples/fullstack-objection).
