@@ -222,8 +222,9 @@ Benefits of that flexibility:
 **Take Over Control** -
 Not only can you eject and take control over everything,
 but you can do so
-progressively
-as your prototype grows into a large application.
+progressively,
+as your prototype grows into a large application,
+one Reframe part at a time.
 And since Reframe is slim
 ejecting everything leaves you with only ~500 LOC.
 
@@ -328,8 +329,8 @@ to implement a React SSR app.
 
 Showcase of a database + server + frontend stack.
 
-If you are interested in other kinds of stacks then check out the
-[/examples](/examples) folder.
+If you are interested in other stacks then browse
+[/examples](/examples).
 
 Let's create our app.
 First, we define our data models with
@@ -414,13 +415,17 @@ It returns exactly and only what PetsPage needs.
 We deliberately choose a custom API over a generic API (REST/GraphQL),
 see [Wildcard's docs](https://github.com/brillout/wildcard-api#readme) for a rationale.
 
-To our knowledge,
-the Reframe + Objection + Wildcard API stack is the easiest way to create an app that has a SQL database and interactive views.
+And that's it:
+No build configuration,
+no server configuration,
+no API schema,
+no API permission rules.
+(But if you want, you can eject and take control over everything.)
 
-You can use the [react-sql](/plugins/create/starters/react-sql#readme)
-starter to scaffold a Reframe + Objection + Wildcard API stack.
+The [react-sql](/plugins/create/starters/react-sql#readme)
+starter scaffolds such Reframe + Objection + Wildcard API stack.
 
-The entire codebase of this example can be found at
+The entire codebase of this example is at
 [/examples/fullstack-objection](/examples/fullstack-objection).
 
 <b><sub><a href="#contents">&#8679; TOP  &#8679;</a></sub></b>
