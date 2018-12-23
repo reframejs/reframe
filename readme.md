@@ -202,13 +202,13 @@ Reframe's flexibility is based on three pillars:
    etc.
 
 2. **Slim** -
-   Reframe in itslef is only a tiny ejectable wrapper on top of do-one-thing-do-it-well libraries.
-   Most of the code we write are for do-one-thing-do-it-well libraries that can be used independently of Reframe
-   (such as
-   [Wildcard API](https://github.com/brillout/wildcard-api)
-   or
-   [JSON-S](https://github.com/brillout/json-s)
-   ).
+   Reframe is only a tiny ejectable wrapper on top of do-one-thing-do-it-well libraries.
+   Most code we write are for do-one-thing-do-it-well libraries that can be used independently of Reframe
+   ([Wildcard API](https://github.com/brillout/wildcard-api),
+   [JSON-S](https://github.com/brillout/json-s),
+   [Handli](https://github.com/brillout/handli),
+   [@universal-adapter](https://github.com/brillout/universal-adapter),
+   ...).
 
 3. **Flexible stack** -
    You can easily
@@ -223,9 +223,9 @@ Benefits of that flexibility:
 Not only can you eject and take control over everything,
 but you can do so
 progressively,
-as your prototype grows into a large application,
-one Reframe part at a time.
-And since Reframe is slim
+as your prototype grows into a large application.
+One Reframe part at a time.
+And because Reframe is slim
 ejecting everything leaves you with only ~500 LOC.
 
 **Removable** -
@@ -309,12 +309,12 @@ to implement a React SSR app.
 
 5. Read [Usage Manual - Basics](/docs/usage-manual.md#basics).
 
-> Note that the
+> The
 > [react-frontend](/plugins/create/starters/react-frontend#readme)
-> starter scaffolds a static site. There
+> starter scaffolds a static site but there
 > are other starters to scaffold
-> a SSR app, a full-stack app, etc.
-> See [Starters](/docs/starters.md#readme).
+> a SSR app, a full-stack app, etc.,
+> see [Starters](/docs/starters.md#readme).
 
 <b><sub><a href="#contents">&#8679; TOP  &#8679;</a></sub></b>
 
@@ -374,12 +374,16 @@ const {endpoints} = require('wildcard-api');
 const Person = require('../db/models/Person');
 const Animal = require('../db/models/Animal');
 
-// We create an API endpoint to retrieve all the data that our PetsPage need
+// We create an API endpoint to retrieve all the data that our PetsPage need.
 endpoints.getPetsPageData = async function(personId) {
   const person = await Person.query().findOne('id', personId);
   const pets = await Animal.query().where('ownerId', personId);
   return {person, pets};
 };
+
+// The `getPetsPageData` endpoint is tailored to our frontend:
+// It returns exactly and only what PetsPage needs.
+// We deliberately choose a custom API over a generic API (REST/GraphQL).
 ~~~
 
 Finally, we create `PetsPage`, a page to view a person's pets:
@@ -410,23 +414,15 @@ async function getInitialProps({personId}) {
 }
 ~~~
 
-The `getPetsPageData` endpoint is tailored to our frontend:
-It returns exactly and only what PetsPage needs.
-We deliberately choose a custom API over a generic API (REST/GraphQL),
-see [Wildcard's docs](https://github.com/brillout/wildcard-api#readme) for a rationale.
-
-And that's it:
+That's it:
 No build configuration,
 no server configuration,
 no API schema,
 no API permission rules.
 (But if you want, you can eject and take control over everything.)
 
-The [react-sql](/plugins/create/starters/react-sql#readme)
-starter scaffolds such Reframe + Objection + Wildcard API stack.
-
-The entire codebase of this example is at
-[/examples/fullstack-objection](/examples/fullstack-objection).
+You can use the [react-sql](/plugins/create/starters/react-sql#readme)
+starter to scaffold such Reframe + Objection + Wildcard API stack.
 
 <b><sub><a href="#contents">&#8679; TOP  &#8679;</a></sub></b>
 

@@ -241,12 +241,12 @@
 
 5. Read [Usage Manual - Basics](/docs/usage-manual.md#basics).
 
-> Note that the
+> The
 > [react-frontend](/plugins/create/starters/react-frontend#readme)
-> starter scaffolds a static site. There
+> starter scaffolds a static site but there
 > are other starters to scaffold
-> a SSR app, a full-stack app, etc.
-> See [Starters](/docs/starters.md#readme).
+> a SSR app, a full-stack app, etc.,
+> see [Starters](/docs/starters.md#readme).
 
 <b><sub><a href="#basics">&#8679; TOP  &#8679;</a></sub></b>
 <br/>

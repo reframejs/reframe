@@ -79,13 +79,13 @@ Reframe's flexibility is based on three pillars:
    etc.
 
 2. **Slim** -
-   Reframe in itslef is only a tiny ejectable wrapper on top of do-one-thing-do-it-well libraries.
-   Most of the code we write are for do-one-thing-do-it-well libraries that can be used independently of Reframe
-   (such as
-   [Wildcard API](https://github.com/brillout/wildcard-api)
-   or
-   [JSON-S](https://github.com/brillout/json-s)
-   ).
+   Reframe is only a tiny ejectable wrapper on top of do-one-thing-do-it-well libraries.
+   Most code we write are for do-one-thing-do-it-well libraries that can be used independently of Reframe
+   ([Wildcard API](https://github.com/brillout/wildcard-api),
+   [JSON-S](https://github.com/brillout/json-s),
+   [Handli](https://github.com/brillout/handli),
+   [@universal-adapter](https://github.com/brillout/universal-adapter),
+   ...).
 
 3. **Flexible stack** -
    You can easily
@@ -100,9 +100,9 @@ Benefits of that flexibility:
 Not only can you eject and take control over everything,
 but you can do so
 progressively,
-as your prototype grows into a large application,
-one Reframe part at a time.
-And since Reframe is slim
+as your prototype grows into a large application.
+One Reframe part at a time.
+And because Reframe is slim
 ejecting everything leaves you with only ~500 LOC.
 
 **Removable** -
@@ -180,23 +180,15 @@ Finally, we create `PetsPage`, a page to view a person's pets:
 !INLINE ../examples/fullstack-objection/pages/PetsPage.config.js --hide-source-path
 ~~~
 
-The `getPetsPageData` endpoint is tailored to our frontend:
-It returns exactly and only what PetsPage needs.
-We deliberately choose a custom API over a generic API (REST/GraphQL),
-see [Wildcard's docs](https://github.com/brillout/wildcard-api#readme) for a rationale.
-
-And that's it:
+That's it:
 No build configuration,
 no server configuration,
 no API schema,
 no API permission rules.
 (But if you want, you can eject and take control over everything.)
 
-The [react-sql](/plugins/create/starters/react-sql#readme)
-starter scaffolds such Reframe + Objection + Wildcard API stack.
-
-The entire codebase of this example is at
-[/examples/fullstack-objection](/examples/fullstack-objection).
+You can use the [react-sql](/plugins/create/starters/react-sql#readme)
+starter to scaffold such Reframe + Objection + Wildcard API stack.
 
 !INLINE ./top-link.md #contents --hide-source-path
 
