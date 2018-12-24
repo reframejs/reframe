@@ -12,11 +12,11 @@ Designed for high development speed with no sacrifice on flexibility.
 
 Assembles a JavaScript stack that integrates with:
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-Node.js servers (Express, Koa, Hapi, ...)
+Node.js server (Express, Koa, Hapi, ...)
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
 Modern frontend (React, Vue.js, React Native Web, ...)
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-Node.js ORMs (Objection.js, TypeORM, ...)
+Node.js ORM (Objection.js, TypeORM, ...)
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
 Utils (TypeScript, React Router, PostCSS, ...)
 
@@ -53,20 +53,13 @@ no server configuration.
 
 ## Why Reframe
 
-There are many web frameworks out there with huge adoption, including Ruby on Rails, Django and Next.js.
-So, why do we need another one?
-The main reasons are around flexibility.
-
 Web frameworks have a bad reputation regarding flexibility.
 There is a general belief that there is a trade off between development speed and flexibility
 and that a web framework always comes with a lost in flexibility.
 We believe it doesn't have to be that way.
 
-Reframe is designed from the ground up to be entirely flexible.
-We would even argue that
-[Reframe is more flexible than gluying do-one-thing-do-it-well libraries yourself](/docs/concepts.md#truly-flexible).
-
-Reframe's flexibility is based on three pillars:
+Reframe is designed from the ground up to be entirely flexible,
+based on three pillars:
 
 1. **Eject** -
    All Reframe parts are ejectable:
@@ -79,13 +72,8 @@ Reframe's flexibility is based on three pillars:
    etc.
 
 2. **Slim** -
-   Reframe is only a tiny ejectable wrapper on top of do-one-thing-do-it-well libraries.
-   Most code we write are for do-one-thing-do-it-well libraries that can be used independently of Reframe
-   ([Wildcard API](https://github.com/brillout/wildcard-api),
-   [JSON-S](https://github.com/brillout/json-s),
-   [Handli](https://github.com/brillout/handli),
-   [@universal-adapter](https://github.com/brillout/universal-adapter),
-   ...).
+   Most code we write are for do-one-thing-do-it-well libraries that can be used independently of Reframe.
+   Reframe in itself is only a tiny ejectable wrapper on top of do-one-thing-do-it-well libraries.
 
 3. **Flexible stack** -
    You can easily
@@ -100,14 +88,13 @@ Benefits of that flexibility:
 Not only can you eject and take control over everything,
 but you can do so
 progressively,
-as your prototype grows into a large application.
-One Reframe part at a time.
-And because Reframe is slim
-ejecting everything leaves you with only ~500 LOC.
+one Reframe part at a time.
+Reframe is slim
+so that ejecting everything leaves you with only ~500 LOC.
 
 **Removable** -
-If you eject all Reframe parts then you effectively get rid of Reframe.
-Your code then doesn't depend on @reframe packages anymore but only on do-one-thing-do-it-well libraries
+If you eject all Reframe parts then you effectively get rid of Reframe:
+Your code then doesn't depend on @reframe packages but only on do-one-thing-do-it-well libraries
 (such as React, Express, Webpack, etc.).
 
 **Rapid Prototyping** -
@@ -115,6 +102,9 @@ When starting out,
 you most often don't know what stack is right for you.
 Reframe embraces that:
 You can change your app's stack at any time.
+You don't know whether you need SSR or not?
+Start with your best guest and change your
+stack as you go.
 For example,
 you can implement a prototype as a static site
 while skipping a real database by hard-writing data in the codebase.
@@ -156,7 +146,7 @@ to implement a React SSR app.
 
 Showcase of a database + server + frontend stack.
 
-If you are interested in other stacks then browse
+If you are interested in other stacks then see
 [/examples](/examples).
 
 Let's create our app.
@@ -183,11 +173,10 @@ Finally, we create `PetsPage`, a page to view a person's pets:
 That's it:
 No build configuration,
 no server configuration,
-no API schema,
-no API permission rules.
+no API schema.
 (But if you want, you can eject and take control over everything.)
 
-You can use the [react-sql](/plugins/create/starters/react-sql#readme)
+Use the [react-sql](/plugins/create/starters/react-sql#readme)
 starter to scaffold such Reframe + Objection + Wildcard API stack.
 
 !INLINE ./top-link.md #contents --hide-source-path
