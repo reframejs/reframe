@@ -38,7 +38,7 @@ backend-only (aka old-school app with plain old HTML)
 We create an app simply by defining a React component and a so-called page config.
 No build configuration,
 no server configuration.
-(But, if you want to, you can configure and take control over everything.)
+(But, if you want, you can configure and take control over everything.)
 
 <br/>
 <br/>
@@ -58,7 +58,7 @@ There is a general belief that there is a trade off between development speed an
 and that a web framework always comes with a lost in flexibility.
 We believe it doesn't have to be that way.
 
-Reframe is designed from the ground up to be flexible,
+Reframe is designed from the ground up to be entirely flexible,
 based on three pillars:
 
 1. **Eject** -
@@ -69,7 +69,7 @@ based on three pillars:
    the render code,
    the routing code,
    the server code,
-   etc.
+   ...
 
 2. **Slim** -
    Most code we write are for do-one-thing-do-it-well libraries that can be used independently of Reframe.
@@ -78,8 +78,8 @@ based on three pillars:
 3. **Flexible stack** -
    You can easily
    and at any time
-   change the stack of your app.
-   For example, you can start writing a prototype as a static site
+   change your app's stack.
+   For example, you can start with a static site
    and add a Node.js server afterwards.
 
 Benefits of that flexibility:
@@ -90,21 +90,21 @@ but you can do so
 progressively,
 one Reframe part at a time.
 Reframe is slim
-so that ejecting everything leaves you with only ~500 LOC.
+and ejecting everything leaves you with only ~500 LOC.
 
 **Removable** -
-If you eject all Reframe parts then you effectively get rid of Reframe:
+Ejecting all Reframe parts effectively removes Reframe:
 Your code then doesn't depend on @reframe packages but only on do-one-thing-do-it-well libraries
-(such as React, Express, Webpack, etc.).
+(such as React, Express, Webpack, ...).
 
 **Rapid Prototyping** -
 When starting out,
 you most often don't know what stack is right for you.
 Reframe embraces that:
 You can change your app's stack at any time.
-You don't know whether you need SSR or not?
-Start with your best guest and change your
-stack as you go.
+You don't know whether or not you need SSR?
+Start with your best guest and add/remove SSR
+as you go.
 
 !INLINE ./top-link.md #contents --hide-source-path
 
