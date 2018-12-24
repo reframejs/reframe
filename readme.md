@@ -181,7 +181,7 @@ There is a general belief that there is a trade off between development speed an
 and that a web framework always comes with a lost in flexibility.
 We believe it doesn't have to be that way.
 
-Reframe is designed from the ground up to be entirely flexible,
+Reframe is designed from the ground up to be flexible,
 based on three pillars:
 
 1. **Eject** -
@@ -395,7 +395,6 @@ That's it:
 No build configuration,
 no server configuration,
 no API schema.
-(But if you want, you can eject and take control over everything.)
 
 Use the [react-sql](/plugins/create/starters/react-sql#readme)
 starter to scaffold such Reframe + Objection + Wildcard API stack.
