@@ -105,20 +105,6 @@ You can change your app's stack at any time.
 You don't know whether you need SSR or not?
 Start with your best guest and change your
 stack as you go.
-For example,
-you can implement a prototype as a static site
-while skipping a real database by hard-writing data in the codebase.
-Later, if hard-writing data isn't sustainable anymore,
-you can add a Node.js server and a real database.
-
-**Learn Once, Write Any App** -
-Instead of learning several frameworks,
-learn Reframe to be able to implement all kinds of apps.
-For example,
-you can use Reframe
-to implement a static site with Vue.js but
-you can also use Reframe
-to implement a React SSR app.
 
 !INLINE ./top-link.md #contents --hide-source-path
 
