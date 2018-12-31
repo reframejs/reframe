@@ -300,8 +300,9 @@ as you go.
 
 Showcase of a database + server + frontend stack.
 
-If you are interested in other stacks then see
-[/examples](/examples).
+See
+[/examples](/examples)
+if you are interested in other stacks.
 
 Let's create our app.
 First, we define our data models with
@@ -349,7 +350,7 @@ const Animal = require('../db/models/Animal');
 
 // The `getPetsPageData` endpoint is tailored to our frontend:
 // It returns exactly and only what PetsPage needs.
-// We deliberately choose a custom API over a generic API (REST/GraphQL).
+// We deliberately choose a custom API over a generic API.
 
 endpoints.getPetsPageData = async function(personId) {
   const person = await Person.query().findOne('id', personId);
@@ -387,12 +388,13 @@ async function getInitialProps({personId}) {
 ~~~
 
 That's it:
-No build configuration,
+We create a full-stack app with
+no build configuration,
 no server configuration,
-no API schema.
+and no API schema.
 
-Use the [react-sql](/plugins/create/starters/react-sql#readme)
-starter to scaffold such Reframe + Objection + Wildcard API stack.
+The [react-sql starter](/plugins/create/starters/react-sql#readme)
+scaffolds such Reframe + Objection + Wildcard API stack.
 
 <b><sub><a href="#contents">&#8679; TOP  &#8679;</a></sub></b>
 

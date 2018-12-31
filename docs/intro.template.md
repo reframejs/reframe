@@ -127,8 +127,9 @@ as you go.
 
 Showcase of a database + server + frontend stack.
 
-If you are interested in other stacks then see
-[/examples](/examples).
+See
+[/examples](/examples)
+if you are interested in other stacks.
 
 Let's create our app.
 First, we define our data models with
@@ -152,12 +153,13 @@ Finally, we create `PetsPage`, a page to view a person's pets:
 ~~~
 
 That's it:
-No build configuration,
+We create a full-stack app with
+no build configuration,
 no server configuration,
-no API schema.
+and no API schema.
 
-Use the [react-sql](/plugins/create/starters/react-sql#readme)
-starter to scaffold such Reframe + Objection + Wildcard API stack.
+The [react-sql starter](/plugins/create/starters/react-sql#readme)
+scaffolds such Reframe + Objection + Wildcard API stack.
 
 !INLINE ./top-link.md #contents --hide-source-path
 
