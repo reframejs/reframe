@@ -141,7 +141,6 @@ Database/ORM | :x: | :x: | :heavy_check_mark:
 > Reframe apps have a flexible stack:
 > You can easily add/remove a frontend/backend.
 > For example, you can start with a static site and add a Node.js server afterwards.
-<br/>
 
 [**react-frontend**](/plugins/create/starters/react-frontend#readme)
 <br/>
@@ -158,7 +157,6 @@ Examples:
 Websites that don't require a server: Homepage, landing page, blog, etc.
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
 Python backend with a RESTful API + Reframe static site that uses the API.
-<br/>
 
 [**react-sql**](/plugins/create/starters/react-sql#readme)
 <br/>
@@ -175,14 +173,12 @@ To-do list app
 Q&A site like Stack Overflow
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
 Social site like Reddit
-<br/>
 
 [**react-app**](/plugins/create/starters/react-app#readme)
 <br/>
 Scaffolds a React frontend with a Node.js server.
 Same than the `react-app` starter but doesn't scaffold database, ORM and API.
 This starter gives you more freedom to choose the tech stack you want.
-<br/>
 
 <!---
 
