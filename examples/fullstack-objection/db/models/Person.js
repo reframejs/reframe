@@ -5,8 +5,8 @@ class Person extends Model {
   static jsonSchema = {
     properties: {
       id: {type: 'integer'},
-      name: {type: 'string'},
-    },
+      name: {type: 'string'}
+    }
   };
 }
 

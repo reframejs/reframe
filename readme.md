@@ -316,8 +316,8 @@ class Person extends Model {
   static jsonSchema = {
     properties: {
       id: {type: 'integer'},
-      name: {type: 'string'},
-    },
+      name: {type: 'string'}
+    }
   };
 }
 
@@ -325,6 +325,7 @@ module.exports = Person;
 ~~~
 ~~~js
 const {Model} = require('objection');
+const Person = require('./Person');
 
 class Animal extends Model {
   static tableName = 'animals';
@@ -332,8 +333,18 @@ class Animal extends Model {
     properties: {
       id: {type: 'integer'},
       name: {type: 'string'},
-      ownerId: {type: 'integer'},
-    },
+      ownerId: {type: 'integer'}
+    }
+  };
+  static relationMappings = {
+    owner: {
+      relation: Model.BelongsToOneRelation,
+      modelClass: Person,
+      join: {
+        from: 'animals.ownerId',
+        to: 'persons.id'
+      }
+    }
   };
 }
 
