@@ -156,7 +156,7 @@ That's it:
 We create a full-stack app with
 no build configuration,
 no server configuration,
-and no API schema.
+no API configuration.
 
 The [react-sql starter](/plugins/create/starters/react-sql#readme)
 scaffolds such Reframe + Objection + Wildcard API stack.
