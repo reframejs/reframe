@@ -127,10 +127,6 @@ as you go.
 
 Showcase of a database + server + frontend stack.
 
-See
-[/examples](/examples)
-if you are interested in other stacks.
-
 Let's create our app.
 First, we define our data models with
 [Objection.js](https://github.com/Vincit/objection.js):
@@ -142,7 +138,7 @@ First, we define our data models with
 !INLINE ../examples/fullstack-objection/db/models/Animal.js --hide-source-path
 ~~~
 
-Then, we create an API with [Wildcard API](https://github.com/brillout/wildcard-api#readme):
+Then, we create an endpoint using [Wildcard API](https://github.com/brillout/wildcard-api#readme):
 ~~~js
 !INLINE ../examples/fullstack-objection/server/api.js --hide-source-path
 ~~~
