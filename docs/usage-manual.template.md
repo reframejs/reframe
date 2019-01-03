@@ -456,10 +456,6 @@ The following ejectables give you full control over the server.
   <br/>
   Eject the code that creates the server instance.
   See previous sections.
-- `$ reframe eject server-integration`
-  <br/>
-  Eject the code that integrates the server framework with Reframe.
-  See previous sections.
 - `$ reframe eject server-rendering`
   <br/>
   Eject the code that implements server-side rendering. (The generation of HTML of pages at request-time.)
