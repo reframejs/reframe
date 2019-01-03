@@ -45,21 +45,21 @@
 - Server
   - [Custom Server](#custom-server)
   - [Custom Server Framework (Express, Koa, ...)](#custom-server-framework-express-koa-)
-  - [Fully Custom Server](#fully-custom-server)
+  - [Full Custom Server](#full-custom-server)
 - Rendering
   - [Custom HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ...](#custom-html-head-meta-html-)
   - [Custom Renderer](#custom-renderer)
 - Browser
   - [Custom Default Browser Entry](#custom-default-browser-entry)
   - [Custom Page Browser Entry](#custom-page-browser-entry)
-  - [Fully Custom Browser Entry](#fully-custom-browser-entry)
+  - [Full Custom Browser Entry](#full-custom-browser-entry)
 - Routing
   - [Advanced Routing](#advanced-routing)
   - [Custom Router](#custom-router)
 - Build
   - [Custom Babel](#custom-babel)
   - [Custom Webpack](#custom-webpack)
-  - [Fully Custom Build](#fully-custom-build)
+  - [Full Custom Build](#full-custom-build)
 
 
 <br/>
@@ -448,7 +448,7 @@ Running `$ reframe eject server` will copy the following code to your codebase.
 
 
 
-## Fully Custom Server
+## Full Custom Server
 
 The following ejectables give you full control over the server.
 
@@ -605,7 +605,7 @@ You can see the example in full and other examples at [/examples/custom-browser]
 
 
 
-## Fully Custom Browser Entry
+## Full Custom Browser Entry
 
 You can as well eject the code that orchestrates the hydration of the page by running `$ reframe eject browser-hydrate`.
 If you want to customize the rendering process itself
@@ -771,7 +771,7 @@ Examples:
 
 
 
-## Fully Custom Build
+## Full Custom Build
 
 Run `$ reframe eject build` to eject the overall build code.
 
