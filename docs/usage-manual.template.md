@@ -162,37 +162,97 @@ Example:
 
 ## `doNotRenderInBrowser`
 
-!INLINE ./sections/doNotRenderInBrowser.md --hide-source-path
+The page config option `doNotRenderInBrowser` allows you to control whether the page is rendered in the browser.
+
+By default a page is rendered in the browser so that it can have interactive views
+(a like button, an interactive graph, a To-Do list, etc.).
+
+ - `doNotRenderInBrowser: false` (default value)
+   <br/>
+   The page is **rendered in the browser**.
+   <br/>
+   The page's code (e.g. React components) and the view library (e.g. React) are loaded in the browser.
+   <br/>
+   The page's views are rendered to the DOM.
+   (E.g. with `ReactDOM.hydrate`.)
+   <br/>
+   The DOM may change.
+ - `doNotRenderInBrowser: true`
+   <br/>
+   The page is **not rendered in the browser**.
+   <br/>
+   No JavaScript (or much less JavaScript) is loaded in the browser.
+   <br/>
+   The DOM will not change.
+
+Setting `doNotRenderInBrowser: true` makes the page considerably faster.
+So if your page has no interactive views, then you should set `doNotRenderInBrowser: true`.
+(Precisely speaking, you should set `doNotRenderInBrowser: true` when your page's views are stateless.)
+
+By setting `doNotRenderInBrowser: true` to all your pages,
+you remove browser-side JavaScript.
+In other words you remove the frontend:
+The view library (React/Vue/etc.) is only used on the server as an HTML template engine.
 
 !INLINE ./snippets/section-footer.md #basics --hide-source-path
 
 
-
 ## `renderHtmlAtBuildTime`
 
-Every page is rendered to HTML.
-(React and Vue components can be rendered to the DOM as well as to HTML.)
+With Reframe,
+your pages are always rendered to HTML.
+(Modern view libraries, such as React and Vue, can render components to HTML.)
 
-The page config option `renderHtmlAtBuildTime` allows you to control whether the page is rendered statically at build-time or dynamically at request-time.
+The page config option `renderHtmlAtBuildTime` allows you to control whether the page's HTML is
+rendered statically at build-time or
+dynamically at request-time.
 
  - `renderHtmlAtBuildTime: false` (default value)
    <br/>
-   The page is rendered to **HTML at request-time**.
+   The page is **rendered to HTML at request-time**.
    <br/>
    The page is (re-)rendered to HTML every time the user requests the page.
  - `renderHtmlAtBuildTime: true`
    <br/>
-   The page is rendered to **HTML at build-time**.
+   The page is **rendered to HTML at build-time**.
    <br/>
    The page is rendered to HTML only once, when Reframe is building and transpiling your app.
 
 By default a page is rendered to HTML at request-time.
 But if a page is static
-(a landing page, a blog post, a personal homepage, etc.) it is wasteful to re-render its HTML on every page request.
+(a landing page, an about page, a blog post, a personal homepage, etc.)
+it is wasteful to re-render its HTML on every page request.
 
 By setting `renderHtmlAtBuildTime: true` to all your pages,
 you effectively remove the need of a Node.js server.
 You can then deploy your app to a static host such as Netlify or GitHub Pages.
+
+If you don't want to render your page to HTML,
+then do something like that:
+~~~jsx
+const Loading = require('./path/to/your/loading/component');
+const Search = require('./path/to/your/search/component');
+
+const SearchPage = {
+  title: 'Search products',
+  route: '/search',
+  view: SearchPageView,
+  // We render <Loading> to HTML at build-time
+  renderHtmlAtBuildTime: true,
+  // We render <Search> to the DOM
+  doNotRenderInBrowser: false,
+};
+
+module.exports = SearchPage;
+
+function SearchPageView(props) {
+  if( props.isNodejs ) {
+    return <Loading/>;
+  } else {
+    return <Search {...props}/>;
+  }
+}
+~~~
 
 !INLINE ./snippets/section-footer.md #basics --hide-source-path
 
