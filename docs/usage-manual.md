@@ -450,7 +450,7 @@ Setting `doNotRenderInBrowser: true` makes your page considerably faster.
 So,
 if your page has no interactive views,
 then you should set `doNotRenderInBrowser: true`.
-(More precisely speaking, you should set `doNotRenderInBrowser: true` when your page's view components are all stateless.)
+(More precisely, you should set `doNotRenderInBrowser: true` when your page's view components are all stateless.)
 
 By setting `doNotRenderInBrowser: true` to all your pages,
 you remove browser-side JavaScript.
