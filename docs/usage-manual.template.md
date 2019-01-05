@@ -280,7 +280,7 @@ function SearchPage(props) {
 
 By setting `renderHtmlAtBuildTime: true` to all your pages you remove the need for a Node.js server.
 See
-[`renderHtmlAtBuildTime`](#renderhtmlatbuildtime).
+[renderHtmlAtBuildTime](#renderhtmlatbuildtime).
 
 On the other hand,
 if you need a Node.js server
@@ -304,9 +304,9 @@ You can't have interactive views but
 you can still have dynamic content by rendering the HTML dynamically at request-time.
 
 More infos at
-[`doNotRenderInBrowser`](#donotrenderinbrowser)
+[doNotRenderInBrowser](#donotrenderinbrowser)
 and
-[`renderHtmlAtBuildTime`](#renderhtmlatbuildtime).
+[renderHtmlAtBuildTime](#renderhtmlatbuildtime).
 
 !INLINE ./snippets/section-footer.md #use-cases --hide-source-path
 
