@@ -270,7 +270,7 @@ Example of a page using CSS:
 
 <br/>
 
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+Feel free to [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 <br/>
 <br/>
 <b><sub><a href="#basics">&#8679; TOP  &#8679;</a></sub></b>
@@ -305,7 +305,7 @@ Example of a page using fonts, images and other static assets:
 
 <br/>
 
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+Feel free to [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 <br/>
 <br/>
 <b><sub><a href="#basics">&#8679; TOP  &#8679;</a></sub></b>
@@ -356,7 +356,7 @@ Deeper explanation and further examples of pages asynchronously loading data:
 
 <br/>
 
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+Feel free to [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 <br/>
 <br/>
 <b><sub><a href="#basics">&#8679; TOP  &#8679;</a></sub></b>
@@ -403,7 +403,7 @@ export default {
 
 <br/>
 
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+Feel free to [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 <br/>
 <br/>
 <b><sub><a href="#basics">&#8679; TOP  &#8679;</a></sub></b>
@@ -421,39 +421,48 @@ In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) 
 
 The page config option `doNotRenderInBrowser` allows you to control whether the page is rendered in the browser.
 
-By default a page is rendered in the browser so that it can have interactive views
-(a like button, an interactive graph, a To-Do list, etc.).
+By default,
+a page is rendered in the browser so that it can have interactive views.
+(A like button, an interactive graph, a To-Do list, etc.).
 
  - `doNotRenderInBrowser: false` (default value)
    <br/>
-   The page is **rendered in the browser**.
+   The page is rendered in the browser.
    <br/>
    The page's code (e.g. React components) and the view library (e.g. React) are loaded in the browser.
    <br/>
-   The page's views are rendered to the DOM.
-   (E.g. with `ReactDOM.hydrate`.)
+   The page is rendered to the DOM.
    <br/>
    The DOM may change.
  - `doNotRenderInBrowser: true`
    <br/>
-   The page is **not rendered in the browser**.
+   The page is not rendered in the browser.
    <br/>
-   No JavaScript (or much less JavaScript) is loaded in the browser.
+   No JavaScript is loaded nor executed in the browser.
+   (Or much less JavaScript.)
+   <br/>
+   The page is not rendered to the DOM.
+   (The page is rendered to HTML only.)
    <br/>
    The DOM will not change.
 
-Setting `doNotRenderInBrowser: true` makes the page considerably faster.
-So if your page has no interactive views, then you should set `doNotRenderInBrowser: true`.
-(Precisely speaking, you should set `doNotRenderInBrowser: true` when your page's views are stateless.)
+Setting `doNotRenderInBrowser: true` makes your page considerably faster.
+So,
+if your page has no interactive views,
+then you should set `doNotRenderInBrowser: true`.
+(More precisely speaking, you should set `doNotRenderInBrowser: true` when your page's view components are all stateless.)
 
 By setting `doNotRenderInBrowser: true` to all your pages,
 you remove browser-side JavaScript.
-In other words you remove the frontend:
-The view library (React/Vue/etc.) is only used on the server as an HTML template engine.
+In other words,
+you remove the frontend,
+and the view library
+(React/Vue/etc.)
+is only used on the server as an HTML template engine.
 
 <br/>
 
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+Feel free to [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 <br/>
 <br/>
 <b><sub><a href="#basics">&#8679; TOP  &#8679;</a></sub></b>
@@ -474,22 +483,23 @@ dynamically at request-time.
 
  - `renderHtmlAtBuildTime: false` (default value)
    <br/>
-   The page is **rendered to HTML at request-time**.
+   The page is rendered to HTML at request-time.
    <br/>
    The page is (re-)rendered to HTML every time the user requests the page.
  - `renderHtmlAtBuildTime: true`
    <br/>
-   The page is **rendered to HTML at build-time**.
+   The page is rendered to HTML at build-time.
    <br/>
    The page is rendered to HTML only once, when Reframe is building and transpiling your app.
 
-By default a page is rendered to HTML at request-time.
-But if a page is static
+By default,
+a page is rendered to HTML at request-time.
+But if the page's content is static
 (a landing page, an about page, a blog post, a personal homepage, etc.)
 it is wasteful to re-render its HTML on every page request.
 
 By setting `renderHtmlAtBuildTime: true` to all your pages,
-you effectively remove the need of a Node.js server.
+you effectively remove the need for a Node.js server.
 You can then deploy your app to a static host such as Netlify or GitHub Pages.
 
 If you don't want to render your page to HTML,
@@ -498,19 +508,19 @@ then do something like that:
 const Loading = require('./path/to/your/loading/component');
 const Search = require('./path/to/your/search/component');
 
-const SearchPage = {
+const SearchPageConfig = {
   title: 'Search products',
   route: '/search',
-  view: SearchPageView,
+  view: SearchPage,
   // We render <Loading> to HTML at build-time
   renderHtmlAtBuildTime: true,
   // We render <Search> to the DOM
   doNotRenderInBrowser: false,
 };
 
-module.exports = SearchPage;
+export default SearchPageConfig;
 
-function SearchPageView(props) {
+function SearchPage(props) {
   if( props.isNodejs ) {
     return <Loading/>;
   } else {
@@ -521,7 +531,7 @@ function SearchPageView(props) {
 
 <br/>
 
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+Feel free to [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 <br/>
 <br/>
 <b><sub><a href="#basics">&#8679; TOP  &#8679;</a></sub></b>
@@ -555,7 +565,7 @@ You then have full control over the Node.js server.
 
 <br/>
 
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+Feel free to [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 <br/>
 <br/>
 <b><sub><a href="#use-cases">&#8679; TOP  &#8679;</a></sub></b>
@@ -581,7 +591,7 @@ and
 
 <br/>
 
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+Feel free to [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 <br/>
 <br/>
 <b><sub><a href="#use-cases">&#8679; TOP  &#8679;</a></sub></b>
@@ -606,7 +616,7 @@ Once you have eject and gained control over the server, you are free to use add/
 
 <br/>
 
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+Feel free to [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 <br/>
 <br/>
 <b><sub><a href="#use-cases">&#8679; TOP  &#8679;</a></sub></b>
@@ -644,7 +654,7 @@ This directory contains all browser assets.
 
 <br/>
 
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+Feel free to [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 <br/>
 <br/>
 <b><sub><a href="#use-cases">&#8679; TOP  &#8679;</a></sub></b>
@@ -673,7 +683,7 @@ If you want to persist data, you may consider using a cloud database.
  - [List of cloud databases](/docs/cloud-databases.md)
 <br/>
 
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+Feel free to [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 <br/>
 <br/>
 <b><sub><a href="#use-cases">&#8679; TOP  &#8679;</a></sub></b>
@@ -696,7 +706,7 @@ you can use Reframe with Vue instead of React.
 
 <br/>
 
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+Feel free to [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 <br/>
 <br/>
 <b><sub><a href="#use-cases">&#8679; TOP  &#8679;</a></sub></b>
@@ -710,7 +720,7 @@ You can use the React Router components by adding the [@reframe/react-router](/p
 
 <br/>
 
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+Feel free to [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 <br/>
 <br/>
 <b><sub><a href="#use-cases">&#8679; TOP  &#8679;</a></sub></b>
@@ -724,7 +734,7 @@ You can write your app with TypeScript by adding the [@reframe/typescript](/plug
 
 <br/>
 
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+Feel free to [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 <br/>
 <br/>
 <b><sub><a href="#use-cases">&#8679; TOP  &#8679;</a></sub></b>
@@ -738,7 +748,7 @@ You can use Express (instead of Hapi) by using the [@reframe/express](/plugins/e
 
 <br/>
 
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+Feel free to [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 <br/>
 <br/>
 <b><sub><a href="#use-cases">&#8679; TOP  &#8679;</a></sub></b>
@@ -752,7 +762,7 @@ You can use Koa (instead of Hapi) by using the [@reframe/koa](/plugins/koa) plug
 
 <br/>
 
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+Feel free to [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 <br/>
 <br/>
 <b><sub><a href="#use-cases">&#8679; TOP  &#8679;</a></sub></b>
@@ -766,7 +776,7 @@ You can write your styles with PostCSS by adding the [@reframe/postcss](/plugins
 
 <br/>
 
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+Feel free to [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 <br/>
 <br/>
 <b><sub><a href="#use-cases">&#8679; TOP  &#8679;</a></sub></b>
@@ -792,7 +802,7 @@ Examples of apps using Reframe + RNW:
 
 <br/>
 
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+Feel free to [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 <br/>
 <br/>
 <b><sub><a href="#use-cases">&#8679; TOP  &#8679;</a></sub></b>
@@ -816,7 +826,7 @@ For example:
 
 <br/>
 
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+Feel free to [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 <br/>
 <br/>
 <b><sub><a href="#use-cases">&#8679; TOP  &#8679;</a></sub></b>
@@ -857,7 +867,7 @@ Example that uses jQuery and Semantic UI:
 
 <br/>
 
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+Feel free to [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 <br/>
 <br/>
 <b><sub><a href="#use-cases">&#8679; TOP  &#8679;</a></sub></b>
@@ -929,7 +939,7 @@ async function start() {
 
 <br/>
 
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+Feel free to [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 <br/>
 <br/>
 <b><sub><a href="#custom">&#8679; TOP  &#8679;</a></sub></b>
@@ -955,7 +965,7 @@ At that point you can get rid of the current server framework and replace it ano
 
 <br/>
 
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+Feel free to [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 <br/>
 <br/>
 <b><sub><a href="#custom">&#8679; TOP  &#8679;</a></sub></b>
@@ -985,7 +995,7 @@ If you eject all these ejectables then every single server LOC is in your codeba
 
 <br/>
 
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+Feel free to [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 <br/>
 <br/>
 <b><sub><a href="#custom">&#8679; TOP  &#8679;</a></sub></b>
@@ -1110,7 +1120,7 @@ see [Custom Renderer](#custom-renderer).
 
 <br/>
 
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+Feel free to [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 <br/>
 <br/>
 <b><sub><a href="#custom">&#8679; TOP  &#8679;</a></sub></b>
@@ -1215,7 +1225,7 @@ function applyViewWrappers({reactElement, initialProps, viewWrappers=[]}) {
 
 <br/>
 
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+Feel free to [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 <br/>
 <br/>
 <b><sub><a href="#custom">&#8679; TOP  &#8679;</a></sub></b>
@@ -1265,7 +1275,7 @@ async function initBrowser() {
 
 <br/>
 
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+Feel free to [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 <br/>
 <br/>
 <b><sub><a href="#custom">&#8679; TOP  &#8679;</a></sub></b>
@@ -1331,7 +1341,7 @@ You can see the example in full and other examples at [/examples/custom-browser]
 
 <br/>
 
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+Feel free to [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 <br/>
 <br/>
 <b><sub><a href="#custom">&#8679; TOP  &#8679;</a></sub></b>
@@ -1358,7 +1368,7 @@ Use this ejectable as last resort.
 
 <br/>
 
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+Feel free to [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 <br/>
 <br/>
 <b><sub><a href="#custom">&#8679; TOP  &#8679;</a></sub></b>
@@ -1437,7 +1447,7 @@ and pages defined with React Router components will share the same browser-side 
 
 <br/>
 
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+Feel free to [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 <br/>
 <br/>
 <b><sub><a href="#custom">&#8679; TOP  &#8679;</a></sub></b>
@@ -1457,7 +1467,7 @@ Either use another plugin in the [list of router plugins](/docs/plugins.md#routi
 
 <br/>
 
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+Feel free to [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 <br/>
 <br/>
 <b><sub><a href="#custom">&#8679; TOP  &#8679;</a></sub></b>
@@ -1479,7 +1489,7 @@ Example:
 
 <br/>
 
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+Feel free to [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 <br/>
 <br/>
 <b><sub><a href="#custom">&#8679; TOP  &#8679;</a></sub></b>
@@ -1540,7 +1550,7 @@ Examples:
 
 <br/>
 
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+Feel free to [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 <br/>
 <br/>
 <b><sub><a href="#custom">&#8679; TOP  &#8679;</a></sub></b>
@@ -1606,7 +1616,7 @@ If you eject all build ejectables, then you have full control over the build log
 
 <br/>
 
-In doubt [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
+Feel free to [open a GitHub issue](https://github.com/reframejs/reframe/issues/new) or [chat with Reframe authors on Discord](https://discord.gg/kqXf65G).
 <br/>
 <br/>
 <b><sub><a href="#custom">&#8679; TOP  &#8679;</a></sub></b>
