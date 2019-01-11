@@ -176,6 +176,11 @@ no server configuration.
 
 ## Flexible
 
+Web frameworks have a bad reputation regarding flexibility.
+There is a general belief that there is a trade off between development speed and flexibility
+and that a web framework always comes with a lost in flexibility.
+We believe it doesn't have to be that way.
+
 Reframe is designed from the ground up to be entirely flexible,
 based on three pillars:
 
