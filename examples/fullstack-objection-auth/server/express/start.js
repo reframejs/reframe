@@ -36,7 +36,7 @@ async function start() {
     server.stop = async () => {
       await knex.destroy();
       await onServerClose();
-      await closeServer(server);
+      await stopServer(server);
     };
 
     const env = colorEmphasis(process.env.NODE_ENV||'development');
@@ -53,7 +53,7 @@ async function startServer(app) {
   await new Promise((r, f) => {server.on('listening', r); server.on('error', f);});
   return server;
 }
-async function closeServer(server) {
+async function stopServer(server) {
   server.close();
   // Wait until server closes
   await new Promise((r, f) => {server.on('close', r); server.on('error', f);});
