@@ -101,7 +101,7 @@ Your code then doesn't depend on @reframe packages but only on do-one-thing-do-i
 When starting out,
 you most often don't know what stack is right for you.
 Reframe embraces that:
-You can change your app's stack at any time.
+you can change your app's stack at any time.
 You don't know whether or not you need SSR?
 Start with your best guest and add/remove SSR
 as you go.

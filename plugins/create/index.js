@@ -171,7 +171,7 @@ async function showStarterDoesntExist({starter, starters}) {
 async function printUsageExample() {
     const {indent} = require('@brillout/cli-theme');
 
-    console.log(indent+'For example:');
+    console.log(indent+'Example:');
     const recommandedStarter = await getRecommandedStarter();
     console.log(indent+indent+'reframe create '+recommandedStarter+' my-app');
 }
