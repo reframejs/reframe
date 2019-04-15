@@ -3,8 +3,8 @@ Reframe's React-Kit
 # `@reframe/react-kit`
 
 The React-Kit includes:
- - [@reframe/react](/react)
- - [@reframe/path-to-regexp](/path-to-regexp)
+ - [@reframe/react](/plugins/react)
+ - [@reframe/path-to-regexp](/plugins/path-to-regexp)
  - And other things. (See the react kit's source code to see these things.)
 
 ### Usage
