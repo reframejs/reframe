@@ -710,7 +710,7 @@ See [`path-to-regexp`'s docs](https://github.com/pillarjs/path-to-regexp) for fu
 
 ###### Advanced routing with React Router
 
-You can use React Router's components by adding the plugin [`@reframe/react-router`](/react-router).
+You can use React Router's components by adding the plugin [`@reframe/react-router`](/plugins/react-router).
 
 Using React Router components allow you to implement:
  - **pushState-navigation**
