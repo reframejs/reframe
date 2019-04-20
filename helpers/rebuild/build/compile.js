@@ -369,20 +369,21 @@ function get_compilation_info({webpack_config, webpack_stats, is_success, loadEn
             config: webpack_config,
             webpack_stats,
             loadEntryPoints,
+            is_success,
         })
     );
 
     return {webpack_config, webpack_stats, is_success, output, runtimeError};
 }
 
-function get_output_info({config, webpack_stats, loadEntryPoints}) {
+function get_output_info({config, webpack_stats, loadEntryPoints, is_success}) {
     assert_internal(webpack_stats);
     assert_internal(config);
 
     const dist_root_directory = get_dist_root_directory({config});
     assert_internal(dist_root_directory, config, dist_root_directory);
 
-    const {entry_points, runtimeError} = get_entry_points({config, webpack_stats, dist_root_directory, loadEntryPoints});
+    const {entry_points, runtimeError} = get_entry_points({config, webpack_stats, dist_root_directory, loadEntryPoints, is_success});
 
     const {port} = config.devServer||{};
     const served_at = port ? 'http://localhost:'+port : null;
@@ -466,7 +467,12 @@ function get_styles_and_scripts({all_assets}) {
     return {styles, scripts};
 }
 
-function load_entry_point(entry_point, loadEntryPoints) {
+function load_entry_point({entry_point, loadEntryPoints, is_success}) {
+    assert_internal([true, false].includes(is_success));
+    if( !is_success ) {
+      return {};
+    }
+
     const scripts = (
         entry_point
         .all_assets
@@ -475,7 +481,7 @@ function load_entry_point(entry_point, loadEntryPoints) {
             assert_internal(asset_type, asset);
 
             if( asset_type === 'script' ) {
-                assert_internal(filepath, asset);
+                assert_internal(filepath, {asset, entry_point});
                 return filepath;
             }
             return null;
@@ -499,9 +505,8 @@ function load_entry_point(entry_point, loadEntryPoints) {
     const filepath = scripts[0];
     assert_internal(path_module.isAbsolute(filepath));
 
-    const ret = {loadedModulePath: filepath};
-
     assert_internal(entry_point.entry_name);
+    const ret = {};
     if( !(loadEntryPoints.skipEntryPoints||[]).includes(entry_point.entry_name) ) {
         try {
             ret.loadedModule = forceRequire(filepath);
@@ -510,10 +515,13 @@ function load_entry_point(entry_point, loadEntryPoints) {
         }
     }
 
-    return ret;
+    return {
+      loadedModulePath: filepath,
+      ...ret,
+    };
 }
 
-function get_entry_points({config, webpack_stats, dist_root_directory, loadEntryPoints}) {
+function get_entry_points({config, webpack_stats, dist_root_directory, loadEntryPoints, is_success}) {
     const entry_points = {};
 
     let runtimeError;
@@ -527,7 +535,7 @@ function get_entry_points({config, webpack_stats, dist_root_directory, loadEntry
 
         const {scripts, styles} = get_styles_and_scripts({all_assets});
 
-        const ep = entry_points[entry_name] = {
+        const entry_point = entry_points[entry_name] = {
             entry_name,
             all_assets,
             scripts,
@@ -536,8 +544,8 @@ function get_entry_points({config, webpack_stats, dist_root_directory, loadEntry
         };
 
         if( loadEntryPoints && ! runtimeError ) {
-            const ret = load_entry_point(ep, loadEntryPoints);
-            Object.assign(ep, ret);
+            const ret = load_entry_point({entry_point, loadEntryPoints, is_success});
+            Object.assign(entry_point, ret);
             if( ret.runtimeError ) {
                 runtimeError = ret.runtimeError;
             }

@@ -258,9 +258,11 @@ function loadPageModules({nodejsEntryPoints, pageFiles}) {
             const {loadedModule, loadedModulePath} = entry_point;
             const pageName = entry_name;
             const pageFile = pageFiles[pageName];
-            assert_internal(pageName);
-            assert_internal(pageFile);
-            assert_internal(loadedModulePath);
+            assert_internal(pageName, entry_point);
+            assert_internal(pageFile, entry_point);
+            assert_internal(loadedModulePath, entry_point);
+            assert_internal(!('runtimeError' in entry_point), entry_point);
+            assert_internal('loadedModule' in entry_point, entry_point);
             return {
                 pageName,
                 pageExport: loadedModule,
