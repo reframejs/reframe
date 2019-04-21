@@ -12,8 +12,8 @@
     "release-dry-run": "lerna publish --force-publish=* --npm-tag=next --skip-git --skip-npm",
     "release-retry": "lerna publish --force-publish=* --npm-tag=next --skip-git",
     "release": "lerna publish --force-publish=* --npm-tag=next",
-    "release-final": "node ./helpers/dev-utils/package-management/npm-registry/setNpmTag.js latest",
     "release-check": "node ./helpers/dev-utils/package-management/npm-registry/checkIfCorrectlyPublished.js",
+    "release-final": "node ./helpers/dev-utils/package-management/npm-registry/setNpmTag.js latest",
     "release-clean": "node ./helpers/dev-utils/package-management/npm-registry/removeNpmTags.js next",
 
     "install-all": "npm install yarn --no-save && yarn",
