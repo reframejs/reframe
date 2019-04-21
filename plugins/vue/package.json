@@ -1,9 +1,9 @@
 {
   "name": "@reframe/vue",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "dependencies": {
     "@brillout/index-html": "^0.1.2",
-    "@reframe/react": "0.3.1",
+    "@reframe/react": "0.3.2",
     "vue-server-renderer": "^2.5.16"
   },
   "publishConfig": {

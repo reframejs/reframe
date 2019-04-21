@@ -1,6 +1,6 @@
 {
   "name": "_starters-react-sql",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "private": "true",
   "checkDeps": {
     "skip": true
@@ -13,10 +13,10 @@
   },
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.2.1",
-    "@brillout/cli-theme": "0.3.1",
-    "@brillout/reconfig": "0.3.1",
-    "@reframe/cli": "0.3.1",
-    "@reframe/react-kit": "0.3.1",
+    "@brillout/cli-theme": "0.3.2",
+    "@brillout/reconfig": "0.3.2",
+    "@reframe/cli": "0.3.2",
+    "@reframe/react-kit": "0.3.2",
     "@universal-adapter/hapi": "^0.1.1",
     "fs-extra": "^7.0.1",
     "hapi": "^17.3.1",

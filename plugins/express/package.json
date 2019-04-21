@@ -1,9 +1,9 @@
 {
   "name": "@reframe/express",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "dependencies": {
-    "@brillout/cli-theme": "0.3.1",
-    "@brillout/reconfig": "0.3.1",
+    "@brillout/cli-theme": "0.3.2",
+    "@brillout/reconfig": "0.3.2",
     "@universal-adapter/express": "^0.1.1",
     "express": "^4.16.4"
   },
