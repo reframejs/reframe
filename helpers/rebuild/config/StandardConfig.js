@@ -420,6 +420,7 @@ function config_es_latest({is_node_target}) {
     const babel_preset_env_opts = {
         modules: false,
         useBuiltIns: 'entry',
+        corejs: 2,
         targets: (
             is_node_target && (
                 {node: "8.9.0"}
