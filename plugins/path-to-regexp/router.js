@@ -4,7 +4,9 @@ const assert_todo = assert_internal;
 
 // `matchPath` source code:
 //    https://github.com/ReactTraining/react-router/blob/master/packages/react-router/modules/matchPath.js
-const matchPath = require('react-router/matchPath').default;
+const reactRouter = require('react-router');
+const {matchPath} = reactRouter||{};
+assert_internal(matchPath, {matchPath, reactRouter});
 
 const router = {
     doesMatchUrl,
