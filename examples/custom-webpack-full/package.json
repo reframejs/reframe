@@ -2,14 +2,14 @@
   "name": "_example-custom-webpack-full",
   "private": true,
   "dependencies": {
-    "@babel/core": "^7.0.0",
-    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
-    "@babel/polyfill": "^7.0.0",
-    "@babel/preset-env": "^7.0.0",
+    "@babel/core": "^7.4.3",
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.3",
+    "@babel/polyfill": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
     "@babel/preset-react": "^7.0.0",
     "@reframe/react-kit": "0.3.2",
-    "babel-loader": "^8.0.2",
-    "react": "^16.4.2"
+    "babel-loader": "^8.0.5",
+    "react": "^16.8.6"
   },
   "checkDeps": {
     "skip": [

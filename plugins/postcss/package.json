@@ -3,9 +3,9 @@
   "version": "0.3.2",
   "dependencies": {
     "@brillout/reconfig": "0.3.2",
-    "css-loader": "^0.28.11",
-    "mini-css-extract-plugin": "^0.4.0",
-    "postcss-loader": "^2.1.3"
+    "css-loader": "^2.1.1",
+    "mini-css-extract-plugin": "^0.6.0",
+    "postcss-loader": "^3.0.0"
   },
   "repository": "https://github.com/reframejs/reframe/tree/master/plugins/postcss",
   "publishConfig": {

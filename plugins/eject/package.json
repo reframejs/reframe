@@ -7,11 +7,11 @@
         "@brillout/reconfig": "0.3.2",
         "@reframe/utils": "0.3.2",
         "builtins": "^2.0.0",
-        "chalk": "^2.4.1",
-        "detective": "^5.1.0",
+        "chalk": "^2.4.2",
+        "detective": "^5.2.0",
         "mkdirp": "^0.5.1",
         "reassert": "^1.1.12",
-        "write-json-file": "^2.3.0"
+        "write-json-file": "^3.2.0"
     },
     "publishConfig": {
         "access": "public"

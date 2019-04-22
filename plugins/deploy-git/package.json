@@ -5,8 +5,8 @@
         "@brillout/cli-theme": "0.3.2",
         "@brillout/reconfig": "0.3.2",
         "@reframe/utils": "0.3.2",
-        "moment": "^2.22.1",
-        "prompt-confirm": "^1.2.0",
+        "moment": "^2.24.0",
+        "prompt-confirm": "^2.0.4",
         "reassert": "^1.1.12"
     },
     "publishConfig": {

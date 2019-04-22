@@ -6,8 +6,8 @@
     "@brillout/browser-config": "0.3.2",
     "@brillout/index-html": "^0.1.2",
     "@brillout/reconfig": "0.3.2",
-    "react": "^16.1.1",
-    "react-dom": "^16.1.1"
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   },
   "publishConfig": {
     "access": "public"

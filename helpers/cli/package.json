@@ -12,7 +12,7 @@
     "@reframe/create": "0.3.2",
     "@reframe/project-files": "0.3.2",
     "@reframe/utils": "0.3.2",
-    "commander": "2.14.1",
+    "commander": "2.20.0",
     "reassert": "^1.1.12"
   },
   "publishConfig": {

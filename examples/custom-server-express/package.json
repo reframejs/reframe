@@ -6,7 +6,7 @@
     "@brillout/reconfig": "0.3.2",
     "@reframe/react-kit": "0.3.2",
     "express": "^4.16.3",
-    "react": "^16.3.2"
+    "react": "^16.8.6"
   },
   "checkDeps": {
     "skip": true

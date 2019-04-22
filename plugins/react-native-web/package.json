@@ -6,10 +6,10 @@
     "@brillout/index-html": "^0.1.2",
     "@brillout/reconfig": "0.3.2",
     "@reframe/react": "0.3.2",
-    "babel-plugin-react-native-web": "^0.8.9",
-    "react-art": "^16.4.2",
-    "react-dom": "^16.4.2",
-    "react-native-web": "^0.6.1"
+    "babel-plugin-react-native-web": "^0.11.2",
+    "react-art": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-native-web": "^0.11.2"
   },
   "repository": "https://github.com/reframejs/reframe/tree/master/plugins/react-native-web",
   "publishConfig": {

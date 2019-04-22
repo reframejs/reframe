@@ -6,8 +6,8 @@
     "@reframe/postcss": "0.3.2",
     "@reframe/react-kit": "0.3.2",
     "postcss-cssnext": "^3.1.0",
-    "react": "^16.3.2",
-    "sugarss": "^1.0.1"
+    "react": "^16.8.6",
+    "sugarss": "^2.0.0"
   },
   "checkDeps": {
     "skip": true

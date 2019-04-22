@@ -12,8 +12,8 @@
     "@rebuild/iso": "0.3.2",
     "@rebuild/serve": "0.3.2",
     "@reframe/utils": "0.3.2",
-    "chokidar": "^2.0.3",
-    "fs-extra": "^6.0.1",
+    "chokidar": "^2.1.5",
+    "fs-extra": "^7.0.1",
     "mkdirp": "^0.5.1",
     "reassert": "^1.1.12"
   }

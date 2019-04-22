@@ -2,15 +2,15 @@
   "name": "@reframe/typescript",
   "version": "0.3.2",
   "dependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.0.0",
-    "@babel/plugin-proposal-decorators": "^7.0.0",
-    "@babel/preset-typescript": "^7.0.0",
+    "@babel/plugin-proposal-class-properties": "^7.4.0",
+    "@babel/plugin-proposal-decorators": "^7.4.0",
+    "@babel/preset-typescript": "^7.3.3",
     "@brillout/get-user-dir": "^0.2.1",
     "@brillout/reconfig": "0.3.2",
-    "find-up": "^2.1.0",
-    "fork-ts-checker-webpack-plugin": "^0.4.9",
+    "find-up": "^3.0.0",
+    "fork-ts-checker-webpack-plugin": "^1.1.0",
     "reassert": "^1.1.12",
-    "typescript": "^3.0.3"
+    "typescript": "^3.4.4"
   },
   "publishConfig": {
     "access": "public"

@@ -5,7 +5,7 @@
   "dependencies": {
     "@reframe/react-kit": "0.3.2",
     "@reframe/vue": "0.3.2",
-    "vue": "^2.5.16"
+    "vue": "^2.6.10"
   },
   "publishConfig": {
     "access": "public"

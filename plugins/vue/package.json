@@ -4,7 +4,7 @@
   "dependencies": {
     "@brillout/index-html": "^0.1.2",
     "@reframe/react": "0.3.2",
-    "vue-server-renderer": "^2.5.16"
+    "vue-server-renderer": "^2.6.10"
   },
   "publishConfig": {
     "access": "public"

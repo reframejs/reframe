@@ -5,8 +5,8 @@
   "dependencies": {
     "@brillout/reconfig": "0.3.2",
     "@reframe/react-kit": "0.3.2",
-    "hapi": "^17.5.1",
-    "react": "^16.3.2"
+    "hapi": "^18.1.0",
+    "react": "^16.8.6"
   },
   "checkDeps": {
     "skip": true

@@ -2,9 +2,9 @@
   "name": "@reframe/react-router",
   "version": "0.3.2",
   "dependencies": {
-    "react": "^16.2.0",
-    "react-router": "^4.2.0",
-    "react-router-dom": "^4.2.2"
+    "react": "^16.8.6",
+    "react-router": "^5.0.0",
+    "react-router-dom": "^5.0.0"
   },
   "repository": "https://github.com/reframejs/reframe/tree/master/plugins/react-router",
   "publishConfig": {

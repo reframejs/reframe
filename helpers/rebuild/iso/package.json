@@ -4,7 +4,7 @@
   "dependencies": {
     "@rebuild/build": "0.3.2",
     "@rebuild/serve": "0.3.2",
-    "chalk": "^2.3.0",
+    "chalk": "^2.4.2",
     "deep-equal": "^1.0.1",
     "reassert": "^1.1.12"
   },

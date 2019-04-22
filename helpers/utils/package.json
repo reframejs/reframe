@@ -6,12 +6,12 @@
     "@brillout/find-package-files": "^0.1.0",
     "@brillout/get-user-dir": "^0.2.1",
     "cross-spawn": "^6.0.4",
-    "find-up": "^2.1.0",
+    "find-up": "^3.0.0",
     "git-state": "^4.0.0",
     "reassert": "^1.1.12",
-    "semver": "^5.5.0",
-    "simple-git": "^1.95.0",
-    "source-map-support": "^0.5.4"
+    "semver": "^6.0.0",
+    "simple-git": "^1.110.0",
+    "source-map-support": "^0.5.12"
   },
   "publishConfig": {
     "access": "public"

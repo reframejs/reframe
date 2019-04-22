@@ -9,15 +9,15 @@
     "@reframe/cli": "0.3.2",
     "@reframe/react-kit": "0.3.2",
     "@reframe/typescript": "0.3.2",
-    "@types/node": "^10.5.2",
-    "@universal-adapter/hapi": "^0.1.1",
-    "hapi": "^17.3.1",
-    "react": "^16.3.2",
-    "reflect-metadata": "^0.1.12",
-    "sqlite3": "^4.0.2",
-    "ts-node": "^7.0.0",
-    "typeorm": "^0.2.7",
-    "typescript": "^2.9.2"
+    "@types/node": "^11.13.6",
+    "@universal-adapter/hapi": "^0.1.2",
+    "hapi": "^18.1.0",
+    "react": "^16.8.6",
+    "reflect-metadata": "^0.1.13",
+    "sqlite3": "^4.0.6",
+    "ts-node": "^8.1.0",
+    "typeorm": "^0.2.16",
+    "typescript": "^3.4.4"
   },
   "checkDeps": {
     "skip": true
