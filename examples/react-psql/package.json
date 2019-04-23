@@ -1,0 +1,28 @@
+{
+  "name": "_starters-react-sql",
+  "version": "0.3.2",
+  "private": "true",
+  "checkDeps": {
+    "skip": true
+  },
+  "scripts": {
+    "dev": "reframe dev",
+    "production": "npm run build && npm run start",
+    "build": "reframe build",
+    "start": "export NODE_ENV='production' && node ./server/start.js"
+  },
+  "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.4.0",
+    "@brillout/cli-theme": "0.3.2",
+    "@brillout/reconfig": "0.3.2",
+    "@reframe/cli": "0.3.2",
+    "@reframe/react-kit": "0.3.2",
+    "@universal-adapter/hapi": "^0.1.2",
+    "fs-extra": "^7.0.1",
+    "hapi": "^18.1.0",
+    "knex": "^0.16.5",
+    "react": "^16.8.6",
+    "sqlite3": "^4.0.6",
+    "wildcard-api": "^0.1.3"
+  }
+}
