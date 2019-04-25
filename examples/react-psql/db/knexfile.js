@@ -1,4 +1,4 @@
-/*
+//*
 
 // corresponds to; `psql postgresql://user:password@host:port/database`
 const connection = {
@@ -6,7 +6,7 @@ const connection = {
   port     : '5432',
   user     : 'postgres',
   password : env.POSTGRES_PASSWORD,
-  database : 'reframe-psql-example',
+  database : 'reframe_example',
   charset  : 'UTF8_GENERAL_CI',
 };
 
