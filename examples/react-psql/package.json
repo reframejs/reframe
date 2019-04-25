@@ -1,15 +1,9 @@
 {
-  "name": "_starters-react-sql",
+  "name": "examples_react-psql",
   "version": "0.3.2",
   "private": "true",
   "checkDeps": {
     "skip": true
-  },
-  "scripts": {
-    "dev": "reframe dev",
-    "production": "npm run build && npm run start",
-    "build": "reframe build",
-    "start": "export NODE_ENV='production' && node ./server/start.js"
   },
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.4.0",

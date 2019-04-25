@@ -69,6 +69,7 @@
     "examples/fullstack-objection-auth",
     "examples/fullstack-typeorm",
     "examples/react-native-web",
+    "examples/react-psql",
     "examples/runtime-error",
     "examples/typescript",
     "helpers/cli",
