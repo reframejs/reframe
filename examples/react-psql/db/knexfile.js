@@ -1,11 +1,12 @@
 //*
 
 // corresponds to; `psql postgresql://user:password@host:port/database`
+const password = process.env.POSTGRES_PASSWORD;
 const connection = {
   host     : 'localhost',
   port     : '5432',
   user     : 'postgres',
-  password : env.POSTGRES_PASSWORD,
+  password,
   database : 'reframe_example',
   charset  : 'UTF8_GENERAL_CI',
 };
