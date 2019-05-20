@@ -4,4 +4,4 @@ module.exports = {
   ]
 };
 
-module.exports['serverStartFile'] = require.resolve('./server/start.js');
+module.exports['serverEntryFile'] = require.resolve('./server/start.js');

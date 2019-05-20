@@ -3,5 +3,5 @@ module.exports = {
         require('@reframe/react-kit')
     ],
 
-    serverStartFile: require.resolve('./express-server')
+    serverEntryFile: require.resolve('./express-server')
 };

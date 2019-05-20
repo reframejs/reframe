@@ -3,9 +3,9 @@ module.exports = {
         require('@reframe/react-kit'),
     ],
     //*
-    serverStartFile: require.resolve('./server/hapi/start.js'),
+    serverEntryFile: require.resolve('./server/hapi/start.js'),
     /*/
-    serverStartFile: require.resolve('./server/express/start.js'),
+    serverEntryFile: require.resolve('./server/express/start.js'),
     //*/
     transpileServerCode: true,
 };

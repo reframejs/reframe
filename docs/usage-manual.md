@@ -1581,7 +1581,7 @@ const getWebpackNodejsConfig = ({config, ...utils}) => projectConfig.webpackNode
 const {log, doNotWatchBuildFiles} = projectConfig;
 const {pagesDir} = projectConfig.projectFiles;
 const {getPageHtmls, getPageBrowserEntries} = projectConfig;
-const serverEntryFile = projectConfig.transpileServerCode && projectConfig.serverStartFile;
+const serverEntryFile = projectConfig.transpileServerCode && projectConfig.serverEntryFile;
 
 const build = new Build({
     outputDir,

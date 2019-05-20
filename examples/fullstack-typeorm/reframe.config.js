@@ -3,5 +3,5 @@ module.exports = {
         require('@reframe/react-kit'),
         require('@reframe/typescript'),
     ],
-    serverStartFile: require.resolve('./server/start.js'),
+    serverEntryFile: require.resolve('./server/start.js'),
 };

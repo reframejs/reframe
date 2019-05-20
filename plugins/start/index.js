@@ -185,10 +185,10 @@ function assert_stop(serverRet) {
     assert.warning(false,
       "You need to restart the server manually.",
       "",
-      "If you want the server to be automatically restarted then make sure the object exported by `serverStartFile` has a stop function.",
+      "If you want the server to be automatically restarted then make sure the object exported by `serverEntryFile` has a stop function.",
       "",
       "In other words, make sure that:",
-      "  `assert((await require(config.serverStartFile)()).stop instanceof Function)`",
+      "  `assert((await require(config.serverEntryFile)()).stop instanceof Function)`",
       "(But the exported object is `"+serverRet+"` and `stop` is `"+(serverRet ? serverRet.stop : undefined)+"`.)",
     );
     return true;
@@ -204,7 +204,7 @@ function assert_stopPromise(stopPromise) {
     stopPromise,
     "The server stop function should return a promise.",
     "In other words, make sure that:",
-    "  `assert((await require(config.serverStartFile)()).stop().then instanceof Function)`",
+    "  `assert((await require(config.serverEntryFile)()).stop().then instanceof Function)`",
   );
 }
 
@@ -239,7 +239,7 @@ async function runServer(config, {isFirstStart, isAutoRebuilding}) {
     const isTranspiled = serverIsTranspiled(config);
     assert_internal(!!serverFileTranspiled === isTranspiled);
 
-    const serverEntry = serverFileTranspiled || config.serverStartFile;
+    const serverEntry = serverFileTranspiled || config.serverEntryFile;
 
     const serverRet = await (
       handlePromise(
@@ -286,7 +286,7 @@ function handleServerError(err) {
 }
 
 function serverIsTranspiled(config) {
-    return !!(config.transpileServerCode && config.serverStartFile);
+    return !!(config.transpileServerCode && config.serverEntryFile);
 }
 function init({dev, log, doNotWatchBuildFiles, _description}) {
     if( _description ) {
@@ -329,7 +329,7 @@ function assert_build(config) {
     assert_config(config.runBuild, config, 'runBuild', 'build');
 }
 function assert_server(config) {
-    assert_config(config.serverStartFile, config, 'serverStartFile', 'server');
+    assert_config(config.serverEntryFile, config, 'serverEntryFile', 'server');
 }
 function assert_config(bool, config, configOpt, name) {
     const assert_usage = require('reassert/usage');

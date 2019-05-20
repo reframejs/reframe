@@ -2,14 +2,14 @@ const {transparentGetter} = require('@brillout/reconfig/getters');
 
 const packageName = require('./package.json').name;
 
-const serverStartFile = require.resolve('./start');
+const serverEntryFile = require.resolve('./start');
 
 module.exports = {
     $name: packageName,
     $getters: [
-        transparentGetter('serverStartFile'),
+        transparentGetter('serverEntryFile'),
     ],
-    serverStartFile,
+    serverEntryFile,
     ejectables: getEjectables(),
 };
 
@@ -24,7 +24,7 @@ function getEjectables() {
                 {
                     targetDir: 'server/',
                     configIsFilePath: true,
-                    configPath: 'serverStartFile',
+                    configPath: 'serverEntryFile',
                 },
             ],
         },
