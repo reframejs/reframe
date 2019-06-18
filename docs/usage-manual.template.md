@@ -82,51 +82,6 @@
 
 
 
-## CSS
-
-A CSS file can be loaded and applied by importing it.
-
-~~~js
-import './GlitterStyle.css';
-~~~
-
-Example of a page using CSS:
- - [/examples/basics/pages/glitter/](/examples/basics/pages/glitter/)
-
-!INLINE ./snippets/section-footer.md #basics --hide-source-path
-
-
-## Static Assets
-
-Static assets (images, fonts, videos, etc.) can be imported as well
-but importing an asset doesn't actually load it:
-Only the URL of the asset is returned.
-It is up to us to use/fetch the URL of the asset.
-
-~~~js
-import diamondUrl from './diamond.png';
-
-// do something with diamondUrl, e.g. `await fetch(diamondUrl)` or `<img src={diamondUrl}/>`
-~~~
-
-In addition, static assets can be referenced in CSS by using the `url` data type.
-
-~~~css
-.diamond-background {
-    background-image: url('./diamond.png');
-}
-~~~
-
-Example of a page using fonts, images and other static assets:
- - [/examples/basics/pages/glitter/](/examples/basics/pages/glitter/)
-
-!INLINE ./snippets/section-footer.md #basics --hide-source-path
-
-
-
-
-
-
 ## Async Data
 
 !INLINE ./sections/usage-async-data.md --hide-source-path
@@ -546,48 +501,6 @@ If you eject all these ejectables then every single server LOC is in your codeba
 
 
 ## Custom HTML &lt;head&gt;, &lt;meta&gt;, &lt;html&gt;, ...
-
-Reframe uses [`@brillout/index-html`](https://github.com/brillout/index-html) to generate HTML.
-
-You have full control over the "outer-part" HTML.
-(`<meta>`, `<!DOCTYPE html`>, `<head>`, `<html>`, `<body>`, `<script>`, etc.)
-
-There are two ways to change the outer-part HTML:
- - By creating a `index.html` file
- - Over the page config
-
-1. Over the page config:
-
-~~~js
-!INLINE ../examples/custom-head/pages/landing.config.js
-~~~
-
-Note that if `awesome-lib.js` and `awesome-lib.css` are inside your project, you can't follow this
-technique. Instead you will have to [customize the browser entry](#custom-default-browser-entry).
-
-2. Over a `index.html` file saved in your app's root directory:
-
-~~~js
-!INLINE ../examples/custom-head/index.html
-~~~
-
-Also, the `indexHtml` page config option allows you to override the `index.html` file for a specific page:
-
-~~~js
-!INLINE ../examples/custom-head/pages/about.config.js
-~~~
-
-All `@brillout/index-html` options are available over the page config.
-
-See [`@brillout/index-html`'s documentation](https://github.com/brillout/index-html) for the list of options.
-
-Example:
- - [/examples/custom-head](/examples/custom-head)
-
-If you want to use something else than `@brillout/index-html`, then you can eject the renderer,
-see [Custom Renderer](#custom-renderer).
-
-!INLINE ./snippets/section-footer.md #custom --hide-source-path
 
 
 
