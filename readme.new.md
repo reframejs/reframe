@@ -1,14 +1,27 @@
 # Reframe
 
-Reframe allows you to **create web apps** with following starters:
- - [Reframe Objection]() - Create a SQL-centric app with database, API, and interactive views.
- - [Reframe Prisma]() - Create an ORM-centric app with database, API, and interactive views.
- - [Reframe Static Website]() - Create a static website with modern technologies.
+Reframe allows you to **create web apps**, such as:
+ -  - Create a
+ - SQL-centric app with database, API, and interactive views (with the starter [Reframe Objection]())
+ - [Reframe Prisma]() - Create An ORM-centric app with database, API, and interactive views (with the
+ - [Reframe Static Website]() - A static website with modern technologies (with the)
+
+We feature:
+- Interactive views (with React, Vue, ...)
+- Old-school backends with non-interactive dynamic HTML (with React/Vue/... as HTML template engine)
+- Node.js Server (with Hapi, Koa, Express, ...)
+- Database & ORM (with Objection.js, Prisma, ...)
+- RPC-like API (with [Wildcard]())
+- SSR (with [SSR Coin]())
+
+And, we are exploring following areas:
+- Automatic deployment - [WIP ticket #9]()
+- Admin panel - [WIP ticket #1]()
+- CMS - [WIP ticket #3]()
 
 Reframe is what we call a *0-LOC framework*:
 this repository has no source code
-and
-the [github.com/reframejs](https://github.com/reframejs) organisation is merely a collection of:
+and [github.com/reframejs](https://github.com/reframejs) is merely a collection of:
  - **Do-one-thing-do-it-well libraries.**
    Each libary can be used independently of each other.
  - **Starters.**
@@ -18,15 +31,17 @@ the [github.com/reframejs](https://github.com/reframejs) organisation is merely 
 The benefits of such architecture are plenty:
 
 **Freedom** -
- - You have full freedom:
-You can cherry pick the do-one-thing-well libraries you want.
- - No lock-in:
-   You can
- - Removable: Moving away from Reframe is only a matter of replacing do-one-thing-do-it-well libraries with other or with and you can do so progressively, one do-one-thing-well library at a time.
+You are entirely free to cherry pick as few, as many, and any do-one-thing-do-it-well library you want.
+For example, among all Reframe libraries, you can choose to use only [Wildcard API](),
+or you can choose a Reframe starter but with another ORM.
+There is no lock-in;
+you can replace any do-one-thing-well library with another one, or with your custom implementation.
+For example you can use a Reframe starter and later replace React with the next cool thing (yes, we are [evaluating Svlete]() ;-)).
+Or you can start using Reframe's auto-deploy library and later replace it with your custom deploy strategy.
 
 **Robust tools** -
-Do-one-thing-do-it-well libraries tend to be more robust than frameworks:
-they usually compete with many other libraries that do the same thing
+Do-one-thing-do-it-well libraries tend to be more robust than frameworks.
+They usually compete with many libraries that do the same thing
 and they can survive a very long time resulting a hardened rock-solid tool.
 
 **Robust framework** -
@@ -58,16 +73,4 @@ over time we expect a better developer experience than monolithic frameworks.
 - Future proof.
 well-polished starters that assemble with well-polished developer experience
 
-
-Reframe features:
-- Interactive views (with React, Vue, ...)
-- SSR (with [SSR Coin]())
-- Node.js Server (with Hapi, Koa, Express, ...)
-- RPC-like API
-- Database & ORMs (with Objection.js, Prisma, ...)
-
-We are exploring following areas:
-- Admin panel - [WIP ticket #1]()
-- CMS - [WIP ticket #3]()
-- Automatic deployment - [WIP ticket #9]()
 
