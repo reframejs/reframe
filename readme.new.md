@@ -1,10 +1,14 @@
 # Reframe
 
-With Reframe, you can develop
+Reframe allows you to **create web apps** with following starters:
+ - [Reframe Objection]() - Create a SQL-centric app with database, API, and interactive views.
+ - [Reframe Prisma]() - Create an ORM-centric app with database, API, and interactive views.
+ - [Reframe Static Website]() - Create a static website with modern technologies.
 
-This repository has no source code.
-Instead,
-The [github.com/reframejs](https://github.com/reframejs) organisation is merely a collection of:
+Reframe is what we call a *0-LOC framework*:
+this repository has no source code
+and
+the [github.com/reframejs](https://github.com/reframejs) organisation is merely a collection of:
  - **Do-one-thing-do-it-well libraries.**
    Each libary can be used independently of each other.
  - **Starters.**
@@ -14,63 +18,56 @@ The [github.com/reframejs](https://github.com/reframejs) organisation is merely 
 The benefits of such architecture are plenty:
 
 **Freedom** -
-No more framework lock-in:
-You can cherry pick the do-one-thing-do-it-well libaries and you can use as little and as much of Reframe.
-And no more huge refactors: Moving away from Reframe is only a matter of progressively replacing do-one-thing-do-it-well libraries
+ - You have full freedom:
+You can cherry pick the do-one-thing-well libraries you want.
+ - No lock-in:
+   You can
+ - Removable: Moving away from Reframe is only a matter of replacing do-one-thing-do-it-well libraries with other or with and you can do so progressively, one do-one-thing-well library at a time.
 
 **Robust tools** -
-Do-one-thing-do-it-well libraries survive longer than frameworks and more robust.
+Do-one-thing-do-it-well libraries tend to be more robust than frameworks:
+they usually compete with many other libraries that do the same thing
+and they can survive a very long time resulting a hardened rock-solid tool.
+
+**Robust framework** -
+the day all the do-one-thing-well libraries we developed are replaced with
+better libraries that do the same thing.
+At that point
+
+Fundammentally more robust architecture:
+only do-one-thing-well libraries can be replaced with.
+Reframe will become obsolete the day all do-one-thing-well we developed get .
+But what's for sure: Monolithic frameworks are dead and 0-LOC frameworks are the future.
+Everyone is happy :-).
+If a new view library (we are evaluating Svelte btw.)
+We can't wait to share do-one-thing-well libraries with other 0-LOC frameworks.
+We forsee that Reframe will not be the only which is a good thing!
+We want 
+Resillient
+ - Cooperation.
+This makes each and ultimatively a more robust fundation for developing web apps.
+and have a 
+with and have 
+
+libraries survive longer than frameworks and more robust.
 If becomes obsolete and weak,
 Reframe 
 Eventually Reframe will be composed of only standard do-one-thing-do-it-well.
 - harden 
 over time we expect a better developer experience than monolithic frameworks.
 - Future proof.
-
-**Robust framework** -
-fundammentally more robust architecutre
-We forsee that Reframe will not be the only which is a good thing!
-We want 
-Resillient
- - Cooperation.
-   E.g. Meteor
-This makes each and ultimatively a more robust fundation for developing web apps.
-
-Currently, Reframe has three starters:
-
-- ORM-centric full-stack app
-
-- SQL-centric full-stack app
-
-- Static website
-
-Reframe is a 0-LOC framework:
-Reframe itself has no line of code and the
-organization is j
-
 well-polished starters that assemble with well-polished developer experience
 
-It combines into a well polished assembly of do-one-thing-do-it-well
 
-It features:
-- Interactive Frontend (React, Vue)
-- SSR
+Reframe features:
+- Interactive views (with React, Vue, ...)
+- SSR (with [SSR Coin]())
+- Node.js Server (with Hapi, Koa, Express, ...)
 - RPC-like API
-- Database & ORM
+- Database & ORMs (with Objection.js, Prisma, ...)
 
-Such do-one-thing-do-it-well assemblies will eventually be as fully-featured
-with
-We will eventually
-Reframe comes with starters that assembles libraries into a ready to use scaffold.
-- ORM based full-stack app
-- SQL based full-stack app
-- Static website
-
-on par with yet
-Reframe is not fully-fledged yet but are exploring the following areas:
-- Automatic Deployment [WIP]()
-- Admin Panel [WIP]()
-- CMS [WIP]()
-
-Some of the 
+We are exploring following areas:
+- Admin panel - [WIP ticket #1]()
+- CMS - [WIP ticket #3]()
+- Automatic deployment - [WIP ticket #9]()
 
