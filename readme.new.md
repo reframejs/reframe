@@ -6,7 +6,7 @@ Reframe allows you to **create web apps**, such as:
  - [Reframe Prisma]() - Create An ORM-centric app with database, API, and interactive views (with the
  - [Reframe Static Website]() - A static website with modern technologies (with the)
 
-We feature:
+Features:
 - Interactive views (with React, Vue, ...)
 - Old-school backends with non-interactive dynamic HTML (with React/Vue/... as HTML template engine)
 - Node.js Server (with Hapi, Koa, Express, ...)
@@ -14,7 +14,7 @@ We feature:
 - RPC-like API (with [Wildcard]())
 - SSR (with [SSR Coin]())
 
-And, we are exploring following areas:
+Work-in-progress:
 - Automatic deployment - [WIP ticket #9]()
 - Admin panel - [WIP ticket #1]()
 - CMS - [WIP ticket #3]()
@@ -23,12 +23,12 @@ Reframe is what we call a *0-LOC framework*:
 this repository has no source code
 and [github.com/reframejs](https://github.com/reframejs) is merely a collection of:
  - **Do-one-thing-do-it-well libraries.**
-   Each libary can be used independently of each other.
+   Each libary takes care of one problem and one problem only and can be used independently of other Reframe libraries.
  - **Starters.**
-   If you are not sure were to start, then the Reframe starters are here for you.
-   If you already have an existic code base, you can cherry pick instead.
+   A starter assembles libraries into a well-polished scaffold so you can quickly get started (aka boilerplate).
+   Starters aim to be as easy to use and as feature-rich as monolithic frameworks (Django, Rails, ...).
 
-The benefits of such architecture are plenty:
+The benefits are plenty:
 
 **Freedom** -
 You are entirely free to cherry pick as few, as many, and any do-one-thing-do-it-well library you want.
@@ -45,6 +45,18 @@ They usually compete with many libraries that do the same thing
 and they can survive a very long time resulting a hardened rock-solid tool.
 
 **Robust framework** -
+All do-one-thing-do-it-well libraries work independently of each other which makes things future proof.
+For example, a new view library comes and makes React obsolete?
+That's cool and you'll be able to use this new view library since all Reframe libraries work with any view library.
+
+- **Collaboration**
+All do-one-thing libraries we wrote can be used independently and even within a framework other than Reframe.
+We hope that competing framework will follow the 0-LOC philosophy and we envision a future were Reframe uses
+the library of other 0-LOC framework authors and vice-versa.
+
+and we.
+So that we collaborate instead of unecessary competing.
+
 the day all the do-one-thing-well libraries we developed are replaced with
 better libraries that do the same thing.
 At that point
@@ -73,4 +85,7 @@ over time we expect a better developer experience than monolithic frameworks.
 - Future proof.
 well-polished starters that assemble with well-polished developer experience
 
+
+We also have [couple]() of [crazy]() ideas ;-).
+If this all excits you, then join us!
 
