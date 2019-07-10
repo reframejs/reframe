@@ -31,29 +31,30 @@ Reframe is a collection of:
 - **Libraries.**
   <br/>
   Each library is a do-one-thing-do-it-well library:
-  <br/>&nbsp;&nbsp; 1. It takes care of one thing and one thing only.
-  <br/>&nbsp;&nbsp; 2. It can be used independently of other libraries.
+  <br/>&nbsp;&nbsp;&nbsp;&nbsp; 1. It takes care of one thing and one thing only.
+  <br/>&nbsp;&nbsp;&nbsp;&nbsp; 2. It can be used independently of other libraries.
   <br/>
   Libraries are unopinionated and can be used for all kinds of uses cases.
 - **Starters.**
   <br/>
-  A starter assembles libraries into a well-polished scaffold (aka boilerplate) for you to quickly get started.
-  Starters allow you to get started as quickly as using other frameworks (Django, Rails, Next.js, ...).
+  A starter assembles libraries into a well-polished scaffold (aka boilerplate) allowing you to quickly get started.
   Starters are opinionated and tailored towards specific use cases.
 
 We call a framework that has no source code and is only a collection of libraries and starters a *0-LOC framework*.
 The benefits are plenty:
 
-**Freedom**
+**Freedom** :dove:
 
-A 0-LOC introduces a fundamental shift in freedom:
+A 0-LOC framework introduces a fundamental shift in freedom:
 
 - **Cherry pick libraries.** -
-  You are free to cherry pick as few do-one-thing-do-it-well library as you want.
-  You like a Reframe library but you don't want to use the rest of Reframe? That's fine, you can use it without the rest.
   <br/>
+  You are free to cherry pick any do-one-thing-do-it-well library as you want.
+  You want to use only one Reframe library? That's fine: you can use it without the rest of Reframe.
 - **No lock-in.**
   <br/>
+  You can quickly get started by using a starter and later replace Reframe libraries as you see fit.
+  Removing Reframe simply means removing each Reframe library
   You can start with and than replace libraries.
   For example,
   you can start using Reframe's auto-deploy library and later replace it with your custom deploy strategy.
@@ -66,26 +67,24 @@ you can replace any library with another one, or with your custom implementation
 For example you can use a Reframe starter and later replace [Wildcard API] with a RESTful/GraphQL API.
 React with the next cool thing (yes, we are [evaluating Svlete]()).
 
-**Robust**
+**Robust** :mountain:
 
-Libraries
+A 0-LOC framework is also fundamentally more robust:
 
-**Robust libraries** -
-Do-one-thing-do-it-well libraries tend to be robust.
-They usually compete with many libraries that do the same thing
-and the best ones can survive a very long time resulting into a hardened and rock-solid library.
+- **Robust libraries** -
+  <br/>
+  Do-one-thing-do-it-well libraries tend to be robust.
+  They usually compete with many libraries that do the same thing
+  and the best ones can survive a very long time resulting into a hardened and rock-solid library.
 
-**Robust framework** -
-All do-one-thing-do-it-well libraries work independently of each other which makes Reframe future proof.
-Something new appears and makes a library obselete?
-That's cool and adopting this new technology is only a matter of switching out a do-one-thing-do-it-well library
-while the rest of Reframe works as before.
-This is fundamentally more flexible and robust than monolothic frameworks that interleave everything.
+- **Robust framework** -
+  <br/>
+  Adopting the next new technolgoy means switching out one or two do-one-thing-do-it-well libraries,
+  while the rest of Reframe works as before.
+  This is fundamentally more flexible, robust, and future-proof than monolothic frameworks that interleave everything.
 
-For example, a new view library comes and makes React obsolete?
-That's cool and you'll be able to use this new view library since all Reframe libraries work with any view library.
-
-**Framework collaboration** -
-Framework authors reinvent the wheel over and over again.
-A Reframe library can be used within another framework, and we hope that framework authors will follow the 0-LOC philosophy so that Reframe can start using libraries of other frameworks.
-We envision a future where frameworks share libraries for a more vibrant and robust JavaScript ecosystem.
+- **Framework collaboration** -
+  <br/>
+  A Reframe library can be used within another framework.
+  We hope that framework authors will follow the 0-LOC philosophy so that Reframe can start using libraries of other frameworks.
+  We envision a future where frameworks share libraries for a more vibrant and robust JavaScript ecosystem.
