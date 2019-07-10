@@ -34,7 +34,7 @@ Reframe is a collection of:
   <br/>&nbsp;&nbsp;&nbsp;&nbsp; 1. It takes care of one thing and one thing only.
   <br/>&nbsp;&nbsp;&nbsp;&nbsp; 2. It can be used independently of other libraries.
   <br/>
-  Libraries are unopinionated and can be used for all kinds of uses cases.
+  Libraries are unopinionated and can be used for a broad range of uses cases.
 - **Starters.**
   <br/>
   A starter assembles libraries into a well-polished scaffold (aka boilerplate) allowing you to quickly get started.
@@ -49,23 +49,14 @@ A 0-LOC framework introduces a fundamental shift in freedom:
 
 - **Cherry pick libraries.** -
   <br/>
-  You are free to cherry pick any do-one-thing-do-it-well library as you want.
+  Each library we write can be used independently: you can use
+  You are free to cherry pick any Reframe library as you want.
   You want to use only one Reframe library? That's fine: you can use it without the rest of Reframe.
 - **No lock-in.**
   <br/>
-  You can quickly get started by using a starter and later replace Reframe libraries as you see fit.
-  Removing Reframe simply means removing each Reframe library
-  You can start with and than replace libraries.
-  For example,
-  you can start using Reframe's auto-deploy library and later replace it with your custom deploy strategy.
-
-  Removable
-For example, among all Reframe libraries, you can choose to use only [Wildcard API](),
-or you can choose a Reframe starter but use another ORM.
-There is no lock-in;
-you can replace any library with another one, or with your custom implementation.
-For example you can use a Reframe starter and later replace [Wildcard API] with a RESTful/GraphQL API.
-React with the next cool thing (yes, we are [evaluating Svlete]()).
+  You can quickly get started by using a starter while later replace Reframe libraries as you see fit.
+  You can progressively remove Reframe libraries one by one, and, if you remove all Reframe libraries, then you effectively remove
+  all source code written by us.
 
 **Robust** :mountain:
 
