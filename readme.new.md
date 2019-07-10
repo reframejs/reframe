@@ -1,24 +1,47 @@
 # Reframe
 
-Reframe is a collection of libraries and starters for creating web apps with:
+- [What is Reframe](#what-is-reframe)
+- [Getting Started](#getting-started)
+- [0-LOC Framework](#0-loc-framework)
+
+### What is Reframe
+
+With Reframe you can create web apps featuring:
 - Interactive views (with React, Vue, ...)
 - Node.js Server (with Hapi, Koa, Express, ...)
 - Database & ORM (with Objection.js, Prisma, ...)
 - API (with [Wildcard]())
 - SSR (with [SSR Coin]())
+- [WIP] Automatic deployment
+- [WIP] Admin panel
+- [WIP] CMS
 
+Reframe is, what we call, a *0-LOC* framework: Reframe itself has no source code and the [github.com/reframejs](https://github.com/reframejs) organisation is merely a collection of libraries and starters.
+You can achieve the same things than other frameworks (Django, Rails, Next.js, ...) but with a fundamental increase in freedom and robustness.
 
-Reframe is what we call a *0-LOC framework*:
-this repository has no source code
-and [github.com/reframejs](https://github.com/reframejs) is merely a collection of:
+Also, we have [couple]() of [crazy]() ideas :-).
+
+### Getting Started
+
+Choose a starter to get started: [github.com/topics/reframe-starter](https://github.com/topics/reframe-starter).
+
+### 0-LOC Framework
+
+Reframe is a collection of:
  - **Libraries.**
    Each libary is a do-one-thing-do-it-well library:
-   a library takes care of one thing and one thing only and can be used independently of other libraries.
+   1. It takes care of one thing and one thing only
+   2. It can be used independently of other libraries.
+   You like a Reframe library but you don't want the rest of Reframe? That's fine, you can use this library and not the rest.
+   Libraries are often unopinionated and can be used in for all kinds of uses cases.
+   Libraries and often more robust than frameworks that have multiple concerns.
  - **Starters.**
    A starter assembles libraries into a well-polished scaffold so you can quickly get started (aka boilerplate).
-   Starters aim to be as easy to use and as feature-rich as monolithic frameworks (Django, Rails, ...).
+   Starters are opinionated and tailerod towards specific use cases.
+   Using a starter provides a similar experience than using a monolithic framework (Django, Rails, ...).
 
-The benefits of the 0-LOC approach are plenty:
+We call a framework that has no source code and is only a collection of libraries and starters a *0-LOC framework*.
+The benefits are plenty:
 
 **Freedom** -
 You are entirely free to cherry pick as few, as many, and any do-one-thing-do-it-well library you want.
@@ -44,18 +67,4 @@ That's cool and you'll be able to use this new view library since all Reframe li
 All do-one-thing libraries we wrote can be used independently and even within a framework other than Reframe.
 We hope that other frameworks will follow the 0-LOC philosophy and we envision a future were Reframe uses
 the library of other 0-LOC frameworks and vice-versa.
-
-
-Current list of Starters:
- - Reframe Objection - Create a SQL-centric app with database, API, and interactive views
- - Reframe Prisma [WIP] - Create An ORM-centric app with database, API, and interactive views
- - Reframe Static Website [WIP] - A static website with modern technologies
-
-Work-in-progress:
-- Automatic deployment - [WIP ticket #9]()
-- Admin panel - [WIP ticket #1]()
-- CMS - [WIP ticket #3]()
-
-We also have [couple]() of [crazy]() ideas ;-).
-If this all excits you, then join us!
 
