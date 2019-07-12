@@ -59,7 +59,7 @@
 
 ## What is Reframe
 
-With Reframe you can create web apps that features:
+With Reframe you can create web apps that feature:
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
 Interactive views (with React, Vue, ...)
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
@@ -71,7 +71,7 @@ API (with [Wildcard](https://github.com/reframejs/wildcard-api))
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
 SSR (with [SSR Coin](https://github.com/reframejs/ssr-coin))
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-[WIP] Automatic deployment, Admin panel, CMS
+WIP: Automatic deployment, Admin panel, CMS
 
 Reframe is a *0-LOC framework*: it has no source code and [github.com/reframejs](https://github.com/reframejs) is merely a collection of libraries and starters.
 You can get started as quickly as other frameworks (Django, Rails, Next.js, ...) but with a fundamental increase in freedom and robustness.
@@ -96,16 +96,14 @@ Reframe is a collection of:
 
 We call this a *0-LOC framework*: a framework that has no source code and that is only a collection of libraries and starters.
 
-**Benefits**
-
-A 0-LOC framework introduces a fundamental shift in freedom:
+For more freedom:
 
 - **Cherry pick libraries** -
   Each library can be used individually and independently of other libraries. You can choose which libraries you want to use.
 - **No lock-in** -
   Reframe being merely a collection of libraries and starters, there is virtually no lock-in.
 
-A 0-LOC framework is also fundamentally more robust:
+For more robustness:
 
 - **Robust libraries** -
   Do-one-thing-do-it-well libraries tend to be robust.
