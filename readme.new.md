@@ -49,10 +49,14 @@
     </sup>
 </p>
 &nbsp;
-
-- [What is Reframe](#what-is-reframe)
-- [Getting Started](#getting-started)
-- [0-LOC Framework](#0-loc-framework)
+<p align='center'>
+<a href="#what-is-reframe">What is Reframe</a>
+&nbsp; | &nbsp;
+<a href="#getting-started">Getting Started</a>
+&nbsp; | &nbsp;
+<a href="#0-loc-framework">0-LOC Framework</a>
+</p>
+&nbsp;
 
 ## What is Reframe
 
@@ -73,10 +77,14 @@ SSR (with [SSR Coin](https://github.com/reframejs/ssr-coin))
 Reframe is a *0-LOC framework*: it has no source code and [github.com/reframejs](https://github.com/reframejs) is merely a collection of libraries and starters.
 You can get started as quickly as other frameworks (Django, Rails, Next.js, ...) but with a fundamental increase in freedom and robustness.
 
+
+<br/>
 ## Getting Started
 
 Choose a starter to get started: [github.com/topics/reframe-starter](https://github.com/topics/reframe-starter).
 
+
+<br/>
 ## 0-LOC Framework
 
 Reframe is a collection of:
