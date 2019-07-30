@@ -89,6 +89,8 @@ but with a fundamental increase in freedom and robustness.
 
 Choose a starter to get started: [github.com/topics/reframe-starter](https://github.com/topics/reframe-starter).
 
+(There is only one starter for now but expect more starters soon.)
+
 <br/>
 
 ## 0-LOC Framework
