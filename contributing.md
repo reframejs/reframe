@@ -1,7 +1,7 @@
 Reframe is **very much open for co-maintainer(s)** and warmly welcomes contributions.
 
 - **_Contributor_**
-  - You author one or couple of commits to Reframe's codebase. Mostly bug fixes.
+  - You author one or couple of commits to Reframe's codebase.
 - **_Maintainer_**
   - You own substantial parts of Reframe's codebase.
   - You work closely with Romuald.
@@ -13,7 +13,7 @@ Reframe is **very much open for co-maintainer(s)** and warmly welcomes contribut
 
 #### Contents
 
- - [Maintainer](#maintainer) - Why you may consider become a Reframe maintainer.
+ - [Maintainer](#maintainer) - Why you may consider to become a Reframe maintainer.
  - [Contribute](#contribute) - How to contribute.
 
 <br/>
@@ -38,7 +38,7 @@ Why should I become a maintainer?
   <br/>
   It deepens and strengthens your skills & aptitude.
   <br/>
-  Reframe likes to push the boundary of what's possible.
+  We push the boundary of what's possible.
   Going deep brings invaluable lessons on many levels.
   I (Romuald) can say that Reframe is the thing in my life that increased my aptitude the most, and that by far.
 - Opens doors.
