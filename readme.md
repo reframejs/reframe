@@ -1,80 +1,3 @@
-<!---
-
-
-
-
-
-
-    WARNING, READ THIS.
-    This is a computed file. Do not edit.
-    Edit `/docs/intro.template.md` instead.
-
-
-
-
-
-
-
-
-
-
-
-
-    WARNING, READ THIS.
-    This is a computed file. Do not edit.
-    Edit `/docs/intro.template.md` instead.
-
-
-
-
-
-
-
-
-
-
-
-
-    WARNING, READ THIS.
-    This is a computed file. Do not edit.
-    Edit `/docs/intro.template.md` instead.
-
-
-
-
-
-
-
-
-
-
-
-
-    WARNING, READ THIS.
-    This is a computed file. Do not edit.
-    Edit `/docs/intro.template.md` instead.
-
-
-
-
-
-
-
-
-
-
-
-
-    WARNING, READ THIS.
-    This is a computed file. Do not edit.
-    Edit `/docs/intro.template.md` instead.
-
-
-
-
-
-
--->
 <a href="/../../#readme">
     <img align="left" src="https://github.com/reframejs/reframe/raw/master/docs/images/logo-with-title-and-slogan.min.svg?sanitize=true" width=296 height=79 style="max-width:100%;" alt="Reframe"/>
 </a>
@@ -126,363 +49,77 @@
     </sup>
 </p>
 &nbsp;
-<p align='center'><a href="/../../#readme"><b>Intro</b></a> &nbsp; | &nbsp; <a href="/docs/starters.md#readme">Starters</a> &nbsp; | &nbsp; <a href="/docs/usage-manual.md#readme">Usage Manual</a> &nbsp; | &nbsp; <a href="/docs/concepts.md#readme">Concepts</a> &nbsp; | &nbsp; <a href="/docs/plugins.md#readme">Plugins</a></p>
-&nbsp;
+<p align='center'>
+<a href="#what-is-reframe">What is Reframe</a>
+&nbsp; | &nbsp;
+<a href="#getting-started">Getting Started</a>
+&nbsp; | &nbsp;
+<a href="#0-loc-framework">0-LOC Framework</a>
+</p>
 
-Framework to create web apps.
+## What is Reframe
 
-Designed for high development speed with no sacrifice on flexibility.
-
-Assembles a JavaScript stack that integrates with:
+Reframe allows you to quickly create web apps with:
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-Node.js server (Express, Koa, Hapi, ...)
+Interactive views (with React, Vue, ...)
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-Modern frontend (React, Vue.js, React Native Web, ...)
+Server (with Node.js and Hapi, Koa, Express, ...)
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-Node.js ORM (Objection.js, TypeORM, ...)
+Database & ORM (with Objection.js, Prisma, ...)
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-Utils (TypeScript, React Router, PostCSS, ...)
-
-All stacks are supported:
+API (with [Wildcard](https://github.com/reframejs/wildcard-api))
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-frontend + backend + database/ORM (aka full-stack)
+SSR (with [SSR Coin](https://github.com/reframejs/ssr-coin))
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-frontend + backend (aka SSR)
+WIP: Automatic deployment & Admin panel
+
+Reframe is a *0-LOC framework*: it has no source code and [github.com/reframejs](https://github.com/reframejs) is merely a collection of:
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-frontend-only (aka static site)
+do-one-thing-do-it-well libraries, and
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-backend-only (aka old-school app with plain old HTML)
+starters that assembles these libraries into a ready-to-use boilerplate to quickly get started.
+
+Reframe allows you to develop as quickly as other frameworks,
+such as Ruby on Rails or Django,
+but with a fundamental increase in freedom and robustness.
 
 <br/>
 
-<a href="/examples/simple/pages/welcome.config.js" target="_blank">
-<img src='https://github.com/reframejs/reframe/raw/master/docs/images/previews/welcome.png?sanitize=true' align="left"/>
-</a>
-We create an app simply by defining a React component and a so-called page config.
-No build configuration,
-no server configuration.
-(But, if you want, you can configure and take control over everything.)
+## Getting Started
 
-<br/>
-<br/>
-
-#### Contents
-
- - [Flexible](#flexible)
- - [Quick Start](#quick-start)
- - [Example](#example)
+Choose a starter to get started: [github.com/topics/reframe-starter](https://github.com/topics/reframe-starter).
 
 <br/>
 
-## Flexible
+## 0-LOC Framework
 
-Web frameworks have a bad reputation regarding flexibility.
-There is a general belief that there is a trade off between development speed and flexibility
-and that a web framework always comes with a lost in flexibility.
-We believe it doesn't have to be that way.
+Reframe consists only of:
+- **Libraries** -
+  Each library is a do-one-thing-do-it-well library:
+  it takes care of one thing and one thing only.
+  It can be used independently of Reframe and independently of other libraries.
+- **Starters** -
+  A starter assembles libraries into a well-polished and ready-to-use scaffold (aka boilerplate) for you to quickly get started.
 
-Reframe is designed from the ground up to be entirely flexible,
-based on three pillars:
+We call Reframe a *0-LOC framework*: a framework that has no source code but is only a collection of libraries and starters.
 
-1. **Eject** -
-   All Reframe parts are ejectable:
-   You can eject and take control over
-   the build code,
-   the webpack config,
-   the render code,
-   the routing code,
-   the server code,
-   ...
+For more freedom:
 
-2. **Slim** -
-   Most code we write are for do-one-thing-do-it-well libraries that can be used independently of Reframe.
-   Reframe in itself is only a tiny ejectable wrapper on top of do-one-thing-do-it-well libraries.
+- **Cherry pick libraries** -
+  Each library can be used individually and independently of other libraries. You can choose which libraries you want to use.
+- **No lock-in** -
+  Reframe is merely a collection of libraries and starters &mdash; there is virtually no lock-in.
 
-3. **Flexible stack** -
-   You can easily
-   and at any time
-   change your app's stack.
-   For example, you can start with a static site
-   and add a Node.js server afterwards.
+For more robustness:
 
-Benefits of that flexibility:
+- **Robust libraries** -
+  Do-one-thing-do-it-well libraries
+  often survive a long time resulting into hardened and rock-solid tools.
 
-**Take Over Control** -
-Not only can you eject and take control over everything,
-but you can do so
-progressively,
-one Reframe part at a time.
-Reframe is slim
-and ejecting everything leaves you with only ~500 LOC.
+- **Robust framework** -
+  Being based on robust libraries is not only a robust foundation but also a flexible and future-proof one:
+  Reframe libraries can easily be used with the tools of tomorrow.
 
-**Removable** -
-Ejecting all Reframe parts effectively removes Reframe:
-Your code then doesn't depend on @reframe packages but only on do-one-thing-do-it-well libraries
-(such as React, Express, Webpack, ...).
-
-**Rapid Prototyping** -
-When starting out,
-you most often don't know what stack is right for you.
-Reframe embraces that:
-you can change your app's stack at any time.
-You don't know whether or not you need SSR?
-Start with your best guest and add/remove SSR
-as you go.
-
-<b><sub><a href="#contents">&#8679; TOP  &#8679;</a></sub></b>
-
-<br/>
-<br/>
-
-
-
-
-
-## Quick Start
-
-1. Install the Reframe CLI:
-   ~~~shell
-   $ npm install -g @reframe/cli
-   ~~~
-   <details>
-   <summary>With yarn</summary>
-
-   ~~~shell
-   $ yarn global add @reframe/cli
-   ~~~
-   </details>
-   <details>
-   <summary>With npx (local install)</summary>
-
-   Instead of globally installing `@reframe/cli`, you can use
-   [npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b):
-   ~~~shell
-   $ npx @reframe/cli create react-frontend
-   ~~~
-
-   Then prefix every `$ reframe <command>` with `npx`.
-   For example:
-   ~~~shell
-   $ cd my-react-frontend/
-   $ npx reframe dev
-   ~~~
-   npx uses the `@reframe/cli` locally installed at `my-react-frontend/node_modules/@reframe/cli`.
-   <br/><br/>
-   </details>
-
-2. Create a new app with the `react-frontend` starter:
-   ~~~shell
-   $ reframe create react-frontend
-   ~~~
-
-3. Build and serve the app:
-   ~~~shell
-   $ cd my-react-frontend/
-   $ reframe dev
-   ~~~
-
-4. Open [http://localhost:3000](http://localhost:3000).
-
-5. Read [Usage Manual - Basics](/docs/usage-manual.md#basics).
-
-> The
-> [react-frontend](/plugins/create/starters/react-frontend#readme)
-> starter scaffolds a static site.
-> There are other starters to scaffold
-> a SSR app, a backend-only app, a full-stack app, etc.
-> See [Starters](/docs/starters.md#readme).
-
-<b><sub><a href="#contents">&#8679; TOP  &#8679;</a></sub></b>
-
-<br/>
-<br/>
-
-
-
-
-
-## Example
-
-Showcase of a database + server + frontend stack.
-
-Let's create our app.
-First, we define our data models with
-[Objection.js](https://github.com/Vincit/objection.js):
-
-~~~js
-const {Model} = require('objection');
-
-class Person extends Model {
-  static tableName = 'persons';
-  static jsonSchema = {
-    properties: {
-      id: {type: 'integer'},
-      name: {type: 'string'}
-    }
-  };
-}
-
-module.exports = Person;
-~~~
-~~~js
-const {Model} = require('objection');
-const Person = require('./Person');
-
-class Animal extends Model {
-  static tableName = 'animals';
-  static jsonSchema = {
-    properties: {
-      id: {type: 'integer'},
-      name: {type: 'string'},
-      ownerId: {type: 'integer'}
-    }
-  };
-  static relationMappings = {
-    owner: {
-      relation: Model.BelongsToOneRelation,
-      modelClass: Person,
-      join: {
-        from: 'animals.ownerId',
-        to: 'persons.id'
-      }
-    }
-  };
-}
-
-module.exports = Animal;
-~~~
-
-Then, we create an endpoint using [Wildcard API](https://github.com/brillout/wildcard-api#readme):
-~~~js
-const {endpoints} = require('wildcard-api');
-const Person = require('../db/models/Person');
-const Animal = require('../db/models/Animal');
-
-// We create an endpoint to retrieve all the data that our PetsPage need.
-
-endpoints.getPetsPageData = async function(personId) {
-  const person = await Person.query().findOne('id', personId);
-  const pets = await Animal.query().where('ownerId', personId);
-  return {person, pets};
-};
-~~~
-
-Finally, we create `PetsPage`, a page to view a person's pets:
-~~~jsx
-import React from 'react';
-import {endpoints} from 'wildcard-api/client';
-
-export default {
-  route: '/pets/:personId',
-  view: Pets,
-  getInitialProps,
-};
-
-function Pets({person, pets}) {
-  return (
-    <div>
-      {person.name}'s pets:
-      { pets.map(pet =>
-        <div key={pet.id}>{pet.name}</div>
-      ) }
-    </div>
-  );
-}
-
-async function getInitialProps({personId}) {
-  const {person, pets} = await endpoints.getPetsPageData(personId);
-  return {person, pets};
-}
-~~~
-
-That's it:
-We create a full-stack app with
-no build configuration,
-no server configuration,
-no API configuration.
-
-The [react-sql starter](/plugins/create/starters/react-sql#readme)
-scaffolds such Reframe + Objection + Wildcard API stack.
-
-<b><sub><a href="#contents">&#8679; TOP  &#8679;</a></sub></b>
-
-<br/>
-<br/>
-
-<!---
-
-
-
-
-
-
-    WARNING, READ THIS.
-    This is a computed file. Do not edit.
-    Edit `/docs/intro.template.md` instead.
-
-
-
-
-
-
-
-
-
-
-
-
-    WARNING, READ THIS.
-    This is a computed file. Do not edit.
-    Edit `/docs/intro.template.md` instead.
-
-
-
-
-
-
-
-
-
-
-
-
-    WARNING, READ THIS.
-    This is a computed file. Do not edit.
-    Edit `/docs/intro.template.md` instead.
-
-
-
-
-
-
-
-
-
-
-
-
-    WARNING, READ THIS.
-    This is a computed file. Do not edit.
-    Edit `/docs/intro.template.md` instead.
-
-
-
-
-
-
-
-
-
-
-
-
-    WARNING, READ THIS.
-    This is a computed file. Do not edit.
-    Edit `/docs/intro.template.md` instead.
-
-
-
-
-
-
--->
+- **Framework collaboration** -
+  We hope our fellow framework authors to follow the 0-LOC philosophy and
+  we envision a future where frameworks share many libraries for a more vibrant and robust JavaScript ecosystem.
