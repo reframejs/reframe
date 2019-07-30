@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 78 91" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="c" x1=".19794" x2=".90106" y1=".32813" y2=".57813">
+<stop stop-color="#6c79f0" offset="0"/>
+<stop stop-color="#20a2e8" offset="1"/>
+</linearGradient>
+<linearGradient id="b" x1="1" y1="1">
+<stop stop-color="#6c79f0" offset="0"/>
+<stop stop-color="#a85af7" offset="1"/>
+</linearGradient>
+<linearGradient id="a" x1=".85419" x2=".24872" y1=".82813" y2=".42188">
+<stop stop-color="#d043fb" offset="0"/>
+<stop stop-color="#a85af7" offset="1"/>
+</linearGradient>
+</defs>
+<g stroke="null">
+<polygon points="77.701 47.3 77.701 47.3 52.92 61.9 28.138 47.5 28.237 76.5 53.019 90.9 77.8 76.3" fill="url(#c)"/>
+<polygon points="49.563 31.2 24.683 16.9 0 31.5 0.098724 60.4 24.979 74.8 24.781 45.8" fill="url(#b)"/>
+<polygon points="52.92 57.9 77.701 43.4 77.504 14.4 52.722 0 28.04 14.6 52.821 29" fill="url(#a)"/>
+</g>
+</svg>
