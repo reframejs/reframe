@@ -54,7 +54,7 @@
 &nbsp; | &nbsp;
 <a href="#getting-started">Getting Started</a>
 &nbsp; | &nbsp;
-<a href="#0-loc-framework">0-LOC Framework</a>
+<a href="#zero-loc">Zero-LOC</a>
 </p>
 
 ## What is Reframe
@@ -73,14 +73,13 @@ SSR (with [SSR Coin](https://github.com/reframejs/ssr-coin))
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
 WIP: Automatic deployment & Admin panel
 
-Reframe is a *0-LOC framework*: it has no source code and [github.com/reframejs](https://github.com/reframejs) is merely a collection of:
-<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-do-one-thing-do-it-well libraries, and
-<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-starters that assembles these libraries into a ready-to-use boilerplate to quickly get started.
+Reframe is a *Zero-LOC framework*:
+it has no source code &mdash;
+instead,
+it is merely a collection of libraries and starters.
 
-Reframe allows you to develop as quickly as other frameworks,
-such as Ruby on Rails or Django,
+Reframe allows you to develop as quickly as other web frameworks
+(Next.js, Ruby on Rails, Django, ...)
 but with a fundamental increase in freedom and robustness.
 
 <br/>
@@ -89,11 +88,11 @@ but with a fundamental increase in freedom and robustness.
 
 Choose a starter to get started: [github.com/topics/reframe-starter](https://github.com/topics/reframe-starter).
 
-(There is only one starter for now but expect more starters soon.)
+(There is only one starter for now but expect more soon.)
 
 <br/>
 
-## 0-LOC Framework
+## Zero-LOC
 
 Reframe consists only of:
 - **Libraries** -
@@ -101,18 +100,18 @@ Reframe consists only of:
   it takes care of one thing and one thing only.
   It can be used independently of Reframe and independently of other libraries.
 - **Starters** -
-  A starter assembles libraries into a well-polished and ready-to-use scaffold (aka boilerplate) for you to quickly get started.
+  A starter assembles libraries into a well-polished scaffold (aka boilerplate) for you to quickly get started.
 
-We call Reframe a *0-LOC framework*: a framework that has no source code but is only a collection of libraries and starters.
+We call this a *Zero-LOC framework*: a framework that has no source code but is only a collection of libraries and starters.
 
-For more freedom:
+For more freedom.
 
 - **Cherry pick libraries** -
   Each library can be used individually and independently of other libraries. You can choose which libraries you want to use.
 - **No lock-in** -
   Reframe is merely a collection of libraries and starters &mdash; there is virtually no lock-in.
 
-For more robustness:
+For more robustness.
 
 - **Robust libraries** -
   Do-one-thing-do-it-well libraries
@@ -123,5 +122,5 @@ For more robustness:
   Reframe libraries can easily be used with the tools of tomorrow.
 
 - **Framework collaboration** -
-  We hope our fellow framework authors to follow the 0-LOC philosophy and
+  We hope our fellow framework authors to follow the Zero-LOC philosophy and
   we envision a future where frameworks share many libraries for a more vibrant and robust JavaScript ecosystem.
