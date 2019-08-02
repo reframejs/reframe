@@ -1,4 +1,4 @@
-Reframe is **very much open for co-maintainer(s)** and warmly welcomes contributions.
+**We are looking for co-maintainers** and we warmly welcomes contributions.
 
 - **_Contributor_**
   - You author one or couple of commits to Reframe's codebase.
@@ -21,11 +21,8 @@ Reframe is **very much open for co-maintainer(s)** and warmly welcomes contribut
 
 # Maintainer
 
-Reframe is currently maintained by Romuald ([twitter.com/brillout](https://twitter.com/brillout))
-who is commited to the project for the years/decades to come.
-
 To expand the project's scope,
-Reframe is looking for a co-maintainer.
+Reframe is looking for co-maintainers.
 
 Why should I become a maintainer?
 - Purpose.
