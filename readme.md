@@ -60,21 +60,24 @@
 ## What is Reframe
 
 Reframe is a framework to create web apps.
-It is a Zero-LOC framework &mdash; Reframe consists only of do-one-thing-do-it-well libraries and starters.
+
+It is a Zero-LOC framework; Reframe consists only of do-one-thing-do-it-well libraries and starters.
 
 Starters:
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-[reframe-full-stack](https://github.com/reframejs/reframe-full-stack): Full-stack app:
+[reframe-full-stack](https://github.com/reframejs/reframe-full-stack) -
+Full-stack app:
 Frontend (React) + Backend (Node.js, Hapi) + API (Wildcard) + SSR (ssr-coin).
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-[reframe-static-website](https://github.com/reframejs/reframe-static-website): Static website:
+[reframe-static-website](https://github.com/reframejs/reframe-static-website) -
+Static website:
 Frontend (React) + Static Rendering (ssr-coin).
 
 Libraries:
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-[ssr-coin](https://github.com/reframejs/ssr-coin) - :o: Add SSR to your app.
+[ssr-coin](https://github.com/reframejs/ssr-coin) - Add SSR to your app.
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-[Wildcard](https://github.com/reframejs/wildcard-api) - :o: JavaScript Functions as API
+[Wildcard](https://github.com/reframejs/wildcard-api) - JavaScript Functions as API
 
 <br/>
 
@@ -95,8 +98,8 @@ You already have a server (e.g. a Java backend)  &#8658; [reframe-static-website
 You need a database &#8658; [reframe-full-stack](https://github.com/reframejs/reframe-full-stack).
 
 For more specific stack requirements
-you can use a community starter ([github.com/topics/reframe-starter](https://github.com/topics/reframe-starter))
-or you can assemble ssr-coin and/or Wildcard yourself into a custom stack.
+you can use [a community starter](https://github.com/topics/reframe-starter)
+or you can assemble ssr-coin and/or Wildcard into a custom stack yourself.
 (Our libraries can be used individually and independently of each other.)
 
 <br/>
