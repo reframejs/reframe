@@ -1,13 +1,13 @@
 **We are looking for co-maintainers** and we warmly welcomes contributions.
 
 - **_Contributor_**
-  - You author one or couple of commits to Reframe's codebase.
+  - You commit one or couple of patches to our codebase.
 - **_Maintainer_**
-  - You own substantial parts of Reframe's codebase.
-  - You work closely with Romuald.
+  - You own substantial parts of our codebase.
+  - You work closely with [Brillout](https://github.com/brillout).
   - You are a senior developer.
     It doesn't matter whether you have experience with JavaScript or not.
-    But it does matter that you are well-versed in software engineering or in computer science.
+    But it does matter that you are well-versed in software engineering and/or computer science.
 
 <br/>
 
@@ -37,7 +37,7 @@ Why should I become a maintainer?
   <br/>
   We push the boundary of what's possible.
   Going deep brings invaluable lessons on many levels.
-  I (Romuald) can say that Reframe is the thing in my life that increased my aptitude the most, and that by far.
+  I ([Brillout](https://github.com/brillout)) can say that Reframe is the thing in my life that increased my aptitude the most, and that by far.
 - Opens doors.
   <br/>
   Being an open source developer is highly regarded by companies, startup executives, and investors.
