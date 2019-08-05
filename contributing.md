@@ -1,4 +1,4 @@
-**We are looking for co-maintainers** and we warmly welcomes contributions.
+**We are looking for co-maintainers** and we warmly welcome contributions.
 
 - **_Contributor_**
   - You commit one or couple of patches to our codebase.
@@ -7,7 +7,7 @@
   - You work closely with [brillout](https://github.com/brillout).
   - You are a senior developer.
     It doesn't matter whether you have experience with JavaScript or not.
-    But it does matter that you are well-versed in software engineering and/or computer science.
+    But it is crucial that you are well-versed in software engineering and/or computer science.
 
 <br/>
 
@@ -52,5 +52,5 @@ Why should I become a maintainer?
 
 - Common sense is the main guideline.
 - Before working on a big PR, open an issue so that we discuss your changes before you work on them.
-- Opening smallish PRs without prior discussion is fine.
+- Opening a smallish PR without prior discussion is fine.
 - There is no code style (yet).
