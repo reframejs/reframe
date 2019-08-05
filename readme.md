@@ -64,9 +64,11 @@ It is a Zero-LOC framework &mdash; Reframe consists only of do-one-thing-do-it-w
 
 Starters:
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-[reframe-full-stack](https://github.com/reframejs/reframe-full-stack): :rocket: Full-stack app starter: Interactive Frontend (React) + SSR (ssr-coin) + Node.js Server (Hapi) + API (Wildcard).
+[reframe-full-stack](https://github.com/reframejs/reframe-full-stack): Full-stack app:
+Frontend (React) + Backend (Node.js, Hapi) + API (Wildcard) + SSR (ssr-coin).
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-[reframe-static-website](https://github.com/reframejs/reframe-static-website): :rocket: Static website starter: Interactive Frontend (React) + Static Rendering (ssr-coin).
+[reframe-static-website](https://github.com/reframejs/reframe-static-website): Static website:
+Frontend (React) + Static Rendering (ssr-coin).
 
 Libraries:
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
@@ -85,9 +87,12 @@ if you need a server and the
 otherwise.
 
 For example:
-- Your app don't require a server (a blog, a homepage, ...) :fast_forward: [reframe-static-website](https://github.com/reframejs/reframe-static-website).
-- You already have a server (e.g. a Java backend) :fast_forward: [reframe-static-website](https://github.com/reframejs/reframe-static-website).
-- You need a database :fast_forward: [reframe-full-stack](https://github.com/reframejs/reframe-full-stack).
+<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
+Your app don't require a server (a blog, a homepage, ...) &#8658; [reframe-static-website](https://github.com/reframejs/reframe-static-website).
+<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
+You already have a server (e.g. a Java backend)  &#8658; [reframe-static-website](https://github.com/reframejs/reframe-static-website).
+<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
+You need a database &#8658; [reframe-full-stack](https://github.com/reframejs/reframe-full-stack).
 
 For more specific stack requirements
 you can use a community starter ([github.com/topics/reframe-starter](https://github.com/topics/reframe-starter))
@@ -99,12 +104,14 @@ or you can assemble ssr-coin and/or Wildcard yourself into a custom stack.
 ## Zero-LOC
 
 The github.com/reframejs organisation is merely a collection of:
-- **Libraries** -
-  Each library is a do-one-thing-do-it-well library:
-  it takes care of one thing and one thing only
-  and can be used individually and independently of other libraries.
-- **Starters** -
-  A starter assembles libraries into a well-polished scaffold (aka boilerplate) for you to quickly get started.
+<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
+**Libraries** -
+Each library is a do-one-thing-do-it-well library:
+it takes care of one thing and one thing only
+and can be used individually and independently of other libraries.
+<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
+**Starters** -
+A starter assembles libraries into a well-polished scaffold (aka boilerplate) for you to quickly get started.
 
 We call this a *Zero-LOC framework*: a framework that has no source code but consists only of libraries and starters.
 
@@ -113,25 +120,26 @@ A Zero-LOC framework allows you to develop as quickly as monolithic frameworks
 but with a fundamental increase in freedom and robustness.
 
 Freedom:
-
-- **Cherry pick libraries** -
-  Each library can be used individually and independently of other libraries. You can choose which libraries you want to use.
-- **No lock-in** -
-  Reframe is merely a collection of libraries and starters &mdash; there is virtually no lock-in.
+<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
+**Cherry pick libraries** -
+Each library can be used individually and independently of other libraries. You can choose which libraries you want to use.
+<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
+**No lock-in** -
+Reframe is merely a collection of libraries and starters &mdash; there is virtually no lock-in.
 
 Robustness:
-
-- **Robust libraries** -
-  Do-one-thing-do-it-well libraries
-  often survive a long time resulting into hardened and rock-solid tools.
-
-- **Robust framework** -
-  Being based on robust libraries is not only a robust foundation but also a flexible and future-proof one:
-  Reframe libraries can easily be used with the tools of tomorrow.
-
-- **Framework collaboration** -
-  We hope our fellow framework authors to follow the Zero-LOC philosophy and
-  we envision a future where frameworks share many libraries for a more vibrant and robust JavaScript ecosystem.
+<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
+**Robust libraries** -
+Do-one-thing-do-it-well libraries
+often survive a long time resulting into hardened and rock-solid tools.
+<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
+**Robust framework** -
+Being based on robust libraries is not only a robust foundation but also a flexible and future-proof one:
+Reframe libraries can easily be used with the tools of tomorrow.
+<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
+**Framework collaboration** -
+We hope our fellow framework authors to follow the Zero-LOC philosophy and
+we envision a future where frameworks share many libraries for a more vibrant and robust JavaScript ecosystem.
 
 Reframe's vision is to develop a Zero-LOC framework that is as feature-rich as Ruby on Rails but following the Zero-LOC philosophy.
 Sounds interesting to you? [We are looking for co-maintainers](/contributing.md) ;-).
