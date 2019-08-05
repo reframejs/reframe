@@ -61,7 +61,7 @@
 
 Reframe is a framework to create web apps.
 
-It is a Zero-LOC framework; Reframe's codebase consists only of do-one-thing-do-it-well libraries and starters.
+It's a Zero-LOC framework; Reframe's codebase consists only of do-one-thing-do-it-well libraries and starters.
 
 Starters:
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
@@ -134,7 +134,7 @@ Robustness:
   often survive a long time resulting into hardened and rock-solid tools.
 - **Robust framework** -
   Being based on robust libraries is not only a robust foundation but also a flexible and future-proof one:
-  do-one-thing-do-it-well libraries can easily be used with the tools of tomorrow.
+  do-one-thing-do-it-well libraries can more easily adapt to the tools of tomorrow.
 - **Framework collaboration** -
   We hope our fellow framework authors to follow the Zero-LOC philosophy and
   we envision a future where frameworks share many libraries for a more vibrant and robust JavaScript ecosystem.
