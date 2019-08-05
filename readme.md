@@ -100,8 +100,8 @@ You want a Node.js server with a database &#8658; [reframe-full-stack](https://g
 You need SSR &#8658; [reframe-full-stack](https://github.com/reframejs/reframe-full-stack).
 
 For more specific stack requirements
-you can use [a community starter](https://github.com/topics/reframe-starter)
-or you can assemble ssr-coin and/or Wildcard into a custom stack yourself.
+you can use [a community starter](https://github.com/topics/reframe-starter).
+You can also assemble ssr-coin and/or Wildcard into a custom stack yourself.
 (Our libraries can be used individually and independently of each other.)
 
 <br/>
