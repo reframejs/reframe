@@ -59,68 +59,67 @@
 
 ## What is Reframe
 
-Reframe is a framework to quickly create web apps.
-
-Reframe is a *Zero-LOC framework*:
-it has no source code &mdash;
-instead,
-it is merely a collection of libraries and starters:
+Reframe is a framework to create web apps.
+It is a Zero-LOC framework &mdash; Reframe consists only of do-one-thing-do-it-well libraries and starters.
 
 Starters:
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-[reframe-full-stack](https://github.com/reframejs/reframe-full-stack): :rocket: Starter to create a full-stack app: Interactive Frontend (React) + SSR (ssr-coin) + Node.js Server (Hapi) + API (Wildcard).
+[reframe-full-stack](https://github.com/reframejs/reframe-full-stack): :rocket: Full-stack app starter: Interactive Frontend (React) + SSR (ssr-coin) + Node.js Server (Hapi) + API (Wildcard).
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-[reframe-static-website](https://github.com/reframejs/reframe-static-website): :rocket: Starter to create a static website: Interactive Frontend (React) + SSR (ssr-coin).
-
-A starter allows you to quickly scaffold a ready-to-use app on top of do-one-thing-do-it-well libraries such as React, or ssr-coin.
+[reframe-static-website](https://github.com/reframejs/reframe-static-website): :rocket: Static website starter: Interactive Frontend (React) + Static Rendering (ssr-coin).
 
 Libraries:
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-[ssr-coin](https://github.com/reframejs/ssr-coin) - Quickly & easily add SSR to your app.
+[ssr-coin](https://github.com/reframejs/ssr-coin) - :o: Add SSR to your app.
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-[Wildcard](https://github.com/reframejs/wildcard-api) - JvaScript Functions as API &mdash; Quickly and easily create an API using JavaScript functions.
-
-Both ssr-coin and Wildcard can be used individually, independently of each other, and with any view library (React, Vue, RNW, ...), any server framework (Express, Koa, Hapi, ...), etc.
-
-A Zero-LOC framework allows you to develop as quickly as monolithic frameworks
-(Next.js, Ruby on Rails, Django, ...)
-but with a fundamental increase in freedom and robustness.
-
-Reframe's vision is to develop a Zero-LOC framework that is as feature-rich as Ruby on Rails but following the Zero-LOC philosophy.
-Sounds interesting to you? [We are looking for co-maintainers](/contributing.md)!
+[Wildcard](https://github.com/reframejs/wildcard-api) - :o: JavaScript Functions as API
 
 <br/>
 
 ## Getting Started
 
-Choose an official starter:
-- [reframe-full-stack](https://github.com/reframejs/reframe-full-stack) - If you want an interactive frontend + Node.js server.
-- [reframe-static-website](https://github.com/reframejs/reframe-static-website) - If you want a interactive frontend withouth a Node.js server. E.g. if you don't need a server (a blog, a homepage, ...) or if you already have one (e.g. you already have a Java backend).
+We recommand the
+[reframe-full-stack](https://github.com/reframejs/reframe-full-stack) starter
+if you need a server and the
+[reframe-static-website](https://github.com/reframejs/reframe-static-website) starter
+otherwise.
 
-Or choose a community starter: [github.com/topics/reframe-starter](https://github.com/topics/reframe-starter).
+For example:
+- Your app don't require a server (a blog, a homepage, ...) :fast_forward: [reframe-static-website](https://github.com/reframejs/reframe-static-website).
+- You already have a server (e.g. a Java backend) :fast_forward: [reframe-static-website](https://github.com/reframejs/reframe-static-website).
+- You need a database :fast_forward: [reframe-full-stack](https://github.com/reframejs/reframe-full-stack).
+
+For more specific stack requirements
+you can use a community starter ([github.com/topics/reframe-starter](https://github.com/topics/reframe-starter))
+or you can assemble ssr-coin and/or Wildcard yourself into a custom stack.
+(Our libraries can be used individually and independently of each other.)
 
 <br/>
 
 ## Zero-LOC
 
-Reframe consists only of:
+The github.com/reframejs organisation is merely a collection of:
 - **Libraries** -
   Each library is a do-one-thing-do-it-well library:
-  it takes care of one thing and one thing only.
-  It can be used independently of Reframe and independently of other libraries.
+  it takes care of one thing and one thing only
+  and can be used individually and independently of other libraries.
 - **Starters** -
   A starter assembles libraries into a well-polished scaffold (aka boilerplate) for you to quickly get started.
 
-We call this a *Zero-LOC framework*: a framework that has no source code but is only a collection of libraries and starters.
+We call this a *Zero-LOC framework*: a framework that has no source code but consists only of libraries and starters.
 
-For more freedom.
+A Zero-LOC framework allows you to develop as quickly as monolithic frameworks
+(Ruby on Rails, Django, ...)
+but with a fundamental increase in freedom and robustness.
+
+Freedom:
 
 - **Cherry pick libraries** -
   Each library can be used individually and independently of other libraries. You can choose which libraries you want to use.
 - **No lock-in** -
   Reframe is merely a collection of libraries and starters &mdash; there is virtually no lock-in.
 
-For more robustness.
+Robustness:
 
 - **Robust libraries** -
   Do-one-thing-do-it-well libraries
@@ -133,3 +132,7 @@ For more robustness.
 - **Framework collaboration** -
   We hope our fellow framework authors to follow the Zero-LOC philosophy and
   we envision a future where frameworks share many libraries for a more vibrant and robust JavaScript ecosystem.
+
+Reframe's vision is to develop a Zero-LOC framework that is as feature-rich as Ruby on Rails but following the Zero-LOC philosophy.
+Sounds interesting to you? [We are looking for co-maintainers](/contributing.md) ;-).
+
