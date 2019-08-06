@@ -77,6 +77,8 @@ Libraries:
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
 [Wildcard](https://github.com/reframejs/wildcard-api) - JavaScript Functions as API.
 
+Reframe is what we call a Zero-LOC framework and allows you to get started as easily and as quickly as other web frameworks but with a fundamental increase in flexibility.
+
 <br/>
 
 ## Getting Started
@@ -106,15 +108,13 @@ You can also assemble ssr-coin and/or Wildcard into a custom stack yourself.
 
 ## Zero-LOC
 
-We call a *Zero-LOC framework* a framework that is merely a collection of:
+We call a *Zero-LOC framework*, a framework that is merely a collection of:
 - **Libraries** -
   Each library is a do-one-thing-do-it-well library:
   it takes care of one thing and one thing only
   and can be used individually and independently of other libraries.
 - **Starters** -
   A starter assembles libraries into a well-polished scaffold (aka boilerplate) for you to quickly get started.
-
-Such framework has zero line of monolithic code.
 
 A Zero-LOC framework allows you to develop as quickly as a monolithic framework
 (Ruby on Rails, Django, ...)
