@@ -59,9 +59,7 @@
 
 ## What is Reframe
 
-Reframe is a framework to create web apps.
-
-It's a Zero-LOC framework; Reframe's codebase consists only of do-one-thing-do-it-well libraries and starters.
+Reframe is a collection of libraries and starters to help you build web apps.
 
 Starters:
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
@@ -108,7 +106,7 @@ You can also assemble ssr-coin and/or Wildcard into a custom stack yourself.
 
 ## Zero-LOC
 
-[github.com/reframejs](https://github.com/reframejs) is merely a collection of:
+We call a *Zero-LOC framework* a framework that is merely a collection of:
 - **Libraries** -
   Each library is a do-one-thing-do-it-well library:
   it takes care of one thing and one thing only
@@ -116,9 +114,9 @@ You can also assemble ssr-coin and/or Wildcard into a custom stack yourself.
 - **Starters** -
   A starter assembles libraries into a well-polished scaffold (aka boilerplate) for you to quickly get started.
 
-We call this a *Zero-LOC framework*: a framework that has no monolithic source code and where the codebase consists only of libraries and starters.
+Such framework has zero line of monolithic code.
 
-A Zero-LOC framework allows you to develop as quickly as monolithic frameworks
+A Zero-LOC framework allows you to develop as quickly as a monolithic framework
 (Ruby on Rails, Django, ...)
 but with a fundamental increase in freedom and robustness.
 
@@ -140,5 +138,5 @@ Robustness:
   we envision a future where frameworks share many libraries for a more vibrant and robust JavaScript ecosystem.
 
 Reframe's vision is to develop a Zero-LOC framework that is as feature-rich as Ruby on Rails.
-Sounds exciting to you? [We are looking for co-maintainers](/contributing.md) ;-).
+Sounds exciting to you? [We are looking for co-maintainers](/contributing.md).
 
