@@ -67,9 +67,8 @@ Starters:
 Full-stack app:
 Frontend (React) + Backend (Node.js, Hapi) + API (Wildcard) + SSR (ssr-coin).
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-[reframe-static-website](https://github.com/reframejs/reframe-static-website) -
-Static website:
-Frontend (React) + Static Rendering (ssr-coin).
+[reframe-frontend](https://github.com/reframejs/reframe-frontend) -
+Frontend-only app: Frontend (React) + Static Rendering (ssr-coin).
 
 Libraries:
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
@@ -86,22 +85,22 @@ Reframe is what we call a Zero-LOC framework and allows you to get started as ea
 We recommand the
 [reframe-full-stack starter](https://github.com/reframejs/reframe-full-stack)
 if you need a server and the
-[reframe-static-website starter](https://github.com/reframejs/reframe-static-website)
+[reframe-frontend starter](https://github.com/reframejs/reframe-frontend)
 otherwise.
 
 For example:
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-Your app doesn't require a server (a blog, a homepage, ...) &#8658; [reframe-static-website](https://github.com/reframejs/reframe-static-website).
+Your app doesn't require a server (a blog, a homepage, ...) &#8658; [reframe-frontend](https://github.com/reframejs/reframe-frontend).
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-You already have a server (a Firebase backend, a Java backend, ...)  &#8658; [reframe-static-website](https://github.com/reframejs/reframe-static-website).
+You already have a server (a Firebase backend, a Java backend, ...)  &#8658; [reframe-frontend](https://github.com/reframejs/reframe-frontend).
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
 You want a Node.js server with a database &#8658; [reframe-full-stack](https://github.com/reframejs/reframe-full-stack).
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
 You need SSR &#8658; [reframe-full-stack](https://github.com/reframejs/reframe-full-stack).
 
-For more specific stack requirements
-you can use [a community starter](https://github.com/topics/reframe-starter).
-You can also assemble ssr-coin and/or Wildcard into a custom stack yourself.
+For alternative stacks
+you can use [a community starter](https://github.com/topics/reframe-starter)
+or you can assemble ssr-coin and/or Wildcard into a custom stack yourself.
 (Our libraries can be used individually and independently of each other.)
 
 <br/>
