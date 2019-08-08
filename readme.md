@@ -82,7 +82,7 @@ Reframe is what we call a Zero-LOC framework and allows you to get started as ea
 
 ## Getting Started
 
-We recommand the
+We recommend the
 [reframe-full-stack starter](https://github.com/reframejs/reframe-full-stack)
 if you need a server and the
 [reframe-frontend starter](https://github.com/reframejs/reframe-frontend)
