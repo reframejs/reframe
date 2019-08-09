@@ -60,28 +60,38 @@
 ## What is Reframe
 
 Reframe is web framework that helps you to quickly get started with a modern stack:
-- Interactive Frontend (React)
-- Node.js server
-- API (RPC-like API)
-- SSR
+<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
+Interactive Frontend (React)
+<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
+Node.js server
+<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
+API (RPC-like API)
+<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
+SSR
 
 What makes Reframe special is that:
-- It clarifies how to take crucial decisions. (REST, GraphQL, or RPC? Redux or Stateful components? Interactive views or plain old HTML? Server-side rendering/routing or client-side rendering/routing? Etc.) **(This is work-in-progress)**
-- It's built with a rock solid yet super flexible fundation &mdash; Reframe is what we call a "Zero-LOC framework".
+<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
+It teaches you about modern web dev and clarifies how to take crucial decisions. (REST, GraphQL, or RPC? Redux or stateful components? Interactive views or plain old HTML? Server-side rendering/routing or client-side rendering/routing? Etc.) **(Work-in-progress)**
+<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
+It's built with a rock solid yet super flexible fundation &mdash; Reframe is what we call a "Zero-LOC framework".
+<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
+Simplicity is our thing. We believe it's possible to have a modern & simple stack.
 
-It's new but already used in production at couple of projects,
+Reframe is new but already used in production at couple of projects,
 every release is assailed against a heavy suit of automated tests,
 we are responsive and enjoy talking with our users,
-we fix issues within 1-2 days.
+and we fix issues within 1-2 days.
 
 <br/>
 
 ## Getting Started
 
-The easieast way to get started is to use one of our starters:
-- [reframe-full-stack](https://github.com/reframejs/reframe-full-stack) -
+Use one of our starters to quickly get up and running:
+<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
+[reframe-full-stack](https://github.com/reframejs/reframe-full-stack) -
 Frontend (React) + Backend (Node.js, Hapi) + API (Wildcard) + SSR (ssr-coin).
-- [reframe-frontend](https://github.com/reframejs/reframe-frontend) -
+<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
+[reframe-frontend](https://github.com/reframejs/reframe-frontend) -
 Frontend (React) + Static Rendering (ssr-coin).
 
 We recommend the
@@ -89,7 +99,6 @@ We recommend the
 if you need a server and the
 [reframe-frontend starter](https://github.com/reframejs/reframe-frontend)
 otherwise.
-
 For example:
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
 Your app doesn't require a server (a blog, a homepage, ...) &#8658; [reframe-frontend](https://github.com/reframejs/reframe-frontend).
@@ -100,8 +109,8 @@ You want a Node.js server with a database &#8658; [reframe-full-stack](https://g
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
 You need SSR &#8658; [reframe-full-stack](https://github.com/reframejs/reframe-full-stack).
 
-For alternative stacks
-you can use [a community starter](https://github.com/topics/reframe-starter)
+You can use [a community starter](https://github.com/topics/reframe-starter)
+for alternative stacks
 or you can assemble our libraries into a custom stack yourself.
 (Our libraries can be used individually and independently of Reframe and of each other.)
 
@@ -132,11 +141,12 @@ Robustness:
   Do-one-thing-do-it-well libraries
   often survive a long time resulting into hardened and rock-solid tools.
 - **Robust framework** -
-  Being based on robust libraries is not only a robust foundation but also a flexible and future-proof one:
+  Being based on robust libraries is not only a robust foundation but also a future-proof one:
   do-one-thing-do-it-well libraries can more easily adapt to the tools of tomorrow.
 - **Framework collaboration** -
   We hope our fellow framework authors to follow the Zero-LOC philosophy and
   we envision a future where frameworks share many libraries for a more vibrant and robust JavaScript ecosystem.
 
-Reframe's vision is to develop a Zero-LOC framework that is as feature-rich as Ruby on Rails.
+Reframe's mid-term goal is to develop a Zero-LOC framework that is as feature-rich as Ruby on Rails.
+Reframe's long-term vision is to develop all kinds of uses case following the Zero-LOC approach, such as auto-deploy or mobile.
 
