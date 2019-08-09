@@ -147,6 +147,4 @@ Robustness:
   We hope our fellow framework authors to follow the Zero-LOC philosophy and
   we envision a future where frameworks share many libraries for a more vibrant and robust JavaScript ecosystem.
 
-Reframe's mid-term goal is to develop a Zero-LOC framework that is as feature-rich as Ruby on Rails.
-Reframe's long-term vision is to develop all kinds of uses case following with the Zero-LOC approach, such as auto-deploy or mobile.
-
+Reframe's goal is to develop a Zero-LOC framework that is as feature-rich as Ruby on Rails.
