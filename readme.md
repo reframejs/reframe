@@ -59,7 +59,7 @@
 
 ## What is Reframe
 
-Reframe is web framework that helps you to quickly get started with a modern stack:
+Reframe is a web framework to quickly create a modern stack:
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
 Interactive Frontend (React)
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
@@ -71,9 +71,9 @@ SSR
 
 What makes Reframe special is that:
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-We teach about modern web development and we clarify how to take crucial decisions. (REST, GraphQL, or RPC? Redux or stateful components? Interactive views or plain old HTML? Server-side rendering/routing or client-side rendering/routing? Etc.) **(Work-in-progress)**
+We teach modern web development and clarify how to decide crucial aspects of your stack. (REST, GraphQL, or RPC? Redux or stateful components? Interactive views or plain old HTML? Server-side rendering/routing or client-side rendering/routing? Etc.) **(Work-in-progress)**
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-It's built with a rock solid yet super flexible fundation &mdash; Reframe is what we call a "Zero-LOC framework".
+Built with a rock-solid yet flexible fundation (we elaborate in the "Zero-LOC Framework" section bellow).
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
 Simplicity is our thing. We believe it's possible to have a modern & simple stack.
 
@@ -86,7 +86,7 @@ and we fix issues within 1-2 days.
 
 ## Getting Started
 
-Use one of our starters to quickly get up and running:
+Our starters allow you to quickly get up and running:
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
 [reframe-full-stack](https://github.com/reframejs/reframe-full-stack) -
 Frontend (React) + Backend (Node.js, Hapi) + API (Wildcard) + SSR (ssr-coin).
@@ -134,7 +134,7 @@ Freedom:
 - **Cherry pick libraries** -
   Each library can be used individually and independently of each other. You can choose which libraries you want to use.
 - **No lock-in** -
-  Reframe is only a collection of libraries and starters &mdash; there is virtually no lock-in.
+  Being only a collection of libraries and starters &mdash; there is virtually no lock-in.
 
 Robustness:
 - **Robust libraries** -
@@ -147,4 +147,4 @@ Robustness:
   We hope our fellow framework authors to follow the Zero-LOC philosophy and
   we envision a future where frameworks share many libraries for a more vibrant and robust JavaScript ecosystem.
 
-Reframe's goal is to develop a Zero-LOC framework that is as feature-rich as Ruby on Rails.
+Reframe's goal is to develop a Zero-LOC framework that is as feature rich as Ruby on Rails.
