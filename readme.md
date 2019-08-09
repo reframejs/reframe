@@ -73,7 +73,7 @@ What makes Reframe special is that:
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
 We teach modern web development and clarify how to decide crucial aspects of your stack. (REST, GraphQL, or RPC? Redux or stateful components? Interactive views or plain old HTML? Server-side rendering/routing or client-side rendering/routing? Etc.) **(Work-in-progress)**
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-Built with a rock-solid yet flexible fundation (we elaborate in the "Zero-LOC Framework" section bellow).
+Built with a rock-solid yet flexible fundation. (We elaborate bellow at "Zero-LOC Framework".)
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
 Simplicity is our thing. We believe it's possible to have a modern & simple stack.
 
@@ -112,7 +112,7 @@ You need SSR &#8658; [reframe-full-stack](https://github.com/reframejs/reframe-f
 You can use [a community starter](https://github.com/topics/reframe-starter)
 for alternative stacks
 or you can assemble our libraries into a custom stack yourself.
-(Our libraries can be used individually and independently of each other and independently of Reframe.)
+(Our libraries can be used individually and independently of Reframe.)
 
 <br/>
 
@@ -134,7 +134,7 @@ Freedom:
 - **Cherry pick libraries** -
   Each library can be used individually and independently of each other. You can choose which libraries you want to use.
 - **No lock-in** -
-  Being only a collection of libraries and starters &mdash; there is virtually no lock-in.
+  A Zero-LOC framework is only a collection of libraries and starters &mdash; there is virtually no lock-in.
 
 Robustness:
 - **Robust libraries** -
