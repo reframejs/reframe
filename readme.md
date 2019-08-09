@@ -54,33 +54,35 @@
 &nbsp; | &nbsp;
 <a href="#getting-started">Getting Started</a>
 &nbsp; | &nbsp;
-<a href="#zero-loc">Zero-LOC</a>
+<a href="#zero-loc-framework">Zero-LOC Framework</a>
 </p>
 
 ## What is Reframe
 
-Reframe is a collection of libraries and starters to help you build web apps.
+Reframe is web framework that helps you to quickly get started with a modern stack:
+- Interactive Frontend (React)
+- Node.js server
+- API (RPC-like API)
+- SSR
 
-Starters:
-<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-[reframe-full-stack](https://github.com/reframejs/reframe-full-stack) -
-Full-stack app:
-Frontend (React) + Backend (Node.js, Hapi) + API (Wildcard) + SSR (ssr-coin).
-<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-[reframe-frontend](https://github.com/reframejs/reframe-frontend) -
-Frontend-only app: Frontend (React) + Static Rendering (ssr-coin).
+What makes Reframe special is that:
+- It clarifies how to take crucial decisions. (REST, GraphQL, or RPC? Redux or Stateful components? Interactive views or plain old HTML? Server-side rendering/routing or client-side rendering/routing? Etc.) **(This is work-in-progress)**
+- It's built with a rock solid yet super flexible fundation &mdash; Reframe is what we call a "Zero-LOC framework".
 
-Libraries:
-<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-[ssr-coin](https://github.com/reframejs/ssr-coin) - Add SSR to your app.
-<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-[Wildcard](https://github.com/reframejs/wildcard-api) - JavaScript Functions as API.
-
-Reframe is what we call a Zero-LOC framework and allows you to get started as easily and as quickly as other web frameworks but with a fundamental increase in flexibility.
+It's new but already used in production at couple of projects,
+every release is assailed against a heavy suit of automated tests,
+we are responsive and enjoy talking with our users,
+we fix issues within 1-2 days.
 
 <br/>
 
 ## Getting Started
+
+The easieast way to get started is to use one of our starters:
+- [reframe-full-stack](https://github.com/reframejs/reframe-full-stack) -
+Frontend (React) + Backend (Node.js, Hapi) + API (Wildcard) + SSR (ssr-coin).
+- [reframe-frontend](https://github.com/reframejs/reframe-frontend) -
+Frontend (React) + Static Rendering (ssr-coin).
 
 We recommend the
 [reframe-full-stack starter](https://github.com/reframejs/reframe-full-stack)
@@ -100,14 +102,14 @@ You need SSR &#8658; [reframe-full-stack](https://github.com/reframejs/reframe-f
 
 For alternative stacks
 you can use [a community starter](https://github.com/topics/reframe-starter)
-or you can assemble ssr-coin and/or Wildcard into a custom stack yourself.
-(Our libraries can be used individually and independently of each other.)
+or you can assemble our libraries into a custom stack yourself.
+(Our libraries can be used individually and independently of Reframe and of each other.)
 
 <br/>
 
-## Zero-LOC
+## Zero-LOC Framework
 
-We call a *Zero-LOC framework*, a framework that is merely a collection of:
+We call a *Zero-LOC framework* a framework that is merely a collection of:
 - **Libraries** -
   Each library is a do-one-thing-do-it-well library:
   it takes care of one thing and one thing only
@@ -137,5 +139,4 @@ Robustness:
   we envision a future where frameworks share many libraries for a more vibrant and robust JavaScript ecosystem.
 
 Reframe's vision is to develop a Zero-LOC framework that is as feature-rich as Ruby on Rails.
-Sounds exciting to you? [We are looking for co-maintainers](/contributing.md).
 
