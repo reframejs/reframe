@@ -59,28 +59,55 @@
 
 ## What is Reframe
 
-Reframe is a web framework to quickly create a modern stack:
-<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-Interactive Frontend (React)
-<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-Node.js server
-<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-API (RPC-like API)
-<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-SSR
+Reframe is a collection of tools to quickly build a modern & simple stacks.
 
-What makes Reframe special is that:
-<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-We teach modern web development and clarify how to decide crucial aspects of your stack. (REST, GraphQL, or RPC? Redux or stateful components? Interactive views or plain old HTML? Server-side rendering/routing or client-side rendering/routing? Etc.) **(Work-in-progress)**
-<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-Built with a rock-solid yet flexible fundation. (We elaborate bellow at "Zero-LOC Framework".)
-<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-Simplicity is our thing. We believe it's possible to have a modern & simple stack.
+Our stacks are simple &mdash;
+we inlcude the bare minium of tools so you can get started quickly.
+We believe you should add tools as you go and as the need arises.
 
-Reframe is new but already used in production at couple of projects,
-every release is assailed against a heavy suit of automated tests,
-we are responsive and enjoy talking with our users,
-and we fix issues within 1-2 days.
+:o: Libraries
+
+Our libraries
+are the building blocks of Reframe.
+Each of our library can be used individually and independently of each other and independently of Reframe.
+
+- [Goldpage]() - Page Builder &mdash; to easily create a modern frontend. Works with any view library.
+  Works with any view library (React, Vue, RNW, ...).
+  Supports all app types (so-called "SPA", "MPA", "SSR", "static website", ...).
+  (so-called "SPA", "MPA", "SSR", "static website", ...).
+- [Wildcard]() - JavaScript Functions as API &mdash; Simple way to create an API between your frontend and your Node.js server.
+
+:rocket: Starters
+
+Our starters assemble libraries into a well-polished scaffoled (aka boilerplate) for you to quickly get started.
+
+are an opinionated curatation of tools.
+
+Start
+
+We believe in starting with only a minimal amount of tools small and finish big.
+
+Our starters focus of getting started as quickly as possible
+while you giving you the freedom to scale from a 1
+to a billion dollar company.
+
+:books: Learning Material
+
+Our library and starter documentation is frontend beginner friendly.
+We only assume a Software Engineering background.
+For example, if you are a backend developer wanting to get into frontend, then you can start with Reframe.
+
+We guide you about when to use what tool
+and help you decided whether to use TypeScript, Redux, GraphQL, automated tests, etc.
+
+:milky_way: The Future
+
+Reframe
+exclusively uses independent do-one-thing-do-it-well libraries.
+
+This approach, which we call *Zero-LOC*, brings fundamental improvements in terms of robustness, flexibility, and freedom.
+We believe it to be the future of web frameworks.
+We explain what Zero-LOC is about and its benefits at [Zero-LOC](/zero-loc.md).
 
 <br/>
 
@@ -115,36 +142,3 @@ or you can assemble our libraries into a custom stack yourself.
 (Our libraries can be used individually and independently of Reframe.)
 
 <br/>
-
-## Zero-LOC Framework
-
-We call a *Zero-LOC framework*, a framework that is merely a collection of:
-- **Libraries** -
-  Where each library is do-one-thing-do-it-well:
-  it takes care of one thing and one thing only
-  and can be used individually and independently of other libraries.
-- **Starters** -
-  A starter assembles libraries into a well-polished scaffold (aka boilerplate) for you to quickly get started.
-
-A Zero-LOC framework allows you to develop as quickly as monolithic frameworks
-(Ruby on Rails, Django, ...)
-but with a fundamental increase in freedom and robustness.
-
-Freedom:
-- **Cherry pick libraries** -
-  Each library can be used individually and independently of each other. You can choose which libraries you want to use.
-- **No lock-in** -
-  A Zero-LOC framework is only a collection of libraries and starters &mdash; there is virtually no lock-in.
-
-Robustness:
-- **Robust libraries** -
-  Do-one-thing-do-it-well libraries
-  often survive a long time resulting into hardened and rock-solid tools.
-- **Robust framework** -
-  Being based on robust libraries is not only a robust foundation but also a future-proof one:
-  do-one-thing-do-it-well libraries can more easily adapt to the tools of tomorrow.
-- **Framework collaboration** -
-  We hope our fellow framework authors to follow the Zero-LOC philosophy and
-  we envision a future where frameworks share many libraries for a more vibrant and robust JavaScript ecosystem.
-
-Reframe's goal is to develop a Zero-LOC framework that is as feature rich as Ruby on Rails.
