@@ -70,12 +70,12 @@ Our libraries
 are the building blocks of Reframe.
 Each of our library can be used individually and independently of each other and independently of Reframe.
 
-- [Goldpage]() -
+- [Goldpage](https://github.com/reframejs/goldpage) -
   <br/>
   Page Builder &mdash; easily create a modern frontend.
   Works with any view library (React, Vue, RNW, ...).
   Supports all app types (so-called "SPA", "MPA", "SSR", "static website", ...).
-- [Wildcard]() -
+- [Wildcard](https://github.com/reframejs/wildcard-api) -
   <br/>
   JavaScript Functions as API &mdash;
   easily create an API between the browser and your Node.js server.
