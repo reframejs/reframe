@@ -56,13 +56,13 @@
 
 ## What is Reframe
 
-Reframe is a collection of tools to quickly build a modern stack.
+Reframe is a collection of tools to quickly build a modern & simple stack.
 
 Our documentation is beginner friendly.
 
-Our stacks are simple &mdash;
+Our starters are simple &mdash;
 they inlcude the bare minium of tools so you can get started quickly with only a minimal amount of knowledge.
-We guide you about which tools to use as you scale.
+We guide you through the tools you may need as you scale.
 
 :o: Libraries
 
@@ -80,9 +80,9 @@ Each of our library can be used individually and independently of each other and
   JavaScript Functions as API &mdash;
   easily create an API between the browser and your Node.js server.
 
-:rocket: Stacks
+:rocket: Starters
 
-Our stacks assemble libraries into a well-polished scaffoled (aka boilerplate) for you to quickly get started.
+Our starters assemble libraries into a well-polished scaffoled (aka boilerplate) for you to quickly get started.
 
 - [reframe-full-stack](https://github.com/reframejs/reframe-full-stack) -
 Frontend (React) + Backend (Node.js, Hapi) + API (Wildcard)
@@ -100,18 +100,17 @@ and help you decided whether to use TypeScript, Redux, GraphQL, automated tests,
 
 :railway_track: The Future
 
-Reframe itself has zero lines of code
-and is instead merely a collection of libraries and boilerplates.
+Reframe
+is merely a collection of libraries, learning material, and starters.
 
-This approach, which we call *Zero-LOC*, brings fundamental improvements in terms of robustness, flexibility, and freedom.
-We believe it to be the future of web frameworks
-which we discuss at [Zero-LOC](/zero-loc.md).
+This approach, which we call *Zero-LOC framework*, brings fundamental improvements in terms of robustness, flexibility, and freedom.
+More at [Zero-LOC](/zero-loc.md).
 
 <br/>
 
 ## Getting Started
 
-Our stacks allow you to quickly get up and running:
+Our starters allow you to quickly get up and running:
 <br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
 [reframe-full-stack](https://github.com/reframejs/reframe-full-stack) -
 Frontend (React) + Backend (Node.js, Hapi) + API (Wildcard)
