@@ -55,12 +55,7 @@ Reframe is a collection of tools to build web apps.
 <img
 align="right"
 src="/images/reframe-tech.min.svg"
-/>
-
-<img
-src="/images/c2.svg"
-width="14"
-height="10"
+width="185"
 />
 
 <sup><sup>:hammer_and_wrench:</sup></sup> **Libraries**
