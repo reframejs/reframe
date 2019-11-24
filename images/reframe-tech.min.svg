@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="954.11" width="860.84" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 860.83819 954.11487" xmlns:dc="http://purl.org/dc/elements/1.1/">
+ <defs>
+  <symbol id="a">
+   <g transform="matrix(1.302 0 0 1.302 -.38527 .68230)">
+    <circle cx="86.99" style="fill:#4a4a4a" r="86" cy="86"/>
+    <circle cx="86.99" style="fill:#5a676f" r="68" cy="86"/>
+    <path style="stroke-linejoin:round;stroke:#01b9a7;stroke-width:20;stroke-linecap:round" d="m38.173 86.179h97.732m-21.85-40.72-54.029 81.441m.32102-81.649 53.394 81.857"/>
+   </g>
+   <text y="169.76115" x="207.47691" style="font-size:123.81px;font-family:&apos;Segoe UI&apos;, Roboto, Oxygen, Ubuntu, Cantarell, &apos;Fira Sans&apos;, &apos;Droid Sans&apos;, &apos;Helvetica Neue&apos;, sans-serif;fill:#595959" transform="scale(1.2619 .79243)">Wildcard</text>
+  </symbol>
+  <symbol id="d">
+   <circle cy="112.66" cx="112.88" r="111.98" style="fill:#4a4a4a"/>
+   <circle cy="112.66" cx="112.88" r="88.539" style="fill:#5a676f"/>
+   <text font-size="114.45px" style="font-size:114.45px;font-family:&apos;Segoe UI&apos;, Roboto, Oxygen, Ubuntu, Cantarell, &apos;Fira Sans&apos;, &apos;Droid Sans&apos;, &apos;Helvetica Neue&apos;, sans-serif;line-height:125%;fill:#595959" transform="scale(1.1665 .85723)" y="138.43915" x="225.6058">
+    <tspan y="158.43915" x="225.6058">Goldpage</tspan>
+   </text>
+   <g style="fill:#ffd700;shape-rendering:auto" transform="translate(-3.3421)">
+    <path style="color-rendering:auto;color:#000000;isolation:auto;mix-blend-mode:normal;solid-color:#000000;image-rendering:auto" d="m157.27 112.43-31.799 44.394c-1.1865 2.0569 1.1866 3.5996 5.4581 3.5996h17.798c3.085 0 4.7461-.68564 7.3565-3.5996l31.799-44.394-32.036-44.566c-2.3731-2.9139-4.2715-3.5996-7.3565-3.5996h-17.798c-4.2715 0-6.6446 1.7141-5.4581 3.5996l32.036 44.566z"/>
+    <path style="color-rendering:auto;color:#000000;isolation:auto;mix-blend-mode:normal;solid-color:#000000;image-rendering:auto" d="m73.993 113.3 31.799-44.394c1.1865-2.0569-1.1866-3.5996-5.4581-3.5996h-17.798c-3.085 0-4.7461.68563-7.3565 3.5996l-31.562 44.394 31.799 44.394c2.3731 2.9139 4.2715 3.5996 7.3565 3.5996h17.798c4.2715 0 6.6446-1.7141 5.4581-3.5996l-32.038-44.39z"/>
+   </g>
+  </symbol>
+  <symbol id="b">
+   <g transform="translate(-175.7,-78)">
+    <path style="fill:#61dafb" d="m666.3 296.5c0-32.5-40.7-63.3-103.1-82.4 14.4-63.6 8-114.2-20.2-130.4-6.5-3.8-14.1-5.6-22.4-5.6v22.3c4.6 0 8.3.9 11.4 2.6 13.6 7.8 19.5 37.5 14.9 75.7-1.1 9.4-2.9 19.3-5.1 29.4-19.6-4.8-41-8.5-63.5-10.9-13.5-18.5-27.5-35.3-41.6-50 32.6-30.3 63.2-46.9 84-46.9v-22.3c-27.5 0-63.5 19.6-99.9 53.6-36.4-33.8-72.4-53.2-99.9-53.2v22.3c20.7 0 51.4 16.5 84 46.6-14 14.7-28 31.4-41.3 49.9-22.6 2.4-44 6.1-63.6 11-2.3-10-4-19.7-5.2-29-4.7-38.2 1.1-67.9 14.6-75.8 3-1.8 6.9-2.6 11.5-2.6v-22.3c-8.4 0-16 1.8-22.6 5.6-28.1 16.2-34.4 66.7-19.9 130.1-62.2 19.2-102.7 49.9-102.7 82.3 0 32.5 40.7 63.3 103.1 82.4-14.4 63.6-8 114.2 20.2 130.4 6.5 3.8 14.1 5.6 22.5 5.6 27.5 0 63.5-19.6 99.9-53.6 36.4 33.8 72.4 53.2 99.9 53.2 8.4 0 16-1.8 22.6-5.6 28.1-16.2 34.4-66.7 19.9-130.1 62-19.1 102.5-49.9 102.5-82.3zm-130.2-66.7c-3.7 12.9-8.3 26.2-13.5 39.5-4.1-8-8.4-16-13.1-24-4.6-8-9.5-15.8-14.4-23.4 14.2 2.1 27.9 4.7 41 7.9zm-45.8 106.5c-7.8 13.5-15.8 26.3-24.1 38.2-14.9 1.3-30 2-45.2 2-15.1 0-30.2-.7-45-1.9-8.3-11.9-16.4-24.6-24.2-38-7.6-13.1-14.5-26.4-20.8-39.8 6.2-13.4 13.2-26.8 20.7-39.9 7.8-13.5 15.8-26.3 24.1-38.2 14.9-1.3 30-2 45.2-2 15.1 0 30.2.7 45 1.9 8.3 11.9 16.4 24.6 24.2 38 7.6 13.1 14.5 26.4 20.8 39.8-6.3 13.4-13.2 26.8-20.7 39.9zm32.3-13c5.4 13.4 10 26.8 13.8 39.8-13.1 3.2-26.9 5.9-41.2 8 4.9-7.7 9.8-15.6 14.4-23.7 4.6-8 8.9-16.1 13-24.1zm-101.4 106.7c-9.3-9.6-18.6-20.3-27.8-32 9 .4 18.2.7 27.5.7 9.4 0 18.7-.2 27.8-.7-9 11.7-18.3 22.4-27.5 32zm-74.4-58.9c-14.2-2.1-27.9-4.7-41-7.9 3.7-12.9 8.3-26.2 13.5-39.5 4.1 8 8.4 16 13.1 24s9.5 15.8 14.4 23.4zm73.9-208.1c9.3 9.6 18.6 20.3 27.8 32-9-.4-18.2-.7-27.5-.7-9.4 0-18.7.2-27.8.7 9-11.7 18.3-22.4 27.5-32zm-74 58.9c-4.9 7.7-9.8 15.6-14.4 23.7-4.6 8-8.9 16-13 24-5.4-13.4-10-26.8-13.8-39.8 13.1-3.1 26.9-5.8 41.2-7.9zm-90.5 125.2c-35.4-15.1-58.3-34.9-58.3-50.6s22.9-35.6 58.3-50.6c8.6-3.7 18-7 27.7-10.1 5.7 19.6 13.2 40 22.5 60.9-9.2 20.8-16.6 41.1-22.2 60.6-9.9-3.1-19.3-6.5-28-10.2zm53.8 142.9c-13.6-7.8-19.5-37.5-14.9-75.7 1.1-9.4 2.9-19.3 5.1-29.4 19.6 4.8 41 8.5 63.5 10.9 13.5 18.5 27.5 35.3 41.6 50-32.6 30.3-63.2 46.9-84 46.9-4.5-.1-8.3-1-11.3-2.7zm237.2-76.2c4.7 38.2-1.1 67.9-14.6 75.8-3 1.8-6.9 2.6-11.5 2.6-20.7 0-51.4-16.5-84-46.6 14-14.7 28-31.4 41.3-49.9 22.6-2.4 44-6.1 63.6-11 2.3 10.1 4.1 19.8 5.2 29.1zm38.5-66.7c-8.6 3.7-18 7-27.7 10.1-5.7-19.6-13.2-40-22.5-60.9 9.2-20.8 16.6-41.1 22.2-60.6 9.9 3.1 19.3 6.5 28.1 10.2 35.4 15.1 58.3 34.9 58.3 50.6-.1 15.7-23 35.6-58.4 50.6z"/>
+    <polygon style="fill:#61dafb" points="320.8 78.4"/>
+    <circle cy="296.5" cx="420.9" r="45.7" style="fill:#61dafb"/>
+    <polygon style="fill:#61dafb" points="520.5 78.1"/>
+   </g>
+  </symbol>
+  <symbol id="c">
+   <title>nodejs-icon</title>
+   <g data-name="Layer 2">
+    <g data-name="Layer 1">
+     <path style="fill:url(#g)" d="m201.98 3.074-190.47 109.94a22.988 22.988 0 0 0 -11.51 19.92v220.03a22.982 22.982 0 0 0 11.511 19.92l190.49 110.03a23.061 23.061 0 0 0 23.013 0l190.46-110.02a23.04 23.04 0 0 0 11.483 -19.92v-220.03"/>
+     <path style="fill:url(#f)" d="m4.72 366.94a23.043 23.043 0 0 0 6.782 5.95l163.39 94.378 27.217 15.643a23.089 23.089 0 0 0 13.265 3.007 23.559 23.559 0 0 0 4.521 -.828l200.89-367.84"/>
+     <path style="fill:url(#e)" d="m211.19.127"/>
+    </g>
+   </g>
+  </symbol>
+  <linearGradient id="g" y2="441.05" gradientUnits="userSpaceOnUse" x2="116.43" y1="44.907" x1="310.5">
+   <stop stop-color="#3e863d" offset=".3"/>
+   <stop stop-color="#55934f" offset=".5"/>
+   <stop stop-color="#5aad45" offset=".8"/>
+  </linearGradient>
+  <linearGradient id="f" y2="102.11" gradientUnits="userSpaceOnUse" x2="409.58" y1="389.4" x1="21.339">
+   <stop stop-color="#3e863d" offset=".57"/>
+   <stop stop-color="#619857" offset=".72"/>
+   <stop stop-color="#76ac64" offset="1"/>
+  </linearGradient>
+  <linearGradient id="e" y2="242.89" gradientUnits="userSpaceOnUse" x2="426.64" y1="242.89" x1="12.058">
+   <stop stop-color="#6bbf47" offset=".16"/>
+   <stop stop-color="#79b461" offset=".38"/>
+   <stop stop-color="#75ac64" offset=".47"/>
+   <stop stop-color="#659e5a" offset=".7"/>
+   <stop stop-color="#3e863d" offset=".9"/>
+  </linearGradient>
+ </defs>
+ <use xlink:href="#b" transform="scale(.46)" height="100%" width="100%" y="0" x="0"/>
+ <text y="169.76115" x="207.47691" style="font-size:123.81px;font-family:&apos;Segoe UI&apos;, Roboto, Oxygen, Ubuntu, Cantarell, &apos;Fira Sans&apos;, &apos;Droid Sans&apos;, &apos;Helvetica Neue&apos;, sans-serif;fill:#595959" transform="scale(1.2619 .79243)">React</text>
+ <use xlink:href="#d" height="100%" width="100%" y="250" x="0"/>
+ <use xlink:href="#a" height="100%" width="100%" y="500" x="0"/>
+ <g transform="translate(23,750)">
+  <use xlink:href="#c" transform="scale(.42)" height="100%" width="100%" y="0" x="0"/>
+  <g transform="translate(250,130)">
+   <text style="font-size:123.81px;font-family:&apos;Segoe UI&apos;, Roboto, Oxygen, Ubuntu, Cantarell, &apos;Fira Sans&apos;, &apos;Droid Sans&apos;, &apos;Helvetica Neue&apos;, sans-serif;fill:#595959" transform="scale(1.2619 .79243)">Node.js</text>
+  </g>
+ </g>
+</svg>
