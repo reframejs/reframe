@@ -49,12 +49,6 @@
     </sup>
 </p>
 &nbsp;
-<p align='center'>
-<a href="#what-is-reframe">What is Reframe</a>
-&nbsp; | &nbsp;
-<a href="#getting-started">Getting Started</a>
-
-## What is Reframe
 
 Reframe is a collection of tools to build web apps.
 
