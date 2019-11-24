@@ -1,12 +1,12 @@
 <a href="/../../#readme">
-    <img align="left" src="https://github.com/reframejs/reframe/raw/master/images/logo-with-title-and-slogan.min.svg?sanitize=true" width=296 height=79 style="max-width:100%;" alt="Reframe"/>
+    <img align="left" src="/images/logo-with-title-and-slogan.min.svg" width=296 height=79 style="max-width:100%;" alt="Reframe"/>
 </a>
 <br/>
 <p align="right">
     <sup>
         <a href="#">
             <img
-              src="https://github.com/reframejs/reframe/raw/master/images/star.svg?sanitize=true"
+              src="/images/star.svg"
               width="16"
               height="12"
             >
@@ -17,7 +17,7 @@
         &nbsp;&nbsp;
         <a href="https://github.com/reframejs/reframe/blob/master/contributing.md">
             <img
-              src="https://github.com/reframejs/reframe/raw/master/images/biceps.min.svg?sanitize=true"
+              src="/images/biceps.min.svg"
               width="16"
               height="14"
             >
@@ -28,7 +28,7 @@
     <sup>
         <a href="https://twitter.com/reframejs">
             <img
-              src="https://github.com/reframejs/reframe/raw/master/images/tw.svg?sanitize=true"
+              src="/images/tw.svg"
               width="15"
               height="13"
             >
@@ -38,7 +38,7 @@
         &nbsp;&nbsp;
         <a href="https://discord.gg/kqXf65G">
             <img
-              src="https://github.com/reframejs/reframe/raw/master/images/chat.svg?sanitize=true"
+              src="/images/chat.svg"
               width="14"
               height="10"
             >
@@ -52,20 +52,10 @@
 
 Reframe is a collection of tools to build web apps.
 
-1
-
-<img src="https://github.com/reframejs/reframe/raw/wip/i.svg?sanitize=true" />
-
-2
-
-<img src="/i.svg" />
-
-3
-
 <img
-src="/images/chat.svg"
-width="14"
-height="10"
+align="right"
+src="/images/reframe-tech.svg"
+width="100"
 />
 
 <sup><sup>:hammer_and_wrench:</sup></sup> **Libraries**
