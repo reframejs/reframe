@@ -52,7 +52,23 @@
 
 Reframe is a collection of tools to build web apps.
 
-:hammer_and_wrench: **Libraries**
+1
+
+<img src="https://github.com/reframejs/reframe/raw/wip/i.svg?sanitize=true" />
+
+2
+
+<img src="/i.svg" />
+
+3
+
+<img
+src="/images/chat.svg"
+width="14"
+height="10"
+/>
+
+<sup><sup>:hammer_and_wrench:</sup></sup> **Libraries**
 
 Our libraries
 are the building blocks of Reframe.
