@@ -58,31 +58,29 @@
 
 Reframe is a collection of tools to build web apps.
 
-:o: Libraries
+:gear: **Libraries**
 
 Our libraries
 are the building blocks of Reframe.
 Each of our library can be used individually and independently of each other.
 
 - [Goldpage](https://github.com/reframejs/goldpage) -
-  <br/>
   Page Builder &mdash; to create a modern frontend.
 - [Wildcard](https://github.com/reframejs/wildcard-api) -
-  <br/>
   JavaScript Functions as API &mdash;
   to create an API between the browser and Node.js.
 
-:rocket: Starters
+:rocket: **Starters**
 
 Our starters assemble state-of-the-art libraries into well-polished scaffolds.
 We design our starters to be simple and to include only what you need to build your first MVP.
 
-- [reframe-full-stack](https://github.com/reframejs/reframe-full-stack) -
-Frontend (React) + Backend (Node.js, Hapi) + API (Wildcard)
-- [reframe-frontend](https://github.com/reframejs/reframe-frontend) -
-Frontend (React)
+- [Reframe Full Stack](https://github.com/reframejs/reframe-full-stack) -
+  Frontend (React) + Backend (Node.js, Hapi) + API (Wildcard)
+- [reframe Frontend](https://github.com/reframejs/reframe-frontend) -
+  Frontend (React)
 
-:railway_track: Future Proof
+:railway_track: **Future-Proof**
 
 In the Node.js ecosystem, big monoliths don't survive long.
 Node.js is a rapidly evovling ecosystem while
