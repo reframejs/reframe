@@ -82,15 +82,6 @@ Frontend (React) + Backend (Node.js, Hapi) + API (Wildcard)
 - [reframe-frontend](https://github.com/reframejs/reframe-frontend) -
 Frontend (React)
 
-:books: Learning Material
-
-Our library and stack documentation is frontend beginner friendly.
-We only assume a Software Engineering background.
-If you are a backend developer wanting to get into frontend, then you can start with Reframe.
-
-We guide you about what tools to use
-and help you decided whether to use TypeScript, Redux, GraphQL, automated tests, service workers, etc.
-
 :railway_track: Future Proof
 
 In the Node.js ecosystem, big monoliths don't survive long.
@@ -105,35 +96,3 @@ enables you to choose other technologies that may better suit your use case.
 
 We call this approach the [Zero-LOC framework](/zero-loc-framework.md).
 
-<br/>
-
-## Getting Started
-
-Our starters allow you to quickly get up and running:
-<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-[reframe-full-stack](https://github.com/reframejs/reframe-full-stack) -
-Frontend (React) + Backend (Node.js, Hapi) + API (Wildcard)
-<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-[reframe-frontend](https://github.com/reframejs/reframe-frontend) -
-Frontend (React)
-
-We recommend
-[reframe-full-stack](https://github.com/reframejs/reframe-full-stack)
-if you need a server and
-[reframe-frontend](https://github.com/reframejs/reframe-frontend)
-otherwise.
-For example:
-<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-Your app doesn't require a server (a blog, a homepage, ...) &#8658; [reframe-frontend](https://github.com/reframejs/reframe-frontend).
-<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-You already have a backend (a Firebase backend, a Java backend, ...)  &#8658; [reframe-frontend](https://github.com/reframejs/reframe-frontend).
-<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-You want a server with a database &#8658; [reframe-full-stack](https://github.com/reframejs/reframe-full-stack).
-<br/> &nbsp;&nbsp;&nbsp;&#8226;&nbsp;
-You need SSR &#8658; [reframe-full-stack](https://github.com/reframejs/reframe-full-stack).
-
-Alternatively, you can use [a community stack](https://github.com/topics/reframe-stack)
-or you can assemble our libraries into a custom stack yourself.
-(Our libraries can be used independently of Reframe.)
-
-<br/>
