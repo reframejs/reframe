@@ -74,8 +74,8 @@ Each of our library can be used individually and independently of each other.
 
 :rocket: Starters
 
-Our starters scaffold state-of-the-art libraries into well polished boilerplates.
-We design our starters to be simple and to include only what you need to implement your first MVP.
+Our starters assemble state-of-the-art libraries into well-polished scaffolds.
+We design our starters to be simple and to include only what you need to build your first MVP.
 
 - [reframe-full-stack](https://github.com/reframejs/reframe-full-stack) -
 Frontend (React) + Backend (Node.js, Hapi) + API (Wildcard)
@@ -98,15 +98,12 @@ Node.js is a rapidly evovling ecosystem while
 big monoliths have historically shown to be incapable of adapting to new technologies.
 
 Instead of being a big monolith,
-Reframe is a collection of do-one-thing-do-it-well tools.
-
+Reframe is based on do-one-thing-do-it-well tools.
 This fundamental different approach
 enables Reframe to adopt the technologies of the future and
-enables you the freedom to choose your favorite technologies.
+enables you to choose other technologies that may better suit your use case.
 
-We call our approach the *Zero-LOC framework*
-which we talk more about at
-[Zero-LOC](/zero-loc.md).
+We call this approach the [Zero-LOC framework](/zero-loc-framework.md).
 
 <br/>
 
