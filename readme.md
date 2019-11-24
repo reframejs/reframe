@@ -52,7 +52,7 @@
 
 Reframe is a collection of tools to build web apps.
 
-:gear: **Libraries**
+:hammer_and_wrench: **Libraries**
 
 Our libraries
 are the building blocks of Reframe.
@@ -60,7 +60,7 @@ Each of our library can be used individually and independently of each other.
 
 - [Goldpage](https://github.com/reframejs/goldpage) -
   Page Builder &mdash; to create a modern frontend.
-- [Wildcard](https://github.com/reframejs/wildcard-api) -
+- [Wildcard API](https://github.com/reframejs/wildcard-api) -
   JavaScript Functions as API &mdash;
   to create an API between the browser and Node.js.
 
@@ -74,10 +74,10 @@ We design our starters to be simple and to include only what you need to build y
 - [reframe Frontend](https://github.com/reframejs/reframe-frontend) -
   Frontend (React)
 
-:railway_track: **Future-Proof**
+:crystal_ball: **Future-Proof**
 
 In the Node.js ecosystem, big monoliths don't survive long.
-Node.js is a rapidly evovling ecosystem while
+Node.js is a rapidly evolving ecosystem while
 big monoliths have historically shown to be incapable of adapting to new technologies.
 
 Instead of being a big monolith,
