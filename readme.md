@@ -56,33 +56,26 @@
 
 ## What is Reframe
 
-Reframe is a collection of tools to quickly build a modern & simple stack.
-
-Our documentation is beginner friendly.
-
-Our starters are simple &mdash;
-they inlcude the bare minium of tools so you can get started quickly with only a minimal amount of knowledge.
-We guide you through the tools you may need as you scale.
+Reframe is a collection of tools to build web apps.
 
 :o: Libraries
 
 Our libraries
 are the building blocks of Reframe.
-Each of our library can be used individually and independently of each other and independently of Reframe.
+Each of our library can be used individually and independently of each other.
 
 - [Goldpage](https://github.com/reframejs/goldpage) -
   <br/>
-  Page Builder &mdash; easily create a modern frontend.
-  Works with any view library (React, Vue, RNW, ...).
-  Supports all app types (so-called "SPA", "MPA", "SSR", "static website", ...).
+  Page Builder &mdash; to create a modern frontend.
 - [Wildcard](https://github.com/reframejs/wildcard-api) -
   <br/>
   JavaScript Functions as API &mdash;
-  easily create an API between the browser and your Node.js server.
+  to create an API between the browser and Node.js.
 
 :rocket: Starters
 
-Our starters assemble libraries into a well-polished scaffoled (aka boilerplate) for you to quickly get started.
+Our starters scaffold state-of-the-art libraries into well polished boilerplates.
+We design our starters to be simple and to include only what you need to implement your first MVP.
 
 - [reframe-full-stack](https://github.com/reframejs/reframe-full-stack) -
 Frontend (React) + Backend (Node.js, Hapi) + API (Wildcard)
@@ -98,13 +91,22 @@ If you are a backend developer wanting to get into frontend, then you can start 
 We guide you about what tools to use
 and help you decided whether to use TypeScript, Redux, GraphQL, automated tests, service workers, etc.
 
-:railway_track: The Future
+:railway_track: Future Proof
 
-Reframe
-is merely a collection of libraries, learning material, and starters.
+In the Node.js ecosystem, big monoliths don't survive long.
+Node.js is a rapidly evovling ecosystem while
+big monoliths have historically shown to be incapable of adapting to new technologies.
 
-This approach, which we call *Zero-LOC framework*, brings fundamental improvements in terms of robustness, flexibility, and freedom.
-More at [Zero-LOC](/zero-loc.md).
+Instead of being a big monolith,
+Reframe is a collection of do-one-thing-do-it-well tools.
+
+This fundamental different approach
+enables Reframe to adopt the technologies of the future and
+enables you the freedom to choose your favorite technologies.
+
+We call our approach the *Zero-LOC framework*
+which we talk more about at
+[Zero-LOC](/zero-loc.md).
 
 <br/>
 
