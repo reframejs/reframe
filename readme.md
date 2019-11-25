@@ -60,7 +60,8 @@ Simplicity and do-one-thing-do-it-well are Reframe's core DNA.
 <img
 align="right"
 src="/images/reframe-tech.min.svg"
-width="185"
+width="200"
+height="300"
 />
 
 Do-one-thing-do-it-well tools are the building blocks of Reframe.
@@ -90,7 +91,7 @@ you can use our stack with Vue instead of React.
 :rocket: **Starters**
 
 Our starters assemble state-of-the-art tools into well-polished scaffolds.
-We design our starters to be simple and to include only what you need to build your MVP.
+We design our starters to be simple and to include only what you need to build an MVP.
 
 - [Reframe Full Stack](https://github.com/reframejs/reframe-full-stack) -
   Frontend (React, Goldpage) + Backend (Node.js, Hapi) + API (Wildcard)
@@ -103,7 +104,7 @@ We design our starters to be simple and to include only what you need to build y
 
 In the Node.js ecosystem, big monoliths don't survive.
 Node.js is a rapidly evolving ecosystem while
-big monoliths have historically shown to be incapable of adapting to new technologies.
+big monoliths have proven incapable of adapting to new technologies.
 
 Instead of being a big monolith,
 Reframe is based on do-one-thing-do-it-well tools.
