@@ -102,8 +102,8 @@ Our starters are designed
 to include only what you need to build an MVP as quickly as possible.
 
 Start building your app today,
-ship your first prototype tomorrow,
-progressively adopt entreprise-grade tools later as you scale.
+deliver your first prototype tomorrow,
+and progressively adopt entreprise-grade tools as you scale.
 
 &nbsp;
 
