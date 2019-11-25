@@ -90,11 +90,11 @@ you can use our stack with Vue instead of React.
 :rocket: **Starters**
 
 Our starters assemble state-of-the-art tools into well-polished scaffolds.
-We design our starters to be simple and to include only what you need to build your first MVP.
+We design our starters to be simple and to include only what you need to build your MVP.
 
 - [Reframe Full Stack](https://github.com/reframejs/reframe-full-stack) -
   Frontend (React, Goldpage) + Backend (Node.js, Hapi) + API (Wildcard)
-- [reframe Frontend](https://github.com/reframejs/reframe-frontend) -
+- [Reframe Frontend](https://github.com/reframejs/reframe-frontend) -
   Frontend (React, Goldpage)
 
 &nbsp;
@@ -108,8 +108,8 @@ big monoliths have historically shown to be incapable of adapting to new technol
 Instead of being a big monolith,
 Reframe is based on do-one-thing-do-it-well tools.
 This fundamentally different approach
-enables Reframe to adopt the technologies of the future and
-enables you to replace any technology with something else that better fit your use case.
+enables Reframe to adopt the technologies of tomorrow and
+enables you to replace any technology with another one that better fit your use case.
 
 We call this approach the [Zero-LOC framework](/zero-loc-framework.md).
 
