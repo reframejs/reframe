@@ -53,29 +53,28 @@
 Reframe is a framework to help you build web apps.
 Simplicity and do-one-thing-do-it-well are Reframe's core DNA.
 
+:hammer_and_wrench: **Tools**
+
 <img
 align="right"
 src="/images/reframe-tech.min.svg"
 width="185"
 />
 
-<sup>:hammer_and_wrench:</sup> **Tools**
-
 Do-one-thing-do-it-well tools are the building blocks of Reframe.
 We use React, Node.js, and develop our own:
 
 - [Goldpage](https://github.com/reframejs/goldpage) -
-  **[Made by Reframe]**
   Page Builder &mdash; to create a modern frontend.
 - [Wildcard API](https://github.com/reframejs/wildcard-api) -
-  **[Made by Reframe]**
   JavaScript Functions as API &mdash;
   to create an API between the browser and Node.js.
-- [Proto DB](https://github.com/brillout/proto-db) - **[WIP]** -
+- [Proto DB](https://github.com/brillout/proto-db) -
+  *[WIP]*
   A super simple database for quick prototyping.
 - **Auto-Deploy** -
-  **[WIP]** We are curently reasearching fully automatic deployments.
-  Our tool we will most likey be based on Nix.
+  *[WIP]*
+  We are curently reasearching fully automatic deployments.
 
 Each of our tools can be used individually and independently of each other.
 You keep full freedom.
@@ -89,11 +88,11 @@ Our starters assemble state-of-the-art tools into well-polished scaffolds.
 We design our starters to be simple and to include only what you need to build your first MVP.
 
 - [Reframe Full Stack](https://github.com/reframejs/reframe-full-stack) -
-  Frontend (React) + Backend (Node.js, Hapi) + API (Wildcard)
+  Frontend (React, Goldpage) + Backend (Node.js, Hapi) + API (Wildcard)
 - [reframe Frontend](https://github.com/reframejs/reframe-frontend) -
-  Frontend (React)
+  Frontend (React, Goldpage)
 
-<sup>:crystal_ball:</sup> **Future-Proof**
+:crystal_ball: **Future-Proof**
 
 In the Node.js ecosystem, big monoliths don't survive.
 Node.js is a rapidly evolving ecosystem while
