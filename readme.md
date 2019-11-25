@@ -65,16 +65,19 @@ Do-one-thing-do-it-well tools are the building blocks of Reframe.
 We use React, Node.js, and develop our own:
 
 - [Goldpage](https://github.com/reframejs/goldpage) -
-  Page Builder &mdash; to create a modern frontend.
+  Page Builder &mdash;
+  create a modern frontend.
+  [Production-ready]
 - [Wildcard API](https://github.com/reframejs/wildcard-api) -
   JavaScript Functions as API &mdash;
-  to create an API between the browser and Node.js.
+  create an API between the browser and Node.js.
+  [Production-ready]
 - [Proto DB](https://github.com/brillout/proto-db) -
-  *[WIP]*
   A super simple database for quick prototyping.
+  [Work-in-progress]
 - **Auto-Deploy** -
-  *[WIP]*
   We are curently reasearching fully automatic deployments.
+  [Work-in-progress]
 
 Each of our tools can be used individually and independently of each other.
 You keep full freedom.
