@@ -50,7 +50,7 @@
 </p>
 &nbsp;
 
-Reframe is a framework to help you build web apps.
+Framework to build web apps.
 Simplicity and do-one-thing-do-it-well are Reframe's core DNA.
 
 &nbsp;
@@ -73,9 +73,8 @@ We use React, Node.js, and develop our own:
 - [Wildcard API](https://github.com/reframejs/wildcard-api) -
   JavaScript Functions as API &mdash;
   create an API between the browser and Node.js.
-- [Proto DB](https://github.com/brillout/proto-db) -
-  A super simple database for quick prototyping.
-  [Work-in-progress]
+- [ProtoDB](https://github.com/brillout/proto-db) -
+  A simple filesystem-based database for prototypes and small to medium-sized apps.
 - **Auto-Deploy** -
   We are curently reasearching fully automatic deployments.
   [Work-in-progress]
@@ -92,14 +91,12 @@ you can use our stack with Vue instead of React.
 :rocket: **Starters**
 
 Our starters assemble state-of-the-art tools into well-polished scaffolds.
+We design our starters to be simple and to include only what you need to build an MVP as quickly as possible.
 
 - [Reframe Full Stack](https://github.com/reframejs/reframe-full-stack) -
   Frontend (React, Goldpage) + Backend (Node.js, Hapi) + API (Wildcard)
 - [Reframe Frontend](https://github.com/reframejs/reframe-frontend) -
   Frontend (React, Goldpage)
-
-Our starters are designed
-to include only what you need to build an MVP as quickly as possible.
 
 Start building your app today,
 deliver your first prototype tomorrow,
