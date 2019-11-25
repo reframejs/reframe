@@ -81,8 +81,8 @@ We use React, Node.js, and develop our own:
   [Work-in-progress]
 
 Each of our tools can be used individually and independently of each other.
-This means that you can choose to (not) use any library you want &mdahs;
-you fully keep your freedom!
+This means that you can choose to (not) use any library you want &mdash;
+you fully keep your freedom.
 For example,
 if your company is experienced with Vue,
 you can use our stack with Vue instead of React.
