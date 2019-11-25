@@ -50,7 +50,8 @@
 </p>
 &nbsp;
 
-Reframe is a collection of tools to build web apps.
+Reframe is a framework to help you build web apps.
+Simplicity and do-one-thing-do-it-well are Reframe's core DNA.
 
 <img
 align="right"
@@ -58,21 +59,33 @@ src="/images/reframe-tech.min.svg"
 width="185"
 />
 
-<sup><sup>:hammer_and_wrench:</sup></sup> **Libraries**
+<sup>:hammer_and_wrench:</sup> **Tools**
 
-Our libraries
-are the building blocks of Reframe.
-Each of our library can be used individually and independently of each other.
+Do-one-thing-do-it-well tools are the building blocks of Reframe.
+We use React, Node.js, and develop our own:
 
 - [Goldpage](https://github.com/reframejs/goldpage) -
+  **[Made by Reframe]**
   Page Builder &mdash; to create a modern frontend.
 - [Wildcard API](https://github.com/reframejs/wildcard-api) -
+  **[Made by Reframe]**
   JavaScript Functions as API &mdash;
   to create an API between the browser and Node.js.
+- [Proto DB](https://github.com/brillout/proto-db) - **[WIP]** -
+  A super simple database for quick prototyping.
+- **Auto-Deploy** -
+  **[WIP]** We are curently reasearching fully automatic deployments.
+  Our tool we will most likey be based on Nix.
+
+Each of our tools can be used individually and independently of each other.
+You keep full freedom.
+For example,
+if your company is very experienced with Vue,
+then you can use Vue instead of React.
 
 :rocket: **Starters**
 
-Our starters assemble state-of-the-art libraries into well-polished scaffolds.
+Our starters assemble state-of-the-art tools into well-polished scaffolds.
 We design our starters to be simple and to include only what you need to build your first MVP.
 
 - [Reframe Full Stack](https://github.com/reframejs/reframe-full-stack) -
@@ -80,17 +93,17 @@ We design our starters to be simple and to include only what you need to build y
 - [reframe Frontend](https://github.com/reframejs/reframe-frontend) -
   Frontend (React)
 
-:crystal_ball: **Future-Proof**
+<sup>:crystal_ball:</sup> **Future-Proof**
 
-In the Node.js ecosystem, big monoliths don't survive long.
+In the Node.js ecosystem, big monoliths don't survive.
 Node.js is a rapidly evolving ecosystem while
 big monoliths have historically shown to be incapable of adapting to new technologies.
 
 Instead of being a big monolith,
 Reframe is based on do-one-thing-do-it-well tools.
-This fundamental different approach
+This fundamentally different approach
 enables Reframe to adopt the technologies of the future and
-enables you to choose other technologies that may better suit your use case.
+enables you to replace any technology with something else that better fit your use case.
 
 We call this approach the [Zero-LOC framework](/zero-loc-framework.md).
 
