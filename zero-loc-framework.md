@@ -1,6 +1,6 @@
 ## Zero-LOC Framework
 
-We call a *Zero-LOC framework* (Zero Line-of-Code Framework),
+We call a *Zero-LOC framework* (Zero Line-Of-Code Framework),
 a framework that consists of:
 - **Libraries** -
   Where each library is a do-one-thing-do-it-well library

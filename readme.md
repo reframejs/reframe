@@ -81,7 +81,8 @@ We use React, Node.js, and develop our own:
   [Work-in-progress]
 
 Each of our tools can be used individually and independently of each other.
-You keep full freedom.
+This means that you can choose to (not) use any library you want &mdahs;
+you fully keep your freedom!
 For example,
 if your company is experienced with Vue,
 you can use our stack with Vue instead of React.
@@ -91,12 +92,18 @@ you can use our stack with Vue instead of React.
 :rocket: **Starters**
 
 Our starters assemble state-of-the-art tools into well-polished scaffolds.
-We design our starters to be simple and to include only what you need to build an MVP.
 
 - [Reframe Full Stack](https://github.com/reframejs/reframe-full-stack) -
   Frontend (React, Goldpage) + Backend (Node.js, Hapi) + API (Wildcard)
 - [Reframe Frontend](https://github.com/reframejs/reframe-frontend) -
   Frontend (React, Goldpage)
+
+Our starters are designed
+to include only what you need to build an MVP as quickly as possible.
+
+Start building your app today,
+ship your first prototype tomorrow,
+progressively adopt entreprise-grade tools later as you scale.
 
 &nbsp;
 
@@ -111,6 +118,7 @@ Reframe is based on do-one-thing-do-it-well tools.
 This fundamentally different approach
 enables Reframe to adopt the technologies of tomorrow and
 enables you to replace any technology with another one that better fits your use case.
+In short, Reframe has no lock-in.
 
 We call this approach the [Zero-LOC framework](/zero-loc-framework.md).
 
