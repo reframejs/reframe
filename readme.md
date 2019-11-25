@@ -53,6 +53,8 @@
 Reframe is a framework to help you build web apps.
 Simplicity and do-one-thing-do-it-well are Reframe's core DNA.
 
+&nbsp;
+
 :hammer_and_wrench: **Tools**
 
 <img
@@ -67,11 +69,9 @@ We use React, Node.js, and develop our own:
 - [Goldpage](https://github.com/reframejs/goldpage) -
   Page Builder &mdash;
   create a modern frontend.
-  [Production-ready]
 - [Wildcard API](https://github.com/reframejs/wildcard-api) -
   JavaScript Functions as API &mdash;
   create an API between the browser and Node.js.
-  [Production-ready]
 - [Proto DB](https://github.com/brillout/proto-db) -
   A super simple database for quick prototyping.
   [Work-in-progress]
@@ -82,8 +82,10 @@ We use React, Node.js, and develop our own:
 Each of our tools can be used individually and independently of each other.
 You keep full freedom.
 For example,
-if your company is very experienced with Vue,
-then you can use Vue instead of React.
+if your company is experienced with Vue,
+you can use our stack with Vue instead of React.
+
+&nbsp;
 
 :rocket: **Starters**
 
@@ -94,6 +96,8 @@ We design our starters to be simple and to include only what you need to build y
   Frontend (React, Goldpage) + Backend (Node.js, Hapi) + API (Wildcard)
 - [reframe Frontend](https://github.com/reframejs/reframe-frontend) -
   Frontend (React, Goldpage)
+
+&nbsp;
 
 :crystal_ball: **Future-Proof**
 
