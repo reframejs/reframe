@@ -10,7 +10,8 @@
     <a href="#top">
       <img
         src="/images/star.svg"
-        width="16"
+        width="13"
+        align="middle"
       />
       Star if you like
     </a>
@@ -55,7 +56,6 @@
     </a>
   </sup>
 </p>
-&nbsp;
 
 <p align="center">
   <img
