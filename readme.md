@@ -1,4 +1,4 @@
-<a href="/../../#readme">
+<a href="#readme">
   <p align="center">
     <img src="/images/logo-with-title.svg" width=470 alt="Reframe"/>
   </p>
