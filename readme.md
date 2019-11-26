@@ -39,7 +39,7 @@
     </a>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     &nbsp;&nbsp;
-    <a href="/issues/new">
+    <a href="https://github.com/reframejs/reframe/issues/new">
       <img
         src="/images/github.svg"
         width="14"
@@ -50,7 +50,7 @@
     &nbsp;&nbsp;&nbsp;&nbsp;
     &nbsp;&nbsp;&nbsp;&nbsp;
     &nbsp;&nbsp;
-    <a href="/docs/contributing.md">
+    <a href="/contributing.md">
       <img
         src="/images/biceps.svg"
         width="16"
@@ -69,17 +69,14 @@
   />
 </p>
 
-A web framework with a new approach:
-Reframe is merely a collection of do-one-thing-do-it-well tools.
+Reframe is a web framework with a new approach:
+it is merely a collection of do-one-thing-do-it-well tools.
 
-With Reframe,
-you own your stack,
+You own your stack,
 you keep your freedom.
 
-We enable you to
-develop
-with the same guidance and
-as quickly as with classical frameworks
+Reframe enables you to develop
+with the same guidance and as quickly as with classical frameworks
 while being able to replace rapid-prototyping tools
 with entreprise-grade tools as you scale.
 
