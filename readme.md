@@ -6,58 +6,67 @@
 
 <br/>
 <p align="center">
-    <sup>
-        <a href="#">
-            <img
-              src="/images/star.svg"
-              width="16"
-              height="12"
-            >
-        </a>
-        Star if you like
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;
-        <a href="https://github.com/reframejs/reframe/blob/master/contributing.md">
-            <img
-              src="/images/biceps.min.svg"
-              width="16"
-              height="14"
-            >
-            Co-maintain Reframe
-        </a>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;
-        <a href="https://twitter.com/reframejs">
-            <img
-              src="/images/tw.svg"
-              width="15"
-              height="13"
-            >
-            Follow on Twitter
-        </a>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;
-        <a href="https://discord.gg/kqXf65G">
-            <img
-              src="/images/chat.svg"
-              width="14"
-              height="10"
-            >
-            Chat on Discord
-        </a>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;
-    </sup>
+  <sup>
+    <a href="#top">
+      <img
+        src="/images/star.svg"
+        width="16"
+        height="12"
+      />
+      Star if you like
+    </a>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;
+    <a href="https://twitter.com/reframejs">
+      <img
+        src="/images/twitter.svg"
+        width="15"
+        height="13"
+      />
+      Follow on Twitter
+    </a>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;
+    <a href="https://twitter.com/intent/tweet?text=A%20new%20kind%20of%20web%20framework...%0Ahttps%3A%2F%2Fgithub.com%2Freframejs%2Freframe" target="_blank">
+      <img
+        src="/images/twitter.svg"
+        width="15"
+        height="13"
+      />
+      Tweet about Reframe
+    </a>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;
+    <a href="/issues/new">
+      <img
+        src="/images/github.svg"
+        width="14"
+        height="10"
+      />
+      Talk to us
+    </a>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    &nbsp;&nbsp;
+    <a href="/docs/contributing.md">
+      <img
+        src="/images/biceps.svg"
+        width="16"
+        height="14"
+      />
+      Co-maintain Reframe
+    </a>
+  </sup>
 </p>
 &nbsp;
 
 <p align="center">
-<img
-src="/images/title.svg"
-width="320"
-/>
+  <img
+    src="/images/title.svg"
+    width="320"
+  />
 </p>
 
 A web framework with a new approach:
@@ -79,10 +88,10 @@ with entreprise-grade tools as you scale.
 :hammer_and_wrench: **Tools**
 
 <img
-align="right"
-src="/images/reframe-tech.svg"
-width="200"
-height="300"
+  align="right"
+  src="/images/reframe-tech.svg"
+  width="200"
+  height="300"
 />
 
 Do-one-thing-do-it-well tools are the building blocks of Reframe.
