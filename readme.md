@@ -1,8 +1,11 @@
 <a href="/../../#readme">
-    <img align="left" src="/images/logo-with-title-and-slogan.min.svg" width=296 height=79 style="max-width:100%;" alt="Reframe"/>
+  <p align="center">
+    <img align="left" src="/images/logo-with-title.svg" width=296 height=79 style="max-width:100%;" alt="Reframe"/>
+  </p>
 </a>
+
 <br/>
-<p align="right">
+<p align="center">
     <sup>
         <a href="#">
             <img
@@ -23,9 +26,9 @@
             >
             Co-maintain Reframe
         </a>
-    </sup>
-    <br/>
-    <sup>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;
         <a href="https://twitter.com/reframejs">
             <img
               src="/images/tw.svg"
