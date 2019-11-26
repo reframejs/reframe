@@ -42,7 +42,7 @@
     <a href="https://github.com/reframejs/reframe/issues/new">
       <img
         src="/images/github.svg"
-        width="15"
+        width="16"
         align="middle"
       />
       Talk to us
