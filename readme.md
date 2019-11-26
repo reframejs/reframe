@@ -57,8 +57,6 @@
   </sup>
 </p>
 
-&nbsp;
-
 <p align="center">
   <img
     src="/images/title.svg"
