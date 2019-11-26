@@ -1,6 +1,6 @@
 <a href="/../../#readme">
   <p align="center">
-    <img align="left" src="/images/logo-with-title.svg" width=296 height=79 style="max-width:100%;" alt="Reframe"/>
+    <img src="/images/logo-with-title.svg" width=470 alt="Reframe"/>
   </p>
 </a>
 
