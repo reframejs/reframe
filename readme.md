@@ -72,10 +72,10 @@
   />
 </p>
 
-Reframe is a web framework with a new approach:
-it is merely a collection of do-one-thing-do-it-well tools.
+Reframe is a collection of tools to build web apps.
 
-You own your stack,
+Being merely a collection of tools,
+you own your stack,
 you keep your freedom.
 
 Reframe enables you to develop
@@ -112,16 +112,14 @@ We use React, Node.js, and develop our own:
 Each of our tools can be used individually and independently of each other.
 
 For a quick start, use our stack as it is.
-
-But
-if you need customization
-you can replace our stack's tool.
+If you need customization
+you can replace our stack's tools.
 For example,
 if your company is experienced with Vue,
 you can use our stack with Vue instead of React.
 
 In short,
-because our tools are independent of each other,
+our tools being independent of each other,
 you fully keep your freedom.
 
 &nbsp;
