@@ -50,11 +50,12 @@
 </p>
 &nbsp;
 
+<p align="center">
 <img
-align="center"
 src="/images/title.svg"
 width="320"
 />
+</p>
 
 A web framework with a new approach:
 Reframe is merely a collection of do-one-thing-do-it-well tools.
