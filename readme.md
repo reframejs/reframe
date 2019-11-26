@@ -50,8 +50,21 @@
 </p>
 &nbsp;
 
-Framework to build web apps.
-Simplicity and do-one-thing-do-it-well are Reframe's core DNA.
+# A new Kind of Framework
+
+A web framework with a new approach:
+Reframe is merely a collection of do-one-thing-do-it-well tools.
+
+With Reframe,
+you own your stack,
+you keep your freedom.
+
+We enable you to
+develop
+with the same guidance and
+as quickly as with classical frameworks
+while being able to replace rapid-prototyping tools
+with entreprise-grade tools as you scale.
 
 &nbsp;
 
@@ -76,15 +89,23 @@ We use React, Node.js, and develop our own:
 - [ProtoDB](https://github.com/brillout/proto-db) -
   A simple filesystem-based database for prototypes and small to medium-sized apps.
 - **Auto-Deploy** -
-  We are curently reasearching fully automatic deployments.
+  We are curently researching fully automatic deployments.
   [Work-in-progress]
 
 Each of our tools can be used individually and independently of each other.
-This means that you can choose to (not) use any library you want &mdash;
-you fully keep your freedom.
+
+For a quick start, use our stack as it is.
+
+But
+if you need customization
+you can replace our stack's tool.
 For example,
 if your company is experienced with Vue,
 you can use our stack with Vue instead of React.
+
+In short,
+because our tools are independent of each other,
+you fully keep your freedom.
 
 &nbsp;
 
@@ -108,14 +129,14 @@ and progressively adopt entreprise-grade tools as you scale.
 
 In the Node.js ecosystem, big monoliths don't survive.
 Node.js is a rapidly evolving ecosystem while
-big monoliths have proven incapable of adopting new technologies.
+big monoliths have shown difficulties adopting new technologies.
 
 Instead of being a big monolith,
 Reframe is based on do-one-thing-do-it-well tools.
 This fundamentally different approach
 enables Reframe to adopt the technologies of tomorrow and
-enables you to replace any technology with another one that better fits your use case.
-In short, Reframe has no lock-in.
+enables you to replace technologies as you scale.
 
+In short, Reframe has no lock-in, in the broadest sense.
 We call this approach the [Zero-LOC framework](/zero-loc-framework.md).
 
