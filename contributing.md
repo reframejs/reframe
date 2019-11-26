@@ -1,12 +1,12 @@
-**We are looking for co-maintainers** and we welcome contributions.
+We are looking for co-maintainers and welcome contributions.
 
 - **_Contributor_**
-  - You commit one or couple of patches to our codebase.
+  - You commit one or couple of patches to our tools.
 - **_Maintainer_**
-  - You own substantial parts of our codebase.
+  - You own substantial parts of one of our tools.
   - You work closely with [brillout](https://github.com/brillout).
   - You are a senior developer.
-    It doesn't matter whether you have experience with JavaScript or not.
+    It doesn't matter whether you have experience with JavaScript.
     But it is crucial that you are well-versed in Software Engineering and/or Computer Science.
 
 <br/>

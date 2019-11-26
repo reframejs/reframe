@@ -11,7 +11,6 @@
       <img
         src="/images/star.svg"
         width="16"
-        height="12"
       />
       Star if you like
     </a>
@@ -22,7 +21,6 @@
       <img
         src="/images/twitter.svg"
         width="15"
-        height="13"
       />
       Follow on Twitter
     </a>
@@ -33,7 +31,6 @@
       <img
         src="/images/twitter.svg"
         width="15"
-        height="13"
       />
       Tweet about Reframe
     </a>
@@ -42,8 +39,7 @@
     <a href="https://github.com/reframejs/reframe/issues/new">
       <img
         src="/images/github.svg"
-        width="14"
-        height="10"
+        width="16"
       />
       Talk to us
     </a>
@@ -54,7 +50,6 @@
       <img
         src="/images/biceps.svg"
         width="16"
-        height="14"
       />
       Co-maintain Reframe
     </a>
@@ -65,7 +60,8 @@
 <p align="center">
   <img
     src="/images/title.svg"
-    width="320"
+    width="390"
+    height="100"
   />
 </p>
 
