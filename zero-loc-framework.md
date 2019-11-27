@@ -1,18 +1,18 @@
 ## Zero-LOC Framework
 
-We call a *Zero-LOC framework* (Zero Line-Of-Code Framework),
-a framework that consists of:
+We call a *Zero-LOC framework* (Zero Line-Of-Code framework),
+a framework that consists only of:
 - **Tools** -
   Where each tool is a do-one-thing-do-it-well tool
   that can be used individually and independently of other tools.
 - **Starters** -
-  Where starters assemble tools into well-polished scaffolds.
+  A starter assembles tools into a well-polished scaffold.
 
 A Zero-LOC framework allows you to develop as quickly as a monolithic framework,
 such as Ruby on Rails,
 but with a fundamental increase in freedom and robustness.
 
-Your freedom:
+Freedom:
 - **Cherry pick tools** -
   Each tool can be used individually and independently of each other &mdash; you can choose whatever tool you want.
 - **No lock-in** -
@@ -20,7 +20,7 @@ Your freedom:
 - **Scale** -
   Replace rapid-prototyping tools with entreprise-grade tools as you scale.
 
-Framework robustness:
+Robustness:
 - **Robust tools** -
   Many do-one-thing-do-it-well tools
   survive a very long time (and usually out-survive frameworks that come and go) resulting into hardened and rock-solid tools.
