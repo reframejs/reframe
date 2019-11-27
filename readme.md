@@ -141,7 +141,7 @@ We design our starters to be simple and to include only what you need.
 
 Our starters enable you to develop
 with the same guidance and high development speed than classical frameworks
-while keeping your freedom.
+while staying free.
 
 &nbsp;
 
