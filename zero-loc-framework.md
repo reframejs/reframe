@@ -36,4 +36,4 @@ Robustness:
   developing and sharing tools with each other.
   Leading to a vibrant and robust ecosystem.
 
-Reframe's vision is to develop a Zero-LOC framework that is as feature-rich as Ruby on Rails.
+Reframe's vision is to develop a Zero-LOC framework that is as feature-rich as big monoliths such as Ruby on Rails.
