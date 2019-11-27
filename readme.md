@@ -106,7 +106,7 @@ Each of our tools can be used individually and independently of each other.
 
 For a quick start,
 you can use our starters that pre-assemble a stack for you.
-If you need customizations,
+If you need to,
 you can assemble a stack yourself.
 For example,
 if your company is experienced with Vue,
@@ -132,7 +132,7 @@ We design our starters to be simple and to include only what you need.
   Reframe Proto assembles tools for rapid-prototyping.
   Start building your app today,
   deliver your first MVP tomorrow,
-  progressively replace rapid-prototyping tools with entreprise-grade tools as you scale.
+  and progressively replace rapid-prototyping tools with entreprise-grade tools as you scale.
 - [Reframe Frontend](https://github.com/reframejs/reframe-frontend) -
   Frontend (React, Goldpage).
   <br/>
@@ -141,7 +141,7 @@ We design our starters to be simple and to include only what you need.
 
 Our starters enable you to develop
 with the same guidance and high development speed than classical frameworks
-while fully keeping your freedom.
+while keeping your freedom.
 
 &nbsp;
 
