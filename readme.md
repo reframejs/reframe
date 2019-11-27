@@ -72,16 +72,9 @@
   />
 </p>
 
-Reframe is a collection of tools to build web apps.
-
-Being merely a collection of tools,
-you own your stack,
-you keep your freedom.
-
-Reframe enables you to develop
-with the same guidance and as quickly as with classical frameworks
-while being able to replace rapid-prototyping tools
-with entreprise-grade tools as you scale.
+Reframe is a framework to build web apps.
+Instead of being one big monolith,
+Reframe is merely a collection of tools and starters.
 
 &nbsp;
 
@@ -94,7 +87,7 @@ with entreprise-grade tools as you scale.
   height="300"
 />
 
-Do-one-thing-do-it-well tools are the building blocks of Reframe.
+Do-one-thing-do-it-well tools are the backbone of Reframe.
 We use React, Node.js, and develop our own:
 
 - [Goldpage](https://github.com/reframejs/goldpage) -
@@ -106,37 +99,49 @@ We use React, Node.js, and develop our own:
 - [ProtoDB](https://github.com/brillout/proto-db) -
   A simple filesystem-based database for prototypes and small to medium-sized apps.
 - **Auto-Deploy** -
-  We are curently researching fully automatic deployments.
+  Simple and fully automatic single-machine deployment.
   [Work-in-progress]
 
 Each of our tools can be used individually and independently of each other.
 
-For a quick start, use our stack as it is.
-If you need customization
-you can replace our stack's tools.
+For a quick start,
+you can use our starters that pre-assemble a stack for you.
+If you need customizations,
+you can assemble a stack yourself.
 For example,
 if your company is experienced with Vue,
-you can use our stack with Vue instead of React.
+you can use Vue instead of React.
+Or, if you need mutli-machine deployments, you can use Docker instead of our single-machine deployment tool.
+Or, if you need to provide an API to third-party developers,
+you can use GraphQL instead of RPC.
 
-In short,
-our tools being independent of each other,
-you fully keep your freedom.
+With Reframe,
+you own your stack,
+you keep your freedom.
 
 &nbsp;
 
 :rocket: **Starters**
 
-Our starters assemble state-of-the-art tools into well-polished scaffolds.
-We design our starters to be simple and to include only what you need to build an MVP as quickly as possible.
+Our starters assemble tools into well-polished scaffolds.
+We design our starters to be simple and to include only what you need.
 
-- [Reframe Full Stack](https://github.com/reframejs/reframe-full-stack) -
-  Frontend (React, Goldpage) + Backend (Node.js, Hapi) + API (Wildcard)
+- [Reframe Proto](https://github.com/reframejs/reframe-proto) -
+  Frontend (React, Goldpage) + Backend (Node.js, Hapi) + API (Wildcard).
+  <br/>
+  Reframe Proto assembles tools for rapid-prototyping.
+  Start building your app today,
+  deliver your first MVP tomorrow,
+  progressively replace rapid-prototyping tools with entreprise-grade tools as you scale.
 - [Reframe Frontend](https://github.com/reframejs/reframe-frontend) -
-  Frontend (React, Goldpage)
+  Frontend (React, Goldpage).
+  <br/>
+  If you don't need a backend or you already have one,
+  you can use our frontend-only stack.
 
-Start building your app today,
-deliver your first prototype tomorrow,
-and progressively adopt entreprise-grade tools as you scale.
+Our starters enable you to develop
+with the same guidance and high development speed than classical frameworks
+while fully keeping your freedom.
 
 &nbsp;
 
@@ -144,7 +149,7 @@ and progressively adopt entreprise-grade tools as you scale.
 
 In the Node.js ecosystem, big monoliths don't survive.
 Node.js is a rapidly evolving ecosystem while
-big monoliths have shown difficulties adopting new technologies.
+big monoliths have shown incapable of adopting new technologies.
 
 Instead of being a big monolith,
 Reframe is based on do-one-thing-do-it-well tools.
@@ -152,6 +157,6 @@ This fundamentally different approach
 enables Reframe to adopt the technologies of tomorrow and
 enables you to replace technologies as you scale.
 
-In short, Reframe has no lock-in, in the broadest sense.
-We call this approach the [Zero-LOC framework](/zero-loc-framework.md).
+In short, Reframe has no lock-in.
+We call our approach the [Zero-LOC framework](/zero-loc-framework.md).
 
