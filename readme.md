@@ -76,6 +76,8 @@ Reframe is a framework to build web apps.
 Instead of being one big monolith,
 Reframe is merely a collection of tools and starters.
 
+Reframe gives you the same guidance and high development speed than a big monolith without being one.
+
 &nbsp;
 
 :hammer_and_wrench: **Tools**
