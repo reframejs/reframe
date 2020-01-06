@@ -100,7 +100,7 @@ We use React, Node.js, and develop our own:
   Page Builder &mdash;
   create a modern frontend.
 - [Wildcard API](https://github.com/reframejs/wildcard-api) -
-  JavaScript Functions as API &mdash;
+  Functions as API &mdash;
   create an API between your Node.js backend and your browser frontend.
 - [ProtoDB](https://github.com/brillout/proto-db) -
   A simple filesystem-based database for prototypes and small to medium-sized apps.
@@ -154,11 +154,11 @@ while keeping your freedom.
 :crystal_ball: **Future-Proof**
 
 Instead of being a big monolith,
-Reframe is merely a collection of
+Reframe is merely a collection of:
 - Do-one-thing-do-it-well tools.
 - Starters.
 
-This fundamentally different approach enables
+This fundamentally different approach enables:
 - Reframe to adopt the technologies of tomorrow.
 - You to replace technologies as you scale.
 
