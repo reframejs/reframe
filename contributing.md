@@ -30,18 +30,18 @@ Why should I become a maintainer?
   It's interesting and challenging.
 - Strength.
   <br/>
-  It deepens and strengthens your skills & aptitude.
-  We push the boundary of what's possible &mdash;
+  Tackling challanges deepens and strengthens your skills & aptitudes.
+  We push the boundary of what's possible;
   going deep brings invaluable lessons on many levels.
   I ([brillout](https://github.com/brillout)) can say that open source is
-  the thing that increased my aptitude the most, and that by far.
+  the thing that increased my aptitudes the most, and that by far.
 - Opens doors.
   <br/>
   Being an open source developer is highly regarded by
-  companies, startup executives and investors.
+  large companies, startup executives and investors.
 - Jobs.
   <br/>
-  Highly-skilled highly-paid freelance opportunies.
+  Highly-skilled highly-paid freelance opportunities.
 
 <br/>
 <br/>
@@ -50,5 +50,5 @@ Why should I become a maintainer?
 
 - Common sense is the main guideline.
 - Before working on a big PR, open an issue so that we discuss your changes before you work on them.
-- Opening a smallish PR without prior discussion is fine.
-- There is no code style (yet).
+- It's fine to open a smallish PR without prior discussion.
+- Our tools have no code style (yet).
