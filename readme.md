@@ -74,8 +74,6 @@
 &nbsp;
 
 
-Framework to build web apps.
-
 Instead of being one big monolith,
 Reframe is merely a collection of tools and starters.
 
