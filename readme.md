@@ -67,7 +67,7 @@
 <p align="center">
   <img
     src="/images/title.svg"
-    height="46"
+    height="34"
   />
 </p>
 
