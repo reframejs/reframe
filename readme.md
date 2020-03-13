@@ -160,7 +160,7 @@ Reframe is merely a collection of:
 
 This fundamentally different approach enables:
 - Reframe to adopt the technologies of tomorrow.
-- You to replace technologies as you scale.
+- You don't need to replace technologies as you scale.
 
 In short, Reframe is future-proof.
 We call our approach the [Zero-LOC framework](/zero-loc-framework.md).
