@@ -26,7 +26,7 @@ I actively maintain them and I will fix any bug that you may encounter.
 
 &nbsp;
 
-:hammer_and_wrench: &nbsp;&nbsp; **Tools**
+:hammer_and_wrench: &nbsp; **Tools**
 
 <img
   align="right"
@@ -93,7 +93,7 @@ while keeping your freedom.
 
 &nbsp;
 
-:crystal_ball: &nbsp;&nbsp;&nbsp; **Future-Proof**
+:crystal_ball: &nbsp; **Future-Proof**
 
 Instead of being a big monolith,
 Reframe is merely a collection of:
