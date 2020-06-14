@@ -15,7 +15,7 @@
 Instead of being one big monolith,
 Reframe is merely a collection of:
 - Do-one-thing-do-it-well tools.
-- Starters to quickly scaffold a fully-featured app.
+- Starters, to quickly scaffold a fully-featured app.
 
 Reframe gives you the same guidance and development speed as a big monolith but with zero sacrifice on control and flexibility.
 
