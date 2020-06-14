@@ -4,29 +4,29 @@
   </p>
 </a>
 
-&nbsp;
-
 <p align="center">
   <img
     src="/images/title.svg"
     height="34"
   />
 </p>
-
-&nbsp;
-
+<br/>
 
 Instead of being one big monolith,
-Reframe is merely a collection of tools and starters.
+Reframe is merely a collection of:
+- Do-one-thing-do-it-well tools.
+- Starters to quickly scaffold a fully-featured app.
 
-Reframe gives you the same guidance and high development speed as a big monolith without being one.
+Reframe gives you the same guidance and development speed as a big monolith but with zero sacrifice on control and flexibility.
 
-**[WIP]** This project is work-in-progress.
-That said, Goldpage and Wildcard are production-ready tools that you can use today.
+**[Warning]** This project is experimental and currently not worked on.
+I do intend to make progress on it but not in the next couple of months.
+That said, Goldpage and Wildcard are production-ready tools that you can use today;
+I actively maintain them and I will fix any bug that you may encounter.
 
 &nbsp;
 
-:hammer_and_wrench: **Tools**
+:hammer_and_wrench: &nbsp;&nbsp; **Tools**
 
 <img
   align="right"
@@ -69,7 +69,7 @@ you keep your freedom.
 
 &nbsp;
 
-:rocket: **Starters**
+:rocket: &nbsp; **Starters**
 
 Our starters assemble tools into well-polished scaffolds.
 We design our starters to be simple and to include only what you need.
@@ -93,7 +93,7 @@ while keeping your freedom.
 
 &nbsp;
 
-:crystal_ball: **Future-Proof**
+:crystal_ball: &nbsp;&nbsp;&nbsp; **Future-Proof**
 
 Instead of being a big monolith,
 Reframe is merely a collection of:
@@ -102,7 +102,7 @@ Reframe is merely a collection of:
 
 This fundamentally different approach enables:
 - Reframe to adopt the technologies of tomorrow.
-- You don't need to replace technologies as you scale.
+- You can replace technologies as you scale.
 
 In short, Reframe is future-proof.
 We call our approach the [Zero-LOC framework](/zero-loc-framework.md).
