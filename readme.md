@@ -4,64 +4,6 @@
   </p>
 </a>
 
-<br/>
-<p align="center">
-  <sup>
-    <a href="#top">
-      <img
-        src="/images/star.svg"
-        width="13"
-        align="middle"
-      />
-      Star if you like
-    </a>
-    &nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;
-    <a href="https://twitter.com/reframejs">
-      <img
-        src="/images/twitter.svg"
-        width="15"
-        align="middle"
-      />
-      Follow on Twitter
-    </a>
-    &nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;
-    <a href="https://twitter.com/intent/tweet?text=A%20new%20kind%20of%20web%20framework%0Ahttps%3A%2F%2Fgithub.com%2Freframejs%2Freframe" target="_blank">
-      <img
-        src="/images/twitter.svg"
-        width="15"
-        align="middle"
-      />
-      Tweet about Reframe
-    </a>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;
-    <a href="https://github.com/reframejs/reframe/issues/new?body=%3C!--%20Use%20a%20GitHub%20issue%20to%20talk%20to%20us.%20--%3E">
-      <img
-        src="/images/github.svg"
-        width="15"
-        align="middle"
-      />
-      Talk to us
-    </a>
-    &nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;&nbsp;&nbsp;
-    &nbsp;&nbsp;
-    <a href="/contributing.md">
-      <img
-        src="/images/biceps.svg"
-        width="16"
-        align="middle"
-      />
-      Co-maintain Reframe
-    </a>
-  </sup>
-</p>
-
 &nbsp;
 
 <p align="center">
