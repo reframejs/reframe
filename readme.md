@@ -7,7 +7,7 @@
 <p align="center">
   <img
     src="/images/title.svg"
-    height="34"
+    height="21"
   />
 </p>
 <br/>
