@@ -26,7 +26,7 @@ I actively maintain them and I will fix any bug that you may encounter.
 
 &nbsp;
 
-:hammer_and_wrench: &nbsp; **Tools**
+:hammer_and_wrench: **Tools**
 
 <img
   align="right"
@@ -69,7 +69,7 @@ you keep your freedom.
 
 &nbsp;
 
-:rocket: &nbsp; **Starters**
+:rocket: **Starters**
 
 Our starters assemble tools into well-polished scaffolds.
 We design our starters to be simple and to include only what you need.
@@ -93,7 +93,7 @@ while keeping your freedom.
 
 &nbsp;
 
-:crystal_ball: &nbsp; **Future-Proof**
+:crystal_ball: **Future-Proof**
 
 Instead of being a big monolith,
 Reframe is merely a collection of:
