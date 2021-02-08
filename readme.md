@@ -10,10 +10,14 @@
     height="21"
   />
 </p>
-<br/>
+
+<p align="center">
+ (Unrelated to ClojureScript's <a href="https://github.com/day8/re-frame">re-frame</a>.)
+</p>
 
 Instead of being one big monolith,
 Reframe is merely a collection of:
+
 - Do-one-thing-do-it-well tools.
 - Starters, to quickly scaffold fully-featured apps.
 
@@ -97,13 +101,14 @@ while keeping your freedom.
 
 Instead of being a big monolith,
 Reframe is merely a collection of:
+
 - Do-one-thing-do-it-well tools.
 - Starters.
 
 This fundamentally different approach enables:
+
 - Reframe to adopt the technologies of tomorrow.
 - You can replace technologies as you scale.
 
 In short, Reframe is future-proof.
 We call our approach the [Zero-LOC framework](/zero-loc-framework.md).
-
