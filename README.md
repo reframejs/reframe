@@ -6,11 +6,11 @@
 
 <p align="center">
   <a href="https://discord.gg/qTq92FQzKb">
-    <img src="/docs/discord.svg" height="24" width="117.078" alt="Discord stemjs"/>
+    <img src="/docs/discord.svg" height="28" width="117.078" alt="Discord stemjs"/>
   </a>
-  &nbsp;&nbsp;&nbsp;
+  &nbsp;
   <a href="https://twitter.com/brillout">
-    <img src="/docs/twitter_follow.svg" height="24" width="133" alt="Follow @brillout"/>
+    <img src="/docs/twitter_follow.svg" height="28" width="133" alt="Follow @brillout"/>
   </a>
 </p>
 
