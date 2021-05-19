@@ -4,6 +4,8 @@
   </a>
 </p>
 
+<br/>
+
 <p align="center">
   <a href="https://discord.gg/qTq92FQzKb">
     <img src="/docs/discord.svg" height="32" width="117.078" alt="Discord stemjs"/>
