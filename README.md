@@ -1,8 +1,8 @@
-<p align="center">
-  <a href="/../../#readme">
-    <img src="/docs/stemjs.svg" align="left" height="80" alt="stemjs"/>
-  </a>
-</p>
+<a href="/../../#readme">
+  <p align="center">
+    <img src="/docs/stemjs.svg" height="80" alt="stemjs"/>
+  </p>
+</a>
 
 <br/>
 
