@@ -21,21 +21,21 @@
      pagecolor="#ffffff"
      bordercolor="#666666"
      borderopacity="1.0"
-     inkscape:pageopacity="0.0"
+     inkscape:pageopacity="0.19607843"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.33555695"
-     inkscape:cx="474.89788"
-     inkscape:cy="217.96101"
+     inkscape:zoom="0.20014127"
+     inkscape:cx="307.72715"
+     inkscape:cy="497.0918"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
-     showgrid="true"
+     showgrid="false"
      inkscape:window-width="1366"
      inkscape:window-height="731"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     showborder="true"
+     showborder="false"
      showguides="false"
      inkscape:snap-global="false"
      fit-margin-top="0"
@@ -69,7 +69,7 @@
     <path
        id="path907"
        style="fill:#f2c742;fill-opacity:1;stroke:#393f4f;stroke-width:5.6;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 179.23611,107.21317 c 0,9.13532 -3.27909,16.3554 -9.24577,23.09569 -5.83432,6.59078 -13.94231,10.81431 -23.53487,10.81431 -8.52345,0 -16.61639,-3.42756 -22.68683,-9.16183 -7.26763,-6.86517 -12.35217,-16.94374 -12.35217,-27.14817 0,-9.167529 3.22927,-15.838766 8.50421,-21.354929 5.50097,-5.752527 13.24544,-10.155073 22.80579,-10.155072 12.31183,10e-7 22.75001,5.503681 28.87282,12.720121 4.9807,5.870337 7.63682,14.77384 7.63682,21.18988 z"
+       d="m 179.23647,104.41317 c 0,9.13532 -2.03788,18.39541 -8.00456,25.1357 -5.83432,6.59078 -13.68388,11.5743 -23.27644,11.5743 -8.52345,0 -18.801,-4.08094 -24.87144,-9.81521 -7.26763,-6.86517 -11.66756,-16.79036 -11.66756,-26.99479 0,-9.167533 2.29835,-16.568287 7.57329,-22.08445 5.50097,-5.752527 11.47636,-8.925552 21.03671,-8.925551 12.31183,10e-7 23.85812,4.864183 30.52872,11.577522 5.40772,5.442371 8.68128,13.116438 8.68128,19.532479 z"
        sodipodi:nodetypes="sssssssss"
        inkscape:connector-curvature="0" />
     <path
@@ -105,7 +105,7 @@
          inkscape:connector-curvature="0" />
     </g>
     <g
-       transform="matrix(0.93019062,0,0,0.93019062,29.819377,7.5487575)"
+       transform="matrix(0.94072938,0,0,0.94072938,25.993153,6.1649042)"
        aria-label="StemJS"
        style="font-size:61.216px;line-height:30.95;font-family:Inter;-inkscape-font-specification:Inter;letter-spacing:0px;word-spacing:0px;fill:#f2c742;fill-opacity:1;stroke:#393f4f;stroke-width:3.241;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="text816-2">
