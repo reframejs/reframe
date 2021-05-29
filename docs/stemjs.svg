@@ -139,13 +139,13 @@
          inkscape:connector-curvature="0" />
     </g>
     <clipPath id="clip-group">
-      <use xlink:href="#js-suffix-group"/>
+      <use href="#js-suffix-group"/>
     </clipPath>
     <clipPath id="clip-j">
-      <use xlink:href="#js-suffix-j"/>
+      <use href="#js-suffix-j"/>
     </clipPath>
     <clipPath id="clip-s">
-      <use xlink:href="#js-suffix-s"/>
+      <use href="#js-suffix-s"/>
     </clipPath>
     <g
        transform="matrix(0.99999757,0,0,0.99999757,4.3493883,1.5231645e-4)"
@@ -154,7 +154,7 @@
        id="js-suffix-group">
       <path
          d="m 380.97724,129.69033 q -5.01971,0 -9.12119,-1.59161 -4.04025,-1.65284 -6.67254,-4.77485 l 7.77443,-9.1824 q 1.71405,2.14256 3.36688,3.18323 1.65283,1.04067 3.4281,1.04067 2.26499,0 3.42809,-1.34675 1.22432,-1.34675 1.22432,-3.97904 V 96.756125 h -14.5694 V 85.859677 h 28.83273 v 26.322883 q 0,8.75388 -4.52998,13.16144 -4.46877,4.34633 -13.16144,4.34633 z"
-         style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-size:61.2159996px;line-height:33.95000076;font-family:Montserrat;-inkscape-font-specification:'Montserrat Heavy';fill:#f2c742;fill-opacity:1;stroke:#393f4f;stroke-width:5.39801312;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-size:61.2159996px;line-height:33.95000076;font-family:Montserrat;-inkscape-font-specification:'Montserrat Heavy';fill:#f2c742;fill-opacity:1;stroke:#393f4f;stroke-width:6.39801312;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          id="js-suffix-j"
          clip-path="url(#clip-j)"
          inkscape:connector-curvature="0" />
