@@ -138,15 +138,6 @@
          id="path4527"
          inkscape:connector-curvature="0" />
     </g>
-    <clipPath id="clip-group">
-      <use href="#js-suffix-group"/>
-    </clipPath>
-    <clipPath id="clip-j">
-      <use href="#js-suffix-j"/>
-    </clipPath>
-    <clipPath id="clip-s">
-      <use href="#js-suffix-s"/>
-    </clipPath>
     <g
        transform="matrix(0.99999757,0,0,0.99999757,4.3493883,1.5231645e-4)"
        aria-label="StemJS"
@@ -156,13 +147,11 @@
          d="m 380.97724,129.69033 q -5.01971,0 -9.12119,-1.59161 -4.04025,-1.65284 -6.67254,-4.77485 l 7.77443,-9.1824 q 1.71405,2.14256 3.36688,3.18323 1.65283,1.04067 3.4281,1.04067 2.26499,0 3.42809,-1.34675 1.22432,-1.34675 1.22432,-3.97904 V 96.756125 h -14.5694 V 85.859677 h 28.83273 v 26.322883 q 0,8.75388 -4.52998,13.16144 -4.46877,4.34633 -13.16144,4.34633 z"
          style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-size:61.2159996px;line-height:33.95000076;font-family:Montserrat;-inkscape-font-specification:'Montserrat Heavy';fill:#f2c742;fill-opacity:1;stroke:#393f4f;stroke-width:6.39801312;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          id="js-suffix-j"
-         clip-path="url(#clip-j)"
          inkscape:connector-curvature="0" />
       <path
          d="m 421.27075,129.69033 q -5.32579,0 -10.40672,-1.1631 -5.01971,-1.22432 -8.26416,-3.24445 l 4.65242,-10.52915 q 3.0608,1.77526 6.85619,2.87715 3.79539,1.04067 7.2847,1.04067 2.99959,0 4.28512,-0.55094 1.28554,-0.61216 1.28554,-1.77527 0,-1.34675 -1.71405,-2.02012 -1.65283,-0.67338 -5.50944,-1.46919 -4.9585,-1.04067 -8.26416,-2.20377 -3.30566,-1.22432 -5.7543,-3.91783 -2.44864,-2.75472 -2.44864,-7.407133 0,-4.040256 2.26499,-7.34592 2.26499,-3.305664 6.73376,-5.20336 4.52998,-1.897696 10.95766,-1.897696 4.40755,0 8.63146,0.979456 4.28512,0.91824 7.52957,2.75472 l -4.34634,10.467936 q -6.30525,-3.183232 -11.93712,-3.183232 -5.57066,0 -5.57066,2.693504 0,1.285536 1.65284,1.958915 1.65283,0.61216 5.44822,1.34675 4.89728,0.91824 8.26416,2.14256 3.36688,1.1631 5.81552,3.85661 2.50986,2.6935 2.50986,7.34592 0,4.04025 -2.265,7.34592 -2.26499,3.24444 -6.79497,5.20336 -4.46877,1.89769 -10.89645,1.89769 z"
          style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-size:61.2159996px;line-height:33.95000076;font-family:Montserrat;-inkscape-font-specification:'Montserrat Heavy';fill:#f2c742;fill-opacity:1;stroke:#393f4f;stroke-width:5.39801312;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          id="js-suffix-s"
-         clip-path="url(#clip-s)"
          inkscape:connector-curvature="0" />
     </g>
   </g>
